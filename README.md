@@ -76,11 +76,18 @@ All components in this project follow consistent patterns for maintainability an
 - Accept `React.ComponentProps<"element">` for full HTML element support
 - Destructure `className` and spread remaining props
 
+### Props Type Declarations
+- **If a component has no additional props**: Declare props type inline, don't create a separate type/interface
+- **If a component has additional props**: Create a separate interface that extends the base props
+- Use `React.ComponentProps<"element">` or `React.HTMLAttributes<HTMLElement>` as base types
+
 ### Styling
 - Use the `cn` utility from `@/lib/utils` for class merging
 - Always accept and merge `className` prop with base styles
 
-### Example
+### Examples
+
+**Component with no additional props (inline declaration):**
 ```tsx
 import * as React from "react"
 import { cn } from "@/lib/utils"
@@ -92,7 +99,6 @@ const MyComponent = React.forwardRef<
   return (
     <div
       ref={ref}
-      data-slot="my-component"
       className={cn("base-styles", className)}
       {...props}
     />
@@ -100,8 +106,31 @@ const MyComponent = React.forwardRef<
 })
 
 MyComponent.displayName = "MyComponent"
+```
 
-export { MyComponent }
+**Component with additional props (separate interface):**
+```tsx
+import * as React from "react"
+import { cn } from "@/lib/utils"
+
+interface MyComponentProps extends React.ComponentProps<"div"> {
+  variant?: "primary" | "secondary"
+  size?: "sm" | "md" | "lg"
+}
+
+const MyComponent = React.forwardRef<HTMLDivElement, MyComponentProps>(
+  ({ className, variant = "primary", size = "md", ...props }, ref) => {
+    return (
+      <div
+        ref={ref}
+        className={cn("base-styles", variant, size, className)}
+        {...props}
+      />
+    )
+  }
+)
+
+MyComponent.displayName = "MyComponent"
 ```
 
 ### Exports

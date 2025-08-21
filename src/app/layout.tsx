@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "../styles/globals.css";
-import { NavMain } from "@/components/website-base/nav-main";
+import { NavMain } from "@/components/website-base/nav/nav-main";
 
 export const metadata: Metadata = {
   title: "World Sevens Football",
@@ -14,7 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className="antialiased bg-background">
+      <body className="antialiased bg-background font-body">
         <NavMain />
         <main>
           {children}

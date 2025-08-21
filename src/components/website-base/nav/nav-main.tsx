@@ -11,11 +11,11 @@ import {
   NavigationMenuContent,
   NavigationMenuLink,
   navigationMenuTriggerStyle,
-  NavigationMenuTournament,
 } from "@/components/ui/navigation-menu"
+import { NavigationMenuTournament } from "./nav-tournament-item"
 import { PaddingGlobal } from "@/components/website-base/padding-containers"
 import { getNavigationTournaments } from "@/sanity/queries"
-import type { Tournament } from "../../../studio-website/sanity.types"
+import type { Tournament } from "../../../../studio-website/sanity.types"
 
 function NavMain() {
   const [tournaments, setTournaments] = React.useState<Tournament[]>([])

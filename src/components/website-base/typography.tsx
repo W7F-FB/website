@@ -6,7 +6,7 @@ function H1({ className, ...props }: React.ComponentProps<"h1">) {
   return (
     <h1
       className={cn(
-        "scroll-m-20 text-4xl font-extrabold tracking-tight text-balance",
+        "scroll-m-20 text-4xl font-extrabold tracking-tight text-balance font-headers",
         className
       )}
       {...props}
@@ -18,7 +18,7 @@ function H2({ className, ...props }: React.ComponentProps<"h2">) {
   return (
     <h2
       className={cn(
-        "scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0",
+        "scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0 font-headers",
         className
       )}
       {...props}
@@ -29,7 +29,7 @@ function H2({ className, ...props }: React.ComponentProps<"h2">) {
 function H3({ className, ...props }: React.ComponentProps<"h3">) {
   return (
     <h3
-      className={cn("scroll-m-20 text-2xl font-semibold tracking-tight", className)}
+      className={cn("scroll-m-20 text-2xl font-semibold tracking-tight font-headers", className)}
       {...props}
     />
   )
@@ -38,7 +38,7 @@ function H3({ className, ...props }: React.ComponentProps<"h3">) {
 function H4({ className, ...props }: React.ComponentProps<"h4">) {
   return (
     <h4
-      className={cn("scroll-m-20 text-xl font-semibold tracking-tight", className)}
+      className={cn("scroll-m-20 text-xl font-semibold tracking-tight font-headers", className)}
       {...props}
     />
   )
@@ -68,6 +68,15 @@ function List({ className, ...props }: React.ComponentProps<"ul">) {
   )
 }
 
+function TextProtect({ className, ...props }: React.ComponentProps<"span">) {
+  return (
+    <span
+      className={cn("text-shadow-md", className)}
+      {...props}
+    />
+  )
+}
+
 export {
   H1,
   H2,
@@ -76,6 +85,7 @@ export {
   P,
   Blockquote,
   List,
+  TextProtect,
 }
 
 

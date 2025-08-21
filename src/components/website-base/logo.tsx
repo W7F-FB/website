@@ -11,7 +11,7 @@ interface LogoProps extends React.HTMLAttributes<HTMLImageElement> {
 
 const Logo = React.forwardRef<HTMLImageElement, LogoProps>(
   ({ size = "md", className, alt = "World Sevens Football Logo", link = false, ...props }, ref) => {
-    const logoSrc = "/company-logos/logo-horizontal-2lines-white.svg"
+    const logoSrc = "images/company-logos/logo-horizontal-2lines-white.svg"
 
     const sizeClasses = {
       sm: "h-6 w-auto",

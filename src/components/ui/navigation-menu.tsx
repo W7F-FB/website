@@ -2,12 +2,9 @@ import * as React from "react"
 import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu"
 import { cva } from "class-variance-authority"
 import { CaretDownIcon } from "@phosphor-icons/react"
-import Link from "next/link"
-import Image from "next/image"
+
 import { cn } from "@/lib/utils"
-import type { Tournament } from "../../../studio-website/sanity.types"
-import { Background } from "./background"
-import { urlFor } from "@/sanity/client"
+
 
 function NavigationMenu({
   className,
@@ -65,43 +62,6 @@ function NavigationMenuItem({
 
 
 
-interface NavigationMenuTournamentProps {
-  tournament?: Tournament
-  className?: string
-  children?: React.ReactNode
-}
-
-function NavigationMenuTournament({
-  className,
-  tournament
-}: NavigationMenuTournamentProps) {
-  if (!tournament?.navImage) {
-    return null
-  }
-
-  const imageUrl = urlFor(tournament.navImage)
-    .auto('format')
-    .url()
-
-  return (
-    <NavigationMenuLink className={cn(className, "")} asChild>
-      <Link href={`/`} className="p-2 relative rounded-sm overflow-hidden">
-        <Background>
-          <Image
-            src={imageUrl}
-            alt={tournament.title || 'Tournament'}
-            fill
-            className="object-cover"
-            sizes="1000px"
-          />
-          <div className="absolute inset-0 bg-background/80" />
-        </Background>
-        <div className="relative">{tournament.title}</div>
-      </Link>
-    </NavigationMenuLink>
-  )
-}
-
 const navigationMenuTriggerStyle = cva(
   "group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground disabled:pointer-events-none disabled:opacity-50 data-[state=open]:hover:bg-accent data-[state=open]:text-accent-foreground data-[state=open]:focus:bg-accent data-[state=open]:bg-accent/50 focus-visible:ring-ring/50 outline-none transition-[color,box-shadow] focus-visible:ring-[3px] focus-visible:outline-1"
 )
@@ -114,7 +74,7 @@ function NavigationMenuTrigger({
   return (
     <NavigationMenuPrimitive.Trigger
       data-slot="navigation-menu-trigger"
-      className={cn(navigationMenuTriggerStyle(), "group", className)}
+      className={cn(navigationMenuTriggerStyle(), "group font-headers", className)}
       {...props}
     >
       {children}{" "}
@@ -174,7 +134,7 @@ function NavigationMenuLink({
     <NavigationMenuPrimitive.Link
       data-slot="navigation-menu-link"
       className={cn(
-        "data-[active=true]:focus:bg-accent data-[active=true]:hover:bg-accent data-[active=true]:bg-accent/50 data-[active=true]:text-accent-foreground hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus-visible:ring-ring/50 [&_svg:not([class*='text-'])]:text-muted-foreground flex flex-col gap-1 rounded-sm p-2 text-sm transition-all outline-none focus-visible:ring-[3px] focus-visible:outline-1 [&_svg:not([class*='size-'])]:size-4",
+        "data-[active=true]:focus:bg-accent data-[active=true]:hover:bg-accent data-[active=true]:bg-accent/50 data-[active=true]:text-accent-foreground hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus-visible:ring-ring/50 [&_svg:not([class*='text-'])]:text-muted-foreground flex flex-col gap-1 rounded-sm p-2 text-sm transition-all outline-none focus-visible:ring-[3px] focus-visible:outline-1 [&_svg:not([class*='size-'])]:size-4 font-headers",
         className
       )}
       {...props}
@@ -204,7 +164,6 @@ export {
   NavigationMenu,
   NavigationMenuList,
   NavigationMenuItem,
-  NavigationMenuTournament,
   NavigationMenuContent,
   NavigationMenuTrigger,
   NavigationMenuLink,

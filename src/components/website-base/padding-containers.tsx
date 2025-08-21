@@ -2,9 +2,7 @@ import * as React from "react"
 import { cva } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
-interface PaddingGlobalProps extends React.HTMLAttributes<HTMLDivElement> {}
-
-const PaddingGlobal = React.forwardRef<HTMLDivElement, PaddingGlobalProps>(
+const PaddingGlobal = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => {
     return (
       <div
