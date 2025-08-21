@@ -23,10 +23,34 @@ Common types include:
 - `test:` - adding tests
 - `chore:` - maintenance tasks
 
-## Content Management
+## Content Management System (CMS)
 
-- **Studio**: Located in `studio-website/` directory
-- **Frontend**: Next.js application in the main directory
+This project uses **Sanity CMS** for headless content management, providing a powerful and flexible backend for managing website content.
+
+### Architecture
+- **Sanity Studio**: Located in `studio-website/` directory - a customizable content editing interface
+- **Frontend**: Next.js application in the main directory that fetches content from Sanity
+- **Content Delivery**: Real-time content updates via Sanity's Content Lake
+
+### Key Features
+- **Structured Content**: Define custom schemas for flexible content modeling
+- **Real-time Collaboration**: Multiple editors can work simultaneously
+- **GROQ Queries**: Powerful query language for fetching exactly the data you need
+- **Image CDN**: Automatic image optimization and transformations
+- **Version Control**: Built-in revision history for all content changes
+
+### Development Workflow
+1. **Schema Definition**: Define content types in `studio-website/schemaTypes/`
+2. **Content Creation**: Use Sanity Studio to create and manage content
+3. **Frontend Integration**: Query content using GROQ in Next.js components
+4. **Live Updates**: Content changes appear immediately on the frontend
+
+### Documentation & Resources
+- [Sanity Documentation](https://www.sanity.io/docs) - Complete guide to Sanity CMS
+- [GROQ Documentation](https://www.sanity.io/docs/groq) - Query language reference
+- [Sanity Studio Documentation](https://www.sanity.io/docs/sanity-studio) - Studio customization guide
+- [Next.js Integration](https://www.sanity.io/docs/nextjs) - Sanity + Next.js best practices
+- [Image URLs](https://www.sanity.io/docs/image-urls) - Image optimization and transformations
 
 ## Image Optimization
 
@@ -55,7 +79,6 @@ All components in this project follow consistent patterns for maintainability an
 ### Styling
 - Use the `cn` utility from `@/lib/utils` for class merging
 - Always accept and merge `className` prop with base styles
-- Include `data-slot` attribute for component identification
 
 ### Example
 ```tsx
