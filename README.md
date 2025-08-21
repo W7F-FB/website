@@ -1,36 +1,86 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# W7F Website
 
-## Getting Started
+This project uses Sanity CMS for content management alongside a Next.js frontend.
 
-First, run the development server:
+## Commit Conventions
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+This project follows [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification for commit messages. All commits should use the format:
+
+```
+<type>[optional scope]: <description>
+
+[optional body]
+
+[optional footer(s)]
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Common types include:
+- `feat:` - new features
+- `fix:` - bug fixes
+- `docs:` - documentation updates
+- `style:` - formatting changes
+- `refactor:` - code refactoring
+- `test:` - adding tests
+- `chore:` - maintenance tasks
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Content Management
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Studio**: Located in `studio-website/` directory
+- **Frontend**: Next.js application in the main directory
 
-## Learn More
+## Image Optimization
 
-To learn more about Next.js, take a look at the following resources:
+When working with Sanity images, always use `auto=format` parameter for optimal image delivery (includes AVIF support):
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```javascript
+const imageUrl = urlFor(image)
+  .width(800)
+  .height(600)
+  .auto('format') // Enables AVIF + automatic format selection
+  .url()
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+This ensures images are served in the most efficient format supported by each browser (AVIF → WebP → JPEG/PNG).
 
-## Deploy on Vercel
+## Component Conventions
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+All components in this project follow consistent patterns for maintainability and type safety:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Structure
+- Import React and utilities at the top
+- Use `React.forwardRef` for proper ref forwarding
+- Accept `React.ComponentProps<"element">` for full HTML element support
+- Destructure `className` and spread remaining props
+
+### Styling
+- Use the `cn` utility from `@/lib/utils` for class merging
+- Always accept and merge `className` prop with base styles
+- Include `data-slot` attribute for component identification
+
+### Example
+```tsx
+import * as React from "react"
+import { cn } from "@/lib/utils"
+
+const MyComponent = React.forwardRef<
+  HTMLDivElement,
+  React.ComponentProps<"div">
+>(({ className, ...props }, ref) => {
+  return (
+    <div
+      ref={ref}
+      data-slot="my-component"
+      className={cn("base-styles", className)}
+      {...props}
+    />
+  )
+})
+
+MyComponent.displayName = "MyComponent"
+
+export { MyComponent }
+```
+
+### Exports
+- Use named exports in curly braces
+- Set `displayName` for better debugging
