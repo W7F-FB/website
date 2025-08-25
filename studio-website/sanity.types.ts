@@ -13,6 +13,46 @@
  */
 
 // Source: schema.json
+export type Policy = {
+  _id: string
+  _type: 'policy'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  name?: string
+  slug?: Slug
+  body?: Array<{
+    children?: Array<{
+      marks?: Array<string>
+      text?: string
+      _type: 'span'
+      _key: string
+    }>
+    style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote'
+    listItem?: 'bullet' | 'number'
+    markDefs?: Array<{
+      href?: string
+      _type: 'link'
+      _key: string
+    }>
+    level?: number
+    _type: 'block'
+    _key: string
+  }>
+  pdf?: {
+    asset?: {
+      _ref: string
+      _type: 'reference'
+      _weak?: boolean
+      [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+    }
+    media?: unknown
+    _type: 'file'
+  }
+  hideFromNav?: boolean
+  order?: number
+}
+
 export type Tournament = {
   _id: string
   _type: 'tournament'
@@ -20,23 +60,26 @@ export type Tournament = {
   _updatedAt: string
   _rev: string
   title?: string
-  navImage?: {
-    asset?: {
-      _ref: string
-      _type: 'reference'
-      _weak?: boolean
-      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
-    }
-    media?: unknown
-    hotspot?: SanityImageHotspot
-    crop?: SanityImageCrop
-    _type: 'image'
-  }
   countryCode?: string
   startDate?: string
   endDate?: string
-  showInNavigation?: boolean
-  navigationOrder?: number
+  showInNavigation?: {
+    enabled?: boolean
+    navigationOrder?: number
+    navImage?: {
+      asset?: {
+        _ref: string
+        _type: 'reference'
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+      }
+      media?: unknown
+      hotspot?: SanityImageHotspot
+      crop?: SanityImageCrop
+      alt?: string
+      _type: 'image'
+    }
+  }
 }
 
 export type SanityImagePaletteSwatch = {
@@ -158,6 +201,7 @@ export type SanityAssetSourceData = {
 }
 
 export type AllSanitySchemaTypes =
+  | Policy
   | Tournament
   | SanityImagePaletteSwatch
   | SanityImagePalette

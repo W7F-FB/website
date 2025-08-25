@@ -7,11 +7,29 @@ interface LogoProps extends React.HTMLAttributes<HTMLImageElement> {
   size?: "sm" | "md" | "lg"
   alt?: string
   link?: boolean
+  color?: "white" | "brand"
+  variant?: "primary" | "2-lines"
 }
 
 const Logo = React.forwardRef<HTMLImageElement, LogoProps>(
-  ({ size = "md", className, alt = "World Sevens Football Logo", link = false, ...props }, ref) => {
-    const logoSrc = "images/company-logos/logo-horizontal-2lines-white.svg"
+  ({ size = "md", className, alt = "World Sevens Football Logo", link = false, color = "brand", variant = "primary", ...props }, ref) => {
+    const getLogoSrc = (color: "white" | "brand", variant: "primary" | "2-lines") => {
+      if (color === "white" && variant === "2-lines") {
+        return "/images/company-logos/logo-horizontal-2lines-white.svg"
+      }
+      if (color === "brand" && variant === "2-lines") {
+        return "/images/company-logos/logo-horizontal-2lines.svg"
+      }
+      if (color === "white" && variant === "primary") {
+        return "/images/company-logos/logo-horizontal-primary-white.svg"
+      }
+      if (color === "brand" && variant === "primary") {
+        return "/images/company-logos/logo-horizontal-primary.svg"
+      }
+      return "/images/company-logos/logo-horizontal-primary.svg"
+    }
+
+    const logoSrc = getLogoSrc(color, variant)
 
     const sizeClasses = {
       sm: "h-6 w-auto",

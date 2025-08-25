@@ -14,8 +14,9 @@ import {
 } from "@/components/ui/navigation-menu"
 import { NavigationMenuTournament } from "./nav-tournament-item"
 import { PaddingGlobal } from "@/components/website-base/padding-containers"
-import { getNavigationTournaments } from "@/sanity/queries"
+import { getNavigationTournaments } from "@/sanity/queries/tournaments"
 import type { Tournament } from "../../../../studio-website/sanity.types"
+import { Button } from "@/components/ui/button"
 
 function NavMain() {
   const [tournaments, setTournaments] = React.useState<Tournament[]>([])
@@ -28,13 +29,13 @@ function NavMain() {
     <nav className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <PaddingGlobal>
       <div className="mx-auto flex w-full items-center gap-12 py-4">
-        <Logo size="lg" link />
+        <Logo size="lg" link color="white" variant="2-lines" />
         <NavigationMenu viewport={false} className="justify-end">
-          <NavigationMenuList>
+          <NavigationMenuList className="gap-2">
             <NavigationMenuItem>
-              <NavigationMenuTrigger>Events & Tickets</NavigationMenuTrigger>
+              <NavigationMenuTrigger><span>Events & Tickets</span></NavigationMenuTrigger>
               <NavigationMenuContent>
-                <ul className="grid gap-1 md:w-[320px]">
+                <ul className="grid gap-2 md:w-[320px]">
                   {tournaments.map((tournament) => (
                     <NavigationMenuTournament
                       key={tournament._id}
@@ -45,27 +46,27 @@ function NavMain() {
               </NavigationMenuContent>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <NavigationMenuTrigger>Explore</NavigationMenuTrigger>
+              <NavigationMenuTrigger><span>Explore</span></NavigationMenuTrigger>
               <NavigationMenuContent >
                 <ul className="grid gap-1 md:w-[320px]">
                   <li>
                     <NavigationMenuLink asChild>
-                      <Link href="#">Who We Are</Link>
+                      <Link href="#"><span>Who We Are</span></Link>
                     </NavigationMenuLink>
                   </li>
                   <li>
                     <NavigationMenuLink asChild>
-                      <Link href="#">News</Link>
+                      <Link href="#"><span>News</span></Link>
                     </NavigationMenuLink>
                   </li>
                   <li>
                     <NavigationMenuLink asChild>
-                      <Link href="#">Social Impact</Link>
+                      <Link href="#"><span>Social Impact</span></Link>
                     </NavigationMenuLink>
                   </li>
                   <li>
                     <NavigationMenuLink asChild>
-                      <Link href="#">FAQs</Link>
+                      <Link href="#"><span>FAQs</span></Link>
                     </NavigationMenuLink>
                   </li>
                 </ul>
@@ -74,16 +75,14 @@ function NavMain() {
 
             <NavigationMenuItem>
               <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                <Link href="#">Shop</Link>
-              </NavigationMenuLink>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                <Link href="#">Contact</Link>
+                <Link href="#"><span>Shop</span></Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
+        <div className="flex-grow flex justify-end">
+          <Button asChild size="skew"><Link href="#"><span>Early Access</span></Link></Button>
+        </div>
       </div>
       </PaddingGlobal>
     </nav>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "../styles/globals.css";
 import { NavMain } from "@/components/website-base/nav/nav-main";
+import { Footer } from "@/components/website-base/footer/footer-main";
 
 export const metadata: Metadata = {
   title: "World Sevens Football",
@@ -14,11 +15,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className="antialiased bg-background font-body">
+      <body className="antialiased bg-background font-body min-h-dvh flex flex-col overscroll-auto lg:overscroll-none">
         <NavMain />
-        <main>
+        <main className="flex-grow">
           {children}
         </main>
+        <Footer />
       </body>
     </html>
   );
