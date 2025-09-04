@@ -8,8 +8,8 @@ import { H4 } from "@/components/website-base/typography"
 
 const Footer = React.forwardRef<HTMLElement, React.ComponentProps<"footer">>(({ className, children, ...props }, ref) => {
   return (
-    <footer ref={ref} className={cn("bg-muted/50 py-16", className)} {...props}>
-      <PaddingGlobal className="grid grid-cols-13 gap-24">
+    <footer ref={ref} className={cn("bg-muted/50 pt-16", className)} {...props}>
+      <PaddingGlobal>
         {children}
       </PaddingGlobal>
     </footer>
@@ -24,7 +24,7 @@ function FooterBrand({
   ...props
 }: React.ComponentProps<"div">) {
   return (
-    <div className={cn("col-span-4", className)} {...props}>
+    <div className={cn("w-full  lg:max-w-xs lg:mr-24", className)} {...props}>
       {children}
     </div>
   )
@@ -48,7 +48,7 @@ function FooterColumn({
   ...props
 }: React.ComponentProps<"div">) {
   return (
-    <div className={cn("col-span-3 mt-6", className)} {...props}>
+    <div className={cn("", className)} {...props}>
       {children}
     </div>
   )
@@ -84,7 +84,7 @@ function FooterBottom({
   ...props
 }: React.ComponentProps<"div">) {
   return (
-    <div className={cn("col-span-12 flex justify-between", className)} {...props}>
+    <div className={cn("w-full flex flex-wrap justify-between gap-4 py-8 mt-16 border-t border-border/50", className)} {...props}>
       {children}
     </div>
   )
@@ -96,7 +96,7 @@ function FooterCopyright({
   ...props
 }: React.ComponentProps<"p">) {
   return (
-    <p className={cn("text-sm text-muted-foreground", className)} {...props}>
+    <p className={cn("text-sm text-muted-foreground/50", className)} {...props}>
       {children}
     </p>
   )

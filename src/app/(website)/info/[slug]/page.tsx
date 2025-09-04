@@ -23,7 +23,7 @@ export default async function PolicyPage(props: { params: Params }) {
           ) : null}
         </Section>
         <Section padding="sm" className="mb-64">
-          <PortableRichText value={policy.body as unknown} />
+          <PortableRichText value={policy.body} />
         </Section>
       </Container>
     </PaddingGlobal>

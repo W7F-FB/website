@@ -17,10 +17,9 @@ const components: PortableTextComponents = {
   types: {
     image: ({value}) => {
       const src = urlFor(value).width(1200).fit("max").url()
-      const alt = (value as any)?.alt || ""
+      const alt = (value as { alt?: string })?.alt || ""
       return (
         <div className="my-6">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
           <Image src={src} alt={alt} width={1200} height={800} className="h-auto w-full rounded" />
         </div>
       )
@@ -33,7 +32,7 @@ const components: PortableTextComponents = {
     underline: ({children}) => <span className="underline underline-offset-2">{children}</span>,
     'strike-through': ({children}) => <span className="line-through">{children}</span>,
     link: ({children, value}) => {
-      const href = (value as any)?.href as string | undefined
+      const href = (value as { href?: string })?.href
       const isExternal = href ? /^https?:\/\//i.test(href) : false
       return (
         <a
@@ -56,9 +55,15 @@ const components: PortableTextComponents = {
   },
 }
 
-export function PortableRichText({value}: {value: unknown}) {
+type PortableTextValue = {
+  _type: string
+  _key: string
+  [key: string]: unknown
+}
+
+export function PortableRichText({value}: {value: PortableTextValue[] | PortableTextValue | null | undefined}) {
   if (!value) return null
-  return <PortableText value={value as any} components={components} />
+  return <PortableText value={value} components={components} />
 }
 
 

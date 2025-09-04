@@ -136,3 +136,330 @@ MyComponent.displayName = "MyComponent"
 ### Exports
 - Use named exports in curly braces
 - Set `displayName` for better debugging
+
+## Sanity Visual Editing & Drag-and-Drop Implementation
+
+This project uses Sanity's Visual Editing with Presentation mode to enable drag-and-drop functionality for content management. Follow these conventions when implementing new dynamic components:
+
+### Architecture Overview
+
+```
+┌─────────────────────────┐     ┌─────────────────────┐
+│   Sanity Studio         │     │   Next.js App       │
+│                         │     │                     │
+│  - Schema definitions   │────▶│  - Server components│
+│  - Presentation mode    │     │  - Client wrappers  │
+│  - Visual overlays      │     │  - Data attributes  │
+└─────────────────────────┘     └─────────────────────┘
+                │                          │
+                └──────────┬───────────────┘
+                           │
+                    ┌──────▼──────┐
+                    │ Draft Mode  │
+                    │  - Preview  │
+                    │  - Editing  │
+                    └─────────────┘
+```
+
+### 1. Schema Design Conventions
+
+When creating schemas for drag-and-drop content:
+
+```typescript
+// schemaTypes/[name]Type.ts
+export const myContentType = defineType({
+  name: 'myContent',
+  title: 'My Content',
+  type: 'document',
+  fields: [
+    defineField({
+      name: 'items',
+      title: 'Items',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            {
+              name: 'heading',
+              title: 'Heading',
+              type: 'string',
+              validation: (rule) => rule.required(),
+            },
+            {
+              name: 'links',
+              title: 'Links',
+              type: 'array',
+              of: [
+                {
+                  type: 'object',
+                  fields: [
+                    // Nested array fields...
+                  ],
+                  preview: {
+                    select: { /* preview config */ },
+                  },
+                },
+              ],
+            },
+          ],
+          preview: {
+            select: { /* preview config */ },
+          },
+        },
+      ],
+    }),
+  ],
+})
+```
+
+**Key Requirements:**
+- Arrays must be used for reorderable content
+- Each array item MUST have a `_key` (automatically generated)
+- Nested arrays must be wrapped in object types
+- Include preview configurations for better Studio UX
+
+### 2. Component Structure Pattern
+
+Follow this three-part pattern for drag-and-drop components:
+
+#### a) Server Component (Data Fetching)
+```tsx
+// components/[feature]/[name]-main.tsx
+import { getData } from "@/sanity/queries/data"
+import { DynamicItems } from "./dynamic-items"
+
+export async function MainComponent() {
+  const data = await getData()
+  
+  const sanityConfig = {
+    projectId: '439zkmb5',
+    dataset: 'production',
+    baseUrl: '/studio',
+  }
+
+  return (
+    <Container>
+      {/* Static content */}
+      
+      {data ? (
+        <DynamicItems
+          documentId={data._id}
+          documentType={data._type}
+          items={data.items}
+          {...sanityConfig}
+        />
+      ) : (
+        <FallbackContent />
+      )}
+    </Container>
+  )
+}
+```
+
+#### b) Client Component (Drag & Drop)
+```tsx
+// components/[feature]/dynamic-items.tsx
+'use client'
+
+import { createDataAttribute, useOptimistic } from '@sanity/visual-editing'
+import { stegaClean } from '@sanity/client/stega'
+
+interface DynamicItemsProps {
+  documentId: string
+  documentType: string
+  items: ItemData[] | undefined
+  projectId: string
+  dataset: string
+  baseUrl: string
+}
+
+export function DynamicItems({
+  documentId,
+  documentType,
+  items: initialItems,
+  projectId,
+  dataset,
+  baseUrl,
+}: DynamicItemsProps) {
+  // Enable optimistic updates
+  const items = useOptimistic<ItemData[] | undefined>(
+    initialItems,
+    (currentItems, action) => {
+      if (action.id !== documentId) return currentItems
+      
+      const updatedItems = action.document?.items
+      if (updatedItems && Array.isArray(updatedItems)) {
+        return updatedItems as ItemData[]
+      }
+      
+      return currentItems
+    }
+  )
+
+  if (!items || items.length === 0) return null
+
+  return (
+    <>
+      {items.map((item) => (
+        <div
+          key={item._key}
+          data-sanity={createDataAttribute({
+            projectId,
+            dataset,
+            baseUrl,
+            id: documentId,
+            type: documentType,
+            path: `items[_key=="${item._key}"]`,
+          }).toString()}
+        >
+          {/* Render item content */}
+          {/* Use stegaClean() for text to prevent overlay conflicts */}
+          <h3>{stegaClean(item.heading)}</h3>
+        </div>
+      ))}
+    </>
+  )
+}
+```
+
+### 3. Data Attributes Convention
+
+Always include proper data attributes for Visual Editing:
+
+```typescript
+// For array containers (optional - enables click-to-edit on container)
+data-sanity={createDataAttribute({
+  projectId,
+  dataset,
+  baseUrl,
+  id: documentId,
+  type: documentType,
+  path: 'items', // Array field name
+}).toString()}
+
+// For array items (required for drag-and-drop)
+data-sanity={createDataAttribute({
+  projectId,
+  dataset,
+  baseUrl,
+  id: documentId,
+  type: documentType,
+  path: `items[_key=="${item._key}"]`, // Path with key selector
+}).toString()}
+
+// For nested arrays
+data-sanity={createDataAttribute({
+  projectId,
+  dataset,
+  baseUrl,
+  id: documentId,
+  type: documentType,
+  path: `items[_key=="${item._key}"].subItems[_key=="${subItem._key}"]`,
+}).toString()}
+```
+
+### 4. Query Patterns
+
+Create type-safe queries with proper data structure:
+
+```typescript
+// sanity/queries/[feature].ts
+type MyData = {
+  _id: string
+  _type: string
+  items?: Array<{
+    _key: string
+    heading?: string
+    links?: Array<{
+      _key: string
+      text?: string
+      href?: string
+    }>
+  }>
+}
+
+export async function getMyData(): Promise<MyData | null> {
+  return sanityFetch(
+    `*[_type == "myContent" && _id == "documentId"][0]{
+      _id,
+      _type,
+      items[] {
+        _key,
+        heading,
+        links[] {
+          _key,
+          text,
+          href
+        }
+      }
+    }`
+  )
+}
+```
+
+### 5. Studio Configuration
+
+For singleton documents (like Navigation):
+
+```typescript
+// sanity.config.ts
+structureTool({
+  structure: (S) =>
+    S.list()
+      .title('Content')
+      .items([
+        S.listItem()
+          .title('Navigation')
+          .id('siteSettings')
+          .child(
+            S.document()
+              .schemaType('siteSettings')
+              .documentId('siteSettings')
+          ),
+        // Other items...
+      ]),
+})
+```
+
+### 6. Best Practices
+
+1. **Client Components**: Only the drag-and-drop wrapper needs to be client-side
+2. **Optimistic Updates**: Always implement for instant feedback
+3. **Stega Cleaning**: Use `stegaClean()` on text to prevent overlay conflicts
+4. **Fallback Content**: Always provide fallback for when Sanity data doesn't exist
+5. **Type Safety**: Define TypeScript types for all Sanity data structures
+6. **Path Accuracy**: Ensure data-sanity paths exactly match your schema structure
+
+### 7. Testing Drag & Drop
+
+1. Enable draft mode: `/api/sanity/draft-mode/enable?secret=67D747C6-7006-4780-9334-165499A8944C`
+2. Open Presentation mode in Studio: `/studio/presentation`
+3. Verify:
+   - Overlay controls appear on hover
+   - Elements can be dragged and reordered
+   - Changes save automatically
+   - Optimistic updates work instantly
+
+### 8. Common Patterns
+
+**Pattern 1: Simple List**
+```
+Schema: array of objects
+Component: Client wrapper with useOptimistic
+Path: `fieldName[_key=="${item._key}"]`
+```
+
+**Pattern 2: Nested Lists**
+```
+Schema: array of objects containing arrays
+Component: Nested client components
+Path: `parent[_key=="${parentKey}"].children[_key=="${childKey}"]`
+```
+
+**Pattern 3: Mixed Static/Dynamic**
+```
+Server Component: Fetches all data
+Client Component: Only wraps dynamic sections
+Static Content: Rendered directly in server component
+```

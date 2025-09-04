@@ -2,7 +2,7 @@ import * as React from "react"
 import Link from "next/link"
 import Image from "next/image"
 import CountryFlag from "react-country-flag"
-import { cn, relativeDateRange, formatDateRange } from "@/lib/utils"
+import { cn, relativeDateRange, formatDateRange, cleanCountryCode } from "@/lib/utils"
 import type { Tournament } from "../../../../studio-website/sanity.types"
 import { Background } from "../../ui/background"
 import { urlFor } from "@/sanity/client"
@@ -65,7 +65,9 @@ export function NavigationMenuTournament({
                 <div className="relative skew-x-[var(--skew-nav)] origin-top-left">
                     <div className="flex items-center gap-3">
                         <TextProtect className="text-lg font-[500]">{tournament.title}</TextProtect>
-                        <CountryFlag countryCode={tournament.countryCode!} svg className="!w-6 !h-6 rounded-full border object-cover" />
+                        {cleanCountryCode(tournament.countryCode) && (
+                            <CountryFlag countryCode={cleanCountryCode(tournament.countryCode)!} svg className="!w-6 !h-6 rounded-full border object-cover" />
+                        )}
                     </div>
                     {statusText && (
                         <span className="text-sm text-muted-foreground font-[500] mt-1.5">

@@ -43,3 +43,14 @@ export function formatDateRange(startDate: string | Date | null | undefined, end
     return `${startMonth} ${startDay} - ${endMonth} ${endDay}, ${year}`
   }
 }
+
+export function cleanCountryCode(countryCode: string | null | undefined): string | null {
+  if (!countryCode) return null
+  
+  // Remove all invisible Unicode characters that Sanity visual editing adds
+  return countryCode
+    .replace(/[\u200B-\u200F\uFEFF\u2060-\u2064]/g, '') // Zero-width spaces, joiners, etc.
+    .replace(/[\u202A-\u202E]/g, '') // Text direction marks
+    .trim()
+    .toLowerCase()
+}
