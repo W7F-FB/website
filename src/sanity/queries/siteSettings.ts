@@ -17,7 +17,7 @@ type SiteSettings = {
 
 export async function getSiteSettings(): Promise<SiteSettings | null> {
   return sanityFetch(
-    `*[_type == "siteSettings" && _id == "siteSettings"][0]{
+    `*[_type == "navigation" && _id == "navigation"][0]{
       _id,
       _type,
       footerColumns[] {
@@ -36,7 +36,7 @@ export async function getSiteSettings(): Promise<SiteSettings | null> {
 
 export async function getFooterData(): Promise<SiteSettings | null> {
   return sanityFetch(
-    `*[_type == "siteSettings" && _id == "siteSettings"][0]{
+    `*[_type == "navigation" && _id == "navigation"][0]{
       _id,
       _type,
       footerColumns[] {

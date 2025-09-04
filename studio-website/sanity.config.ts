@@ -19,24 +19,22 @@ export default defineConfig({
           .items([
             S.listItem()
               .title('Navigation')
-              .id('siteSettings')
+              .id('navigation')
               .child(
                 S.document()
-                  .schemaType('siteSettings')
-                  .documentId('siteSettings')
+                  .schemaType('navigation')
+                  .documentId('navigation')
               ),
             S.divider(),
             ...S.documentTypeListItems().filter(
-              (listItem) => !['siteSettings'].includes(listItem.getId() ?? '')
+              (listItem) => !['navigation'].includes(listItem.getId() ?? '')
             ),
           ]),
     }),
     visionTool(),
     presentationTool({
       previewUrl: {
-        origin: process.env.NEXT_PUBLIC_VERCEL_URL 
-          ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
-          : 'http://localhost:3000',
+        origin: 'https://w7f-website-livid.vercel.app',
         previewMode: {
           enable: '/api/sanity/draft-mode/enable?secret=67D747C6-7006-4780-9334-165499A8944C',
         },

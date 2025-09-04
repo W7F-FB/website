@@ -1,5 +1,3 @@
-"use client"
-
 import * as React from "react"
 import Link from "next/link"
 import { Logo } from "@/components/website-base/logo"
@@ -18,12 +16,8 @@ import { getNavigationTournaments } from "@/sanity/queries/tournaments"
 import type { Tournament } from "../../../../studio-website/sanity.types"
 import { Button } from "@/components/ui/button"
 
-function NavMain() {
-  const [tournaments, setTournaments] = React.useState<Tournament[]>([])
-
-  React.useEffect(() => {
-    getNavigationTournaments().then(setTournaments)
-  }, [])
+async function NavMain() {
+  const tournaments = await getNavigationTournaments()
 
   return (
     <nav className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">

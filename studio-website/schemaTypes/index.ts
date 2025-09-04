@@ -1,5 +1,5 @@
 import {tournamentType} from './tournamentType'
 import {policyType} from './policyType'
-import {siteSettingsType} from './siteSettingsType'
+import {navigationType} from './navigationType'
 
-export const schemaTypes = [tournamentType, policyType, siteSettingsType]
+export const schemaTypes = [tournamentType, policyType, navigationType]
