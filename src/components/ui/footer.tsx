@@ -84,7 +84,7 @@ function FooterBottom({
   ...props
 }: React.ComponentProps<"div">) {
   return (
-    <div className={cn("w-full flex flex-wrap justify-between gap-4 py-8 mt-16 border-t border-border/50", className)} {...props}>
+    <div className={cn("w-full flex flex-wrap justify-between gap-4 py-8 border-t border-border/50", className)} {...props}>
       {children}
     </div>
   )

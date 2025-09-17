@@ -4,6 +4,8 @@ import { NavMain } from "@/components/website-base/nav/nav-main";
 import { Footer } from "@/components/website-base/footer/footer-main";
 import { VisualEditing } from "next-sanity";
 import { draftMode } from "next/headers";
+import { PaddingGlobal } from "@/components/website-base/padding-containers";
+import { ClipPaths } from "@/components/ui/clip-paths";
 
 export const metadata: Metadata = {
   title: "World Sevens Football",
@@ -16,14 +18,17 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const isDraftMode = (await draftMode()).isEnabled;
-  
+
   return (
     <html lang="en" className="dark">
       <body className="antialiased bg-background font-body min-h-dvh flex flex-col overscroll-auto lg:overscroll-none">
+        <ClipPaths />
         {isDraftMode && <VisualEditing zIndex={1000} />}
         <NavMain />
         <main className="flex-grow min-h-[30rem]">
-          {children}
+          <PaddingGlobal>
+            {children}
+          </PaddingGlobal>
         </main>
         <Footer />
       </body>

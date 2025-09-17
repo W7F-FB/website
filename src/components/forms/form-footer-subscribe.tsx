@@ -15,7 +15,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
-import { FormMessageSuccess } from "@/components/forms/form-message-success"
+import { FormMessageSuccess } from "@/components/ui/form-message-success"
 
 const schema = z.object({
   email: z

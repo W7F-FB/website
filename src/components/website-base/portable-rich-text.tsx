@@ -3,7 +3,7 @@ import {PortableText, type PortableTextComponents} from "@portabletext/react"
 import Image from "next/image"
 import { urlFor } from "@/sanity/client"
 
-import { H1, H2, H3, H4, P, Blockquote, List } from "./typography"
+import { H1, H2, H3, H4, P, Blockquote, List, Subtitle } from "./typography"
 
 const components: PortableTextComponents = {
   block: {
@@ -12,6 +12,7 @@ const components: PortableTextComponents = {
     h2: ({children}) => <H2>{children}</H2>,
     h3: ({children}) => <H3>{children}</H3>,
     h4: ({children}) => <H4>{children}</H4>,
+    subtitle: ({children}) => <Subtitle>{children}</Subtitle>,
     blockquote: ({children}) => <Blockquote>{children}</Blockquote>,
   },
   types: {

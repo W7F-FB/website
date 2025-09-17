@@ -20,7 +20,7 @@ async function NavMain() {
   const tournaments = await getNavigationTournaments()
 
   return (
-    <nav className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <nav className="sticky top-0 z-50 w-full border-b bg-background backdrop-blur supports-[backdrop-filter]:bg-background/90">
       <PaddingGlobal>
       <div className="mx-auto flex w-full items-center gap-12 py-4">
         <Logo size="lg" link color="white" variant="2-lines" />
@@ -45,22 +45,17 @@ async function NavMain() {
                 <ul className="grid gap-1 md:w-[320px]">
                   <li>
                     <NavigationMenuLink asChild>
-                      <Link href="#"><span>Who We Are</span></Link>
+                      <Link href="/news"><span>News</span></Link>
                     </NavigationMenuLink>
                   </li>
                   <li>
                     <NavigationMenuLink asChild>
-                      <Link href="#"><span>News</span></Link>
+                      <Link href="/social-impact"><span>Social Impact</span></Link>
                     </NavigationMenuLink>
                   </li>
                   <li>
                     <NavigationMenuLink asChild>
-                      <Link href="#"><span>Social Impact</span></Link>
-                    </NavigationMenuLink>
-                  </li>
-                  <li>
-                    <NavigationMenuLink asChild>
-                      <Link href="#"><span>FAQs</span></Link>
+                      <Link href="/faqs"><span>FAQs</span></Link>
                     </NavigationMenuLink>
                   </li>
                 </ul>
@@ -69,7 +64,7 @@ async function NavMain() {
 
             <NavigationMenuItem>
               <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                <Link href="#"><span>Shop</span></Link>
+                <a href="https://shopw7f.myshopify.com/" target="_blank" rel="me"><span>Shop</span></a>
               </NavigationMenuLink>
             </NavigationMenuItem>
           </NavigationMenuList>

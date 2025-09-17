@@ -54,3 +54,115 @@ export function cleanCountryCode(countryCode: string | null | undefined): string
     .trim()
     .toLowerCase()
 }
+
+/**
+ * Converts a slug to a readable title using smart formatting rules
+ * This function handles common slug patterns and formats them properly
+ */
+function slugToTitle(slug: string): string {
+  // Handle special cases first
+  const specialCases: Record<string, string> = {
+    'faqs': 'FAQs',
+    'api': 'API',
+    'ui': 'UI',
+    'ux': 'UX',
+    'seo': 'SEO',
+    'css': 'CSS',
+    'js': 'JavaScript',
+    'ts': 'TypeScript',
+  };
+  
+  // Check for exact matches in special cases
+  if (specialCases[slug.toLowerCase()]) {
+    return specialCases[slug.toLowerCase()];
+  }
+  
+  // Smart formatting: split on hyphens/underscores and capitalize
+  return slug
+    .split(/[-_]/)
+    .map(word => {
+      const lowerWord = word.toLowerCase();
+      // Check if this word is in special cases
+      if (specialCases[lowerWord]) {
+        return specialCases[lowerWord];
+      }
+      // Standard capitalization
+      return word.charAt(0).toUpperCase() + word.slice(1);
+    })
+    .join(' ');
+}
+
+export function generateBreadcrumbs(pathname: string) {
+  const paths = pathname.split("/").filter(Boolean);
+  const breadcrumbs = [{ label: "Home", href: "/" }];
+  
+  let currentPath = "";
+  for (const path of paths) {
+    currentPath += `/${path}`;
+    const label = slugToTitle(path);
+    breadcrumbs.push({ label, href: currentPath });
+  }
+  
+  return breadcrumbs;
+}
+
+export function createGrainGradientBackground(
+  overlayColor = "#c4c4c4",
+  accentColor = "#708e53", 
+  shadowColor = "#242424"
+) {
+  // If CSS variables are passed, resolve them
+  const resolveColor = (color: string) => {
+    if (color.startsWith('var(')) {
+      if (typeof window !== 'undefined') {
+        const varName = color.slice(4, -1); // Remove 'var(' and ')'
+        return getComputedStyle(document.documentElement).getPropertyValue(varName).trim();
+      }
+      // Fallback for SSR or when window is not available
+      return color.replace('var(--muted)', '#f5f5f5')
+                  .replace('var(--primary)', '#1a1a1a')
+                  .replace('var(--accent)', '#1a1a1a');
+    }
+    return color;
+  };
+
+  const resolvedOverlay = resolveColor(overlayColor);
+  const resolvedAccent = resolveColor(accentColor);
+  const resolvedShadow = resolveColor(shadowColor);
+
+  const svg = `<svg width="1600" height="1600" viewBox="0 0 1600 1600" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1600" height="1600" fill="#000000"/>
+    <rect width="1600" height="1600" fill="${resolvedOverlay}" fill-opacity="0.3615796519203419"/>
+    <g clip-path="url(#clip0_50_327)">
+      <g filter="url(#filter0_f_50_327)">
+        <rect x="328" y="429" width="1070" height="872" fill="${resolvedAccent}"/>
+        <rect x="0" y="618" width="1034" height="837" fill="${resolvedShadow}"/>
+      </g>
+    </g>
+    <g style="mix-blend-mode:overlay">
+      <rect width="1600" height="1600" fill="url(#pattern0)" fill-opacity="0.75"/>
+      <rect x="0" y="0" width="1600" height="1600" style="fill:gray; stroke:transparent; filter: url(#feTurb02)" />
+    </g>
+    <defs>
+      <filter id="feTurb02" filterUnits="objectBoundingBox" x="0%" y="0%" width="100%" height="100%">
+        <feTurbulence baseFrequency="0.7" numOctaves="3" seed="0" result="out1"/>
+        <feComposite in="out1" in2="SourceGraphic" operator="in" result="out2"/>
+        <feBlend in="SourceGraphic" in2="out2" mode="overlay" result="out3"/>
+      </filter>
+      <filter id="filter0_f_50_327" x="0" y="0" width="1600" height="1600" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+        <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+        <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+        <feGaussianBlur stdDeviation="250" result="effect1_foregroundBlur_50_327"/>
+      </filter>
+      <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="0.08375" height="0.08375">
+        <use href="#image0_50_327" transform="scale(0.001)"/>
+      </pattern>
+      <clipPath id="clip0_50_327">
+        <rect width="1600" height="1600" fill="white"/>
+      </clipPath>
+    </defs>
+  </svg>`;
+  
+  const encodedSvg = encodeURIComponent(svg);
+  return `url("data:image/svg+xml,${encodedSvg}")`;
+}

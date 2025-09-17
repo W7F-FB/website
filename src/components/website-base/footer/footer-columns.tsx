@@ -1,14 +1,15 @@
 'use client'
 
 import * as React from "react"
-import { createDataAttribute, useOptimistic } from '@sanity/visual-editing'
+import { createDataAttribute } from '@sanity/visual-editing'
+import { useOptimistic } from '@sanity/visual-editing/react'
 import { stegaClean } from '@sanity/client/stega'
 import {
   FooterColumn,
   FooterList,
   FooterListHeading,
   FooterLink,
-} from "./footer"
+} from "../../ui/footer"
 
 type FooterColumnData = {
   _key: string

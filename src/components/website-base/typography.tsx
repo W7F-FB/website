@@ -18,7 +18,7 @@ function H2({ className, ...props }: React.ComponentProps<"h2">) {
   return (
     <h2
       className={cn(
-        "scroll-m-20 border-b pb-2 text-3xl font-semibold first:mt-0 font-headers",
+        "scroll-m-20 pb-2 text-3xl font-semibold first:mt-0 font-headers",
         className
       )}
       {...props}
@@ -41,6 +41,12 @@ function H4({ className, ...props }: React.ComponentProps<"h4">) {
       className={cn("scroll-m-20 text-xl font-semibold font-headers", className)}
       {...props}
     />
+  )
+}
+
+function Subtitle({ className, ...props }: React.ComponentProps<"p">) {
+  return (
+    <p className={cn("font-semibold font-headers uppercase text-accent-foreground mb-6", className)} {...props} />
   )
 }
 
@@ -77,11 +83,13 @@ function TextProtect({ className, ...props }: React.ComponentProps<"span">) {
   )
 }
 
+
 export {
   H1,
   H2,
   H3,
   H4,
+  Subtitle,
   P,
   Blockquote,
   List,

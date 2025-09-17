@@ -262,7 +262,8 @@ export async function MainComponent() {
 // components/[feature]/dynamic-items.tsx
 'use client'
 
-import { createDataAttribute, useOptimistic } from '@sanity/visual-editing'
+import { createDataAttribute } from '@sanity/visual-editing'
+import { useOptimistic } from '@sanity/visual-editing/react'
 import { stegaClean } from '@sanity/client/stega'
 
 interface DynamicItemsProps {

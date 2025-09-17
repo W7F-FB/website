@@ -13,6 +13,7 @@ export default defineConfig({
 
   plugins: [
     structureTool({
+      title: 'Content',
       structure: (S) =>
         S.list()
           .title('Content')
@@ -31,10 +32,10 @@ export default defineConfig({
             ),
           ]),
     }),
-    visionTool(),
+    // visionTool(), // Temporarily disabled for cleaner editor experience
     presentationTool({
       previewUrl: {
-        origin: 'https://w7f-website-livid.vercel.app',
+        origin: 'http://localhost:3000/',
         previewMode: {
           enable: '/api/sanity/draft-mode/enable?secret=67D747C6-7006-4780-9334-165499A8944C',
         },

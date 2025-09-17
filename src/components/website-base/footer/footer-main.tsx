@@ -11,10 +11,11 @@ import {
   FooterPolicyLink,
   FooterBottom,
   FooterCopyright,
-} from "./footer"
+} from "../../ui/footer"
 import FormFooterSubscribe from "@/components/forms/form-footer-subscribe"
 import { H3 } from "../typography"
 import { FooterColumns } from "./footer-columns"
+import { FooterFast } from "./footer-fast"
 
 async function PolicyLinks() {
   const policies = await getPoliciesForNav()
@@ -24,7 +25,7 @@ async function PolicyLinks() {
       {policies.map((p) => (
         <FooterPolicyLink
           key={p.slug}
-          href={p.pdfUrl || `/info/${p.slug}`}
+          href={p.pdfUrl || `/resources/${p.slug}`}
           isPdf={!!p.pdfUrl}
         >
           {p.name}
@@ -44,59 +45,63 @@ const FooterMain = React.forwardRef<HTMLElement, React.ComponentProps<"footer">>
   }
 
   return (
-    <Footer ref={ref} className={className} {...props}>
-      <div className="flex flex-wrap gap-x-12 gap-y-16 lg:gap-x-16">
-        <FooterBrand>
-          <Logo className="w-full h-auto" color="white" variant="2-lines" />
-          <FooterSocialLinks>
-            <FooterSocialLink
-              href="https://www.facebook.com/profile.php?id=61574253312771"
-              icon={FaFacebookF}
-              label="Follow us on Facebook"
-            />
-            <FooterSocialLink
-              href="https://www.instagram.com/worldsevens_/"
-              icon={FaInstagram}
-              label="Follow us on Instagram"
-            />
-            <FooterSocialLink
-              href="https://x.com/worldsevens_"
-              icon={FaXTwitter}
-              label="Follow us on X"
-            />
-            <FooterSocialLink
-              href="https://www.tiktok.com/@worldsevens"
-              icon={FaTiktok}
-              label="Follow us on TikTok"
-            />
-          </FooterSocialLinks>
-        </FooterBrand>
+    <div>
+      <Footer ref={ref} className={className} {...props}>
+        <div className="flex flex-wrap gap-x-12 gap-y-16 lg:gap-x-16">
+          <FooterBrand>
+            <Logo className="w-full h-auto" color="white" variant="2-lines" />
+            <FooterSocialLinks>
+              <FooterSocialLink
+                href="https://www.facebook.com/profile.php?id=61574253312771"
+                icon={FaFacebookF}
+                label="Follow us on Facebook"
+              />
+              <FooterSocialLink
+                href="https://www.instagram.com/worldsevens_/"
+                icon={FaInstagram}
+                label="Follow us on Instagram"
+              />
+              <FooterSocialLink
+                href="https://x.com/worldsevens_"
+                icon={FaXTwitter}
+                label="Follow us on X"
+              />
+              <FooterSocialLink
+                href="https://www.tiktok.com/@worldsevens"
+                icon={FaTiktok}
+                label="Follow us on TikTok"
+              />
+            </FooterSocialLinks>
+          </FooterBrand>
 
-        <div className="flex flex-wrap gap-x-12 gap-y-16 lg:gap-x-24  mt-4">
-          {footerData && (
-            <FooterColumns
-              documentId={footerData._id}
-              documentType={footerData._type}
-              columns={footerData.footerColumns}
-              {...sanityConfig}
-            />
-          )}
-        </div>
+          <div className="flex flex-wrap gap-x-12 gap-y-16 lg:gap-x-24  mt-4">
+            {footerData && (
+              <FooterColumns
+                documentId={footerData._id}
+                documentType={footerData._type}
+                columns={footerData.footerColumns}
+                {...sanityConfig}
+              />
+            )}
+          </div>
 
-        <div className="flex-grow flex justify-end">
-          <div className="w-full lg:w-auto lg:flex-1 lg:max-w-[25rem] mt-4">
-            <H3 className="mb-2">Keep up with us</H3>
-            <p className="mb-4">Stay updated on W7F news, tickets, giveaways, merchandise and more.</p>
-            <FormFooterSubscribe />
+          <div className="flex-grow flex justify-end">
+            <div className="w-full lg:w-auto lg:flex-1 lg:max-w-[25rem] mt-4">
+              <H3 className="mb-2">Keep up with us</H3>
+              <p className="mb-4">Stay updated on W7F news, tickets, giveaways, merchandise and more.</p>
+              <FormFooterSubscribe />
+            </div>
           </div>
         </div>
-      </div>
 
-      <FooterBottom>
-        <FooterCopyright>Copyright 2025 World Sevens Football</FooterCopyright>
-        <PolicyLinks />
-      </FooterBottom>
-    </Footer>
+        <FooterFast />
+
+        <FooterBottom>
+          <FooterCopyright>Copyright 2025 World Sevens Football</FooterCopyright>
+          <PolicyLinks />
+        </FooterBottom>
+      </Footer>
+    </div>
   )
 })
 
