@@ -161,6 +161,14 @@
   clip-path: url(#WatercolorMask);
 }
 
+/* Text Stroke Utilities */
+@utility text-stroke-* {
+  -webkit-text-stroke-width: --value(integer)px;
+  -webkit-text-stroke-width: --value([*]);
+  -webkit-text-stroke-color: --value(--color-*, [color]);
+  -webkit-text-stroke-color: --modifier(--color-*, [color]);
+}
+
 .bg-lines-pattern {
   background-image: url('/images/decorative/lines-seamless.svg');
   background-repeat: repeat;

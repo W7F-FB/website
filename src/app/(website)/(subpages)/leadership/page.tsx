@@ -2,13 +2,13 @@ import { SubpageHero, SubpageHeroContent, SubpageHeroMedia } from "@/components/
 import { Section } from "@/components/website-base/padding-containers";
 import { H1, H2, P, Subtitle } from "@/components/website-base/typography";
 import { TeamCard } from "@/components/blocks/team-card";
+import { GridCellScrollLink } from "@/components/blocks/grid-cell-scroll-link";
 import { GradientBanner } from "@/components/ui/gradient-banner";
 import { EmptyMessage } from "@/components/ui/empty-message";
 import { getPlayerAdvisoryCouncil, getCoFounders, getLeadershipTeam } from "@/cms/queries/team";
 import Image from "next/image";
 import type { Metadata } from "next";
 import * as prismic from "@prismicio/client";
-import { BiDownArrowAlt } from "react-icons/bi";
 import { Separator } from "@/components/ui/separator";
 
 export const metadata: Metadata = {
@@ -73,13 +73,10 @@ export default async function LeadershipPage() {
                         <P>Our Player Advisory Council is being assembled. Check back soon to meet the elite players who will help shape the future of World Sevens Football.</P>
                     </EmptyMessage>
                 )}
-                <a href="#co-founders" className="relative text-background block flex items-end justify-end hover:text-muted transition-color duration-200 col-start-3">
-                    <div className="absolute inset-0 bg-lines-pattern flex items-end justify-end p-12 opacity-5"></div>
-                    <BiDownArrowAlt className="relative w-36 h-36" />
-                </a>
+                <GridCellScrollLink href="#co-founders" />
             </div>
         </Section>
-        <Separator className="my-16 opacity-50" />
+        <Separator className="my-16 opacity-50" variant="skewDash" />
         <Section padding="md" className="grid grid-cols-3 gap-16" id="co-founders">
             <GradientBanner className="">
                 <H2>Co-Founders</H2>
@@ -105,10 +102,7 @@ export default async function LeadershipPage() {
                         <P>Meet the visionary minds behind World Sevens Football. Co-founder profiles coming soon.</P>
                     </EmptyMessage>
                 )}
-                <a href="#leadership-team" className="relative text-background block flex items-end justify-end hover:text-muted transition-color duration-200 col-start-3">
-                    <div className="absolute inset-0 bg-lines-pattern flex items-end justify-end p-12 opacity-5"></div>
-                    <BiDownArrowAlt className="relative w-36 h-36" />
-                </a>
+                <GridCellScrollLink href="#leadership-team" />
             </div>
         </Section>
         <Separator className="my-16 opacity-50" />

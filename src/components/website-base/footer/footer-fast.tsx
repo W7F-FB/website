@@ -8,14 +8,11 @@ const FooterFast = React.forwardRef<
     return (
         <div
             ref={ref}
-            className={cn("relative text-center overflow-hidden", className)}
+            className={cn("relative text-center", className)}
             {...props}
         >
-            <PaddingGlobal className="flex justify-center opacity-5 py-16 mt-8">
-                <div 
-                    className="text-[8.3vw] font-headers leading-none italic font-black whitespace-nowrap" 
-                    style={{ color: 'transparent', WebkitTextStroke: '0.2vw white' }}
-                >
+            <PaddingGlobal className="flex justify-center opacity-50 py-16 mt-8">
+                <div className="text-[8.3vw] font-headers leading-none italic font-black whitespace-nowrap text-transparent text-stroke-[0.2vw]/muted">
                     FAST. FORWARD.
                 </div>
             </PaddingGlobal>

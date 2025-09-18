@@ -51,6 +51,9 @@ function SubpageHeroContent({
       {...props}
     >
       <div 
+        className="absolute top-0 bottom-0 -right-[0.5rem] -left-[50%] origin-bottom-right -skew-x-[var(--skew-btn)] bg-muted/20 backdrop-blur-sm border-r border-foreground/10" 
+      />
+      <div 
         className="absolute top-0 bottom-0 right-0 -left-[50%] origin-bottom-right -skew-x-[var(--skew-btn)] bg-muted" 
       />
       <div 
