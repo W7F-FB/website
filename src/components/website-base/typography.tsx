@@ -6,7 +6,7 @@ function H1({ className, ...props }: React.ComponentProps<"h1">) {
   return (
     <h1
       className={cn(
-        "scroll-m-20 text-4xl font-bold text-balance font-headers",
+        "scroll-m-20 text-5xl font-bold text-balance font-headers",
         className
       )}
       {...props}
@@ -18,7 +18,7 @@ function H2({ className, ...props }: React.ComponentProps<"h2">) {
   return (
     <h2
       className={cn(
-        "scroll-m-20 pb-2 text-3xl font-semibold first:mt-0 font-headers",
+        "scroll-m-20 pb-2 text-4xl font-semibold first:mt-0 font-headers leading-[1.3]",
         className
       )}
       {...props}

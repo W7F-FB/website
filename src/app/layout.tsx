@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 import "../styles/globals.css";
 import { NavMain } from "@/components/website-base/nav/nav-main";
 import { Footer } from "@/components/website-base/footer/footer-main";
-import { VisualEditing } from "next-sanity";
-import { draftMode } from "next/headers";
+import { PrismicPreview } from "@prismicio/next";
 import { PaddingGlobal } from "@/components/website-base/padding-containers";
 import { ClipPaths } from "@/components/ui/clip-paths";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "World Sevens Football",
@@ -17,13 +17,15 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const isDraftMode = (await draftMode()).isEnabled;
-
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className="dark scroll-smooth scroll-pt-24">
       <body className="antialiased bg-background font-body min-h-dvh flex flex-col overscroll-auto lg:overscroll-none">
+        <Script
+          async
+          defer
+          src="https://static.cdn.prismic.io/prismic.js?new=true&repo=world-sevens-football"
+        />
         <ClipPaths />
-        {isDraftMode && <VisualEditing zIndex={1000} />}
         <NavMain />
         <main className="flex-grow min-h-[30rem]">
           <PaddingGlobal>
@@ -31,6 +33,7 @@ export default async function RootLayout({
           </PaddingGlobal>
         </main>
         <Footer />
+        <PrismicPreview repositoryName="world-sevens-football" />
       </body>
     </html>
   );

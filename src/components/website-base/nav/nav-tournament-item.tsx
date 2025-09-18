@@ -3,14 +3,14 @@ import Link from "next/link"
 import Image from "next/image"
 import CountryFlag from "react-country-flag"
 import { cn, relativeDateRange, formatDateRange, cleanCountryCode } from "@/lib/utils"
-import type { Tournament } from "../../../../studio-website/sanity.types"
+import type { TournamentDocument } from "../../../../types.generated"
 import { Background } from "../../ui/background"
-import { urlFor } from "@/sanity/client"
+import { getImageUrl } from "@/cms/utils"
 import { TextProtect } from "../typography"
 import { NavigationMenuLink } from "../../ui/navigation-menu"
 
 interface NavigationMenuTournamentProps {
-    tournament?: Tournament
+    tournament?: TournamentDocument
     className?: string
     children?: React.ReactNode
 }
@@ -21,16 +21,14 @@ export function NavigationMenuTournament({
     className,
     tournament
 }: NavigationMenuTournamentProps) {
-    if (!tournament?.showInNavigation?.enabled || !tournament?.showInNavigation?.navImage) {
+    if (!tournament?.data.show_in_navigation || !tournament?.data.nav_image?.url) {
         return null
     }
 
-    const imageUrl = urlFor(tournament.showInNavigation.navImage)
-        .auto('format')
-        .url()
+    const imageUrl = tournament.data.nav_image.url
 
-    const status = relativeDateRange(tournament.startDate, tournament.endDate)
-    const dateRange = formatDateRange(tournament.startDate, tournament.endDate)
+    const status = relativeDateRange(tournament.data.start_date, tournament.data.end_date)
+    const dateRange = formatDateRange(tournament.data.start_date, tournament.data.end_date)
 
     const getStatusText = () => {
         if (!status || !dateRange) return null
@@ -55,7 +53,7 @@ export function NavigationMenuTournament({
                 <Background className="skew-x-[var(--skew-nav)] origin-top-left -inset-4">
                     <Image
                         src={imageUrl}
-                        alt={tournament.showInNavigation.navImage.alt || tournament.title || 'Tournament'}
+                        alt={tournament.data.nav_image.alt || tournament.data.title || 'Tournament'}
                         fill
                         className="origin-top-left object-cover grayscale-20 opacity-100 group-hover/tournament:scale-102 group-hover/tournament:grayscale-0 group-hover/tournament:opacity-100 transition-all duration-300 mask-b-from-40%"
                         sizes="1000px"
@@ -64,9 +62,9 @@ export function NavigationMenuTournament({
                 </Background>
                 <div className="relative skew-x-[var(--skew-nav)] origin-top-left">
                     <div className="flex items-center gap-3">
-                        <TextProtect className="text-lg font-[500]">{tournament.title}</TextProtect>
-                        {cleanCountryCode(tournament.countryCode) && (
-                            <CountryFlag countryCode={cleanCountryCode(tournament.countryCode)!} svg className="!w-6 !h-6 rounded-full border object-cover" />
+                        <TextProtect className="text-lg font-[500]">{tournament.data.title}</TextProtect>
+                        {cleanCountryCode(tournament.data.country_code) && (
+                            <CountryFlag countryCode={cleanCountryCode(tournament.data.country_code)!} svg className="!w-6 !h-6 rounded-full border object-cover" />
                         )}
                     </div>
                     {statusText && (

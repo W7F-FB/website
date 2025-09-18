@@ -1,0 +1,7 @@
+{
+  "apiEndpoint": "https://world-sevens-football.cdn.prismic.io/api/v2",
+  "repositoryName": "world-sevens-football",
+  "adapter": "@slicemachine/adapter-next",
+  "libraries": ["./src/cms/slices"],
+  "localSliceSimulatorURL": "http://localhost:3000/slice-simulator"
+}

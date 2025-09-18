@@ -1,8 +1,8 @@
 import * as React from "react"
 import { FaFacebookF, FaInstagram, FaXTwitter, FaTiktok } from "react-icons/fa6"
 import { Logo } from "@/components/website-base/logo"
-import { getPoliciesForNav } from "@/sanity/queries/policies"
-import { getFooterData } from "@/sanity/queries/siteSettings"
+import { getPoliciesForNav } from "@/cms/queries/policies"
+import { getFooterData } from "@/cms/queries/website"
 import {
   Footer,
   FooterBrand,
@@ -38,14 +38,9 @@ async function PolicyLinks() {
 const FooterMain = React.forwardRef<HTMLElement, React.ComponentProps<"footer">>(async ({ className, ...props }, ref) => {
   const footerData = await getFooterData()
 
-  const sanityConfig = {
-    projectId: '439zkmb5',
-    dataset: 'production',
-    baseUrl: '/studio',
-  }
 
   return (
-    <div>
+    <div className="mt-24">
       <Footer ref={ref} className={className} {...props}>
         <div className="flex flex-wrap gap-x-12 gap-y-16 lg:gap-x-16">
           <FooterBrand>
@@ -75,12 +70,9 @@ const FooterMain = React.forwardRef<HTMLElement, React.ComponentProps<"footer">>
           </FooterBrand>
 
           <div className="flex flex-wrap gap-x-12 gap-y-16 lg:gap-x-24  mt-4">
-            {footerData && (
+            {footerData?.footerMenus && (
               <FooterColumns
-                documentId={footerData._id}
-                documentType={footerData._type}
-                columns={footerData.footerColumns}
-                {...sanityConfig}
+                columns={footerData.footerMenus}
               />
             )}
           </div>

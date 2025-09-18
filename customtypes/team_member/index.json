@@ -1,0 +1,85 @@
+{
+  "format": "page",
+  "id": "team_member",
+  "label": "Team Member",
+  "repeatable": true,
+  "status": true,
+  "json": {
+    "Main": {
+      "name": {
+        "type": "Text",
+        "config": {
+          "label": "Full Name",
+          "placeholder": "Team member's full name",
+          "useAsTitle": true
+        }
+      },
+      "uid": {
+        "type": "UID",
+        "config": {
+          "label": "UID",
+          "placeholder": "URL slug for this team member"
+        }
+      },
+      "role": {
+        "type": "Text",
+        "config": {
+          "label": "Role/Position",
+          "placeholder": "Job title or role"
+        }
+      },
+      "headshot": {
+        "type": "Image",
+        "config": {
+          "label": "Headshot",
+          "constraint": {
+            "width": 1000,
+            "height": 1000
+          },
+          "thumbnails": [
+            {
+              "name": "small",
+              "width": 500,
+              "height": 500
+            },
+            {
+              "name": "medium",
+              "width": 800,
+              "height": 800
+            }
+          ]
+        }
+      },
+      "bio": {
+        "type": "StructuredText",
+        "config": {
+          "multi": "paragraph,strong,em,hyperlink,list-item,o-list-item",
+          "allowTargetBlank": true,
+          "label": "Biography",
+          "placeholder": "Team member's biography"
+        }
+      }
+    },
+    "Settings": {
+      "display_order": {
+        "type": "Number",
+        "config": {
+          "label": "Display Order",
+          "placeholder": "Order on team page (lower numbers first)"
+        }
+      },
+      "department": {
+        "type": "Select",
+        "config": {
+          "label": "Department",
+          "placeholder": "Select department",
+          "options": [
+            "Player Advisor",
+            "Co-Founder",
+            "Leadership Team"
+          ]
+        }
+      }
+    }
+  }
+}

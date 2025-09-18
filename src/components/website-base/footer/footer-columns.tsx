@@ -1,9 +1,4 @@
-'use client'
-
 import * as React from "react"
-import { createDataAttribute } from '@sanity/visual-editing'
-import { useOptimistic } from '@sanity/visual-editing/react'
-import { stegaClean } from '@sanity/client/stega'
 import {
   FooterColumn,
   FooterList,
@@ -23,38 +18,10 @@ type FooterColumnData = {
 }
 
 interface FooterColumnsProps {
-  documentId: string
-  documentType: string
   columns: FooterColumnData[] | undefined
-  projectId: string
-  dataset: string
-  baseUrl: string
 }
 
-export function FooterColumns({
-  documentId,
-  documentType,
-  columns: initialColumns,
-  projectId,
-  dataset,
-  baseUrl,
-}: FooterColumnsProps) {
-  const columns = useOptimistic<FooterColumnData[] | undefined>(
-    initialColumns,
-    (currentColumns, action) => {
-      if (action.id !== documentId) {
-        return currentColumns
-      }
-
-      const footerColumns = action.document?.footerColumns
-      if (footerColumns && Array.isArray(footerColumns)) {
-        return footerColumns as FooterColumnData[]
-      }
-
-      return currentColumns
-    }
-  )
-
+export function FooterColumns({ columns }: FooterColumnsProps) {
   if (!columns || columns.length === 0) {
     return null
   }
@@ -62,19 +29,9 @@ export function FooterColumns({
   return (
     <>
       {columns.map((column) => (
-        <FooterColumn
-          key={column._key}
-          data-sanity={createDataAttribute({
-            projectId,
-            dataset,
-            baseUrl,
-            id: documentId,
-            type: documentType,
-            path: `footerColumns[_key=="${column._key}"]`,
-          }).toString()}
-        >
+        <FooterColumn key={column._key}>
           {column.heading && (
-            <FooterListHeading>{stegaClean(column.heading)}</FooterListHeading>
+            <FooterListHeading>{column.heading}</FooterListHeading>
           )}
           {column.links && column.links.length > 0 && (
             <FooterList>
@@ -82,21 +39,12 @@ export function FooterColumns({
                 if (!link.text || !link.href) return null
                 
                 return (
-                  <div
-                    key={link._key}
-                    data-sanity={createDataAttribute({
-                      projectId,
-                      dataset,
-                      baseUrl,
-                      id: documentId,
-                      type: documentType,
-                      path: `footerColumns[_key=="${column._key}"].links[_key=="${link._key}"]`,
-                    }).toString()}
+                  <FooterLink 
+                    key={link._key} 
+                    href={link.href}
                   >
-                    <FooterLink href={stegaClean(link.href) || '/'}>
-                      {stegaClean(link.text)}
-                    </FooterLink>
-                  </div>
+                    {link.text}
+                  </FooterLink>
                 )
               })}
             </FooterList>

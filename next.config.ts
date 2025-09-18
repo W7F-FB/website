@@ -4,14 +4,13 @@ const nextConfig: NextConfig = {
   compiler: {
     styledComponents: true,
   },
-  transpilePackages: ['@sanity/ui', '@sanity/visual-editing'],
   images: {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'cdn.sanity.io',
+        hostname: 'images.prismic.io',
         port: '',
-        pathname: '/images/**',
+        pathname: '/**',
       },
     ],
   },

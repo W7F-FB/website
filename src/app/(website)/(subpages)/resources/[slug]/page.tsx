@@ -1,8 +1,8 @@
 import { notFound } from "next/navigation"
-import { getPolicyBySlug } from "@/sanity/queries/policies"
+import { getPolicyBySlug } from "@/cms/queries/policies"
 import { PaddingGlobal, Section, Container } from "@/components/website-base/padding-containers"
 import { H1 } from "@/components/website-base/typography"
-import { PortableRichText } from "@/components/website-base/portable-rich-text"
+import { PrismicRichTextComponent } from "@/components/website-base/prismic-rich-text"
 
 type Params = Promise<{ slug: string }>
 
@@ -15,15 +15,15 @@ export default async function PolicyPage(props: { params: Params }) {
     <PaddingGlobal>
       <Container maxWidth="5xl">
         <Section padding="lg">
-          <H1>{policy.name}</H1>
-          {policy._updatedAt ? (
+          <H1>{policy.data.name}</H1>
+          {policy.last_publication_date ? (
             <p className="text-lg text-muted-foreground mt-4">
-              Last updated: {new Date(policy._updatedAt).toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC'})}
+              Last updated: {new Date(policy.last_publication_date).toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC'})}
             </p>
           ) : null}
         </Section>
         <Section padding="sm" className="mb-64">
-          <PortableRichText value={policy.body} />
+          <PrismicRichTextComponent field={policy.data.body} />
         </Section>
       </Container>
     </PaddingGlobal>

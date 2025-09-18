@@ -1,6 +1,6 @@
 # W7F Website
 
-This project uses Sanity CMS for content management alongside a Next.js frontend.
+This project uses Prismic CMS for content management alongside a Next.js frontend.
 
 ## Commit Conventions
 
@@ -25,32 +25,37 @@ Common types include:
 
 ## Content Management System (CMS)
 
-This project uses **Sanity CMS** for headless content management, providing a powerful and flexible backend for managing website content.
+This project uses **Prismic CMS** for headless content management, providing a powerful and flexible backend for managing website content.
 
 ### Architecture
-- **Sanity Studio**: Located in `studio-website/` directory - a customizable content editing interface
-- **Frontend**: Next.js application in the main directory that fetches content from Sanity
-- **Content Delivery**: Real-time content updates via Sanity's Content Lake
+- **Prismic Repository**: Cloud-based content management at `world-sevens-football.prismic.io`
+- **Frontend**: Next.js application that fetches content from Prismic API
+- **Content Delivery**: Real-time content updates via Prismic's CDN
+- **Slice Machine**: Local development tool for managing content types and slices
 
 ### Key Features
-- **Structured Content**: Define custom schemas for flexible content modeling
-- **Real-time Collaboration**: Multiple editors can work simultaneously
-- **GROQ Queries**: Powerful query language for fetching exactly the data you need
-- **Image CDN**: Automatic image optimization and transformations
-- **Version Control**: Built-in revision history for all content changes
+- **Custom Types**: Define flexible content models for different content types
+- **Rich Text**: Advanced rich text editing with embedded content
+- **Preview System**: Full-website previews of draft content before publishing
+- **Image Optimization**: Automatic image transformations and CDN delivery
+- **Releases**: Group changes across multiple documents for coordinated publishing
 
 ### Development Workflow
-1. **Schema Definition**: Define content types in `studio-website/schemaTypes/`
-2. **Content Creation**: Use Sanity Studio to create and manage content
-3. **Frontend Integration**: Query content using GROQ in Next.js components
-4. **Live Updates**: Content changes appear immediately on the frontend
+1. **Schema Definition**: Define Custom Types using Slice Machine at `http://localhost:9999`
+2. **Content Creation**: Use Prismic dashboard to create and manage content
+3. **Frontend Integration**: Query content using Prismic SDK in Next.js components
+4. **Preview & Test**: Use preview functionality to see changes before publishing
+
+### Content Types
+- **Tournament**: Tournament information with navigation settings and images
+- **Policy**: Legal documents with rich text content and optional PDF files
+- **Navigation**: Site-wide navigation and footer configuration
 
 ### Documentation & Resources
-- [Sanity Documentation](https://www.sanity.io/docs) - Complete guide to Sanity CMS
-- [GROQ Documentation](https://www.sanity.io/docs/groq) - Query language reference
-- [Sanity Studio Documentation](https://www.sanity.io/docs/sanity-studio) - Studio customization guide
-- [Next.js Integration](https://www.sanity.io/docs/nextjs) - Sanity + Next.js best practices
-- [Image URLs](https://www.sanity.io/docs/image-urls) - Image optimization and transformations
+- [Prismic Documentation](https://prismic.io/docs) - Complete guide to Prismic CMS
+- [Next.js Integration](https://prismic.io/docs/nextjs) - Next.js specific documentation
+- [Slice Machine Documentation](https://prismic.io/docs/slice-machine) - Content modeling tool
+- [Preview System](https://prismic.io/docs/previews) - Draft content preview functionality
 
 ## Image Optimization
 

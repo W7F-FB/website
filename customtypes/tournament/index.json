@@ -1,0 +1,71 @@
+{
+  "format": "custom",
+  "id": "tournament",
+  "json": {
+    "Main": {
+      "title": {
+        "type": "Text",
+        "config": {
+          "label": "Title",
+          "placeholder": "Tournament title",
+          "useAsTitle": true
+        }
+      },
+      "uid": {
+        "type": "UID",
+        "config": {
+          "label": "UID",
+          "placeholder": "URL slug for this tournament"
+        }
+      },
+      "country_code": {
+        "type": "Text",
+        "config": {
+          "label": "Country Code",
+          "placeholder": "Two-letter country code (e.g., US, UK, FR)"
+        }
+      },
+      "start_date": {
+        "type": "Date",
+        "config": {
+          "label": "Start Date"
+        }
+      },
+      "end_date": {
+        "type": "Date",
+        "config": {
+          "label": "End Date"
+        }
+      }
+    },
+    "Navigation": {
+      "show_in_navigation": {
+        "type": "Boolean",
+        "config": {
+          "placeholder_false": "Hidden from navigation",
+          "placeholder_true": "Show in navigation",
+          "default_value": false,
+          "label": "Show in Navigation"
+        }
+      },
+      "navigation_order": {
+        "type": "Number",
+        "config": {
+          "label": "Navigation Order",
+          "placeholder": "Order in navigation (lower numbers appear first)"
+        }
+      },
+      "nav_image": {
+        "type": "Image",
+        "config": {
+          "constraint": {},
+          "thumbnails": [],
+          "label": "Navigation Image"
+        }
+      }
+    }
+  },
+  "label": "Tournament",
+  "repeatable": true,
+  "status": true
+}

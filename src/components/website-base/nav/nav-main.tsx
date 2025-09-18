@@ -12,8 +12,8 @@ import {
 } from "@/components/ui/navigation-menu"
 import { NavigationMenuTournament } from "./nav-tournament-item"
 import { PaddingGlobal } from "@/components/website-base/padding-containers"
-import { getNavigationTournaments } from "@/sanity/queries/tournaments"
-import type { Tournament } from "../../../../studio-website/sanity.types"
+import { getNavigationTournaments } from "@/cms/queries/tournaments"
+import type { TournamentDocument } from "../../../../types.generated"
 import { Button } from "@/components/ui/button"
 
 async function NavMain() {
@@ -32,7 +32,7 @@ async function NavMain() {
                 <ul className="grid gap-2 md:w-[320px]">
                   {tournaments.map((tournament) => (
                     <NavigationMenuTournament
-                      key={tournament._id}
+                      key={tournament.id}
                       tournament={tournament}
                     />    
                   ))}

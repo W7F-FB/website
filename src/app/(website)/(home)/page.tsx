@@ -104,8 +104,10 @@ export default function HomePage() {
                                         <strong>What is the format of a W7F tournament?</strong>
                                     </AccordionTrigger>
                                     <AccordionContent>
-                                        <P className="text-sm">
-                                            The fast-paced seven-a-side format includes a two-day group-stage round-robin, featuring two groups of four teams. On day three of the tournament, the top two clubs per group will advance to the knockout stage. There will be sixteen matches per tournament, including a third-place match, and of course, a much-anticipated championship match.<br /><br />
+                                        <P>
+                                            The fast-paced seven-a-side format includes a two-day group-stage round-robin, featuring two groups of four teams. On day three of the tournament, the top two clubs per group will advance to the knockout stage. There will be sixteen matches per tournament, including a third-place match, and of course, a much-anticipated championship match.
+                                        </P>
+                                        <P>
                                             Each club will play between three and five games in total, depending on the progress of that club through the tournament.
                                         </P>
                                     </AccordionContent>
@@ -115,8 +117,10 @@ export default function HomePage() {
                                         <strong>Who participates in W7F tournaments?</strong>
                                     </AccordionTrigger>
                                     <AccordionContent>
-                                        <P className="text-sm">
-                                            Established professional clubs from the best leagues across the globe have committed to participating in W7F's seven-a-side tournaments. From that club pool, teams will be chosen to compete.<br /><br />
+                                        <P>
+                                            Established professional clubs from the best leagues across the globe have committed to participating in W7F's seven-a-side tournaments. From that club pool, teams will be chosen to compete.
+                                        </P>
+                                        <P>
                                             For the May 2025 tournament in Estoril, participating clubs were: Ajax, Bayern, Benfica, Manchester City, Manchester United, Paris Saint-Germain, AS Roma and FC Rosengard.
                                         </P>
                                     </AccordionContent>
@@ -126,7 +130,7 @@ export default function HomePage() {
                                         <strong>How many clubs will take part in each W7F tournaments?</strong>
                                     </AccordionTrigger>
                                     <AccordionContent>
-                                        <P className="text-sm">
+                                        <P>
                                             The first and second tournament feature eight sides from the club pool. As the series grows, we expect to expand the number of teams competing in each event.
                                         </P>
                                     </AccordionContent>
