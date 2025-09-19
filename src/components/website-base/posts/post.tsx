@@ -46,7 +46,7 @@ function PostStandard({ blog, className }: PostProps) {
             {blog.category && (
               <Badge
                 variant="secondary"
-                className="text-[var(--color-emerald-400)] rounded-none uppercase text-md"
+                className="text-accent-foreground rounded-none uppercase text-md"
               >
                 {blog.category}
               </Badge>
@@ -59,7 +59,7 @@ function PostStandard({ blog, className }: PostProps) {
         {blog.excerpt && (
           <P className="text-sm text-white line-clamp-3 !mt-0 mb-4">{blog.excerpt}</P>
         )}
-        <Button variant="link" className="text-[var(--color-emerald-400)] p-0 hover:underline text-xs font-light">
+        <Button variant="link" className="text-accent-foreground p-0 hover:underline text-xs font-light">
             Read more →
         </Button>
       </CardContent>
@@ -85,7 +85,7 @@ function PostCompact({ blog, className }: PostProps) {
           {blog.category && (
             <Badge
               variant="secondary"
-              className="text-[var(--color-emerald-400)] rounded-none uppercase text-sm"
+              className="text-accent-foreground rounded-none uppercase text-sm"
             >
               {blog.category}
             </Badge>
@@ -97,7 +97,7 @@ function PostCompact({ blog, className }: PostProps) {
         </H3>
         <Button
           variant="link"
-          className="text-[var(--color-emerald-400)] p-0 hover:underline text-xs font-light justify-start mt-2"
+          className="text-accent-foreground p-0 hover:underline text-xs font-light justify-start mt-2"
         >
           Read more →
         </Button>
@@ -125,7 +125,7 @@ function PostCardHoriz({ blog, className }: PostProps) {
             {blog.category && (
               <Badge
                 variant="secondary"
-                className="text-[var(--color-emerald-400)] rounded-none uppercase text-md"
+                className="text-accent-foreground rounded-none uppercase text-md"
               >
                 {blog.category}
               </Badge>
@@ -140,7 +140,7 @@ function PostCardHoriz({ blog, className }: PostProps) {
         <CardFooter className="p-0 mt-4">
           <Button
             variant="link"
-            className="text-[var(--color-emerald-400)] p-0 hover:underline text-xs font-light"
+            className="text-accent-foreground p-0 hover:underline text-xs font-light"
           >
             Read more →
           </Button>
@@ -169,7 +169,7 @@ function PostCardVert({ blog, className }: PostProps) {
             {blog.category && (
               <Badge
                 variant="secondary"
-                className="text-[var(--color-emerald-400)] rounded-none uppercase text-md"
+                className="text-accent-foreground rounded-none uppercase text-md"
               >
                 {blog.category}
               </Badge>
@@ -184,7 +184,7 @@ function PostCardVert({ blog, className }: PostProps) {
         <CardFooter className="p-0 mt-4">
           <Button
             variant="link"
-            className="text-[var(--color-emerald-400)] p-0 hover:underline text-xs font-light"
+            className="text-accent-foreground p-0 hover:underline text-xs font-light"
           >
             Read more →
           </Button>
