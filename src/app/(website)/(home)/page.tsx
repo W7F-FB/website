@@ -137,7 +137,7 @@ export default function HomePage() {
                                 </AccordionItem>
                             </Accordion>
                             <div className="mt-8 text-center">
-                                <Button asChild size="skew">
+                                <Button asChild>
                                     <Link href="/faqs"><span>Read More</span></Link>
                                 </Button>
                             </div>

@@ -1,5 +1,6 @@
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
+import { format, parseISO } from "date-fns";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -165,4 +166,14 @@ export function createGrainGradientBackground(
   
   const encodedSvg = encodeURIComponent(svg);
   return `url("data:image/svg+xml,${encodedSvg}")`;
+}
+
+export function formatDate(dateString: string | null | undefined): string {
+  if (!dateString) return "";
+  try {
+    return format(parseISO(dateString), "MMM d, yyyy"); 
+    // e.g. 2025-09-19 → September 19, 2025
+  } catch {
+    return dateString; // fallback in case of invalid date
+  }
 }

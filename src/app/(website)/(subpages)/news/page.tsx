@@ -2,6 +2,8 @@ import { Section } from "@/components/website-base/padding-containers"
 import { H1 } from "@/components/website-base/typography"
 import type { Metadata } from "next"
 import { PostCardHoriz, PostStandard, type BlogMetadata } from "@/components/website-base/posts/post"
+import { getAllBlogs } from "@/cms/queries/blog"
+import type { BlogDocument } from "../../../../../types.generated";
 
 export const metadata: Metadata = {
     title: "News - World Sevens Football",
@@ -22,17 +24,43 @@ export const metadata: Metadata = {
     },
 };
 
-const sampleBlog: BlogMetadata = {
-    id: "1",
-    title: "World Sevens Football appoints Sarah Cummins as CEO",
-    excerpt: "Cummins assumes leadership with a wealth of experience spanning more than 25 years as a revenue driver, brand builder, and commercial operator across global sports, entertainment, and media.",
-    author: "Admin",
-    date: "Sept 18, 2025",
-    category: "Tournaments",
-    image: "/images/static-media/fl-hero.avif",
+export function mapBlogDocumentToMetadata(blog: BlogDocument): BlogMetadata {
+  return {
+    slug: blog.uid ?? "",
+    title: blog.data.title ?? "Untitled",
+    excerpt: blog.data.excerpt ?? null,
+    image: blog.data.image?.url ?? undefined,
+    category: blog.data.category ?? null,
+    author: blog.data.author ?? null,
+    date: blog.data.date ?? null,
+  }
 }
 
+async function BlogsShow() {
+  const blogs = await getAllBlogs();
+  if (!blogs?.length) return null;
+
+  const [first, ...rest] = blogs;
+
+  return (
+    <div className="grid gap-8">
+      <PostCardHoriz blog={mapBlogDocumentToMetadata(first)} />
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {rest.map((p) => (
+          <PostStandard
+            key={p.uid}
+            blog={mapBlogDocumentToMetadata(p)}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+
 export default function NewsPage() {
+
   return (
     <div>
       <Section padding="none">
@@ -40,13 +68,7 @@ export default function NewsPage() {
       </Section>
 
       <Section padding="md" className="min-h-screen">
-        <div className="grid gap-8">
-          <PostCardHoriz blog={sampleBlog} />
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <PostStandard blog={sampleBlog} />
-            <PostStandard blog={sampleBlog} />
-          </div>
-        </div>
+        <BlogsShow />
       </Section>
     </div>
   )
