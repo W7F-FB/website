@@ -44,7 +44,7 @@ export default async function LeadershipPage() {
                     <P>We are a team of experienced business professionals and players leading an organization with a mission to be an undeniable force in the game of football that ignites growth and equity, delivers electrifying experiences and connects global communities.</P>
                 </SubpageHeroContent>
                 <SubpageHeroMedia>
-                    <Image src="/images/static-media/w7f-leadership.avif" alt="Leadership Hero" fill className="object-cover" />
+                    <Image src="/images/static-media/w7f-leadership.avif" alt="Leadership Hero" fill className="object-cover" sizes="1500" />
                 </SubpageHeroMedia>
             </SubpageHero>
         </Section>

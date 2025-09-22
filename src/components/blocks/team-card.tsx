@@ -22,6 +22,7 @@ function TeamCard({ team, className, ...props }: TeamCardProps) {
             alt={team.name}
             fill
             className="object-cover object-top"
+            sizes="1500"
           />
         </div>
       <CardContent className="flex flex-col p-4 pt-0">

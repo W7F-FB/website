@@ -50,6 +50,7 @@ const Logo = React.forwardRef<HTMLImageElement, LogoProps>(
         alt={alt}
         className={cn(sizeClasses[size], className)}
         {...dimensions[size]}
+        unoptimized={logoSrc.endsWith('.svg')}
         {...props}
       />
     )
