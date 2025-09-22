@@ -7,15 +7,17 @@ import { H2, H3, P} from "@/components/website-base/typography";
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils"
+import Link from "next/link"
+import { formatDate } from "@/lib/utils";
 
 export type BlogMetadata = {
-  id: string
   title: string
-  excerpt?: string
+  slug: string
+  excerpt?: string | null
   image?: string
-  category?: string
-  author?: string
-  date?: string
+  category?: string | null
+  author?: string | null
+  date?: string | null
 }
 
 export type Blog = {
@@ -30,14 +32,14 @@ export type PostProps = {
 
 function PostStandard({ blog, className }: PostProps) {
   return (
-    <Card className={cn("overflow-hidden group rounded-none", className)}>
+    <Card className={cn("overflow-hidden group rounded-none py-0", className)}>
       {blog.image && (
         <div className="relative w-full h-64">
           <Image
             src={blog.image}
             alt={blog.title}
             fill
-            className="object-cover transition-transform group-hover:scale-105"
+            className="object-cover"
           />
         </div>
       )}
@@ -51,7 +53,7 @@ function PostStandard({ blog, className }: PostProps) {
                 {blog.category}
               </Badge>
             )}
-            {blog.date && <span className="text-white text-md">{blog.date}</span>}
+            {blog.date && <span className="text-white text-md">{formatDate(blog.date)}</span>}
         </div>
       </CardHeader>
       <CardContent>
@@ -59,9 +61,11 @@ function PostStandard({ blog, className }: PostProps) {
         {blog.excerpt && (
           <P className="text-sm text-white line-clamp-3 !mt-0 mb-4">{blog.excerpt}</P>
         )}
-        <Button variant="link" className="text-accent-foreground p-0 hover:underline text-xs font-light">
-            Read more →
-        </Button>
+        <Link href={`/news/${blog.slug}`} passHref>
+          <Button variant="link" className="text-accent-foreground p-0 hover:underline text-xs font-light">
+              Read more →
+          </Button>
+        </Link>
       </CardContent>
     </Card>
   )
@@ -76,7 +80,7 @@ function PostCompact({ blog, className }: PostProps) {
             src={blog.image}
             alt={blog.title}
             fill
-            className="object-cover transition-transform group-hover:scale-105"
+            className="object-cover"
           />
         </div>
       )}
@@ -90,17 +94,19 @@ function PostCompact({ blog, className }: PostProps) {
               {blog.category}
             </Badge>
           )}
-          {blog.date && <span className="text-white text-md">{blog.date}</span>}
+          {blog.date && <span className="text-white text-md">{formatDate(blog.date)}</span>}
         </div>
         <H3 className="text-md font-semibold text-white md:text-xl">
           {blog.title}
         </H3>
-        <Button
-          variant="link"
-          className="text-accent-foreground p-0 hover:underline text-xs font-light justify-start mt-2"
-        >
-          Read more →
-        </Button>
+        <Link href={`/news/${blog.slug}`} passHref>
+          <Button
+            variant="link"
+            className="text-accent-foreground p-0 hover:underline text-xs font-light justify-start mt-2"
+          >
+            Read more →
+          </Button>
+        </Link>
       </div>
     </div>
   )
@@ -115,7 +121,7 @@ function PostCardHoriz({ blog, className }: PostProps) {
             src={blog.image}
             alt={blog.title}
             fill
-            className="object-cover transition-transform group-hover:scale-105"
+            className="object-cover"
           />
         </div>
       )}
@@ -130,7 +136,7 @@ function PostCardHoriz({ blog, className }: PostProps) {
                 {blog.category}
               </Badge>
             )}
-            {blog.date && <span className="text-white text-md">{blog.date}</span>}
+            {blog.date && <span className="text-white text-md">{formatDate(blog.date)}</span>}
           </div>
           <H2 className="text-md font-semibold text-white md:text-2xl">{blog.title}</H2>
           {blog.excerpt && (
@@ -138,12 +144,14 @@ function PostCardHoriz({ blog, className }: PostProps) {
           )}
         </CardHeader>
         <CardFooter className="p-0 mt-4">
-          <Button
-            variant="link"
-            className="text-accent-foreground p-0 hover:underline text-xs font-light"
-          >
-            Read more →
-          </Button>
+          <Link href={`/news/${blog.slug}`} passHref>
+            <Button
+              variant="link"
+              className="text-accent-foreground p-0 hover:underline text-xs font-light"
+            >
+              Read more →
+            </Button>
+          </Link>
         </CardFooter>
       </div>
     </Card>
@@ -159,7 +167,7 @@ function PostCardVert({ blog, className }: PostProps) {
             src={blog.image}
             alt={blog.title}
             fill
-            className="object-cover transition-transform group-hover:scale-105"
+            className="object-cover"
           />
         </div>
       )}
@@ -174,7 +182,7 @@ function PostCardVert({ blog, className }: PostProps) {
                 {blog.category}
               </Badge>
             )}
-            {blog.date && <span className="text-white text-md">{blog.date}</span>}
+            {blog.date && <span className="text-white text-md">{formatDate(blog.date)}</span>}
           </div>
           <H2 className="text-md font-semibold text-white md:text-2xl">{blog.title}</H2>
           {blog.excerpt && (
@@ -182,12 +190,14 @@ function PostCardVert({ blog, className }: PostProps) {
           )}
         </CardHeader>
         <CardFooter className="p-0 mt-4">
-          <Button
-            variant="link"
-            className="text-accent-foreground p-0 hover:underline text-xs font-light"
-          >
-            Read more →
-          </Button>
+          <Link href={`/news/${blog.slug}`} passHref>
+            <Button
+              variant="link"
+              className="text-accent-foreground p-0 hover:underline text-xs font-light"
+            >
+              Read more →
+            </Button>
+          </Link>
         </CardFooter>
       </div>
     </Card>

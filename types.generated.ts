@@ -49,6 +49,99 @@ type ContentRelationshipFieldWithData<
 }[Exclude<TCustomType[number], string>["id"]];
 
 /**
+ * Content for blog documents
+ */
+interface BlogDocumentData {
+	/**
+	 * title field in *blog*
+	 *
+	 * - **Field Type**: Text
+	 * - **Placeholder**: Blog title
+	 * - **API ID Path**: blog.title
+	 * - **Tab**: Main
+	 * - **Documentation**: https://prismic.io/docs/fields/text
+	 */
+	title: prismic.KeyTextField;
+	
+	/**
+	 * image field in *blog*
+	 *
+	 * - **Field Type**: Image
+	 * - **Placeholder**: *None*
+	 * - **API ID Path**: blog.image
+	 * - **Tab**: Main
+	 * - **Documentation**: https://prismic.io/docs/fields/image
+	 */
+	image: prismic.ImageField<never>;
+	
+	/**
+	 * category field in *blog*
+	 *
+	 * - **Field Type**: Select
+	 * - **Placeholder**: *None*
+	 * - **API ID Path**: blog.category
+	 * - **Tab**: Main
+	 * - **Documentation**: https://prismic.io/docs/fields/select
+	 */
+	category: prismic.SelectField<"Announcements" | "Tournament Recap" | "Match Recap" | "Social Impact">;
+	
+	/**
+	 * date field in *blog*
+	 *
+	 * - **Field Type**: Date
+	 * - **Placeholder**: *None*
+	 * - **API ID Path**: blog.date
+	 * - **Tab**: Main
+	 * - **Documentation**: https://prismic.io/docs/fields/date
+	 */
+	date: prismic.DateField;
+	
+	/**
+	 * author field in *blog*
+	 *
+	 * - **Field Type**: Text
+	 * - **Placeholder**: *None*
+	 * - **API ID Path**: blog.author
+	 * - **Tab**: Main
+	 * - **Documentation**: https://prismic.io/docs/fields/text
+	 */
+	author: prismic.KeyTextField;
+	
+	/**
+	 * excerpt field in *blog*
+	 *
+	 * - **Field Type**: Text
+	 * - **Placeholder**: *None*
+	 * - **API ID Path**: blog.excerpt
+	 * - **Tab**: Main
+	 * - **Documentation**: https://prismic.io/docs/fields/text
+	 */
+	excerpt: prismic.KeyTextField;
+	
+	/**
+	 * content field in *blog*
+	 *
+	 * - **Field Type**: Rich Text
+	 * - **Placeholder**: *None*
+	 * - **API ID Path**: blog.content
+	 * - **Tab**: Main
+	 * - **Documentation**: https://prismic.io/docs/fields/rich-text
+	 */
+	content: prismic.RichTextField;
+}
+
+/**
+ * blog document from Prismic
+ *
+ * - **API ID**: `blog`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/content-modeling
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type BlogDocument<Lang extends string = string> = prismic.PrismicDocumentWithUID<Simplify<BlogDocumentData>, "blog", Lang>;
+
+/**
  * Content for Policy documents
  */
 interface PolicyDocumentData {
@@ -153,7 +246,7 @@ interface TeamMemberDocumentData {
 	 * - **Tab**: Main
 	 * - **Documentation**: https://prismic.io/docs/fields/image
 	 */
-	headshot: prismic.ImageField<"small">;
+	headshot: prismic.ImageField<"small" | "medium">;
 	
 	/**
 	 * Biography field in *Team Member*
@@ -378,7 +471,7 @@ interface WebsiteDocumentData {
  */
 export type WebsiteDocument<Lang extends string = string> = prismic.PrismicDocumentWithoutUID<Simplify<WebsiteDocumentData>, "website", Lang>;
 
-export type AllDocumentTypes = PolicyDocument | TeamMemberDocument | TournamentDocument | WebsiteDocument;
+export type AllDocumentTypes = BlogDocument | PolicyDocument | TeamMemberDocument | TournamentDocument | WebsiteDocument;
 
 declare module "@prismicio/client" {
 	interface CreateClient {
@@ -395,6 +488,8 @@ declare module "@prismicio/client" {
 	
 	namespace Content {
 		export type {
+			BlogDocument,
+			BlogDocumentData,
 			PolicyDocument,
 			PolicyDocumentData,
 			TeamMemberDocument,
