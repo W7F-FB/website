@@ -46,6 +46,8 @@ async function BlogsShow() {
     <div className="grid gap-8">
       <PostCardHoriz blog={mapBlogDocumentToMetadata(first)} />
 
+      <div className="border-b border-gray-200 dark:border-gray-700 my-4" />
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {rest.map((p) => (
           <PostStandard
