@@ -1,7 +1,7 @@
 {
   "format": "custom",
-  "id": "blog",
-  "label": "blog",
+  "id": "image_with_text",
+  "label": "Image with text",
   "repeatable": true,
   "status": true,
   "json": {
@@ -12,11 +12,18 @@
           "label": "UID"
         }
       },
+      "heading": {
+        "type": "Text",
+        "config": {
+          "label": "heading",
+          "placeholder": ""
+        }
+      },
       "title": {
         "type": "Text",
         "config": {
           "label": "title",
-          "placeholder": "Blog title"
+          "placeholder": ""
         }
       },
       "image": {
@@ -27,45 +34,18 @@
           "thumbnails": []
         }
       },
-      "category": {
+      "align_image": {
         "type": "Select",
         "config": {
-          "label": "category",
+          "label": "align image",
           "placeholder": "",
-          "options": [
-            "Announcements",
-            "Tournament Recap",
-            "Match Recap",
-            "Social Impact",
-            "Match Day Preview"
-          ]
+          "options": ["left", "right"]
         }
       },
-      "date": {
-        "type": "Date",
-        "config": {
-          "label": "date",
-          "placeholder": ""
-        }
-      },
-      "author": {
-        "type": "Text",
-        "config": {
-          "label": "author",
-          "placeholder": ""
-        }
-      },
-      "excerpt": {
-        "type": "Text",
-        "config": {
-          "label": "excerpt",
-          "placeholder": ""
-        }
-      },
-      "content": {
+      "description": {
         "type": "StructuredText",
         "config": {
-          "label": "content",
+          "label": "description",
           "placeholder": "",
           "allowTargetBlank": true,
           "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"

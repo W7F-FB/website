@@ -18,8 +18,8 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark scroll-smooth scroll-pt-24 overscroll-auto lg:overscroll-none" data-scroll-behavior="smooth">
-      <body className="antialiased bg-background font-body min-h-dvh flex flex-col">
+    <html lang="en" className="dark scroll-smooth scroll-pt-24 overscroll-auto lg:overscroll-none" data-scroll-behavior="smooth" suppressHydrationWarning>
+      <body className="antialiased bg-background font-body min-h-dvh flex flex-col" suppressHydrationWarning>
         <Script
           async
           defer

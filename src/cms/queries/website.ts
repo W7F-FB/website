@@ -1,7 +1,6 @@
 import { createClient } from "../../prismicio";
-import type { WebsiteDocument } from "../../../types.generated";
+import type { WebsiteDocument } from "../../../prismicio-types";
 import * as prismic from "@prismicio/client";
-import { SliceZone } from "@prismicio/react";
 
 /**
  * Type for footer column data
@@ -37,7 +36,7 @@ export async function getSiteSettings(): Promise<SiteSettings | null> {
   } catch (error) {
     // Handle both 404 and "No documents were returned" errors
     if (error instanceof Error && 
-        (('status' in error && (error as any).status === 404) ||
+        (('status' in error && (error as { status: number }).status === 404) ||
         error.message.includes('No documents were returned'))
     ) {
       return null;

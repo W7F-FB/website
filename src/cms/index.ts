@@ -11,6 +11,6 @@ export { getSiteSettings, getFooterData } from "./queries/navigation";
 export type { 
   TournamentDocument, 
   PolicyDocument, 
-  NavigationDocument 
-} from "../types.generated";
+  WebsiteDocument 
+} from "../../prismicio-types";
 export type { FooterColumnData, SiteSettings } from "./queries/navigation";

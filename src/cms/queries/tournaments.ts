@@ -1,5 +1,5 @@
 import { createClient } from "../../prismicio";
-import type { TournamentDocument } from "../../../types.generated";
+import type { TournamentDocument } from "../../../prismicio-types";
 
 /**
  * Get tournaments that should show in navigation, ordered by navigation order and start date
@@ -53,7 +53,7 @@ export async function getTournamentByUid(uid: string): Promise<TournamentDocumen
     const client = createClient();
     return await client.getByUID("tournament", uid);
   } catch (error) {
-    if (error instanceof Error && 'status' in error && (error as any).status === 404) {
+    if (error instanceof Error && 'status' in error && (error as { status: number }).status === 404) {
       return null;
     }
     throw error;

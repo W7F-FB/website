@@ -112,14 +112,10 @@ export function createGrainGradientBackground(
   accentColor = "#708e53", 
   shadowColor = "#242424"
 ) {
-  // If CSS variables are passed, resolve them
+  // Use consistent fallback colors for SSR/client consistency
   const resolveColor = (color: string) => {
     if (color.startsWith('var(')) {
-      if (typeof window !== 'undefined') {
-        const varName = color.slice(4, -1); // Remove 'var(' and ')'
-        return getComputedStyle(document.documentElement).getPropertyValue(varName).trim();
-      }
-      // Fallback for SSR or when window is not available
+      // Use consistent fallback colors instead of checking window
       return color.replace('var(--muted)', '#f5f5f5')
                   .replace('var(--primary)', '#1a1a1a')
                   .replace('var(--accent)', '#1a1a1a');

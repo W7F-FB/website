@@ -118,7 +118,7 @@ export default function HomePage() {
                                     </AccordionTrigger>
                                     <AccordionContent>
                                         <P>
-                                            Established professional clubs from the best leagues across the globe have committed to participating in W7F's seven-a-side tournaments. From that club pool, teams will be chosen to compete.
+                                            Established professional clubs from the best leagues across the globe have committed to participating in W7F&apos;s seven-a-side tournaments. From that club pool, teams will be chosen to compete.
                                         </P>
                                         <P>
                                             For the May 2025 tournament in Estoril, participating clubs were: Ajax, Bayern, Benfica, Manchester City, Manchester United, Paris Saint-Germain, AS Roma and FC Rosengard.

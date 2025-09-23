@@ -3,7 +3,7 @@ import { PrismicRichText, PrismicRichTextProps } from "@prismicio/react"
 import Image from "next/image"
 import * as prismic from "@prismicio/client"
 
-import { H1, H2, H3, H4, P, Blockquote, List, Subtitle } from "./typography"
+import { H1, H2, H3, H4, P, Blockquote, List } from "./typography"
 
 const components: PrismicRichTextProps["components"] = {
   heading1: ({ children }) => <H1>{children}</H1>,

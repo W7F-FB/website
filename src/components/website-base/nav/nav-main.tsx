@@ -13,7 +13,6 @@ import {
 import { NavigationMenuTournament } from "./nav-tournament-item"
 import { PaddingGlobal } from "@/components/website-base/padding-containers"
 import { getNavigationTournaments } from "@/cms/queries/tournaments"
-import type { TournamentDocument } from "../../../../types.generated"
 import { Button } from "@/components/ui/button"
 
 async function NavMain() {

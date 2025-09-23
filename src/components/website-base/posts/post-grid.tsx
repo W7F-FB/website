@@ -1,7 +1,7 @@
 "use client"
 
 import { cn } from "@/lib/utils"
-import { PostCardVert, PostCompact, PostStandard, PostCardHoriz, type BlogMetadata } from "@/components/website-base/posts/post"
+import { PostCompact, PostStandard, type BlogMetadata } from "@/components/website-base/posts/post"
 
 type PostGridProps = {
   posts: BlogMetadata[]
@@ -21,7 +21,7 @@ export function PostGrid({ posts, className }: PostGridProps) {
 
       <div className="flex flex-col gap-6">
         {rest.map((post) => (
-          <PostCompact key={post.id} blog={post} />
+          <PostCompact key={post.slug} blog={post} />
         ))}
       </div>
     </div>

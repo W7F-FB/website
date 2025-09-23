@@ -3,7 +3,7 @@ import { H1 } from "@/components/website-base/typography"
 import type { Metadata } from "next"
 import { PostCardHoriz, PostStandard, type BlogMetadata } from "@/components/website-base/posts/post"
 import { getAllBlogs } from "@/cms/queries/blog"
-import type { BlogDocument } from "../../../../../types.generated";
+import type { BlogDocument } from "../../../../../prismicio-types";
 
 export const metadata: Metadata = {
     title: "News - World Sevens Football",
@@ -45,8 +45,6 @@ async function BlogsShow() {
   return (
     <div className="grid gap-8">
       <PostCardHoriz blog={mapBlogDocumentToMetadata(first)} />
-
-      <div className="border-b border-gray-200 dark:border-gray-700 my-4" />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {rest.map((p) => (

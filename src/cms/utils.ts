@@ -1,10 +1,5 @@
 import { createClient } from "../prismicio";
 import * as prismic from "@prismicio/client";
-import type { 
-  TournamentDocument, 
-  PolicyDocument, 
-  WebsiteDocument 
-} from "../../types.generated";
 
 /**
  * Create Prismic client instance

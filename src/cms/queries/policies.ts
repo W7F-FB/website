@@ -1,5 +1,5 @@
 import { createClient } from "../../prismicio";
-import type { PolicyDocument } from "../../../types.generated";
+import type { PolicyDocument } from "../../../prismicio-types";
 import * as prismic from "@prismicio/client";
 
 /**
@@ -10,7 +10,7 @@ export async function getPolicyBySlug(uid: string): Promise<PolicyDocument | nul
     const client = createClient();
     return await client.getByUID("policy", uid);
   } catch (error) {
-    if (error instanceof Error && 'status' in error && (error as any).status === 404) {
+    if (error instanceof Error && 'status' in error && (error as { status: number }).status === 404) {
       return null;
     }
     throw error;

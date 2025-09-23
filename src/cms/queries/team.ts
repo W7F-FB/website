@@ -1,5 +1,5 @@
 import { createClient } from "../../prismicio";
-import type { TeamMemberDocument } from "../../../types.generated";
+import type { TeamMemberDocument } from "../../../prismicio-types";
 import * as prismic from "@prismicio/client";
 
 /**

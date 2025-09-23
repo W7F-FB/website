@@ -105,7 +105,11 @@ interface BlogDocumentData {
    * - **Documentation**: https://prismic.io/docs/fields/select
    */
   category: prismic.SelectField<
-    "Announcements" | "Tournament Recap" | "Match Recap" | "Social Impact"
+    | "Announcements"
+    | "Tournament Recap"
+    | "Match Recap"
+    | "Social Impact"
+    | "Match Day Preview"
   >;
 
   /**
@@ -164,6 +168,82 @@ interface BlogDocumentData {
  */
 export type BlogDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithUID<Simplify<BlogDocumentData>, "blog", Lang>;
+
+/**
+ * Content for Image with text documents
+ */
+interface ImageWithTextDocumentData {
+  /**
+   * heading field in *Image with text*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: image_with_text.heading
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  heading: prismic.KeyTextField;
+
+  /**
+   * title field in *Image with text*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: image_with_text.title
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  title: prismic.KeyTextField;
+
+  /**
+   * image field in *Image with text*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: image_with_text.image
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image: prismic.ImageField<never>;
+
+  /**
+   * align image field in *Image with text*
+   *
+   * - **Field Type**: Select
+   * - **Placeholder**: *None*
+   * - **API ID Path**: image_with_text.align_image
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/select
+   */
+  align_image: prismic.SelectField<"left" | "right">;
+
+  /**
+   * description field in *Image with text*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: image_with_text.description
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  description: prismic.RichTextField;
+}
+
+/**
+ * Image with text document from Prismic
+ *
+ * - **API ID**: `image_with_text`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/content-modeling
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type ImageWithTextDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<
+    Simplify<ImageWithTextDocumentData>,
+    "image_with_text",
+    Lang
+  >;
 
 /**
  * Content for Policy documents
@@ -519,6 +599,7 @@ export type WebsiteDocument<Lang extends string = string> =
 
 export type AllDocumentTypes =
   | BlogDocument
+  | ImageWithTextDocument
   | PolicyDocument
   | TeamMemberDocument
   | TournamentDocument
@@ -547,6 +628,8 @@ declare module "@prismicio/client" {
     export type {
       BlogDocument,
       BlogDocumentData,
+      ImageWithTextDocument,
+      ImageWithTextDocumentData,
       PolicyDocument,
       PolicyDocumentData,
       TeamMemberDocument,

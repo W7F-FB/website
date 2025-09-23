@@ -109,7 +109,7 @@ export default async function LeadershipPage() {
         <Section padding="md" className="grid grid-cols-3 gap-16" id="leadership-team">
             <GradientBanner className="">
                 <H2>Leadership Team</H2>
-                <P>Our experienced leadership team brings together diverse expertise in sports management, business development, and tournament operations to drive World Sevens Football's strategic vision forward.</P>
+                <P>Our experienced leadership team brings together diverse expertise in sports management, business development, and tournament operations to drive World Sevens Football&apos;s strategic vision forward.</P>
             </GradientBanner>
             <div className="col-span-2 grid grid-cols-3 gap-8">
                 {leadershipTeam.length > 0 ? (

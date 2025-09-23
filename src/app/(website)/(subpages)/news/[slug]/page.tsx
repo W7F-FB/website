@@ -13,18 +13,19 @@ import { getAllBlogs } from "@/cms/queries/blog"
 import { PostStandard } from "@/components/website-base/posts/post"
 
 type Props = {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }
 
 export default async function BlogPostPage({ params }: Props) {
-  const blogDoc = await getBlogBySlug(params.slug)
+  const { slug } = await params
+  const blogDoc = await getBlogBySlug(slug)
 
   if (!blogDoc) return notFound()
 
   const blog = mapBlogDocumentToMetadata(blogDoc)
   const allBlogs = await getAllBlogs()
   const relatedBlogs = allBlogs
-    .filter((b) => b.uid !== params.slug)
+    .filter((b) => b.uid !== slug)
     .slice(0, 3) 
 
   return (

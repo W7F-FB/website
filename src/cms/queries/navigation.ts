@@ -1,5 +1,5 @@
 import { createClient } from "../../prismicio";
-import type { WebsiteDocument, WebsiteDocumentDataFooterMenusItem } from "../../../types.generated";
+import type { WebsiteDocument, WebsiteDocumentDataFooterMenusItem } from "../../../prismicio-types";
 import * as prismic from "@prismicio/client";
 
 /**
@@ -36,7 +36,7 @@ export async function getSiteSettings(): Promise<SiteSettings | null> {
   } catch (error) {
     // Handle both 404 and "No documents were returned" errors
     if (error instanceof Error && 
-        (('status' in error && (error as any).status === 404) ||
+        (('status' in error && (error as { status: number }).status === 404) ||
         error.message.includes('No documents were returned'))
     ) {
       return null;
