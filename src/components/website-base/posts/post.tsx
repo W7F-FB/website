@@ -32,14 +32,14 @@ export type PostProps = {
 
 function PostStandard({ blog, className }: PostProps) {
   return (
-    <Card className={cn("overflow-hidden group rounded-none py-0", className)}>
+    <Card className={cn("overflow-hidden group rounded-none", className)}>
       {blog.image && (
         <div className="relative w-full h-64">
           <Image
             src={blog.image}
             alt={blog.title}
             fill
-            className="object-cover"
+            className="object-cover transition-transform group-hover:scale-105"
           />
         </div>
       )}
@@ -80,7 +80,7 @@ function PostCompact({ blog, className }: PostProps) {
             src={blog.image}
             alt={blog.title}
             fill
-            className="object-cover"
+            className="object-cover transition-transform group-hover:scale-105"
           />
         </div>
       )}
@@ -121,7 +121,7 @@ function PostCardHoriz({ blog, className }: PostProps) {
             src={blog.image}
             alt={blog.title}
             fill
-            className="object-cover"
+            className="object-cover transition-transform group-hover:scale-105"
           />
         </div>
       )}
@@ -167,7 +167,7 @@ function PostCardVert({ blog, className }: PostProps) {
             src={blog.image}
             alt={blog.title}
             fill
-            className="object-cover"
+            className="object-cover transition-transform group-hover:scale-105"
           />
         </div>
       )}

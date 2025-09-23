@@ -37,3 +37,27 @@ export async function getAllBlogs(): Promise<BlogDocument[]> {
     throw error;
   }
 }
+
+export async function getSocialBlogsByCategory(category: string): Promise<BlogDocument[]> {
+  try {
+    const client = createClient();
+    return await client.getAllByType("blog", {
+      filters: [
+        prismic.filter.at("my.blog.category", category)
+      ],
+      orderings: [
+        { field: "my.blog.date", direction: "desc" },
+        { field: "my.blog.title", direction: "asc" },
+      ],
+    });
+  } catch (error) {
+    if (error instanceof Error && error.message.includes("No documents were returned")) {
+      return [];
+    }
+    throw error;
+  }
+}
+
+export async function getSocialBlogs(): Promise<BlogDocument[]> {
+  return getSocialBlogsByCategory("Social Impact");
+}
