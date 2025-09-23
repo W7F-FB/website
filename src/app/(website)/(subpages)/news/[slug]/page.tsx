@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation"
 import Image from "next/image"
-import { Section } from "@/components/website-base/padding-containers"
+import { Section, Container } from "@/components/website-base/padding-containers"
 import { formatDate } from "@/lib/utils"
 import { getBlogBySlug } from "@/cms/queries/blog"
 import { mapBlogDocumentToMetadata } from "../page"
@@ -11,6 +11,7 @@ import { H2, P} from "@/components/website-base/typography";
 import { cn } from "@/lib/utils"
 import { getAllBlogs } from "@/cms/queries/blog"
 import { PostStandard } from "@/components/website-base/posts/post"
+import { Separator } from "@/components/ui/separator";
 
 type Props = {
   params: Promise<{ slug: string }>
@@ -29,10 +30,10 @@ export default async function BlogPostPage({ params }: Props) {
     .slice(0, 3) 
 
   return (
-    <>
+    <Container maxWidth="6xl">
         <Section padding="none" className="prose prose-invert prose-p:mb-2 mt-16">
-            <Card className={cn("flex flex-col md:flex-row overflow-hidden group rounded-none p-0")}>
-                <div className="flex flex-col justify-between w-full md:w-1/2 p-6">
+            <Card className={cn("flex flex-col md:flex-row overflow-hidden group rounded-none p-0 bg-transparent border-0 gap-16")}>
+                <div className="flex flex-col justify-between w-full md:w-1/2 px-0 py-6 md:mt-6">
                     <CardHeader className="p-0">
                         <div className="flex-col md:flex-row flex justify-between text-sm mb-2">
                             {blog.category && (
@@ -75,24 +76,24 @@ export default async function BlogPostPage({ params }: Props) {
 
             )}
 
-            <div className="border-b border-gray-200 dark:border-gray-700 mt-16" />
-
+            <Separator className="mt-16 opacity-50" />
         </div>
         </Section>
 
         {relatedBlogs.length > 0 && (
-            <Section padding="none" className="max-w-5xl mx-auto mt-10">
-                <h2 className="text-xl md:text-3xl font-bold mb-6">Keep Reading</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <Section padding="none" className="mx-auto mt-16">
+                <H2 className="text-xl md:text-3xl font-bold mb-16">Keep Reading</H2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
                     {relatedBlogs.map((b) => (
                         <PostStandard
-                        key={b.uid}
-                        blog={mapBlogDocumentToMetadata(b)}
+                            key={b.uid}
+                            blog={mapBlogDocumentToMetadata(b)}
+                            className="h-full"
                         />
                     ))}
                 </div>
             </Section>
         )}
-    </>
+    </Container>
   )
 }
