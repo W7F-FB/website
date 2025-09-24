@@ -56,9 +56,9 @@ async function NavMain() {
                       </Link>
                     </NavigationMenuLink>
                   </li>
-                  <li data-testid="social-impact-nav-item">
+                  <li>
                     <NavigationMenuLink asChild>
-                      <Link href="/social-impact">
+                      <Link href="/social-impact-test">
                         <span>Social Impact</span>
                       </Link>
                     </NavigationMenuLink>
