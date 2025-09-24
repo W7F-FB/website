@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import type { FAQItem } from "@/types/basic";
 
 export const metadata: Metadata = {
     title: "World Sevens Football - The Future of 7v7 Soccer",
@@ -46,6 +47,30 @@ export const metadata: Metadata = {
         },
     }
 };
+
+const faqData: FAQItem[] = [
+    {
+        id: "item-1",
+        question: "What is the format of a W7F tournament?",
+        answer: [
+            "The fast-paced seven-a-side format includes a two-day group-stage round-robin, featuring two groups of four teams. On day three of the tournament, the top two clubs per group will advance to the knockout stage. There will be sixteen matches per tournament, including a third-place match, and of course, a much-anticipated championship match.",
+            "Each club will play between three and five games in total, depending on the progress of that club through the tournament."
+        ]
+    },
+    {
+        id: "item-2",
+        question: "Who participates in W7F tournaments?",
+        answer: [
+            "Established professional clubs from the best leagues across the globe have committed to participating in W7F's seven-a-side tournaments. From that club pool, teams will be chosen to compete.",
+            "For the May 2025 tournament in Estoril, participating clubs were: Ajax, Bayern, Benfica, Manchester City, Manchester United, Paris Saint-Germain, AS Roma and FC Rosengard."
+        ]
+    },
+    {
+        id: "item-3",
+        question: "How many clubs will take part in each W7F tournaments?",
+        answer: "The first and second tournament feature eight sides from the club pool. As the series grows, we expect to expand the number of teams competing in each event."
+    }
+];
 
 export default function HomePage() {
     return (
@@ -99,45 +124,25 @@ export default function HomePage() {
                         </CardHeader>
                         <CardContent>
                             <Accordion type="single" collapsible className="w-full">
-                                <AccordionItem value="item-1">
-                                    <AccordionTrigger>
-                                        <strong>What is the format of a W7F tournament?</strong>
-                                    </AccordionTrigger>
-                                    <AccordionContent>
-                                        <P>
-                                            The fast-paced seven-a-side format includes a two-day group-stage round-robin, featuring two groups of four teams. On day three of the tournament, the top two clubs per group will advance to the knockout stage. There will be sixteen matches per tournament, including a third-place match, and of course, a much-anticipated championship match.
-                                        </P>
-                                        <P>
-                                            Each club will play between three and five games in total, depending on the progress of that club through the tournament.
-                                        </P>
-                                    </AccordionContent>
-                                </AccordionItem>
-                                <AccordionItem value="item-2">
-                                    <AccordionTrigger>
-                                        <strong>Who participates in W7F tournaments?</strong>
-                                    </AccordionTrigger>
-                                    <AccordionContent>
-                                        <P>
-                                            Established professional clubs from the best leagues across the globe have committed to participating in W7F&apos;s seven-a-side tournaments. From that club pool, teams will be chosen to compete.
-                                        </P>
-                                        <P>
-                                            For the May 2025 tournament in Estoril, participating clubs were: Ajax, Bayern, Benfica, Manchester City, Manchester United, Paris Saint-Germain, AS Roma and FC Rosengard.
-                                        </P>
-                                    </AccordionContent>
-                                </AccordionItem>
-                                <AccordionItem value="item-3">
-                                    <AccordionTrigger>
-                                        <strong>How many clubs will take part in each W7F tournaments?</strong>
-                                    </AccordionTrigger>
-                                    <AccordionContent>
-                                        <P>
-                                            The first and second tournament feature eight sides from the club pool. As the series grows, we expect to expand the number of teams competing in each event.
-                                        </P>
-                                    </AccordionContent>
-                                </AccordionItem>
+                                {faqData.map((faq) => (
+                                    <AccordionItem key={faq.id} value={faq.id}>
+                                        <AccordionTrigger>
+                                            <strong>{faq.question}</strong>
+                                        </AccordionTrigger>
+                                        <AccordionContent>
+                                            {Array.isArray(faq.answer) ? (
+                                                faq.answer.map((paragraph, index) => (
+                                                    <P key={index}>{paragraph}</P>
+                                                ))
+                                            ) : (
+                                                <P>{faq.answer}</P>
+                                            )}
+                                        </AccordionContent>
+                                    </AccordionItem>
+                                ))}
                             </Accordion>
                             <div className="mt-8 text-center">
-                                <Button asChild>
+                                <Button asChild size="skew">
                                     <Link href="/faqs"><span>Read More</span></Link>
                                 </Button>
                             </div>
