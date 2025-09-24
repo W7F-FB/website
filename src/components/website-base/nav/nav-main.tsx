@@ -15,6 +15,14 @@ import { PaddingGlobal } from "@/components/website-base/padding-containers"
 import { getNavigationTournaments } from "@/cms/queries/tournaments"
 import { Button } from "@/components/ui/button"
 
+const exploreNavItems = [
+  { href: "/news", label: "News", key: "nav-news" },
+  { href: "/social-impact", label: "Social Impact", key: "nav-social" },
+  { href: "/faqs", label: "FAQs", key: "nav-faqs" },
+  { href: "/leadership", label: "Leadership", key: "nav-leadership" },
+  { href: "/resources", label: "Resources", key: "nav-resources" },
+]
+
 async function NavMain() {
   // Add error handling to prevent nav failure
   let tournaments: Awaited<ReturnType<typeof getNavigationTournaments>> = []
@@ -49,34 +57,20 @@ async function NavMain() {
                 <NavigationMenuTrigger><span>Explore</span></NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <ul className="grid gap-1 md:w-[320px]">
-                    <li key="news">
-                      <NavigationMenuLink asChild>
-                        <Link href="/news">
-                          <span>News</span>
-                        </Link>
-                      </NavigationMenuLink>
-                    </li>
-                    <li key="social-impact">
-                      <NavigationMenuLink asChild>
-                        <Link href="/social-impact" className="data-[active=true]:focus:bg-accent data-[active=true]:hover:bg-accent data-[active=true]:bg-accent/50 data-[active=true]:text-accent-foreground hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus-visible:ring-ring/50 [&_svg:not([class*='text-'])]:text-muted-foreground flex flex-col gap-1 p-2 text-sm transition-all outline-none focus-visible:ring-[3px] focus-visible:outline-1 [&_svg:not([class*='size-'])]:size-4 font-headers rounded-none px-4">
-                          <span>Social Impact</span>
-                        </Link>
-                      </NavigationMenuLink>
-                    </li>
-                    <li key="faqs">
-                      <NavigationMenuLink asChild>
-                        <Link href="/faqs">
-                          <span>FAQs</span>
-                        </Link>
-                      </NavigationMenuLink>
-                    </li>
+                    {exploreNavItems.map((item, index) => (
+                      <li key={item.key}>
+                        <NavigationMenuLink href={item.href}>
+                          <span>{item.label}</span>
+                        </NavigationMenuLink>
+                      </li>
+                    ))}
                   </ul>
                 </NavigationMenuContent>
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                  <a href="https://shopw7f.myshopify.com/" target="_blank" rel="me"><span>Shop</span></a>
+                <NavigationMenuLink href="https://shopw7f.myshopify.com/" target="_blank" rel="me" className={navigationMenuTriggerStyle()}>
+                  <span>Shop</span>
                 </NavigationMenuLink>
               </NavigationMenuItem>
             </NavigationMenuList>
