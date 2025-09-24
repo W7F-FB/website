@@ -1,9 +1,10 @@
-import { Section } from "@/components/website-base/padding-containers"
+import { Section, Container } from "@/components/website-base/padding-containers"
 import { H1 } from "@/components/website-base/typography"
 import type { Metadata } from "next"
 import { PostCardHoriz, PostStandard, type BlogMetadata } from "@/components/website-base/posts/post"
 import { getAllBlogs } from "@/cms/queries/blog"
 import type { BlogDocument } from "../../../../../prismicio-types";
+import { Separator } from "@/components/ui/separator";
 
 export const metadata: Metadata = {
     title: "News - World Sevens Football",
@@ -46,11 +47,14 @@ async function BlogsShow() {
     <div className="grid gap-8">
       <PostCardHoriz blog={mapBlogDocumentToMetadata(first)} />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <Separator className="my-12 opacity-50" />
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16">
         {rest.map((p) => (
           <PostStandard
             key={p.uid}
             blog={mapBlogDocumentToMetadata(p)}
+            className="h-full"
           />
         ))}
       </div>
@@ -62,7 +66,7 @@ async function BlogsShow() {
 export default function NewsPage() {
 
   return (
-    <div>
+    <Container maxWidth="6xl">
       <Section padding="none">
         <H1 className="uppercase text-2xl md:text-6xl text-center md:my-16">W7F NEWS</H1>
       </Section>
@@ -70,6 +74,6 @@ export default function NewsPage() {
       <Section padding="md" className="min-h-screen">
         <BlogsShow />
       </Section>
-    </div>
+    </Container>
   )
 }

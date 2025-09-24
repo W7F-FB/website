@@ -1,5 +1,5 @@
 import { SubpageHero, SubpageHeroContent, SubpageHeroMedia } from "@/components/blocks/subpage-hero";
-import { Section } from "@/components/website-base/padding-containers";
+import { Section, Container } from "@/components/website-base/padding-containers";
 import { H1, H2, P, Subtitle } from "@/components/website-base/typography";
 import Image from "next/image";
 import type { Metadata } from "next";
@@ -8,6 +8,8 @@ import { ImageWithText } from "@/components/blocks/image-with-text"
 import { getSocialBlogs } from "@/cms/queries/blog"
 import { PostCompact } from "@/components/website-base/posts/post"
 import { mapBlogDocumentToMetadata } from "../news/page"
+import { Separator } from "@/components/ui/separator";
+
 
 export const metadata: Metadata = {
     title: "Social Impact - World Sevens Football",
@@ -64,7 +66,7 @@ async function BlocksShow() {
           />
 
           {idx < sections.length - 1 && (
-            <div className="border-b border-gray-200 dark:border-gray-700 mt-16" />
+            <Separator className="mt-16 opacity-50" />
           )}
         </Section>
       ))}
@@ -80,7 +82,7 @@ const championship = [
 
 
 export default function SocialImpactPage() {
-  return <div>
+  return <Container maxWidth="6xl">
     <Section padding="none">
         <SubpageHero>
             <SubpageHeroContent>
@@ -100,12 +102,7 @@ export default function SocialImpactPage() {
     </Section>
 
     <Section padding="md" className="grid grid-cols-1 md:grid-cols-3 gap-16" id="player-advisory-council">
-        <div>
-            <P>
-                For our inaugural tournament in Estoril, Portugal, our three Community Champions include CAIS, Benfica Foundation, and Girls for Girls Portugal:
-            </P>
-        </div>
-
+        <P>For our inaugural tournament in Estoril, Portugal, our three Community Champions include CAIS, Benfica Foundation, and Girls for Girls Portugal:</P>
         <div className="col-span-2 grid grid-cols-3 gap-5">
             {championship.map((i) => (
                 <div key={i} className="relative w-5/8 aspect-square">
@@ -113,7 +110,7 @@ export default function SocialImpactPage() {
                     src={`/images/champions/${i}`}
                     alt="champion"
                     fill
-                    className="rounded-lg object-fit" 
+                    className="object-fit" 
                     />
                 </div>
             ))}
@@ -121,14 +118,12 @@ export default function SocialImpactPage() {
     </Section>
 
     <Section padding="md" className="grid grid-cols-1 md:grid-cols-3 gap-16" >
-        <div>
-            <H2 className="uppercase text-3xl">Keep Reading</H2>
-        </div>
+        <H2 className="uppercase text-3xl">Keep Reading</H2>
 
         <div className="col-span-2 grid grid-cols-1 gap-5">
             <BlogsShow />
         </div>
     </Section>
 
-  </div>
+  </Container>
 }
