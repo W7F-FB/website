@@ -40,3 +40,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# prismic types - use prismicio-types.d.ts instead
+types.generated.ts

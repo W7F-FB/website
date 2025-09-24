@@ -76,7 +76,7 @@ export default async function LeadershipPage() {
                 <GridCellScrollLink href="#co-founders" />
             </div>
         </Section>
-        <Separator className="my-16 opacity-50" variant="skewDash" />
+        <Separator className="my-16 opacity-50"/>
         <Section padding="md" className="grid grid-cols-3 gap-16" id="co-founders">
             <GradientBanner className="">
                 <H2>Co-Founders</H2>
