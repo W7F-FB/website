@@ -16,7 +16,14 @@ import { getNavigationTournaments } from "@/cms/queries/tournaments"
 import { Button } from "@/components/ui/button"
 
 async function NavMain() {
-  const tournaments = await getNavigationTournaments()
+  // Add error handling to prevent nav failure
+  let tournaments = []
+  try {
+    tournaments = await getNavigationTournaments()
+  } catch (error) {
+    console.error("Failed to load tournaments for navigation:", error)
+    // Navigation will still render, just without tournaments
+  }
 
   return (
     <nav className="sticky top-0 z-50 w-full border-b bg-background backdrop-blur supports-[backdrop-filter]:bg-background/90">
