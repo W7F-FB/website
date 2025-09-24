@@ -28,61 +28,63 @@ async function NavMain() {
   return (
     <nav className="sticky top-0 z-50 w-full border-b bg-background backdrop-blur supports-[backdrop-filter]:bg-background/90">
       <PaddingGlobal>
-      <div className="mx-auto flex w-full items-center gap-12 py-4">
-        <Logo size="lg" link color="white" variant="2-lines" />
-        <NavigationMenu viewport={false} className="justify-end">
-          <NavigationMenuList className="gap-2">
-            <NavigationMenuItem>
-              <NavigationMenuTrigger><span>Events & Tickets</span></NavigationMenuTrigger>
-              <NavigationMenuContent>
-                <ul className="grid gap-2 md:w-[320px]">
-                  {tournaments.map((tournament) => (
-                    <NavigationMenuTournament
-                      key={tournament.id}
-                      tournament={tournament}
-                    />    
-                  ))}
-                </ul>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuTrigger><span>Explore</span></NavigationMenuTrigger>
-              <NavigationMenuContent>
-                <ul className="grid gap-1 md:w-[320px]">
-                  <li key="news">
-                    <NavigationMenuLink asChild>
-                      <Link href="/news">
-                        <span>News</span>
-                      </Link>
-                    </NavigationMenuLink>
-                  </li>
-                  <li key="social-impact">
-                    <Link href="/social-impact" className="data-[active=true]:focus:bg-accent data-[active=true]:hover:bg-accent data-[active=true]:bg-accent/50 data-[active=true]:text-accent-foreground hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus-visible:ring-ring/50 [&_svg:not([class*='text-'])]:text-muted-foreground flex flex-col gap-1 p-2 text-sm transition-all outline-none focus-visible:ring-[3px] focus-visible:outline-1 [&_svg:not([class*='size-'])]:size-4 font-headers rounded-none px-4">
-                      <span>Social Impact</span>
-                    </Link>
-                  </li>
-                  <li key="faqs">
-                    <NavigationMenuLink asChild>
-                      <Link href="/faqs">
-                        <span>FAQs</span>
-                      </Link>
-                    </NavigationMenuLink>
-                  </li>
-                </ul>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
+        <div className="mx-auto flex w-full items-center gap-12 py-4">
+          <Logo size="lg" link color="white" variant="2-lines" />
+          <NavigationMenu viewport={false} className="justify-end">
+            <NavigationMenuList className="gap-2">
+              <NavigationMenuItem>
+                <NavigationMenuTrigger><span>Events & Tickets</span></NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <ul className="grid gap-2 md:w-[320px]">
+                    {tournaments.map((tournament) => (
+                      <NavigationMenuTournament
+                        key={tournament.id}
+                        tournament={tournament}
+                      />
+                    ))}
+                  </ul>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger><span>Explore</span></NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <ul className="grid gap-1 md:w-[320px]">
+                    <li key="news">
+                      <NavigationMenuLink asChild>
+                        <Link href="/news">
+                          <span>News</span>
+                        </Link>
+                      </NavigationMenuLink>
+                    </li>
+                    <li key="social-impact">
+                      <NavigationMenuLink asChild>
+                        <Link href="/social-impact" className="data-[active=true]:focus:bg-accent data-[active=true]:hover:bg-accent data-[active=true]:bg-accent/50 data-[active=true]:text-accent-foreground hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus-visible:ring-ring/50 [&_svg:not([class*='text-'])]:text-muted-foreground flex flex-col gap-1 p-2 text-sm transition-all outline-none focus-visible:ring-[3px] focus-visible:outline-1 [&_svg:not([class*='size-'])]:size-4 font-headers rounded-none px-4">
+                          <span>Social Impact</span>
+                        </Link>
+                      </NavigationMenuLink>
+                    </li>
+                    <li key="faqs">
+                      <NavigationMenuLink asChild>
+                        <Link href="/faqs">
+                          <span>FAQs</span>
+                        </Link>
+                      </NavigationMenuLink>
+                    </li>
+                  </ul>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
 
-            <NavigationMenuItem>
-              <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                <a href="https://shopw7f.myshopify.com/" target="_blank" rel="me"><span>Shop</span></a>
-              </NavigationMenuLink>
-            </NavigationMenuItem>
-          </NavigationMenuList>
-        </NavigationMenu>
-        <div className="flex-grow flex justify-end">
-          <Button asChild size="skew"><Link href="#"><span>Early Access</span></Link></Button>
+              <NavigationMenuItem>
+                <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+                  <a href="https://shopw7f.myshopify.com/" target="_blank" rel="me"><span>Shop</span></a>
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
+          <div className="flex-grow flex justify-end">
+            <Button asChild size="skew"><Link href="#"><span>Early Access</span></Link></Button>
+          </div>
         </div>
-      </div>
       </PaddingGlobal>
     </nav>
   )
