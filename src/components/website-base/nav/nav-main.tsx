@@ -47,7 +47,7 @@ async function NavMain() {
             </NavigationMenuItem>
             <NavigationMenuItem>
               <NavigationMenuTrigger><span>Explore</span></NavigationMenuTrigger>
-              <NavigationMenuContent >
+              <NavigationMenuContent>
                 <ul className="grid gap-1 md:w-[320px]">
                   <li>
                     <NavigationMenuLink asChild>
@@ -60,6 +60,13 @@ async function NavMain() {
                     <NavigationMenuLink asChild>
                       <Link href="/news">
                         <span>News</span>
+                      </Link>
+                    </NavigationMenuLink>
+                  </li>
+                  <li>
+                    <NavigationMenuLink asChild>
+                      <Link href="/faqs">
+                        <span>FAQs</span>
                       </Link>
                     </NavigationMenuLink>
                   </li>
