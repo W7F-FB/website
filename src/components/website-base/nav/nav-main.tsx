@@ -17,7 +17,7 @@ import { Button } from "@/components/ui/button"
 
 async function NavMain() {
   // Add error handling to prevent nav failure
-  let tournaments = []
+  let tournaments: Awaited<ReturnType<typeof getNavigationTournaments>> = []
   try {
     tournaments = await getNavigationTournaments()
   } catch (error) {
