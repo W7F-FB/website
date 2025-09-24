@@ -44,17 +44,23 @@ async function NavMain() {
                 <ul className="grid gap-1 md:w-[320px]">
                   <li>
                     <NavigationMenuLink asChild>
-                      <Link href="/news"><span>News</span></Link>
+                      <Link href="/news">
+                        <span>News</span>
+                      </Link>
+                    </NavigationMenuLink>
+                  </li>
+                  <li data-testid="social-impact-nav-item">
+                    <NavigationMenuLink asChild>
+                      <Link href="/social-impact">
+                        <span>Social Impact</span>
+                      </Link>
                     </NavigationMenuLink>
                   </li>
                   <li>
                     <NavigationMenuLink asChild>
-                      <Link href="/social-impact"><span>Social Impact</span></Link>
-                    </NavigationMenuLink>
-                  </li>
-                  <li>
-                    <NavigationMenuLink asChild>
-                      <Link href="/faqs"><span>FAQs</span></Link>
+                      <Link href="/faqs">
+                        <span>FAQs</span>
+                      </Link>
                     </NavigationMenuLink>
                   </li>
                 </ul>
