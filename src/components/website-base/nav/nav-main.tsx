@@ -57,11 +57,9 @@ async function NavMain() {
                     </NavigationMenuLink>
                   </li>
                   <li key="social-impact">
-                    <NavigationMenuLink asChild>
-                      <Link href="/social-impact">
-                        <span>Social Impact</span>
-                      </Link>
-                    </NavigationMenuLink>
+                    <Link href="/social-impact" className="data-[active=true]:focus:bg-accent data-[active=true]:hover:bg-accent data-[active=true]:bg-accent/50 data-[active=true]:text-accent-foreground hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus-visible:ring-ring/50 [&_svg:not([class*='text-'])]:text-muted-foreground flex flex-col gap-1 p-2 text-sm transition-all outline-none focus-visible:ring-[3px] focus-visible:outline-1 [&_svg:not([class*='size-'])]:size-4 font-headers rounded-none px-4">
+                      <span>Social Impact</span>
+                    </Link>
                   </li>
                   <li key="faqs">
                     <NavigationMenuLink asChild>
