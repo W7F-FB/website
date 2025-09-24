@@ -18,9 +18,7 @@ import { Button } from "@/components/ui/button"
 const exploreNavItems = [
   { href: "/news", label: "News", key: "nav-news" },
   { href: "/social-impact", label: "Social Impact", key: "nav-social" },
-  { href: "/faqs", label: "FAQs", key: "nav-faqs" },
-  { href: "/leadership", label: "Leadership", key: "nav-leadership" },
-  { href: "/resources", label: "Resources", key: "nav-resources" },
+  { href: "/faqs", label: "FAQs", key: "nav-faqs" }
 ]
 
 async function NavMain() {
