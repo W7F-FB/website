@@ -50,21 +50,23 @@ function PostStandard({ blog, className }: PostProps) {
               {blog.category && (
                 <Badge
                   variant="secondary"
-                  className="font-headers text-accent-foreground rounded-none uppercase text-md pt-1"
+                  className="font-headers text-accent-foreground rounded-none uppercase text-md"
                 >
                   {blog.category}
                 </Badge>
               )}
-              {blog.date && <span className="text-white text-md">{formatDate(blog.date)}</span>}
+              {blog.date && <span className="text-muted-foreground text-md">{formatDate(blog.date)}</span>}
           </div>
         </CardHeader>
-        <CardContent className="pb-6">
+        <CardContent>
           <H2 className="text-md font-semibold text-white md:text-xl">{blog.title}</H2>
           {blog.excerpt && (
-            <P className="text-sm text-white line-clamp-3 !mt-0 mb-4">{blog.excerpt}</P>
+            <P className="text-sm text-white line-clamp-3 !mt-0">{blog.excerpt}</P>
           )}
-          <ReadMoreButton/>
         </CardContent>
+        <CardFooter className="pb-6 mt-auto">
+          <ReadMoreButton/>
+        </CardFooter>
       </Card>
     </Link>
   )
@@ -89,7 +91,7 @@ function PostCompact({ blog, className }: PostProps) {
             {blog.category && (
               <Badge
                 variant="secondary"
-                className="text-accent-foreground rounded-none uppercase text-sm pt-1"
+                className="text-accent-foreground uppercase text-sm"
               >
                 {blog.category}
               </Badge>
@@ -132,7 +134,7 @@ function PostCardHoriz({ blog, className }: PostProps) {
               </Badge>
 
               )}
-              {blog.date && <span className="text-white text-md">{formatDate(blog.date)}</span>}
+              {blog.date && <span className="text-muted-foreground text-md">{formatDate(blog.date)}</span>}
             </div>
             <H2 className="text-md font-semibold text-white md:text-2xl">{blog.title}</H2>
             {blog.excerpt && (

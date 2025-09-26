@@ -52,7 +52,7 @@ function Subtitle({ className, ...props }: React.ComponentProps<"p">) {
 
 function P({ className, ...props }: React.ComponentProps<"p">) {
   return (
-    <p className={cn("leading-7 [&:not(:first-child)]:mt-6", className)} {...props} />
+    <p className={cn("leading-7 [&:not(:first-child)]:mt-4 text-foreground/80", className)} {...props} />
   )
 }
 

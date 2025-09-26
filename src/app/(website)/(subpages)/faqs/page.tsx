@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
 import type { FAQItem } from "@/types/basic";
 import { Section, Container } from "@/components/website-base/padding-containers"
-import { H1 } from "@/components/website-base/typography"
-import FaqSection from "@/components/website-base/faq-sidebar";
+import { H1, H2, H3, P } from "@/components/website-base/typography"
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Button } from "@/components/ui/button";
 
 export const metadata: Metadata = {
     title: "FAQs - World Sevens Football",
@@ -32,6 +34,7 @@ export const metadata: Metadata = {
         creator: "@worldsevens",
     },
 };
+
 
 const faqData: FAQItem[] = [
     {
@@ -80,16 +83,48 @@ const faqData: FAQItem[] = [
 ];
 
 export default function FAQsPage() {
+    const title = "Competition Format";
+    const sectionId = "competition-format";
+
     return <Container maxWidth="6xl">
                 <Section padding="none">
                     <H1 className="uppercase text-2xl md:text-6xl text-left md:my-16">Faq</H1>
                 </Section>
 
-                <Section padding="md" className="min-h-screen">
-                    <FaqSection
-                        title={<>Competition<br />Format</>}
-                        faqData={faqData}
-                    />
+                <Section padding="md" className="min-h-screen grid grid-cols-12 gap-16">
+                    <div className="col-span-3 sticky top-24 self-start space-y-4">
+                        <Button
+                            variant="outline"
+                            className="text-left w-full justify-start"
+                            asChild
+                        >
+                            <Link href={`#${sectionId}`}>
+                                {title}
+                            </Link>
+                        </Button>
+                    </div>
+
+                    <div className="col-span-9 space-y-10">
+                        <div id={sectionId} className="scroll-mt-24">
+                            <Accordion type="single" collapsible className="w-full">
+                                <H2 className="uppercase">{title}</H2>
+                                {faqData.map((faq) => (
+                                    <AccordionItem key={faq.id} value={faq.id}>
+                                        <AccordionTrigger>
+                                            <strong>{faq.question}</strong>
+                                        </AccordionTrigger>
+                                        <AccordionContent>
+                                            {Array.isArray(faq.answer) ? (
+                                                faq.answer.map((paragraph, idx) => <P key={idx}>{paragraph}</P>)
+                                            ) : (
+                                                <P>{faq.answer}</P>
+                                            )}
+                                        </AccordionContent>
+                                    </AccordionItem>
+                                ))}
+                            </Accordion>
+                        </div>
+                    </div>
                 </Section>
             </Container>
 }

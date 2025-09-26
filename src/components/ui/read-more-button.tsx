@@ -12,14 +12,14 @@ export function ReadMoreButton({ className }: ReadMoreButtonProps) {
     <Button
       variant="link"
       className={cn(
-        "font-body text-accent-foreground p-0 text-xs font-light group no-underline hover:no-underline", // 👈 disables underline
+        "h-auto font-body text-accent-foreground p-0 text-sm font-light group no-underline hover:no-underline", // 👈 disables underline
         className
       )}
     >
       <span className="flex items-center">
         Read more
         <CaretRightIcon
-          className="ml-1 h-3 w-3 transition-transform duration-300 group-hover:translate-x-1"
+          className="ml-1 !h-3.5 !w-3.5 transition-transform duration-300 group-hover:translate-x-1"
           aria-hidden="true"
         />
       </span>
