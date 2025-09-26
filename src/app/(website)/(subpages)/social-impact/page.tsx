@@ -1,14 +1,16 @@
+import Image from "next/image";
+import type { Metadata } from "next";
+
 import { SubpageHero, SubpageHeroContent, SubpageHeroMedia } from "@/components/blocks/subpage-hero";
 import { Section, Container } from "@/components/website-base/padding-containers";
 import { H1, H2, P, Subtitle } from "@/components/website-base/typography";
-import Image from "next/image";
-import type { Metadata } from "next";
 import { getAllImageWithText } from "@/cms/queries/social-contents"
 import { ImageWithText } from "@/components/blocks/image-with-text"
 import { getSocialBlogs } from "@/cms/queries/blog"
 import { PostCompact } from "@/components/website-base/posts/post"
-import { mapBlogDocumentToMetadata } from "../news/page"
 import { Separator } from "@/components/ui/separator";
+
+import { mapBlogDocumentToMetadata } from "../news/page"
 
 
 export const metadata: Metadata = {

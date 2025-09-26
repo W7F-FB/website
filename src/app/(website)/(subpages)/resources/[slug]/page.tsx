@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation"
+
 import { getPolicyBySlug } from "@/cms/queries/policies"
 import { PaddingGlobal, Section, Container } from "@/components/website-base/padding-containers"
 import { H1 } from "@/components/website-base/typography"

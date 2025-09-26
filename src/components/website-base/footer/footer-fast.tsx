@@ -1,5 +1,7 @@
 import * as React from "react"
+
 import { cn } from "@/lib/utils"
+
 import { PaddingGlobal } from "../padding-containers"
 const FooterFast = React.forwardRef<
     HTMLDivElement,

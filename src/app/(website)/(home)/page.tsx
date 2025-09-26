@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
+
 import { Section, Container } from "@/components/website-base/padding-containers";
 import { HeroSlider, HeroSliderSlide, HeroSliderSlideBackground, HeroSliderSlideContent } from "@/components/blocks/hero-slider";
-import Image from "next/image";
 import { H1, H2, P, Subtitle, TextProtect } from "@/components/website-base/typography";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import type { FAQItem } from "@/types/basic";

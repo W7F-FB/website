@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+
 import type { FAQItem } from "@/types/basic";
 import { Section, Container } from "@/components/website-base/padding-containers"
 import { H1 } from "@/components/website-base/typography"

@@ -1,6 +1,7 @@
+import * as prismic from "@prismicio/client";
+
 import { createClient } from "../../prismicio";
 import type { BlogDocument } from "../../../prismicio-types";
-import * as prismic from "@prismicio/client";
 
 /**
  * Get a single blog by UID (slug)

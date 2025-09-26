@@ -21,7 +21,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Checkbox } from "@/components/ui/checkbox"
 import { FormMessageSuccess } from "@/components/ui/form-message-success"
 
-export const schema = z.object({
+const schema = z.object({
     topic: z
         .string()
         .min(1, { message: "Please select a topic" }),
@@ -60,7 +60,7 @@ export const schema = z.object({
 
 export default function ContactPage() {
 
-    const [submitted, setSubmitted] = React.useState<string | null>(null)
+    const [submitted] = React.useState<string | null>(null)
 
     const form = useForm<z.infer<typeof schema>>({
         resolver: zodResolver(schema),

@@ -1,3 +1,7 @@
+import Image from "next/image";
+import type { Metadata } from "next";
+import * as prismic from "@prismicio/client";
+
 import { SubpageHero, SubpageHeroContent, SubpageHeroMedia } from "@/components/blocks/subpage-hero";
 import { Section } from "@/components/website-base/padding-containers";
 import { H1, H2, P, Subtitle } from "@/components/website-base/typography";
@@ -6,9 +10,6 @@ import { GridCellScrollLink } from "@/components/blocks/grid-cell-scroll-link";
 import { GradientBanner } from "@/components/ui/gradient-banner";
 import { EmptyMessage } from "@/components/ui/empty-message";
 import { getPlayerAdvisoryCouncil, getCoFounders, getLeadershipTeam } from "@/cms/queries/team";
-import Image from "next/image";
-import type { Metadata } from "next";
-import * as prismic from "@prismicio/client";
 import { Separator } from "@/components/ui/separator";
 
 export const metadata: Metadata = {

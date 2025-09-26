@@ -2,11 +2,12 @@
 
 import * as React from "react"
 import Image from "next/image"
+import Link from "next/link"
+
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { H2, H3, P} from "@/components/website-base/typography";
 import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils"
-import Link from "next/link"
 import { formatDate } from "@/lib/utils";
 import { ReadMoreButton } from "@/components/ui/read-more-button";
 

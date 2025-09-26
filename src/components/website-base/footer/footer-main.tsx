@@ -1,8 +1,11 @@
 import * as React from "react"
 import { FaFacebookF, FaInstagram, FaXTwitter, FaTiktok } from "react-icons/fa6"
+
 import { Logo } from "@/components/website-base/logo"
 import { getPoliciesForNav } from "@/cms/queries/policies"
 import { getFooterData } from "@/cms/queries/website"
+import FormFooterSubscribe from "@/components/forms/form-footer-subscribe"
+
 import {
   Footer,
   FooterBrand,
@@ -12,8 +15,8 @@ import {
   FooterBottom,
   FooterCopyright,
 } from "../../ui/footer"
-import FormFooterSubscribe from "@/components/forms/form-footer-subscribe"
 import { H3 } from "../typography"
+
 import { FooterColumns } from "./footer-columns"
 import { FooterFast } from "./footer-fast"
 

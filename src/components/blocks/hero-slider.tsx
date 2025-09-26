@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+
 import {
   Carousel,
   CarouselContent,
@@ -10,6 +11,7 @@ import {
   type CarouselApi
 } from "@/components/ui/carousel"
 import { cn } from "@/lib/utils"
+
 import { Progress } from "../ui/progress"
 
 type HeroSliderProps = React.ComponentProps<typeof Carousel> & {

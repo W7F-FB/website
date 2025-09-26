@@ -55,7 +55,7 @@ async function NavMain() {
                 <NavigationMenuTrigger><span>Explore</span></NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <ul className="grid gap-1 md:w-[320px]">
-                    {exploreNavItems.map((item, index) => (
+                    {exploreNavItems.map((item) => (
                       <li key={item.key}>
                         <NavigationMenuLink href={item.href}>
                           <span>{item.label}</span>

@@ -1,6 +1,7 @@
+import * as prismic from "@prismicio/client";
+
 import { createClient } from "../../prismicio";
 import type { WebsiteDocument, WebsiteDocumentDataFooterMenusItem } from "../../../prismicio-types";
-import * as prismic from "@prismicio/client";
 
 /**
  * Type for footer column data

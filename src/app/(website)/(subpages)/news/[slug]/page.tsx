@@ -1,10 +1,10 @@
 import { notFound } from "next/navigation"
 import Image from "next/image"
-import { Section, Container } from "@/components/website-base/padding-containers"
-import { formatDate } from "@/lib/utils"
-import { getBlogBySlug } from "@/cms/queries/blog"
-import { mapBlogDocumentToMetadata } from "../page"
 import { PrismicRichText } from "@prismicio/react"
+
+import { getBlogBySlug } from "@/cms/queries/blog"
+import { formatDate } from "@/lib/utils"
+import { Section, Container } from "@/components/website-base/padding-containers"
 import { Card, CardHeader } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { H2, P} from "@/components/website-base/typography";
@@ -12,6 +12,8 @@ import { cn } from "@/lib/utils"
 import { getAllBlogs } from "@/cms/queries/blog"
 import { PostStandard } from "@/components/website-base/posts/post"
 import { Separator } from "@/components/ui/separator";
+
+import { mapBlogDocumentToMetadata } from "../page"
 
 type Props = {
   params: Promise<{ slug: string }>

@@ -1,5 +1,6 @@
-import { createClient } from "../prismicio";
 import * as prismic from "@prismicio/client";
+
+import { createClient } from "../prismicio";
 
 /**
  * Create Prismic client instance

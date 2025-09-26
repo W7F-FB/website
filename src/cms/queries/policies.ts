@@ -1,6 +1,7 @@
+import * as prismic from "@prismicio/client";
+
 import { createClient } from "../../prismicio";
 import type { PolicyDocument } from "../../../prismicio-types";
-import * as prismic from "@prismicio/client";
 
 /**
  * Get a policy by its UID (slug)

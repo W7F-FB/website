@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
+
 import "../styles/globals.css";
+import { PrismicPreview } from "@prismicio/next";
+import Script from "next/script";
+
 import { NavMain } from "@/components/website-base/nav/nav-main";
 import { Footer } from "@/components/website-base/footer/footer-main";
-import { PrismicPreview } from "@prismicio/next";
 import { PaddingGlobal } from "@/components/website-base/padding-containers";
 import { ClipPaths } from "@/components/ui/clip-paths";
-import Script from "next/script";
+
 
 export const metadata: Metadata = {
   title: "World Sevens Football",

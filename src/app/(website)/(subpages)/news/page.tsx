@@ -1,10 +1,12 @@
+import type { Metadata } from "next"
+
 import { Section, Container } from "@/components/website-base/padding-containers"
 import { H1 } from "@/components/website-base/typography"
-import type { Metadata } from "next"
 import { PostCardHoriz, PostStandard, type BlogMetadata } from "@/components/website-base/posts/post"
 import { getAllBlogs } from "@/cms/queries/blog"
-import type { BlogDocument } from "../../../../../prismicio-types";
 import { Separator } from "@/components/ui/separator";
+
+import type { BlogDocument } from "../../../../../prismicio-types";
 
 export const metadata: Metadata = {
     title: "News - World Sevens Football",

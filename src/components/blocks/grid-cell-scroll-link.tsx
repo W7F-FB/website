@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { BiDownArrowAlt } from "react-icons/bi";
+
 import { cn } from "@/lib/utils";
 
 interface GridCellScrollLinkProps {

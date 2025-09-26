@@ -2,10 +2,11 @@
 
 import * as React from "react"
 import Image from "next/image"
-import { cn } from "@/lib/utils"
-import { H3, P } from "@/components/website-base/typography"
 import { PrismicRichText } from "@prismicio/react";
 import type * as prismic from "@prismicio/client";
+
+import { cn } from "@/lib/utils"
+import { H3, P } from "@/components/website-base/typography"
 
 export type ImageWithTextContent = {
   image: string

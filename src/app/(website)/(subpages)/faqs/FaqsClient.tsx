@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import type { ReactNode } from "react";
+
 import { H2, H3, P } from "@/components/website-base/typography";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
@@ -15,7 +16,7 @@ interface FaqSectionProps {
 export default function FaqSection({ title, faqData }: FaqSectionProps) {
   const sectionRef = React.useRef<HTMLDivElement>(null);
 
-  const scrollTo = (ref: React.RefObject<HTMLDivElement>) => {
+  const scrollTo = (ref: React.RefObject<HTMLDivElement | null>) => {
     ref.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
