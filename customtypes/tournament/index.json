@@ -1,6 +1,9 @@
 {
-  "format": "custom",
+  "format": "page",
   "id": "tournament",
+  "label": "Tournament",
+  "repeatable": true,
+  "status": true,
   "json": {
     "Main": {
       "title": {
@@ -36,6 +39,27 @@
         "config": {
           "label": "End Date"
         }
+      },
+      "number_of_teams": {
+        "type": "Number",
+        "config": {
+          "label": "Number of Teams",
+          "placeholder": ""
+        }
+      },
+      "opta_competition_id": {
+        "type": "Text",
+        "config": {
+          "label": "Opta Competition ID",
+          "placeholder": ""
+        }
+      },
+      "slices": {
+        "type": "Slices",
+        "fieldset": "Slice Zone",
+        "config": {
+          "choices": {}
+        }
       }
     },
     "Navigation": {
@@ -64,8 +88,5 @@
         }
       }
     }
-  },
-  "label": "Tournament",
-  "repeatable": true,
-  "status": true
+  }
 }

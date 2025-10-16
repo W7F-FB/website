@@ -1,4 +1,4 @@
-export interface TeamMember {
+export interface LeadershipMember {
   headshot: string
   name: string
   role: string

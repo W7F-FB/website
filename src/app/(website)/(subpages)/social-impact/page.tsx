@@ -84,7 +84,7 @@ const championship = [
 
 
 export default function SocialImpactPage() {
-  return <Container maxWidth="6xl">
+  return <Container maxWidth="lg">
     <Section padding="none">
         <SubpageHero>
             <SubpageHeroContent>

@@ -4,11 +4,14 @@ import Link from "next/link";
 
 import { Section, Container } from "@/components/website-base/padding-containers";
 import { HeroSlider, HeroSliderSlide, HeroSliderSlideBackground, HeroSliderSlideContent } from "@/components/blocks/hero-slider";
-import { H1, H2, P, Subtitle, TextProtect } from "@/components/website-base/typography";
+import { H1, P, Subtitle, TextProtect } from "@/components/website-base/typography";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import type { FAQItem } from "@/types/basic";
+import { ClubList } from "@/components/blocks/clubs/club-list";
+import { SectionHeading, SectionHeadingHeading, SectionHeadingSubtitle, SectionHeadingText} from "@/components/sections/section-heading";
+import { getTournamentByUid } from "@/cms/queries/tournaments";
 
 export const metadata: Metadata = {
     title: "World Sevens Football - The Future of 7v7 Soccer",
@@ -73,7 +76,17 @@ const faqData: FAQItem[] = [
     }
 ];
 
-export default function HomePage() {
+export default async function HomePage() {
+    const tournament = await getTournamentByUid("fort-lauderdale");
+
+    if (!tournament) {
+        return (
+            <div className="text-center py-8">
+                <p className="text-muted-foreground">Tournament not found.</p>
+            </div>
+        );
+    }
+
     return (
         <div>
             <Section padding="sm">
@@ -87,7 +100,7 @@ export default function HomePage() {
                             <TextProtect className="relative z-10">
                                 <Subtitle>Next Event</Subtitle>
                                 <H1 className="font-proxima uppercase font-black text-6xl">Fort Lauderdale,<br />FLorida, USA</H1>
-                                <P className="text-3xl text-balance font-headers font-medium !mt-3">New City. Same Stakes. <span className="font-bold">$5 Million Prize Pool.</span></P>
+                                <P noSpace className="text-3xl text-balance font-headers font-medium mt-3">New City. Same Stakes. <span className="font-bold">$5 Million Prize Pool.</span></P>
                             </TextProtect>
                             <Button asChild size="skew_lg" className="mt-10"><Link href="#"><span>Early Access</span></Link></Button>
                         </HeroSliderSlideContent>
@@ -101,7 +114,7 @@ export default function HomePage() {
                             <TextProtect className="relative z-10">
                                 <Subtitle>Recap</Subtitle>
                                 <H1 className="font-proxima uppercase font-black text-6xl">Estoril,<br />Portugal</H1>
-                                <P className="text-xl text-balance font-headers font-medium !mt-3">Bayern take home the title and prize pool in an action packed event.</P>
+                                <P noSpace className="text-xl text-balance font-headers font-medium mt-3">Bayern take home the title and prize pool in an action packed event.</P>
                             </TextProtect>
                             <div className="mt-10 flex gap-4">
                                 <Button asChild size="skew_lg"><Link href="#"><span>View Recap</span></Link></Button>
@@ -111,15 +124,28 @@ export default function HomePage() {
                     </HeroSliderSlide>
                 </HeroSlider>
             </Section>
+            <Container>
             <Section padding="md" className="min-h-screen">
-
+                <SectionHeading variant="split">
+                    <SectionHeadingSubtitle>
+                        Fort Lauderdale – Participants
+                    </SectionHeadingSubtitle>
+                    <SectionHeadingHeading className="text-4xl">
+                        Featuring Elite Global Talent
+                    </SectionHeadingHeading>
+                    <SectionHeadingText>
+                        The global 7v7 series reimagining the game. Elite clubs, star players, high-stakes matches, and a $5M prize pool per tournament.
+                    </SectionHeadingText>
+                </SectionHeading>
+                <ClubList tournament={tournament} />
             </Section>
+            </Container>
             <Section padding="md" className="">
-                <Container maxWidth="6xl">
+                <Container maxWidth="lg">
                     <Card>
                         <CardHeader>
-                            <CardTitle>
-                                <H2 className="text-4xl">FAQs</H2>
+                            <CardTitle className="text-4xl font-headers font-semibold">
+                                FAQs
                             </CardTitle>
                             <CardDescription className="text-base">Frequently asked questions about World Sevens Football</CardDescription>
                         </CardHeader>

@@ -82,7 +82,7 @@ export default function ContactPage() {
     }
 
     return (
-        <Container className="min-h-screen text-white py-auto" maxWidth="6xl">
+        <Container className="min-h-screen text-white py-auto" maxWidth="lg">
             <Section padding="lg" className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
                 <Container>
                     <H1 className="uppercase text-7xl font-headers leading-[100px]">

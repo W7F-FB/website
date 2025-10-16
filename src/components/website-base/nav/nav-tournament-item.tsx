@@ -7,7 +7,7 @@ import { cn, relativeDateRange, formatDateRange, cleanCountryCode } from "@/lib/
 import type { TournamentDocument } from "../../../../prismicio-types"
 import { Background } from "../../ui/background"
 import { TextProtect } from "../typography"
-import { NavigationMenuLink } from "../../ui/navigation-menu"
+import { PrismicLink } from "@prismicio/react"
 
 interface NavigationMenuTournamentProps {
     tournament?: TournamentDocument
@@ -48,7 +48,16 @@ export function NavigationMenuTournament({
     const statusText = getStatusText()
 
     return (
-        <NavigationMenuLink href={`/`} className={cn(className, "flex justify-end hover:bg-transparent px-3 h-36 pb-3 relative rounded-none overflow-hidden border border-border/50 group/tournament")}>
+        <PrismicLink 
+            document={tournament} 
+            data-slot="navigation-menu-link"
+            className={cn(
+                className, 
+                "flex justify-end hover:bg-transparent px-3 h-36 pb-3 relative rounded-none overflow-hidden border border-border/50 group/tournament",
+                // NavigationMenuLink default styles
+                "hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus-visible:ring-ring/50 [&_svg:not([class*='text-'])]:text-muted-foreground flex flex-col gap-1 rounded-sm text-sm transition-all outline-none focus-visible:ring-[3px] focus-visible:outline-1 [&_svg:not([class*='size-'])]:size-4 font-headers rounded-none px-4"
+            )}
+        >
             <Background className="skew-x-[var(--skew-nav)] origin-top-left -inset-4">
                 <Image
                     src={imageUrl}
@@ -72,6 +81,6 @@ export function NavigationMenuTournament({
                     </span>
                 )}
             </div>
-        </NavigationMenuLink>
+        </PrismicLink>
     )
 }

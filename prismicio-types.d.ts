@@ -317,11 +317,127 @@ export type PolicyDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithUID<Simplify<PolicyDocumentData>, "policy", Lang>;
 
 /**
- * Content for Team Member documents
+ * Item in *Team → Tournaments*
+ */
+export interface TeamDocumentDataTournamentsItem {
+  /**
+   * Tournament field in *Team → Tournaments*
+   *
+   * - **Field Type**: Content Relationship
+   * - **Placeholder**: *None*
+   * - **API ID Path**: team.tournaments[].tournament
+   * - **Documentation**: https://prismic.io/docs/fields/content-relationship
+   */
+  tournament: ContentRelationshipFieldWithData<
+    [
+      {
+        id: "tournament";
+        fields: ["title", "country_code", "start_date", "end_date"];
+      },
+    ]
+  >;
+}
+
+/**
+ * Content for Team documents
+ */
+interface TeamDocumentData {
+  /**
+   * Opta ID field in *Team*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: team.opta_id
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  opta_id: prismic.KeyTextField;
+
+  /**
+   * Name field in *Team*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: team.name
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  name: prismic.KeyTextField;
+
+  /**
+   * Key field in *Team*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: team.key
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  key: prismic.KeyTextField;
+
+  /**
+   * Country field in *Team*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: team.country
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  country: prismic.KeyTextField;
+
+  /**
+   * Logo field in *Team*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: team.logo
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  logo: prismic.ImageField<never>;
+
+  /**
+   * Alphabetical Sort String field in *Team*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: team.alphabetical_sort_string
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  alphabetical_sort_string: prismic.KeyTextField;
+
+  /**
+   * Tournaments field in *Team*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: team.tournaments[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  tournaments: prismic.GroupField<Simplify<TeamDocumentDataTournamentsItem>>;
+}
+
+/**
+ * Team document from Prismic
+ *
+ * - **API ID**: `team`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/content-modeling
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type TeamDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<Simplify<TeamDocumentData>, "team", Lang>;
+
+/**
+ * Content for Leadership Member documents
  */
 interface TeamMemberDocumentData {
   /**
-   * Full Name field in *Team Member*
+   * Full Name field in *Leadership Member*
    *
    * - **Field Type**: Text
    * - **Placeholder**: Team member's full name
@@ -332,7 +448,7 @@ interface TeamMemberDocumentData {
   name: prismic.KeyTextField;
 
   /**
-   * Role/Position field in *Team Member*
+   * Role/Position field in *Leadership Member*
    *
    * - **Field Type**: Text
    * - **Placeholder**: Job title or role
@@ -343,7 +459,7 @@ interface TeamMemberDocumentData {
   role: prismic.KeyTextField;
 
   /**
-   * Headshot field in *Team Member*
+   * Headshot field in *Leadership Member*
    *
    * - **Field Type**: Image
    * - **Placeholder**: *None*
@@ -354,7 +470,7 @@ interface TeamMemberDocumentData {
   headshot: prismic.ImageField<"small" | "medium">;
 
   /**
-   * Biography field in *Team Member*
+   * Biography field in *Leadership Member*
    *
    * - **Field Type**: Rich Text
    * - **Placeholder**: Team member's biography
@@ -363,7 +479,7 @@ interface TeamMemberDocumentData {
    * - **Documentation**: https://prismic.io/docs/fields/rich-text
    */
   bio: prismic.RichTextField /**
-   * Display Order field in *Team Member*
+   * Display Order field in *Leadership Member*
    *
    * - **Field Type**: Number
    * - **Placeholder**: Order on team page (lower numbers first)
@@ -374,7 +490,7 @@ interface TeamMemberDocumentData {
   display_order: prismic.NumberField;
 
   /**
-   * Department field in *Team Member*
+   * Department field in *Leadership Member*
    *
    * - **Field Type**: Select
    * - **Placeholder**: Select department
@@ -388,7 +504,7 @@ interface TeamMemberDocumentData {
 }
 
 /**
- * Team Member document from Prismic
+ * Leadership Member document from Prismic
  *
  * - **API ID**: `team_member`
  * - **Repeatable**: `true`
@@ -402,6 +518,8 @@ export type TeamMemberDocument<Lang extends string = string> =
     "team_member",
     Lang
   >;
+
+type TournamentDocumentDataSlicesSlice = never;
 
 /**
  * Content for Tournament documents
@@ -449,7 +567,40 @@ interface TournamentDocumentData {
    * - **Tab**: Main
    * - **Documentation**: https://prismic.io/docs/fields/date
    */
-  end_date: prismic.DateField /**
+  end_date: prismic.DateField;
+
+  /**
+   * Number of Teams field in *Tournament*
+   *
+   * - **Field Type**: Number
+   * - **Placeholder**: *None*
+   * - **API ID Path**: tournament.number_of_teams
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/number
+   */
+  number_of_teams: prismic.NumberField;
+
+  /**
+   * Opta Competition ID field in *Tournament*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: tournament.opta_competition_id
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  opta_competition_id: prismic.KeyTextField;
+
+  /**
+   * Slice Zone field in *Tournament*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: tournament.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/slices
+   */
+  slices: prismic.SliceZone<TournamentDocumentDataSlicesSlice> /**
    * Show in Navigation field in *Tournament*
    *
    * - **Field Type**: Boolean
@@ -601,6 +752,7 @@ export type AllDocumentTypes =
   | BlogDocument
   | ImageWithTextDocument
   | PolicyDocument
+  | TeamDocument
   | TeamMemberDocument
   | TournamentDocument
   | WebsiteDocument;
@@ -632,10 +784,14 @@ declare module "@prismicio/client" {
       ImageWithTextDocumentData,
       PolicyDocument,
       PolicyDocumentData,
+      TeamDocument,
+      TeamDocumentData,
+      TeamDocumentDataTournamentsItem,
       TeamMemberDocument,
       TeamMemberDocumentData,
       TournamentDocument,
       TournamentDocumentData,
+      TournamentDocumentDataSlicesSlice,
       WebsiteDocument,
       WebsiteDocumentData,
       WebsiteDocumentDataFooterMenusMenuLinksItem,

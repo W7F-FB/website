@@ -68,7 +68,7 @@ async function BlogsShow() {
 export default function NewsPage() {
 
   return (
-    <Container maxWidth="6xl">
+    <Container maxWidth="lg">
       <Section padding="none">
         <H1 className="uppercase text-2xl md:text-6xl text-center md:my-16">W7F NEWS</H1>
       </Section>

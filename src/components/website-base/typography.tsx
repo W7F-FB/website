@@ -46,13 +46,21 @@ function H4({ className, ...props }: React.ComponentProps<"h4">) {
 
 function Subtitle({ className, ...props }: React.ComponentProps<"p">) {
   return (
-    <p className={cn("font-semibold font-headers uppercase text-accent-foreground mb-6", className)} {...props} />
+    <span className={cn("font-[450] font-headers uppercase text-accent-foreground mb-6", className)} {...props} />
   )
 }
 
-function P({ className, ...props }: React.ComponentProps<"p">) {
+interface PProps extends React.ComponentProps<"p"> {
+  noSpace?: boolean
+}
+
+function P({ className, noSpace = false, ...props }: PProps) {
   return (
-    <p className={cn("leading-7 [&:not(:first-child)]:mt-4 text-foreground/80", className)} {...props} />
+    <p className={cn(
+      "leading-7 text-foreground/80",
+      !noSpace && "[&:not(:first-child)]:mt-4",
+      className
+    )} {...props} />
   )
 }
 

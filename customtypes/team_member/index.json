@@ -1,7 +1,7 @@
 {
   "format": "page",
   "id": "team_member",
-  "label": "Team Member",
+  "label": "Leadership Member",
   "repeatable": true,
   "status": true,
   "json": {
@@ -73,11 +73,7 @@
         "config": {
           "label": "Department",
           "placeholder": "Select department",
-          "options": [
-            "Player Advisor",
-            "Co-Founder",
-            "Leadership Team"
-          ]
+          "options": ["Player Advisor", "Co-Founder", "Leadership Team"]
         }
       }
     }

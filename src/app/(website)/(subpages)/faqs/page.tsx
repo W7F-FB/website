@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import type { FAQItem } from "@/types/basic";
 import { Section, Container } from "@/components/website-base/padding-containers"
-import { H1, H2, H3, P } from "@/components/website-base/typography"
+import { H1, H2, P } from "@/components/website-base/typography"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 
@@ -86,7 +86,7 @@ export default function FAQsPage() {
     const title = "Competition Format";
     const sectionId = "competition-format";
 
-    return <Container maxWidth="6xl">
+    return <Container maxWidth="lg">
                 <Section padding="none">
                     <H1 className="uppercase text-2xl md:text-6xl text-left md:my-16">Faq</H1>
                 </Section>

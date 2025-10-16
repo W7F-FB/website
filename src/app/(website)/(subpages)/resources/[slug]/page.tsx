@@ -15,7 +15,7 @@ export default async function PolicyPage(props: { params: Params }) {
 
   return (
     <PaddingGlobal>
-      <Container maxWidth="5xl">
+      <Container maxWidth="md">
         <Section padding="lg">
           <H1>{policy.data.name}</H1>
           {policy.last_publication_date ? (

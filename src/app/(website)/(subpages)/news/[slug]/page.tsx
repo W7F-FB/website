@@ -32,7 +32,7 @@ export default async function BlogPostPage({ params }: Props) {
     .slice(0, 3) 
 
   return (
-    <Container maxWidth="6xl">
+    <Container maxWidth="lg">
         <Section padding="none" className="prose prose-invert prose-p:mb-2 mt-16">
             <Card className={cn("flex flex-col md:flex-row overflow-hidden group rounded-none p-0 bg-transparent border-0 gap-16")}>
                 <div className="flex flex-col justify-between w-full md:w-1/2 px-0 py-6 md:mt-6">
@@ -50,7 +50,7 @@ export default async function BlogPostPage({ params }: Props) {
                         </div>
                         <H2 className="text-md font-semibold text-white md:text-3xl">{blog.title}</H2>
                         {blog.excerpt && (
-                            <P className="text-sm text-white line-clamp-3 !mt-0 mb-4">{blog.excerpt}</P>
+                            <P noSpace className="text-sm text-white line-clamp-3 mb-4">{blog.excerpt}</P>
                         )}
                     </CardHeader>
                 </div>

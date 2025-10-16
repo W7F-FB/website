@@ -19,7 +19,10 @@ export const repositoryName =
  * {@link https://prismic.io/docs/route-resolver#route-resolver}
  */
 const routes: Route[] = [
-  // Temporarily disable routes until types are synced
+  {
+    type: "tournament",
+    path: "/tournament/:uid",
+  },
   // {
   //   type: "policy",
   //   path: "/resources/:uid",

@@ -1,0 +1,91 @@
+{
+  "format": "custom",
+  "id": "team",
+  "label": "Team",
+  "repeatable": true,
+  "status": true,
+  "json": {
+    "Main": {
+      "uid": {
+        "type": "UID",
+        "config": {
+          "label": "UID"
+        }
+      },
+      "opta_id": {
+        "type": "Text",
+        "config": {
+          "label": "Opta ID",
+          "placeholder": ""
+        }
+      },
+      "name": {
+        "type": "Text",
+        "config": {
+          "label": "Name",
+          "placeholder": ""
+        }
+      },
+      "key": {
+        "type": "Text",
+        "config": {
+          "label": "Key",
+          "placeholder": ""
+        }
+      },
+      "country": {
+        "type": "Text",
+        "config": {
+          "label": "Country",
+          "placeholder": ""
+        }
+      },
+      "logo": {
+        "type": "Image",
+        "config": {
+          "label": "Logo",
+          "constraint": {
+            "width": 1000,
+            "height": 1000
+          },
+          "thumbnails": []
+        }
+      },
+      "alphabetical_sort_string": {
+        "type": "Text",
+        "config": {
+          "label": "Alphabetical Sort String",
+          "placeholder": ""
+        }
+      },
+      "tournaments": {
+        "type": "Group",
+        "config": {
+          "label": "Tournaments",
+          "repeat": true,
+          "fields": {
+            "tournament": {
+              "type": "Link",
+              "config": {
+                "label": "Tournament",
+                "select": "document",
+                "repeat": false,
+                "customtypes": [
+                  {
+                    "id": "tournament",
+                    "fields": [
+                      "title",
+                      "country_code",
+                      "start_date",
+                      "end_date"
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

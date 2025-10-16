@@ -61,7 +61,7 @@ function PostStandard({ blog, className }: PostProps) {
         <CardContent>
           <H2 className="text-md font-semibold text-white md:text-xl">{blog.title}</H2>
           {blog.excerpt && (
-            <P className="text-sm text-white line-clamp-3 !mt-0">{blog.excerpt}</P>
+            <P noSpace className="text-sm text-white line-clamp-3">{blog.excerpt}</P>
           )}
         </CardContent>
         <CardFooter className="pb-6 mt-auto">
@@ -138,7 +138,7 @@ function PostCardHoriz({ blog, className }: PostProps) {
             </div>
             <H2 className="text-md font-semibold text-white md:text-2xl">{blog.title}</H2>
             {blog.excerpt && (
-              <P className="text-sm text-white line-clamp-3 !mt-0 mb-4">{blog.excerpt}</P>
+              <P noSpace className="text-sm text-white line-clamp-3 mb-4">{blog.excerpt}</P>
             )}
           </CardHeader>
           <CardFooter className="p-0 mt-4">
@@ -179,7 +179,7 @@ function PostCardVert({ blog, className }: PostProps) {
             </div>
             <H2 className="text-md font-semibold text-white md:text-2xl">{blog.title}</H2>
             {blog.excerpt && (
-              <P className="text-sm text-white line-clamp-3 !mt-0 mb-4">{blog.excerpt}</P>
+              <P noSpace className="text-sm text-white line-clamp-3 mb-4">{blog.excerpt}</P>
             )}
           </CardHeader>
           <CardFooter className="p-0 mt-4">

@@ -1,7 +1,7 @@
 import * as prismic from "@prismicio/client";
 
 import { createClient } from "../../prismicio";
-import type { TeamMemberDocument } from "../../../prismicio-types";
+import type { TeamMemberDocument, TeamDocument } from "../../../prismicio-types";
 
 /**
  * Get all team members
@@ -63,4 +63,36 @@ export async function getCoFounders(): Promise<TeamMemberDocument[]> {
  */
 export async function getLeadershipTeam(): Promise<TeamMemberDocument[]> {
   return getTeamMembersByDepartment("Leadership Team");
+}
+
+/**
+ * Get teams that participate in a specific tournament
+ */
+export async function getTeamsByTournament(tournamentUID: string): Promise<TeamDocument[]> {
+  try {
+    const client = createClient();
+    
+    // Get all teams first, then filter by tournament participation
+    const allTeams = await client.getAllByType("team", {
+      fetchLinks: ["tournament.uid"],
+      orderings: [
+        { field: "my.team.alphabetical_sort_string", direction: "asc" }
+      ]
+    });
+
+    // Filter teams that have the specified tournament in their tournaments group
+    const filteredTeams = allTeams.filter(team => {
+      return team.data.tournaments.some(tournamentItem => {
+        if (prismic.isFilled.contentRelationship(tournamentItem.tournament)) {
+          return tournamentItem.tournament.uid === tournamentUID;
+        }
+        return false;
+      });
+    });
+
+    return filteredTeams;
+  } catch (error) {
+    console.error(`Error fetching teams for tournament ${tournamentUID}:`, error);
+    return [];
+  }
 }

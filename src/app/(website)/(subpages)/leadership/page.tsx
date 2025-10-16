@@ -5,7 +5,7 @@ import * as prismic from "@prismicio/client";
 import { SubpageHero, SubpageHeroContent, SubpageHeroMedia } from "@/components/blocks/subpage-hero";
 import { Section } from "@/components/website-base/padding-containers";
 import { H1, H2, P, Subtitle } from "@/components/website-base/typography";
-import { TeamCard } from "@/components/blocks/team-card";
+import { LeadershipCard } from "@/components/blocks/leadership-card";
 import { GridCellScrollLink } from "@/components/blocks/grid-cell-scroll-link";
 import { GradientBanner } from "@/components/ui/gradient-banner";
 import { EmptyMessage } from "@/components/ui/empty-message";
@@ -57,7 +57,7 @@ export default async function LeadershipPage() {
             <div className="col-span-2 grid grid-cols-3 gap-8">
                 {playerAdvisoryCouncil.length > 0 ? (
                     playerAdvisoryCouncil.map((member) => (
-                        <TeamCard
+                        <LeadershipCard
                             key={member.id}
                             team={{
                                 name: member.data.name || "Unknown",
@@ -86,7 +86,7 @@ export default async function LeadershipPage() {
             <div className="col-span-2 grid grid-cols-3 gap-8">
                 {coFounders.length > 0 ? (
                     coFounders.map((member) => (
-                        <TeamCard
+                        <LeadershipCard
                             key={member.id}
                             team={{
                                 name: member.data.name || "Unknown",
@@ -115,7 +115,7 @@ export default async function LeadershipPage() {
             <div className="col-span-2 grid grid-cols-3 gap-8">
                 {leadershipTeam.length > 0 ? (
                     leadershipTeam.map((member) => (
-                        <TeamCard
+                        <LeadershipCard
                             key={member.id}
                             team={{
                                 name: member.data.name || "Unknown",
