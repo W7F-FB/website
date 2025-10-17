@@ -10,7 +10,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import type { FAQItem } from "@/types/basic";
 import { ClubList } from "@/components/blocks/clubs/club-list";
-import { SectionHeading, SectionHeadingHeading, SectionHeadingSubtitle, SectionHeadingText} from "@/components/sections/section-heading";
+import { SectionHeading, SectionHeadingHeading, SectionHeadingSubtitle, SectionHeadingText } from "@/components/sections/section-heading";
 import { getTournamentByUid } from "@/cms/queries/tournaments";
 
 export const metadata: Metadata = {
@@ -56,22 +56,26 @@ const faqData: FAQItem[] = [
     {
         id: "item-1",
         question: "What is the format of a W7F tournament?",
-        answer: [
-            "The fast-paced seven-a side format includes a two-day group-stage round-robin, featuring two groups of four teams. On day three of the tournament, the top two clubs per group will advance to the knockout stage. There will be sixteen matches per tournament, including a third-place match, and of course, a much-anticipated championship match.",
-            "Each club will play between three and five games in total, depending on the progress of that club through the tournament, over a three-day period."
-        ]
+        answer: (
+            <>
+                <P>The fast-paced seven-a side format includes a two-day group-stage round-robin, featuring two groups of four teams. On day three of the tournament, the top two clubs per group will advance to the knockout stage. There will be sixteen matches per tournament, including a third-place match, and of course, a much-anticipated championship match.</P>
+                <P>Each club will play between three and five games in total, depending on the progress of that club through the tournament, over a three-day period.</P>
+            </>
+        )
     },
     {
         id: "item-2",
         question: "What is the format of a W7F match?",
-        answer: [
-            "Our second tournament will take place at Beyond Bancard Field in Fort Lauderdale, Florida on December 5-7, 2025.Matches are played on a pitch half of the size of a standard 11-a-side football pitch. Each match will last 30 minutes, divided into two halves of 15 minutes each, with extra time for a tie-break. There will be a 5-minute halftime. There are unlimited rolling substitutions and no offside rule.",
-        ]
+        answer: (
+            <P>Our second tournament will take place at Beyond Bancard Field in Fort Lauderdale, Florida on December 5-7, 2025.Matches are played on a pitch half of the size of a standard 11-a-side football pitch. Each match will last 30 minutes, divided into two halves of 15 minutes each, with extra time for a tie-break. There will be a 5-minute halftime. There are unlimited rolling substitutions and no offside rule.</P>
+        )
     },
     {
         id: "item-3",
         question: "Who participates in W7F tournaments?",
-        answer: "Established professional clubs from the best leagues across the globe have committed to participating in W7F’s seven-a side tournaments. From that club pool, teams will be chosen to compete."
+        answer: (
+            <P>Established professional clubs from the best leagues across the globe have committed to participating in W7F’s seven-a side tournaments. From that club pool, teams will be chosen to compete.</P>
+        )
     }
 ];
 
@@ -124,20 +128,20 @@ export default async function HomePage() {
                 </HeroSlider>
             </Section>
             <Container>
-            <Section padding="md" className="min-h-screen">
-                <SectionHeading variant="split">
-                    <SectionHeadingSubtitle>
-                        Fort Lauderdale – Participants
-                    </SectionHeadingSubtitle>
-                    <SectionHeadingHeading className="text-4xl">
-                        Featuring Elite Global Talent
-                    </SectionHeadingHeading>
-                    <SectionHeadingText>
-                        The global 7v7 series reimagining the game. Elite clubs, star players, high-stakes matches, and a $5M prize pool per tournament.
-                    </SectionHeadingText>
-                </SectionHeading>
-                <ClubList tournament={tournament} />
-            </Section>
+                <Section padding="md" className="min-h-screen">
+                    <SectionHeading variant="split">
+                        <SectionHeadingSubtitle>
+                            Fort Lauderdale – Participants
+                        </SectionHeadingSubtitle>
+                        <SectionHeadingHeading className="text-4xl">
+                            Featuring Elite Global Talent
+                        </SectionHeadingHeading>
+                        <SectionHeadingText>
+                            The global 7v7 series reimagining the game. Elite clubs, star players, high-stakes matches, and a $5M prize pool per tournament.
+                        </SectionHeadingText>
+                    </SectionHeading>
+                    <ClubList tournament={tournament} />
+                </Section>
             </Container>
             <Section padding="md" className="">
                 <Container maxWidth="lg">
@@ -156,13 +160,7 @@ export default async function HomePage() {
                                             <strong>{faq.question}</strong>
                                         </AccordionTrigger>
                                         <AccordionContent>
-                                            {Array.isArray(faq.answer) ? (
-                                                faq.answer.map((paragraph, index) => (
-                                                    <P key={index}>{paragraph}</P>
-                                                ))
-                                            ) : (
-                                                <P>{faq.answer}</P>
-                                            )}
+                                            {faq.answer}
                                         </AccordionContent>
                                     </AccordionItem>
                                 ))}
