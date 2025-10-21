@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import type { FAQItem } from "@/types/basic";
 import { Section, Container } from "@/components/website-base/padding-containers"
-import { H1, H2, P } from "@/components/website-base/typography"
+import { H1, H2, P, List } from "@/components/website-base/typography"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 
@@ -110,7 +110,7 @@ const faqSections: FAQSection[] = [
                 id: "item-9",
                 question: "What teams will be participating in the second W7F tournament in Fort Lauderdale, Florida Dec 5-7?",
                 answer: (
-                    <P>Brazilian Flamengo FC and Mexican Club América are the first two clubs confirmed to participate in Fort Lauderdale, with the remaining six clubs to be announced in the coming weeks.</P>
+                    <P>Brazilian Flamengo FC, Mexican Club América and AFC Toronto are the first three clubs confirmed to participate in Fort Lauderdale, with the remaining six clubs to be announced in the coming weeks.</P>
                 )
             }
         ]
@@ -131,9 +131,11 @@ const faqSections: FAQSection[] = [
                 question: "How do I get to the event?",
                 answer: (
                     <>
-                        <P>The stadium address is Beyond Bancard Field, 520 SW 30th St, Davie, FL 33328</P>
-                        <P>Parking is available at the venue. Specific parking details and any associated costs will be provided closer to the event date.</P>
-                        <P>By Ride Share: Drop-off and pick up location is 7520 SW 33rd Street, Davie, FL 33314 located just south of Beyond Bancard Field.</P>
+                        <List>
+                            <li>The stadium address is Beyond Bancard Field, 520 SW 30th St, Davie, FL 33328</li>
+                            <li>Parking is available at the venue. Specific parking details and any associated costs will be provided closer to the event date.</li>
+                            <li>By Ride Share: Drop-off and pick up location is 7520 SW 33rd Street, Davie, FL 33314 located just south of Beyond Bancard Field.</li>
+                        </List>
                     </>
                 )
             },
@@ -163,10 +165,12 @@ const faqSections: FAQSection[] = [
                 question: "What time does the stadium open?",
                 answer: (
                     <>
-                        <P>Friday, December 5 (Session 1): Gates open at 3pm EST</P>
-                        <P>Saturday, December 6 (Session 2): Gates open at 9:30am EST</P>
-                        <P>Saturday, December 6 (Session 3): Gates open at 4pm EST</P>
-                        <P>Sunday, December 7 (Session 4): Gates open at 9:30am EST</P>
+                        <List>
+                            <li><strong>Friday, December 5 </strong>(Session 1): Gates open at 3pm EST</li>
+                            <li><strong>Saturday, December 6 </strong>(Session 2): Gates open at 9:30am EST</li>
+                            <li><strong>Saturday, December 6 </strong>(Session 3): Gates open at 4pm EST</li>
+                            <li><strong>Sunday, December 7 </strong>(Session 4): Gates open at 9:30am EST</li>
+                        </List>
                         <P>All times are subject to change</P>
                     </>
                 )
@@ -183,14 +187,17 @@ const faqSections: FAQSection[] = [
                 question: "Facilities",
                 answer: (
                     <>
-                        <P>Are there restrooms available?</P>
-                        <P>Yes</P>
-                        <P>Will there be W7F merchandise for sale?</P>
-                        <P>Absolutely, treat yourself to some official World Sevens Football merchandise; a wide variety of quality items are available to buy while the stadium is open. </P>
-                        <P>Are first aid facilities available?</P>
-                        <P>Our first aid team will be at the stadium, please ask a staff member if you need assistance during your visit.</P>
-                        <P>Is smoking allowed within the stadium?</P>
-                        <P>Smoking is not permitted inside Beyond Bancard Field outside of the designated smoking areas</P>
+                        <P><strong>Are there restrooms available?</strong></P>
+                        <P noSpace>Yes</P>
+
+                        <P><strong>Will there be W7F merchandise for sale?</strong></P>
+                        <P noSpace>Absolutely, treat yourself to some official World Sevens Football merchandise; a wide variety of quality items are available to buy while the stadium is open.</P>
+
+                        <P><strong>Are first aid facilities available?</strong></P>
+                        <P noSpace>Our first aid team will be at the stadium, please ask a staff member if you need assistance during your visit.</P>
+
+                        <P><strong>Is smoking allowed within the stadium?</strong></P>
+                        <P noSpace>Smoking is not permitted inside Beyond Bancard Field outside of the designated smoking areas</P>
                     </>
                 )
             },
@@ -233,7 +240,31 @@ const faqSections: FAQSection[] = [
                 id: "item-23",
                 question: "Are there any prohibited items?",
                 answer: (
-                    <P>Yes. You are not permitted to bring in air horns, cowbells, animals except certified service dogs, backpacks, coolers and outside food bags of any kind, outside food or drink, cameras with lenses longer than 12&ldquo;, confetti, ice chests, fireworks or other explosives, bicycles, skateboards, flag poles, footwear with wheels, glass/plastic bottles or cans, inflatable items, items that could be projectiles, lasers, outside alcoholic beverages or illegal drugs, roller blades, signs containing commercial, political, or derogatory language of any kind, sticks/clubs, tobacco products, umbrellas, vuvuzelas, and water guns. This is not an exhaustive list and any permissible items are at the discretion of our Security Team; forbidden items will be confiscated and disposed of by our security staff before you can enter the event site.</P>
+                    <>
+                        <P>Yes. You are not permitted to bring in the following items:</P>
+                        <List>
+                            <li>Air horns, cowbells, vuvuzelas</li>
+                            <li>Animals except certified service dogs</li>
+                            <li>Backpacks, coolers and outside food bags of any kind</li>
+                            <li>Outside food or drink</li>
+                            <li>Cameras with lenses longer than 12&ldquo;</li>
+                            <li>Confetti, ice chests</li>
+                            <li>Fireworks or other explosives</li>
+                            <li>Bicycles, skateboards, roller blades</li>
+                            <li>Flag poles, sticks/clubs</li>
+                            <li>Footwear with wheels</li>
+                            <li>Glass/plastic bottles or cans</li>
+                            <li>Inflatable items</li>
+                            <li>Items that could be projectiles</li>
+                            <li>Lasers</li>
+                            <li>Outside alcoholic beverages or illegal drugs</li>
+                            <li>Signs containing commercial, political, or derogatory language of any kind</li>
+                            <li>Tobacco products</li>
+                            <li>Umbrellas</li>
+                            <li>Water guns</li>
+                        </List>
+                        <P>This is not an exhaustive list and any permissible items are at the discretion of our Security Team; forbidden items will be confiscated and disposed of by our security staff before you can enter the event site.</P>
+                    </>
                 )
             }
         ]
@@ -290,45 +321,45 @@ const faqSections: FAQSection[] = [
 
 export default function FAQsPage() {
     return <Container maxWidth="lg">
-                <Section padding="none">
-                    <H1 className="uppercase text-2xl md:text-6xl text-left md:my-16">Faq</H1>
-                </Section>
+        <Section padding="none">
+            <H1 className="uppercase text-2xl md:text-6xl text-left md:my-16">Faq</H1>
+        </Section>
 
-                <Section padding="md" className="min-h-screen grid grid-cols-12 gap-16">
-                    <div className="col-span-3 sticky top-24 self-start space-y-4">
-                        {faqSections.map((section) => (
-                            <Button
-                                key={section.id}
-                                variant="outline"
-                                className="text-left w-full justify-start"
-                                asChild
-                            >
-                                <Link href={`#${section.id}`}>
-                                    {section.title}
-                                </Link>
-                            </Button>
-                        ))}
-                    </div>
+        <Section padding="md" className="min-h-screen grid grid-cols-12 gap-16">
+            <div className="col-span-3 sticky top-24 self-start space-y-4">
+                {faqSections.map((section) => (
+                    <Button
+                        key={section.id}
+                        variant="outline"
+                        className="text-left w-full justify-start"
+                        asChild
+                    >
+                        <Link href={`#${section.id}`}>
+                            {section.title}
+                        </Link>
+                    </Button>
+                ))}
+            </div>
 
-                    <div className="col-span-9 space-y-10">
-                        {faqSections.map((section) => (
-                            <div key={section.id} id={section.id} className="scroll-mt-24">
-                                <Accordion type="single" collapsible className="w-full">
-                                    <H2 className="uppercase">{section.title}</H2>
-                                    {section.items.map((faq) => (
-                                        <AccordionItem key={faq.id} value={faq.id}>
-                                            <AccordionTrigger>
-                                                <span className="font-semibold">{faq.question}</span>
-                                            </AccordionTrigger>
-                                            <AccordionContent>
-                                                {faq.answer}
-                                            </AccordionContent>
-                                        </AccordionItem>
-                                    ))}
-                                </Accordion>
-                            </div>
-                        ))}
+            <div className="col-span-9 space-y-10">
+                {faqSections.map((section) => (
+                    <div key={section.id} id={section.id} className="scroll-mt-24">
+                        <Accordion type="single" collapsible className="w-full">
+                            <H2 className="uppercase">{section.title}</H2>
+                            {section.items.map((faq) => (
+                                <AccordionItem key={faq.id} value={faq.id}>
+                                    <AccordionTrigger>
+                                        <span className="font-semibold">{faq.question}</span>
+                                    </AccordionTrigger>
+                                    <AccordionContent>
+                                        {faq.answer}
+                                    </AccordionContent>
+                                </AccordionItem>
+                            ))}
+                        </Accordion>
                     </div>
-                </Section>
-            </Container>
+                ))}
+            </div>
+        </Section>
+    </Container>
 }
