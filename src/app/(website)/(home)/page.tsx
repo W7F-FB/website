@@ -10,8 +10,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import type { FAQItem } from "@/types/basic";
 import { ClubList } from "@/components/blocks/clubs/club-list";
-import { SectionHeading, SectionHeadingHeading, SectionHeadingSubtitle, SectionHeadingText} from "@/components/sections/section-heading";
+import { SectionHeading, SectionHeadingHeading, SectionHeadingSubtitle, SectionHeadingText } from "@/components/sections/section-heading";
 import { getTournamentByUid } from "@/cms/queries/tournaments";
+import { RecentNewsGrid } from "@/components/blocks/recent-news-grid";
 
 export const metadata: Metadata = {
     title: "World Sevens Football - The Future of 7v7 Soccer",
@@ -125,20 +126,33 @@ export default async function HomePage() {
                 </HeroSlider>
             </Section>
             <Container>
-            <Section padding="md" className="min-h-screen">
-                <SectionHeading variant="split">
-                    <SectionHeadingSubtitle>
-                        Fort Lauderdale – Participants
-                    </SectionHeadingSubtitle>
-                    <SectionHeadingHeading className="text-4xl">
-                        Featuring Elite Global Talent
-                    </SectionHeadingHeading>
-                    <SectionHeadingText>
-                        The global 7v7 series reimagining the game. Elite clubs, star players, high-stakes matches, and a $5M prize pool per tournament.
-                    </SectionHeadingText>
-                </SectionHeading>
-                <ClubList tournament={tournament} />
-            </Section>
+                <Section padding="md" className="min-h-screen">
+                    <SectionHeading variant="split">
+                        <SectionHeadingSubtitle>
+                            Fort Lauderdale – Participants
+                        </SectionHeadingSubtitle>
+                        <SectionHeadingHeading className="text-4xl">
+                            Featuring Elite Global Talent
+                        </SectionHeadingHeading>
+                        <SectionHeadingText>
+                            The global 7v7 series reimagining the game. Elite clubs, star players, high-stakes matches, and a $5M prize pool per tournament.
+                        </SectionHeadingText>
+                    </SectionHeading>
+                    <ClubList tournament={tournament} />
+                </Section>
+            </Container>
+            <Container>
+                <Section padding="md" className="min-h-screen">
+                    <SectionHeading variant="split">
+                        <SectionHeadingSubtitle>
+                            Explore World Sevens
+                        </SectionHeadingSubtitle>
+                        <SectionHeadingHeading className="text-4xl">
+                            Recent News
+                        </SectionHeadingHeading>
+                    </SectionHeading>
+                    <RecentNewsGrid />
+                </Section>
             </Container>
             <Section padding="md" className="">
                 <Container maxWidth="lg">
