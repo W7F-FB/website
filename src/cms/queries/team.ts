@@ -96,3 +96,17 @@ export async function getTeamsByTournament(tournamentUID: string): Promise<TeamD
     return [];
   }
 }
+
+/**
+ * Get Team by Uid
+ */
+export async function getTeamByUid(teamUid: string): Promise<TeamDocument | null> {
+  try {
+    const client = createClient();
+    const team = await client.getByUID("team", teamUid);
+    return team;
+  } catch (error) {
+    console.error(`Error fetching team with UID ${teamUid}:`, error);
+    return null;
+  }
+}
