@@ -71,7 +71,7 @@ export async function getLeadershipTeam(): Promise<TeamMemberDocument[]> {
 export async function getTeamsByTournament(tournamentUID: string): Promise<TeamDocument[]> {
   try {
     const client = createClient();
-    
+
     // Get all teams first, then filter by tournament participation
     const allTeams = await client.getAllByType("team", {
       fetchLinks: ["tournament.uid"],
@@ -98,15 +98,19 @@ export async function getTeamsByTournament(tournamentUID: string): Promise<TeamD
 }
 
 /**
- * Get Team by Uid
+ * Get Team by ID
  */
-export async function getTeamByUid(teamUid: string): Promise<TeamDocument | null> {
+export async function getTeamByOptaId(optaId: string): Promise<TeamDocument | null> {
   try {
     const client = createClient();
-    const team = await client.getByUID("team", teamUid);
-    return team;
+    const teams = await client.getAllByType("team", {
+      filters: [prismic.filter.at("my.team.opta_id", optaId)],
+      pageSize: 1,
+    });
+
+    return teams.length > 0 ? teams[0] : null;
   } catch (error) {
-    console.error(`Error fetching team with UID ${teamUid}:`, error);
+    console.error(`Error fetching team with Opta ID ${optaId}:`, error);
     return null;
   }
 }

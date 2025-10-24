@@ -1,6 +1,6 @@
 import { getF1Fixtures } from "@/app/api/opta/feeds";
 import { mapOptaFixture } from "@/lib/opta/map-f1";
-import { getTeamByUid } from "@/cms/queries/team"
+import { getTeamByOptaId } from "@/cms/queries/team"
 
 export async function getGameData(competitionId: string, seasonId: string) {
 
@@ -12,8 +12,8 @@ export async function getGameData(competitionId: string, seasonId: string) {
 
   const enriched = await Promise.all(
     fixtures.map(async (fixture) => {
-      const homeTeam = await getTeamByUid(fixture.home.id)
-      const awayTeam = await getTeamByUid(fixture.away.id)
+      const homeTeam = await getTeamByOptaId(fixture.home.id)
+      const awayTeam = await getTeamByOptaId(fixture.away.id)
 
       return {
         ...fixture,
