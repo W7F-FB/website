@@ -1,8 +1,10 @@
-import { Section, Container } from "@/components/website-base/padding-containers"
-import { GameCardRow } from "@/components/blocks/game/game-card-row"
-import { getGameData } from "@/lib/data/get-game-data"
+import { Section, Container } from "@/components/website-base/padding-containers";
+import { GameCardRow } from "@/components/blocks/game/game-card-row";
+import { getAllTeams } from "@/cms/queries/team";
 
-export default async function TicketsPage() {
+export default async function GameCardSandboxPage() {
+  const teams = await getAllTeams();
+
   const fixtures = [
     {
       id: "1",
@@ -10,13 +12,8 @@ export default async function TicketsPage() {
       status: "Scheduled",
       home: { id: "100", score: null },
       away: { id: "200", score: null },
-      awayTeam: {
-        data: {
-          name: "Man City",
-          country: "USA",
-          logo: { url: "/images/static-media/estoril-champs.avif" },
-        },
-      },
+      homeTeam: teams[0] || null,
+      awayTeam: teams[1] || null,
     },
     {
       id: "2",
@@ -24,20 +21,8 @@ export default async function TicketsPage() {
       status: "In Progress",
       home: { id: "101", score: 0 },
       away: { id: "201", score: 2 },
-      homeTeam: {
-        data: {
-          name: "Ajax",
-          country: "USA",
-          logo: { url: "/images/static-media/estoril-champs.avif" },
-        },
-      },
-      awayTeam: {
-        data: {
-          name: "FC Bayern",
-          country: "USA",
-          logo: { url: "/images/static-media/estoril-champs.avif" },
-        },
-      },
+      homeTeam: teams[2] || null,
+      awayTeam: teams[3] || null,
     },
     {
       id: "3",
@@ -45,51 +30,31 @@ export default async function TicketsPage() {
       status: "Played",
       home: { id: "102", score: 3 },
       away: { id: "202", score: 2 },
-      homeTeam: {
-        data: {
-          name: "Team 1",
-          country: "USA",
-        },
-      },
-      awayTeam: {
-        data: {
-          name: "Team 2",
-          country: "USA",
-        },
-      },
+      homeTeam: teams[4] || null,
+      awayTeam: teams[5] || null,
     },
     {
       id: "4",
       startTime: "2025-10-26T20:00:00Z",
       status: "Postponed",
-      home: { id: "102", score: 1 },
-      away: { id: "202", score: 1 },
-      homeTeam: {
-        data: {
-          name: "Team 1",
-          country: "USA",
-        },
-      },
-      awayTeam: {
-        data: {
-          name: "Team 2",
-          country: "USA",
-        },
-      },
+      home: { id: "103", score: 1 },
+      away: { id: "203", score: 1 },
+      homeTeam: teams[6] || null,
+      awayTeam: teams[7] || null,
     },
-  ]
+  ];
 
   return (
     <Container>
       <Section padding="md">
         <div className="space-y-10">
-          <GameCardRow
-            fixtures={fixtures}
-            title="Test Fixtures"
-            showDate
+          <GameCardRow 
+            fixtures={fixtures} 
+            title="Test Fixtures" 
+            showDate 
           />
         </div>
       </Section>
     </Container>
-  )
+  );
 }

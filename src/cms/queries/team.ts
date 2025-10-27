@@ -114,3 +114,21 @@ export async function getTeamByOptaId(optaId: string): Promise<TeamDocument | nu
     return null;
   }
 }
+
+/**
+ * Get all teams
+ */
+export async function getAllTeams(): Promise<TeamDocument[]> {
+  try {
+    const client = createClient();
+    const teams = await client.getAllByType("team", {
+      orderings: [
+        { field: "my.team.alphabetical_sort_string", direction: "asc" }
+      ]
+    });
+    return teams;
+  } catch (error) {
+    console.error("Error fetching teams:", error);
+    return [];
+  }
+}
