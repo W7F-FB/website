@@ -3,6 +3,8 @@
 
 import { XMLParser } from 'fast-xml-parser';
 import { F3StandingsResponse } from '@/types/opta-feeds/f3-standings';
+import { F24EventsResponse } from '@/types/opta-feeds/f24-match';
+import { F9MatchResponse } from '@/types/opta-feeds/f9-match-details';
 
 export class OptaClient {
   private baseUrl: string;
@@ -59,6 +61,29 @@ export class OptaClient {
     const xmlText = await response.text();
     const parsed = this.xmlParser.parse(xmlText);
     return parsed as F3StandingsResponse;
+  }
+
+  async getF9MatchDetails(matchId: string | number): Promise<F9MatchResponse> {
+    const response = await this.makeRequest({
+      feed_type: 'f9',
+      game_id: matchId,
+    });
+
+    const xmlText = await response.text();
+    const parsed = this.xmlParser.parse(xmlText);
+    return parsed as F9MatchResponse;
+  }
+
+  
+  async getF24MatchEvents(matchId: string | number): Promise<F24EventsResponse> {
+    const response = await this.makeRequest({
+      feed_type: 'f24',
+      game_id: matchId,
+    });
+
+    const xmlText = await response.text();
+    const parsed = this.xmlParser.parse(xmlText);
+    return parsed as F24EventsResponse;
   }
 
   // Generic method for any feed type
