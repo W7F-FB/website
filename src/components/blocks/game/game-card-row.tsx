@@ -72,13 +72,14 @@ function GameCardRow({ fixtures, title, showDate = true, className, ...props }: 
                     )}
 
                     <div className="flex flex-col gap-4">
-                        {dateFixtures.map((fixture) => (
+                        {dateFixtures.map((fixture, index) => (
                             <GameCard
-                                key={fixture.id}
+                                key={`${fixture.id}-${index}`}
                                 fixture={fixture}
                                 className="w-full"
                             />
                         ))}
+
                     </div>
                 </div>
             ))}

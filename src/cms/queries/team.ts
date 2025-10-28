@@ -103,8 +103,12 @@ export async function getTeamsByTournament(tournamentUID: string): Promise<TeamD
 export async function getTeamByOptaId(optaId: string): Promise<TeamDocument | null> {
   try {
     const client = createClient();
+
+    const normalized = optaId.replace(/^t/i, "");
+    const candidates = [optaId, normalized, `t${normalized}`];
+
     const teams = await client.getAllByType("team", {
-      filters: [prismic.filter.at("my.team.opta_id", optaId)],
+      filters: [prismic.filter.any("my.team.opta_id", candidates)],
       pageSize: 1,
     });
 
@@ -114,6 +118,7 @@ export async function getTeamByOptaId(optaId: string): Promise<TeamDocument | nu
     return null;
   }
 }
+
 
 /**
  * Get all teams
