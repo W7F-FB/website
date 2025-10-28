@@ -71,7 +71,7 @@ export async function getLeadershipTeam(): Promise<TeamMemberDocument[]> {
 export async function getTeamsByTournament(tournamentUID: string): Promise<TeamDocument[]> {
   try {
     const client = createClient();
-    
+
     // Get all teams first, then filter by tournament participation
     const allTeams = await client.getAllByType("team", {
       fetchLinks: ["tournament.uid"],
@@ -93,6 +93,47 @@ export async function getTeamsByTournament(tournamentUID: string): Promise<TeamD
     return filteredTeams;
   } catch (error) {
     console.error(`Error fetching teams for tournament ${tournamentUID}:`, error);
+    return [];
+  }
+}
+
+/**
+ * Get Team by ID
+ */
+export async function getTeamByOptaId(optaId: string): Promise<TeamDocument | null> {
+  try {
+    const client = createClient();
+
+    const normalized = optaId.replace(/^t/i, "");
+    const candidates = [optaId, normalized, `t${normalized}`];
+
+    const teams = await client.getAllByType("team", {
+      filters: [prismic.filter.any("my.team.opta_id", candidates)],
+      pageSize: 1,
+    });
+
+    return teams.length > 0 ? teams[0] : null;
+  } catch (error) {
+    console.error(`Error fetching team with Opta ID ${optaId}:`, error);
+    return null;
+  }
+}
+
+
+/**
+ * Get all teams
+ */
+export async function getAllTeams(): Promise<TeamDocument[]> {
+  try {
+    const client = createClient();
+    const teams = await client.getAllByType("team", {
+      orderings: [
+        { field: "my.team.alphabetical_sort_string", direction: "asc" }
+      ]
+    });
+    return teams;
+  } catch (error) {
+    console.error("Error fetching teams:", error);
     return [];
   }
 }
