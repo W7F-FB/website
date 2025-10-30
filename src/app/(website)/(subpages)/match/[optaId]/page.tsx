@@ -5,7 +5,8 @@ import { getTeamByOptaId } from "@/cms/queries/team";
 import PlayByPlay from "@/components/blocks/match/play-by-play";
 import { notFound } from "next/navigation";
 
-export async function generateMetadata({ params }: { params: { optaId: string } }) {
+export async function generateMetadata({ params }: { params: Promise<{ optaId: string }> }) {
+  await params;
   return {
     title: `World Sevens Football - Play-By-Play`,
     description: `Live stats, teams and play-by-play.`,
@@ -16,11 +17,11 @@ export default async function MatchPage({
   params,
   searchParams,
 }: {
-  params: { optaId: string };
-  searchParams: { competition?: string; season?: string };
+  params: Promise<{ optaId: string }>;
+  searchParams: Promise<{ competition?: string; season?: string }>;
 }) {
-  const { optaId } = params;
-  const { competition, season } = searchParams;
+  const { optaId } = await params;
+  const { competition, season } = await searchParams;
 
   const competitionId = competition || "1303";
   const seasonId = season || "2025";
