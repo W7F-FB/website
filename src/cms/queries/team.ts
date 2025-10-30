@@ -96,3 +96,42 @@ export async function getTeamsByTournament(tournamentUID: string): Promise<TeamD
     return [];
   }
 }
+
+/**
+ * Get a team by its Opta ID
+ */
+export async function getTeamByOptaId(optaId: string): Promise<TeamDocument | null> {
+  try {
+    const client = createClient();
+    const teams = await client.getAllByType("team", {
+      filters: [
+        prismic.filter.at("my.team.opta_id", optaId)
+      ],
+      limit: 1
+    });
+    
+    return teams.length > 0 ? teams[0] : null;
+  } catch (error) {
+    console.error(`Error fetching team with Opta ID ${optaId}:`, error);
+    return null;
+  }
+}
+
+/**
+ * Get multiple teams by their Opta IDs
+ */
+export async function getTeamsByOptaIds(optaIds: string[]): Promise<TeamDocument[]> {
+  try {
+    const client = createClient();
+    const teams = await client.getAllByType("team", {
+      filters: [
+        prismic.filter.any("my.team.opta_id", optaIds)
+      ]
+    });
+    
+    return teams;
+  } catch (error) {
+    console.error(`Error fetching teams with Opta IDs:`, error);
+    return [];
+  }
+}
