@@ -62,6 +62,7 @@ export default async function MatchPage({
           awayTeamPrismic={awayTeamPrismic}
           venueName={venueName}
         />
+        <PlayByPlay matchEvents={matchEvents} />
       </Section>
     </Container>
   );

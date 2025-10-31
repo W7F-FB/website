@@ -43,7 +43,7 @@ export default function MatchHero({ matchData, homeTeam, awayTeam, homeTeamPrism
 
 
   return (
-    <div className="p-4 border bg-accent/20">
+    <div className="p-4 border bg-card">
       <div className="p-3 text-center">
         <span className="text-muted-foreground text-md">
           Venue: {venueName ?? "TBD"}
