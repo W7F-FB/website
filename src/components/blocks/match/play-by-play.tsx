@@ -1,5 +1,4 @@
 import { F24EventsResponse } from "@/types/opta-feeds/f24-match";
-import { PrismicImage } from "@prismicio/react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { H2 } from "@/components/website-base/typography";
 
@@ -21,7 +20,7 @@ export default function PlayByPlay({ matchEvents }: PlayByPlayProps) {
                     <TabsTrigger value="scoring-plays">Scoring Plays</TabsTrigger>
                 </TabsList>
                 <TabsContent value="all-plays">
-                    
+
                 </TabsContent>
             </Tabs>
         </div>

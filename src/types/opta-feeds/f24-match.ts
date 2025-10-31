@@ -2,9 +2,21 @@
 // Based on Opta Soccer Feed F24 documentation
 
 export interface F24EventsResponse {
-  SoccerFeed: F24SoccerFeed;
+  Games: F24Games;
 }
 
+export interface F24Games {
+  Game: F24Game;
+}
+
+export interface F24Game {
+  Event: F24Event[];
+  // Other possible Game properties (can be expanded as needed)
+  [key: string]: unknown;
+}
+
+// Legacy interfaces kept for reference or potential future use
+// These may not match the actual XML structure but are kept for type safety
 export interface F24SoccerFeed {
   SoccerDocument: F24SoccerDocument;
 }
