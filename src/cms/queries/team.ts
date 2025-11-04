@@ -71,7 +71,7 @@ export async function getLeadershipTeam(): Promise<TeamMemberDocument[]> {
 export async function getTeamsByTournament(tournamentUID: string): Promise<TeamDocument[]> {
   try {
     const client = createClient();
-    
+
     // Get all teams first, then filter by tournament participation
     const allTeams = await client.getAllByType("team", {
       fetchLinks: ["tournament.uid"],
