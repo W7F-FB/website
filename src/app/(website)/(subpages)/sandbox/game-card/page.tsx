@@ -8,7 +8,7 @@ export default async function GameCardSandboxPage() {
   const seasonId = "2025"
 
   const fixtures = await getGameData(competitionId, seasonId)
-
+  console.log(fixtures)
   return (
     <Container>
       <Section padding="md">

@@ -44,68 +44,45 @@ export default function MatchHero({ matchData, homeTeam, awayTeam, homeTeamPrism
 
   return (
     <div className="p-4 border bg-card">
-      <div className="p-3 text-center">
-        <span className="text-muted-foreground text-md">
-          Venue: {venueName ?? "TBD"}
-        </span>
-      </div>
+
       <div className="flex flex-row overflow-hidden relative w-full items-center">
-        <div className="flex flex-1 pl-6 flex-row items-center">
-          <div className="flex flex-1 items-center z-10 justify-center">
-            {homeTeamPrismic?.data.logo && (
-              <PrismicNextImage
-                field={homeTeamPrismic.data.logo}
-                width={50}
-                height={50}
-                className="object-contain"
-              />
-            )}
-            <div className="flex flex-row items-center justify-end w-full">
-              <Button asChild variant="link">
-                <Link href={`/teams/${homeTeamData?.TeamRef}`}>
-                  {homeTeamPrismic?.data.name || homeTeam?.Name || 'Home Team'}
-                </Link>
-              </Button>
-              <div className="flex flex-col items-center p-2.5">
-                <span className="text-2xl font-headers">
-                  {homeScore}
-                </span>
+        <div className="flex flex-1 flex-row items-center">
+          <div className="flex w-full items-center z-10 justify-center">
+            <div className="w-18 h-18 relative">
+              {homeTeamPrismic?.data.logo && (
+                <PrismicNextImage
+                  field={homeTeamPrismic.data.logo}
+                  fill
+                  className="object-contain"
+                />
+              )}
+            </div>
+            <div className="flex flex-1 gap-6 items-center">
+              <div className="flex-1 text-right">
+                {homeTeamPrismic?.data.name || homeTeam?.Name || 'Home Team'}
               </div>
+              <div className="flex-shrink text-[3rem] font-bold flex items-center justify-center gap-10 leading-none">
+                <div>0</div>
+                <div className="text-lg">FT</div>
+                <div>0</div>
+              </div>
+              <div className="flex-1">
+                {awayTeamPrismic?.data.name || awayTeam?.Name || 'Away Team'}
+              </div>
+            </div>
+            <div className="w-18 h-18 relative">
+              {awayTeamPrismic?.data.logo && (
+                <PrismicNextImage
+                  field={awayTeamPrismic.data.logo}
+                  fill
+                  className="object-contain"
+                />
+              )}
             </div>
           </div>
         </div>
         <div>
-          <span className="text-2xl font-headers">-</span>
         </div>
-        <div className="flex flex-1 pr-6 flex-row items-center">
-          <div className="flex flex-1 flex-row-reverse items-center z-10 justify-center">
-            {awayTeamPrismic?.data.logo && (
-              <PrismicNextImage
-                field={awayTeamPrismic.data.logo}
-                width={50}
-                height={50}
-                className="object-contain"
-              />
-            )}
-            <div className="flex flex-row-reverse items-center justify-end w-full">
-              <Button asChild variant="link">
-                <Link href={`/teams/${awayTeamData?.TeamRef}`}>
-                  {awayTeamPrismic?.data.name || awayTeam?.Name || 'Away Team'}
-                </Link>
-              </Button>
-              <div className="flex flex-col items-center p-2.5">
-                <span className="text-2xl font-headers">
-                  {awayScore}
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="p-3 text-center">
-        <span className="text-muted-foreground text-md">
-          {formattedDate}, {formattedTime}
-        </span>
       </div>
     </div>
   );

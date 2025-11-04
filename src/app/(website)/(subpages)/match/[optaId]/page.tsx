@@ -1,5 +1,5 @@
 import { Section, Container } from "@/components/website-base/padding-containers";
-import { getF1Fixtures, getF24MatchEvents } from "@/app/api/opta/feeds";
+import { getF1Fixtures } from "@/app/api/opta/feeds";
 import MatchHero from "@/components/blocks/match/match-hero";
 import { getTeamByOptaId } from "@/cms/queries/team";
 import PlayByPlay from "@/components/blocks/match/play-by-play";
@@ -27,7 +27,6 @@ export default async function MatchPage({
   const seasonId = season || "2025";
 
   const fixtures = await getF1Fixtures(competitionId, seasonId);
-  const matchEvents = await getF24MatchEvents(optaId, competitionId, seasonId);
 
   const doc = fixtures.SoccerFeed.SoccerDocument;
   const matchData = doc.MatchData?.find(
@@ -35,6 +34,8 @@ export default async function MatchPage({
   );
 
   if (!matchData) return notFound();
+
+  console.log(matchData);
 
   const venueStat = matchData.Stat?.find((stat) => stat.Type === "Venue");
   const venueName = venueStat?.value ? String(venueStat.value) : undefined;
@@ -62,7 +63,7 @@ export default async function MatchPage({
           awayTeamPrismic={awayTeamPrismic}
           venueName={venueName}
         />
-        <PlayByPlay matchEvents={matchEvents} />
+        <PlayByPlay matchId={optaId} competitionId={competitionId} seasonId={seasonId} />
       </Section>
     </Container>
   );

@@ -6,6 +6,7 @@ import { F1FixturesResponse } from '@/types/opta-feeds/f1-fixtures';
 import { F3StandingsResponse } from '@/types/opta-feeds/f3-standings';
 import { F9MatchResponse } from '@/types/opta-feeds/f9-match-details';
 import { F24EventsResponse } from '@/types/opta-feeds/f24-match';
+import { F13CommentaryResponse, F13LanguageCode } from '@/types/opta-feeds/f13-commentary';
 
 const optaClient = new OptaClient();
 
@@ -53,4 +54,29 @@ export async function getF24MatchEvents(
   seasonId: string | number
 ): Promise<F24EventsResponse> {
   return await optaClient.getF24MatchEvents(matchId, competitionId, seasonId);
+}
+
+/**
+ * F24b - Key Events Feed
+ * Returns key match events only (goals, shots, cards, corners, fouls, substitutions, etc.)
+ */
+export async function getF24bKeyEvents(
+  matchId: string | number,
+  competitionId: string | number,
+  seasonId: string | number
+): Promise<F24EventsResponse> {
+  return await optaClient.getF24bKeyEvents(matchId, competitionId, seasonId);
+}
+
+/**
+ * F13 - Commentary Feed
+ * Returns automated commentary messages for key match events in specified language
+ */
+export async function getF13Commentary(
+  matchId: string | number,
+  competitionId: string | number,
+  seasonId: string | number,
+  language: F13LanguageCode = 'en'
+): Promise<F13CommentaryResponse> {
+  return await optaClient.getF13Commentary(matchId, competitionId, seasonId, language);
 }

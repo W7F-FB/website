@@ -5,6 +5,7 @@ import { getTeamByOptaId } from "@/cms/queries/team"
 export async function getGameData(competitionId: string, seasonId: string) {
 
   const optaData = await getF1Fixtures(competitionId, seasonId)
+  console.log(optaData)
   const matches = optaData?.SoccerFeed?.SoccerDocument?.MatchData || []
   const fixtures = matches.map(mapOptaFixture)
 
