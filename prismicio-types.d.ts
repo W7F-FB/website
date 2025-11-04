@@ -592,6 +592,17 @@ interface TournamentDocumentData {
   opta_competition_id: prismic.KeyTextField;
 
   /**
+   * Opta Season ID field in *Tournament*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: tournament.opta_season_id
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  opta_season_id: prismic.KeyTextField;
+
+  /**
    * Slice Zone field in *Tournament*
    *
    * - **Field Type**: Slice Zone
