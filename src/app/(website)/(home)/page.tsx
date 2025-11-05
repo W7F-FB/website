@@ -13,6 +13,24 @@ import { ClubList } from "@/components/blocks/clubs/club-list";
 import { SectionHeading, SectionHeadingHeading, SectionHeadingSubtitle, SectionHeadingText } from "@/components/sections/section-heading";
 import { getTournamentByUid } from "@/cms/queries/tournaments";
 import { RecentNewsGrid } from "@/components/blocks/recent-news-grid";
+import { TicketOptionsGrid } from "@/components/blocks/ticket-options-grid";
+import { VideoBanner } from "@/components/blocks/video-banner/video-banner";
+import { Separator } from "@/components/ui/separator";
+import { PostCardHoriz, type BlogMetadata } from "@/components/website-base/posts/post";
+import { getSocialBlogsByCategory } from "@/cms/queries/blog";
+import type { BlogDocument } from "../../../../prismicio-types";
+
+export function mapBlogDocumentToMetadata(blog: BlogDocument): BlogMetadata {
+    return {
+        slug: blog.uid ?? "",
+        title: blog.data.title ?? "Untitled",
+        excerpt: blog.data.excerpt ?? null,
+        image: blog.data.image?.url ?? undefined,
+        category: blog.data.category ?? null,
+        author: blog.data.author ?? null,
+        date: blog.data.date ?? null,
+    }
+}
 
 export const metadata: Metadata = {
     title: "World Sevens Football - The Future of 7v7 Soccer",
@@ -83,6 +101,9 @@ const faqData: FAQItem[] = [
 export default async function HomePage() {
     const tournament = await getTournamentByUid("fort-lauderdale");
 
+    const tournamentRecapBlogs = await getSocialBlogsByCategory("Tournament Recap");
+    const featuredRecapBlog = tournamentRecapBlogs.length > 0 ? tournamentRecapBlogs[0] : null;
+
     if (!tournament) {
         return (
             <div className="text-center py-8">
@@ -129,7 +150,7 @@ export default async function HomePage() {
                 </HeroSlider>
             </Section>
             <Container>
-                <Section padding="md" className="min-h-screen">
+                <Section padding="md">
                     <SectionHeading variant="split">
                         <SectionHeadingSubtitle>
                             Fort Lauderdale – Participants
@@ -145,6 +166,43 @@ export default async function HomePage() {
                 </Section>
             </Container>
             <Container>
+                <Section padding="md">
+                    <TicketOptionsGrid />
+                </Section>
+            </Container>
+            <Container>
+                <Section padding="md">
+                    <Separator className="opacity-50" />
+                </Section>
+            </Container>
+            <Container>
+                <Section padding="md">
+                    <SectionHeading variant="split">
+                        <SectionHeadingSubtitle>
+                            Event #1 Recap
+                        </SectionHeadingSubtitle>
+                        <SectionHeadingHeading className="text-4xl">
+                            World Sevens Football Kickoff
+                        </SectionHeadingHeading>
+                        <SectionHeadingText>
+                            The inaugural World Sevens Football (W7F) tournament in Estoril, Portugal, delivered an electrifying showcase of elite women&apos;s football. Bayern Munich emerged as champions after a thrilling 2–1 comeback victory over Manchester United in the final, securing the lion&apos;s share of the $5 million prize pool.
+                        </SectionHeadingText>
+                    </SectionHeading>
+                    {featuredRecapBlog && (
+                        <PostCardHoriz blog={mapBlogDocumentToMetadata(featuredRecapBlog)} />
+                    )}
+                </Section>
+            </Container>
+            <Container>
+                <Section padding="md">
+                    <VideoBanner
+                        thumbnail="/images/static-media/video-banner.avif"
+                        videoUrl="https://r2.vidzflow.com/source/a4c227f3-6918-4e29-8c72-b509a9cf3d5c.mp4"
+                        label="Recap the action"
+                    />
+                </Section>
+            </Container>
+            <Container>
                 <Section padding="md" className="min-h-screen">
                     <SectionHeading variant="split">
                         <SectionHeadingSubtitle>
@@ -157,7 +215,7 @@ export default async function HomePage() {
                     <RecentNewsGrid />
                 </Section>
             </Container>
-            <Section padding="md" className="">
+            <Section padding="md">
                 <Container maxWidth="lg">
                     <Card>
                         <CardHeader>
