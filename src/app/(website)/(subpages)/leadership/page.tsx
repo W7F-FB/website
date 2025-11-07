@@ -77,7 +77,7 @@ export default async function LeadershipPage() {
                 <GridCellScrollLink href="#co-founders" />
             </div>
         </Section>
-        <Separator className="my-16 opacity-50"/>
+        <Separator className="my-16"/>
         <Section padding="md" className="grid grid-cols-3 gap-16" id="co-founders">
             <GradientBanner className="">
                 <H2>Co-Founders</H2>
@@ -106,7 +106,7 @@ export default async function LeadershipPage() {
                 <GridCellScrollLink href="#leadership-team" />
             </div>
         </Section>
-        <Separator className="my-16 opacity-50" />
+        <Separator className="my-16" />
         <Section padding="md" className="grid grid-cols-3 gap-16" id="leadership-team">
             <GradientBanner className="">
                 <H2>Leadership Team</H2>

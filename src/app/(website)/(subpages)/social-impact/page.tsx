@@ -7,10 +7,10 @@ import { H1, H2, P, Subtitle } from "@/components/website-base/typography";
 import { getAllImageWithText } from "@/cms/queries/social-contents"
 import { ImageWithText } from "@/components/blocks/image-with-text"
 import { getSocialBlogs } from "@/cms/queries/blog"
-import { PostCompact } from "@/components/website-base/posts/post"
+import { PostCompact } from "@/components/blocks/posts/post"
 import { Separator } from "@/components/ui/separator";
 
-import { mapBlogDocumentToMetadata } from "../news/page"
+import { mapBlogDocumentToMetadata } from "@/lib/utils"
 
 
 export const metadata: Metadata = {
@@ -68,7 +68,7 @@ async function BlocksShow() {
           />
 
           {idx < sections.length - 1 && (
-            <Separator className="mt-16 opacity-50" />
+            <Separator className="mt-16" />
           )}
         </Section>
       ))}

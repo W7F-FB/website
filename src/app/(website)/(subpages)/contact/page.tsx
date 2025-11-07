@@ -10,10 +10,13 @@ import {
     Form,
     FormControl,
     FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
 } from "@/components/ui/form"
+import {
+    Field,
+    FieldError,
+    FieldGroup,
+    FieldLabel,
+} from "@/components/ui/field"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { TopicSelect } from "@/components/ui/topicselect"
@@ -95,156 +98,178 @@ export default function ContactPage() {
 
                 <div>
                     <Form {...form}>
-                        <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-8">
+                        <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
+                            <FieldGroup className="space-y-8">
+                                <FormField
+                                    control={form.control}
+                                    name="topic"
+                                    render={({ field, fieldState }) => {
+                                        return (
+                                            <Field data-invalid={!!fieldState.error}>
+                                                <FieldLabel className="text-3xl font-headers uppercase">What can we help you with?</FieldLabel>
+                                                <FormControl>
+                                                    <TopicSelect value={field.value} onValueChange={field.onChange} />
+                                                </FormControl>
+                                                <FieldError errors={fieldState.error ? [fieldState.error] : undefined} />
+                                            </Field>
+                                        )
+                                    }}
+                                />
 
-                            <FormField
-                                control={form.control}
-                                name="topic"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel className="text-3xl font-headers uppercase">What can we help you with?</FormLabel>
-                                        <FormControl>
-                                            <TopicSelect value={field.value} onValueChange={field.onChange} />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
+                                {form.watch("topic") && (
+                                    <>
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                            <FormField
+                                                control={form.control}
+                                                name="firstName"
+                                                render={({ field, fieldState }) => {
+                                                    return (
+                                                        <Field data-invalid={!!fieldState.error}>
+                                                            <FieldLabel htmlFor="firstName" className="font-headers">First Name<span className="text-red-500">*</span></FieldLabel>
+                                                            <FormControl>
+                                                                <Input
+                                                                    id="firstName"
+                                                                    placeholder="Your first name"
+                                                                    className="bg-transparent border border-[#000] border-b-[#ffffff1a] text-white h-10 focus-visible:outline-none focus-visible:ring-0 focus-visible:border-transparent"
+                                                                    {...field}
+                                                                />
+                                                            </FormControl>
+                                                            <FieldError errors={fieldState.error ? [fieldState.error] : undefined} />
+                                                        </Field>
+                                                    )
+                                                }}
+                                            />
+                                            <FormField
+                                                control={form.control}
+                                                name="lastName"
+                                                render={({ field, fieldState }) => {
+                                                    return (
+                                                        <Field data-invalid={!!fieldState.error}>
+                                                            <FieldLabel htmlFor="lastName" className="font-headers">Last Name <span className="text-red-500">*</span></FieldLabel>
+                                                            <FormControl>
+                                                                <Input
+                                                                    id="lastName"
+                                                                    placeholder="Your last name"
+                                                                    className="bg-transparent border border-[#000] border-b-[#ffffff1a] text-white h-10 focus-visible:outline-none focus-visible:ring-0 focus-visible:border-transparent"
+                                                                    {...field}
+                                                                />
+                                                            </FormControl>
+                                                            <FieldError errors={fieldState.error ? [fieldState.error] : undefined} />
+                                                        </Field>
+                                                    )
+                                                }}
+                                            />
+                                        </div>
+
+                                        <FormField
+                                            control={form.control}
+                                            name="email"
+                                            render={({ field, fieldState }) => {
+                                                return (
+                                                    <Field data-invalid={!!fieldState.error}>
+                                                        <FieldLabel htmlFor="email" className="font-headers">Email <span className="text-red-500">*</span></FieldLabel>
+                                                        <FormControl>
+                                                            <Input
+                                                                id="email"
+                                                                type="email"
+                                                                placeholder="inbox@email.com"
+                                                                autoComplete="email"
+                                                                className="bg-transparent border border-[#000] border-b-[#ffffff1a] text-white h-10 focus-visible:outline-none focus-visible:ring-0 focus-visible:border-transparent"
+                                                                {...field}
+                                                            />
+                                                        </FormControl>
+                                                        <FieldError errors={fieldState.error ? [fieldState.error] : undefined} />
+                                                    </Field>
+                                                )
+                                            }}
+                                        />
+
+                                        <FormField
+                                            control={form.control}
+                                            name="message"
+                                            render={({ field, fieldState }) => {
+                                                return (
+                                                    <Field data-invalid={!!fieldState.error}>
+                                                        <FieldLabel htmlFor="message" className="font-headers">Message <span className="text-red-500">*</span></FieldLabel>
+                                                        <FormControl>
+                                                            <Textarea
+                                                                id="message"
+                                                                rows={5}
+                                                                placeholder="Your message..."
+                                                                className="bg-transparent border border-[#000] text-white h-22"
+                                                                {...field}
+                                                            />
+                                                        </FormControl>
+                                                        <FieldError errors={fieldState.error ? [fieldState.error] : undefined} />
+                                                    </Field>
+                                                )
+                                            }}
+                                        />
+
+                                        <FieldGroup className="space-y-4">
+                                            <FormField
+                                                control={form.control}
+                                                name="newsletter"
+                                                render={({ field, fieldState }) => {
+                                                    return (
+                                                        <Field orientation="horizontal" data-invalid={!!fieldState.error}>
+                                                            <FormControl>
+                                                                <Checkbox
+                                                                    id="newsletter"
+                                                                    checked={field.value}
+                                                                    onCheckedChange={field.onChange}
+                                                                    className="border-2 data-[state=checked]:border-white"
+                                                                />
+                                                            </FormControl>
+                                                            <FieldLabel htmlFor="newsletter" className="leading-none text-gray-300 font-normal">
+                                                                Stay updated on W7F news, tickets, giveaways, merchandise and more.
+                                                            </FieldLabel>
+                                                            <FieldError errors={fieldState.error ? [fieldState.error] : undefined} />
+                                                        </Field>
+                                                    )
+                                                }}
+                                            />
+
+                                            <FormField
+                                                control={form.control}
+                                                name="terms"
+                                                render={({ field, fieldState }) => {
+                                                    return (
+                                                        <Field orientation="horizontal" data-invalid={!!fieldState.error}>
+                                                            <FormControl>
+                                                                <Checkbox
+                                                                    id="terms"
+                                                                    checked={field.value}
+                                                                    onCheckedChange={field.onChange}
+                                                                    className="border-2 data-[state=checked]:border-white"
+                                                                />
+                                                            </FormControl>
+                                                            <FieldLabel htmlFor="terms" className="text-gray-300 flex flex-wrap gap-1 items-center font-normal">
+                                                                <span>By submitting your information you are agreeing to our</span>
+                                                                <a href="/terms" className="underline">Terms and Conditions</a>
+                                                                <span>and</span>
+                                                                <a href="/privacy" className="underline">Privacy Policy</a>
+                                                                <span className="text-red-500">*</span>
+                                                            </FieldLabel>
+                                                            <FieldError errors={fieldState.error ? [fieldState.error] : undefined} />
+                                                        </Field>
+                                                    )
+                                                }}
+                                            />
+                                        </FieldGroup>
+                                        <section className="flex justify-center mt-6">
+                                            <Button
+                                                type="submit"
+                                                size="skew_lg"
+                                                aria-label="Subscribe"
+                                                className="shrink-0 px-14 font-bold"
+                                            >
+                                                <span>SUBMIT</span>
+                                            </Button>
+                                        </section>
+                                    </>
                                 )}
-                            />
-
-                            {form.watch("topic") && (
-                                <>
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                        <FormField
-                                            control={form.control}
-                                            name="firstName"
-                                            render={({ field }) => (
-                                                <FormItem>
-                                                    <FormLabel className="font-headers">First Name<span className="text-red-500">*</span></FormLabel>
-                                                    <FormControl>
-                                                        <Input
-                                                            placeholder="Your first name"
-                                                            className="bg-transparent border border-[#000] border-b-[#ffffff1a] text-white h-10 focus-visible:outline-none focus-visible:ring-0 focus-visible:border-transparent"
-                                                            {...field}
-                                                        />
-                                                    </FormControl>
-                                                    <FormMessage />
-                                                </FormItem>
-                                            )}
-                                        />
-                                        <FormField
-                                            control={form.control}
-                                            name="lastName"
-                                            render={({ field }) => (
-                                                <FormItem>
-                                                    <FormLabel className="font-headers">Last Name <span className="text-red-500">*</span></FormLabel>
-                                                    <FormControl>
-                                                        <Input
-                                                            placeholder="Your last name"
-                                                            className="bg-transparent border border-[#000] border-b-[#ffffff1a] text-white h-10 focus-visible:outline-none focus-visible:ring-0 focus-visible:border-transparent"
-                                                            {...field}
-                                                        />
-                                                    </FormControl>
-                                                    <FormMessage />
-                                                </FormItem>
-                                            )}
-                                        />
-                                    </div>
-
-                                    <FormField
-                                        control={form.control}
-                                        name="email"
-                                        render={({ field }) => (
-                                            <FormItem>
-                                                <FormLabel className="font-headers">Email <span className="text-red-500">*</span></FormLabel>
-                                                <FormControl>
-                                                    <Input
-                                                        type="email"
-                                                        placeholder="inbox@email.com"
-                                                        autoComplete="email"
-                                                        className="bg-transparent border border-[#000] border-b-[#ffffff1a] text-white h-10 focus-visible:outline-none focus-visible:ring-0 focus-visible:border-transparent"
-                                                        {...field}
-                                                    />
-                                                </FormControl>
-                                                <FormMessage />
-                                            </FormItem>
-                                        )}
-                                    />
-
-                                    <FormField
-                                        control={form.control}
-                                        name="message"
-                                        render={({ field }) => (
-                                            <FormItem>
-                                                <FormLabel className="font-headers">Message <span className="text-red-500">*</span></FormLabel>
-                                                <FormControl>
-                                                    <Textarea
-                                                        rows={5}
-                                                        placeholder="Your message..."
-                                                        className="bg-transparent border border-[#000] text-white h-22"
-                                                        {...field}
-                                                    />
-                                                </FormControl>
-                                                <FormMessage />
-                                            </FormItem>
-                                        )}
-                                    />
-
-                                    <div className="space-y-4">
-                                        <FormField
-                                            control={form.control}
-                                            name="newsletter"
-                                            render={({ field }) => (
-                                                <FormItem className="flex items-start space-x-2">
-                                                    <FormControl>
-                                                        <Checkbox
-                                                            checked={field.value}
-                                                            onCheckedChange={field.onChange}
-                                                            className="border-2 data-[state=checked]:border-white"
-                                                        />
-                                                    </FormControl>
-                                                    <FormLabel className="leading-none text-gray-300">
-                                                        Stay updated on W7F news, tickets, giveaways, merchandise and more.
-                                                    </FormLabel>
-                                                </FormItem>
-                                            )}
-                                        />
-
-                                        <FormField
-                                            control={form.control}
-                                            name="terms"
-                                            render={({ field }) => (
-                                                <FormItem className="flex items-start space-x-2">
-                                                    <FormControl>
-                                                        <Checkbox
-                                                            checked={field.value}
-                                                            onCheckedChange={field.onChange}
-                                                            className="border-2 data-[state=checked]:border-white"
-                                                        />
-                                                    </FormControl>
-                                                    <FormLabel className="text-gray-300 flex flex-wrap gap-1 items-center">
-                                                        <span>By submitting your information you are agreeing to our</span>
-                                                        <a href="/terms" className="underline">Terms and Conditions</a>
-                                                        <span>and</span>
-                                                        <a href="/privacy" className="underline">Privacy Policy</a>
-                                                        <span className="text-red-500">*</span>
-                                                    </FormLabel>
-                                                </FormItem>
-                                            )}
-                                        />
-                                    </div>
-                                    <section className="flex justify-center mt-6">
-                                        <Button
-                                            type="submit"
-                                            size="skew_lg"
-                                            aria-label="Subscribe"
-                                            className="shrink-0 px-14 font-bold"
-                                        >
-                                            <span>SUBMIT</span>
-                                        </Button>
-                                    </section>
-                                </>
-
-                            )}
+                            </FieldGroup>
 
                         </form>
                         {submitted && (

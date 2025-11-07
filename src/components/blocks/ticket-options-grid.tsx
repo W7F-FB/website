@@ -4,10 +4,13 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { H2, P, H3 } from "@/components/website-base/typography";
 import Image from "next/image";
-import { CheckIcon, CalendarBlankIcon, MapPinAreaIcon, CaretRightIcon } from "@phosphor-icons/react/dist/ssr";
+import { CheckIcon, PalmtreeIcon, CaretRightIcon, CalendarIcon, MapPinAreaIcon, TagChevronIcon } from "@/components/website-base/icons";
 import Link from "next/link";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Separator } from "../ui/separator";
+import { GradientAside } from "@/components/ui/gradient-aside";
 
 interface TicketOption {
     id: string;
@@ -90,96 +93,122 @@ export function TicketOptionsGrid() {
 
     return (
         <div className="grid grid-cols-[30rem_1fr] gap-4">
-            <div className="col-span-1 p-10 space-y-6 border w-[30rem] sticky mb-[6rem] top-[10rem] self-start">
-                <div className="border-b flex flex-col pb-6">
-                    <span className="font-[450] font-headers uppercase text-accent-foreground mb-4 col-span-2">
-                        {eventDetails.title}
-                    </span>
-                    <H2 className="text-3xl font-bold uppercase text-white">
-                        {eventDetails.location}
-                    </H2>
+            <Card className="w-[30rem] sticky mb-26 top-36 self-start">
+                <div className="absolute inset-0 flex items-end justify-center opacity-1 pointer-events-none overflow-hidden">
+                    <PalmtreeIcon fill="currentColor" className="text-foreground w-auto h-full rotate-y-180" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-card to-transparent"></div>
                 </div>
+                <CardHeader>
+                    <CardTitle>
+                        <span className="font-[450] font-headers uppercase text-accent-foreground mb-4 block">
+                            {eventDetails.title}
+                        </span>
+                        <H2 className="text-3xl font-bold uppercase text-white">
+                            {eventDetails.location}
+                        </H2>
+                    </CardTitle>
+                </CardHeader>
 
-                <div className="border-b pb-6">
-                    <div className="flex items-center gap-3">
-                        <CalendarBlankIcon size={20} />
-                        <span className="text-lg">{eventDetails.date}</span>
-                        <Button asChild variant="link" size="sm" className="p-0">
-                            <Link href="/">View Schedule</Link>
-                        </Button>
+                <CardContent className="space-y-4">
+                    <Separator />
+                    <div className="space-y-2">
+                        <div className="flex items-center gap-3">
+                            <CalendarIcon className="size-3.5 mb-1" />
+                            <span className="text-lg">{eventDetails.date}</span>
+                            <Button asChild variant="link" size="sm" className="p-0">
+                                <Link href="/">View Schedule</Link>
+                            </Button>
+                        </div>
+
+                        <div className="flex items-center gap-3">
+                            <MapPinAreaIcon className="size-3.5 mb-0.75" />
+                            <span className="text-lg">{eventDetails.venue}</span>
+                            <Button
+                                variant="link"
+                                size="sm"
+                                onClick={() => setLightboxOpen(true)}
+                                className="p-0"
+                            >
+                                View Layout
+                            </Button>
+                        </div>
                     </div>
-
-                    <div className="flex items-center gap-3">
-                        <MapPinAreaIcon size={20} />
-                        <span className="text-lg">{eventDetails.venue}</span>
-                        <Button
-                            variant="link"
-                            size="sm"
-                            onClick={() => setLightboxOpen(true)}
-                            className="p-0"
-                        >
-                            View Layout
-                        </Button>
-                    </div>
-                </div>
-
-                <div>
-                    <ul className="space-y-2">
+                    <Separator />
+                    <ul className="flex flex-wrap gap-2">
                         {eventDetails.includedFeatures.map((feature, index) => (
-                            <li key={index} className="flex items-center gap-3">
-                                <CheckIcon size={16} />
-                                <span>{feature}</span>
+                            <li key={index}>
+                                <div className="bg-muted  -skew-x-8">
+                                    <div className="border-1 border-muted-foreground/5">
+                                        <div className="flex items-center">
+                                            <div className="border-r border-muted-foreground/5 p-1">
+                                                <div className="bg-background/75 size-6 flex items-center justify-center">
+                                                    <CheckIcon className="size-3 skew-x-8" />
+                                                </div>
+                                            </div>
+                                            <span className="pl-2 pr-3 py-1 text-xs leading-none font-headers font-semibold skew-x-8">{feature}</span>
+                                        </div>
+                                    </div>
+                                </div>
                             </li>
                         ))}
                     </ul>
-                </div>
-
-                <Button asChild size="skew">
-                    <Link href="#"><span>Purchase Tickets</span></Link>
-                </Button>
-
-                <div>
-                    <P className="text-sm mb-2">
-                        Interested in watching the action from a pitchside cabana?
-                        <span>
-                            <Button asChild variant="link" size="sm" className="p-0">
-                                <Link href="/">
-                                    Contact Us
-                                </Link>
-                            </Button>
-                        </span>
-                    </P>
-                </div>
-
-                <Link href="https://www.dazn.com/en-US/competition/Competition:2ysblq9gh9ulnfw31299e659p?utm_source=web&utm_medium=organicpartner&utm_campaign=dazn_global_gl_display_soccer_acquisition_fs_2024&utm_term=allwomensfootballfreemium-worldsevensfootball_fixed" className="flex gap-3">
-                    <Image src="/images/decorative/dazn_logo.svg" width={30} height={30} alt="DAZN Logo" className="opacity-80" />
-                    <P noSpace className="leading-none font-headers font-bold">Watch LIVE for <br />free on DAZN</P>
-                </Link>
-            </div>
+                    <Separator />
+                    <div className="pr-5 w-full">
+                        <Button asChild size="skew_lg" className="w-full origin-bottom-left">
+                            <Link href="#"><span>Purchase Tickets</span></Link>
+                        </Button>
+                    </div>
+                    <GradientAside>
+                        <p >
+                            Interested in watching the action from a pitchside cabana?
+                            <span>
+                                <Button asChild variant="link" size="sm" className="mt-1 p-0 h-auto !px-0">
+                                    <Link href="/">
+                                        Contact Us
+                                        <CaretRightIcon className="size-3 mt-px" />
+                                    </Link>
+                                </Button>
+                            </span>
+                        </p>
+                    </GradientAside>
+                </CardContent>
+                <CardFooter className="border-t">
+                    <Link href="https://www.dazn.com/en-US/competition/Competition:2ysblq9gh9ulnfw31299e659p?utm_source=web&utm_medium=organicpartner&utm_campaign=dazn_global_gl_display_soccer_acquisition_fs_2024&utm_term=allwomensfootballfreemium-worldsevensfootball_fixed" className="flex gap-3">
+                        <Image src="/images/decorative/dazn_logo.svg" width={30} height={30} alt="DAZN Logo" className="opacity-80" style={{ height: "auto" }} />
+                        <P noSpace className="leading-none font-headers font-bold">Watch LIVE for <br />free on DAZN</P>
+                    </Link>
+                </CardFooter>
+            </Card>
 
             <div className="grid gap-6">
                 {ticketOptions.map(option => (
-                    <div key={option.id} className="py-6 px-7 border overflow-hidden relative">
-                        <div className="absolute w-[0.25rem] left-0 top-0 bottom-0 bg-primary"></div>
-                        <div className="border-b">
-                            <H3 className="uppercase mt-2 mb-2">{option.title}</H3>
+                    <Card key={option.id} className="overflow-hidden relative bg-card/30">
+                        <div className="absolute w-1 left-0 top-0 bottom-0 bg-primary"></div>
+                        <CardHeader className="border-b">
+                            <CardTitle>
+                                <H3 className="uppercase">{option.title}</H3>
+                            </CardTitle>
                             {option.subtitle && (
-                                <P noSpace className="mb-2">{option.subtitle}</P>
+                                <CardDescription className="font-semibold text-base">
+                                    {option.subtitle}
+                                </CardDescription>
                             )}
-                        </div>
-                        <P className="mb-4">{option.description}</P>
-                        <ul className="space-y-2">
-                            {option.features.map((f, i) => (
-                                <li key={i} className="flex items-center gap-1">
-                                    <CaretRightIcon size={15} />
-                                    <span>{f}</span>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
+                        </CardHeader>
+                        <CardContent>
+                            <P className="mb-4">{option.description}</P>
+                            <ul className="space-y-2">
+                                {option.features.map((f, i) => (
+                                    <li key={i} className="flex items-start gap-2">
+                                        <TagChevronIcon  className="size-3 mt-1.25" />
+                                        <span>{f}</span>
+                                    </li>
+                                ))}
+                            </ul>
+                        </CardContent>
+                    </Card>
                 ))}
                 <div className="flex items-center justify-center mt-8">
-                    <Button asChild size="skew">
+                    <Button asChild size="skew_lg">
                         <Link href="#"><span>Purchase Tickets</span></Link>
                     </Button>
                 </div>

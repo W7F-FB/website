@@ -15,10 +15,11 @@ import { cn } from "@/lib/utils"
 import { Progress } from "../ui/progress"
 
 type HeroSliderProps = React.ComponentProps<typeof Carousel> & {
+  autoplay?: boolean
   autoplayDelay?: number
 }
 
-function HeroSlider({ className, children, autoplayDelay = 5000, ...props }: HeroSliderProps) {
+function HeroSlider({ className, children, autoplay = false, autoplayDelay = 5000, ...props }: HeroSliderProps) {
   const [api, setApi] = React.useState<CarouselApi>()
   const [progress, setProgress] = React.useState(0)
   const [isPaused, setIsPaused] = React.useState(false)
@@ -66,18 +67,16 @@ function HeroSlider({ className, children, autoplayDelay = 5000, ...props }: Her
       setCurrentSlide(api.selectedScrollSnap())
       setProgress(0)
       setPausedProgress(0)
-      // Restart autoplay from 0 when slide changes
-      if (!isPaused) {
+      if (autoplay && !isPaused) {
         startAutoplay(0)
       }
     })
-  }, [api, isPaused, startAutoplay])
+  }, [api, autoplay, isPaused, startAutoplay])
 
   React.useEffect(() => {
-    if (!api) return
+    if (!api || !autoplay) return
 
     if (isPaused) {
-      // Stop timers when paused but don't restart
       if (progressIntervalRef.current) {
         clearInterval(progressIntervalRef.current)
         progressIntervalRef.current = null
@@ -85,7 +84,6 @@ function HeroSlider({ className, children, autoplayDelay = 5000, ...props }: Her
       return
     }
 
-    // Resume from paused progress or start fresh
     startAutoplay(pausedProgress)
 
     return () => {
@@ -98,14 +96,16 @@ function HeroSlider({ className, children, autoplayDelay = 5000, ...props }: Her
         progressIntervalRef.current = null
       }
     }
-  }, [api, startAutoplay, isPaused, pausedProgress])
+  }, [api, autoplay, startAutoplay, isPaused, pausedProgress])
 
   const handleMouseEnter = () => {
+    if (!autoplay) return
     setPausedProgress(progress)
     setIsPaused(true)
   }
 
   const handleMouseLeave = () => {
+    if (!autoplay) return
     setIsPaused(false)
   }
 
@@ -134,7 +134,7 @@ function HeroSlider({ className, children, autoplayDelay = 5000, ...props }: Her
         <div className="w-full relative border-l border-r border-b dark:border-input backdrop-blur-sm bg-background/40">
           <Progress
             className="h-1.5 rounded-none !bg-transparent"
-            value={((currentSlide * 100) + progress) / slideCount}
+            value={autoplay ? ((currentSlide * 100) + progress) / slideCount : ((currentSlide + 1) * 100) / slideCount}
           />
           {/* Dividers */}
           {Array.from({ length: slideCount - 1 }, (_, index) => (

@@ -1,10 +1,11 @@
+
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
 import { Section, Container } from "@/components/website-base/padding-containers";
 import { HeroSlider, HeroSliderSlide, HeroSliderSlideBackground, HeroSliderSlideContent } from "@/components/blocks/hero-slider";
-import { H1, P, Subtitle, TextProtect } from "@/components/website-base/typography";
+import { H1, H3, P, Subtitle, TextProtect } from "@/components/website-base/typography";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -16,21 +17,11 @@ import { RecentNewsGrid } from "@/components/blocks/recent-news-grid";
 import { TicketOptionsGrid } from "@/components/blocks/ticket-options-grid";
 import { VideoBanner } from "@/components/blocks/video-banner/video-banner";
 import { Separator } from "@/components/ui/separator";
-import { PostCardHoriz, type BlogMetadata } from "@/components/website-base/posts/post";
+import { PostCardHoriz } from "@/components/blocks/posts/post";
 import { getSocialBlogsByCategory } from "@/cms/queries/blog";
-import type { BlogDocument } from "../../../../prismicio-types";
-
-function mapBlogDocumentToMetadata(blog: BlogDocument): BlogMetadata {
-    return {
-        slug: blog.uid ?? "",
-        title: blog.data.title ?? "Untitled",
-        excerpt: blog.data.excerpt ?? null,
-        image: blog.data.image?.url ?? undefined,
-        category: blog.data.category ?? null,
-        author: blog.data.author ?? null,
-        date: blog.data.date ?? null,
-    }
-}
+import { PrismicLink } from "@prismicio/react";
+import { W7FLineBanner } from "@/components/blocks/W7F-line-banner";
+import { cn, mapBlogDocumentToMetadata } from "@/lib/utils";
 
 export const metadata: Metadata = {
     title: "World Sevens Football - The Future of 7v7 Soccer",
@@ -122,12 +113,16 @@ export default async function HomePage() {
                         </HeroSliderSlideBackground>
                         <HeroSliderSlideContent className="max-w-3xl justify-self-start pr-48 flex items-end grid justify-items-start">
                             <Image src="/images/static-media/watercolor-bg.jpg" alt="Hero Slider 1" fill className="object-cover clip-watercolor-mask" />
-                            <TextProtect className="relative z-10">
-                                <Subtitle>Next Event</Subtitle>
+                            <TextProtect className="relative z-10 block space-y-5">
+                                <Subtitle className="text-xl">Tickets available now</Subtitle>
                                 <H1 className="font-proxima uppercase font-black text-6xl">Fort Lauderdale,<br />FLorida, USA</H1>
-                                <P noSpace className="text-3xl text-balance font-headers font-medium mt-3">New City. Same Stakes. <span className="font-bold">$5 Million Prize Pool.</span></P>
+                                <P noSpace className="text-3xl text-balance font-headers font-medium text-foreground">New City. Same Stakes. <span className="font-bold">$5 Million Prize Pool.</span></P>
                             </TextProtect>
-                            <Button asChild size="skew_lg" className="mt-10"><Link href="#"><span>Early Access</span></Link></Button>
+                            <Button asChild size="skew_lg" className="mt-10"><Link href="#"><span>Purchase Tickets</span></Link></Button>
+                        </HeroSliderSlideContent>
+                        <HeroSliderSlideContent className="w-full h-full pb-12 pr-36 flex flex-col items-start justify-end text-shadow-xl gap-2">
+                            <H3 className="uppercase">Beyond Bancard Field</H3>
+                            <p className="text-5xl font-black font-proxima uppercase">Dec 5-7, 2025</p>
                         </HeroSliderSlideContent>
                     </HeroSliderSlide>
                     <HeroSliderSlide className="grid grid-cols-2">
@@ -155,36 +150,30 @@ export default async function HomePage() {
                         <SectionHeadingSubtitle>
                             Fort Lauderdale – Participants
                         </SectionHeadingSubtitle>
-                        <SectionHeadingHeading className="text-4xl">
+                        <SectionHeadingHeading>
                             Featuring Elite Global Talent
                         </SectionHeadingHeading>
-                        <SectionHeadingText>
+                        <SectionHeadingText variant="lg">
                             The global 7v7 series reimagining the game. Elite clubs, star players, high-stakes matches, and a $5M prize pool per tournament.
                         </SectionHeadingText>
                     </SectionHeading>
                     <ClubList tournament={tournament} />
                 </Section>
-            </Container>
-            <Container>
                 <Section padding="md">
                     <TicketOptionsGrid />
                 </Section>
-            </Container>
-            <Container>
                 <Section padding="md">
-                    <Separator className="opacity-50" />
+                    <Separator />
                 </Section>
-            </Container>
-            <Container>
                 <Section padding="md">
                     <SectionHeading variant="split">
                         <SectionHeadingSubtitle>
                             Event #1 Recap
                         </SectionHeadingSubtitle>
-                        <SectionHeadingHeading className="text-4xl">
+                        <SectionHeadingHeading>
                             World Sevens Football Kickoff
                         </SectionHeadingHeading>
-                        <SectionHeadingText>
+                        <SectionHeadingText variant="lg">
                             The inaugural World Sevens Football (W7F) tournament in Estoril, Portugal, delivered an electrifying showcase of elite women&apos;s football. Bayern Munich emerged as champions after a thrilling 2–1 comeback victory over Manchester United in the final, securing the lion&apos;s share of the $5 million prize pool.
                         </SectionHeadingText>
                     </SectionHeading>
@@ -192,8 +181,6 @@ export default async function HomePage() {
                         <PostCardHoriz blog={mapBlogDocumentToMetadata(featuredRecapBlog)} />
                     )}
                 </Section>
-            </Container>
-            <Container>
                 <Section padding="md">
                     <VideoBanner
                         thumbnail="/images/static-media/video-banner.avif"
@@ -201,28 +188,35 @@ export default async function HomePage() {
                         label="Recap the action"
                     />
                 </Section>
-            </Container>
-            <Container>
                 <Section padding="md" className="min-h-screen">
                     <SectionHeading variant="split">
                         <SectionHeadingSubtitle>
                             Explore World Sevens
                         </SectionHeadingSubtitle>
-                        <SectionHeadingHeading className="text-4xl">
+                        <SectionHeadingHeading>
                             Recent News
                         </SectionHeadingHeading>
+                        <SectionHeadingText variant="lg">
+                            <Button asChild size="skew" variant="outline">
+                                <PrismicLink href="/news"><span>All News</span></PrismicLink>
+                            </Button>
+                        </SectionHeadingText>
                     </SectionHeading>
                     <RecentNewsGrid />
                 </Section>
-            </Container>
-            <Section padding="md">
-                <Container maxWidth="lg">
-                    <Card>
+                <Separator variant="gradient" className="my-16" />
+                <Section padding="md" className="grid grid-cols-12 gap-8">
+                    <W7FLineBanner
+                        className={cn("relative col-span-4 w-full h-full overflow-hidden p-12")}
+                    />
+                    <Card className="col-span-8 border-border/35">
                         <CardHeader>
-                            <CardTitle className="text-4xl font-headers font-semibold">
-                                FAQs
+                            <CardTitle>
+                                <SectionHeadingHeading>
+                                    FAQs
+                                </SectionHeadingHeading>
                             </CardTitle>
-                            <CardDescription className="text-base">Frequently asked questions about World Sevens Football</CardDescription>
+                            <CardDescription className="text-lg">Frequently asked questions about World Sevens Football</CardDescription>
                         </CardHeader>
                         <CardContent>
                             <Accordion type="single" collapsible className="w-full">
@@ -237,15 +231,15 @@ export default async function HomePage() {
                                     </AccordionItem>
                                 ))}
                             </Accordion>
-                            <div className="mt-8 text-center">
+                            <div className="mt-8 pl-2">
                                 <Button asChild size="skew">
                                     <Link href="/faqs"><span>Read More</span></Link>
                                 </Button>
                             </div>
                         </CardContent>
                     </Card>
-                </Container>
-            </Section>
+                </Section>
+            </Container>
         </div>
     );
 }

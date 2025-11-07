@@ -74,7 +74,7 @@ async function NavMain() {
             </NavigationMenuList>
           </NavigationMenu>
           <div className="flex-grow flex justify-end">
-            <Button asChild size="skew"><Link href="#"><span>Early Access</span></Link></Button>
+            <Button asChild size="skew"><Link href="#"><span>Purchase Tickets</span></Link></Button>
           </div>
         </div>
       </PaddingGlobal>

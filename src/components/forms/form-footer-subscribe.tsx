@@ -11,10 +11,12 @@ import {
   Form,
   FormControl,
   FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
 } from "@/components/ui/form"
+import {
+  Field,
+  FieldError,
+  FieldLabel,
+} from "@/components/ui/field"
 import { FormMessageSuccess } from "@/components/ui/form-message-success"
 
 const schema = z.object({
@@ -48,23 +50,26 @@ export function FormFooterSubscribe() {
           <FormField
             control={form.control}
             name="email"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <FormLabel className="sr-only">Email</FormLabel>
-                <FormControl>
-                  <Input
-                    variant="skew"
-                    type="email"
-                    placeholder="Enter your email*"
-                    autoComplete="email"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            render={({ field, fieldState }) => {
+              return (
+                <Field className="w-full" data-invalid={!!fieldState.error}>
+                  <FieldLabel htmlFor="email" className="sr-only">Email</FieldLabel>
+                  <FormControl>
+                    <Input
+                      id="email"
+                      variant="skew"
+                      type="email"
+                      placeholder="Enter your email*"
+                      autoComplete="email"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FieldError errors={fieldState.error ? [fieldState.error] : undefined} />
+                </Field>
+              )
+            }}
           />
-          <Button type="submit" size="skew" aria-label="Subscribe" className="shrink-0 px-6">
+          <Button type="submit" size="skew" aria-label="Subscribe" className="shrink-0 px-6 h-12">
             <span>Subscribe</span>
           </Button>
         </form>

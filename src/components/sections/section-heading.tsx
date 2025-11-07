@@ -1,4 +1,5 @@
 import * as React from "react"
+import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 import { Subtitle, H2, P } from "@/components/website-base/typography"
 
@@ -37,7 +38,7 @@ function SectionHeadingHeading({ className, ...props }: React.ComponentProps<typ
     <H2
       data-slot="section-heading-heading"
       className={cn(
-        "col-span-2 group-[.split-variant]:col-span-1",
+        "col-span-2 group-[.split-variant]:col-span-1 max-w-lg text-5xl",
         className
       )}
       {...props}
@@ -45,16 +46,31 @@ function SectionHeadingHeading({ className, ...props }: React.ComponentProps<typ
   )
 }
 
-function SectionHeadingText({ className, ...props }: React.ComponentProps<typeof P>) {
+const sectionHeadingTextVariants = cva(
+  "col-span-2 group-[.split-variant]:col-span-1 group-[.split-variant]:max-w-md group-[.split-variant]:justify-self-end",
+  {
+    variants: {
+      variant: {
+        default: "text-lg text-muted-foreground",
+        lg: "text-xl leading-7.5 mt-2 group-[.split-variant]:max-w-lg",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+    },
+  }
+)
+
+function SectionHeadingText({ 
+  className, 
+  variant,
+  ...props 
+}: React.ComponentProps<typeof P> & VariantProps<typeof sectionHeadingTextVariants>) {
   return (
     <P
       noSpace
       data-slot="section-heading-text"
-      className={cn(
-        "text-lg text-muted-foreground",
-        "col-span-2 group-[.split-variant]:col-span-1 group-[.split-variant]:max-w-md group-[.split-variant]:justify-self-end",
-        className
-      )}
+      className={cn(sectionHeadingTextVariants({ variant }), className)}
       {...props}
     />
   )

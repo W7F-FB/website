@@ -48,7 +48,7 @@ export const VideoModal: React.FC<VideoModalProps> = ({ videoUrl, onClose }) => 
         className="fixed top-0 right-0 h-16 w-16 flex items-center justify-center bg-muted z-[60] cursor-pointer"
         aria-label="Close video"
       >
-        <XIcon size={20} />
+        <XIcon className="size-5" />
       </button>
 
       <div className="relative w-full max-w-[60rem] min-h-[10rem] aspect-video overflow-hidden">

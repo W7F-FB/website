@@ -9,27 +9,9 @@ import Link from "next/link"
 import { FAQItem } from "@/types/basic"
 import { P } from "@/components/website-base/typography"
 import { getSocialBlogsByCategory } from "@/cms/queries/blog";
-import type { BlogDocument } from "../../../../../../prismicio-types";
-import type { BlogMetadata } from "@/components/website-base/posts/post";
 import { SectionHeading, SectionHeadingHeading, SectionHeadingSubtitle } from "@/components/sections/section-heading"
-import { PostGrid } from "@/components/website-base/posts/post-grid"
-
-
-type Props = {
-  params: Promise<{ slug: string }>
-}
-
-function mapBlogDocumentToMetadata(blog: BlogDocument): BlogMetadata {
-  return {
-    slug: blog.uid ?? "",
-    title: blog.data.title ?? "Untitled",
-    excerpt: blog.data.excerpt ?? null,
-    image: blog.data.image?.url ?? undefined,
-    category: blog.data.category ?? null,
-    author: blog.data.author ?? null,
-    date: blog.data.date ?? null,
-  }
-}
+import { PostGrid } from "@/components/blocks/posts/post-grid"
+import { mapBlogDocumentToMetadata } from "@/lib/utils"
 
 const faqData: FAQItem[] = [
   {
@@ -61,6 +43,10 @@ const faqData: FAQItem[] = [
   }
 ];
 
+type Props = {
+  params: Promise<{ slug: string }>
+}
+
 export default async function TournamentPage({ params }: Props) {
   const { slug } = await params
   const tournament = await getTournamentByUid(slug)
@@ -91,7 +77,7 @@ export default async function TournamentPage({ params }: Props) {
             <SectionHeadingSubtitle>
               {tournament.data.title} Recaps
             </SectionHeadingSubtitle>
-            <SectionHeadingHeading className="text-4xl">
+            <SectionHeadingHeading>
               Relive the action
             </SectionHeadingHeading>
           </SectionHeading>

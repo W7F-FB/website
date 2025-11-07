@@ -1,7 +1,6 @@
-import { CaretRightIcon } from "@phosphor-icons/react/dist/ssr"
-
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+import { CaretRightIcon } from "../website-base/icons"
 
 type ReadMoreButtonProps = {
   className?: string
@@ -12,14 +11,14 @@ export function ReadMoreButton({ className }: ReadMoreButtonProps) {
     <Button
       variant="link"
       className={cn(
-        "h-auto font-body text-accent-foreground p-0 text-sm font-light group no-underline hover:no-underline", // 👈 disables underline
+        "h-auto p-0 font-medium text-sm group no-underline hover:no-underline text-foreground/80 group-hover:text-foreground",
         className
       )}
     >
-      <span className="flex items-center">
-        Read more
+      <span className="flex items-center gap-1.5">
+        <span className="">Read more</span>
         <CaretRightIcon
-          className="ml-1 !h-3.5 !w-3.5 transition-transform duration-300 group-hover:translate-x-1"
+          className="mt-0.5 size-3 transition-transform duration-300 group-hover:translate-x-1"
           aria-hidden="true"
         />
       </span>

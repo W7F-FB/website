@@ -18,7 +18,7 @@ function H2({ className, ...props }: React.ComponentProps<"h2">) {
   return (
     <h2
       className={cn(
-        "scroll-m-20 pb-2 text-4xl font-semibold first:mt-0 font-headers leading-[1.3]",
+        "scroll-m-20 pb-2 text-4xl font-semibold first:mt-0 font-headers !leading-[1.45]",
         className
       )}
       {...props}
@@ -29,7 +29,7 @@ function H2({ className, ...props }: React.ComponentProps<"h2">) {
 function H3({ className, ...props }: React.ComponentProps<"h3">) {
   return (
     <h3 
-      className={cn("scroll-m-20 text-2xl font-semibold font-headers", className)}
+      className={cn("scroll-m-20 text-2xl font-semibold font-headers !leading-[1.4]", className)}
       {...props}
     />
   )
@@ -46,7 +46,7 @@ function H4({ className, ...props }: React.ComponentProps<"h4">) {
 
 function Subtitle({ className, ...props }: React.ComponentProps<"p">) {
   return (
-    <span className={cn("font-[450] font-headers uppercase text-accent-foreground mb-6", className)} {...props} />
+    <span className={cn("inline-block font-[450] font-headers uppercase text-accent-foreground mb-6", className)} {...props} />
   )
 }
 
@@ -57,7 +57,7 @@ interface PProps extends React.ComponentProps<"p"> {
 function P({ className, noSpace = false, ...props }: PProps) {
   return (
     <p className={cn(
-      "leading-7 text-foreground/80",
+      "leading-[1.5] text-foreground/80",
       !noSpace && "[&:not(:first-child)]:mt-4",
       className
     )} {...props} />

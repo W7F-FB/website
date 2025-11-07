@@ -2,11 +2,10 @@ import type { Metadata } from "next"
 
 import { Section, Container } from "@/components/website-base/padding-containers"
 import { H1 } from "@/components/website-base/typography"
-import { PostCardHoriz, PostStandard, type BlogMetadata } from "@/components/website-base/posts/post"
+import { PostCardHoriz, PostStandard } from "@/components/blocks/posts/post"
 import { getAllBlogs } from "@/cms/queries/blog"
 import { Separator } from "@/components/ui/separator";
-
-import type { BlogDocument } from "../../../../../prismicio-types";
+import { mapBlogDocumentToMetadata } from "@/lib/utils"
 
 export const metadata: Metadata = {
     title: "News - World Sevens Football",
@@ -27,18 +26,6 @@ export const metadata: Metadata = {
     },
 };
 
-export function mapBlogDocumentToMetadata(blog: BlogDocument): BlogMetadata {
-  return {
-    slug: blog.uid ?? "",
-    title: blog.data.title ?? "Untitled",
-    excerpt: blog.data.excerpt ?? null,
-    image: blog.data.image?.url ?? undefined,
-    category: blog.data.category ?? null,
-    author: blog.data.author ?? null,
-    date: blog.data.date ?? null,
-  }
-}
-
 async function BlogsShow() {
   const blogs = await getAllBlogs();
   if (!blogs?.length) return null;
@@ -49,7 +36,7 @@ async function BlogsShow() {
     <div className="grid gap-8">
       <PostCardHoriz blog={mapBlogDocumentToMetadata(first)} />
 
-      <Separator className="my-12 opacity-50" />
+      <Separator className="my-12" />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16">
         {rest.map((p) => (

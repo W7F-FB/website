@@ -2,9 +2,10 @@
 
 import React from "react";
 import { useReactPlayer } from "@/hooks/use-react-player";
-import { PlayIcon } from "@phosphor-icons/react/dist/ssr";
+import { PlayIcon } from "@/components/website-base/icons";
 import { VideoModal } from "@/components/blocks/video-banner/video-modal"
 import Image from "next/image";
+import { Badge } from "@/components/ui/badge";
 
 
 interface VideoBannerProps {
@@ -32,13 +33,11 @@ export const VideoBanner: React.FC<VideoBannerProps> = ({
             </div>
 
             <div className="absolute top-4 left-4 z-10">
-                <span className="bg-primary text-primary-foreground font-headers font-semibold uppercase py-1 px-2">
-                    {label}
-                </span>
+                <Badge fast size="lg" variant="default">{label}</Badge>
             </div>
 
-            <div className="z-10 h-[4rem] w-[4rem] bg-muted/90 flex items-center justify-center rounded-[0.1rem]">
-                <PlayIcon size={20}/>
+            <div className="z-10 w-20 h-20 bg-primary/5 backdrop-blur-sm group-hover:backdrop-blur-lg transition-all flex items-center justify-center rounded-[0.1rem] border border-primary/5">
+                <PlayIcon className="size-6"/>
             </div>
 
             <div className="absolute inset-0 w-full h-full bg-black/60 transition-all ease-linear group-hover:bg-black/45"></div>

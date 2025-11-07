@@ -10,10 +10,10 @@ import { Badge } from "@/components/ui/badge"
 import { H2, P} from "@/components/website-base/typography";
 import { cn } from "@/lib/utils"
 import { getAllBlogs } from "@/cms/queries/blog"
-import { PostStandard } from "@/components/website-base/posts/post"
+import { PostStandard } from "@/components/blocks/posts/post"
 import { Separator } from "@/components/ui/separator";
 
-import { mapBlogDocumentToMetadata } from "../page"
+import { mapBlogDocumentToMetadata } from "@/lib/utils"
 
 type Props = {
   params: Promise<{ slug: string }>
@@ -78,7 +78,7 @@ export default async function BlogPostPage({ params }: Props) {
 
             )}
 
-            <Separator className="mt-16 opacity-50" />
+            <Separator className="mt-16" />
         </div>
         </Section>
 

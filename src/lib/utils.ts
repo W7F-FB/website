@@ -1,6 +1,8 @@
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 import { format, parseISO } from "date-fns";
+import type { BlogDocument } from "../../prismicio-types";
+import type { BlogMetadata } from "@/components/blocks/posts/post";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -171,5 +173,17 @@ export function formatDate(dateString: string | null | undefined): string {
     // e.g. 2025-09-19 → September 19, 2025
   } catch {
     return dateString; // fallback in case of invalid date
+  }
+}
+
+export function mapBlogDocumentToMetadata(blog: BlogDocument): BlogMetadata {
+  return {
+    slug: blog.uid ?? "",
+    title: blog.data.title ?? "Untitled",
+    excerpt: blog.data.excerpt ?? null,
+    image: blog.data.image?.url ?? undefined,
+    category: blog.data.category ?? null,
+    author: blog.data.author ?? null,
+    date: blog.data.date ?? null,
   }
 }

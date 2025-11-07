@@ -100,12 +100,12 @@
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
+  --primary: oklch(0.985 0 0);
   --primary-foreground: oklch(0.205 0 0);
   --secondary: oklch(0.269 0 0);
   --secondary-foreground: oklch(0.985 0 0);
   --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
+  --muted-foreground: oklch(0.895 0 0);
   --extra-muted: oklch(from var(--muted) calc(l - 0.084) c h);
   --accent: oklch(0.269 0 0);
   --accent-foreground: oklch(0.985 0 0);
@@ -170,6 +170,14 @@
   -webkit-text-stroke-width: --value([*]);
   -webkit-text-stroke-color: --value(--color-*, [color]);
   -webkit-text-stroke-color: --modifier(--color-*, [color]);
+}
+
+@utility text-shadow-xl {
+  text-shadow: 0px 2px 2px rgb(0 0 0 / 0.5), 0px 2px 8px rgb(0 0 0 / 0.5), 0px 2px 12px rgb(0 0 0 / 0.3);
+}
+
+@utility text-shadow-2xl {
+  text-shadow: 0px 2px 4px rgb(0 0 0 / 0.1), 0px 8px 8px rgb(0 0 0 / 0.1), 0px 16px 24px rgb(0 0 0 / 0.15);
 }
 
 .bg-lines-pattern {
