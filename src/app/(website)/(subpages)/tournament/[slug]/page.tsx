@@ -19,7 +19,7 @@ type Props = {
   params: Promise<{ slug: string }>
 }
 
-export function mapBlogDocumentToMetadata(blog: BlogDocument): BlogMetadata {
+function mapBlogDocumentToMetadata(blog: BlogDocument): BlogMetadata {
   return {
     slug: blog.uid ?? "",
     title: blog.data.title ?? "Untitled",

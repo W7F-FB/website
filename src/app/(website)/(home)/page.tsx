@@ -20,7 +20,7 @@ import { PostCardHoriz, type BlogMetadata } from "@/components/website-base/post
 import { getSocialBlogsByCategory } from "@/cms/queries/blog";
 import type { BlogDocument } from "../../../../prismicio-types";
 
-export function mapBlogDocumentToMetadata(blog: BlogDocument): BlogMetadata {
+function mapBlogDocumentToMetadata(blog: BlogDocument): BlogMetadata {
     return {
         slug: blog.uid ?? "",
         title: blog.data.title ?? "Untitled",

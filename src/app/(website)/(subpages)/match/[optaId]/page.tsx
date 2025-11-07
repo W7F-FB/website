@@ -37,9 +37,6 @@ export default async function MatchPage({
 
   console.log(matchData);
 
-  const venueStat = matchData.Stat?.find((stat) => stat.Type === "Venue");
-  const venueName = venueStat?.value ? String(venueStat.value) : undefined;
-
   const homeTeamData = matchData.TeamData.find((t) => t.Side === "Home");
   const awayTeamData = matchData.TeamData.find((t) => t.Side === "Away");
 
@@ -61,7 +58,6 @@ export default async function MatchPage({
           awayTeam={awayTeam}
           homeTeamPrismic={homeTeamPrismic}
           awayTeamPrismic={awayTeamPrismic}
-          venueName={venueName}
         />
         <PlayByPlay matchId={optaId} competitionId={competitionId} seasonId={seasonId} />
       </Section>

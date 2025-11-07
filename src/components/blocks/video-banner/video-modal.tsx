@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { XIcon } from "@phosphor-icons/react/dist/ssr";
 import ReactPlayer from "react-player";
 
@@ -11,6 +11,11 @@ interface VideoModalProps {
 
 export const VideoModal: React.FC<VideoModalProps> = ({ videoUrl, onClose }) => {
   const [visible, setVisible] = useState(false);
+
+  const handleClose = useCallback(() => {
+    setVisible(false);
+    setTimeout(onClose, 300);
+  }, [onClose]);
 
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {
@@ -23,12 +28,7 @@ export const VideoModal: React.FC<VideoModalProps> = ({ videoUrl, onClose }) => 
       document.removeEventListener("keydown", handleEscape);
       document.body.style.overflow = "unset";
     };
-  }, []);
-
-  const handleClose = () => {
-    setVisible(false);
-    setTimeout(onClose, 300);
-  };
+  }, [handleClose]);
 
   if (!videoUrl) return null;
 
