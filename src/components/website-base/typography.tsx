@@ -91,6 +91,18 @@ function TextProtect({ className, ...props }: React.ComponentProps<"span">) {
   )
 }
 
+function Footnote({ className, ...props }: React.ComponentProps<"p">) {
+  return (
+    <p
+      className={cn(
+        "mt-6 text-sm italic text-muted-foreground leading-relaxed",
+        className
+      )}
+      {...props}
+    />
+  )
+}
+
 
 export {
   H1,
@@ -99,6 +111,7 @@ export {
   H4,
   Subtitle,
   P,
+  Footnote,
   Blockquote,
   List,
   TextProtect,
