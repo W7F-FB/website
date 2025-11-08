@@ -1,0 +1,455 @@
+/* SquadUp Checkout Styles - DO NOT PUT IN GLOBALS */
+/* Use CSS variables from your theme for easy theme switching */
+
+/* SquadUp Color Variables */
+:root {
+  --su-light-mint: oklch(0.95 0.15 166);
+  --su-base-blue: oklch(0.15 0.05 250);
+  --su-base-blue-dark: oklch(0.12 0.05 250);
+  --su-accent-gold: oklch(0.65 0.12 70);
+  --su-accent-purple: oklch(0.42 0.15 290);
+  --su-accent-purple-dark: oklch(0.32 0.15 285);
+}
+
+/* Change color of pre-loader */
+.squadup-checkout-app .squadup-checkout-embed-spinner ul.cssload-loader li {
+    background-color: transparent !important;
+    width: 10px;
+    height: 10px;
+    float: right;
+    margin-right: 5px !important;
+}
+
+.squadup-checkout-app .squadup-checkout-embed-spinner {
+    background-color: transparent !important;
+}
+
+.look-more:hover {
+    opacity: .8;
+}
+
+.squadup-checkout-app .squadup-navigation-view-container .squadup-checkout-event-box {
+    border: 1px solid var(--border) !important;
+    background-color: oklch(var(--muted) / 0.02) !important;
+}
+
+.squadup-checkout-app .squadup-navigation-view-container .squadup-checkout-event-box:hover {
+    background-color: color-mix(in oklab, var(--primary) 10%, transparent) !important;
+}
+
+.squadup-checkout-app .squadup-navigation-view-container .squadup-checkout-event-box .event-name {
+    color: oklch(var(--foreground)) !important;
+    font-family: Termina, sans-serif !important;
+    font-size: 1.1rem !important;
+    line-height: 1.2 !important;
+}
+
+.squadup-checkout-app .squadup-navigation-view-container .squadup-checkout-event-box .description-container .description-inner .event-name {
+    font-size: 18px;
+    color: var(--su-base-blue);
+}
+
+.su-nav-switcher-container {
+    display: none !important;
+}
+
+.banner-image {
+    display: none !important;
+}
+
+.squadup-checkout-app .squadup-navigation-view-container .squadup-checkout-event-box .description-container .description-inner .start-at {
+    color: oklch(var(--muted-foreground)) !important;
+}
+
+.squadup-checkout-app .squadup-navigation-view-container .squadup-even-titlebar .inner .time {
+    color: oklch(var(--foreground));
+    opacity: 0.8;
+}
+
+.squadup-checkout-app .small,
+.squadup-checkout-app small {
+    font-size: 100%;
+    font-weight: 700;
+    color: var(--su-base-blue);
+}
+
+.squadup-checkout-app img {
+    vertical-align: middle;
+    display: none;
+}
+
+.squadup-checkout-app .squadup-navigation-view-container .squadup-checkout-event-box .squadup-checkout-left-flyer img.squadup-checkout-flyer-image {
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+}
+
+.btn.btn-default.squadup-checkout-get-tickets-btn.disabled {
+    background-color: var(--su-base-blue);
+    color: oklch(var(--foreground));
+}
+
+.btn.btn-default.squadup-checkout-get-tickets-btn.disabled:hover {
+    background-color: var(--su-accent-gold);
+    color: var(--su-base-blue);
+}
+
+#squadup-checkout>div>div>div>div>div.col-sm-12.squadup-embed-view>div:nth-child(2)>div.squadup-even-titlebar.flexxy-centered>div>div.title {
+    color: oklch(var(--foreground));
+    font-family: Termina, sans-serif !important;
+    text-transform: uppercase !important;
+    font-size: 2rem !important;
+    line-height: 1.2 !important;
+}
+
+#squadup-checkout>div>div>div>div>div.col-sm-12.squadup-embed-view>div:nth-child(2)>div.squadup-even-titlebar.flexxy-centered>div>div.title-line-2 {
+    color: var(--su-base-blue);
+}
+
+#squadup-checkout>div>div>div>div>div.col-sm-12.squadup-embed-view>div:nth-child(2)>div.squadup-even-titlebar.flexxy-centered>div>div.loc>div.location-name {
+    color: var(--su-base-blue);
+}
+
+#squadup-checkout>div>div>div>div>div.col-sm-12.squadup-embed-view>div:nth-child(2)>div:nth-child(2)>div>div>div.hidden-xs>div {
+    color: var(--su-accent-purple);
+}
+
+.squadup-checkout-app .squadup-checkout-nav {
+    
+}
+
+.squadup-cart-countdown{
+    display: none !important;
+}
+
+.squadup-checkout-app a {
+    color: white !important;
+}
+
+.squadup-checkout-app a:hover {
+    text-decoration: underline !important;
+}
+
+.squadup-checkout-app a {
+    font-family: Acumin Pro, sans-serif !important;
+}
+
+.squadup-checkout-app .squadup-row-centered>.squadup-navigation-view-container .page-title-ident {
+    color: var(--su-base-blue) !important;
+    border-bottom: var(--su-accent-purple-dark) 1px solid !important;
+}
+
+#squadup-checkout {
+    margin-top: -60px !important;
+}
+
+#squadup-checkout>div>div>div>div>div.squadup-user-banner>h1 {
+    color: oklch(var(--foreground));
+}
+
+#squadup-checkout>div>div>div>div>div.col-sm-12.squadup-embed-view>div:nth-child(2)>div:nth-child(2)>div>div>div.hidden-xs>div {
+    color: oklch(var(--foreground));
+}
+
+#squadup-checkout>div>div>div>div>div.col-sm-12.squadup-embed-view>div:nth-child(2)>div:nth-child(2)>div>div>div:nth-child {
+    color: oklch(var(--foreground));
+}
+
+.squadup-checkout-app .btn.btn-default.squadup-checkout-get-tickets-btn.disabled {
+    opacity: 1 !important;
+    cursor: pointer !important;
+}
+
+.squadup-checkout-app .btn.disabled>span {
+    visibility: hidden !important;
+}
+
+.squadup-checkout-app .btn.disabled>span:after {
+    visibility: visible !important;
+    content: "GET TICKETS" !important;
+    display: block !important;
+    margin-top: -20px !important;
+}
+
+/* Event description */
+#squadup-checkout>div>div>div>div>div.col-sm-12.squadup-embed-view>div:nth-child(2)>div:nth-child(2)>div>div.squadup-event-description.squadup-froala-element>p {
+    color: oklch(var(--foreground));
+    font-size: 16px;
+}
+
+/* Search box */
+.squadup-event-search-box {
+    display: none !important;
+}
+
+/* Click here to unlock hidden ticket text change */
+#squadup-checkout>div>div>div>div>div.col-sm-12.squadup-embed-view>div:nth-child(2)>div.row.form-group>div>p>a>span {
+    visibility: hidden !important;
+}
+
+#squadup-checkout>div>div>div>div>div.col-sm-12.squadup-embed-view>div:nth-child(2)>div.row.form-group>div>p>a>span:after {
+    visibility: visible !important;
+    content: 'CLICK HERE TO ENTER PROMO CODE';
+    display: block;
+    white-space: pre-wrap;
+    margin-top: -20px;
+}
+
+/* Adjust back button */
+#squadup-checkout {
+    margin-top: -30px !important;
+}
+.divider {
+    height: 1px;
+    background-color: var(--border);
+}
+
+/* Container size */
+#squadup-checkout>div>div>div>div>div.col-sm-12.squadup-embed-view>div:nth-child(2)>div.row.form-group>div>p>a>span {
+    display: none !important;
+}
+
+.squadup-checkout-app .squadup-row-centered>.squadup-navigation-view-container {
+    max-width: 100% !important;
+}
+
+
+
+/* Date box color change */
+.squadup-checkout-app .squadup-navigation-view-container .squadup-checkout-event-box .date {
+    background-color: var(--card) !important;
+    font-family: Termina, sans-serif !important;
+    flex-direction: column !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.5rem !important;
+}
+
+.day-of-week{
+    text-transform: uppercase;
+    font-size: .8rem;
+    font-weight: 700;
+}
+
+.cal-date{
+    font-size: .9rem;
+    font-weight: 600;
+}
+
+.cal-time{
+    text-transform: uppercase;
+    font-size: .7rem;
+    font-weight: 500;
+}
+
+[data-squadup-event-id="121232"] .start-at {
+    display: none !important;
+}
+
+.squadup-checkout-app .squadup-row-centered>.squadup-navigation-view-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+#squadup-checkout>div>div>div>div>div.squadup-user-banner>h1 {
+    line-height: inherit;
+}
+
+.squadup-checkout-app .col-md-offset-3 {
+    margin-left: 0px !important;
+}
+
+#squadup-checkout .title {
+    font-family: Termina, sans-serif !important;
+    color: oklch(var(--foreground)) !important;
+}
+
+#squadup-checkout #chartContainer {
+    width: 20rem !important;
+}
+
+#squadup-checkout .fr-tag {
+    color: oklch(var(--foreground)) !important;
+}
+
+#squadup-checkout .start-at {
+    color: oklch(var(--foreground) / 0.8) !important;
+}
+
+#squadup-checkout .number {
+    font-size: 2.5rem !important;
+}
+
+#squadup-checkout {
+    line-height: 1.2 !important;
+}
+
+#squadup-checkout .row {
+    display: block !important;
+}
+
+#squadup-checkout .inner .time {
+    margin-bottom: 0.5rem !important;
+}
+
+p[dir="ltr"] {
+    background-color: transparent !important;
+}
+
+.glyphicon.glyphicon-chevron-left {
+    margin-right: 0.25rem !important;
+}
+
+@media (min-width: 640px) {
+    #squadup-seats-io-chart {
+        max-width: 35rem !important;
+        margin: 0 auto !important;
+    }
+
+    .squadup-checkout-app .col-md-offset-3 {
+        margin-left: 25% !important;
+    }
+}
+
+@media (max-width: 640px) {
+    .squadup-checkout-app .container-fluid {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+}
+
+#squadup-checkout .btn-lg,
+#squadup-checkout .squadup-checkout-submit-payment {
+    --clip-offset: 1.35rem;
+    clip-path: polygon(var(--clip-offset) 0%,
+            100% 0%,
+            calc(100% - var(--clip-offset)) 100%,
+            0% 100%);
+    background-color: var(--primary) !important;
+    color: var(--background) !important;
+    border-radius: 0rem !important;
+    font-family: Termina, sans-serif !important;
+    font-weight: 700 !important;
+    border: none !important;
+}
+
+#squadup-checkout .btn-primary,
+#squadup-checkout .btn-info {
+    --clip-offset: 0rem !important;
+    clip-path: none !important;
+    background-color: var(--su-light-mint) !important;
+    color: var(--su-base-blue) !important;
+    border-radius: 0rem !important;
+    border: none !important;
+    font-family: Termina, sans-serif !important;
+}
+
+.squadup-checkout-app .squadup-navigation-view-container .squadup-checkout-submit-payment {
+    padding-left: 2rem !important;
+    padding-right: 2rem !important;
+    display: block !important;
+}
+
+#squadup-seats-io-chart {
+    margin-bottom: 2rem !important;
+}
+
+#squadup-checkout .badge {
+    background-color: rgba(255, 255, 255, 0.02) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+#squadup-checkout .page-title-ident {
+    color: var(--text-primary, white) !important;
+    font-family: Termina, sans-serif !important;
+    font-weight: 400 !important;
+    border-bottom: none !important;
+}
+
+#squadup-checkout .title-line-2 {
+    margin-top: 0.5rem !important;
+}
+
+.squadup-checkout-app .squadup-navigation-view-container .event-checkout-detail {
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.squadup-checkout-app .squadup-navigation-view-container .squadup-tickets-table .tickets {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+#squadup-checkout .gray-hr {
+    opacity: 0 !important;
+}
+
+#squadup-checkout input[type="text"],
+#squadup-checkout input[type="email"],
+#squadup-checkout input[type="number"],
+#squadup-checkout input[type="password"] {
+    border-radius: 0rem !important;
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    color: var(--text-primary, white) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+#squadup-checkout input[type="text"]:focus,
+#squadup-checkout input[type="email"]:focus,
+#squadup-checkout input[type="number"]:focus,
+#squadup-checkout input[type="password"]:focus {
+    border-radius: 0rem !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+}
+
+#squadup-checkout .form-group {
+    grid-row-gap: 0.35rem !important;
+    margin-bottom: 1.25rem !important;
+}
+
+#squadup-checkout .control-label {
+    margin-bottom: 0rem !important;
+}
+
+.row>.col-md-12.col-sm-12[style="padding: 0px;"] {
+    display: none !important;
+}
+
+#squadup-checkout .su-section-subtitle {
+    font-family: Termina, sans-serif !important;
+    font-weight: 400 !important;
+    margin-bottom: 1.5rem !important;
+    margin-top: 2.5rem !important;
+}
+
+#squadup-checkout .location {
+    display: none !important;
+}
+
+/* Loading spinner */
+.squadup-wrapper {
+    position: relative;
+    min-height: 400px;
+}
+
+.squadup-loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid oklch(var(--border));
+    border-top-color: var(--su-light-mint);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
