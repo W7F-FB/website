@@ -20,8 +20,8 @@ import { Separator } from "@/components/ui/separator";
 import { PostCardHoriz } from "@/components/blocks/posts/post";
 import { getSocialBlogsByCategory } from "@/cms/queries/blog";
 import { PrismicLink } from "@prismicio/react";
-import { W7FLineBanner } from "@/components/blocks/W7F-line-banner";
-import { cn, mapBlogDocumentToMetadata } from "@/lib/utils";
+import { FAQBannerLayout } from "@/components/blocks/faq-banner-layout";
+import { mapBlogDocumentToMetadata } from "@/lib/utils";
 
 export const metadata: Metadata = {
     title: "World Sevens Football - The Future of 7v7 Soccer",
@@ -205,39 +205,38 @@ export default async function HomePage() {
                     <RecentNewsGrid />
                 </Section>
                 <Separator variant="gradient" className="my-16" />
-                <Section padding="md" className="grid grid-cols-12 gap-8">
-                    <W7FLineBanner
-                        className={cn("relative col-span-4 w-full h-full overflow-hidden p-12")}
-                    />
-                    <Card className="col-span-8 border-border/35">
-                        <CardHeader>
-                            <CardTitle>
-                                <SectionHeadingHeading>
-                                    FAQs
-                                </SectionHeadingHeading>
-                            </CardTitle>
-                            <CardDescription className="text-lg">Frequently asked questions about World Sevens Football</CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                            <Accordion type="single" collapsible className="w-full">
-                                {faqData.map((faq) => (
-                                    <AccordionItem key={faq.id} value={faq.id}>
-                                        <AccordionTrigger>
-                                            <strong>{faq.question}</strong>
-                                        </AccordionTrigger>
-                                        <AccordionContent>
-                                            {faq.answer}
-                                        </AccordionContent>
-                                    </AccordionItem>
-                                ))}
-                            </Accordion>
-                            <div className="mt-8 pl-2">
-                                <Button asChild size="skew">
-                                    <Link href="/faqs"><span>Read More</span></Link>
-                                </Button>
-                            </div>
-                        </CardContent>
-                    </Card>
+                <Section padding="md">
+                    <FAQBannerLayout>
+                        <Card className="border-border/35">
+                            <CardHeader>
+                                <CardTitle>
+                                    <SectionHeadingHeading>
+                                        FAQs
+                                    </SectionHeadingHeading>
+                                </CardTitle>
+                                <CardDescription className="text-lg">Frequently asked questions about World Sevens Football</CardDescription>
+                            </CardHeader>
+                            <CardContent>
+                                <Accordion type="single" collapsible className="w-full">
+                                    {faqData.map((faq) => (
+                                        <AccordionItem key={faq.id} value={faq.id}>
+                                            <AccordionTrigger>
+                                                <strong>{faq.question}</strong>
+                                            </AccordionTrigger>
+                                            <AccordionContent>
+                                                {faq.answer}
+                                            </AccordionContent>
+                                        </AccordionItem>
+                                    ))}
+                                </Accordion>
+                                <div className="mt-8 pl-2">
+                                    <Button asChild size="skew">
+                                        <Link href="/faqs"><span>Read More</span></Link>
+                                    </Button>
+                                </div>
+                            </CardContent>
+                        </Card>
+                    </FAQBannerLayout>
                 </Section>
             </Container>
         </div>

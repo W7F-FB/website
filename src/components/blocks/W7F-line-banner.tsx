@@ -59,30 +59,28 @@ export function W7FLineBanner({ className }: W7FLineBannerProps) {
     const [isHovered, setIsHovered] = useState(false);
     const color = flattenTransparency("var(--foreground)", "var(--background)", 0.05);
     const hoverColor = flattenTransparency("var(--background)", "var(--foreground)", 0.05);
-
     return (
-        <LinePattern 
-            fill={color} 
-            className={cn('', className)}
+        <LinePattern
+            fill={color}
+            className={cn('relative', className)}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >
             <ImageSequence isHovered={isHovered} />
-            
             <W7FVerticalIcon
                 strokeWidth={2}
                 stroke={isHovered ? hoverColor : color}
-                className={cn("w-full h-full text-background relative", isHovered && "text-foreground/10")}
+                className={cn("w-full h-full text-background relative transition-[stroke,color]", isHovered && "text-foreground/20 transition-[stroke,color]")}
             />
-            <div className="absolute inset-0 w-full h-full p-12">
+            <div className="absolute inset-0 w-full h-full p-12 ">
                 <W7FVerticalIconMask className="w-full h-full">
                     <div className="w-full h-full flex items-center justify-center">
                         <div className="absolute inset-0 w-full h-full"></div>
                         <motion.div
                             className="absolute w-[300%] h-[175%] bg-gradient-to-b from-transparent via-foreground/10"
-                            animate={{ 
+                            animate={{
                                 y: ["-15%", "15%"],
-                                rotate: 360 
+                                rotate: 360
                             }}
                             transition={{
                                 y: {
