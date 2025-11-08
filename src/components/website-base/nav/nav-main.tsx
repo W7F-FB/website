@@ -18,6 +18,7 @@ import { Button } from "@/components/ui/button"
 const exploreNavItems = [
   { href: "/news", label: "News", key: "nav-news" },
   { href: "/social-impact", label: "Social Impact", key: "nav-social" },
+  { href: "/rising-sevens", label: "Rising Sevens", key: "nav-rising-sevens" },
   { href: "/faqs", label: "FAQs", key: "nav-faqs" }
 ]
 
