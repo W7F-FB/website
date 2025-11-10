@@ -17,6 +17,7 @@ import { TicketOptionsGrid } from "@/components/blocks/ticket-options-grid"
 import { Tabs, TabsList, TabsTrigger, TabsContents, TabsContent } from "@/components/ui/motion-tabs"
 import { FAQBannerLayout } from "@/components/blocks/faq-banner-layout"
 import { getImageUrl, getImageAlt } from "@/cms/utils"
+import { ScheduleTabs } from "@/components/blocks/tournament/schedule-tabs"
 
 const faqData: FAQItem[] = [
     {
@@ -112,28 +113,9 @@ export default async function TournamentPageUpcoming({ tournament }: Props) {
                 <Section padding="md" id="schedule">
                     <SectionHeading className="pb-8">
                         <SectionHeadingHeading variant="h2">Schedule</SectionHeadingHeading>
+                        <P noSpace>All times are subject to change</P>
                     </SectionHeading>
-                    <Tabs defaultValue="tab1">
-                        <TabsList className="w-full !h-18">
-                            <TabsTrigger value="tab1" className=" flex-col items-center justify-center">
-                                <div>Fri, Dec 5th</div>
-                                <div className="text-sm text-muted-foreground/75 font-medium">Session 1</div>
-                            </TabsTrigger>
-                            <TabsTrigger value="tab2" className="flex-col items-center justify-center">
-                                <div>Sat, Dec 6th</div>
-                                <div className="text-sm text-muted-foreground/75 font-medium">Session 1</div>
-                            </TabsTrigger>
-                            <TabsTrigger value="tab3" className="flex-col items-center justify-center">
-                                <div>Sun, Dec 7th</div>
-                                <div className="text-sm text-muted-foreground/75 font-medium">Session 1</div>
-                            </TabsTrigger>
-                        </TabsList>
-                        <TabsContents>
-                            <TabsContent value="tab1"><div className="flex items-center justify-center py-8 bg-muted/10">Tab Content</div></TabsContent>
-                            <TabsContent value="tab2"><div className="flex items-center justify-center py-18 bg-muted/10">Tab Content</div></TabsContent>
-                            <TabsContent value="tab3"><div className="flex items-center justify-center py-28 bg-muted/10">Tab Content</div></TabsContent>
-                        </TabsContents>
-                    </Tabs>
+                    <ScheduleTabs />
                 </Section>
             </Container>
             <Section padding="md">
