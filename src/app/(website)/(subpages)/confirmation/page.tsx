@@ -1,5 +1,5 @@
 import { Container, Section } from "@/components/website-base/padding-containers";
-import { Card, CardContent, CardDescription } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { H1, P } from "@/components/website-base/typography";
 import Link from "next/link";
 import Image from "next/image";

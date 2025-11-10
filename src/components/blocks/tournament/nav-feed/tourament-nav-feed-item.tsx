@@ -25,7 +25,7 @@ export default function TournamentNavFeedItem({
     <div className="flex items-center gap-4 px-6 py-4">
       <div className="flex items-center gap-3">
         {team1?.data?.logo?.url && (
-          <div className="relative size-7">
+          <div className="relative size-6">
             <Image
               src={team1.data.logo.url}
               alt={team1.data.name || "Team 1"}
@@ -36,7 +36,7 @@ export default function TournamentNavFeedItem({
         )}
       </div>
 
-      <div className="flex h-7 min-w-8 items-center p-1 pt-2 border border-border/20 bg-muted/20 rounded-sm justify-center leading-none text-xl font-semibold ">
+      <div className="flex h-6 min-w-7 items-center p-1 pt-2 border border-border/20 bg-muted/20 rounded-sm justify-center leading-none text-lg font-semibold ">
         {formattedTeam1Score}
       </div>
 
@@ -44,13 +44,13 @@ export default function TournamentNavFeedItem({
         {displayStatus}
       </div>
 
-      <div className="flex h-7 min-w-8 items-center p-1 pt-2 border border-border/20 bg-muted/20 rounded-sm justify-center leading-none text-xl font-semibold ">
+      <div className="flex h-6 min-w-7 items-center p-1 pt-2 border border-border/20 bg-muted/20 rounded-sm justify-center leading-none text-lg font-semibold ">
         {formattedTeam2Score}
       </div>
 
       <div className="flex items-center gap-3">
         {team2?.data?.logo?.url && (
-          <div className="relative size-8">
+          <div className="relative size-6">
             <Image
               src={team2.data.logo.url}
               alt={team2.data.name || "Team 2"}

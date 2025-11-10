@@ -5,7 +5,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { FAQItem } from "@/types/basic"
-import { H1, H2, P, Subtitle } from "@/components/website-base/typography"
+import { H1, P, Subtitle } from "@/components/website-base/typography"
 import type { TournamentDocument } from "../../../../../prismicio-types"
 import { SubpageHero, SubpageHeroMedia, SubpageHeroContent, SubpageHeroMediaBanner } from "@/components/blocks/subpage-hero"
 import { PrismicNextImage } from "@prismicio/next"
@@ -35,7 +35,7 @@ const faqData: FAQItem[] = [
         question: "Who participates in W7F tournaments?",
         answer: (
             <>
-                <P>Established professional clubs from the best leagues across the globe have committed to participating in W7F's seven-a-side tournaments. From that club pool, teams will be chosen to compete.</P>
+                <P>Established professional clubs from the best leagues across the globe have committed to participating in W7F&apos;s seven-a-side tournaments. From that club pool, teams will be chosen to compete.</P>
                 <P>For the May 2025 tournament in Estoril, participating clubs were: Ajax, Bayern, Benfica, Manchester City, Manchester United, Paris Saint-Germain, AS Roma and FC Rosengard.</P>
             </>
         )

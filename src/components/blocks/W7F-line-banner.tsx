@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { getSocialBlogsByCategory } from "@/cms/queries/blog";
 import type { BlogDocument } from "../../../prismicio-types";
 import { PrismicNextImage } from "@prismicio/next";
+import Image from "next/image";
 
 interface ImageItem {
     url: string;
@@ -55,11 +56,14 @@ function ImageSequence({ isHovered, images }: { isHovered: boolean; images?: Ima
                     transition={{ duration: 0.3 }}
                 >
                     {images ? (
-                        <img
-                            src={images[currentIndex]?.url}
-                            alt={images[currentIndex]?.altText ?? ""}
-                            className="w-full h-full object-cover"
-                        />
+                        <div className="relative w-full h-full">
+                            <Image
+                                src={images[currentIndex]?.url ?? ""}
+                                alt={images[currentIndex]?.altText ?? ""}
+                                fill
+                                className="object-cover"
+                            />
+                        </div>
                     ) : (
                         <PrismicNextImage
                             field={blogs[currentIndex]?.data.image}

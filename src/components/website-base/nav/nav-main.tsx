@@ -14,6 +14,7 @@ import { NavigationMenuTournament } from "./nav-tournament-item"
 import { PaddingGlobal } from "@/components/website-base/padding-containers"
 import { getNavigationTournaments } from "@/cms/queries/tournaments"
 import { Button } from "@/components/ui/button"
+import TournamentNavFeed from "@/components/blocks/tournament/nav-feed/tournament-nav-feed"
 
 const exploreNavItems = [
   { href: "/news", label: "News", key: "nav-news" },
@@ -34,6 +35,7 @@ async function NavMain() {
 
   return (
     <nav className="sticky top-0 z-50 w-full border-b bg-background backdrop-blur supports-[backdrop-filter]:bg-background/90">
+      <TournamentNavFeed />
       <PaddingGlobal>
         <div className="mx-auto flex w-full items-center gap-12 py-4">
           <Logo size="lg" link color="white" variant="2-lines" />

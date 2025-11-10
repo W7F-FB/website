@@ -6,7 +6,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { SubpageHero, SubpageHeroContent, SubpageHeroMedia } from "@/components/blocks/subpage-hero";
-import { H1, H2, H3, Footnote } from "@/components/website-base/typography";
+import { H1, H2, Footnote } from "@/components/website-base/typography";
 import Image from "next/image";
 import { InfoCard } from "@/components/blocks/info-card";
 import { Metadata } from "next";

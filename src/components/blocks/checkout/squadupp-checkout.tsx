@@ -142,8 +142,6 @@ export function SquadUpCheckout() {
     document.body.appendChild(script);
 
     // Event list initialization
-    let hasInitializedEventList = false;
-
     const initEventList = () => {
       const container = document.getElementById("squadup-checkout");
       if (!container) return;
@@ -208,7 +206,6 @@ export function SquadUpCheckout() {
 
           container.style.transition = "opacity 0.3s ease";
           container.style.opacity = "1";
-          hasInitializedEventList = true;
         }
       });
 
@@ -237,7 +234,6 @@ export function SquadUpCheckout() {
     const handleViewChange = (e: CustomEvent<ViewChangedDetail>) => {
       if (e.detail?.currentView === "eventList") {
         console.log("eventList view detected");
-        hasInitializedEventList = false;
         initEventList();
       }
     };
