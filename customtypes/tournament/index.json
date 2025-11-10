@@ -6,19 +6,30 @@
   "status": true,
   "json": {
     "Main": {
+      "uid": {
+        "type": "UID",
+        "config": {
+          "label": "UID",
+          "placeholder": "URL slug for this tournament"
+        }
+      },
+      "hero_image": {
+        "type": "Image",
+        "config": {
+          "label": "Hero Image",
+          "constraint": {
+            "width": 3000,
+            "height": 2000
+          },
+          "thumbnails": []
+        }
+      },
       "title": {
         "type": "Text",
         "config": {
           "label": "Title",
           "placeholder": "Tournament title",
           "useAsTitle": true
-        }
-      },
-      "uid": {
-        "type": "UID",
-        "config": {
-          "label": "UID",
-          "placeholder": "URL slug for this tournament"
         }
       },
       "country_code": {
@@ -52,6 +63,24 @@
         "config": {
           "label": "Opta Competition ID",
           "placeholder": ""
+        }
+      },
+      "tickets_available": {
+        "type": "Boolean",
+        "config": {
+          "label": "Tickets Available",
+          "placeholder_false": "false",
+          "placeholder_true": "true",
+          "default_value": false
+        }
+      },
+      "upcoming": {
+        "type": "Boolean",
+        "config": {
+          "label": "Upcoming",
+          "placeholder_false": "false",
+          "placeholder_true": "true",
+          "default_value": false
         }
       },
       "slices": {

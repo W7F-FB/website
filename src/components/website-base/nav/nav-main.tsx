@@ -18,7 +18,7 @@ import { Button } from "@/components/ui/button"
 const exploreNavItems = [
   { href: "/news", label: "News", key: "nav-news" },
   { href: "/social-impact", label: "Social Impact", key: "nav-social" },
-  { href: "/rising-sevens", label: "Rising Sevens", key: "nav-rising-sevens" },
+  { href: "/rising-sevens", label: "Rising Sevens", key: "nav-rising-sevens", subtitle: "Youth Tournament" },
   { href: "/faqs", label: "FAQs", key: "nav-faqs" }
 ]
 
@@ -60,6 +60,7 @@ async function NavMain() {
                       <li key={item.key}>
                         <NavigationMenuLink href={item.href}>
                           <span>{item.label}</span>
+                          {item.subtitle && <span className="text-xs font-normal text-muted-foreground">{item.subtitle}</span>}
                         </NavigationMenuLink>
                       </li>
                     ))}

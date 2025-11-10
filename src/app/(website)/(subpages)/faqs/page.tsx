@@ -5,7 +5,7 @@ import type { FAQItem } from "@/types/basic";
 import { Section, Container } from "@/components/website-base/padding-containers"
 import { H1, H2, P, List } from "@/components/website-base/typography"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Button } from "@/components/ui/button";
+import { SectionNav } from "./section-nav";
 
 export const metadata: Metadata = {
     title: "FAQs - World Sevens Football",
@@ -326,19 +326,8 @@ export default function FAQsPage() {
         </Section>
 
         <Section padding="md" className="min-h-screen grid grid-cols-12 gap-16">
-            <div className="col-span-3 sticky top-24 self-start space-y-4">
-                {faqSections.map((section) => (
-                    <Button
-                        key={section.id}
-                        variant="outline"
-                        className="text-left w-full justify-start"
-                        asChild
-                    >
-                        <Link href={`#${section.id}`}>
-                            {section.title}
-                        </Link>
-                    </Button>
-                ))}
+            <div className="col-span-3 sticky top-24 self-start">
+                <SectionNav sections={faqSections} />
             </div>
 
             <div className="col-span-9 space-y-10">

@@ -33,12 +33,14 @@ function SectionHeadingSubtitle({ className, ...props }: React.ComponentProps<ty
   )
 }
 
-function SectionHeadingHeading({ className, ...props }: React.ComponentProps<typeof H2>) {
+function SectionHeadingHeading({ className, variant, ...props }: React.ComponentProps<typeof H2>) {
   return (
     <H2
+      variant={variant}
       data-slot="section-heading-heading"
       className={cn(
-        "col-span-2 group-[.split-variant]:col-span-1 max-w-lg text-5xl",
+        "col-span-2 group-[.split-variant]:col-span-1 max-w-lg",
+        !variant && "text-5xl",
         className
       )}
       {...props}

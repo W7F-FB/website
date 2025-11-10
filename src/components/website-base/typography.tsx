@@ -2,11 +2,24 @@ import * as React from "react"
 
 import { cn } from "@/lib/utils"
 
-function H1({ className, ...props }: React.ComponentProps<"h1">) {
+const headingVariants = {
+  h1: "scroll-m-20 text-5xl font-semibold text-balance font-headers leading-[1.4]",
+  h2: "scroll-m-20 pb-2 text-4xl font-medium first:mt-0 font-headers !leading-[1.45]",
+  h3: "scroll-m-20 text-2xl font-medium font-headers !leading-[1.4]",
+  h4: "scroll-m-20 text-xl font-medium font-headers",
+} as const
+
+type HeadingVariant = keyof typeof headingVariants
+
+interface H1Props extends React.ComponentProps<"h1"> {
+  variant?: HeadingVariant
+}
+
+function H1({ className, variant, ...props }: H1Props) {
   return (
     <h1
       className={cn(
-        "scroll-m-20 text-5xl font-bold text-balance font-headers",
+        variant ? headingVariants[variant] : headingVariants.h1,
         className
       )}
       {...props}
@@ -14,11 +27,15 @@ function H1({ className, ...props }: React.ComponentProps<"h1">) {
   )
 }
 
-function H2({ className, ...props }: React.ComponentProps<"h2">) {
+interface H2Props extends React.ComponentProps<"h2"> {
+  variant?: HeadingVariant
+}
+
+function H2({ className, variant, ...props }: H2Props) {
   return (
     <h2
       className={cn(
-        "scroll-m-20 pb-2 text-4xl font-semibold first:mt-0 font-headers !leading-[1.45]",
+        variant ? headingVariants[variant] : headingVariants.h2,
         className
       )}
       {...props}
@@ -26,19 +43,33 @@ function H2({ className, ...props }: React.ComponentProps<"h2">) {
   )
 }
 
-function H3({ className, ...props }: React.ComponentProps<"h3">) {
+interface H3Props extends React.ComponentProps<"h3"> {
+  variant?: HeadingVariant
+}
+
+function H3({ className, variant, ...props }: H3Props) {
   return (
     <h3 
-      className={cn("scroll-m-20 text-2xl font-semibold font-headers !leading-[1.4]", className)}
+      className={cn(
+        variant ? headingVariants[variant] : headingVariants.h3,
+        className
+      )}
       {...props}
     />
   )
 }
 
-function H4({ className, ...props }: React.ComponentProps<"h4">) {
+interface H4Props extends React.ComponentProps<"h4"> {
+  variant?: HeadingVariant
+}
+
+function H4({ className, variant, ...props }: H4Props) {
   return (
     <h4
-      className={cn("scroll-m-20 text-xl font-semibold font-headers", className)}
+      className={cn(
+        variant ? headingVariants[variant] : headingVariants.h4,
+        className
+      )}
       {...props}
     />
   )

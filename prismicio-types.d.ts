@@ -526,6 +526,17 @@ type TournamentDocumentDataSlicesSlice = never;
  */
 interface TournamentDocumentData {
   /**
+   * Hero Image field in *Tournament*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: tournament.hero_image
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  hero_image: prismic.ImageField<never>;
+
+  /**
    * Title field in *Tournament*
    *
    * - **Field Type**: Text
@@ -592,15 +603,28 @@ interface TournamentDocumentData {
   opta_competition_id: prismic.KeyTextField;
 
   /**
-   * Opta Season ID field in *Tournament*
+   * Tickets Available field in *Tournament*
    *
-   * - **Field Type**: Text
+   * - **Field Type**: Boolean
    * - **Placeholder**: *None*
-   * - **API ID Path**: tournament.opta_season_id
+   * - **Default Value**: false
+   * - **API ID Path**: tournament.tickets_available
    * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/fields/text
+   * - **Documentation**: https://prismic.io/docs/fields/boolean
    */
-  opta_season_id: prismic.KeyTextField;
+  tickets_available: prismic.BooleanField;
+
+  /**
+   * Upcoming field in *Tournament*
+   *
+   * - **Field Type**: Boolean
+   * - **Placeholder**: *None*
+   * - **Default Value**: false
+   * - **API ID Path**: tournament.upcoming
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/boolean
+   */
+  upcoming: prismic.BooleanField;
 
   /**
    * Slice Zone field in *Tournament*
