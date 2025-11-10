@@ -146,7 +146,7 @@ function TabsList({
           role="tablist"
           data-slot="tabs-list"
           className={cn(
-            'bg-muted/50 origin-bottom-left -skew-x-[var(--skew-btn)] text-muted-foreground/75 inline-flex h-10 w-fit items-center justify-center p-1',
+            'bg-muted/50 gap-1.5 origin-bottom-left -skew-x-[var(--skew-btn)] text-muted-foreground/75 inline-flex h-10 w-fit items-center justify-center p-1.5',
             className,
           )}
           {...props}
@@ -192,7 +192,7 @@ function TabsTrigger({
         )}
         {...props}
       >
-        <span className="skew-x-[var(--skew-btn)]">
+        <span className="skew-x-[var(--skew-btn)] will-change-transform [backface-visibility:hidden]">
           {children}
         </span>
       </Button>

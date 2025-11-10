@@ -15,6 +15,8 @@ import { ClubList } from "@/components/blocks/clubs/club-list"
 import { Separator } from "@/components/ui/separator"
 import { TicketOptionsGrid } from "@/components/blocks/ticket-options-grid"
 import { Tabs, TabsList, TabsTrigger, TabsContents, TabsContent } from "@/components/ui/motion-tabs"
+import { FAQBannerLayout } from "@/components/blocks/faq-banner-layout"
+import { getImageUrl, getImageAlt } from "@/cms/utils"
 
 const faqData: FAQItem[] = [
     {
@@ -71,7 +73,7 @@ export default async function TournamentPageUpcoming({ tournament }: Props) {
                                 <Link href="/checkout"><span>Purchase Tickets</span></Link>
                             </Button>
                             <Button asChild size="skew_lg" variant="outline">
-                                <Link href="#"><span>View Schedule</span></Link>
+                                <Link href="#schedule"><span>View Schedule</span></Link>
                             </Button>
                         </div>
                     </div>
@@ -84,7 +86,7 @@ export default async function TournamentPageUpcoming({ tournament }: Props) {
                             className="object-cover"
                         />
                         <SubpageHeroMediaBanner>
-                            <P>Interested in watching the action from a pitchside cabana? <span>
+                            <P noSpace>Interested in watching the action from a pitchside cabana? <span>
                                 <Button asChild variant="link" size="sm" className=" ml-1 p-0 h-auto !px-0">
                                     <Link href="/">
                                         Contact Us
@@ -103,19 +105,28 @@ export default async function TournamentPageUpcoming({ tournament }: Props) {
                     </SectionHeading>
                     <ClubList tournament={tournament} />
                 </Section>
-                <Separator />
+                <Separator variant="gradient" />
                 <Section padding="md">
                     <TicketOptionsGrid />
                 </Section>
-                <Section padding="md">
+                <Section padding="md" id="schedule">
                     <SectionHeading className="pb-8">
                         <SectionHeadingHeading variant="h2">Schedule</SectionHeadingHeading>
                     </SectionHeading>
                     <Tabs defaultValue="tab1">
-                        <TabsList className="w-full h-18">
-                            <TabsTrigger value="tab1">Tab 1</TabsTrigger>
-                            <TabsTrigger value="tab2">Tab 2</TabsTrigger>
-                            <TabsTrigger value="tab3">Tab 3</TabsTrigger>
+                        <TabsList className="w-full !h-18">
+                            <TabsTrigger value="tab1" className=" flex-col items-center justify-center">
+                                <div>Fri, Dec 5th</div>
+                                <div className="text-sm text-muted-foreground/75 font-medium">Session 1</div>
+                            </TabsTrigger>
+                            <TabsTrigger value="tab2" className="flex-col items-center justify-center">
+                                <div>Sat, Dec 6th</div>
+                                <div className="text-sm text-muted-foreground/75 font-medium">Session 1</div>
+                            </TabsTrigger>
+                            <TabsTrigger value="tab3" className="flex-col items-center justify-center">
+                                <div>Sun, Dec 7th</div>
+                                <div className="text-sm text-muted-foreground/75 font-medium">Session 1</div>
+                            </TabsTrigger>
                         </TabsList>
                         <TabsContents>
                             <TabsContent value="tab1"><div className="flex items-center justify-center py-8 bg-muted/10">Tab Content</div></TabsContent>
@@ -127,33 +138,42 @@ export default async function TournamentPageUpcoming({ tournament }: Props) {
             </Container>
             <Section padding="md">
                 <Container maxWidth="lg">
-                    <Card>
-                        <CardHeader>
-                            <CardTitle className="text-4xl font-headers font-semibold">
-                                FAQs
-                            </CardTitle>
-                            <CardDescription className="text-base">Frequently asked questions about World Sevens Football</CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                            <Accordion type="single" collapsible className="w-full">
-                                {faqData.map((faq) => (
-                                    <AccordionItem key={faq.id} value={faq.id}>
-                                        <AccordionTrigger>
-                                            <strong>{faq.question}</strong>
-                                        </AccordionTrigger>
-                                        <AccordionContent>
-                                            {faq.answer}
-                                        </AccordionContent>
-                                    </AccordionItem>
-                                ))}
-                            </Accordion>
-                            <div className="mt-8 text-center">
-                                <Button asChild size="skew">
-                                    <Link href="/faqs"><span>Read More</span></Link>
-                                </Button>
-                            </div>
-                        </CardContent>
-                    </Card>
+                    <FAQBannerLayout
+                        images={tournament.data.hero_image && getImageUrl(tournament.data.hero_image) ? [{
+                            url: getImageUrl(tournament.data.hero_image)!,
+                            altText: getImageAlt(tournament.data.hero_image)
+                        }] : undefined}
+                    >
+                        <Card className="border-border/35">
+                            <CardHeader>
+                                <CardTitle>
+                                    <SectionHeadingHeading>
+                                        FAQs
+                                    </SectionHeadingHeading>
+                                </CardTitle>
+                                <CardDescription className="text-lg">Frequently asked questions about World Sevens Football</CardDescription>
+                            </CardHeader>
+                            <CardContent>
+                                <Accordion type="single" collapsible className="w-full">
+                                    {faqData.map((faq) => (
+                                        <AccordionItem key={faq.id} value={faq.id}>
+                                            <AccordionTrigger>
+                                                <strong>{faq.question}</strong>
+                                            </AccordionTrigger>
+                                            <AccordionContent>
+                                                {faq.answer}
+                                            </AccordionContent>
+                                        </AccordionItem>
+                                    ))}
+                                </Accordion>
+                                <div className="mt-8 pl-2">
+                                    <Button asChild size="skew">
+                                        <Link href="/faqs"><span>Read More</span></Link>
+                                    </Button>
+                                </div>
+                            </CardContent>
+                        </Card>
+                    </FAQBannerLayout>
                 </Container>
             </Section>
         </div>

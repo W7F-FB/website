@@ -1,7 +1,8 @@
 import * as React from "react"
 
-import { cn, createGrainGradientBackground } from "@/lib/utils"
-import { Card } from "../ui/card";
+import { cn } from "@/lib/utils"
+import { Card } from "../ui/card"
+import { GradientBg } from "../ui/gradient-bg";
 
 function SubpageHero({ className, ...props }: React.ComponentProps<"div">) {
   return (
@@ -34,19 +35,6 @@ function SubpageHeroContent({
   accentColor?: string;
   shadowColor?: string;
 }) {
-  const backgroundImage = createGrainGradientBackground(
-    overlayColor || "var(--muted)",
-    accentColor || "var(--primary)",
-    shadowColor || "var(--accent)"
-  );
-
-  const backgroundStyle = {
-    backgroundImage,
-    backgroundSize: 'cover',
-    backgroundPosition: '100% 100%',
-    backgroundRepeat: 'no-repeat'
-  };
-
   return (
     <div
       className={cn("relative z-10 pb-24 pt-36 px-18 min-h-[20rem] flex flex-col gap-4 max-w-3xl w-full bg-muted", className)}
@@ -58,9 +46,11 @@ function SubpageHeroContent({
       <div
         className="absolute top-0 bottom-0 right-0 -left-[50%] origin-bottom-right -skew-x-[var(--skew-btn)] bg-muted"
       />
-      <div
-        className="absolute top-0 bottom-0 right-0 -left-[50%] origin-bottom-right -skew-x-[var(--skew-btn)] opacity-30"
-        style={backgroundStyle}
+      <GradientBg
+        className="top-0 bottom-0 right-0 -left-[50%] origin-bottom-right -skew-x-[var(--skew-btn)] opacity-30"
+        overlayColor={overlayColor}
+        accentColor={accentColor}
+        shadowColor={shadowColor}
       />
       <div className="relative">
         {children}
@@ -82,25 +72,18 @@ function SubpageHeroMediaBanner({
   accentColor?: string;
   shadowColor?: string;
 }) {
-  const backgroundImage = createGrainGradientBackground(
-    overlayColor || "var(--muted)",
-    accentColor || "var(--primary)",
-    shadowColor || "var(--accent)"
-  );
-
-  const backgroundStyle = {
-    backgroundImage,
-    backgroundSize: 'cover',
-    backgroundPosition: '100% 100%',
-    backgroundRepeat: 'no-repeat'
-  };
-
   return (
     <Card
       className={cn("relative z-10 p-4 pl-6 bg-muted absolute bottom-8 right-8 max-w-sm overflow-hidden", className)}
       {...props}
     >
-      <div className="absolute inset-0 opacity-30" style={backgroundStyle} />
+      <GradientBg
+        className="inset-0 opacity-40"
+        overlayColor={overlayColor}
+        accentColor={accentColor}
+        shadowColor={shadowColor}
+      />
+
       <div className="relative">
         {children}
       </div>

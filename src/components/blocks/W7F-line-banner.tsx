@@ -10,29 +10,39 @@ import { getSocialBlogsByCategory } from "@/cms/queries/blog";
 import type { BlogDocument } from "../../../prismicio-types";
 import { PrismicNextImage } from "@prismicio/next";
 
-interface W7FLineBannerProps {
-    className?: string;
+interface ImageItem {
+    url: string;
+    altText: string;
 }
 
-function ImageSequence({ isHovered }: { isHovered: boolean }) {
+interface W7FLineBannerProps {
+    className?: string;
+    images?: ImageItem[];
+}
+
+function ImageSequence({ isHovered, images }: { isHovered: boolean; images?: ImageItem[] }) {
     const [blogs, setBlogs] = useState<BlogDocument[]>([]);
     const [currentIndex, setCurrentIndex] = useState(0);
 
     useEffect(() => {
-        getSocialBlogsByCategory("Match Recap").then(setBlogs);
-    }, []);
+        if (!images) {
+            getSocialBlogsByCategory("Match Recap").then(setBlogs);
+        }
+    }, [images]);
+
+    const imageCount = images ? images.length : blogs.length;
 
     useEffect(() => {
-        if (!isHovered || blogs.length === 0) return;
+        if (!isHovered || imageCount === 0) return;
 
         const interval = setInterval(() => {
-            setCurrentIndex((prev) => (prev + 1) % blogs.length);
+            setCurrentIndex((prev) => (prev + 1) % imageCount);
         }, 500);
 
         return () => clearInterval(interval);
-    }, [isHovered, blogs.length]);
+    }, [isHovered, imageCount]);
 
-    if (blogs.length === 0) return null;
+    if (imageCount === 0) return null;
 
     return (
         <AnimatePresence>
@@ -44,18 +54,26 @@ function ImageSequence({ isHovered }: { isHovered: boolean }) {
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.3 }}
                 >
-                    <PrismicNextImage
-                        field={blogs[currentIndex]?.data.image}
-                        className="w-full h-full object-cover"
-                        fallbackAlt={(blogs[currentIndex]?.data.title ?? "") as ""}
-                    />
+                    {images ? (
+                        <img
+                            src={images[currentIndex]?.url}
+                            alt={images[currentIndex]?.altText ?? ""}
+                            className="w-full h-full object-cover"
+                        />
+                    ) : (
+                        <PrismicNextImage
+                            field={blogs[currentIndex]?.data.image}
+                            className="w-full h-full object-cover"
+                            fallbackAlt={(blogs[currentIndex]?.data.title ?? "") as ""}
+                        />
+                    )}
                 </motion.div>
             )}
         </AnimatePresence>
     );
 }
 
-export function W7FLineBanner({ className }: W7FLineBannerProps) {
+export function W7FLineBanner({ className, images }: W7FLineBannerProps) {
     const [isHovered, setIsHovered] = useState(false);
     const color = flattenTransparency("var(--foreground)", "var(--background)", 0.05);
     const hoverColor = flattenTransparency("var(--background)", "var(--foreground)", 0.05);
@@ -66,7 +84,7 @@ export function W7FLineBanner({ className }: W7FLineBannerProps) {
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >
-            <ImageSequence isHovered={isHovered} />
+            <ImageSequence isHovered={isHovered} images={images} />
             <W7FVerticalIcon
                 strokeWidth={2}
                 stroke={isHovered ? hoverColor : color}
