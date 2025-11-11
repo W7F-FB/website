@@ -7,6 +7,7 @@ import { F3StandingsResponse } from '@/types/opta-feeds/f3-standings';
 import { F24EventsResponse } from '@/types/opta-feeds/f24-match';
 import { F9MatchResponse } from '@/types/opta-feeds/f9-match-details';
 import { F13CommentaryResponse, F13LanguageCode } from '@/types/opta-feeds/f13-commentary';
+import { TM3Response } from '@/types/opta-feeds/tm3';
 
 export class OptaClient {
   private baseUrl: string;
@@ -146,6 +147,21 @@ export class OptaClient {
     const xmlText = await response.text();
     const parsed = this.xmlParser.parse(xmlText);
     return parsed as F13CommentaryResponse;
+  }
+
+  async getTM3Squad(
+    competitionId: string | number,
+    seasonId: string | number
+  ): Promise<TM3Response> {
+    const response = await this.makeRequest({
+      feed_type: 'tm3',
+      competition: competitionId,
+      season_id: seasonId,
+    });
+
+    const xmlText = await response.text();
+    const parsed = this.xmlParser.parse(xmlText);
+    return parsed as TM3Response;
   }
 
   // Generic method for any feed type

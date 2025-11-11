@@ -7,6 +7,7 @@ import { F3StandingsResponse } from '@/types/opta-feeds/f3-standings';
 import { F9MatchResponse } from '@/types/opta-feeds/f9-match-details';
 import { F24EventsResponse } from '@/types/opta-feeds/f24-match';
 import { F13CommentaryResponse, F13LanguageCode } from '@/types/opta-feeds/f13-commentary';
+import { TM3Response } from '@/types/opta-feeds/tm3';
 
 const optaClient = new OptaClient();
 
@@ -79,4 +80,15 @@ export async function getF13Commentary(
   language: F13LanguageCode = 'en'
 ): Promise<F13CommentaryResponse> {
   return await optaClient.getF13Commentary(matchId, competitionId, seasonId, language);
+}
+
+/**
+ * TM3 - Squad/Roster Feed
+ * Returns squad information including players, positions, nationalities, and shirt numbers for all teams in a competition
+ */
+export async function getTM3Squad(
+  competitionId: string | number,
+  seasonId: string | number
+): Promise<TM3Response> {
+  return await optaClient.getTM3Squad(competitionId, seasonId);
 }
