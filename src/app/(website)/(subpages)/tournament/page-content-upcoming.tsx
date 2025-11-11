@@ -17,36 +17,8 @@ import { TicketOptionsGrid } from "@/components/blocks/ticket-options-grid"
 import { Tabs, TabsList, TabsTrigger, TabsContents, TabsContent } from "@/components/ui/motion-tabs"
 import { FAQBannerLayout } from "@/components/blocks/faq-banner-layout"
 import { getImageUrl, getImageAlt } from "@/cms/utils"
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-import { ScheduleTabs } from "@/components/blocks/tournament/schedule-tabs"
+import { ScheduleTabs } from "@/components/blocks/tournament/schedule/schedule-tabs"
 import { PrivateVipForm } from "@/components/blocks/forms/private-vip-form"
-=======
-import { ScheduleTabs } from "@/components/blocks/tournament/schedule/schedule-tabs"
->>>>>>> Stashed changes
-=======
-import { ScheduleTabs } from "@/components/blocks/tournament/schedule/schedule-tabs"
->>>>>>> Stashed changes
-=======
-import { ScheduleTabs } from "@/components/blocks/tournament/schedule/schedule-tabs"
->>>>>>> Stashed changes
-=======
-import { ScheduleTabs } from "@/components/blocks/tournament/schedule/schedule-tabs"
->>>>>>> Stashed changes
-=======
-import { ScheduleTabs } from "@/components/blocks/tournament/schedule/schedule-tabs"
->>>>>>> Stashed changes
-=======
-import { ScheduleTabs } from "@/components/blocks/tournament/schedule/schedule-tabs"
->>>>>>> Stashed changes
-=======
-import { ScheduleTabs } from "@/components/blocks/tournament/schedule/schedule-tabs"
->>>>>>> Stashed changes
 
 const faqData: FAQItem[] = [
     {
