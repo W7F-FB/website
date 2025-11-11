@@ -8,7 +8,6 @@ import { NavMain } from "@/components/website-base/nav/nav-main";
 import { Footer } from "@/components/website-base/footer/footer-main";
 import { PaddingGlobal } from "@/components/website-base/padding-containers";
 import { ClipPaths } from "@/components/ui/clip-paths";
-import TournamentNavFeed from "@/components/blocks/tournament/nav-feed/tournament-nav-feed";
 import { MetallicGradients } from "@/components/website-base/icons";
 
 

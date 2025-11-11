@@ -18,7 +18,7 @@ export async function ClubList({ tournament, className, ...props }: ClubListProp
   })
   const numberOfTeams = tournament.data.number_of_teams || sortedTeams.length
 
-  let placementMap: Record<string, number> = {}
+  const placementMap: Record<string, number> = {}
 
   if (tournament.data.status === "Complete" && tournament.data.opta_competition_id) {
     try {

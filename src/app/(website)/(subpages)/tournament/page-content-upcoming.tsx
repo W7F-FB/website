@@ -14,13 +14,13 @@ import { SectionHeading, SectionHeadingHeading } from "@/components/sections/sec
 import { ClubList } from "@/components/blocks/clubs/club-list"
 import { Separator } from "@/components/ui/separator"
 import { TicketOptionsGrid } from "@/components/blocks/ticket-options-grid"
-import { Tabs, TabsList, TabsTrigger, TabsContents, TabsContent } from "@/components/ui/motion-tabs"
 import { FAQBannerLayout } from "@/components/blocks/faq-banner-layout"
 import { getImageUrl, getImageAlt } from "@/cms/utils"
 import { ScheduleTabs } from "@/components/blocks/tournament/schedule/schedule-tabs"
 import { PrivateVipForm } from "@/components/blocks/forms/vip-cabanas/private-vip-form"
 import { ImageSlider, ImageSliderSlide } from "@/components/blocks/image-slider"
 import Image from "next/image"
+import { formatDateRange } from "@/lib/utils"
 
 const faqData: FAQItem[] = [
     {
@@ -57,19 +57,6 @@ type Props = {
 }
 
 export default async function TournamentPageUpcoming({ tournament }: Props) {
-    const startDate = tournament.data.start_date ? new Date(tournament.data.start_date) : null
-    const endDate = tournament.data.end_date ? new Date(tournament.data.end_date) : null
-    
-    const formatDateRange = () => {
-        if (!startDate || !endDate) return ''
-        
-        const month = startDate.toLocaleDateString('en-US', { month: 'short', timeZone: 'UTC' }).toUpperCase()
-        const startDay = startDate.getUTCDate()
-        const endDay = endDate.getUTCDate()
-        const year = startDate.getUTCFullYear()
-        
-        return `${month} ${startDay}-${endDay}  ${year}`
-    }
 
     try {
         const optaResponse = await getF3Standings(1303, 2025)
@@ -84,7 +71,7 @@ export default async function TournamentPageUpcoming({ tournament }: Props) {
                 <SubpageHeroContent>
                     <Subtitle>{tournament.data.title}</Subtitle>
                     <H1 className="uppercase">Tickets on sale now</H1>
-                    <P className="text-lg">{formatDateRange()}<br />{tournament.data.stadium_name}</P>
+                    <P className="text-lg">{formatDateRange(tournament.data.start_date, tournament.data.end_date)}<br />{tournament.data.stadium_name}</P>
                     <div className="mt-8 flex justify-start">
                         <div className="grid grid-cols-2 gap-4">
                             <Button asChild size="skew_lg">

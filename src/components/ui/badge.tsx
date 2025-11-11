@@ -34,16 +34,19 @@ export interface BadgeProps
   extends React.HTMLAttributes<HTMLDivElement>,
   VariantProps<typeof badgeVariants> {
   fast?: boolean
+  origin?: string
 }
 
-function Badge({ className, variant, size, children, fast, ...props }: BadgeProps) {
+function Badge({ className, variant, size, children, fast, origin, ...props }: BadgeProps) {
+  const originClass = origin ? `origin-${origin}` : ""
+  
   if (fast) {
     return (
-      <div className="grid grid-flow-col auto-cols-auto gap-0.5">
-        <div className={cn(badgeVariants({ variant, size }), "w-2 h-full p-0 -skew-x-16",)}/>
-        <div className={cn(badgeVariants({ variant, size }), "w-2 h-full p-0 -skew-x-16",)}/>
-        <div className={cn(badgeVariants({ variant, size }), "w-2 h-full p-0 -skew-x-16",)}/>
-        <div className={cn(badgeVariants({ variant, size }), "-skew-x-16", className)} {...props}>
+      <div className="grid grid-cols-[auto_auto_auto_1fr] gap-0.5">
+        <div className={cn(badgeVariants({ variant, size }), "w-2 h-full p-0 -skew-x-16", originClass)}/>
+        <div className={cn(badgeVariants({ variant, size }), "w-2 h-full p-0 -skew-x-16", originClass)}/>
+        <div className={cn(badgeVariants({ variant, size }), "w-2 h-full p-0 -skew-x-16", originClass)}/>
+        <div className={cn(badgeVariants({ variant, size }), "-skew-x-16", originClass, className)} {...props}>
           <span className="skew-x-16">{children}</span>
         </div>
       </div>
@@ -51,7 +54,7 @@ function Badge({ className, variant, size, children, fast, ...props }: BadgeProp
   }
 
   return (
-    <div className={cn(badgeVariants({ variant, size }), className)} {...props}>
+    <div className={cn(badgeVariants({ variant, size }), originClass, className)} {...props}>
       <span className="skew-x-16">{children}</span>
     </div>
   )

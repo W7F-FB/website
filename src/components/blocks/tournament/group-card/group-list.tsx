@@ -1,4 +1,3 @@
-import { CardContent } from "@/components/ui/card"
 import { Content } from "@prismicio/client"
 import { ClubHorizontal } from "@/components/blocks/clubs/club"
 import { F3TeamStandings, F3Team } from "@/types/opta-feeds/f3-standings"

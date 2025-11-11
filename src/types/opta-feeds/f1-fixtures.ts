@@ -49,6 +49,8 @@ export interface F1MatchInfo {
   Attendance?: number;
   Duration?: string; // e.g., "Regular"
   MatchWinner?: string; // Team ID of the winner
+  GameWinner?: string; // Team ID of the winner (alternative field name)
+  GameWinnerType?: "AfterExtraTime" | "ShootOut"; // Method by which the team won the tie
   NextMatch?: string; // Next match ID for the winner
   NextMatchLoser?: string; // Next match ID for the loser (e.g., 3rd place playoff)
 }

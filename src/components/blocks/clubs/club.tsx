@@ -122,7 +122,7 @@ function ClubHorizontal({ team, index, record, className, ...props }: ClubHorizo
       <div className="flex items-center justify-between flex-grow flex-wrap gap-x-2">
         <div className="flex flex-col justify-center">
           <span>
-            <span className="text-white text-base relative top-px font-semibold  ">
+            <span className=" relative top-px font-semibold  ">
               {team.data?.name}
             </span>
             {team.data?.country_code && (
