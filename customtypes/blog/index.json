@@ -41,6 +41,15 @@
           ]
         }
       },
+      "tournament": {
+        "type": "Link",
+        "config": {
+          "label": "Tournament",
+          "select": "document",
+          "repeat": false,
+          "customtypes": ["tournament"]
+        }
+      },
       "date": {
         "type": "Date",
         "config": {
@@ -73,7 +82,10 @@
       },
       "slices": {
         "type": "Slices",
-        "fieldset": "Slice Zone"
+        "fieldset": "Slice Zone",
+        "config": {
+          "choices": {}
+        }
       }
     }
   }

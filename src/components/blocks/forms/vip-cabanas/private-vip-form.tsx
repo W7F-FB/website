@@ -74,9 +74,6 @@ export function PrivateVipForm() {
       <Card className="border-border/35 bg-card/35">
         <CardHeader>
           <CardTitle>
-            <Subtitle className="font-[450] font-headers uppercase text-accent-foreground block">
-              Private VIP Cabanas
-            </Subtitle>
             <H2 className="uppercase">
               Interested in a Private VIP Cabana?
             </H2>

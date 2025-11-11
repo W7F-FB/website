@@ -4,7 +4,7 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const badgeVariants = cva(
-  "inline-flex items-center -skew-x-16 rounded-none border border-border/50 font-headers uppercase font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
+  "inline-flex items-center rounded-none border border-border/50 font-headers uppercase font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
   {
     variants: {
       variant: {
@@ -35,27 +35,30 @@ export interface BadgeProps
   VariantProps<typeof badgeVariants> {
   fast?: boolean
   origin?: string
+  noSkew?: boolean
 }
 
-function Badge({ className, variant, size, children, fast, origin, ...props }: BadgeProps) {
+function Badge({ className, variant, size, children, fast, origin, noSkew, ...props }: BadgeProps) {
   const originClass = origin ? `origin-${origin}` : ""
+  const skewClass = noSkew ? "" : "-skew-x-16"
+  const innerSkewClass = noSkew ? "" : "skew-x-16"
   
   if (fast) {
     return (
       <div className="grid grid-cols-[auto_auto_auto_1fr] gap-0.5">
-        <div className={cn(badgeVariants({ variant, size }), "w-2 h-full p-0 -skew-x-16", originClass)}/>
-        <div className={cn(badgeVariants({ variant, size }), "w-2 h-full p-0 -skew-x-16", originClass)}/>
-        <div className={cn(badgeVariants({ variant, size }), "w-2 h-full p-0 -skew-x-16", originClass)}/>
-        <div className={cn(badgeVariants({ variant, size }), "-skew-x-16", originClass, className)} {...props}>
-          <span className="skew-x-16">{children}</span>
+        <div className={cn(badgeVariants({ variant, size }), "w-2 h-full p-0", skewClass, originClass)}/>
+        <div className={cn(badgeVariants({ variant, size }), "w-2 h-full p-0", skewClass, originClass)}/>
+        <div className={cn(badgeVariants({ variant, size }), "w-2 h-full p-0", skewClass, originClass)}/>
+        <div className={cn(badgeVariants({ variant, size }), skewClass, originClass, className)} {...props}>
+          <span className={innerSkewClass}>{children}</span>
         </div>
       </div>
     )
   }
 
   return (
-    <div className={cn(badgeVariants({ variant, size }), originClass, className)} {...props}>
-      <span className="skew-x-16">{children}</span>
+    <div className={cn(badgeVariants({ variant, size }), skewClass, originClass, className)} {...props}>
+      <span className={innerSkewClass}>{children}</span>
     </div>
   )
 }

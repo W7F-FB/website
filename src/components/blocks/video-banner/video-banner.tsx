@@ -6,23 +6,28 @@ import { PlayIcon } from "@/components/website-base/icons";
 import { VideoModal } from "@/components/blocks/video-banner/video-modal"
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
 
 
 interface VideoBannerProps {
     thumbnail: string;
     videoUrl: string;
     label?: string;
+    className?: string;
+    size?: "sm" | "lg";
 }
 
 export const VideoBanner: React.FC<VideoBannerProps> = ({
     thumbnail,
     videoUrl,
     label,
+    className,
+    size = "lg",
 }) => {
     const { isOpen, openPlayer, closePlayer } = useReactPlayer();
 
     return (
-        <div className="relative overflow-hidden flex items-center justify-center h-[30rem] cursor-pointer group" aria-label="Play video" onClick={openPlayer}>
+        <div className={cn("relative overflow-hidden flex items-center justify-center h-[30rem] cursor-pointer group", className)} aria-label="Play video" onClick={openPlayer}>
             <div className="h-full w-full flex items-center absolute">
                 <Image
                     src={thumbnail}
@@ -33,11 +38,11 @@ export const VideoBanner: React.FC<VideoBannerProps> = ({
             </div>
 
             <div className="absolute top-4 left-4 z-10">
-                <Badge fast size="lg" variant="default">{label}</Badge>
+                <Badge fast variant="default">{label}</Badge>
             </div>
 
-            <div className="z-10 w-20 h-20 bg-primary/5 backdrop-blur-sm group-hover:backdrop-blur-lg transition-all flex items-center justify-center rounded-[0.1rem] border border-primary/5">
-                <PlayIcon className="size-6"/>
+            <div className={cn("z-10 bg-primary/5 backdrop-blur-sm group-hover:backdrop-blur-lg transition-all flex items-center justify-center rounded-[0.1rem] border border-primary/5", size === "sm" ? "w-14 h-14" : "w-20 h-20")}>
+                <PlayIcon className={cn(size === "sm" ? "size-4" : "size-6")}/>
             </div>
 
             <div className="absolute inset-0 w-full h-full bg-black/60 transition-all ease-linear group-hover:bg-black/45"></div>

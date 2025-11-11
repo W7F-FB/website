@@ -115,6 +115,17 @@ interface BlogDocumentData {
   >;
 
   /**
+   * Tournament field in *blog*
+   *
+   * - **Field Type**: Content Relationship
+   * - **Placeholder**: *None*
+   * - **API ID Path**: blog.tournament
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/content-relationship
+   */
+  tournament: prismic.ContentRelationshipField<"tournament">;
+
+  /**
    * date field in *blog*
    *
    * - **Field Type**: Date
@@ -159,7 +170,7 @@ interface BlogDocumentData {
   content: prismic.RichTextField;
 
   /**
-   * `slices` field in *blog*
+   * Slice Zone field in *blog*
    *
    * - **Field Type**: Slice Zone
    * - **Placeholder**: *None*
@@ -654,6 +665,17 @@ interface TournamentDocumentData {
       },
     ]
   >;
+
+  /**
+   * Highlight Reel Link field in *Tournament*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: tournament.highlight_reel_link
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  highlight_reel_link: prismic.KeyTextField;
 
   /**
    * Tickets Available field in *Tournament*

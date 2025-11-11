@@ -115,7 +115,7 @@ export default async function HomePage() {
                         <HeroSliderSlideContent className="max-w-3xl justify-self-start pr-48 flex items-end grid justify-items-start">
                             <Image src="/images/static-media/watercolor-bg.jpg" alt="Hero Slider 1" fill className="object-cover clip-watercolor-mask" />
                             <TextProtect className="relative z-10 block space-y-5">
-                                <Subtitle className="text-xl">Tickets available now</Subtitle>
+                                <Subtitle className="text-xl text-primary">Tickets available now</Subtitle>
                                 <H1 className="font-proxima uppercase font-black text-6xl">Fort Lauderdale,<br />FLorida, USA</H1>
                                 <P noSpace className="text-3xl text-balance font-headers font-medium text-foreground">New City. Same Stakes. <span className="font-bold">$5 Million Prize Pool.</span></P>
                             </TextProtect>
@@ -133,7 +133,7 @@ export default async function HomePage() {
                         </HeroSliderSlideBackground>
                         <HeroSliderSlideContent className="max-w-3xl justify-self-start pr-48 flex items-end grid justify-items-start">
                             <TextProtect className="relative z-10">
-                                <Subtitle>Recap</Subtitle>
+                                <Subtitle className="text-primary text-xl">Recap</Subtitle>
                                 <H1 className="font-proxima uppercase font-black text-6xl">Estoril,<br />Portugal</H1>
                                 <P noSpace className="text-xl text-balance font-headers font-medium mt-3">Bayern take home the title and prize pool in an action packed event.</P>
                             </TextProtect>

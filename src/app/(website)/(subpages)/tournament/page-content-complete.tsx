@@ -5,30 +5,42 @@ import { SubpageHero, SubpageHeroMedia, SubpageHeroContent, SubpageHeroMediaBann
 import { PrismicNextImage } from "@prismicio/next"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import { CaretRightIcon } from "@/components/website-base/icons"
+import { CaretRightIcon, ChampionIcon, RunnerUpIcon } from "@/components/website-base/icons"
 import { GroupList } from "@/components/blocks/tournament/group-card/group-list"
 import { getF3Standings, getF1Fixtures, getF13Commentary } from "@/app/api/opta/feeds"
 import { getTeamsByTournament } from "@/cms/queries/team"
 import type { F3StandingsResponse } from "@/types/opta-feeds/f3-standings"
 import type { F1FixturesResponse } from "@/types/opta-feeds/f1-fixtures"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { SectionHeading, SectionHeadingHeading, SectionHeadingText } from "@/components/sections/section-heading"
+import { SectionHeading, SectionHeadingHeading, SectionHeadingText, SectionHeadingSubtitle } from "@/components/sections/section-heading"
 import { Badge } from "@/components/ui/badge"
 import { GameCard } from "@/components/blocks/game/game-card"
-import { getGroupStageMatches, groupMatchesByDate, formatMatchDayDate } from "./utils"
-import { formatDateRange } from "@/lib/utils"
+import { getGroupStageMatches, getSemiFinalMatches, getThirdPlaceMatch, getFinalMatch, groupMatchesByDate, formatMatchDayDate } from "./utils"
+import { formatDateRange, mapBlogDocumentToMetadata } from "@/lib/utils"
+import { getBlogsByTournament } from "@/cms/queries/blog"
+import { PostGrid } from "@/components/blocks/posts/post-grid"
+import { PrismicLink } from "@prismicio/react"
+import { Separator } from "@/components/ui/separator"
+import { GridCellScrollLink } from "@/components/blocks/grid-cell-scroll-link"
+import { PostBanner } from "@/components/blocks/posts/post"
+import { isFilled } from "@prismicio/client"
+import { VideoBanner } from "@/components/blocks/video-banner/video-banner"
 
 type Props = {
     tournament: TournamentDocument
 }
 
 export default async function TournamentPagePast({ tournament }: Props) {
+    console.log('=== Tournament Object from Prismic ===')
+    console.log(tournament)
+    
     const competitionId = tournament.data.opta_competition_id
     const seasonId = tournament.data.opta_season_id
 
     let f3Data: F3StandingsResponse | null = null
     let f1Data: F1FixturesResponse | null = null
     let prismicTeams: TeamDocument[] = []
+    const tournamentBlogs = await getBlogsByTournament(tournament.id)
 
     if (competitionId && seasonId && tournament.uid) {
         try {
@@ -56,6 +68,10 @@ export default async function TournamentPagePast({ tournament }: Props) {
     const groupStageMatches = getGroupStageMatches(f1Data?.SoccerFeed?.SoccerDocument?.MatchData)
     const matchesByDay = groupMatchesByDate(groupStageMatches)
     const totalMatches = groupStageMatches.length
+    const semiFinalMatches = getSemiFinalMatches(f1Data?.SoccerFeed?.SoccerDocument?.MatchData)
+    const thirdPlaceMatches = getThirdPlaceMatch(f1Data?.SoccerFeed?.SoccerDocument?.MatchData)
+    const finalMatches = getFinalMatch(f1Data?.SoccerFeed?.SoccerDocument?.MatchData)
+    const knockoutMatches = semiFinalMatches.length + thirdPlaceMatches.length + finalMatches.length
 
     if (groupStageMatches.length > 0 && competitionId && seasonId) {
         try {
@@ -105,7 +121,7 @@ export default async function TournamentPagePast({ tournament }: Props) {
                                 <br />
                                 <span>Dec 5-7, 2025
                                     <Button asChild variant="link" size="sm" className=" ml-3 p-0 h-auto !px-0">
-                                        <Link href="/tournament">
+                                        <Link href="/tournament/fort-lauderdale">
                                             Learn More
                                             <CaretRightIcon className="size-3 mt-px" />
                                         </Link>
@@ -115,6 +131,33 @@ export default async function TournamentPagePast({ tournament }: Props) {
                     </SubpageHeroMedia>
                 )}
             </SubpageHero>
+            <div className="grid grid-cols-3 w-full gap-8 mt-8">
+                {isFilled.contentRelationship(tournament.data.recap) && tournament.data.recap.data && (
+                    <div className="col-span-2">
+                    <PostBanner blog={{
+                        slug: tournament.data.recap.uid ?? "",
+                        title: tournament.data.recap.data.title ?? "Untitled",
+                        excerpt: tournament.data.recap.data.excerpt ?? null,
+                        image: tournament.data.recap.data.image?.url ?? undefined,
+                        category: tournament.data.recap.data.category ?? null,
+                        author: tournament.data.recap.data.author ?? null,
+                        date: tournament.data.recap.data.date ?? null,
+                    }} />
+                    </div>
+                )}
+                {tournament.data.highlight_reel_link && (
+                    <div className="col-span-1 h-full">
+                        <VideoBanner
+                            thumbnail="/images/static-media/video-banner.avif"
+                            videoUrl={tournament.data.highlight_reel_link}
+                            label="Recap the action"
+                            className="h-full"
+                            size="sm"
+                        />
+                    </div>
+                )}
+            </div>
+
             <Container maxWidth="lg">
                 <Section padding="md">
                     <SectionHeading variant="split">
@@ -185,8 +228,122 @@ export default async function TournamentPagePast({ tournament }: Props) {
                         </div>
                     </div>
                 </Section>
+                <Section padding="md">
+                    <SectionHeading variant="split">
+                        <SectionHeadingHeading>
+                            Knockout Stage
+                        </SectionHeadingHeading>
+                        <SectionHeadingText variant="lg" className="ml-auto mt-auto">
+                            {knockoutMatches} {knockoutMatches === 1 ? 'Match' : 'Matches'}
+                        </SectionHeadingText>
+                    </SectionHeading>
+                    <div className="grid grid-cols-1 md:grid-cols-8 gap-12">
+                        <div className="col-span-8 flex justify-start gap-0.5 pr-3">
+                            <div className="flex-grow">
+                                <Badge fast variant="backdrop_blur" origin="bottom-left" size="lg" className="text-2xl">
+                                    Match day 3
+                                </Badge>
+                            </div>
+                            <Badge variant="backdrop_blur" origin="bottom-left" size="lg" className="text-base">
+                                {formatMatchDayDate('2025-11-11')}
+                            </Badge>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr_auto_1fr] gap-0 col-span-8 bg-secondary">
+                            <div className="flex">
+                                <div className="flex-grow ">
+                                    <Badge variant="secondary" noSkew origin="bottom-left" size="lg" className="text-2xl w-full col-span px-8 hover:bg-secondary">
+                                        Semi-Finals
+                                    </Badge>
+                                </div>
+                            </div>
+                            <div className="border-l-2 border-background -skew-x-16 h-full" />
+                            <div className="flex">
+                                <div className="flex-grow">
+                                    <Badge variant="secondary" noSkew origin="bottom-left" size="lg" className="text-2xl w-full block col-span px-8 hover:bg-secondary">
+                                        <div className="flex items-center gap-3 justify-start w-full">
+                                            <RunnerUpIcon className="size-6" />
+                                            <span className="flex-grow">Third place match</span>
+
+                                        </div>
+                                    </Badge>
+                                </div>
+                            </div>
+                            <div className="border-l-2 border-background -skew-x-16 h-full" />
+                            <div className="flex">
+                                <Badge variant="secondary" noSkew origin="bottom-left" size="lg" className="text-2xl w-full block col-span px-8 hover:bg-secondary">
+                                    <div className="flex items-center gap-3 justify-start w-full">
+                                        <ChampionIcon className="size-6" />
+                                        <span className="flex-grow">The Final</span>
+
+                                    </div>
+                                </Badge>
+                            </div>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-6 gap-8 col-span-8">
+                            {semiFinalMatches[0] && (
+                                <div className="col-span-2 row-span-1">
+                                    <GameCard
+                                        fixture={semiFinalMatches[0]}
+                                        prismicTeams={prismicTeams}
+                                        timeOnly
+                                    />
+                                </div>
+                            )}
+                            {thirdPlaceMatches.map((match) => (
+                                <div key={match.uID} className="col-span-2 row-span-1">
+                                    <GameCard
+                                        fixture={match}
+                                        prismicTeams={prismicTeams}
+                                        timeOnly
+                                    />
+                                </div>
+                            ))}
+                            {finalMatches.map((match) => (
+                                <div key={match.uID} className="col-span-2 row-span-1">
+                                    <GameCard
+                                        fixture={match}
+                                        prismicTeams={prismicTeams}
+                                        timeOnly
+                                    />
+                                </div>
+                            ))}
+                            {semiFinalMatches[1] && (
+                                <div className="col-span-2 row-span-1">
+                                    <GameCard
+                                        fixture={semiFinalMatches[1]}
+                                        prismicTeams={prismicTeams}
+                                        timeOnly
+                                    />
+                                </div>
+                            )}
+                            <GridCellScrollLink href="#final-match" className="col-span-4 row-span-1" />
+                        </div>
+
+                    </div>
+                </Section>
+                {tournamentBlogs.length > 0 && (
+                    <>
+                        <Section padding="md">
+                            <Separator variant="gradient" />
+                        </Section>
+                        <Section padding="md">
+                            <SectionHeading variant="split">
+                                <SectionHeadingSubtitle>
+                                    Latest Coverage
+                                </SectionHeadingSubtitle>
+                                <SectionHeadingHeading>
+                                    Tournament News
+                                </SectionHeadingHeading>
+                                <Button asChild size="skew" variant="outline" className="ml-auto mt-auto">
+                                    <PrismicLink href="/news"><span>All News</span></PrismicLink>
+                                </Button>
+                            </SectionHeading>
+                            <PostGrid posts={tournamentBlogs.slice(0, 4).map(mapBlogDocumentToMetadata)} />
+                        </Section>
+                    </>
+                )}
             </Container>
-        </div>
+        </div >
     )
 }
 

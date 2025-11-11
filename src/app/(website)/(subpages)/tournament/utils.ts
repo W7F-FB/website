@@ -5,6 +5,21 @@ export function getGroupStageMatches(matches: F1MatchData[] | undefined) {
     return matches.filter(match => match.MatchInfo.RoundType === "Round")
 }
 
+export function getSemiFinalMatches(matches: F1MatchData[] | undefined) {
+    if (!matches) return []
+    return matches.filter(match => match.MatchInfo.RoundType === "Semi-Finals")
+}
+
+export function getThirdPlaceMatch(matches: F1MatchData[] | undefined) {
+    if (!matches) return []
+    return matches.filter(match => match.MatchInfo.RoundType === "3rd and 4th Place")
+}
+
+export function getFinalMatch(matches: F1MatchData[] | undefined) {
+    if (!matches) return []
+    return matches.filter(match => match.MatchInfo.RoundType === "Final")
+}
+
 export function groupMatchesByDate(matches: F1MatchData[] | undefined) {
     if (!matches) return new Map<string, F1MatchData[]>()
     

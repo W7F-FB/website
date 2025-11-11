@@ -10,7 +10,7 @@ import type { TournamentDocument } from "../../../../../prismicio-types"
 import { SubpageHero, SubpageHeroMedia, SubpageHeroContent, SubpageHeroMediaBanner } from "@/components/blocks/subpage-hero"
 import { PrismicNextImage } from "@prismicio/next"
 import { CaretRightIcon } from "@/components/website-base/icons"
-import { SectionHeading, SectionHeadingHeading } from "@/components/sections/section-heading"
+import { SectionHeading, SectionHeadingHeading, SectionHeadingSubtitle } from "@/components/sections/section-heading"
 import { ClubList } from "@/components/blocks/clubs/club-list"
 import { Separator } from "@/components/ui/separator"
 import { TicketOptionsGrid } from "@/components/blocks/ticket-options-grid"
@@ -20,7 +20,11 @@ import { ScheduleTabs } from "@/components/blocks/tournament/schedule/schedule-t
 import { PrivateVipForm } from "@/components/blocks/forms/vip-cabanas/private-vip-form"
 import { ImageSlider, ImageSliderSlide } from "@/components/blocks/image-slider"
 import Image from "next/image"
-import { formatDateRange } from "@/lib/utils"
+import { formatDateRange, mapBlogDocumentToMetadata } from "@/lib/utils"
+import { Badge } from "@/components/ui/badge"
+import { getBlogsByTournament } from "@/cms/queries/blog"
+import { PostGrid } from "@/components/blocks/posts/post-grid"
+import { PrismicLink } from "@prismicio/react"
 
 const faqData: FAQItem[] = [
     {
@@ -57,6 +61,7 @@ type Props = {
 }
 
 export default async function TournamentPageUpcoming({ tournament }: Props) {
+    const tournamentBlogs = await getBlogsByTournament(tournament.id)
 
     try {
         const optaResponse = await getF3Standings(1303, 2025)
@@ -123,26 +128,50 @@ export default async function TournamentPageUpcoming({ tournament }: Props) {
                 </Section>
                 <Separator variant="gradient" />
                 <Section padding="lg" className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
-                    <ImageSlider autoplay autoplayDelay={5000}>
-                        <ImageSliderSlide >
-                            <Image
-                                src="/images/static-media/vip-cabanas.jpg"
-                                alt="VIP Cabanas"
-                                fill
-                                className="w-full h-full object-cover"
-                            />
-                        </ImageSliderSlide>
-                        <ImageSliderSlide>
-                            <Image
-                                src="/images/static-media/vip-cabanas-2.webp"
-                                alt="VIP Cabanas View"
-                                fill
-                                className="w-full h-full object-cover"
-                            />
-                        </ImageSliderSlide>
-                    </ImageSlider>
+                    <div className="relative h-full w-full">
+                        <div className="absolute top-4 left-4 z-10">
+                            <Badge fast size="lg" variant="default">VIP Cabanas</Badge>
+                        </div>
+                        <ImageSlider autoplay autoplayDelay={5000}>
+                            <ImageSliderSlide >
+                                <Image
+                                    src="/images/static-media/vip-cabanas.jpg"
+                                    alt="VIP Cabanas"
+                                    fill
+                                    className="w-full h-full object-cover"
+                                />
+                            </ImageSliderSlide>
+                            <ImageSliderSlide>
+                                <Image
+                                    src="/images/static-media/vip-cabanas-2.webp"
+                                    alt="VIP Cabanas View"
+                                    fill
+                                    className="w-full h-full object-cover"
+                                />
+                            </ImageSliderSlide>
+                        </ImageSlider>
+                    </div>
                     <PrivateVipForm />
                 </Section>
+                {tournamentBlogs.length > 0 && (
+                    <>
+                        <Separator variant="gradient" />
+                        <Section padding="md">
+                            <SectionHeading variant="split">
+                                <SectionHeadingSubtitle>
+                                    Latest Coverage
+                                </SectionHeadingSubtitle>
+                                <SectionHeadingHeading>
+                                    Tournament News
+                                </SectionHeadingHeading>
+                                <Button asChild size="skew" variant="outline" className="ml-auto mt-auto">
+                                    <PrismicLink href="/news"><span>All News</span></PrismicLink>
+                                </Button>
+                            </SectionHeading>
+                            <PostGrid posts={tournamentBlogs.slice(0, 4).map(mapBlogDocumentToMetadata)} />
+                        </Section>
+                    </>
+                )}
             </Container>
             <Section padding="md">
                 <Container maxWidth="lg">

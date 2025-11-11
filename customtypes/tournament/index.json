@@ -94,6 +94,13 @@
           ]
         }
       },
+      "highlight_reel_link": {
+        "type": "Text",
+        "config": {
+          "label": "Highlight Reel Link",
+          "placeholder": ""
+        }
+      },
       "tickets_available": {
         "type": "Boolean",
         "config": {

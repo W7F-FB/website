@@ -157,7 +157,7 @@ function PostCardVert({ blog, className }: PostProps) {
     <PrismicLink href={`/news/${blog.slug}`}>
       <Card className={cn("overflow-hidden group rounded-none pt-0 bg-card/35 border-border/40", className)}>
         {blog.image && (
-          <div className="relative w-full aspect-video">
+          <div className="relative w-full aspect-[12/8]">
             <Image
               src={blog.image}
               alt={blog.title}
@@ -197,7 +197,7 @@ function PostBanner({ blog, className }: PostProps) {
     <PrismicLink href={`/news/${blog.slug}`}>
       <div className={cn("flex flex-col md:flex-row overflow-hidden group rounded-none bg-card/35 border border-border/40", className)}>
         {blog.image && (
-          <div className="relative w-full md:w-[280px] aspect-[4/3] md:aspect-auto md:h-auto flex-shrink-0">
+          <div className="relative w-full md:w-48  flex-shrink-0">
             <Image
               src={blog.image}
               alt={blog.title}
@@ -208,11 +208,11 @@ function PostBanner({ blog, className }: PostProps) {
         )}
         <div className="flex flex-col justify-between flex-1 py-8 px-10 gap-6">
           <div className="flex flex-col gap-4">
-            <H3 className="text-2xl md:text-3xl lg:text-4xl font-semibold text-white !leading-[1.2]">
+            <H3 className="text-xl font-semibold text-foreground !leading-[1.2]">
               {blog.title}
             </H3>
             {blog.excerpt && (
-              <P noSpace className="text-base md:text-lg text-muted-foreground line-clamp-2">
+              <P noSpace className="text-base text-muted-foreground line-clamp-2">
                 {blog.excerpt}
               </P>
             )}
