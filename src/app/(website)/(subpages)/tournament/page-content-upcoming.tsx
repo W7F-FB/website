@@ -18,6 +18,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContents, TabsContent } from "@/compon
 import { FAQBannerLayout } from "@/components/blocks/faq-banner-layout"
 import { getImageUrl, getImageAlt } from "@/cms/utils"
 import { ScheduleTabs } from "@/components/blocks/tournament/schedule-tabs"
+import { PrivateVipForm } from "@/components/blocks/forms/private-vip-form"
 
 const faqData: FAQItem[] = [
     {
@@ -116,6 +117,12 @@ export default async function TournamentPageUpcoming({ tournament }: Props) {
                         <P noSpace>All times are subject to change</P>
                     </SectionHeading>
                     <ScheduleTabs />
+                </Section>
+                <Separator variant="gradient" />
+                <Section padding="lg">
+                    <Container maxWidth="md">
+                        <PrivateVipForm />
+                    </Container>
                 </Section>
             </Container>
             <Section padding="md">
