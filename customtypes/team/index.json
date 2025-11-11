@@ -40,6 +40,13 @@
           "placeholder": ""
         }
       },
+      "country_code": {
+        "type": "Text",
+        "config": {
+          "label": "Country Code",
+          "placeholder": ""
+        }
+      },
       "logo": {
         "type": "Image",
         "config": {

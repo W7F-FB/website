@@ -13,7 +13,7 @@ type SelectFloatingItem = {
 }
 
 const inputFloatingVariants = cva(
-  "border-input/50 border-2 font-[600] flex items-center justify-start relative flex w-full min-w-0 rounded-md bg-input/5 shadow-xs transition-[color,box-shadow] outline-none",
+  "border-input/50 border-2 font-semibold flex items-center justify-start relative flex w-full min-w-0 rounded-md bg-input/5 shadow-xs transition-[color,box-shadow] outline-none",
   {
     variants: {
       size: {
@@ -41,8 +41,7 @@ interface InputFloatingProps
 }
 
 const InputFloating = React.forwardRef<HTMLInputElement, InputFloatingProps>(
-  ({ className, type, size = "default", label, value, defaultValue, onChange, onBlur, onFocus, mask, icon, errors, fieldClassName, /* mobileOptions, smallText, drawerTitle, mobileDefaultValue, */ ...props }, ref) => {
-    // const isMobile = useIsMobile()
+  ({ className, type, size = "default", label, value, defaultValue, onChange, onBlur, onFocus, mask, icon, errors, fieldClassName, ...props }, ref) => {
     const [isFocused, setIsFocused] = React.useState(false)
     const [isKeyboardFocus, setIsKeyboardFocus] = React.useState(false)
     const inputRef = React.useRef<HTMLInputElement>(null)
@@ -91,36 +90,11 @@ const InputFloating = React.forwardRef<HTMLInputElement, InputFloatingProps>(
       inputRef.current?.focus()
     }
 
-    // const handleSelectValueChange = React.useCallback((newValue: string) => {
-    //   if (onChange) {
-    //     const syntheticEvent = {
-    //       target: { value: newValue },
-    //       currentTarget: { value: newValue }
-    //     } as React.ChangeEvent<HTMLInputElement>
-    //     onChange(syntheticEvent)
-    //   }
-    // }, [onChange])
+
 
     const inputSizeClass = "text-base md:text-base h-full"
 
-    // if (isMobile && mobileOptions) {
-    //   return (
-    //     <SelectFloating
-    //       label={label}
-    //       items={mobileOptions}
-    //       value={typeof value === "string" ? value : undefined}
-    //       defaultValue={typeof defaultValue === "string" ? defaultValue : undefined}
-    //       wheelPickerDefaultPosition={mobileDefaultValue}
-    //       onValueChange={handleSelectValueChange}
-    //       errors={errors}
-    //       fieldClassName={fieldClassName}
-    //       size={size}
-    //       className={className}
-    //       smallText={smallText}
-    //       drawerTitle={drawerTitle}
-    //     />
-    //   )
-    // }
+
 
     return (
       <Field className={fieldClassName}>
@@ -128,7 +102,7 @@ const InputFloating = React.forwardRef<HTMLInputElement, InputFloatingProps>(
           data-slot="input-floating"
           className={cn(
             inputFloatingVariants({ size, className }),
-            isKeyboardFocus && "border-ring/70 ring-2 ring-ring/50"
+            isKeyboardFocus && "border-ring/50 ring-1 ring-ring/20"
           )}
           onClick={handleContainerClick}
         >
@@ -145,7 +119,7 @@ const InputFloating = React.forwardRef<HTMLInputElement, InputFloatingProps>(
             type={type}
             data-slot="input"
             className={cn(
-              "placeholder:text-muted-foreground/50 selection:bg-primary selection:text-primary-foreground file:text-foreground w-full min-w-0 bg-transparent outline-none transition-colors file:inline-flex file:border-0 file:bg-transparent file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50",
+              "placeholder:text-muted-foreground/50 selection:bg-primary selection:text-primary-foreground file:text-foreground w-full min-w-0 bg-transparent outline-none transition-colors file:inline-flex file:border-0 file:bg-transparent file:font-medium  disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 autofill:!bg-transparent autofill:shadow-[inset_0_0_0_1000px_transparent]",
               inputSizeClass
             )}
             value={isControlled ? (value ?? "") : undefined}

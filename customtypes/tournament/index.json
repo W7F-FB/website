@@ -13,6 +13,14 @@
           "placeholder": "URL slug for this tournament"
         }
       },
+      "status": {
+        "type": "Select",
+        "config": {
+          "label": "Status",
+          "placeholder": "",
+          "options": ["Upcoming", "Live", "Complete"]
+        }
+      },
       "hero_image": {
         "type": "Image",
         "config": {
@@ -65,30 +73,6 @@
           "placeholder": ""
         }
       },
-      "opta_competition_id": {
-        "type": "Text",
-        "config": {
-          "label": "Opta Competition ID",
-          "placeholder": ""
-        }
-      },
-      "tickets_available": {
-        "type": "Boolean",
-        "config": {
-          "label": "Tickets Available",
-          "placeholder_false": "false",
-          "placeholder_true": "true",
-          "default_value": false
-        }
-      },
-      "status": {
-        "type": "Select",
-        "config": {
-          "label": "Status",
-          "placeholder": "",
-          "options": ["Upcoming", "Live", "Complete"]
-        }
-      },
       "recap": {
         "type": "Link",
         "config": {
@@ -108,6 +92,29 @@
               ]
             }
           ]
+        }
+      },
+      "tickets_available": {
+        "type": "Boolean",
+        "config": {
+          "label": "Tickets Available",
+          "placeholder_false": "false",
+          "placeholder_true": "true",
+          "default_value": false
+        }
+      },
+      "opta_competition_id": {
+        "type": "Text",
+        "config": {
+          "label": "Opta Competition ID",
+          "placeholder": ""
+        }
+      },
+      "opta_season_id": {
+        "type": "Text",
+        "config": {
+          "label": "Opta Season ID",
+          "placeholder": ""
         }
       },
       "slices": {

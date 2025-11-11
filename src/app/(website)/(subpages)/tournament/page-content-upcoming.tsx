@@ -18,7 +18,9 @@ import { Tabs, TabsList, TabsTrigger, TabsContents, TabsContent } from "@/compon
 import { FAQBannerLayout } from "@/components/blocks/faq-banner-layout"
 import { getImageUrl, getImageAlt } from "@/cms/utils"
 import { ScheduleTabs } from "@/components/blocks/tournament/schedule/schedule-tabs"
-import { PrivateVipForm } from "@/components/blocks/forms/private-vip-form"
+import { PrivateVipForm } from "@/components/blocks/forms/vip-cabanas/private-vip-form"
+import { ImageSlider, ImageSliderSlide } from "@/components/blocks/image-slider"
+import Image from "next/image"
 
 const faqData: FAQItem[] = [
     {
@@ -133,10 +135,26 @@ export default async function TournamentPageUpcoming({ tournament }: Props) {
                     <ScheduleTabs />
                 </Section>
                 <Separator variant="gradient" />
-                <Section padding="lg">
-                    <Container maxWidth="md">
-                        <PrivateVipForm />
-                    </Container>
+                <Section padding="lg" className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+                    <ImageSlider autoplay autoplayDelay={5000}>
+                        <ImageSliderSlide >
+                            <Image
+                                src="/images/static-media/vip-cabanas.jpg"
+                                alt="VIP Cabanas"
+                                fill
+                                className="w-full h-full object-cover"
+                            />
+                        </ImageSliderSlide>
+                        <ImageSliderSlide>
+                            <Image
+                                src="/images/static-media/vip-cabanas-2.webp"
+                                alt="VIP Cabanas View"
+                                fill
+                                className="w-full h-full object-cover"
+                            />
+                        </ImageSliderSlide>
+                    </ImageSlider>
+                    <PrivateVipForm />
                 </Section>
             </Container>
             <Section padding="md">

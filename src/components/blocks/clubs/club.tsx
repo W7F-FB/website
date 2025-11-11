@@ -1,5 +1,6 @@
 import * as React from "react"
 import Image from "next/image"
+import ReactCountryFlag from "react-country-flag"
 import type { TeamDocument } from "../../../../prismicio-types"
 
 import { cn } from "@/lib/utils"
@@ -7,6 +8,7 @@ import { getImageUrl, getImageAlt } from "@/cms/utils"
 import { Separator } from "@/components/ui/separator"
 import { H3 } from "@/components/website-base/typography"
 import { QuestionMarkIcon } from "@/components/website-base/icons"
+import type { Record } from "@/types/stats"
 
 interface ClubBasicProps extends React.ComponentProps<"div"> {
   team: TeamDocument
@@ -75,12 +77,84 @@ function ClubBasic({ team, first, last, comingSoon, placement, className, ...pro
           placement === 2 && "bg-silver-gradient",
           placement === 3 && "bg-bronze-gradient",
         )}>
-     
+
         </div>
       )}
     </div>
   )
 }
 
-export { ClubBasic }
+interface ClubHorizontalProps extends React.ComponentProps<"div"> {
+  team: TeamDocument
+  index?: number
+  record?: Record
+}
 
+function ClubHorizontal({ team, index, record, className, ...props }: ClubHorizontalProps) {
+  const logoUrl = getImageUrl(team.data.logo)
+  const logoAlt = getImageAlt(team.data.logo)
+
+  return (
+    <div
+      className={cn(
+        "relative flex items-center py-2.5",
+        className
+      )}
+      {...props}
+    >
+      {index !== undefined && (
+        <div className="text-white/60 font-headers text-base font-medium min-w-[1.5rem] mr-2">
+          {index}
+        </div>
+      )}
+
+      {logoUrl && (
+        <div className="relative w-8 h-8 flex-shrink-0 mr-3.5">
+          <Image
+            src={logoUrl}
+            alt={logoAlt || team.data?.name || "Team logo"}
+            fill
+            className="object-contain"
+            sizes="100px"
+          />
+        </div>
+      )}
+      <div className="flex items-center justify-between flex-grow flex-wrap gap-x-2">
+        <div className="flex flex-col justify-center">
+          <span>
+            <span className="text-white text-base relative top-px font-semibold  ">
+              {team.data?.name}
+            </span>
+            {team.data?.country_code && (
+              <span className="inline-block ml-2.5 top-px relative">
+                <ReactCountryFlag
+                  countryCode={team.data.country_code}
+                  svg
+                  className="rounded-xs"
+                  style={{
+                    width: '0.9rem',
+                    height: 'auto',
+                    display: 'block',
+                  }}
+                />
+              </span>
+            )}
+          </span>
+          {!team.data?.country_code && (
+            <span className="font-headers text-foreground/60 text-xs font-medium uppercase tracking-wide">
+              {team.data?.country}
+            </span>
+          )}
+        </div>
+
+        {record !== undefined && (
+          <div className="text-foreground font-headers text-sm font-medium whitespace-nowrap">
+            {record.wins} - {record.losses}
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export { ClubBasic, ClubHorizontal }

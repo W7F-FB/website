@@ -2,7 +2,7 @@ import * as React from "react"
 import type { TeamDocument, TournamentDocument } from "../../../../prismicio-types"
 
 import { getTeamsByTournament } from "@/cms/queries/team"
-import { ClubBasic } from "./club-basic"
+import { ClubBasic } from "./club"
 import { getF1Fixtures } from "@/app/api/opta/feeds"
 
 interface ClubListProps extends React.ComponentProps<"div"> {
