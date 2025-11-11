@@ -1,10 +1,20 @@
 import { notFound } from "next/navigation"
-import { getTournamentByUid } from "@/cms/queries/tournaments"
+import { getTournamentByUid, getTournaments } from "@/cms/queries/tournaments"
 import TournamentPageUpcoming from "../page-content-upcoming"
 import TournamentPagePast from "../page-content-complete"
 
 type Props = {
   params: Promise<{ slug: string }>
+}
+
+export async function generateStaticParams() {
+  const tournaments = await getTournaments()
+  
+  return tournaments
+    .filter(tournament => tournament.uid)
+    .map((tournament) => ({
+      slug: tournament.uid!,
+    }))
 }
 
 export default async function TournamentPage({ params }: Props) {
