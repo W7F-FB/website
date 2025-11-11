@@ -21,8 +21,12 @@ import { getImageUrl, getImageAlt } from "@/cms/utils"
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 import { ScheduleTabs } from "@/components/blocks/tournament/schedule-tabs"
 import { PrivateVipForm } from "@/components/blocks/forms/private-vip-form"
+=======
+import { ScheduleTabs } from "@/components/blocks/tournament/schedule/schedule-tabs"
+>>>>>>> Stashed changes
 =======
 import { ScheduleTabs } from "@/components/blocks/tournament/schedule/schedule-tabs"
 >>>>>>> Stashed changes
