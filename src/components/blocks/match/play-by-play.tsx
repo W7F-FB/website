@@ -15,7 +15,7 @@ export default function PlayByPlay({ matchId, competitionId, seasonId }: PlayByP
 
     useEffect(() => {
         async function fetchCommentary() {
-            const fetchUrl = `/api/opta/f13?matchId=${matchId}&competitionId=${competitionId}&seasonId=${seasonId}&language=en`;
+            const fetchUrl = `/api/opta/f13-commentary-feed?matchId=${matchId}&competitionId=${competitionId}&seasonId=${seasonId}&language=en`;
             console.log('F13 Request URL:', fetchUrl);
             const response = await fetch(fetchUrl);
             const data = await response.json();

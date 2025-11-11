@@ -91,6 +91,7 @@ const faqData: FAQItem[] = [
 
 export default async function HomePage() {
     const tournament = await getTournamentByUid("fort-lauderdale");
+    const estorilTournament = await getTournamentByUid("estoril-portugal");
 
     const tournamentRecapBlogs = await getSocialBlogsByCategory("Tournament Recap");
     const featuredRecapBlog = tournamentRecapBlogs.length > 0 ? tournamentRecapBlogs[0] : null;
@@ -106,7 +107,7 @@ export default async function HomePage() {
     return (
         <div>
             <Section padding="sm">
-                <HeroSlider>
+                <HeroSlider autoplay={true}>
                     <HeroSliderSlide className="grid grid-cols-2">
                         <HeroSliderSlideBackground>
                             <Image src="/images/static-media/fl-hero.avif" alt="Hero Slider 1" fill className="object-cover" />
@@ -188,6 +189,22 @@ export default async function HomePage() {
                         label="Recap the action"
                     />
                 </Section>
+                <Section padding="md" >
+                    <SectionHeading variant="split">
+                        <div> 
+                            <SectionHeadingHeading variant="h2">
+                                Event #1 Founding Participants
+                            </SectionHeadingHeading>
+                            <P className="text-lg">
+                                Estoril, Portugal • MAY 21-23, 2025
+                            </P>
+                        </div>
+                        <Button asChild size="skew" variant="outline" className="ml-auto mt-auto">
+                            <PrismicLink document={estorilTournament}><span>View Results</span></PrismicLink>
+                        </Button>
+                    </SectionHeading>
+                    {estorilTournament && <ClubList tournament={estorilTournament} />}
+                </Section>
                 <Section padding="md" className="min-h-screen">
                     <SectionHeading variant="split">
                         <SectionHeadingSubtitle>
@@ -196,11 +213,9 @@ export default async function HomePage() {
                         <SectionHeadingHeading>
                             Recent News
                         </SectionHeadingHeading>
-                        <SectionHeadingText variant="lg">
-                            <Button asChild size="skew" variant="outline">
+                        <Button asChild size="skew" variant="outline" className="ml-auto mt-auto">
                                 <PrismicLink href="/news"><span>All News</span></PrismicLink>
-                            </Button>
-                        </SectionHeadingText>
+                            </Button>                       
                     </SectionHeading>
                     <RecentNewsGrid />
                 </Section>

@@ -17,6 +17,7 @@ export interface F1SoccerDocument {
   timestamp: string;
   MatchData?: F1MatchData[];
   TeamData?: F1TeamData[];
+  Team?: F1TeamData[];
 }
 
 export interface F1MatchData {
@@ -37,12 +38,19 @@ export interface F1MatchInfo {
   MatchDay?: number;
   Week?: number;
   Round?: number;
+  RoundNumber?: number;
+  RoundType?: "Qualifier Round" | "Round" | "Play-Offs" | "Round of 16" | "Round of 32" | 
+              "Quarter-Finals" | "Semi-Finals" | "3rd and 4th Place" | "Final";
+  GroupName?: string;
   Venue_id?: number;
   Venue?: string; // Venue name
   Result?: F1Result;
   Weather?: F1Weather;
   Attendance?: number;
   Duration?: string; // e.g., "Regular"
+  MatchWinner?: string; // Team ID of the winner
+  NextMatch?: string; // Next match ID for the winner
+  NextMatchLoser?: string; // Next match ID for the loser (e.g., 3rd place playoff)
 }
 
 export interface F1Result {
@@ -123,10 +131,13 @@ export interface F1Goal {
 }
 
 export interface F1TeamData {
-  TeamRef: string; // Team ID with "t" prefix (e.g., "t1")
+  uID: string; // Team ID with "t" prefix (e.g., "t1")
+  TeamRef?: string; // Alternative team reference
   Name: string;
+  name?: string; // Alternative name field
   ShortName?: string;
   OfficialName?: string;
+  OfficialTeamName?: string;
   Formation?: string; // Default formation
 }
 

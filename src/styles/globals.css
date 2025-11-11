@@ -180,6 +180,18 @@
   text-shadow: 0px 2px 4px rgb(0 0 0 / 0.1), 0px 8px 8px rgb(0 0 0 / 0.1), 0px 16px 24px rgb(0 0 0 / 0.15);
 }
 
+@utility bg-gold-gradient {
+  background: linear-gradient(to bottom, #FFD700 0%, #FFED4E 50%, #D4AF37 100%);
+}
+
+@utility bg-silver-gradient {
+  background: linear-gradient(to bottom, #E8E8E8 0%, #FFFFFF 50%, #C0C0C0 100%);
+}
+
+@utility bg-bronze-gradient {
+  background: linear-gradient(to bottom, #CD7F32 0%, #E8A87C 50%, #A0522D 100%);
+}
+
 .bg-lines-pattern {
   background-image: url('/images/decorative/lines-seamless.svg');
   background-repeat: repeat;

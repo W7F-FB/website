@@ -69,6 +69,8 @@ type ContentRelationshipFieldWithData<
   >;
 }[Exclude<TCustomType[number], string>["id"]];
 
+type BlogDocumentDataSlicesSlice = never;
+
 /**
  * Content for blog documents
  */
@@ -155,6 +157,17 @@ interface BlogDocumentData {
    * - **Documentation**: https://prismic.io/docs/fields/rich-text
    */
   content: prismic.RichTextField;
+
+  /**
+   * `slices` field in *blog*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: blog.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/slices
+   */
+  slices: prismic.SliceZone<BlogDocumentDataSlicesSlice>;
 }
 
 /**
@@ -168,6 +181,74 @@ interface BlogDocumentData {
  */
 export type BlogDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithUID<Simplify<BlogDocumentData>, "blog", Lang>;
+
+/**
+ * Item in *group → teams*
+ */
+export interface GroupDocumentDataTeamsItem {
+  /**
+   * team field in *group → teams*
+   *
+   * - **Field Type**: Content Relationship
+   * - **Placeholder**: *None*
+   * - **API ID Path**: group.teams[].team
+   * - **Documentation**: https://prismic.io/docs/fields/content-relationship
+   */
+  team: ContentRelationshipFieldWithData<
+    [
+      {
+        id: "team";
+        fields: [
+          "opta_id",
+          "name",
+          "key",
+          "logo",
+          "country",
+          "alphabetical_sort_string",
+        ];
+      },
+    ]
+  >;
+}
+
+/**
+ * Content for group documents
+ */
+interface GroupDocumentData {
+  /**
+   * Name field in *group*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: group.name
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  name: prismic.KeyTextField;
+
+  /**
+   * teams field in *group*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: group.teams[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  teams: prismic.GroupField<Simplify<GroupDocumentDataTeamsItem>>;
+}
+
+/**
+ * group document from Prismic
+ *
+ * - **API ID**: `group`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/content-modeling
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type GroupDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<Simplify<GroupDocumentData>, "group", Lang>;
 
 /**
  * Content for Image with text documents
@@ -559,6 +640,17 @@ interface TournamentDocumentData {
   country_code: prismic.KeyTextField;
 
   /**
+   * Stadium Name field in *Tournament*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: tournament.stadium_name
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  stadium_name: prismic.KeyTextField;
+
+  /**
    * Start Date field in *Tournament*
    *
    * - **Field Type**: Date
@@ -615,16 +707,33 @@ interface TournamentDocumentData {
   tickets_available: prismic.BooleanField;
 
   /**
-   * Upcoming field in *Tournament*
+   * Status field in *Tournament*
    *
-   * - **Field Type**: Boolean
+   * - **Field Type**: Select
    * - **Placeholder**: *None*
-   * - **Default Value**: false
-   * - **API ID Path**: tournament.upcoming
+   * - **API ID Path**: tournament.status
    * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/fields/boolean
+   * - **Documentation**: https://prismic.io/docs/fields/select
    */
-  upcoming: prismic.BooleanField;
+  status: prismic.SelectField<"Upcoming" | "Live" | "Complete">;
+
+  /**
+   * Recap field in *Tournament*
+   *
+   * - **Field Type**: Content Relationship
+   * - **Placeholder**: *None*
+   * - **API ID Path**: tournament.recap
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/content-relationship
+   */
+  recap: ContentRelationshipFieldWithData<
+    [
+      {
+        id: "blog";
+        fields: ["title", "image", "category", "date", "author", "excerpt"];
+      },
+    ]
+  >;
 
   /**
    * Slice Zone field in *Tournament*
@@ -785,6 +894,7 @@ export type WebsiteDocument<Lang extends string = string> =
 
 export type AllDocumentTypes =
   | BlogDocument
+  | GroupDocument
   | ImageWithTextDocument
   | PolicyDocument
   | TeamDocument
@@ -815,6 +925,10 @@ declare module "@prismicio/client" {
     export type {
       BlogDocument,
       BlogDocumentData,
+      BlogDocumentDataSlicesSlice,
+      GroupDocument,
+      GroupDocumentData,
+      GroupDocumentDataTeamsItem,
       ImageWithTextDocument,
       ImageWithTextDocumentData,
       PolicyDocument,

@@ -1,4 +1,4 @@
-import { SessionBlock } from "@/components/blocks/tournament/session-block"
+import { SessionBlock } from "@/components/blocks/tournament/schedule/session-block"
 import { H3, P } from "@/components/website-base/typography"
 import { CircleAlert } from "lucide-react"
 

@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation"
 import { getTournamentByUid } from "@/cms/queries/tournaments"
 import TournamentPageUpcoming from "../page-content-upcoming"
+import TournamentPagePast from "../page-content-complete"
 
 type Props = {
   params: Promise<{ slug: string }>
@@ -12,8 +13,12 @@ export default async function TournamentPage({ params }: Props) {
 
   if (!tournament) return notFound()
 
-  if (tournament.data.upcoming) {
+  if (tournament.data.status === "Upcoming") {
     return <TournamentPageUpcoming tournament={tournament} />
+  }
+
+  if (tournament.data.status === "Complete") {
+    return <TournamentPagePast tournament={tournament} />
   }
 
   return null

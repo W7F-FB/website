@@ -38,7 +38,7 @@ export default function TournamentNavFeed({
     async function fetchMatches() {
       try {
         setIsLoading(true);
-        const response = await fetch(`/api/opta/f1?competitionId=${competitionId}&seasonId=${seasonId}`);
+        const response = await fetch(`/api/opta/f1-fixtures-feed?competitionId=${competitionId}&seasonId=${seasonId}`);
         
         if (!response.ok) {
           throw new Error('Failed to fetch matches');

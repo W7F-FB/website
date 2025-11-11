@@ -39,6 +39,13 @@
           "placeholder": "Two-letter country code (e.g., US, UK, FR)"
         }
       },
+      "stadium_name": {
+        "type": "Text",
+        "config": {
+          "label": "Stadium Name",
+          "placeholder": ""
+        }
+      },
       "start_date": {
         "type": "Date",
         "config": {
@@ -74,13 +81,33 @@
           "default_value": false
         }
       },
-      "upcoming": {
-        "type": "Boolean",
+      "status": {
+        "type": "Select",
         "config": {
-          "label": "Upcoming",
-          "placeholder_false": "false",
-          "placeholder_true": "true",
-          "default_value": false
+          "label": "Status",
+          "placeholder": "",
+          "options": ["Upcoming", "Live", "Complete"]
+        }
+      },
+      "recap": {
+        "type": "Link",
+        "config": {
+          "label": "Recap",
+          "select": "document",
+          "repeat": false,
+          "customtypes": [
+            {
+              "id": "blog",
+              "fields": [
+                "title",
+                "image",
+                "category",
+                "date",
+                "author",
+                "excerpt"
+              ]
+            }
+          ]
         }
       },
       "slices": {

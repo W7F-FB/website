@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getF13Commentary } from '../feeds';
+import { getF13Commentary } from '@/app/api/opta/feeds';
 import { F13LanguageCode } from '@/types/opta-feeds/f13-commentary';
 
 export async function GET(request: NextRequest) {

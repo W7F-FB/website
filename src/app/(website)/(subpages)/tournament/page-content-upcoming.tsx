@@ -17,8 +17,12 @@ import { TicketOptionsGrid } from "@/components/blocks/ticket-options-grid"
 import { Tabs, TabsList, TabsTrigger, TabsContents, TabsContent } from "@/components/ui/motion-tabs"
 import { FAQBannerLayout } from "@/components/blocks/faq-banner-layout"
 import { getImageUrl, getImageAlt } from "@/cms/utils"
+<<<<<<< Updated upstream
 import { ScheduleTabs } from "@/components/blocks/tournament/schedule-tabs"
 import { PrivateVipForm } from "@/components/blocks/forms/private-vip-form"
+=======
+import { ScheduleTabs } from "@/components/blocks/tournament/schedule/schedule-tabs"
+>>>>>>> Stashed changes
 
 const faqData: FAQItem[] = [
     {
@@ -55,6 +59,20 @@ type Props = {
 }
 
 export default async function TournamentPageUpcoming({ tournament }: Props) {
+    const startDate = tournament.data.start_date ? new Date(tournament.data.start_date) : null
+    const endDate = tournament.data.end_date ? new Date(tournament.data.end_date) : null
+    
+    const formatDateRange = () => {
+        if (!startDate || !endDate) return ''
+        
+        const month = startDate.toLocaleDateString('en-US', { month: 'short', timeZone: 'UTC' }).toUpperCase()
+        const startDay = startDate.getUTCDate()
+        const endDay = endDate.getUTCDate()
+        const year = startDate.getUTCFullYear()
+        
+        return `${month} ${startDay}-${endDay}  ${year}`
+    }
+
     try {
         const optaResponse = await getF3Standings(1303, 2025)
         console.log('Opta F3 Standings Response:', JSON.stringify(optaResponse, null, 2))
@@ -66,9 +84,9 @@ export default async function TournamentPageUpcoming({ tournament }: Props) {
         <div>
             <SubpageHero>
                 <SubpageHeroContent>
-                    <Subtitle>Event #2</Subtitle>
+                    <Subtitle>{tournament.data.title}</Subtitle>
                     <H1 className="uppercase">Tickets on sale now</H1>
-                    <P className="text-lg">Join in to experience a new brand of football.</P>
+                    <P className="text-lg">{formatDateRange()}<br />{tournament.data.stadium_name}</P>
                     <div className="mt-8 flex justify-start">
                         <div className="grid grid-cols-2 gap-4">
                             <Button asChild size="skew_lg">

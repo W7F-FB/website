@@ -9,6 +9,7 @@ import { Footer } from "@/components/website-base/footer/footer-main";
 import { PaddingGlobal } from "@/components/website-base/padding-containers";
 import { ClipPaths } from "@/components/ui/clip-paths";
 import TournamentNavFeed from "@/components/blocks/tournament/nav-feed/tournament-nav-feed";
+import { MetallicGradients } from "@/components/website-base/icons";
 
 
 export const metadata: Metadata = {
@@ -30,6 +31,7 @@ export default async function RootLayout({
           src="https://static.cdn.prismic.io/prismic.js?new=true&repo=world-sevens-football"
         />
         <ClipPaths />
+        <MetallicGradients />
         <NavMain />
         <main className="flex-grow min-h-[30rem]">
           <PaddingGlobal>

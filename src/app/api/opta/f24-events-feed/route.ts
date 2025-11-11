@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getF24bKeyEvents } from '../feeds';
+import { getF24MatchEvents } from '@/app/api/opta/feeds';
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
@@ -15,12 +15,12 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const data = await getF24bKeyEvents(matchId, competitionId, seasonId);
+    const data = await getF24MatchEvents(matchId, competitionId, seasonId);
     return NextResponse.json(data);
   } catch (error) {
-    console.error('Error fetching F24b key events:', error);
+    console.error('Error fetching F24 match events:', error);
     return NextResponse.json(
-      { error: 'Failed to fetch key events' },
+      { error: 'Failed to fetch match events' },
       { status: 500 }
     );
   }
