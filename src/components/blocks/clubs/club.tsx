@@ -72,7 +72,7 @@ function ClubBasic({ team, first, last, comingSoon, placement, className, ...pro
 
       </div>
       {placement && placement < 4 && (
-        <div className={cn("absolute inset-x-0 bottom-0 h-0.5",
+        <div className={cn("absolute inset-x-0 bottom-0 h-1",
           placement === 1 && "bg-gold-gradient",
           placement === 2 && "bg-silver-gradient",
           placement === 3 && "bg-bronze-gradient",

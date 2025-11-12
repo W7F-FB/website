@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 
 import { Section, Container } from "@/components/website-base/padding-containers"
 import { H1 } from "@/components/website-base/typography"
-import { PostCardHoriz, PostCardVert, PostStandard } from "@/components/blocks/posts/post"
+import { PostCardHoriz, PostCardVert } from "@/components/blocks/posts/post"
 import { getAllBlogs } from "@/cms/queries/blog"
 import { Separator } from "@/components/ui/separator";
 import { mapBlogDocumentToMetadata } from "@/lib/utils"

@@ -12,9 +12,9 @@
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",
     "@phosphor-icons/react": "^2.1.10",
-    "@prismicio/client": "^7.20.1",
-    "@prismicio/next": "^2.0.1",
-    "@prismicio/react": "^3.2.1",
+    "@prismicio/client": "^7.21.0",
+    "@prismicio/next": "^2.0.2",
+    "@prismicio/react": "^3.2.2",
     "@radix-ui/react-accordion": "^1.2.12",
     "@radix-ui/react-checkbox": "^1.3.3",
     "@radix-ui/react-label": "^2.1.8",
@@ -49,7 +49,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@prismicio/types": "^0.2.9",
-    "@slicemachine/adapter-next": "^0.3.83",
+    "@slicemachine/adapter-next": "^0.3.86",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
@@ -61,7 +61,7 @@
     "jsdom": "^26.1.0",
     "node-html-parser": "^7.0.1",
     "prismic-ts-codegen": "^0.1.28",
-    "slice-machine-ui": "^2.18.1",
+    "slice-machine-ui": "^2.19.1",
     "tailwindcss": "^4",
     "tw-animate-css": "^1.3.6",
     "typescript": "^5"

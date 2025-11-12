@@ -95,10 +95,14 @@
         }
       },
       "highlight_reel_link": {
-        "type": "Text",
+        "type": "Link",
         "config": {
           "label": "Highlight Reel Link",
-          "placeholder": ""
+          "placeholder": "",
+          "select": null,
+          "allowTargetBlank": true,
+          "allowText": true,
+          "repeat": false
         }
       },
       "tickets_available": {

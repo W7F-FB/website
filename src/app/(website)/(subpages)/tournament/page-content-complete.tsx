@@ -33,7 +33,7 @@ type Props = {
 export default async function TournamentPagePast({ tournament }: Props) {
     console.log('=== Tournament Object from Prismic ===')
     console.log(tournament)
-    
+
     const competitionId = tournament.data.opta_competition_id
     const seasonId = tournament.data.opta_season_id
 
@@ -134,22 +134,22 @@ export default async function TournamentPagePast({ tournament }: Props) {
             <div className="grid grid-cols-3 w-full gap-8 mt-8">
                 {isFilled.contentRelationship(tournament.data.recap) && tournament.data.recap.data && (
                     <div className="col-span-2">
-                    <PostBanner blog={{
-                        slug: tournament.data.recap.uid ?? "",
-                        title: tournament.data.recap.data.title ?? "Untitled",
-                        excerpt: tournament.data.recap.data.excerpt ?? null,
-                        image: tournament.data.recap.data.image?.url ?? undefined,
-                        category: tournament.data.recap.data.category ?? null,
-                        author: tournament.data.recap.data.author ?? null,
-                        date: tournament.data.recap.data.date ?? null,
-                    }} />
+                        <PostBanner blog={{
+                            slug: tournament.data.recap.uid ?? "",
+                            title: tournament.data.recap.data.title ?? "Untitled",
+                            excerpt: tournament.data.recap.data.excerpt ?? null,
+                            image: tournament.data.recap.data.image?.url ?? undefined,
+                            category: tournament.data.recap.data.category ?? null,
+                            author: tournament.data.recap.data.author ?? null,
+                            date: tournament.data.recap.data.date ?? null,
+                        }} />
                     </div>
                 )}
-                {tournament.data.highlight_reel_link && (
+                {isFilled.link(tournament.data.highlight_reel_link) && (
                     <div className="col-span-1 h-full">
                         <VideoBanner
                             thumbnail="/images/static-media/video-banner.avif"
-                            videoUrl={tournament.data.highlight_reel_link}
+                            videoUrl={tournament.data.highlight_reel_link.url ?? ''}
                             label="Recap the action"
                             className="h-full"
                             size="sm"

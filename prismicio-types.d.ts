@@ -669,13 +669,19 @@ interface TournamentDocumentData {
   /**
    * Highlight Reel Link field in *Tournament*
    *
-   * - **Field Type**: Text
+   * - **Field Type**: Link
    * - **Placeholder**: *None*
    * - **API ID Path**: tournament.highlight_reel_link
    * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/fields/text
+   * - **Documentation**: https://prismic.io/docs/fields/link
    */
-  highlight_reel_link: prismic.KeyTextField;
+  highlight_reel_link: prismic.LinkField<
+    string,
+    string,
+    unknown,
+    prismic.FieldState,
+    never
+  >;
 
   /**
    * Tickets Available field in *Tournament*
