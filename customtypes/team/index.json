@@ -58,6 +58,20 @@
           "thumbnails": []
         }
       },
+      "color_primary": {
+        "type": "Color",
+        "config": {
+          "label": "Color Primary",
+          "placeholder": ""
+        }
+      },
+      "color_secondary": {
+        "type": "Color",
+        "config": {
+          "label": "Color Secondary",
+          "placeholder": ""
+        }
+      },
       "alphabetical_sort_string": {
         "type": "Text",
         "config": {
