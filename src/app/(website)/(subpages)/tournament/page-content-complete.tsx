@@ -54,6 +54,10 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
     const thirdPlaceMatches = getThirdPlaceMatch(f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData)
     const finalMatches = getFinalMatch(f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData)
     const knockoutMatches = semiFinalMatches.length + thirdPlaceMatches.length + finalMatches.length
+    
+    const knockoutDate = semiFinalMatches[0]?.MatchInfo?.Date 
+        || thirdPlaceMatches[0]?.MatchInfo?.Date 
+        || finalMatches[0]?.MatchInfo?.Date
 
     return (
         <div>
@@ -252,9 +256,11 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                                     Match day 3
                                 </Badge>
                             </div>
-                            <Badge variant="backdrop_blur" origin="bottom-left" size="lg" className="text-base">
-                                {formatMatchDayDate('2025-11-11')}
-                            </Badge>
+                            {knockoutDate && (
+                                <Badge variant="backdrop_blur" origin="bottom-left" size="lg" className="text-base">
+                                    {formatMatchDayDate(knockoutDate.split(' ')[0])}
+                                </Badge>
+                            )}
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr_auto_1fr] gap-0 col-span-8 bg-secondary">
                             <div className="flex">
