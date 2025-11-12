@@ -142,8 +142,8 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                                     ? getPlayerByName(teamStats, award.player_name)
                                     : undefined;
                                 
-                                const optaTeam = teamId 
-                                    ? f1FixturesData?.SoccerFeed?.SoccerDocument?.Team?.find(
+                                const optaTeam = teamId && f1FixturesData?.SoccerFeed?.SoccerDocument?.Team
+                                    ? f1FixturesData.SoccerFeed.SoccerDocument.Team.find(
                                         t => t.uID === `t${teamId}`
                                     )
                                     : undefined;
