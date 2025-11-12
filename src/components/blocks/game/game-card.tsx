@@ -3,14 +3,14 @@
 import * as React from "react"
 import Image from "next/image"
 import { cn } from "@/lib/utils"
-import { getImageUrl, getImageAlt } from "@/cms/utils"
 import { Card, CardContent, CardHeader, CardFooter } from "@/components/ui/card"
 import { H4 } from "@/components/website-base/typography"
 import { QuestionMarkIcon, CaretFilledIcon, CaretRightIcon } from "@/components/website-base/icons"
 import Link from "next/link"
 import type { TeamDocument } from "../../../../prismicio-types"
-import type { F1MatchData } from "@/types/opta-feeds/f1-fixtures"
+import type { F1MatchData, F1TeamData } from "@/types/opta-feeds/f1-fixtures"
 import { normalizeOptaId, getStatusDisplay } from "@/lib/opta/utils"
+import { getGameCardData, formatGameTime } from "./utils"
 import { Separator } from "@/components/ui/separator"
 import { Button } from "@/components/ui/button"
 
@@ -20,11 +20,15 @@ interface GameCardTeamProps {
     logoAlt: string
     score: number | null
     teamLabel: string
+    teamShortName: string
+    compact?: boolean
     isLosing?: boolean
     isWinning?: boolean
 }
 
-function GameCardTeam({ team, logoUrl, logoAlt, score, teamLabel, isLosing, isWinning }: GameCardTeamProps) {
+function GameCardTeam({ team, logoUrl, logoAlt, score, teamLabel, teamShortName, compact, isLosing, isWinning }: GameCardTeamProps) {
+    const displayName = compact && teamShortName ? teamShortName : (team?.data?.name || teamLabel)
+    
     return (
         <div className="px-6 py-2">
             <div className="flex items-center justify-between">
@@ -35,7 +39,7 @@ function GameCardTeam({ team, logoUrl, logoAlt, score, teamLabel, isLosing, isWi
                                 <div className="w-10 h-10  relative">
                                     <Image
                                         src={logoUrl}
-                                        alt={logoAlt || team?.data?.name || teamLabel}
+                                        alt={logoAlt || displayName}
                                         fill
                                         className="object-contain"
                                     />
@@ -47,7 +51,7 @@ function GameCardTeam({ team, logoUrl, logoAlt, score, teamLabel, isLosing, isWi
                             )}
                             <div>
                                 <H4 className="text-base font-semibold text-foreground group-hover:underline">
-                                    {team?.data?.name || teamLabel}
+                                    {displayName}
                                 </H4>
                             </div>
                         </Link>
@@ -58,7 +62,7 @@ function GameCardTeam({ team, logoUrl, logoAlt, score, teamLabel, isLosing, isWi
                             </div>
                             <div>
                                 <H4 className="text-base font-semibold text-foreground">
-                                    {teamLabel}
+                                    {displayName}
                                 </H4>
                             </div>
                         </>
@@ -79,91 +83,28 @@ function GameCardTeam({ team, logoUrl, logoAlt, score, teamLabel, isLosing, isWi
 interface GameCardProps extends React.HTMLAttributes<HTMLDivElement> {
     fixture: F1MatchData
     prismicTeams: TeamDocument[]
+    optaTeams: F1TeamData[]
     timeOnly?: boolean
+    compact?: boolean
 }
-
-function GameCard({ fixture, prismicTeams, timeOnly = false, className, ...props }: GameCardProps) {
-    const homeTeamData = fixture.TeamData.find(t => t.Side === "Home")
-    const awayTeamData = fixture.TeamData.find(t => t.Side === "Away")
-
-    const homeTeamRef = normalizeOptaId(homeTeamData?.TeamRef || "")
-    const awayTeamRef = normalizeOptaId(awayTeamData?.TeamRef || "")
-
-    const homeTeam = prismicTeams.find(t => t.data.opta_id === homeTeamRef)
-    const awayTeam = prismicTeams.find(t => t.data.opta_id === awayTeamRef)
-
-    const homeScore = homeTeamData?.Score ?? null
-    const awayScore = awayTeamData?.Score ?? null
-
-    const winnerRef = fixture.MatchInfo.GameWinner || fixture.MatchInfo.MatchWinner
-    const isPKGame = fixture.MatchInfo.GameWinnerType === "ShootOut"
-    const isFinal = fixture.MatchInfo.Period === "FullTime"
-
-    const homeIsLosing = isFinal && (
-        isPKGame && winnerRef
-            ? homeTeamData?.TeamRef !== winnerRef
-            : homeScore !== null && awayScore !== null && homeScore < awayScore
-    )
-
-    const awayIsLosing = isFinal && (
-        isPKGame && winnerRef
-            ? awayTeamData?.TeamRef !== winnerRef
-            : homeScore !== null && awayScore !== null && awayScore < homeScore
-    )
-    const homeIsWinning = isFinal && !homeIsLosing && (
-        (isPKGame && winnerRef && homeTeamData?.TeamRef === winnerRef) ||
-        (homeScore !== null && awayScore !== null && homeScore !== awayScore)
-    )
-    const awayIsWinning = isFinal && !awayIsLosing && (
-        (isPKGame && winnerRef && awayTeamData?.TeamRef === winnerRef) ||
-        (homeScore !== null && awayScore !== null && homeScore !== awayScore)
-    )
-
-    const startTime = fixture.MatchInfo.Date
-
-    const homeLogoUrl = homeTeam ? getImageUrl(homeTeam.data.logo) : null
-    const awayLogoUrl = awayTeam ? getImageUrl(awayTeam.data.logo) : null
-    const homeLogoAlt = homeTeam ? getImageAlt(homeTeam.data.logo) : ""
-    const awayLogoAlt = awayTeam ? getImageAlt(awayTeam.data.logo) : ""
-
-    const formatGameTime = (dateString: string) => {
-        try {
-            const date = new Date(dateString)
-            
-            if (timeOnly) {
-                const formatter = new Intl.DateTimeFormat("en-US", {
-                    hour: "numeric",
-                    minute: "2-digit",
-                    hour12: true,
-                })
-                return formatter.format(date)
-            }
-            
-            const today = new Date()
-            const isToday = date.toDateString() === today.toDateString()
-
-            if (isToday) {
-                const formatter = new Intl.DateTimeFormat("en-US", {
-                    hour: "numeric",
-                    minute: "2-digit",
-                    hour12: true,
-                })
-                return `Today, ${formatter.format(date)}`
-            } else {
-                const formatter = new Intl.DateTimeFormat("en-US", {
-                    month: "short",
-                    day: "numeric",
-                    hour: "numeric",
-                    minute: "2-digit",
-                    hour12: true,
-                })
-                return formatter.format(date)
-            }
-        } catch {
-            return dateString
-        }
-    }
-
+function GameCard({ fixture, prismicTeams, optaTeams, timeOnly = false, compact = false, className, ...props }: GameCardProps) {
+    const {
+        homeTeam,
+        awayTeam,
+        homeTeamShortName,
+        awayTeamShortName,
+        homeScore,
+        awayScore,
+        homeIsLosing,
+        awayIsLosing,
+        homeIsWinning,
+        awayIsWinning,
+        startTime,
+        homeLogoUrl,
+        awayLogoUrl,
+        homeLogoAlt,
+        awayLogoAlt,
+    } = getGameCardData(fixture, prismicTeams, optaTeams)
 
     return (
         <Card
@@ -175,7 +116,7 @@ function GameCard({ fixture, prismicTeams, timeOnly = false, className, ...props
         >
             <CardHeader className="px-6 py-3 flex items-center justify-between">
                 <div className="text-sm text-muted-foreground">
-                    {formatGameTime(startTime)}
+                    {formatGameTime(startTime, timeOnly)}
                 </div>
                 <div className="text-sm font-headers font-medium tracking-widest">
                     {getStatusDisplay(fixture.MatchInfo)}
@@ -188,6 +129,8 @@ function GameCard({ fixture, prismicTeams, timeOnly = false, className, ...props
                     logoAlt={homeLogoAlt}
                     score={homeScore}
                     teamLabel="Home Team"
+                    teamShortName={homeTeamShortName || ""}
+                    compact={compact}
                     isLosing={homeIsLosing}
                     isWinning={homeIsWinning}
                 />
@@ -208,6 +151,8 @@ function GameCard({ fixture, prismicTeams, timeOnly = false, className, ...props
                     logoAlt={awayLogoAlt}
                     score={awayScore}
                     teamLabel="Away Team"
+                    teamShortName={awayTeamShortName || ""}
+                    compact={compact}
                     isLosing={awayIsLosing}
                     isWinning={awayIsWinning}
                 />

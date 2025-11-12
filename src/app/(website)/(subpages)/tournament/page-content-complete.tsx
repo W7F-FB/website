@@ -16,6 +16,7 @@ import { SectionHeading, SectionHeadingHeading, SectionHeadingText, SectionHeadi
 import { Badge } from "@/components/ui/badge"
 import { GameCard } from "@/components/blocks/game/game-card"
 import { getGroupStageMatches, getSemiFinalMatches, getThirdPlaceMatch, getFinalMatch, groupMatchesByDate, formatMatchDayDate } from "./utils"
+import { getMatchTeams } from "@/lib/opta/utils"
 import { formatDateRange, mapBlogDocumentToMetadata } from "@/lib/utils"
 import { getBlogsByTournament } from "@/cms/queries/blog"
 import { PostGrid } from "@/components/blocks/posts/post-grid"
@@ -28,9 +29,10 @@ import { VideoBanner } from "@/components/blocks/video-banner/video-banner"
 
 type Props = {
     tournament: TournamentDocument
+    compact?: boolean
 }
 
-export default async function TournamentPagePast({ tournament }: Props) {
+export default async function TournamentPagePast({ tournament, compact = false }: Props) {
     console.log('=== Tournament Object from Prismic ===')
     console.log(tournament)
 
@@ -145,11 +147,11 @@ export default async function TournamentPagePast({ tournament }: Props) {
                         }} />
                     </div>
                 )}
-                {isFilled.link(tournament.data.highlight_reel_link) && (
+                {tournament.data.highlight_reel_link && typeof tournament.data.highlight_reel_link === 'string' && (
                     <div className="col-span-1 h-full">
                         <VideoBanner
                             thumbnail="/images/static-media/video-banner.avif"
-                            videoUrl={tournament.data.highlight_reel_link.url ?? ''}
+                            videoUrl={tournament.data.highlight_reel_link}
                             label="Recap the action"
                             className="h-full"
                             size="sm"
@@ -191,6 +193,7 @@ export default async function TournamentPagePast({ tournament }: Props) {
                                                 groupStandings={groupStandings}
                                                 teams={f3Data.SoccerFeed.SoccerDocument.Team}
                                                 prismicTeams={prismicTeams}
+                                                matches={f1Data?.SoccerFeed?.SoccerDocument?.MatchData || []}
                                             />
                                         </CardContent>
                                     </div>
@@ -218,6 +221,8 @@ export default async function TournamentPagePast({ tournament }: Props) {
                                                     key={match.uID}
                                                     fixture={match}
                                                     prismicTeams={prismicTeams}
+                                                    optaTeams={getMatchTeams(match, f1Data?.SoccerFeed?.SoccerDocument?.Team || [])}
+                                                    compact={compact}
                                                     timeOnly
                                                 />
                                             ))}
@@ -285,6 +290,8 @@ export default async function TournamentPagePast({ tournament }: Props) {
                                     <GameCard
                                         fixture={semiFinalMatches[0]}
                                         prismicTeams={prismicTeams}
+                                        optaTeams={getMatchTeams(semiFinalMatches[0], f1Data?.SoccerFeed?.SoccerDocument?.Team || [])}
+                                        compact={compact}
                                         timeOnly
                                     />
                                 </div>
@@ -294,6 +301,8 @@ export default async function TournamentPagePast({ tournament }: Props) {
                                     <GameCard
                                         fixture={match}
                                         prismicTeams={prismicTeams}
+                                        optaTeams={getMatchTeams(match, f1Data?.SoccerFeed?.SoccerDocument?.Team || [])}
+                                        compact={compact}
                                         timeOnly
                                     />
                                 </div>
@@ -303,6 +312,8 @@ export default async function TournamentPagePast({ tournament }: Props) {
                                     <GameCard
                                         fixture={match}
                                         prismicTeams={prismicTeams}
+                                        optaTeams={getMatchTeams(match, f1Data?.SoccerFeed?.SoccerDocument?.Team || [])}
+                                        compact={compact}
                                         timeOnly
                                     />
                                 </div>
@@ -312,6 +323,8 @@ export default async function TournamentPagePast({ tournament }: Props) {
                                     <GameCard
                                         fixture={semiFinalMatches[1]}
                                         prismicTeams={prismicTeams}
+                                        optaTeams={getMatchTeams(semiFinalMatches[1], f1Data?.SoccerFeed?.SoccerDocument?.Team || [])}
+                                        compact={compact}
                                         timeOnly
                                     />
                                 </div>

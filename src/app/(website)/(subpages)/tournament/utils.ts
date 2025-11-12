@@ -55,3 +55,70 @@ export function formatMatchDayDate(date: string) {
     return `${weekday}, ${month} ${day}`
 }
 
+export interface TeamRecord {
+    wins: number
+    draws: number
+    losses: number
+    goalsFor: number
+    goalsAgainst: number
+    points: number
+}
+
+export function calculateTeamRecordsFromMatches(
+    matches: F1MatchData[] | undefined,
+    groupId: number
+): Map<string, TeamRecord> {
+    const records = new Map<string, TeamRecord>()
+    
+    if (!matches) return records
+    
+    const groupMatches = matches.filter(
+        match => match.MatchInfo.RoundType === "Round" && Number(match.MatchInfo.GroupName) === groupId
+    )
+    
+    groupMatches.forEach(match => {
+        const homeTeam = match.TeamData?.[0]
+        const awayTeam = match.TeamData?.[1]
+        
+        if (!homeTeam || !awayTeam) return
+        
+        const homeRef = homeTeam.TeamRef
+        const awayRef = awayTeam.TeamRef
+        const homeScore = homeTeam.Score || 0
+        const awayScore = awayTeam.Score || 0
+        
+        if (!records.has(homeRef)) {
+            records.set(homeRef, { wins: 0, draws: 0, losses: 0, goalsFor: 0, goalsAgainst: 0, points: 0 })
+        }
+        if (!records.has(awayRef)) {
+            records.set(awayRef, { wins: 0, draws: 0, losses: 0, goalsFor: 0, goalsAgainst: 0, points: 0 })
+        }
+        
+        const homeRecord = records.get(homeRef)!
+        const awayRecord = records.get(awayRef)!
+        
+        homeRecord.goalsFor += homeScore
+        homeRecord.goalsAgainst += awayScore
+        awayRecord.goalsFor += awayScore
+        awayRecord.goalsAgainst += homeScore
+        
+        const gameWinner = match.MatchInfo.GameWinner || match.MatchInfo.MatchWinner
+        
+        if (gameWinner === homeRef) {
+            homeRecord.wins++
+            homeRecord.points += 3
+            awayRecord.losses++
+        } else if (gameWinner === awayRef) {
+            awayRecord.wins++
+            awayRecord.points += 3
+            homeRecord.losses++
+        } else {
+            homeRecord.draws++
+            homeRecord.points++
+            awayRecord.draws++
+            awayRecord.points++
+        }
+    })
+    
+    return records
+}

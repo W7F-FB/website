@@ -26,6 +26,8 @@ export const VideoBanner: React.FC<VideoBannerProps> = ({
 }) => {
     const { isOpen, openPlayer, closePlayer } = useReactPlayer();
 
+    if (!videoUrl) return null;
+
     return (
         <div className={cn("relative overflow-hidden flex items-center justify-center h-[30rem] cursor-pointer group", className)} aria-label="Play video" onClick={openPlayer}>
             <div className="h-full w-full flex items-center absolute">

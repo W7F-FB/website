@@ -138,6 +138,7 @@ export interface F1TeamData {
   Name: string;
   name?: string; // Alternative name field
   ShortName?: string;
+  ShortTeamName?: string;
   OfficialName?: string;
   OfficialTeamName?: string;
   Formation?: string; // Default formation
