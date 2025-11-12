@@ -19,6 +19,13 @@
           "placeholder": ""
         }
       },
+      "award_subtitle": {
+        "type": "Text",
+        "config": {
+          "label": "Award Subtitle",
+          "placeholder": ""
+        }
+      },
       "player_name": {
         "type": "Text",
         "config": {

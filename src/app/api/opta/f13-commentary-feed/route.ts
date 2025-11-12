@@ -9,8 +9,6 @@ export async function GET(request: NextRequest) {
   const seasonId = searchParams.get('seasonId');
   const language = (searchParams.get('language') || 'en') as F13LanguageCode;
 
-  console.log('F13 API Route called with params:', { matchId, competitionId, seasonId, language });
-
   if (!matchId || !competitionId || !seasonId) {
     return NextResponse.json(
       { error: 'Missing required parameters: matchId, competitionId, seasonId' },
@@ -19,9 +17,7 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    console.log('Fetching F13 commentary...');
     const data = await getF13Commentary(matchId, competitionId, seasonId, language);
-    console.log('F13 commentary received, message count:', data?.Commentary?.message?.length || 0);
     return NextResponse.json(data);
   } catch (error) {
     console.error('Error fetching F13 commentary:', error);

@@ -147,10 +147,23 @@
                         "customtypes": [
                           {
                             "id": "team",
-                            "fields": ["name"]
+                            "fields": [
+                              "name",
+                              "logo",
+                              "color_primary",
+                              "color_secondary",
+                              "opta_id",
+                              "key",
+                              "country_code",
+                              "country",
+                              "alphabetical_sort_string"
+                            ]
                           }
                         ]
-                      }
+                      },
+                      "award_subtitle",
+                      "sort_order",
+                      "player_headshot"
                     ]
                   }
                 ]

@@ -13,7 +13,6 @@ interface GroupListProps {
 }
 
 export function GroupList({ groupStandings, teams, prismicTeams, matches }: GroupListProps) {
-    const groupName = groupStandings.Round?.Name.value || 'Unknown Group'
     const groupId = groupStandings.Round?.Name.id || 0
     
     const calculatedRecords = calculateTeamRecordsFromMatches(matches, groupId)

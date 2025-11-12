@@ -85,6 +85,17 @@ interface AwardsDocumentData {
   award_title: prismic.KeyTextField;
 
   /**
+   * Award Subtitle field in *Awards*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: awards.award_subtitle
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  award_subtitle: prismic.KeyTextField;
+
+  /**
    * Player Name field in *Awards*
    *
    * - **Field Type**: Text
@@ -671,8 +682,26 @@ export interface TournamentDocumentDataAwardsItem {
           "player_name",
           {
             id: "player_team";
-            customtypes: [{ id: "team"; fields: ["name"] }];
+            customtypes: [
+              {
+                id: "team";
+                fields: [
+                  "name",
+                  "logo",
+                  "color_primary",
+                  "color_secondary",
+                  "opta_id",
+                  "key",
+                  "country_code",
+                  "country",
+                  "alphabetical_sort_string",
+                ];
+              },
+            ];
           },
+          "award_subtitle",
+          "sort_order",
+          "player_headshot",
         ];
       },
     ]

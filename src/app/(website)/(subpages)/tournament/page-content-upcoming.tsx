@@ -1,4 +1,3 @@
-import { getF3Standings } from "@/app/api/opta/feeds"
 import { Section, Container } from "@/components/website-base/padding-containers"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
@@ -6,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { FAQItem } from "@/types/basic"
 import { H1, P, Subtitle } from "@/components/website-base/typography"
-import type { TournamentDocument } from "../../../../../prismicio-types"
+import type { TournamentDocument, BlogDocument } from "../../../../../prismicio-types"
 import { SubpageHero, SubpageHeroMedia, SubpageHeroContent, SubpageHeroMediaBanner } from "@/components/blocks/subpage-hero"
 import { PrismicNextImage } from "@prismicio/next"
 import { CaretRightIcon } from "@/components/website-base/icons"
@@ -22,7 +21,6 @@ import { ImageSlider, ImageSliderSlide } from "@/components/blocks/image-slider"
 import Image from "next/image"
 import { formatDateRange, mapBlogDocumentToMetadata } from "@/lib/utils"
 import { Badge } from "@/components/ui/badge"
-import { getBlogsByTournament } from "@/cms/queries/blog"
 import { PostGrid } from "@/components/blocks/posts/post-grid"
 import { PrismicLink } from "@prismicio/react"
 
@@ -58,17 +56,10 @@ const faqData: FAQItem[] = [
 
 type Props = {
     tournament: TournamentDocument
+    tournamentBlogs: BlogDocument[]
 }
 
-export default async function TournamentPageUpcoming({ tournament }: Props) {
-    const tournamentBlogs = await getBlogsByTournament(tournament.id)
-
-    try {
-        const optaResponse = await getF3Standings(1303, 2025)
-        console.log('Opta F3 Standings Response:', JSON.stringify(optaResponse, null, 2))
-    } catch (error) {
-        console.error('Opta API Error:', error)
-    }
+export default function TournamentPageUpcoming({ tournament, tournamentBlogs }: Props) {
 
     return (
         <div>
