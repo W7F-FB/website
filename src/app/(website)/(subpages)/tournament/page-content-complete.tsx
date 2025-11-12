@@ -184,7 +184,7 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                                         <CardContent className="divide-y divide-muted/50 py-4 px-6">
                                             <GroupList
                                                 groupStandings={groupStandings}
-                                                teams={f3StandingsData.SoccerFeed.SoccerDocument.Team}
+                                                teams={f3StandingsData?.SoccerFeed?.SoccerDocument?.Team || []}
                                                 prismicTeams={prismicTeams}
                                                 matches={f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData || []}
                                             />
