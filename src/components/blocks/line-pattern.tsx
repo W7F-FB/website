@@ -1,5 +1,5 @@
 'use client';
-import { createContext, useContext } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
 import { getBgLinesPattern } from "@/components/ui/bg-lines";
 import { cn } from '@/lib/utils';
 import { flattenTransparency } from "@/lib/flatten-transparency";
@@ -28,15 +28,24 @@ export function useLinePattern() {
     return context;
 }
 
-const defaultColor = flattenTransparency("var(--foreground)", "var(--background)", 0.05);
+export function LinePattern({ className, children, fill, patternSize = 8, fillOpacity = 1, ...props }: LinePatternProps) {
+    const [clientColor, setClientColor] = useState<string>('rgb(243, 243, 243)');
+    const [isMounted, setIsMounted] = useState(false);
 
-export function LinePattern({ className, children, fill = defaultColor, patternSize = 8, fillOpacity = 1, ...props }: LinePatternProps) {
+    useEffect(() => {
+        setIsMounted(true);
+        const calculatedColor = fill || flattenTransparency("var(--foreground)", "var(--background)", 0.05);
+        setClientColor(calculatedColor);
+    }, [fill]);
+
+    const displayColor = isMounted ? clientColor : 'rgb(243, 243, 243)';
+
     return (
-        <LinePatternContext.Provider value={{ color: fill, patternSize, fillOpacity }}>
+        <LinePatternContext.Provider value={{ color: displayColor, patternSize, fillOpacity }}>
             <div 
                 className={cn('',className)}
                 style={{
-                    backgroundImage: getBgLinesPattern(fill, fillOpacity),
+                    backgroundImage: isMounted ? getBgLinesPattern(displayColor, fillOpacity) : undefined,
                     backgroundRepeat: 'repeat',
                     backgroundSize: `${patternSize}px ${patternSize}px`
                 }}

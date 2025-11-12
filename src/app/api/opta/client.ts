@@ -41,17 +41,13 @@ export class OptaClient {
     });
 
     const url = `${this.baseUrl}/competition.php?${queryParams.toString()}`;
-    console.log(`[OPTA REQUEST] Fetching: ${params.feed_type} - Competition: ${params.competition}, Season: ${params.season_id}`);
 
     const response = await fetch(url, {
       method: 'GET',
       next: { revalidate: 300 },
     });
 
-    console.log(`[OPTA RESPONSE] Status: ${response.status} ${response.statusText}`);
-
     if (!response.ok) {
-      console.error(`[OPTA ERROR] Failed to fetch ${params.feed_type}: ${response.status} ${response.statusText}`);
       throw new Error(`Opta API error: ${response.status} ${response.statusText}`);
     }
 
@@ -68,17 +64,13 @@ export class OptaClient {
     });
 
     const url = `${this.baseUrl}/team_competition.php?${queryParams.toString()}`;
-    console.log(`[OPTA TEAM REQUEST] Fetching: ${params.feed_type} - Team: ${params.team_id}, Competition: ${params.competition}, Season: ${params.season_id}`);
 
     const response = await fetch(url, {
       method: 'GET',
       next: { revalidate: 300 },
     });
 
-    console.log(`[OPTA TEAM RESPONSE] Status: ${response.status} ${response.statusText}`);
-
     if (!response.ok) {
-      console.error(`[OPTA TEAM ERROR] Failed to fetch ${params.feed_type} for team ${params.team_id}: ${response.status} ${response.statusText}`);
       throw new Error(`Opta API error: ${response.status} ${response.statusText}`);
     }
 
@@ -93,19 +85,7 @@ export class OptaClient {
     });
 
     const xmlText = await response.text();
-    console.log('[OPTA F1] XML Response length:', xmlText.length);
-    console.log('[OPTA F1] XML Response preview:', xmlText.substring(0, 500));
-    
     const parsed = this.xmlParser.parse(xmlText);
-    console.log('[OPTA F1] Parsed response structure:', JSON.stringify({
-      hasSoccerFeed: !!parsed.SoccerFeed,
-      hasSoccerDocument: !!parsed?.SoccerFeed?.SoccerDocument,
-      hasTeam: !!parsed?.SoccerFeed?.SoccerDocument?.Team,
-      teamCount: parsed?.SoccerFeed?.SoccerDocument?.Team?.length || 0,
-      hasMatchData: !!parsed?.SoccerFeed?.SoccerDocument?.MatchData,
-      matchCount: parsed?.SoccerFeed?.SoccerDocument?.MatchData?.length || 0,
-    }, null, 2));
-    
     return parsed as F1FixturesResponse;
   }
 
@@ -117,19 +97,7 @@ export class OptaClient {
     });
 
     const xmlText = await response.text();
-    console.log('[OPTA F3] XML Response length:', xmlText.length);
-    console.log('[OPTA F3] XML Response preview:', xmlText.substring(0, 500));
-    
     const parsed = this.xmlParser.parse(xmlText);
-    console.log('[OPTA F3] Parsed response structure:', JSON.stringify({
-      hasSoccerFeed: !!parsed.SoccerFeed,
-      hasSoccerDocument: !!parsed?.SoccerFeed?.SoccerDocument,
-      hasTeam: !!parsed?.SoccerFeed?.SoccerDocument?.Team,
-      teamCount: parsed?.SoccerFeed?.SoccerDocument?.Team?.length || 0,
-      hasCompetition: !!parsed?.SoccerFeed?.SoccerDocument?.Competition,
-      hasTeamStandings: !!parsed?.SoccerFeed?.SoccerDocument?.Competition?.TeamStandings,
-    }, null, 2));
-    
     return parsed as F3StandingsResponse;
   }
 
@@ -231,20 +199,7 @@ export class OptaClient {
     });
 
     const xmlText = await response.text();
-    console.log(`[OPTA F30] Team ${teamId} - XML Response length:`, xmlText.length);
-    console.log(`[OPTA F30] Team ${teamId} - XML Response preview:`, xmlText.substring(0, 500));
-    
     const parsed = this.xmlParser.parse(xmlText);
-    console.log(`[OPTA F30] Team ${teamId} - Parsed response structure:`, JSON.stringify({
-      hasSeasonStatistics: !!parsed.SeasonStatistics,
-      hasTeam: !!parsed?.SeasonStatistics?.Team,
-      teamName: parsed?.SeasonStatistics?.Team?.name || 'N/A',
-      hasPlayer: !!parsed?.SeasonStatistics?.Team?.Player,
-      playerCount: Array.isArray(parsed?.SeasonStatistics?.Team?.Player) 
-        ? parsed.SeasonStatistics.Team.Player.length 
-        : parsed?.SeasonStatistics?.Team?.Player ? 1 : 0,
-    }, null, 2));
-    
     return parsed as F30SeasonStatsResponse;
   }
 

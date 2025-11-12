@@ -79,8 +79,16 @@ function ImageSequence({ isHovered, images }: { isHovered: boolean; images?: Ima
 
 export function W7FLineBanner({ className, images }: W7FLineBannerProps) {
     const [isHovered, setIsHovered] = useState(false);
-    const color = flattenTransparency("var(--foreground)", "var(--background)", 0.05);
-    const hoverColor = flattenTransparency("var(--background)", "var(--foreground)", 0.05);
+    const [isMounted, setIsMounted] = useState(false);
+    const [color, setColor] = useState('rgb(243, 243, 243)');
+    const [hoverColor, setHoverColor] = useState('rgb(12, 12, 12)');
+
+    useEffect(() => {
+        setIsMounted(true);
+        setColor(flattenTransparency("var(--foreground)", "var(--background)", 0.05));
+        setHoverColor(flattenTransparency("var(--background)", "var(--foreground)", 0.05));
+    }, []);
+
     return (
         <LinePattern
             fill={color}
