@@ -2,7 +2,7 @@
 
 import { cn } from "@/lib/utils"
 import { PostCardVert, PostCompact, type BlogMetadata } from "@/components/blocks/posts/post"
-import { LinePattern, useLinePattern } from "../line-pattern"
+import { LinePattern } from "../line-pattern"
 import { Button } from "@/components/ui/button"
 import { PrismicLink } from "@prismicio/react"
 
@@ -12,10 +12,8 @@ type PostGridProps = {
 }
 
 function KeepReadingButton() {
-  const { color } = useLinePattern()
-  
   return (
-    <Button size="skew_lg" variant="outline_pattern" asChild style={{ borderColor: color }}>
+    <Button size="skew_lg" variant="outline_pattern" asChild>
       <PrismicLink href="/news"><span>Keep Reading</span></PrismicLink>
     </Button>
   )

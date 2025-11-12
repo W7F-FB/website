@@ -2,7 +2,6 @@
 
 import { LinePattern } from "@/components/blocks/line-pattern";
 import { W7FVerticalIcon, W7FVerticalIconMask } from "@/components/website-base/logo-svgs";
-import { flattenTransparency } from "@/lib/flatten-transparency";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
@@ -77,21 +76,15 @@ function ImageSequence({ isHovered, images }: { isHovered: boolean; images?: Ima
     );
 }
 
+const LINE_COLOR = 'oklch(0.187 0.000 0.000)';
+const HOVER_LINE_COLOR = 'oklch(0.985 0 0)';
+
 export function W7FLineBanner({ className, images }: W7FLineBannerProps) {
     const [isHovered, setIsHovered] = useState(false);
-    const [isMounted, setIsMounted] = useState(false);
-    const [color, setColor] = useState('rgb(243, 243, 243)');
-    const [hoverColor, setHoverColor] = useState('rgb(12, 12, 12)');
-
-    useEffect(() => {
-        setIsMounted(true);
-        setColor(flattenTransparency("var(--foreground)", "var(--background)", 0.05));
-        setHoverColor(flattenTransparency("var(--background)", "var(--foreground)", 0.05));
-    }, []);
 
     return (
         <LinePattern
-            fill={color}
+            fill={LINE_COLOR}
             className={cn('relative', className)}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
@@ -99,7 +92,7 @@ export function W7FLineBanner({ className, images }: W7FLineBannerProps) {
             <ImageSequence isHovered={isHovered} images={images} />
             <W7FVerticalIcon
                 strokeWidth={2}
-                stroke={isHovered ? hoverColor : color}
+                stroke={isHovered ? HOVER_LINE_COLOR : LINE_COLOR}
                 className={cn("w-full h-full text-background relative transition-[stroke,color]", isHovered && "text-foreground/20 transition-[stroke,color]")}
             />
             <div className="absolute inset-0 w-full h-full p-12 ">
