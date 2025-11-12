@@ -43,10 +43,13 @@ export function getPlayerByName(
   response: F30SeasonStatsResponse,
   name: string
 ): F30Player | undefined {
-  const players = Array.isArray(response.SeasonStatistics.Team.Player)
-    ? response.SeasonStatistics.Team.Player
-    : response.SeasonStatistics.Team.Player
-    ? [response.SeasonStatistics.Team.Player]
+  const team = response?.SeasonStatistics?.Team;
+  if (!team) return undefined;
+
+  const players = Array.isArray(team.Player)
+    ? team.Player
+    : team.Player
+    ? [team.Player]
     : [];
 
   const searchName = name.toLowerCase().trim();
@@ -75,17 +78,23 @@ export function getPlayerById(
   response: F30SeasonStatsResponse,
   playerId: number
 ): F30Player | undefined {
-  const players = Array.isArray(response.SeasonStatistics.Team.Player)
-    ? response.SeasonStatistics.Team.Player
-    : response.SeasonStatistics.Team.Player
-    ? [response.SeasonStatistics.Team.Player]
+  const team = response?.SeasonStatistics?.Team;
+  if (!team) return undefined;
+
+  const players = Array.isArray(team.Player)
+    ? team.Player
+    : team.Player
+    ? [team.Player]
     : [];
 
   return players.find((player) => player.player_id === playerId);
 }
 
 export function getPlayers(response: F30SeasonStatsResponse): F30Player[] {
-  const players = response.SeasonStatistics.Team.Player;
+  const team = response?.SeasonStatistics?.Team;
+  if (!team) return [];
+
+  const players = team.Player;
   return Array.isArray(players) ? players : players ? [players] : [];
 }
 
@@ -133,7 +142,10 @@ export function getTeamStat(
   response: F30SeasonStatsResponse,
   statName: string
 ): string | number | undefined {
-  const stats = response.SeasonStatistics.Team.Stat;
+  const team = response?.SeasonStatistics?.Team;
+  if (!team) return undefined;
+
+  const stats = team.Stat;
   if (!stats) return undefined;
 
   const statArray = Array.isArray(stats) ? stats : [stats];
