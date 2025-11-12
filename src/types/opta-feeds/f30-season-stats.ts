@@ -44,7 +44,10 @@ export function getPlayerByName(
   name: string
 ): F30Player | undefined {
   const team = response?.SeasonStatistics?.Team;
-  if (!team) return undefined;
+  if (!team) {
+    console.error('F30 response missing Team data:', JSON.stringify(response, null, 2))
+    return undefined;
+  }
 
   const players = Array.isArray(team.Player)
     ? team.Player

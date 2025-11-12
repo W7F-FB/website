@@ -52,6 +52,13 @@ export default async function TournamentPage({ params }: Props) {
         f1FixturesData = fixtures
         prismicTeams = teams
 
+        if (!fixtures?.SoccerFeed?.SoccerDocument) {
+          console.error('F1 Fixtures response is malformed:', JSON.stringify(fixtures, null, 2))
+        }
+        if (!standings?.SoccerFeed?.SoccerDocument) {
+          console.error('F3 Standings response is malformed:', JSON.stringify(standings, null, 2))
+        }
+
         const awards = tournament.data.awards
           ?.map(item => item.awards)
           .filter(award => isFilled.contentRelationship(award))
