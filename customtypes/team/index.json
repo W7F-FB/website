@@ -40,6 +40,13 @@
           "placeholder": ""
         }
       },
+      "country_code": {
+        "type": "Text",
+        "config": {
+          "label": "Country Code",
+          "placeholder": ""
+        }
+      },
       "logo": {
         "type": "Image",
         "config": {
@@ -49,6 +56,20 @@
             "height": 1000
           },
           "thumbnails": []
+        }
+      },
+      "color_primary": {
+        "type": "Color",
+        "config": {
+          "label": "Color Primary",
+          "placeholder": ""
+        }
+      },
+      "color_secondary": {
+        "type": "Color",
+        "config": {
+          "label": "Color Secondary",
+          "placeholder": ""
         }
       },
       "alphabetical_sort_string": {

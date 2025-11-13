@@ -27,7 +27,7 @@ export interface F3SoccerDocument {
 }
 
 export interface F3Competition {
-  TeamStandings: F3TeamStandings;
+  TeamStandings: F3TeamStandings[];
 }
 
 export interface F3TeamStandings {
@@ -41,8 +41,8 @@ export interface F3Round {
 }
 
 export interface F3RoundName {
-  id: string;
-  value: string; // The actual round name text content
+  id: number;
+  value: string;
 }
 
 export interface F3TeamRecord {

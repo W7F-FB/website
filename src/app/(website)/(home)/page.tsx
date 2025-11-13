@@ -91,6 +91,7 @@ const faqData: FAQItem[] = [
 
 export default async function HomePage() {
     const tournament = await getTournamentByUid("fort-lauderdale");
+    const estorilTournament = await getTournamentByUid("estoril-portugal");
 
     const tournamentRecapBlogs = await getSocialBlogsByCategory("Tournament Recap");
     const featuredRecapBlog = tournamentRecapBlogs.length > 0 ? tournamentRecapBlogs[0] : null;
@@ -106,7 +107,7 @@ export default async function HomePage() {
     return (
         <div>
             <Section padding="sm">
-                <HeroSlider>
+                <HeroSlider autoplay={true}>
                     <HeroSliderSlide className="grid grid-cols-2">
                         <HeroSliderSlideBackground>
                             <Image src="/images/static-media/fl-hero.avif" alt="Hero Slider 1" fill className="object-cover" />
@@ -114,7 +115,7 @@ export default async function HomePage() {
                         <HeroSliderSlideContent className="max-w-3xl justify-self-start pr-48 flex items-end grid justify-items-start">
                             <Image src="/images/static-media/watercolor-bg.jpg" alt="Hero Slider 1" fill className="object-cover clip-watercolor-mask" />
                             <TextProtect className="relative z-10 block space-y-5">
-                                <Subtitle className="text-xl">Tickets available now</Subtitle>
+                                <Subtitle className="text-xl text-primary">Tickets available now</Subtitle>
                                 <H1 className="font-proxima uppercase font-black text-6xl">Fort Lauderdale,<br />FLorida, USA</H1>
                                 <P noSpace className="text-3xl text-balance font-headers font-medium text-foreground">New City. Same Stakes. <span className="font-bold">$5 Million Prize Pool.</span></P>
                             </TextProtect>
@@ -132,7 +133,7 @@ export default async function HomePage() {
                         </HeroSliderSlideBackground>
                         <HeroSliderSlideContent className="max-w-3xl justify-self-start pr-48 flex items-end grid justify-items-start">
                             <TextProtect className="relative z-10">
-                                <Subtitle>Recap</Subtitle>
+                                <Subtitle className="text-primary text-xl">Recap</Subtitle>
                                 <H1 className="font-proxima uppercase font-black text-6xl">Estoril,<br />Portugal</H1>
                                 <P noSpace className="text-xl text-balance font-headers font-medium mt-3">Bayern take home the title and prize pool in an action packed event.</P>
                             </TextProtect>
@@ -188,6 +189,22 @@ export default async function HomePage() {
                         label="Recap the action"
                     />
                 </Section>
+                <Section padding="md" >
+                    <SectionHeading variant="split">
+                        <div> 
+                            <SectionHeadingHeading variant="h2">
+                                Event #1 Founding Participants
+                            </SectionHeadingHeading>
+                            <P className="text-lg">
+                                Estoril, Portugal • MAY 21-23, 2025
+                            </P>
+                        </div>
+                        <Button asChild size="skew" variant="outline" className="ml-auto mt-auto">
+                            <PrismicLink document={estorilTournament}><span>View Results</span></PrismicLink>
+                        </Button>
+                    </SectionHeading>
+                    {estorilTournament && <ClubList tournament={estorilTournament} />}
+                </Section>
                 <Section padding="md" className="min-h-screen">
                     <SectionHeading variant="split">
                         <SectionHeadingSubtitle>
@@ -196,11 +213,9 @@ export default async function HomePage() {
                         <SectionHeadingHeading>
                             Recent News
                         </SectionHeadingHeading>
-                        <SectionHeadingText variant="lg">
-                            <Button asChild size="skew" variant="outline">
+                        <Button asChild size="skew" variant="outline" className="ml-auto mt-auto">
                                 <PrismicLink href="/news"><span>All News</span></PrismicLink>
-                            </Button>
-                        </SectionHeadingText>
+                            </Button>                       
                     </SectionHeading>
                     <RecentNewsGrid />
                 </Section>

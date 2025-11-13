@@ -70,6 +70,93 @@ type ContentRelationshipFieldWithData<
 }[Exclude<TCustomType[number], string>["id"]];
 
 /**
+ * Content for Awards documents
+ */
+interface AwardsDocumentData {
+  /**
+   * Award Title field in *Awards*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: awards.award_title
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  award_title: prismic.KeyTextField;
+
+  /**
+   * Award Subtitle field in *Awards*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: awards.award_subtitle
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  award_subtitle: prismic.KeyTextField;
+
+  /**
+   * Player Name field in *Awards*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: awards.player_name
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  player_name: prismic.KeyTextField;
+
+  /**
+   * Player Team field in *Awards*
+   *
+   * - **Field Type**: Content Relationship
+   * - **Placeholder**: *None*
+   * - **API ID Path**: awards.player_team
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/content-relationship
+   */
+  player_team: ContentRelationshipFieldWithData<
+    [{ id: "team"; fields: ["name", "logo"] }]
+  >;
+
+  /**
+   * Sort Order field in *Awards*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: awards.sort_order
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  sort_order: prismic.KeyTextField;
+
+  /**
+   * Player Headshot field in *Awards*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: awards.player_headshot
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  player_headshot: prismic.ImageField<never>;
+}
+
+/**
+ * Awards document from Prismic
+ *
+ * - **API ID**: `awards`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/content-modeling
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type AwardsDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<Simplify<AwardsDocumentData>, "awards", Lang>;
+
+type BlogDocumentDataSlicesSlice = never;
+
+/**
  * Content for blog documents
  */
 interface BlogDocumentData {
@@ -111,6 +198,17 @@ interface BlogDocumentData {
     | "Social Impact"
     | "Match Day Preview"
   >;
+
+  /**
+   * Tournament field in *blog*
+   *
+   * - **Field Type**: Content Relationship
+   * - **Placeholder**: *None*
+   * - **API ID Path**: blog.tournament
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/content-relationship
+   */
+  tournament: prismic.ContentRelationshipField<"tournament">;
 
   /**
    * date field in *blog*
@@ -155,6 +253,17 @@ interface BlogDocumentData {
    * - **Documentation**: https://prismic.io/docs/fields/rich-text
    */
   content: prismic.RichTextField;
+
+  /**
+   * Slice Zone field in *blog*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: blog.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/slices
+   */
+  slices: prismic.SliceZone<BlogDocumentDataSlicesSlice>;
 }
 
 /**
@@ -387,6 +496,17 @@ interface TeamDocumentData {
   country: prismic.KeyTextField;
 
   /**
+   * Country Code field in *Team*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: team.country_code
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  country_code: prismic.KeyTextField;
+
+  /**
    * Logo field in *Team*
    *
    * - **Field Type**: Image
@@ -396,6 +516,28 @@ interface TeamDocumentData {
    * - **Documentation**: https://prismic.io/docs/fields/image
    */
   logo: prismic.ImageField<never>;
+
+  /**
+   * Color Primary field in *Team*
+   *
+   * - **Field Type**: Color
+   * - **Placeholder**: *None*
+   * - **API ID Path**: team.color_primary
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/color
+   */
+  color_primary: prismic.ColorField;
+
+  /**
+   * Color Secondary field in *Team*
+   *
+   * - **Field Type**: Color
+   * - **Placeholder**: *None*
+   * - **API ID Path**: team.color_secondary
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/color
+   */
+  color_secondary: prismic.ColorField;
 
   /**
    * Alphabetical Sort String field in *Team*
@@ -519,12 +661,70 @@ export type TeamMemberDocument<Lang extends string = string> =
     Lang
   >;
 
+/**
+ * Item in *Tournament → Awards*
+ */
+export interface TournamentDocumentDataAwardsItem {
+  /**
+   * Awards field in *Tournament → Awards*
+   *
+   * - **Field Type**: Content Relationship
+   * - **Placeholder**: *None*
+   * - **API ID Path**: tournament.awards[].awards
+   * - **Documentation**: https://prismic.io/docs/fields/content-relationship
+   */
+  awards: ContentRelationshipFieldWithData<
+    [
+      {
+        id: "awards";
+        fields: [
+          "award_title",
+          "player_name",
+          {
+            id: "player_team";
+            customtypes: [
+              {
+                id: "team";
+                fields: [
+                  "name",
+                  "logo",
+                  "color_primary",
+                  "color_secondary",
+                  "opta_id",
+                  "key",
+                  "country_code",
+                  "country",
+                  "alphabetical_sort_string",
+                ];
+              },
+            ];
+          },
+          "award_subtitle",
+          "sort_order",
+          "player_headshot",
+        ];
+      },
+    ]
+  >;
+}
+
 type TournamentDocumentDataSlicesSlice = never;
 
 /**
  * Content for Tournament documents
  */
 interface TournamentDocumentData {
+  /**
+   * Status field in *Tournament*
+   *
+   * - **Field Type**: Select
+   * - **Placeholder**: *None*
+   * - **API ID Path**: tournament.status
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/select
+   */
+  status: prismic.SelectField<"Upcoming" | "Live" | "Complete">;
+
   /**
    * Hero Image field in *Tournament*
    *
@@ -557,6 +757,17 @@ interface TournamentDocumentData {
    * - **Documentation**: https://prismic.io/docs/fields/text
    */
   country_code: prismic.KeyTextField;
+
+  /**
+   * Stadium Name field in *Tournament*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: tournament.stadium_name
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  stadium_name: prismic.KeyTextField;
 
   /**
    * Start Date field in *Tournament*
@@ -592,15 +803,33 @@ interface TournamentDocumentData {
   number_of_teams: prismic.NumberField;
 
   /**
-   * Opta Competition ID field in *Tournament*
+   * Recap field in *Tournament*
+   *
+   * - **Field Type**: Content Relationship
+   * - **Placeholder**: *None*
+   * - **API ID Path**: tournament.recap
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/content-relationship
+   */
+  recap: ContentRelationshipFieldWithData<
+    [
+      {
+        id: "blog";
+        fields: ["title", "image", "category", "date", "author", "excerpt"];
+      },
+    ]
+  >;
+
+  /**
+   * Highlight Reel Link field in *Tournament*
    *
    * - **Field Type**: Text
    * - **Placeholder**: *None*
-   * - **API ID Path**: tournament.opta_competition_id
+   * - **API ID Path**: tournament.highlight_reel_link
    * - **Tab**: Main
    * - **Documentation**: https://prismic.io/docs/fields/text
    */
-  opta_competition_id: prismic.KeyTextField;
+  highlight_reel_link: prismic.KeyTextField;
 
   /**
    * Tickets Available field in *Tournament*
@@ -615,16 +844,37 @@ interface TournamentDocumentData {
   tickets_available: prismic.BooleanField;
 
   /**
-   * Upcoming field in *Tournament*
+   * Opta Competition ID field in *Tournament*
    *
-   * - **Field Type**: Boolean
+   * - **Field Type**: Text
    * - **Placeholder**: *None*
-   * - **Default Value**: false
-   * - **API ID Path**: tournament.upcoming
+   * - **API ID Path**: tournament.opta_competition_id
    * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/fields/boolean
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */
-  upcoming: prismic.BooleanField;
+  opta_competition_id: prismic.KeyTextField;
+
+  /**
+   * Opta Season ID field in *Tournament*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: tournament.opta_season_id
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  opta_season_id: prismic.KeyTextField;
+
+  /**
+   * Awards field in *Tournament*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: tournament.awards[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  awards: prismic.GroupField<Simplify<TournamentDocumentDataAwardsItem>>;
 
   /**
    * Slice Zone field in *Tournament*
@@ -784,6 +1034,7 @@ export type WebsiteDocument<Lang extends string = string> =
   >;
 
 export type AllDocumentTypes =
+  | AwardsDocument
   | BlogDocument
   | ImageWithTextDocument
   | PolicyDocument
@@ -813,8 +1064,11 @@ declare module "@prismicio/client" {
 
   namespace Content {
     export type {
+      AwardsDocument,
+      AwardsDocumentData,
       BlogDocument,
       BlogDocumentData,
+      BlogDocumentDataSlicesSlice,
       ImageWithTextDocument,
       ImageWithTextDocumentData,
       PolicyDocument,
@@ -826,6 +1080,7 @@ declare module "@prismicio/client" {
       TeamMemberDocumentData,
       TournamentDocument,
       TournamentDocumentData,
+      TournamentDocumentDataAwardsItem,
       TournamentDocumentDataSlicesSlice,
       WebsiteDocument,
       WebsiteDocumentData,

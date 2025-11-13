@@ -8,6 +8,8 @@ import { F24EventsResponse } from '@/types/opta-feeds/f24-match';
 import { F9MatchResponse } from '@/types/opta-feeds/f9-match-details';
 import { F13CommentaryResponse, F13LanguageCode } from '@/types/opta-feeds/f13-commentary';
 import { F40SquadsResponse } from '@/types/opta-feeds/f40-squads-feed';
+import { F15RankingsResponse } from '@/types/opta-feeds/f15-rankings';
+import { F30SeasonStatsResponse } from '@/types/opta-feeds/f30-season-stats';
 
 export class OptaClient {
   private baseUrl: string;
@@ -31,7 +33,6 @@ export class OptaClient {
   }
 
   private async makeRequest(params: Record<string, string | number>): Promise<Response> {
-    // Build query string with authentication
     const queryParams = new URLSearchParams({
       user: this.username,
       psw: this.password,
@@ -41,11 +42,33 @@ export class OptaClient {
     });
 
     const url = `${this.baseUrl}/competition.php?${queryParams.toString()}`;
-    console.log('Opta API Request URL:', url);
 
     const response = await fetch(url, {
       method: 'GET',
-      next: { revalidate: 300 }, // Cache for 5 minutes
+      next: { revalidate: 300 },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Opta API error: ${response.status} ${response.statusText}`);
+    }
+
+    return response;
+  }
+
+  private async makeTeamRequest(params: Record<string, string | number>): Promise<Response> {
+    const queryParams = new URLSearchParams({
+      user: this.username,
+      psw: this.password,
+      ...Object.fromEntries(
+        Object.entries(params).map(([key, value]) => [key, String(value)])
+      )
+    });
+
+    const url = `${this.baseUrl}/team_competition.php?${queryParams.toString()}`;
+
+    const response = await fetch(url, {
+      method: 'GET',
+      next: { revalidate: 300 },
     });
 
     if (!response.ok) {
@@ -152,6 +175,12 @@ export class OptaClient {
   async getF40Squads(competitionId: string | number, seasonId: string | number): Promise<F40SquadsResponse> {
     const response = await this.makeRequest({
       feed_type: 'f40',
+  async getF15Rankings(
+    competitionId: string | number,
+    seasonId: string | number
+  ): Promise<F15RankingsResponse> {
+    const response = await this.makeRequest({
+      feed_type: 'f15',
       competition: competitionId,
       season_id: seasonId,
     });
@@ -162,6 +191,26 @@ export class OptaClient {
   }
 
   // Generic method for any feed type
+    return parsed as F15RankingsResponse;
+  }
+
+  async getF30SeasonStats(
+    competitionId: string | number,
+    seasonId: string | number,
+    teamId: string | number
+  ): Promise<F30SeasonStatsResponse> {
+    const response = await this.makeTeamRequest({
+      feed_type: 'f30',
+      competition: competitionId,
+      season_id: seasonId,
+      team_id: teamId,
+    });
+
+    const xmlText = await response.text();
+    const parsed = this.xmlParser.parse(xmlText);
+    return parsed as F30SeasonStatsResponse;
+  }
+
   async getFeed<T>(feedType: string, params: Record<string, string | number>): Promise<T> {
     const response = await this.makeRequest({
       feed_type: feedType,

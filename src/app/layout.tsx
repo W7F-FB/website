@@ -8,7 +8,7 @@ import { NavMain } from "@/components/website-base/nav/nav-main";
 import { Footer } from "@/components/website-base/footer/footer-main";
 import { PaddingGlobal } from "@/components/website-base/padding-containers";
 import { ClipPaths } from "@/components/ui/clip-paths";
-import TournamentNavFeed from "@/components/blocks/tournament/nav-feed/tournament-nav-feed";
+import { MetallicGradients } from "@/components/website-base/icons";
 
 
 export const metadata: Metadata = {
@@ -23,13 +23,14 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark scroll-smooth scroll-pt-24 overscroll-auto lg:overscroll-none" data-scroll-behavior="smooth" suppressHydrationWarning>
-      <body className="antialiased bg-background font-body min-h-dvh flex flex-col" suppressHydrationWarning>
+      <body className=" bg-background font-body min-h-dvh flex flex-col" suppressHydrationWarning>
         <Script
           async
           defer
           src="https://static.cdn.prismic.io/prismic.js?new=true&repo=world-sevens-football"
         />
         <ClipPaths />
+        <MetallicGradients />
         <NavMain />
         <main className="flex-grow min-h-[30rem]">
           <PaddingGlobal>

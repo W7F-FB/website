@@ -13,6 +13,14 @@
           "placeholder": "URL slug for this tournament"
         }
       },
+      "status": {
+        "type": "Select",
+        "config": {
+          "label": "Status",
+          "placeholder": "",
+          "options": ["Upcoming", "Live", "Complete"]
+        }
+      },
       "hero_image": {
         "type": "Image",
         "config": {
@@ -39,6 +47,13 @@
           "placeholder": "Two-letter country code (e.g., US, UK, FR)"
         }
       },
+      "stadium_name": {
+        "type": "Text",
+        "config": {
+          "label": "Stadium Name",
+          "placeholder": ""
+        }
+      },
       "start_date": {
         "type": "Date",
         "config": {
@@ -58,10 +73,31 @@
           "placeholder": ""
         }
       },
-      "opta_competition_id": {
+      "recap": {
+        "type": "Link",
+        "config": {
+          "label": "Recap",
+          "select": "document",
+          "repeat": false,
+          "customtypes": [
+            {
+              "id": "blog",
+              "fields": [
+                "title",
+                "image",
+                "category",
+                "date",
+                "author",
+                "excerpt"
+              ]
+            }
+          ]
+        }
+      },
+      "highlight_reel_link": {
         "type": "Text",
         "config": {
-          "label": "Opta Competition ID",
+          "label": "Highlight Reel Link",
           "placeholder": ""
         }
       },
@@ -74,13 +110,66 @@
           "default_value": false
         }
       },
-      "upcoming": {
-        "type": "Boolean",
+      "opta_competition_id": {
+        "type": "Text",
         "config": {
-          "label": "Upcoming",
-          "placeholder_false": "false",
-          "placeholder_true": "true",
-          "default_value": false
+          "label": "Opta Competition ID",
+          "placeholder": ""
+        }
+      },
+      "opta_season_id": {
+        "type": "Text",
+        "config": {
+          "label": "Opta Season ID",
+          "placeholder": ""
+        }
+      },
+      "awards": {
+        "type": "Group",
+        "config": {
+          "label": "Awards",
+          "repeat": true,
+          "fields": {
+            "awards": {
+              "type": "Link",
+              "config": {
+                "label": "Awards",
+                "select": "document",
+                "repeat": false,
+                "customtypes": [
+                  {
+                    "id": "awards",
+                    "fields": [
+                      "award_title",
+                      "player_name",
+                      {
+                        "id": "player_team",
+                        "customtypes": [
+                          {
+                            "id": "team",
+                            "fields": [
+                              "name",
+                              "logo",
+                              "color_primary",
+                              "color_secondary",
+                              "opta_id",
+                              "key",
+                              "country_code",
+                              "country",
+                              "alphabetical_sort_string"
+                            ]
+                          }
+                        ]
+                      },
+                      "award_subtitle",
+                      "sort_order",
+                      "player_headshot"
+                    ]
+                  }
+                ]
+              }
+            }
+          }
         }
       },
       "slices": {

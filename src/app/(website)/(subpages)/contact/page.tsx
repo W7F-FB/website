@@ -3,26 +3,24 @@
 import * as React from "react"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
+import { Controller } from "react-hook-form"
+import { useAppForm } from "@/hooks/use-app-form"
 import { Section, Container } from "@/components/website-base/padding-containers"
-import { H1, P } from "@/components/website-base/typography"
-import {
-    Form,
-    FormControl,
-    FormField,
-} from "@/components/ui/form"
+import { H1, H2, P } from "@/components/website-base/typography"
+import { TextLink } from "@/components/ui/text-link"
 import {
     Field,
     FieldError,
     FieldGroup,
     FieldLabel,
 } from "@/components/ui/field"
+import { InputFloating } from "@/components/ui/input-floating"
+import { TextAreaFloating } from "@/components/ui/text-area-floating"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { TopicSelect } from "@/components/ui/topicselect"
-import { Textarea } from "@/components/ui/textarea"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Checkbox } from "@/components/ui/checkbox"
-import { FormMessageSuccess } from "@/components/ui/form-message-success"
+import { Separator } from "@/components/ui/separator"
+
 
 const schema = z.object({
     topic: z
@@ -33,19 +31,21 @@ const schema = z.object({
         .string()
         .trim()
         .min(1, { message: "First name is required" })
+        .min(2, { message: "First name must be at least 2 characters" })
         .max(50, { message: "First name must be under 50 characters" }),
 
     lastName: z
         .string()
         .trim()
         .min(1, { message: "Last name is required" })
+        .min(2, { message: "Last name must be at least 2 characters" })
         .max(50, { message: "Last name must be under 50 characters" }),
 
     email: z
         .string()
         .trim()
         .min(1, { message: "Email is required" })
-        .email({ message: "Enter a valid email" }),
+        .email({ message: "Invalid email" }),
 
     message: z
         .string()
@@ -53,19 +53,19 @@ const schema = z.object({
         .min(1, { message: "Message is required" })
         .max(1000, { message: "Message must be under 1000 characters" }),
 
-    newsletter: z.boolean().optional(), // optional checkbox
-    terms: z
+    newsletter: z.boolean().optional(),
+    termsAccepted: z
         .boolean()
-        .refine((val) => val === true, { message: "You must accept the terms" }),
+        .refine((val) => val === true, { message: "You must accept the terms and conditions" }),
 });
 
 
 
 export default function ContactPage() {
 
-    const [submitted] = React.useState<string | null>(null)
+    const [isSubmitted, setIsSubmitted] = React.useState(false)
 
-    const form = useForm<z.infer<typeof schema>>({
+    const form = useAppForm<z.infer<typeof schema>>({
         resolver: zodResolver(schema),
         defaultValues: {
             topic: "",
@@ -74,14 +74,19 @@ export default function ContactPage() {
             email: "",
             message: "",
             newsletter: false,
-            terms: false,
+            termsAccepted: false,
         },
-        mode: "onSubmit",
     })
 
 
     async function onSubmit(values: z.infer<typeof schema>) {
-        console.log(values)
+        try {
+            console.log(values)
+            await new Promise(resolve => setTimeout(resolve, 1000))
+            setIsSubmitted(true)
+        } catch (error) {
+            console.error("Error submitting form:", error)
+        }
     }
 
     return (
@@ -97,186 +102,158 @@ export default function ContactPage() {
                 </Container>
 
                 <div>
-                    <Form {...form}>
-                        <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
-                            <FieldGroup className="space-y-8">
-                                <FormField
+                    {!isSubmitted ? (
+                        <form onSubmit={form.handleSubmit(onSubmit)} className="w-full" noValidate>
+                            <FieldGroup>
+                                <Controller
                                     control={form.control}
                                     name="topic"
-                                    render={({ field, fieldState }) => {
-                                        return (
-                                            <Field data-invalid={!!fieldState.error}>
-                                                <FieldLabel className="text-3xl font-headers uppercase">What can we help you with?</FieldLabel>
-                                                <FormControl>
-                                                    <TopicSelect value={field.value} onValueChange={field.onChange} />
-                                                </FormControl>
-                                                <FieldError errors={fieldState.error ? [fieldState.error] : undefined} />
-                                            </Field>
-                                        )
-                                    }}
+                                    render={({ field, fieldState }) => (
+                                        <Field data-invalid={!!fieldState.error}>
+                                            <H2 className="uppercase">What can we help you with?</H2>
+                                            <Select value={field.value} onValueChange={field.onChange}>
+                                                <SelectTrigger>
+                                                    <SelectValue placeholder="Select an option" />
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                    <SelectItem value="career">I want to learn about career opportunities</SelectItem>
+                                                    <SelectItem value="tickets">I have questions regarding tickets</SelectItem>
+                                                    <SelectItem value="media">I have a media inquiry</SelectItem>
+                                                    <SelectItem value="club">I want to participate with my club</SelectItem>
+                                                    <SelectItem value="partnership">I want to discuss a partnership</SelectItem>
+                                                    <SelectItem value="vip">I want to learn about VIP experiences</SelectItem>
+                                                    <SelectItem value="other">Something else</SelectItem>
+                                                </SelectContent>
+                                            </Select>
+                                        </Field>
+                                    )}
                                 />
 
                                 {form.watch("topic") && (
                                     <>
-                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                            <FormField
+                                        <Separator variant="gradient" className="my-4" />
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                            <Controller
                                                 control={form.control}
                                                 name="firstName"
-                                                render={({ field, fieldState }) => {
-                                                    return (
-                                                        <Field data-invalid={!!fieldState.error}>
-                                                            <FieldLabel htmlFor="firstName" className="font-headers">First Name<span className="text-red-500">*</span></FieldLabel>
-                                                            <FormControl>
-                                                                <Input
-                                                                    id="firstName"
-                                                                    placeholder="Your first name"
-                                                                    className="bg-transparent border border-[#000] border-b-[#ffffff1a] text-white h-10 focus-visible:outline-none focus-visible:ring-0 focus-visible:border-transparent"
-                                                                    {...field}
-                                                                />
-                                                            </FormControl>
-                                                            <FieldError errors={fieldState.error ? [fieldState.error] : undefined} />
-                                                        </Field>
-                                                    )
-                                                }}
+                                                render={({ field, fieldState }) => (
+                                                    <Field data-invalid={!!fieldState.error}>
+                                                        <InputFloating
+                                                            label="First Name"
+                                                            {...field}
+                                                            errors={fieldState.error ? [fieldState.error] : undefined}
+                                                        />
+                                                    </Field>
+                                                )}
                                             />
-                                            <FormField
+                                            <Controller
                                                 control={form.control}
                                                 name="lastName"
-                                                render={({ field, fieldState }) => {
-                                                    return (
-                                                        <Field data-invalid={!!fieldState.error}>
-                                                            <FieldLabel htmlFor="lastName" className="font-headers">Last Name <span className="text-red-500">*</span></FieldLabel>
-                                                            <FormControl>
-                                                                <Input
-                                                                    id="lastName"
-                                                                    placeholder="Your last name"
-                                                                    className="bg-transparent border border-[#000] border-b-[#ffffff1a] text-white h-10 focus-visible:outline-none focus-visible:ring-0 focus-visible:border-transparent"
-                                                                    {...field}
-                                                                />
-                                                            </FormControl>
-                                                            <FieldError errors={fieldState.error ? [fieldState.error] : undefined} />
-                                                        </Field>
-                                                    )
-                                                }}
+                                                render={({ field, fieldState }) => (
+                                                    <Field data-invalid={!!fieldState.error}>
+                                                        <InputFloating
+                                                            label="Last Name"
+                                                            {...field}
+                                                            errors={fieldState.error ? [fieldState.error] : undefined}
+                                                        />
+                                                    </Field>
+                                                )}
                                             />
                                         </div>
 
-                                        <FormField
+                                        <Controller
                                             control={form.control}
                                             name="email"
-                                            render={({ field, fieldState }) => {
-                                                return (
-                                                    <Field data-invalid={!!fieldState.error}>
-                                                        <FieldLabel htmlFor="email" className="font-headers">Email <span className="text-red-500">*</span></FieldLabel>
-                                                        <FormControl>
-                                                            <Input
-                                                                id="email"
-                                                                type="email"
-                                                                placeholder="inbox@email.com"
-                                                                autoComplete="email"
-                                                                className="bg-transparent border border-[#000] border-b-[#ffffff1a] text-white h-10 focus-visible:outline-none focus-visible:ring-0 focus-visible:border-transparent"
-                                                                {...field}
-                                                            />
-                                                        </FormControl>
-                                                        <FieldError errors={fieldState.error ? [fieldState.error] : undefined} />
-                                                    </Field>
-                                                )
-                                            }}
+                                            render={({ field, fieldState }) => (
+                                                <Field data-invalid={!!fieldState.error}>
+                                                    <InputFloating
+                                                        label="Email"
+                                                        type="email"
+                                                        {...field}
+                                                        errors={fieldState.error ? [fieldState.error] : undefined}
+                                                    />
+                                                </Field>
+                                            )}
                                         />
 
-                                        <FormField
-                                            control={form.control}
-                                            name="message"
-                                            render={({ field, fieldState }) => {
-                                                return (
-                                                    <Field data-invalid={!!fieldState.error}>
-                                                        <FieldLabel htmlFor="message" className="font-headers">Message <span className="text-red-500">*</span></FieldLabel>
-                                                        <FormControl>
-                                                            <Textarea
-                                                                id="message"
-                                                                rows={5}
-                                                                placeholder="Your message..."
-                                                                className="bg-transparent border border-[#000] text-white h-22"
-                                                                {...field}
-                                                            />
-                                                        </FormControl>
-                                                        <FieldError errors={fieldState.error ? [fieldState.error] : undefined} />
-                                                    </Field>
-                                                )
-                                            }}
-                                        />
+                                    <Controller
+                                        control={form.control}
+                                        name="message"
+                                        render={({ field, fieldState }) => (
+                                            <Field data-invalid={!!fieldState.error}>
+                                                <TextAreaFloating
+                                                    label="Message"
+                                                    {...field}
+                                                    errors={fieldState.error ? [fieldState.error] : undefined}
+                                                />
+                                            </Field>
+                                        )}
+                                    />
 
-                                        <FieldGroup className="space-y-4">
-                                            <FormField
+                                        <FieldGroup className="flex flex-col gap-4">
+                                            <Controller
                                                 control={form.control}
                                                 name="newsletter"
-                                                render={({ field, fieldState }) => {
-                                                    return (
-                                                        <Field orientation="horizontal" data-invalid={!!fieldState.error}>
-                                                            <FormControl>
-                                                                <Checkbox
-                                                                    id="newsletter"
-                                                                    checked={field.value}
-                                                                    onCheckedChange={field.onChange}
-                                                                    className="border-2 data-[state=checked]:border-white"
-                                                                />
-                                                            </FormControl>
-                                                            <FieldLabel htmlFor="newsletter" className="leading-none text-gray-300 font-normal">
-                                                                Stay updated on W7F news, tickets, giveaways, merchandise and more.
-                                                            </FieldLabel>
-                                                            <FieldError errors={fieldState.error ? [fieldState.error] : undefined} />
-                                                        </Field>
-                                                    )
-                                                }}
+                                                render={({ field, fieldState }) => (
+                                                    <Field orientation="horizontal" data-invalid={!!fieldState.error}>
+                                                        <Checkbox
+                                                            id="newsletter"
+                                                            checked={field.value}
+                                                            onCheckedChange={field.onChange}
+                                                        />
+                                                        <FieldLabel htmlFor="newsletter">
+                                                            Stay updated on W7F news, tickets, giveaways, merchandise and more.
+                                                        </FieldLabel>
+                                                    </Field>
+                                                )}
                                             />
 
-                                            <FormField
+                                            <Controller
                                                 control={form.control}
-                                                name="terms"
-                                                render={({ field, fieldState }) => {
-                                                    return (
-                                                        <Field orientation="horizontal" data-invalid={!!fieldState.error}>
-                                                            <FormControl>
-                                                                <Checkbox
-                                                                    id="terms"
-                                                                    checked={field.value}
-                                                                    onCheckedChange={field.onChange}
-                                                                    className="border-2 data-[state=checked]:border-white"
-                                                                />
-                                                            </FormControl>
-                                                            <FieldLabel htmlFor="terms" className="text-gray-300 flex flex-wrap gap-1 items-center font-normal">
-                                                                <span>By submitting your information you are agreeing to our</span>
-                                                                <a href="/terms" className="underline">Terms and Conditions</a>
-                                                                <span>and</span>
-                                                                <a href="/privacy" className="underline">Privacy Policy</a>
-                                                                <span className="text-red-500">*</span>
+                                                name="termsAccepted"
+                                                render={({ field, fieldState }) => (
+                                                    <>
+                                                        <Field orientation="horizontal" className="items-start" data-invalid={!!fieldState.error}>
+                                                            <Checkbox
+                                                                checked={field.value}
+                                                                onCheckedChange={field.onChange}
+                                                                id="termsAccepted"
+                                                            />
+                                                            <FieldLabel htmlFor="termsAccepted" className="block">
+                                                                <span>By submitting your information you are agreeing to our </span>
+                                                                <TextLink href="/">Terms and Conditions</TextLink>
+                                                                <span> and </span>
+                                                                <TextLink href="/">Privacy Policy</TextLink>
+                                                                <span className="text-destructive">*</span>
                                                             </FieldLabel>
-                                                            <FieldError errors={fieldState.error ? [fieldState.error] : undefined} />
                                                         </Field>
-                                                    )
-                                                }}
+                                                        <FieldError errors={fieldState.error ? [fieldState.error] : undefined} />
+                                                    </>
+                                                )}
                                             />
                                         </FieldGroup>
-                                        <section className="flex justify-center mt-6">
+                                        <div className="flex justify-center mt-6">
                                             <Button
                                                 type="submit"
                                                 size="skew_lg"
-                                                aria-label="Subscribe"
-                                                className="shrink-0 px-14 font-bold"
+                                                className="min-w-60"
+                                                disabled={form.formState.isSubmitting}
                                             >
-                                                <span>SUBMIT</span>
+                                                <span>{form.formState.isSubmitting ? "Submitting..." : "Submit"}</span>
                                             </Button>
-                                        </section>
+                                        </div>
                                     </>
                                 )}
                             </FieldGroup>
-
                         </form>
-                        {submitted && (
-                            <FormMessageSuccess className="mt-2">{submitted}</FormMessageSuccess>
-                        )}
-                    </Form>
-
+                    ) : (
+                        <div className="py-12 text-center space-y-4 bg-muted/20 rounded-md">
+                            <H2 className="text-2xl font-semibold text-white">Thank you!</H2>
+                            <P className="text-muted-foreground max-w-md mx-auto">
+                                Your message has been submitted successfully. Our team will get back to you shortly.
+                            </P>
+                        </div>
+                    )}
                 </div>
             </Section>
 

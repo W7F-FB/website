@@ -8,6 +8,8 @@ import { F9MatchResponse } from '@/types/opta-feeds/f9-match-details';
 import { F24EventsResponse } from '@/types/opta-feeds/f24-match';
 import { F13CommentaryResponse, F13LanguageCode } from '@/types/opta-feeds/f13-commentary';
 import { F40SquadsResponse } from '@/types/opta-feeds/f40-squads-feed';
+import { F15RankingsResponse } from '@/types/opta-feeds/f15-rankings';
+import { F30SeasonStatsResponse } from '@/types/opta-feeds/f30-season-stats';
 
 const optaClient = new OptaClient();
 
@@ -92,4 +94,25 @@ export async function getF40Squads(
   seasonId: string | number
 ): Promise<F40SquadsResponse> {
   return await optaClient.getF40Squads(competitionId, seasonId);
+}
+ * F15 - Rankings Feed
+ * Returns rankings data for matches, teams and players
+ */
+export async function getF15Rankings(
+  competitionId: string | number,
+  seasonId: string | number
+): Promise<F15RankingsResponse> {
+  return await optaClient.getF15Rankings(competitionId, seasonId);
+}
+
+/**
+ * F30 - Season Statistics Feed
+ * Returns accumulative performance statistics for every player in a team for a specific competition
+ */
+export async function getF30SeasonStats(
+  competitionId: string | number,
+  seasonId: string | number,
+  teamId: string | number
+): Promise<F30SeasonStatsResponse> {
+  return await optaClient.getF30SeasonStats(competitionId, seasonId, teamId);
 }

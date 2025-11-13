@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getF24MatchEvents } from '../feeds';
+import { getF24MatchEvents } from '@/app/api/opta/feeds';
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
@@ -25,5 +25,4 @@ export async function GET(request: NextRequest) {
     );
   }
 }
-
 

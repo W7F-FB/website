@@ -1,0 +1,67 @@
+{
+  "format": "custom",
+  "id": "awards",
+  "label": "Awards",
+  "repeatable": true,
+  "status": true,
+  "json": {
+    "Main": {
+      "uid": {
+        "type": "UID",
+        "config": {
+          "label": "UID"
+        }
+      },
+      "award_title": {
+        "type": "Text",
+        "config": {
+          "label": "Award Title",
+          "placeholder": ""
+        }
+      },
+      "award_subtitle": {
+        "type": "Text",
+        "config": {
+          "label": "Award Subtitle",
+          "placeholder": ""
+        }
+      },
+      "player_name": {
+        "type": "Text",
+        "config": {
+          "label": "Player Name",
+          "placeholder": ""
+        }
+      },
+      "player_team": {
+        "type": "Link",
+        "config": {
+          "label": "Player Team",
+          "select": "document",
+          "repeat": false,
+          "customtypes": [
+            {
+              "id": "team",
+              "fields": ["name", "logo"]
+            }
+          ]
+        }
+      },
+      "sort_order": {
+        "type": "Text",
+        "config": {
+          "label": "Sort Order",
+          "placeholder": ""
+        }
+      },
+      "player_headshot": {
+        "type": "Image",
+        "config": {
+          "label": "Player Headshot",
+          "constraint": {},
+          "thumbnails": []
+        }
+      }
+    }
+  }
+}

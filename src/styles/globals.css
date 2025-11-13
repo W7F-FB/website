@@ -40,6 +40,8 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+  --color-line-pattern: var(--line-pattern);
+  --radius-xs: calc(var(--radius) - 0.225rem);
   --radius-sm: calc(var(--radius) - 0.2rem);
   --radius-md: calc(var(--radius) - 0.1rem);
   --radius-lg: var(--radius);
@@ -91,6 +93,7 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  --line-pattern: oklch(0.953 0.000 0.000);
 }
 
 .dark {
@@ -126,6 +129,42 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+  --line-pattern: oklch(0.187 0.000 0.000);
+}
+
+.w7f-current {
+  --background: #000a2b;
+  --foreground: #ffffff;
+  --card: #081538;
+  --card-foreground: #ffffff;
+  --popover: #081538;
+  --popover-foreground: #ffffff;
+  --primary: #00ffbe;
+  --primary-foreground: #000a2b;
+  --secondary: #ffffff;
+  --secondary-foreground: #ffffff;
+  --muted: #051d4a;
+  --muted-foreground: #c9d1dd;
+  --extra-muted: #081538;
+  --accent: #00ffbe;
+  --accent-foreground: #000a2b;
+  --destructive: #ef3061;
+  --border: #051d4a;
+  --input: #051d4a;
+  --ring: #00ffbe;
+  --chart-1: #00ffbe;
+  --chart-2: #75fbc2;
+  --chart-3: #ef3061;
+  --chart-4: #051d4a;
+  --chart-5: #081538;
+  --sidebar: #000a2b;
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #00ffbe;
+  --sidebar-primary-foreground: #000a2b;
+  --sidebar-accent: #051d4a;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #051d4a;
+  --sidebar-ring: #00ffbe;
 }
 
 
@@ -180,10 +219,45 @@
   text-shadow: 0px 2px 4px rgb(0 0 0 / 0.1), 0px 8px 8px rgb(0 0 0 / 0.1), 0px 16px 24px rgb(0 0 0 / 0.15);
 }
 
+@utility writing-mode-vrl {
+  writing-mode: vertical-rl;
+}
+
+@utility writing-mode-vlr {
+  writing-mode: vertical-lr;
+}
+
+@utility bg-gold-gradient {
+  background: linear-gradient(to bottom, #FFD700 0%, #FFED4E 50%, #D4AF37 100%);
+}
+
+@utility bg-silver-gradient {
+  background: linear-gradient(to bottom, #E8E8E8 0%, #FFFFFF 50%, #C0C0C0 100%);
+}
+
+@utility bg-bronze-gradient {
+  background: linear-gradient(to bottom, #CD7F32 0%, #E8A87C 50%, #A0522D 100%);
+}
+
 .bg-lines-pattern {
   background-image: url('/images/decorative/lines-seamless.svg');
   background-repeat: repeat;
   background-size: 0.5rem 0.5rem;
 }
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  border: none;
+  -webkit-text-fill-color: var(--foreground);
+  -webkit-box-shadow: 0 0 0px 1000px #1b1b1c00 inset;
+  transition: background-color 5000s ease-in-out 0s;
+};
 
 

@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import Image from "next/image"
-import Link from "next/link"
+import { PrismicLink } from "@prismicio/react"
 
 import { Card, CardFooter, CardHeader } from "@/components/ui/card"
 import { H3, P } from "@/components/website-base/typography";
@@ -33,7 +33,7 @@ export type PostProps = {
 
 function PostStandard({ blog, className }: PostProps) {
   return (
-    <Link href={`/news/${blog.slug}`} passHref>
+    <PrismicLink href={`/news/${blog.slug}`}>
       <Card className={cn("overflow-hidden group rounded-none pt-0", className)}>
         {blog.image && (
           <div className="relative w-full h-64">
@@ -67,13 +67,13 @@ function PostStandard({ blog, className }: PostProps) {
           </CardFooter>
         </div>
       </Card>
-    </Link>
+    </PrismicLink>
   )
 }
 
 function PostCompact({ blog, className }: PostProps) {
   return (
-    <Link href={`/news/${blog.slug}`} passHref>
+    <PrismicLink href={`/news/${blog.slug}`}>
       <Card className={cn("flex flex-col md:flex-row overflow-hidden group rounded-none p-0 gap-0 bg-card/35 border-border/40", className)}>
         {blog.image && (
           <div className="relative w-full md:w-[40%] aspect-square flex-shrink-0">
@@ -107,13 +107,13 @@ function PostCompact({ blog, className }: PostProps) {
           </CardFooter>
         </div>
       </Card>
-    </Link>
+    </PrismicLink>
   )
 }
 
 function PostCardHoriz({ blog, className }: PostProps) {
   return (
-    <Link href={`/news/${blog.slug}`} passHref>
+    <PrismicLink href={`/news/${blog.slug}`}>
       <Card className={cn("flex flex-col md:flex-row overflow-hidden group rounded-none p-0 gap-0 bg-card/35 border-border/40", className)}>
         {blog.image && (
           <div className="relative w-full md:w-1/2 aspect-[4/3] flex-shrink-0">
@@ -148,16 +148,16 @@ function PostCardHoriz({ blog, className }: PostProps) {
           </CardFooter>
         </div>
       </Card>
-    </Link>
+    </PrismicLink>
   )
 }
 
 function PostCardVert({ blog, className }: PostProps) {
   return (
-    <Link href={`/news/${blog.slug}`} passHref>
+    <PrismicLink href={`/news/${blog.slug}`}>
       <Card className={cn("overflow-hidden group rounded-none pt-0 bg-card/35 border-border/40", className)}>
         {blog.image && (
-          <div className="relative w-full aspect-video">
+          <div className="relative w-full aspect-[12/8]">
             <Image
               src={blog.image}
               alt={blog.title}
@@ -188,7 +188,46 @@ function PostCardVert({ blog, className }: PostProps) {
           </CardFooter>
         </div>
       </Card>
-    </Link>
+    </PrismicLink>
+  )
+}
+
+function PostBanner({ blog, className }: PostProps) {
+  return (
+    <PrismicLink href={`/news/${blog.slug}`}>
+      <div className={cn("flex flex-col md:flex-row overflow-hidden group rounded-none bg-card/35 border border-border/40", className)}>
+        {blog.image && (
+          <div className="relative w-full md:w-48  flex-shrink-0">
+            <Image
+              src={blog.image}
+              alt={blog.title}
+              fill
+              className="object-cover"
+            />
+          </div>
+        )}
+        <div className="flex flex-col justify-between flex-1 py-8 px-10 gap-6">
+          <div className="flex flex-col gap-4">
+            <H3 className="text-xl font-semibold text-foreground !leading-[1.2]">
+              {blog.title}
+            </H3>
+            {blog.excerpt && (
+              <P noSpace className="text-base text-muted-foreground line-clamp-2">
+                {blog.excerpt}
+              </P>
+            )}
+          </div>
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+            {blog.date && (
+              <span className="text-base text-muted-foreground">
+                {formatDate(blog.date)}
+              </span>
+            )}
+            <ReadMoreButton />
+          </div>
+        </div>
+      </div>
+    </PrismicLink>
   )
 }
 
@@ -197,4 +236,5 @@ export {
   PostCompact,
   PostCardHoriz,
   PostCardVert,
+  PostBanner,
 }
