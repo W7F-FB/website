@@ -95,6 +95,8 @@ export async function getF40Squads(
 ): Promise<F40SquadsResponse> {
   return await optaClient.getF40Squads(competitionId, seasonId);
 }
+
+/**
  * F15 - Rankings Feed
  * Returns rankings data for matches, teams and players
  */

@@ -175,6 +175,15 @@ export class OptaClient {
   async getF40Squads(competitionId: string | number, seasonId: string | number): Promise<F40SquadsResponse> {
     const response = await this.makeRequest({
       feed_type: 'f40',
+      competition: competitionId,
+      season_id: seasonId,
+    });
+
+    const xmlText = await response.text();
+    const parsed = this.xmlParser.parse(xmlText);
+    return parsed as F40SquadsResponse;
+  }
+
   async getF15Rankings(
     competitionId: string | number,
     seasonId: string | number
@@ -187,10 +196,6 @@ export class OptaClient {
 
     const xmlText = await response.text();
     const parsed = this.xmlParser.parse(xmlText);
-    return parsed as F40SquadsResponse;
-  }
-
-  // Generic method for any feed type
     return parsed as F15RankingsResponse;
   }
 
