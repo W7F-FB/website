@@ -135,3 +135,20 @@ export async function getTeamsByOptaIds(optaIds: string[]): Promise<TeamDocument
     return [];
   }
 }
+
+/**
+ * Get a team by its UID (slug)
+ */
+export async function getTeamByUid(uid: string): Promise<TeamDocument | null> {
+  try {
+    const client = createClient();
+    return await client.getByUID("team", uid);
+  } catch (error) {
+    if (error instanceof Error && 'status' in error && (error as { status: number }).status === 404) {
+      return null;
+    }
+    console.error(`Error fetching team with UID ${uid}:`, error);
+    throw error;
+  }
+}
+

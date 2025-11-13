@@ -12,6 +12,12 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'omo.akamai.opta.net',
+        port: '',
+        pathname: '/image.php',
+      },
     ],
     unoptimized: process.env.NODE_ENV === 'development',
   },

@@ -7,7 +7,7 @@ import { F3StandingsResponse } from '@/types/opta-feeds/f3-standings';
 import { F9MatchResponse } from '@/types/opta-feeds/f9-match-details';
 import { F24EventsResponse } from '@/types/opta-feeds/f24-match';
 import { F13CommentaryResponse, F13LanguageCode } from '@/types/opta-feeds/f13-commentary';
-import { TM3Response } from '@/types/opta-feeds/tm3';
+import { F40SquadsResponse } from '@/types/opta-feeds/f40-squads-feed';
 
 const optaClient = new OptaClient();
 
@@ -83,12 +83,13 @@ export async function getF13Commentary(
 }
 
 /**
- * TM3 - Squad/Roster Feed
- * Returns squad information including players, positions, nationalities, and shirt numbers for all teams in a competition
+ * F40 - Squads Feed
+ * Returns the squad list for a competition and season including player details,
+ * transfers, loans, team officials, stadium info, and team kits
  */
-export async function getTM3Squad(
+export async function getF40Squads(
   competitionId: string | number,
   seasonId: string | number
-): Promise<TM3Response> {
-  return await optaClient.getTM3Squad(competitionId, seasonId);
+): Promise<F40SquadsResponse> {
+  return await optaClient.getF40Squads(competitionId, seasonId);
 }
