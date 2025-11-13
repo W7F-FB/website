@@ -219,6 +219,14 @@
   text-shadow: 0px 2px 4px rgb(0 0 0 / 0.1), 0px 8px 8px rgb(0 0 0 / 0.1), 0px 16px 24px rgb(0 0 0 / 0.15);
 }
 
+@utility writing-mode-vrl {
+  writing-mode: vertical-rl;
+}
+
+@utility writing-mode-vlr {
+  writing-mode: vertical-lr;
+}
+
 @utility bg-gold-gradient {
   background: linear-gradient(to bottom, #FFD700 0%, #FFED4E 50%, #D4AF37 100%);
 }

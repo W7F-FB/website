@@ -93,17 +93,17 @@ export function PlayerMiniStatTable({
 
   return (
     <Table className={cn("rounded-xs", className)}>
-      <TableHeader className={cn("bg-muted/20")}>
+      <TableHeader className={cn("bg-muted/30")}>
         <TableRow>
           {stats.map((stat) => (
-            <TableHead key={stat.stat} className={cn("text-center h-6 text-xs font-medium font-headers")}>{stat.abbr}</TableHead>
+            <TableHead key={stat.stat} className={cn("text-center h-6 text-xs font-medium font-headers border-b border-muted/60")}>{stat.abbr}</TableHead>
           ))}
         </TableRow>
       </TableHeader>
       <TableBody className={cn("text-sm bg-muted/10")}>
-        <TableRow>
+        <TableRow className="">
           {stats.map((stat) => (
-            <TableCell key={stat.stat} className={cn("text-center text-muted-foreground/90 ")}>
+            <TableCell key={stat.stat} className={cn("text-center pb-0.5 pt-1 text-muted-foreground/90 ")}>
               {getStatValue(stat)}
             </TableCell>
           ))}

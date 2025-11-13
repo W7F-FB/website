@@ -85,8 +85,9 @@ interface GameCardProps extends React.HTMLAttributes<HTMLDivElement> {
     prismicTeams: TeamDocument[]
     optaTeams: F1TeamData[]
     compact?: boolean
+    banner?: React.ReactNode
 }
-function GameCard({ fixture, prismicTeams, optaTeams, compact = false, className, ...props }: GameCardProps) {
+function GameCard({ fixture, prismicTeams, optaTeams, compact = false, banner, className, ...props }: GameCardProps) {
     const {
         homeTeam,
         awayTeam,
@@ -131,6 +132,11 @@ function GameCard({ fixture, prismicTeams, optaTeams, compact = false, className
             )}
             {...props}
         >
+            {banner && (
+                <CardHeader className="px-6 py-3 flex items-center justify-between bg-muted/30 text-lg font-headers font-medium tracking-wider uppercase">
+                    {banner}
+                </CardHeader>
+            )}
             <CardHeader className="px-6 py-3 flex items-center justify-between">
                 <div className="text-sm text-muted-foreground/75 font-light">
                     {gameDate.time} ET

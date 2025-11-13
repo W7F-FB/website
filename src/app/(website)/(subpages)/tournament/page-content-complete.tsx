@@ -34,6 +34,7 @@ import { isFilled } from "@prismicio/client"
 import { VideoBanner } from "@/components/blocks/video-banner/video-banner"
 import { cn } from "@/lib/utils"
 import { PlayerAwardCard } from "@/components/blocks/players/player-award-card"
+import { LinePattern } from "@/components/blocks/line-pattern"
 
 type Props = {
     tournament: TournamentDocument
@@ -55,8 +56,8 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
     const finalMatches = getFinalMatch(f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData)
     const knockoutMatches = semiFinalMatches.length + thirdPlaceMatches.length + finalMatches.length
 
-    const knockoutDate = semiFinalMatches[0]?.MatchInfo?.Date 
-        || thirdPlaceMatches[0]?.MatchInfo?.Date 
+    const knockoutDate = semiFinalMatches[0]?.MatchInfo?.Date
+        || thirdPlaceMatches[0]?.MatchInfo?.Date
         || finalMatches[0]?.MatchInfo?.Date
 
     return (
@@ -138,19 +139,19 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                             {awards.map((award, index) => {
                                 const teamId = isFilled.contentRelationship(award.player_team) ? award.player_team.data?.opta_id : undefined;
                                 const teamStats = teamId ? f30TeamStats.get(teamId) : undefined;
-                                const player = teamStats && award.player_name 
+                                const player = teamStats && award.player_name
                                     ? getPlayerByName(teamStats, award.player_name)
                                     : undefined;
-                                
+
                                 const teams = f1FixturesData?.SoccerFeed?.SoccerDocument?.Team || [];
-                                const optaTeam = teamId 
+                                const optaTeam = teamId
                                     ? teams.find(t => t.uID === `t${teamId}`)
                                     : undefined;
-                                
+
                                 return (
-                                    <PlayerAwardCard 
-                                        key={index} 
-                                        award={award} 
+                                    <PlayerAwardCard
+                                        key={index}
+                                        award={award}
                                         player={player}
                                         optaTeam={optaTeam}
                                     />
@@ -248,94 +249,72 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                             {knockoutMatches} {knockoutMatches === 1 ? 'Match' : 'Matches'}
                         </SectionHeadingText>
                     </SectionHeading>
-                    <div className="grid grid-cols-1 md:grid-cols-8 gap-12">
-                        <div className="col-span-8 flex justify-start gap-0.5 pr-3">
-                            <div className="flex-grow">
-                                <Badge fast variant="backdrop_blur" origin="bottom-left" size="lg" className="text-2xl">
-                                    Match day 3
-                                </Badge>
-                            </div>
-                            {knockoutDate && (
-                            <Badge variant="backdrop_blur" origin="bottom-left" size="lg" className="text-base">
-                                    {formatMatchDayDate(knockoutDate.split(' ')[0])}
+                    <div className="flex justify-start gap-0.5 pr-3 mb-8">
+                        <div className="flex-grow">
+                            <Badge fast variant="backdrop_blur" origin="bottom-left" size="lg" className="text-2xl">
+                                Match day 3
                             </Badge>
-                            )}
                         </div>
-                        <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr_auto_1fr] gap-0 col-span-8 bg-secondary">
-                            <div className="flex">
-                                <div className="flex-grow ">
-                                    <Badge variant="secondary" noSkew origin="bottom-left" size="lg" className="text-2xl w-full col-span px-8 hover:bg-secondary">
-                                        Semi-Finals
-                                    </Badge>
-                                </div>
+                        {knockoutDate && (
+                            <Badge variant="backdrop_blur" origin="bottom-left" size="lg" className="text-base">
+                                {formatMatchDayDate(knockoutDate.split(' ')[0])}
+                            </Badge>
+                        )}
+                    </div>
+                    <div className="flex justify-center items-start gap-8">
+                        <LinePattern className="flex-grow self-stretch flex items-center justify-center relative">
+                            <div className="absolute top-8 left-8 writing-mode-vrl text-[6vw] font-headers leading-none italic font-black whitespace-nowrap text-background text-stroke-[1px]/line-pattern select-none uppercase">
+                                <span className="block">FAST.</span>
                             </div>
-                            <div className="border-l-2 border-background -skew-x-16 h-full" />
-                            <div className="flex">
-                                <div className="flex-grow">
-                                    <Badge variant="secondary" noSkew origin="bottom-left" size="lg" className="text-2xl w-full block col-span px-8 hover:bg-secondary">
-                                        <div className="flex items-center gap-3 justify-start w-full">
-                                            <RunnerUpIcon className="size-6" />
-                                            <span className="flex-grow">Third place match</span>
-
-                                        </div>
-                                    </Badge>
-                                </div>
-                            </div>
-                            <div className="border-l-2 border-background -skew-x-16 h-full" />
-                            <div className="flex">
-                                <Badge variant="secondary" noSkew origin="bottom-left" size="lg" className="text-2xl w-full block col-span px-8 hover:bg-secondary">
-                                    <div className="flex items-center gap-3 justify-start w-full">
-                                        <ChampionIcon className="size-6" />
-                                        <span className="flex-grow">The Final</span>
-
-                                    </div>
-                                </Badge>
-                            </div>
-                        </div>
-                        <div className="grid grid-cols-1 md:grid-cols-6 gap-8 col-span-8">
-                            {semiFinalMatches[0] && (
-                                <div className="col-span-2 row-span-1">
+                        </LinePattern>
+                        <div className="max-w-3xl w-full space-y-6">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                {semiFinalMatches[0] && (
                                     <GameCard
                                         fixture={semiFinalMatches[0]}
                                         prismicTeams={prismicTeams}
                                         optaTeams={getMatchTeams(semiFinalMatches[0], f1FixturesData?.SoccerFeed?.SoccerDocument?.Team || [])}
                                         compact={compact}
+                                        banner="Semi Final 1"
                                     />
-                                </div>
-                            )}
-                            {thirdPlaceMatches.map((match) => (
-                                <div key={match.uID} className="col-span-2 row-span-1">
-                                    <GameCard
-                                        fixture={match}
-                                        prismicTeams={prismicTeams}
-                                        optaTeams={getMatchTeams(match, f1FixturesData?.SoccerFeed?.SoccerDocument?.Team || [])}
-                                        compact={compact}
-                                    />
-                                </div>
-                            ))}
-                            {finalMatches.map((match) => (
-                                <div key={match.uID} className="col-span-2 row-span-1">
-                                    <GameCard
-                                        fixture={match}
-                                        prismicTeams={prismicTeams}
-                                        optaTeams={getMatchTeams(match, f1FixturesData?.SoccerFeed?.SoccerDocument?.Team || [])}
-                                        compact={compact}
-                                    />
-                                </div>
-                            ))}
-                            {semiFinalMatches[1] && (
-                                <div className="col-span-2 row-span-1">
+                                )}
+                                {semiFinalMatches[1] && (
                                     <GameCard
                                         fixture={semiFinalMatches[1]}
                                         prismicTeams={prismicTeams}
                                         optaTeams={getMatchTeams(semiFinalMatches[1], f1FixturesData?.SoccerFeed?.SoccerDocument?.Team || [])}
                                         compact={compact}
+                                        banner="Semi Final 2"
                                     />
-                                </div>
-                            )}
-                            <GridCellScrollLink href="#final-match" className="col-span-4 row-span-1" />
+                                )}
+                            </div>
+                            {thirdPlaceMatches.map((match) => (
+                                <GameCard
+                                    key={match.uID}
+                                    fixture={match}
+                                    prismicTeams={prismicTeams}
+                                    optaTeams={getMatchTeams(match, f1FixturesData?.SoccerFeed?.SoccerDocument?.Team || [])}
+                                    compact={compact}
+                                    banner="Third Place Match"
+                                />
+                            ))}
+                            <Separator variant="gradient" className="my-12" />
+                            {finalMatches.map((match) => (
+                                <GameCard
+                                    key={match.uID}
+                                    fixture={match}
+                                    prismicTeams={prismicTeams}
+                                    optaTeams={getMatchTeams(match, f1FixturesData?.SoccerFeed?.SoccerDocument?.Team || [])}
+                                    compact={compact}
+                                    banner="The Final"
+                                />
+                            ))}
                         </div>
-
+                        <LinePattern className="flex-grow self-stretch flex items-center justify-center relative">
+                            <div className="absolute top-8 right-8 writing-mode-vrl text-[6vw] font-headers leading-none italic font-black whitespace-nowrap text-background text-stroke-[1.5px]/line-pattern select-none">
+                                <span className="block">FORWARD.</span>
+                            </div>
+                        </LinePattern>
                     </div>
                 </Section>
                 {tournamentBlogs.length > 0 && (
