@@ -7,6 +7,7 @@ import { F3StandingsResponse } from '@/types/opta-feeds/f3-standings';
 import { F24EventsResponse } from '@/types/opta-feeds/f24-match';
 import { F9MatchResponse } from '@/types/opta-feeds/f9-match-details';
 import { F13CommentaryResponse, F13LanguageCode } from '@/types/opta-feeds/f13-commentary';
+import { F40SquadsResponse } from '@/types/opta-feeds/f40-squads-feed';
 import { F15RankingsResponse } from '@/types/opta-feeds/f15-rankings';
 import { F30SeasonStatsResponse } from '@/types/opta-feeds/f30-season-stats';
 
@@ -171,6 +172,9 @@ export class OptaClient {
     return parsed as F13CommentaryResponse;
   }
 
+  async getF40Squads(competitionId: string | number, seasonId: string | number): Promise<F40SquadsResponse> {
+    const response = await this.makeRequest({
+      feed_type: 'f40',
   async getF15Rankings(
     competitionId: string | number,
     seasonId: string | number
@@ -183,6 +187,10 @@ export class OptaClient {
 
     const xmlText = await response.text();
     const parsed = this.xmlParser.parse(xmlText);
+    return parsed as F40SquadsResponse;
+  }
+
+  // Generic method for any feed type
     return parsed as F15RankingsResponse;
   }
 
