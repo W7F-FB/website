@@ -6,7 +6,7 @@ import { getPlayerFullName, getPlayerJerseyNumber, getPlayerNationality } from "
 import { H2, H3 } from "@/components/website-base/typography"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
-import type { TeamDocument } from "../../../prismicio-types"
+import type { TeamDocument } from "../../../../prismicio-types"
 
 function getCountryFlagUrl(nationality: string, size: string = "21x21"): string {
     const baseUrl = "https://omo.akamai.opta.net/image.php"
@@ -54,11 +54,6 @@ export function RosterCard({ players, team }: Props) {
 
     return (
         <div className="space-y-8">
-            <div>
-                <H2>{team.data.name}</H2>
-                <Separator className="my-2" variant="gradient" />
-            </div>
-
             {goalkeepers.length > 0 && (
                 <Card>
                     <CardHeader>
