@@ -9,7 +9,6 @@ import { PrismicNextImage } from "@prismicio/next"
 import type { TeamDocument } from "../../../../../prismicio-types"
 import { CaretRightIcon } from "@/components/website-base/icons"
 import { STAT_SHEET_LEADER_CONFIG, STAT_SHEET_LEADER_OPTIONS, type StatSheetLeaderValue, useStatSheetPlayersTable } from "./use-stat-sheet-players-table"
-import { useIsMobile } from "@/hooks/use-mobile"
 
 type StatSheetPlayersTableProps = {
     prismicTeams: TeamDocument[]
@@ -20,7 +19,6 @@ type StatSheetPlayersTableProps = {
 }
 
 export function StatSheetPlayersTable({ prismicTeams, f30TeamStats, selectedTeamId, leaderView, onLeaderViewChange }: StatSheetPlayersTableProps) {
-    const isMobile = useIsMobile()
     const {
         paginatedRows,
         hoveredRow,
@@ -87,10 +85,7 @@ export function StatSheetPlayersTable({ prismicTeams, f30TeamStats, selectedTeam
                                                 <div className="flex flex-col items-start">
                                                     <span className="text-xs">{row.name}</span>
                                                     <span className="text-muted-foreground/80 font-normal text-[0.65rem]">
-                                                        {isMobile && row.teamShortName 
-                                                            ? row.teamShortName 
-                                                            : row.prismicTeam?.data.name
-                                                        } • #{row.shirtNumber} • {row.position}
+                                                        #{row.shirtNumber} • {row.position}
                                                     </span>
                                                 </div>
                                             </div>
