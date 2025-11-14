@@ -54,8 +54,6 @@ export function getPlayerByName(
 
   const searchName = name.toLowerCase().trim();
 
-  console.log(searchName);
-
   return players.find((player) => {
     const knownName = String(player.known_name || '').toLowerCase();
     const firstName = String(player.first_name || '').toLowerCase();

@@ -3,8 +3,8 @@ import * as React from "react"
 import { cn } from "@/lib/utils"
 
 const headingVariants = {
-  h1: "scroll-m-20 text-5xl font-semibold text-balance font-headers leading-[1.4]",
-  h2: "scroll-m-20 pb-2 text-4xl font-medium first:mt-0 font-headers !leading-[1.45]",
+  h1: "scroll-m-20 text-5xl font-semibold text-balance font-headers leading-[1.4] uppercase ",
+  h2: "scroll-m-20 pb-2 text-4xl font-medium first:mt-0 font-headers !leading-[1.45] uppercase",
   h3: "scroll-m-20 text-2xl font-medium font-headers !leading-[1.4]",
   h4: "scroll-m-20 text-xl font-medium font-headers",
 } as const

@@ -146,7 +146,7 @@ function TabsList({
           role="tablist"
           data-slot="tabs-list"
           className={cn(
-            'bg-muted/50 gap-1.5 origin-bottom-left -skew-x-[var(--skew-btn)] text-muted-foreground/75 inline-flex h-10 w-fit items-center justify-center p-1.5',
+            'bg-muted/50 gap-1.5 origin-bottom-left -skew-x-[var(--skew-btn)] text-muted-foreground/75 inline-flex h-12 w-fit items-center justify-center p-1.5',
             className,
           )}
           {...props}
@@ -187,7 +187,7 @@ function TabsTrigger({
         onClick={() => handleValueChange(value)}
         data-state={activeValue === value ? 'active' : 'inactive'}
         className={cn(
-          'size-full font-semibold text-lg hover:text-foreground data-[state=active]:text-foreground text-inherit  z-[1] bg-transparent hover:bg-muted/30 ',
+          'size-full font-medium text-lg hover:text-foreground data-[state=active]:text-foreground text-inherit  z-[1] bg-transparent hover:bg-muted/30 px-8',
           className,
         )}
         {...props}

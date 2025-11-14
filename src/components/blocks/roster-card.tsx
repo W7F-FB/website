@@ -2,7 +2,7 @@
 import { useState } from "react"
 import Image from "next/image"
 import type { F40Player } from "@/types/opta-feeds/f40-squads-feed"
-import { getPlayerFullName, getPlayerJerseyNumber, getPlayerNationality, getPlayerRealPosition } from "@/types/opta-feeds/f40-squads-feed"
+import { getPlayerFullName, getPlayerJerseyNumber, getPlayerNationality } from "@/types/opta-feeds/f40-squads-feed"
 import { H2, H3 } from "@/components/website-base/typography"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
@@ -152,7 +152,6 @@ function PlayerRow({ player }: { player: F40Player }) {
     const jerseyNum = getPlayerJerseyNumber(player)
     const fullName = getPlayerFullName(player)
     const nationality = getPlayerNationality(player)
-    const position = getPlayerRealPosition(player)
 
     return (
         <div className="grid grid-cols-[20rem_1fr_1fr] p-4 border-b hover:bg-accent/50 transition-colors">

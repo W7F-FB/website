@@ -12,8 +12,8 @@ type AwardData = AwardAwardsField extends prismic.ContentRelationshipField<infer
 import { PrismicNextImage } from "@prismicio/next"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import { CaretRightIcon, ChampionIcon, RunnerUpIcon } from "@/components/website-base/icons"
-import { GroupList } from "@/components/blocks/tournament/group-card/group-list"
+import { CaretRightIcon } from "@/components/website-base/icons"
+import { GroupList } from "@/components/blocks/tournament/group-list"
 import type { F3StandingsResponse } from "@/types/opta-feeds/f3-standings"
 import type { F1FixturesResponse } from "@/types/opta-feeds/f1-fixtures"
 import type { F30SeasonStatsResponse } from "@/types/opta-feeds/f30-season-stats"
@@ -24,6 +24,8 @@ import { Badge } from "@/components/ui/badge"
 import { GameCard } from "@/components/blocks/game/game-card"
 import { getGroupStageMatches, getSemiFinalMatches, getThirdPlaceMatch, getFinalMatch, groupMatchesByDate, formatMatchDayDate } from "./utils"
 import { getMatchTeams } from "@/lib/opta/utils"
+import { getGameCardData } from "@/components/blocks/game/utils"
+import Image from "next/image"
 import { formatDateRange, mapBlogDocumentToMetadata } from "@/lib/utils"
 import { PostGrid } from "@/components/blocks/posts/post-grid"
 import { PrismicLink } from "@prismicio/react"
@@ -35,6 +37,7 @@ import { VideoBanner } from "@/components/blocks/video-banner/video-banner"
 import { cn } from "@/lib/utils"
 import { PlayerAwardCard } from "@/components/blocks/players/player-award-card"
 import { LinePattern } from "@/components/blocks/line-pattern"
+import { StatSheetTabs } from "@/components/blocks/tournament/stat-sheet/stat-sheet-tabs"
 
 type Props = {
     tournament: TournamentDocument
@@ -70,10 +73,10 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                     <div className="mt-8 flex justify-start">
                         <div className="grid grid-cols-2 gap-4">
                             <Button asChild size="skew_lg">
-                                <Link href="#highlights"><span>View Highlights</span></Link>
+                                <Link href="#highlights"><span>Final Results</span></Link>
                             </Button>
                             <Button asChild size="skew_lg" variant="outline">
-                                <Link href="#results"><span>Final Results</span></Link>
+                                <Link href="#results"><span>Stat Sheet</span></Link>
                             </Button>
                         </div>
                     </div>
@@ -309,6 +312,32 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                                     banner="The Final"
                                 />
                             ))}
+                            <Card className="py-12 px-8 text-center bg-card/50 border-border/50">
+                                <H1 className="text-5xl font-headers tracking-wider">Champions</H1>
+                                {finalMatches[0] && (() => {
+                                    const finalMatch = finalMatches[0]
+                                    const optaTeams = f1FixturesData?.SoccerFeed?.SoccerDocument?.Team || []
+                                    const gameData = getGameCardData(finalMatch, prismicTeams, optaTeams)
+                                    
+                                    const champion = gameData.homeIsWinning ? gameData.homeTeam : gameData.awayTeam
+                                    const championLogo = gameData.homeIsWinning ? gameData.homeLogoUrl : gameData.awayLogoUrl
+                                    const championLogoAlt = gameData.homeIsWinning ? gameData.homeLogoAlt : gameData.awayLogoAlt
+                                    
+                                    return championLogo && champion ? (
+                                        <div className="flex flex-col items-center gap-4 mt-8">
+                                            <div className="w-24 h-24 relative">
+                                                <Image
+                                                    src={championLogo}
+                                                    alt={championLogoAlt || champion.data.name || "Champions"}
+                                                    fill
+                                                    className="object-contain"
+                                                />
+                                            </div>
+                                            <P className="text-2xl font-headers tracking-wider">{champion.data.name}</P>
+                                        </div>
+                                    ) : null
+                                })()}
+                            </Card>
                         </div>
                         <LinePattern className="flex-grow self-stretch flex items-center justify-center relative">
                             <div className="absolute top-8 right-8 writing-mode-vrl text-[6vw] font-headers leading-none italic font-black whitespace-nowrap text-background text-stroke-[1.5px]/line-pattern select-none">
@@ -316,6 +345,15 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                             </div>
                         </LinePattern>
                     </div>
+                </Section>
+                <Section padding="md">
+                    <SectionHeading className="pb-8">
+                        <SectionHeadingHeading variant="h2">
+                            Stat Sheet
+                        </SectionHeadingHeading>
+                    </SectionHeading>
+                    
+                    <StatSheetTabs prismicTeams={prismicTeams} f30TeamStats={f30TeamStats} f1FixturesData={f1FixturesData} />
                 </Section>
                 {tournamentBlogs.length > 0 && (
                     <>

@@ -66,17 +66,19 @@ export interface TeamRecord {
 
 export function calculateTeamRecordsFromMatches(
     matches: F1MatchData[] | undefined,
-    groupId: number
+    groupId?: number
 ): Map<string, TeamRecord> {
     const records = new Map<string, TeamRecord>()
     
     if (!matches) return records
     
-    const groupMatches = matches.filter(
-        match => match.MatchInfo.RoundType === "Round" && Number(match.MatchInfo.GroupName) === groupId
-    )
+    const filteredMatches = groupId !== undefined
+        ? matches.filter(
+            match => match.MatchInfo.RoundType === "Round" && Number(match.MatchInfo.GroupName) === groupId
+          )
+        : matches
     
-    groupMatches.forEach(match => {
+    filteredMatches.forEach(match => {
         const homeTeam = match.TeamData?.[0]
         const awayTeam = match.TeamData?.[1]
         

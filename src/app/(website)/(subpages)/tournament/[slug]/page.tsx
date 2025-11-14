@@ -2,7 +2,7 @@ import { notFound } from "next/navigation"
 import { getTournamentByUid } from "@/cms/queries/tournaments"
 import { getBlogsByTournament } from "@/cms/queries/blog"
 import { getTeamsByTournament } from "@/cms/queries/team"
-import { getF3Standings, getF1Fixtures, getF30SeasonStats, getF13Commentary } from "@/app/api/opta/feeds"
+import { getF3Standings, getF1Fixtures, getF30SeasonStats, getF13Commentary, getF42ComprehensiveTournament } from "@/app/api/opta/feeds"
 import TournamentPageUpcoming from "../page-content-upcoming"
 import TournamentPagePast from "../page-content-complete"
 import type { TeamDocument, TournamentDocumentDataAwardsItem } from "../../../../../../prismicio-types"
@@ -43,28 +43,26 @@ export default async function TournamentPage({ params }: Props) {
 
     if (competitionId && seasonId && tournament.uid) {
       try {
-        const [standings, fixtures, teams] = await Promise.all([
+        const [standings, fixtures, teams, f42Data] = await Promise.all([
           getF3Standings(competitionId, seasonId),
           getF1Fixtures(competitionId, seasonId),
-          getTeamsByTournament(tournament.uid)
+          getTeamsByTournament(tournament.uid),
+          getF42ComprehensiveTournament(competitionId, seasonId)
         ])
         f3StandingsData = standings
         f1FixturesData = fixtures
         prismicTeams = teams
 
-        const awards = tournament.data.awards
-          ?.map(item => item.awards)
-          .filter(award => isFilled.contentRelationship(award))
-          .map(award => award.data)
-          .filter((award): award is NonNullable<AwardData> => !!award) || []
+        console.log('=== F42 COMPREHENSIVE TOURNAMENT FEED ===')
+        console.log('Competition ID:', competitionId)
+        console.log('Season ID:', seasonId)
+        console.log('F42 Data:', f42Data)
 
-        const uniqueTeamIds = new Set(
-          awards
-            .map(award => isFilled.contentRelationship(award.player_team) ? award.player_team.data?.opta_id : undefined)
-            .filter((id): id is string => !!id)
-        )
+        const uniqueTeamIds = prismicTeams
+          .map(team => team.data.opta_id)
+          .filter((id): id is string => !!id)
 
-        const teamStatsPromises = Array.from(uniqueTeamIds).map(async (teamId) => {
+        const teamStatsPromises = uniqueTeamIds.map(async (teamId) => {
           try {
             const stats = await getF30SeasonStats(competitionId, seasonId, teamId)
             return { teamId, stats }
