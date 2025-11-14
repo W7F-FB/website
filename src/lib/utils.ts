@@ -1,6 +1,7 @@
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 import { format, parseISO } from "date-fns";
+import numeral from "numeral";
 import type { BlogDocument } from "../../prismicio-types";
 import type { BlogMetadata } from "@/components/blocks/posts/post";
 
@@ -176,6 +177,30 @@ export function formatDate(dateString: string | null | undefined): string {
   }
 }
 
+export function formatCurrencyInWords(amount: number): string {
+  const absAmount = Math.abs(amount)
+  
+  if (absAmount >= 1000000000) {
+    const billions = absAmount / 1000000000
+    const formatted = numeral(billions).format(billions % 1 === 0 ? '0' : '0.0')
+    return `$${formatted} Billion`
+  }
+  
+  if (absAmount >= 1000000) {
+    const millions = absAmount / 1000000
+    const formatted = numeral(millions).format(millions % 1 === 0 ? '0' : '0.0')
+    return `$${formatted} Million`
+  }
+  
+  if (absAmount >= 1000) {
+    const thousands = absAmount / 1000
+    const formatted = numeral(thousands).format(thousands % 1 === 0 ? '0' : '0.0')
+    return `$${formatted} Thousand`
+  }
+  
+  return numeral(amount).format('$0,0')
+}
+
 export function mapBlogDocumentToMetadata(blog: BlogDocument): BlogMetadata {
   return {
     slug: blog.uid ?? "",
@@ -185,5 +210,25 @@ export function mapBlogDocumentToMetadata(blog: BlogDocument): BlogMetadata {
     category: blog.data.category ?? null,
     author: blog.data.author ?? null,
     date: blog.data.date ?? null,
+  }
+}
+
+export function formatGameDate(startTime: string | Date | null | undefined): { day: string; month: string; time: string } {
+  if (!startTime) return { day: "", month: "", time: "" }
+  
+  try {
+    const date = new Date(startTime)
+    const day = date.getUTCDate().toString()
+    const month = date.toLocaleDateString("en-US", { month: "short", timeZone: "UTC" }).toUpperCase()
+    const timeFormatter = new Intl.DateTimeFormat("en-US", {
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+      timeZone: "America/New_York",
+    })
+    const time = timeFormatter.format(date)
+    return { day, month, time }
+  } catch {
+    return { day: "", month: "", time: "" }
   }
 }

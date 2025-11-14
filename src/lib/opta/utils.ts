@@ -1,7 +1,10 @@
 import type { F1MatchInfo, F1MatchData, F1TeamData } from "@/types/opta-feeds/f1-fixtures"
 
 export function normalizeOptaId(id: string): string {
-  return id.startsWith('t') ? id.slice(1) : id
+  if (id.startsWith('t') || id.startsWith('g')) {
+    return id.slice(1)
+  }
+  return id
 }
 
 export function getStatusDisplay(matchInfo: F1MatchInfo): string {

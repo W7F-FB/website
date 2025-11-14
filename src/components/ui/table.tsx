@@ -44,7 +44,7 @@ function TableFooter({ className, ...props }: React.ComponentProps<"tfoot">) {
     <tfoot
       data-slot="table-footer"
       className={cn(
-        "bg-muted/50 border-t font-medium [&>tr]:last:border-b-0",
+        "bg-muted/30 border-t font-medium [&>tr]:last:border-b-0 [&>tr]:last:!bg-transparent",
         className
       )}
       {...props}
@@ -65,12 +65,13 @@ function TableRow({ className, ...props }: React.ComponentProps<"tr">) {
   )
 }
 
-function TableHead({ className, ...props }: React.ComponentProps<"th">) {
+function TableHead({ className, hasSelect, ...props }: React.ComponentProps<"th"> & { hasSelect?: boolean }) {
   return (
     <th
       data-slot="table-head"
       className={cn(
-        "text-foreground uppercase h-10 px-2 text-left align-middle font-semibold whitespace-nowrap [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]",
+        "text-foreground uppercase h-10 text-left align-middle font-semibold whitespace-nowrap [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]",
+        hasSelect ? "px-0 [&>button:first-child]:px-2 [&>button:first-child]:w-full" : "px-2",
         className
       )}
       {...props}

@@ -1,4 +1,5 @@
-import { Container, Section } from "@/components/website-base/padding-containers";
+import { NavMain } from "@/components/website-base/nav/nav-main";
+import { Container, Section, PaddingGlobal } from "@/components/website-base/padding-containers";
 import { H1, P } from "@/components/website-base/typography";
 import { CheckoutShow } from "@/components/blocks/checkout/checkout-show";
 import Image from "next/image";
@@ -6,7 +7,10 @@ import Image from "next/image";
 export default function CheckoutPage() {
 
     return (
-        <Container maxWidth="lg">
+        <>
+            <NavMain showBreadcrumbs />
+            <PaddingGlobal>
+            <Container maxWidth="lg">
             <Section padding="sm">
                 <div className="flex flex-col items-center justify-center text-center">
                     <H1 className="uppercase text-2xl md:text-6xl text-center md:my-4">Purchase Tickets</H1>
@@ -22,5 +26,7 @@ export default function CheckoutPage() {
                 <Image src="/images/decorative/CTS_logo.webp" alt="CTS Logo" width={100} height={100} className="grayscale brightness-200"/>
             </div>
         </Container>
+        </PaddingGlobal>
+        </>
     )
 }

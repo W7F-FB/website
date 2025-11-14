@@ -4,13 +4,14 @@ import { PrismicRichText } from "@prismicio/react"
 
 import { getBlogBySlug } from "@/cms/queries/blog"
 import { formatDate } from "@/lib/utils"
-import { Section, Container } from "@/components/website-base/padding-containers"
+import { Section, Container, PaddingGlobal } from "@/components/website-base/padding-containers"
 import { Card, CardHeader } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { H2, P} from "@/components/website-base/typography";
 import { cn } from "@/lib/utils"
 import { getAllBlogs } from "@/cms/queries/blog"
 import { PostStandard } from "@/components/blocks/posts/post"
+import { NavMain } from "@/components/website-base/nav/nav-main";
 import { Separator } from "@/components/ui/separator";
 
 import { mapBlogDocumentToMetadata } from "@/lib/utils"
@@ -32,7 +33,10 @@ export default async function BlogPostPage({ params }: Props) {
     .slice(0, 3) 
 
   return (
-    <Container maxWidth="lg">
+    <>
+        <NavMain showBreadcrumbs />
+        <PaddingGlobal>
+        <Container maxWidth="lg">
         <Section padding="none" className="prose prose-invert prose-p:mb-2 mt-16">
             <Card className={cn("flex flex-col md:flex-row overflow-hidden group rounded-none p-0 bg-transparent border-0 gap-16")}>
                 <div className="flex flex-col justify-between w-full md:w-1/2 px-0 py-6 md:mt-6">
@@ -97,5 +101,7 @@ export default async function BlogPostPage({ params }: Props) {
             </Section>
         )}
     </Container>
+    </PaddingGlobal>
+    </>
   )
 }

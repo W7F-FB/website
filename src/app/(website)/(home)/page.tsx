@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
+import { NavMain } from "@/components/website-base/nav/nav-main";
 import { Section, Container } from "@/components/website-base/padding-containers";
 import { HeroSlider, HeroSliderSlide, HeroSliderSlideBackground, HeroSliderSlideContent } from "@/components/blocks/hero-slider";
 import { H1, H3, P, Subtitle, TextProtect } from "@/components/website-base/typography";
@@ -106,6 +107,7 @@ export default async function HomePage() {
 
     return (
         <div>
+            <NavMain />
             <Section padding="sm">
                 <HeroSlider autoplay={true}>
                     <HeroSliderSlide className="grid grid-cols-2">

@@ -57,25 +57,10 @@ export function getGameCardData(
     const isPKGame = fixture.MatchInfo.GameWinnerType === "ShootOut"
     const isFinal = fixture.MatchInfo.Period === "FullTime"
 
-    const homeIsLosing = isFinal && (
-        isPKGame && winnerRef
-            ? homeTeamData?.TeamRef !== winnerRef
-            : homeScore !== null && awayScore !== null && homeScore < awayScore
-    )
-
-    const awayIsLosing = isFinal && (
-        isPKGame && winnerRef
-            ? awayTeamData?.TeamRef !== winnerRef
-            : homeScore !== null && awayScore !== null && awayScore < homeScore
-    )
-    const homeIsWinning = isFinal && !homeIsLosing && (
-        (isPKGame && winnerRef && homeTeamData?.TeamRef === winnerRef) ||
-        (homeScore !== null && awayScore !== null && homeScore !== awayScore)
-    )
-    const awayIsWinning = isFinal && !awayIsLosing && (
-        (isPKGame && winnerRef && awayTeamData?.TeamRef === winnerRef) ||
-        (homeScore !== null && awayScore !== null && homeScore !== awayScore)
-    )
+    const homeIsWinning = isFinal && winnerRef === homeTeamData?.TeamRef
+    const awayIsWinning = isFinal && winnerRef === awayTeamData?.TeamRef
+    const homeIsLosing = isFinal && winnerRef !== undefined && !homeIsWinning
+    const awayIsLosing = isFinal && winnerRef !== undefined && !awayIsWinning
 
     const startTime = fixture.MatchInfo.Date
 

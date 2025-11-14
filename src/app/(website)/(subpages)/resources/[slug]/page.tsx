@@ -1,3 +1,4 @@
+import { NavMain } from "@/components/website-base/nav/nav-main";
 import { notFound } from "next/navigation"
 
 import { getPolicyBySlug } from "@/cms/queries/policies"
@@ -14,7 +15,9 @@ export default async function PolicyPage(props: { params: Params }) {
   if (!policy) return notFound()
 
   return (
-    <PaddingGlobal>
+    <>
+      <NavMain showBreadcrumbs />
+      <PaddingGlobal>
       <Container maxWidth="md">
         <Section padding="lg">
           <H1>{policy.data.name}</H1>
@@ -29,6 +32,7 @@ export default async function PolicyPage(props: { params: Params }) {
         </Section>
       </Container>
     </PaddingGlobal>
+    </>
   )
 }
 

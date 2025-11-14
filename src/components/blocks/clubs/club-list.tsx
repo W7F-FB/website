@@ -4,6 +4,7 @@ import type { TeamDocument, TournamentDocument } from "../../../../prismicio-typ
 import { getTeamsByTournament } from "@/cms/queries/team"
 import { ClubBasic } from "./club"
 import { getF1Fixtures } from "@/app/api/opta/feeds"
+import { normalizeOptaId } from "@/lib/opta/utils"
 
 interface ClubListProps extends React.ComponentProps<"div"> {
   tournament: TournamentDocument
@@ -35,19 +36,21 @@ export async function ClubList({ tournament, className, ...props }: ClubListProp
       const thirdPlaceMatch = matches.find(m => m.MatchInfo?.RoundType === '3rd and 4th Place')
       
       if (finalMatch) {
-        const winner = finalMatch.MatchInfo?.MatchWinner?.replace('t', '')
-        const loser = finalMatch.TeamData?.find(td => td.TeamRef !== finalMatch.MatchInfo?.MatchWinner)?.TeamRef?.replace('t', '')
+        const winner = finalMatch.MatchInfo?.MatchWinner ? normalizeOptaId(finalMatch.MatchInfo.MatchWinner) : undefined
+        const loser = finalMatch.TeamData?.find(td => td.TeamRef !== finalMatch.MatchInfo?.MatchWinner)?.TeamRef
+        const normalizedLoser = loser ? normalizeOptaId(loser) : undefined
         
         if (winner) placementMap[winner] = 1
-        if (loser) placementMap[loser] = 2
+        if (normalizedLoser) placementMap[normalizedLoser] = 2
       }
       
       if (thirdPlaceMatch) {
-        const winner = thirdPlaceMatch.MatchInfo?.MatchWinner?.replace('t', '')
-        const loser = thirdPlaceMatch.TeamData?.find(td => td.TeamRef !== thirdPlaceMatch.MatchInfo?.MatchWinner)?.TeamRef?.replace('t', '')
+        const winner = thirdPlaceMatch.MatchInfo?.MatchWinner ? normalizeOptaId(thirdPlaceMatch.MatchInfo.MatchWinner) : undefined
+        const loser = thirdPlaceMatch.TeamData?.find(td => td.TeamRef !== thirdPlaceMatch.MatchInfo?.MatchWinner)?.TeamRef
+        const normalizedLoser = loser ? normalizeOptaId(loser) : undefined
         
         if (winner) placementMap[winner] = 3
-        if (loser) placementMap[loser] = 4
+        if (normalizedLoser) placementMap[normalizedLoser] = 4
       }
     } catch (error) {
       console.error('Failed to fetch fixtures for completed tournament:', error)

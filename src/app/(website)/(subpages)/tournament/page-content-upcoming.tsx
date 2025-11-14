@@ -1,4 +1,4 @@
-import { Section, Container } from "@/components/website-base/padding-containers"
+import { Section, Container, PaddingGlobal } from "@/components/website-base/padding-containers"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { Button } from "@/components/ui/button"
@@ -21,6 +21,7 @@ import { ImageSlider, ImageSliderSlide } from "@/components/blocks/image-slider"
 import Image from "next/image"
 import { formatDateRange, mapBlogDocumentToMetadata } from "@/lib/utils"
 import { Badge } from "@/components/ui/badge"
+import { NavMain } from "@/components/website-base/nav/nav-main";
 import { PostGrid } from "@/components/blocks/posts/post-grid"
 import { PrismicLink } from "@prismicio/react"
 
@@ -62,7 +63,10 @@ type Props = {
 export default function TournamentPageUpcoming({ tournament, tournamentBlogs }: Props) {
 
     return (
-        <div>
+        <>
+            <NavMain showBreadcrumbs />
+            <PaddingGlobal>
+            <div>
             <SubpageHero>
                 <SubpageHeroContent>
                     <Subtitle>{tournament.data.title}</Subtitle>
@@ -205,6 +209,8 @@ export default function TournamentPageUpcoming({ tournament, tournamentBlogs }: 
                 </Container>
             </Section>
         </div>
+        </PaddingGlobal>
+        </>
     )
 }
 

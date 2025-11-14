@@ -3,13 +3,78 @@
 import * as React from "react"
 import * as SelectPrimitive from "@radix-ui/react-select"
 import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from "lucide-react"
+import { CaretFilledIcon, CaretRightIcon, DeleteIcon } from "@/components/website-base/icons"
 
 import { cn } from "@/lib/utils"
 
-function Select({
-  ...props
-}: React.ComponentProps<typeof SelectPrimitive.Root>) {
-  return <SelectPrimitive.Root data-slot="select" {...props} />
+type SelectContextValue = {
+  clearable: boolean
+  hasValue: boolean
+  onClear?: () => void
+  disabled?: boolean
+}
+
+const SelectContext = React.createContext<SelectContextValue | null>(null)
+
+type SelectProps = React.ComponentProps<typeof SelectPrimitive.Root> & {
+  clearable?: boolean
+}
+
+function Select(props: SelectProps) {
+  const {
+    clearable = false,
+    value: valueProp,
+    defaultValue = "",
+    onValueChange,
+    children,
+    disabled,
+    ...rest
+  } = props
+  const hasValueProp = Object.prototype.hasOwnProperty.call(props, "value")
+  const isControlled = hasValueProp
+  const [internalValue, setInternalValue] = React.useState(
+    isControlled ? valueProp ?? "" : defaultValue ?? ""
+  )
+  React.useEffect(() => {
+    if (isControlled) {
+      setInternalValue(valueProp ?? "")
+    }
+  }, [isControlled, valueProp])
+  const currentValue = isControlled ? valueProp ?? "" : internalValue ?? ""
+  const handleValueChange = React.useCallback(
+    (nextValue: string) => {
+      if (!isControlled) {
+        setInternalValue(nextValue ?? "")
+      }
+      onValueChange?.(nextValue)
+    },
+    [isControlled, onValueChange]
+  )
+  const handleClear = React.useCallback(() => {
+    handleValueChange("")
+  }, [handleValueChange])
+  const contextValue = React.useMemo(
+    () => ({
+      clearable,
+      hasValue: currentValue !== undefined && currentValue !== "",
+      onClear: clearable ? handleClear : undefined,
+      disabled,
+    }),
+    [clearable, currentValue, handleClear, disabled]
+  )
+  return (
+    <SelectContext.Provider value={contextValue}>
+      <SelectPrimitive.Root
+        data-slot="select"
+        value={currentValue}
+        onValueChange={handleValueChange}
+        disabled={disabled}
+        {...rest}
+      >
+        {children}
+      </SelectPrimitive.Root>
+    </SelectContext.Provider>
+  )
 }
 
 function SelectGroup({
@@ -30,22 +95,54 @@ function SelectTrigger({
   children,
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Trigger> & {
-  size?: "sm" | "default"
+  size?: "sm" | "default" | "lg" | "tableHeader"
 }) {
+  const context = React.useContext(SelectContext)
+  const showClear =
+    !!context &&
+    context.clearable &&
+    context.hasValue &&
+    !!context.onClear &&
+    !context.disabled &&
+    !props.disabled
   return (
     <SelectPrimitive.Trigger
       data-slot="select-trigger"
       data-size={size}
       className={cn(
-        "border-input/50 border-2 font-semibold data-[placeholder]:text-muted-foreground/75 [&_svg:not([class*='text-'])]:text-muted-foreground focus-visible:border-ring/50 focus-visible:ring-1 focus-visible:ring-ring/20 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive flex w-full items-center justify-between gap-2 rounded-md bg-input/5 px-4 text-base whitespace-nowrap shadow-xs transition-[color,box-shadow] outline-none disabled:cursor-not-allowed disabled:opacity-50 data-[size=default]:h-16 data-[size=sm]:h-12 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-2 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "border-input/50 hover:bg-muted/20 hover:has-[.clear-button:hover]:bg-input/5 border-1 font-medium data-[placeholder]:text-muted-foreground/75 [&_svg:not([class*='text-'])]:text-muted-foreground focus-visible:border-ring/50 focus-visible:ring-1 focus-visible:ring-ring/20 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive flex w-full items-center justify-between gap-2 bg-input/5 px-4 text-base whitespace-nowrap shadow-xs transition-[color,box-shadow] outline-none disabled:cursor-not-allowed disabled:opacity-50 data-[size=lg]:h-16 data-[size=default]:h-12 data-[size=sm]:h-8 data-[size=tableHeader]:h-auto data-[size=tableHeader]:w-auto data-[size=tableHeader]:border-0 data-[size=tableHeader]:bg-transparent data-[size=tableHeader]:px-0 data-[size=tableHeader]:py-0 data-[size=tableHeader]:shadow-none data-[size=tableHeader]:rounded-none data-[size=tableHeader]:gap-1 data-[size=tableHeader]:font-inherit data-[size=tableHeader]:text-inherit data-[size=tableHeader]:justify-between data-[size=tableHeader]:focus-visible:ring-0 data-[size=tableHeader]:focus-visible:border-0 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-2 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 pr-12 relative",
+        showClear && "",
         className
       )}
       {...props}
     >
       {children}
-      <SelectPrimitive.Icon asChild>
-        <ChevronDownIcon className="size-4 opacity-50" />
-      </SelectPrimitive.Icon>
+      {showClear ? (
+        <div
+          className="absolute right-2 top-1/2 -translate-y-1/2 clear-button text-muted-foreground/80 hover:text-foreground hover:bg-muted/20 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 rounded-sm p-2 border-input/30 border-1"
+          role="button"
+          onPointerDown={(event) => {
+            event.preventDefault()
+            event.stopPropagation()
+          }}
+          onClick={(event) => {
+            event.preventDefault()
+            event.stopPropagation()
+            context?.onClear?.()
+          }}
+          aria-label="Clear selection"
+        >
+          <DeleteIcon className="size-3" />
+        </div>
+      ) : (
+        <SelectPrimitive.Icon asChild>
+          {size === "tableHeader" ? (
+            <CaretFilledIcon className="size-3 rotate-90" />
+          ) : (
+            <CaretRightIcon className="size-3.5 opacity-50 rotate-90 absolute right-3 top-1/2 -translate-y-1/2" />
+          )}
+        </SelectPrimitive.Icon>
+      )}
     </SelectPrimitive.Trigger>
   )
 }
@@ -64,7 +161,7 @@ function SelectContent({
         className={cn(
           "bg-card text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 relative z-50 max-h-(--radix-select-content-available-height) min-w-[8rem] origin-(--radix-select-content-transform-origin) overflow-x-hidden overflow-y-auto border shadow-md",
           position === "popper" &&
-            "data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1",
+          "data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1",
           className
         )}
         position={position}
@@ -76,7 +173,7 @@ function SelectContent({
           className={cn(
             "p-1",
             position === "popper" &&
-              "h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)] scroll-my-1"
+            "h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)] scroll-my-1"
           )}
         >
           {children}

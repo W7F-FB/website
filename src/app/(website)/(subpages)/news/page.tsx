@@ -1,7 +1,8 @@
 import type { Metadata } from "next"
 
-import { Section, Container } from "@/components/website-base/padding-containers"
+import { Section, Container, PaddingGlobal } from "@/components/website-base/padding-containers"
 import { H1 } from "@/components/website-base/typography"
+import { NavMain } from "@/components/website-base/nav/nav-main";
 import { PostCardHoriz, PostCardVert } from "@/components/blocks/posts/post"
 import { getAllBlogs } from "@/cms/queries/blog"
 import { Separator } from "@/components/ui/separator";
@@ -55,7 +56,10 @@ async function BlogsShow() {
 export default function NewsPage() {
 
   return (
-    <Container maxWidth="lg">
+    <>
+      <NavMain showBreadcrumbs />
+      <PaddingGlobal>
+      <Container maxWidth="lg">
       <Section padding="none">
         <H1 className="uppercase text-2xl md:text-6xl text-center md:my-16">W7F NEWS</H1>
       </Section>
@@ -64,5 +68,7 @@ export default function NewsPage() {
         <BlogsShow />
       </Section>
     </Container>
+    </PaddingGlobal>
+    </>
   )
 }

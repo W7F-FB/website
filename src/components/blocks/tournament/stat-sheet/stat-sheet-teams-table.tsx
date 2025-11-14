@@ -1,7 +1,7 @@
 'use client';
 
 import { Fragment, useState } from "react"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import type { TeamDocument } from "../../../../../prismicio-types"
 import type { F30SeasonStatsResponse } from "@/types/opta-feeds/f30-season-stats"
 import type { F1FixturesResponse } from "@/types/opta-feeds/f1-fixtures"
@@ -133,6 +133,13 @@ export function StatSheetTeamsTable({ prismicTeams, f30TeamStats, f1FixturesData
                             </Fragment>
                         ))}
                     </TableBody>
+                    <TableFooter>
+                        <TableRow className="hover:bg-muted/30">
+                            <TableCell>
+                                <div className="h-4" />
+                            </TableCell>
+                        </TableRow>
+                    </TableFooter>
                 </Table>
             </div>
             <div className="overflow-x-auto flex-1">
@@ -174,6 +181,13 @@ export function StatSheetTeamsTable({ prismicTeams, f30TeamStats, f1FixturesData
                             </Fragment>
                         ))}
                     </TableBody>
+                    <TableFooter>
+                        <TableRow className="hover:bg-muted/30">
+                            <TableCell colSpan={7}>
+                                <div className="h-4" />
+                            </TableCell>
+                        </TableRow>
+                    </TableFooter>
                 </Table>
             </div>
         </div>

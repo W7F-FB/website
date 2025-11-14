@@ -14,7 +14,7 @@ import { NavigationMenuTournament } from "./nav-tournament-item"
 import { PaddingGlobal } from "@/components/website-base/padding-containers"
 import { getNavigationTournaments } from "@/cms/queries/tournaments"
 import { Button } from "@/components/ui/button"
-import TournamentNavFeed from "@/components/blocks/tournament/nav-feed/tournament-nav-feed"
+import { PageBreadcrumbs } from "@/components/blocks/page-breadcrumbs"
 
 const exploreNavItems = [
   { href: "/news", label: "News", key: "nav-news" },
@@ -23,7 +23,18 @@ const exploreNavItems = [
   { href: "/faqs", label: "FAQs", key: "nav-faqs" }
 ]
 
-async function NavMain() {
+type BreadcrumbItem = {
+  label: string | React.ReactNode;
+  href: string;
+};
+
+type NavMainProps = {
+  showBreadcrumbs?: boolean;
+  pathname?: string;
+  customBreadcrumbs?: BreadcrumbItem[];
+}
+
+async function NavMain({ showBreadcrumbs, pathname, customBreadcrumbs }: NavMainProps = {} as NavMainProps) {
   // Add error handling to prevent nav failure
   let tournaments: Awaited<ReturnType<typeof getNavigationTournaments>> = []
   try {
@@ -34,10 +45,9 @@ async function NavMain() {
   }
 
   return (
-    <nav className="sticky top-0 z-50 w-full border-b bg-background backdrop-blur supports-[backdrop-filter]:bg-background/90">
-      <TournamentNavFeed />
+    <nav className="sticky top-0 z-50 w-full border-b border-border/50 bg-background backdrop-blur supports-[backdrop-filter]:bg-background/90">
       <PaddingGlobal>
-        <div className="mx-auto flex w-full items-center gap-12 py-4">
+        <div className="mx-auto flex w-full items-center gap-12 h-18">
           <Logo size="lg" link color="white" variant="2-lines" />
           <NavigationMenu viewport={false} className="justify-end">
             <NavigationMenuList className="gap-2">
@@ -82,6 +92,7 @@ async function NavMain() {
           </div>
         </div>
       </PaddingGlobal>
+      {showBreadcrumbs && <PageBreadcrumbs pathname={pathname} customBreadcrumbs={customBreadcrumbs} />}
     </nav>
   )
 }

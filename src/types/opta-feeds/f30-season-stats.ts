@@ -150,3 +150,9 @@ export function getTeamStat(
   const stat = statArray.find((s) => s.name === statName);
   return stat?.value;
 }
+
+export function getTeamShortName(
+  response: F30SeasonStatsResponse
+): string | undefined {
+  return response?.SeasonStatistics?.Team?.Short;
+}

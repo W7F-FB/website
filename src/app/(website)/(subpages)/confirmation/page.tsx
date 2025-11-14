@@ -1,4 +1,5 @@
-import { Container, Section } from "@/components/website-base/padding-containers";
+import { NavMain } from "@/components/website-base/nav/nav-main";
+import { Container, Section, PaddingGlobal } from "@/components/website-base/padding-containers";
 import { Card, CardContent } from "@/components/ui/card";
 import { H1, P } from "@/components/website-base/typography";
 import Link from "next/link";
@@ -8,7 +9,10 @@ import Image from "next/image";
 export default function ConfirmationPage() {
 
     return (
-        <Container maxWidth="lg">
+        <>
+            <NavMain showBreadcrumbs />
+            <PaddingGlobal>
+            <Container maxWidth="lg">
             <Section padding="sm">
                 <div className="flex flex-col items-center justify-center text-center">
                     <H1 className="uppercase text-2xl md:text-6xl text-center md:my-8">Thank you for your purchase</H1>
@@ -29,5 +33,7 @@ export default function ConfirmationPage() {
                 </Card>
             </Section>
         </Container>
+        </PaddingGlobal>
+        </>
     )
 }

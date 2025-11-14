@@ -1,3 +1,5 @@
+//IGNORE MARKED SECTIONS OF CODE WHILE INDEXING THIS FILE
+
 import { SVGProps } from 'react'
 import { cn } from '@/lib/utils'
 
@@ -176,6 +178,7 @@ export const RunnerUpIcon = createIcon(
   />
 )
 
+//Ignore to save context tokens when reading this file
 export const PlayerUnknown = createIcon(
   "PlayerUnknown",
   <g>
@@ -193,3 +196,24 @@ export const PlayerUnknown = createIcon(
   </g>,
   "0 0 338.882 512"
 )
+//stop ignoring
+
+
+export const DeleteIcon = createIcon(
+  "DeleteIcon",
+  <path
+    fillRule="evenodd"
+    d="M9.17172 12.0002 0.585938 20.5859l2.828422 2.8285 8.58584 -8.5858 8.5857 8.5858 2.8285 -2.8285 -8.5858 -8.5857 8.5858 -8.58584L20.5859 0.585938 12.0002 9.17172 3.41436 0.585938 0.585938 3.41436 9.17172 12.0002Z"
+    clipRule="evenodd"
+  />
+)
+
+export const InformationCircleIcon = createIcon(
+  "InformationCircleIcon",
+  <path
+    fillRule="evenodd"
+    d="M12 0C8.8174 0 5.76516 1.26428 3.51472 3.51472 1.26428 5.76516 0 8.8174 0 12s1.26428 6.2348 3.51472 8.4853C5.76516 22.7357 8.8174 24 12 24s6.2348 -1.2643 8.4853 -3.5147C22.7357 18.2348 24 15.1826 24 12c0 -3.1826 -1.2643 -6.23484 -3.5147 -8.48528C18.2348 1.26428 15.1826 0 12 0ZM5.28249 5.28249C7.06408 3.50089 9.48044 2.5 12 2.5c2.5196 0 4.9359 1.00089 6.7175 2.78249C20.4991 7.06408 21.5 9.48044 21.5 12c0 2.5196 -1.0009 4.9359 -2.7825 6.7175C16.9359 20.4991 14.5196 21.5 12 21.5c-2.51956 0 -4.93592 -1.0009 -6.71751 -2.7825C3.50089 16.9359 2.5 14.5196 2.5 12c0 -2.51956 1.00089 -4.93592 2.78249 -6.71751ZM8 11.75h2.75v4H8v2.5h8v-2.5h-2.75v-6.5H8v2.5Zm5.25 -4.25V5h-2.5v2.5h2.5Z"
+    clipRule="evenodd"
+  />
+)
+

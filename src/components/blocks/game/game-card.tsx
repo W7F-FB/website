@@ -2,14 +2,14 @@
 
 import * as React from "react"
 import Image from "next/image"
-import { cn } from "@/lib/utils"
+import { cn, formatGameDate } from "@/lib/utils"
 import { Card, CardContent, CardHeader, CardFooter } from "@/components/ui/card"
 import { H4 } from "@/components/website-base/typography"
 import { QuestionMarkIcon, CaretFilledIcon, CaretRightIcon } from "@/components/website-base/icons"
 import Link from "next/link"
 import type { TeamDocument } from "../../../../prismicio-types"
 import type { F1MatchData, F1TeamData } from "@/types/opta-feeds/f1-fixtures"
-import { getStatusDisplay } from "@/lib/opta/utils"
+import { getStatusDisplay, normalizeOptaId } from "@/lib/opta/utils"
 import { getGameCardData } from "./utils"
 import { Separator } from "@/components/ui/separator"
 import { Button } from "@/components/ui/button"
@@ -106,23 +106,7 @@ function GameCard({ fixture, prismicTeams, optaTeams, compact = false, banner, c
         awayLogoAlt,
     } = getGameCardData(fixture, prismicTeams, optaTeams)
 
-    const gameDate = React.useMemo(() => {
-        try {
-            const date = new Date(startTime)
-            const day = date.getUTCDate()
-            const month = date.toLocaleDateString("en-US", { month: "short", timeZone: "UTC" }).toUpperCase()
-            const timeFormatter = new Intl.DateTimeFormat("en-US", {
-                hour: "numeric",
-                minute: "2-digit",
-                hour12: true,
-                timeZone: "America/New_York",
-            })
-            const time = timeFormatter.format(date)
-            return { day, month, time }
-        } catch {
-            return { day: "", month: "", time: "" }
-        }
-    }, [startTime])
+    const gameDate = formatGameDate(startTime)
 
     return (
         <Card
@@ -189,7 +173,7 @@ function GameCard({ fixture, prismicTeams, optaTeams, compact = false, banner, c
                    <div className="bg-border/50 h-full rounded-r-xs p-1 px-2 flex items-center text-xs font-medium text-muted-foreground/90 pb-0.5">{gameDate.time} ET</div>
                 </div>
                 <Button asChild variant="link" size="sm" className="!p-0 px-0 h-auto font-medium">
-                    <Link href={`/game`}>
+                    <Link href={`/match/${normalizeOptaId(fixture.uID)}`}>
                         Gamecast
                         <CaretRightIcon
                             className="size-2.5 mt-0.5"

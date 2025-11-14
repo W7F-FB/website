@@ -5,7 +5,7 @@ import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Controller } from "react-hook-form"
 import { useAppForm } from "@/hooks/use-app-form"
-import { Section, Container } from "@/components/website-base/padding-containers"
+import { Section, Container, PaddingGlobal } from "@/components/website-base/padding-containers"
 import { H1, H2, P } from "@/components/website-base/typography"
 import { TextLink } from "@/components/ui/text-link"
 import {
@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/field"
 import { InputFloating } from "@/components/ui/input-floating"
 import { TextAreaFloating } from "@/components/ui/text-area-floating"
+import { NavMain } from "@/components/website-base/nav/nav-main";
 import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Checkbox } from "@/components/ui/checkbox"
@@ -90,7 +91,10 @@ export default function ContactPage() {
     }
 
     return (
-        <Container className="min-h-screen text-white py-auto" maxWidth="lg">
+        <>
+            <NavMain showBreadcrumbs />
+            <PaddingGlobal>
+            <Container className="min-h-screen text-white py-auto" maxWidth="lg">
             <Section padding="lg" className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
                 <Container>
                     <H1 className="uppercase text-7xl font-headers leading-[100px]">
@@ -112,7 +116,7 @@ export default function ContactPage() {
                                         <Field data-invalid={!!fieldState.error}>
                                             <H2 className="uppercase">What can we help you with?</H2>
                                             <Select value={field.value} onValueChange={field.onChange}>
-                                                <SelectTrigger>
+                                                <SelectTrigger size="lg">
                                                     <SelectValue placeholder="Select an option" />
                                                 </SelectTrigger>
                                                 <SelectContent>
@@ -258,5 +262,7 @@ export default function ContactPage() {
             </Section>
 
         </Container>
+        </PaddingGlobal>
+        </>
     );
 }

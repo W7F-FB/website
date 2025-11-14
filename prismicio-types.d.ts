@@ -748,6 +748,28 @@ interface TournamentDocumentData {
   title: prismic.KeyTextField;
 
   /**
+   * Nickname field in *Tournament*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: tournament.nickname
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  nickname: prismic.KeyTextField;
+
+  /**
+   * Prize Pool field in *Tournament*
+   *
+   * - **Field Type**: Number
+   * - **Placeholder**: *None*
+   * - **API ID Path**: tournament.prize_pool
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/number
+   */
+  prize_pool: prismic.NumberField;
+
+  /**
    * Country Code field in *Tournament*
    *
    * - **Field Type**: Text

@@ -2,8 +2,9 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import * as prismic from "@prismicio/client";
 
+import { NavMain } from "@/components/website-base/nav/nav-main";
 import { SubpageHero, SubpageHeroContent, SubpageHeroMedia } from "@/components/blocks/subpage-hero";
-import { Section } from "@/components/website-base/padding-containers";
+import { Section, PaddingGlobal } from "@/components/website-base/padding-containers";
 import { H1, H2, P, Subtitle } from "@/components/website-base/typography";
 import { LeadershipCard } from "@/components/blocks/leadership-card";
 import { GridCellScrollLink } from "@/components/blocks/grid-cell-scroll-link";
@@ -36,8 +37,9 @@ export default async function LeadershipPage() {
     const coFounders = await getCoFounders();
     const leadershipTeam = await getLeadershipTeam();
 
-    return <div>
-        <Section padding="none">
+    return <>
+        <NavMain showBreadcrumbs />
+        <PaddingGlobal>
             <SubpageHero>
                 <SubpageHeroContent>
                     <Subtitle>World Sevens Football</Subtitle>
@@ -48,7 +50,7 @@ export default async function LeadershipPage() {
                     <Image src="/images/static-media/w7f-leadership.avif" alt="Leadership Hero" fill className="object-cover" sizes="1500" />
                 </SubpageHeroMedia>
             </SubpageHero>
-        </Section>
+        <div>
         <Section padding="md" className="grid grid-cols-3 gap-16" id="player-advisory-council">
             <GradientBanner className="">
                 <H2>Player Advisory Council</H2>
@@ -135,4 +137,6 @@ export default async function LeadershipPage() {
             </div>
         </Section>
     </div>
+    </PaddingGlobal>
+    </>
 }

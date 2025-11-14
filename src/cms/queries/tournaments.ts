@@ -59,3 +59,31 @@ export async function getTournamentByUid(uid: string): Promise<TournamentDocumen
     throw error;
   }
 }
+
+/**
+ * Get a tournament by Opta competition ID and optionally season ID
+ */
+export async function getTournamentByOptaCompetitionId(
+  competitionId: string,
+  seasonId?: string
+): Promise<TournamentDocument | null> {
+  try {
+    const client = createClient();
+    const tournaments = await client.getAllByType("tournament");
+    
+    const tournament = tournaments.find(t => {
+      const matchesCompetition = t.data.opta_competition_id === competitionId;
+      if (seasonId) {
+        return matchesCompetition && t.data.opta_season_id === seasonId;
+      }
+      return matchesCompetition;
+    });
+    
+    return tournament || null;
+  } catch (error) {
+    if (error instanceof Error && error.message.includes('No documents were returned')) {
+      return null;
+    }
+    throw error;
+  }
+}

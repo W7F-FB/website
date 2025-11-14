@@ -1,10 +1,15 @@
+import { NavMain } from "@/components/website-base/nav/nav-main";
 import TournamentNavFeed from "@/components/blocks/tournament/nav-feed/tournament-nav-feed";
+import { PaddingGlobal } from "@/components/website-base/padding-containers";
 
 export default function SandboxNavFeedPage() {
   const competitionId = "1303";
   const seasonId = "2025";
 
   return (
+    <>
+      <NavMain showBreadcrumbs />
+      <PaddingGlobal>
     <div className="min-h-screen p-8">
       <div className="mx-auto max-w-4xl space-y-6">
         <div className="rounded-lg p-6 shadow">
@@ -34,6 +39,8 @@ export default function SandboxNavFeedPage() {
         </div>
       </div>
     </div>
+    </PaddingGlobal>
+    </>
   );
 }
 

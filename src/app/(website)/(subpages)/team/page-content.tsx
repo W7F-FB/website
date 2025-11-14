@@ -1,5 +1,6 @@
 "use client"
-import { Section, Container } from "@/components/website-base/padding-containers"
+import { NavMain } from "@/components/website-base/nav/nav-main";
+import { Section, Container, PaddingGlobal } from "@/components/website-base/padding-containers"
 import { P } from "@/components/website-base/typography"
 import { RosterCard } from "@/components/blocks/roster-card"
 import type { TeamDocument } from "../../../../../prismicio-types"
@@ -12,7 +13,10 @@ type Props = {
 
 export default function TeamPageContent({ team, teamSquad }: Props) {
     return (
-        <Container>
+        <>
+            <NavMain showBreadcrumbs />
+            <PaddingGlobal>
+            <Container>
             <Section padding="md">
                 <div>
                     {teamSquad && teamSquad.Player && teamSquad.Player.length > 0 ? (
@@ -30,5 +34,7 @@ export default function TeamPageContent({ team, teamSquad }: Props) {
                 </div>
             </Section>
         </Container>
+        </PaddingGlobal>
+        </>
     )
 }

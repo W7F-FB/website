@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { NavMain } from "@/components/website-base/nav/nav-main";
 import type { FAQItem } from "@/types/basic";
-import { Section, Container } from "@/components/website-base/padding-containers"
+import { Section, Container, PaddingGlobal } from "@/components/website-base/padding-containers"
 import { H1, H2, P, List } from "@/components/website-base/typography"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { SectionNav } from "./section-nav";
@@ -320,7 +321,10 @@ const faqSections: FAQSection[] = [
 ];
 
 export default function FAQsPage() {
-    return <Container maxWidth="lg">
+    return <>
+        <NavMain showBreadcrumbs />
+        <PaddingGlobal>
+        <Container maxWidth="lg">
         <Section padding="none">
             <H1 className="uppercase text-2xl md:text-6xl text-left md:my-16">Faq</H1>
         </Section>
@@ -351,4 +355,6 @@ export default function FAQsPage() {
             </div>
         </Section>
     </Container>
+    </PaddingGlobal>
+    </>
 }

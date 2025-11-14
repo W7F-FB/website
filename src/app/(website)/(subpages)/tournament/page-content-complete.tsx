@@ -1,4 +1,4 @@
-import { Section, Container } from "@/components/website-base/padding-containers"
+import { Section, Container, PaddingGlobal } from "@/components/website-base/padding-containers"
 import { H1, P, Subtitle } from "@/components/website-base/typography"
 import type { TournamentDocument, TeamDocument, BlogDocument, TournamentDocumentDataAwardsItem } from "../../../../../prismicio-types"
 import type * as prismic from "@prismicio/client"
@@ -24,9 +24,7 @@ import { Badge } from "@/components/ui/badge"
 import { GameCard } from "@/components/blocks/game/game-card"
 import { getGroupStageMatches, getSemiFinalMatches, getThirdPlaceMatch, getFinalMatch, groupMatchesByDate, formatMatchDayDate } from "./utils"
 import { getMatchTeams } from "@/lib/opta/utils"
-import { getGameCardData } from "@/components/blocks/game/utils"
-import Image from "next/image"
-import { formatDateRange, mapBlogDocumentToMetadata } from "@/lib/utils"
+import { formatDateRange, formatCurrencyInWords, mapBlogDocumentToMetadata } from "@/lib/utils"
 import { PostGrid } from "@/components/blocks/posts/post-grid"
 import { PrismicLink } from "@prismicio/react"
 import { Separator } from "@/components/ui/separator"
@@ -35,9 +33,11 @@ import { PostBanner } from "@/components/blocks/posts/post"
 import { isFilled } from "@prismicio/client"
 import { VideoBanner } from "@/components/blocks/video-banner/video-banner"
 import { cn } from "@/lib/utils"
+import { NavMain } from "@/components/website-base/nav/nav-main";
 import { PlayerAwardCard } from "@/components/blocks/players/player-award-card"
 import { LinePattern } from "@/components/blocks/line-pattern"
 import { StatSheetTabs } from "@/components/blocks/tournament/stat-sheet/stat-sheet-tabs"
+import { ChampionsCard } from "@/components/blocks/tournament/champions-card"
 
 type Props = {
     tournament: TournamentDocument
@@ -64,12 +64,18 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
         || finalMatches[0]?.MatchInfo?.Date
 
     return (
-        <div>
+        <>
+            <NavMain showBreadcrumbs />
+            <PaddingGlobal>
+            <div>
             <SubpageHero>
                 <SubpageHeroContent>
-                    <Subtitle>Results</Subtitle>
+                    <Subtitle>{tournament.data.nickname || "Results"}</Subtitle>
                     <H1 className="uppercase">{tournament.data.title}</H1>
-                    <P className="text-lg">{formatDateRange(tournament.data.start_date, tournament.data.end_date)}<br />{tournament.data.stadium_name}</P>
+                    <P className="text-lg"><span className="font-semibold">{formatDateRange(tournament.data.start_date, tournament.data.end_date)}</span><span className="ml-3 font-light text-sm">{tournament.data.stadium_name}</span></P>
+                    {isFilled.number(tournament.data.prize_pool) && (
+                        <P noSpace className="text-lg mt-1"><span className="font-semibold">{formatCurrencyInWords(tournament.data.prize_pool)}</span><span className="ml-3 font-light text-sm">Prize Pool</span></P>
+                    )}
                     <div className="mt-8 flex justify-start">
                         <div className="grid grid-cols-2 gap-4">
                             <Button asChild size="skew_lg">
@@ -312,32 +318,11 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                                     banner="The Final"
                                 />
                             ))}
-                            <Card className="py-12 px-8 text-center bg-card/50 border-border/50">
-                                <H1 className="text-5xl font-headers tracking-wider">Champions</H1>
-                                {finalMatches[0] && (() => {
-                                    const finalMatch = finalMatches[0]
-                                    const optaTeams = f1FixturesData?.SoccerFeed?.SoccerDocument?.Team || []
-                                    const gameData = getGameCardData(finalMatch, prismicTeams, optaTeams)
-                                    
-                                    const champion = gameData.homeIsWinning ? gameData.homeTeam : gameData.awayTeam
-                                    const championLogo = gameData.homeIsWinning ? gameData.homeLogoUrl : gameData.awayLogoUrl
-                                    const championLogoAlt = gameData.homeIsWinning ? gameData.homeLogoAlt : gameData.awayLogoAlt
-                                    
-                                    return championLogo && champion ? (
-                                        <div className="flex flex-col items-center gap-4 mt-8">
-                                            <div className="w-24 h-24 relative">
-                                                <Image
-                                                    src={championLogo}
-                                                    alt={championLogoAlt || champion.data.name || "Champions"}
-                                                    fill
-                                                    className="object-contain"
-                                                />
-                                            </div>
-                                            <P className="text-2xl font-headers tracking-wider">{champion.data.name}</P>
-                                        </div>
-                                    ) : null
-                                })()}
-                            </Card>
+                            <ChampionsCard
+                                finalMatches={finalMatches}
+                                f1FixturesData={f1FixturesData}
+                                prismicTeams={prismicTeams}
+                            />
                         </div>
                         <LinePattern className="flex-grow self-stretch flex items-center justify-center relative">
                             <div className="absolute top-8 right-8 writing-mode-vrl text-[6vw] font-headers leading-none italic font-black whitespace-nowrap text-background text-stroke-[1.5px]/line-pattern select-none">
@@ -377,7 +362,9 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                     </>
                 )}
             </Container>
-        </div >
+        </div>
+        </PaddingGlobal>
+        </>
     )
 }
 

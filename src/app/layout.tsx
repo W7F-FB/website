@@ -4,9 +4,7 @@ import "../styles/globals.css";
 import { PrismicPreview } from "@prismicio/next";
 import Script from "next/script";
 
-import { NavMain } from "@/components/website-base/nav/nav-main";
 import { Footer } from "@/components/website-base/footer/footer-main";
-import { PaddingGlobal } from "@/components/website-base/padding-containers";
 import { ClipPaths } from "@/components/ui/clip-paths";
 import { MetallicGradients } from "@/components/website-base/icons";
 
@@ -31,11 +29,8 @@ export default async function RootLayout({
         />
         <ClipPaths />
         <MetallicGradients />
-        <NavMain />
         <main className="flex-grow min-h-[30rem]">
-          <PaddingGlobal>
-            {children}
-          </PaddingGlobal>
+          {children}
         </main>
         <Footer />
         <PrismicPreview repositoryName="world-sevens-football" />

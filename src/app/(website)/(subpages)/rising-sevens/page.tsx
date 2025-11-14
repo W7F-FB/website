@@ -1,6 +1,7 @@
 import { FAQItem, InfoCardItem } from "@/types/basic";
+import { NavMain } from "@/components/website-base/nav/nav-main";
 import { P, Subtitle } from "@/components/website-base/typography";
-import { Section, Container } from "@/components/website-base/padding-containers";
+import { Section, Container, PaddingGlobal } from "@/components/website-base/padding-containers";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
@@ -96,20 +97,21 @@ const faqData: FAQItem[] = [
 
 export default function RisingSevensPage() {
     return (
-        <div>
+        <>
+            <NavMain showBreadcrumbs />
+            <PaddingGlobal>
+                <SubpageHero>
+                    <SubpageHeroContent>
+                        <Subtitle>Youth Tournament</Subtitle>
+                        <H1 className="uppercase text-6xl">Rising Sevens</H1>
+                        <P>By World Sevens Football</P>
+                    </SubpageHeroContent>
+                    <SubpageHeroMedia>
+                        <Image src="/images/static-media/social-impact.avif" alt="Social Impact Hero" fill className="object-cover" />
+                    </SubpageHeroMedia>
+                </SubpageHero>
+            <div>
             <Container maxWidth="lg">
-                <Section padding="none">
-                    <SubpageHero>
-                        <SubpageHeroContent>
-                            <Subtitle>Youth Tournament</Subtitle>
-                            <H1 className="uppercase text-6xl">Rising Sevens</H1>
-                            <P>By World Sevens Football</P>
-                        </SubpageHeroContent>
-                        <SubpageHeroMedia>
-                            <Image src="/images/static-media/social-impact.avif" alt="Social Impact Hero" fill className="object-cover" />
-                        </SubpageHeroMedia>
-                    </SubpageHero>
-                </Section>
                 <Section padding="md" className="text-center">
                     <Container maxWidth="md">
                         <H2 variant="h1" className="uppercase py-12">Rising Sevens Youth Tournament by W7F</H2>
@@ -187,5 +189,7 @@ export default function RisingSevensPage() {
                 </Section>
             </Container>
         </div>
+        </PaddingGlobal>
+        </>
     )
 }

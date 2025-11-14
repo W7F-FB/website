@@ -40,6 +40,20 @@
           "useAsTitle": true
         }
       },
+      "nickname": {
+        "type": "Text",
+        "config": {
+          "label": "Nickname",
+          "placeholder": ""
+        }
+      },
+      "prize_pool": {
+        "type": "Number",
+        "config": {
+          "label": "Prize Pool",
+          "placeholder": ""
+        }
+      },
       "country_code": {
         "type": "Text",
         "config": {
