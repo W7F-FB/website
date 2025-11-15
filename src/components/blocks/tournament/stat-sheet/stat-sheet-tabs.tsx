@@ -137,7 +137,7 @@ function StatSheetTabsHeader({ prismicTeams, f30TeamStats, selectedTeamId, onTea
 
     return (
         <div className="flex items-center gap-2 justify-between font-headers">
-            <TabsList>
+            <TabsList variant="skew">
                 <TabsTrigger value="teams">Teams</TabsTrigger>
                 <TabsTrigger value="players">Players</TabsTrigger>
             </TabsList>

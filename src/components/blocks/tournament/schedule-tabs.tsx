@@ -5,7 +5,7 @@ import { SoccerIcon, ChampionIcon } from "@/components/website-base/icons"
 export function ScheduleTabs() {
     return (
         <Tabs defaultValue="tab1">
-            <TabsList className="w-full !h-18">
+            <TabsList variant="skew" className="w-full !h-18">
                 <TabsTrigger value="tab1" className=" flex-col items-center justify-center">
                     <div>Fri, Dec 5th</div>
                     <div className="text-sm text-muted-foreground/75 font-medium">Session 1</div>

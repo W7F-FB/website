@@ -45,11 +45,11 @@ export default function MatchPageContent({
         tournament={tournament}
       />
         <Section padding="md" className="grid grid-cols-1 md:grid-cols-4 gap-12">
-          <Card className="bg-card/50 border-border/50 p-0 self-start gap-0">
-            <CardHeader className="bg-muted/30 py-4 gap-0 px-4">
-              <CardTitle className="text-xl font-medium font-headers tracking-wider uppercase">Rosters</CardTitle>
+          <Card banner>
+            <CardHeader>
+              <CardTitle>Rosters</CardTitle>
             </CardHeader>
-            <CardContent className="px-4 py-3">
+            <CardContent>
             <MatchLineups
               homeTeam={homeSquadTeam}
               awayTeam={awaySquadTeam}
@@ -58,7 +58,14 @@ export default function MatchPageContent({
             />
             </CardContent>
           </Card>
-          <PlayByPlay className="hidden col-span-2" matchId={matchId} competitionId={competitionId} seasonId={seasonId} />
+          <Card banner className="col-span-2">
+            <CardHeader>
+              <CardTitle>Play-By-Play</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <PlayByPlay matchId={matchId} competitionId={competitionId} seasonId={seasonId} />
+            </CardContent>
+          </Card>
         </Section>
     </PaddingGlobal>
   );

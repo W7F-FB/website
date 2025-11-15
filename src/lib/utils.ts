@@ -74,6 +74,10 @@ const UK_COUNTRIES: Record<string, string> = {
   "northern ireland": "GB"
 }
 
+const OPTA_COUNTRY_MAPPINGS: Record<string, string> = {
+  "korea republic": "KR",
+}
+
 export function getCountryIsoCode(countryNameOrCode: string | null | undefined): string | null {
   if (!countryNameOrCode) return null
   
@@ -88,6 +92,11 @@ export function getCountryIsoCode(countryNameOrCode: string | null | undefined):
   const ukCountry = UK_COUNTRIES[normalizedInput]
   if (ukCountry) {
     return ukCountry
+  }
+  
+  const optaMapping = OPTA_COUNTRY_MAPPINGS[normalizedInput]
+  if (optaMapping) {
+    return optaMapping
   }
   
   const country = countries.find(c => 

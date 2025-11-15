@@ -47,7 +47,7 @@ export default function MatchHero({ matchData, homeTeam, awayTeam, homeTeamPrism
     <Card className="p-0 gap-0 bg-card/50 border-border/50 overflow-hidden">
       <CardHeader className="px-6 py-3 !pb-3 flex items-center justify-between bg-muted/30 border-b text-sm text-muted-foreground/75">
         <div>
-          {gameDate.time ? `${gameDate.time} ET` : ""}
+          {gameDate.time ? `${gameDate.month} ${gameDate.day}, ${gameDate.time} ET` : ""}
         </div>
         <div>
           {stadium}
@@ -87,7 +87,7 @@ export default function MatchHero({ matchData, homeTeam, awayTeam, homeTeamPrism
             )}
             <div className={`relative ${awayIsLosing ? "text-foreground/60" : "text-foreground"}`}>
               {awayIsWinning && (
-                <CaretFilledIcon className="size-3 -mt-0.5 absolute -left-6 top-1/2 -translate-y-1/2" />
+                <CaretFilledIcon className="size-3 -mt-0.5 absolute -right-6 top-1/2 -translate-y-1/2 scale-x-[-1]" />
               )}
               {awayScore}
             </div>
