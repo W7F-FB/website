@@ -1,3 +1,7 @@
+import * as React from "react"
+import type { TeamDocument } from "../../prismicio-types"
+import type { F1MatchData, F1TeamData } from "./opta-feeds/f1-fixtures"
+
 export type PlayerPosition = "Goalkeeper" | "Defender" | "Midfielder" | "Forward" | "Substitute"
 
 export interface RosterPlayer {
@@ -18,5 +22,32 @@ export interface RosterTeam {
   country?: string
   countryIso?: string
   players?: RosterPlayer[]
+}
+
+export interface GameCardTeam {
+  team: TeamDocument | null
+  logoUrl: string | null
+  logoAlt: string
+  score: number | null
+  teamLabel: string
+  teamShortName: string
+  compact?: boolean
+  isLosing?: boolean
+  isWinning?: boolean
+  linkToTeam?: boolean
+  scoreClassName?: string
+  logoClassName?: string
+  teamsClassName?: string
+  teamNamesClassName?: string
+  indicatorClassName?: string
+}
+
+export interface GameCard extends React.HTMLAttributes<HTMLDivElement> {
+  fixture: F1MatchData
+  prismicTeams: TeamDocument[]
+  optaTeams: F1TeamData[]
+  compact?: boolean
+  banner?: React.ReactNode
+  variant?: "default" | "mini"
 }
 

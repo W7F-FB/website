@@ -1,10 +1,12 @@
 import { getF1Fixtures, getF40Squads } from "@/app/api/opta/feeds";
-import { getTeamByOptaId } from "@/cms/queries/team";
+import { getTeamByOptaId, getTeamsByTournament } from "@/cms/queries/team";
 import { getTournamentByOptaCompetitionId } from "@/cms/queries/tournaments";
 import { notFound } from "next/navigation";
 import { normalizeOptaId } from "@/lib/opta/utils";
 import MatchPageContent from "../page-content";
 import { NavMain } from "@/components/website-base/nav/nav-main";
+import type { GameCard } from "@/types/components";
+import type { F1MatchData } from "@/types/opta-feeds/f1-fixtures";
 
 export async function generateMetadata({ params }: { params: Promise<{ optaId: string }> }) {
   await params;
@@ -60,6 +62,24 @@ export default async function MatchPage({
     getTournamentByOptaCompetitionId(competitionId, seasonId),
   ]);
 
+  let gameCards: GameCard[] = [];
+  if (tournament && doc.MatchData) {
+    const prismicTeams = await getTeamsByTournament(tournament.uid);
+    const optaTeams = teams;
+    
+    const allMatches = [...doc.MatchData].sort((a: F1MatchData, b: F1MatchData) => {
+      const timeA = a.MatchInfo.TimeStamp || a.MatchInfo.Date || "";
+      const timeB = b.MatchInfo.TimeStamp || b.MatchInfo.Date || "";
+      return timeA.localeCompare(timeB);
+    });
+
+    gameCards = allMatches.map((match: F1MatchData) => ({
+      fixture: match,
+      prismicTeams,
+      optaTeams,
+    }));
+  }
+
   const homeTeamName = homeSquadTeam?.short_club_name || homeSquadTeam?.Name || homeTeamPrismic?.data?.name || "TBD";
   const awayTeamName = awaySquadTeam?.short_club_name || awaySquadTeam?.Name || awayTeamPrismic?.data?.name || "TBD";
 
@@ -85,13 +105,15 @@ export default async function MatchPage({
 
   return (
     <>
-      <NavMain showBreadcrumbs customBreadcrumbs={customBreadcrumbs} />
+      <NavMain showBreadcrumbs customBreadcrumbs={customBreadcrumbs} gameCards={gameCards} tournament={tournament ?? undefined} />
       <MatchPageContent
         matchData={matchData}
         homeTeam={homeTeam}
         awayTeam={awayTeam}
         homeTeamPrismic={homeTeamPrismic}
         awayTeamPrismic={awayTeamPrismic}
+        homeSquadTeam={homeSquadTeam}
+        awaySquadTeam={awaySquadTeam}
         matchId={optaId}
         competitionId={competitionId}
         seasonId={seasonId}

@@ -21,7 +21,7 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark scroll-smooth scroll-pt-24 overscroll-auto lg:overscroll-none" data-scroll-behavior="smooth" suppressHydrationWarning>
-      <body className=" bg-background font-body min-h-dvh flex flex-col" suppressHydrationWarning>
+      <body className="bg-background font-body min-h-dvh flex flex-col" suppressHydrationWarning>
         <Script
           async
           defer

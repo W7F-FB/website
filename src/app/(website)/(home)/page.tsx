@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { NavMain } from "@/components/website-base/nav/nav-main";
-import { Section, Container } from "@/components/website-base/padding-containers";
+import { PaddingGlobal, Section, Container } from "@/components/website-base/padding-containers";
 import { HeroSlider, HeroSliderSlide, HeroSliderSlideBackground, HeroSliderSlideContent } from "@/components/blocks/hero-slider";
 import { H1, H3, P, Subtitle, TextProtect } from "@/components/website-base/typography";
 import { Button } from "@/components/ui/button";
@@ -108,45 +108,47 @@ export default async function HomePage() {
     return (
         <div>
             <NavMain />
-            <Section padding="sm">
-                <HeroSlider autoplay={true}>
-                    <HeroSliderSlide className="grid grid-cols-2">
-                        <HeroSliderSlideBackground>
-                            <Image src="/images/static-media/fl-hero.avif" alt="Hero Slider 1" fill className="object-cover" />
-                        </HeroSliderSlideBackground>
-                        <HeroSliderSlideContent className="max-w-3xl justify-self-start pr-48 flex items-end grid justify-items-start">
-                            <Image src="/images/static-media/watercolor-bg.jpg" alt="Hero Slider 1" fill className="object-cover clip-watercolor-mask" />
-                            <TextProtect className="relative z-10 block space-y-5">
-                                <Subtitle className="text-xl text-primary">Tickets available now</Subtitle>
-                                <H1 className="font-proxima uppercase font-black text-6xl">Fort Lauderdale,<br />FLorida, USA</H1>
-                                <P noSpace className="text-3xl text-balance font-headers font-medium text-foreground">New City. Same Stakes. <span className="font-bold">$5 Million Prize Pool.</span></P>
-                            </TextProtect>
-                            <Button asChild size="skew_lg" className="mt-10"><Link href="#"><span>Purchase Tickets</span></Link></Button>
-                        </HeroSliderSlideContent>
-                        <HeroSliderSlideContent className="w-full h-full pb-12 pr-36 flex flex-col items-start justify-end text-shadow-xl gap-2">
-                            <H3 className="uppercase">Beyond Bancard Field</H3>
-                            <p className="text-5xl font-black font-proxima uppercase">Dec 5-7, 2025</p>
-                        </HeroSliderSlideContent>
-                    </HeroSliderSlide>
-                    <HeroSliderSlide className="grid grid-cols-2">
-                        <HeroSliderSlideBackground>
-                            <Image src="/images/static-media/estoril-champs.avif" alt="Hero Slider 1" fill className="object-cover object-bottom" />
-                            <div className="absolute bottom-0 left-0 right-0 h-full bg-gradient-to-r from-background/90 to-transparent" />
-                        </HeroSliderSlideBackground>
-                        <HeroSliderSlideContent className="max-w-3xl justify-self-start pr-48 flex items-end grid justify-items-start">
-                            <TextProtect className="relative z-10">
-                                <Subtitle className="text-primary text-xl">Recap</Subtitle>
-                                <H1 className="font-proxima uppercase font-black text-6xl">Estoril,<br />Portugal</H1>
-                                <P noSpace className="text-xl text-balance font-headers font-medium mt-3">Bayern take home the title and prize pool in an action packed event.</P>
-                            </TextProtect>
-                            <div className="mt-10 flex gap-4">
-                                <Button asChild size="skew_lg"><Link href="#"><span>View Recap</span></Link></Button>
-                                <Button asChild size="skew_lg_outline"><Link href="#"><span>All Results</span></Link></Button>
-                            </div>
-                        </HeroSliderSlideContent>
-                    </HeroSliderSlide>
-                </HeroSlider>
-            </Section>
+            <PaddingGlobal>
+                <Section padding="sm">
+                    <HeroSlider autoplay={true}>
+                        <HeroSliderSlide className="grid grid-cols-2">
+                            <HeroSliderSlideBackground>
+                                <Image src="/images/static-media/fl-hero.avif" alt="Hero Slider 1" fill className="object-cover" />
+                            </HeroSliderSlideBackground>
+                            <HeroSliderSlideContent className="max-w-3xl justify-self-start pr-48 flex items-end grid justify-items-start">
+                                <Image src="/images/static-media/watercolor-bg.jpg" alt="Hero Slider 1" fill className="object-cover clip-watercolor-mask" />
+                                <TextProtect className="relative z-10 block space-y-5">
+                                    <Subtitle className="text-xl text-primary">Tickets available now</Subtitle>
+                                    <H1 className="font-proxima uppercase font-black text-6xl">Fort Lauderdale,<br />FLorida, USA</H1>
+                                    <P noSpace className="text-3xl text-balance font-headers font-medium text-foreground">New City. Same Stakes. <span className="font-bold">$5 Million Prize Pool.</span></P>
+                                </TextProtect>
+                                <Button asChild size="skew_lg" className="mt-10"><Link href="#"><span>Purchase Tickets</span></Link></Button>
+                            </HeroSliderSlideContent>
+                            <HeroSliderSlideContent className="w-full h-full pb-12 pr-36 flex flex-col items-start justify-end text-shadow-xl gap-2">
+                                <H3 className="uppercase">Beyond Bancard Field</H3>
+                                <p className="text-5xl font-black font-proxima uppercase">Dec 5-7, 2025</p>
+                            </HeroSliderSlideContent>
+                        </HeroSliderSlide>
+                        <HeroSliderSlide className="grid grid-cols-2">
+                            <HeroSliderSlideBackground>
+                                <Image src="/images/static-media/estoril-champs.avif" alt="Hero Slider 1" fill className="object-cover object-bottom" />
+                                <div className="absolute bottom-0 left-0 right-0 h-full bg-gradient-to-r from-background/90 to-transparent" />
+                            </HeroSliderSlideBackground>
+                            <HeroSliderSlideContent className="max-w-3xl justify-self-start pr-48 flex items-end grid justify-items-start">
+                                <TextProtect className="relative z-10">
+                                    <Subtitle className="text-primary text-xl">Recap</Subtitle>
+                                    <H1 className="font-proxima uppercase font-black text-6xl">Estoril,<br />Portugal</H1>
+                                    <P noSpace className="text-xl text-balance font-headers font-medium mt-3">Bayern take home the title and prize pool in an action packed event.</P>
+                                </TextProtect>
+                                <div className="mt-10 flex gap-4">
+                                    <Button asChild size="skew_lg"><Link href="#"><span>View Recap</span></Link></Button>
+                                    <Button asChild size="skew_lg" variant="outline"><Link href="#"><span>All Results</span></Link></Button>
+                                </div>
+                            </HeroSliderSlideContent>
+                        </HeroSliderSlide>
+                    </HeroSlider>
+                </Section>
+            </PaddingGlobal>
             <Container>
                 <Section padding="md">
                     <SectionHeading variant="split">

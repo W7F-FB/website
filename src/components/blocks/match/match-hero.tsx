@@ -5,6 +5,7 @@ import { PrismicNextImage } from "@prismicio/next";
 import type { TeamDocument, TournamentDocument } from "@/../prismicio-types";
 import { Card, CardHeader } from "@/components/ui/card";
 import { formatGameDate } from "@/lib/utils";
+import { CaretFilledIcon } from "@/components/website-base/icons";
 
 interface MatchHeroProps {
   matchData: F1MatchData;
@@ -21,6 +22,26 @@ export default function MatchHero({ matchData, homeTeam, awayTeam, homeTeamPrism
 
   const gameDate = formatGameDate(matchData.MatchInfo.Date)
   const stadium = tournament?.data.stadium_name || matchData.MatchInfo.Venue || ""
+
+  const homeTeamData = matchData.TeamData.find(team => team.Side === "Home");
+  const awayTeamData = matchData.TeamData.find(team => team.Side === "Away");
+  const homeScore = homeTeamData?.Score ?? 0;
+  const awayScore = awayTeamData?.Score ?? 0;
+
+  const isFinal = matchData.MatchInfo.Period === "FullTime" || matchData.MatchInfo.Period === "PostMatch";
+  const winnerRef = matchData.MatchInfo.GameWinner || matchData.MatchInfo.MatchWinner;
+  const homeIsWinning = isFinal && winnerRef === homeTeamData?.TeamRef;
+  const awayIsWinning = isFinal && winnerRef === awayTeamData?.TeamRef;
+  const homeIsLosing = isFinal && winnerRef !== undefined && !homeIsWinning;
+  const awayIsLosing = isFinal && winnerRef !== undefined && !awayIsWinning;
+
+  const getMatchStatus = () => {
+    const period = matchData.MatchInfo.Period;
+    if (period === "FullTime" || period === "PostMatch") return "FT";
+    if (period === "FirstHalf") return "HT";
+    if (period === "SecondHalf") return "LIVE";
+    return "";
+  };
 
   return (
     <Card className="p-0 gap-0 bg-card/50 border-border/50 overflow-hidden">
@@ -55,9 +76,21 @@ export default function MatchHero({ matchData, homeTeam, awayTeam, homeTeamPrism
         </div>
         <div className="flex flex-1 gap-6 items-center">
           <div className="flex-shrink text-6xl font-semibold flex items-center justify-center gap-10 leading-none">
-            <div>0</div>
-            <div className="text-lg font-normal text-muted-foreground">FT</div>
-            <div>0</div>
+            <div className={`relative ${homeIsLosing ? "text-foreground/60" : "text-foreground"}`}>
+              {homeIsWinning && (
+                <CaretFilledIcon className="size-3 -mt-0.5 absolute -left-6 top-1/2 -translate-y-1/2" />
+              )}
+              {homeScore}
+            </div>
+            {getMatchStatus() && (
+              <div className="text-lg font-normal text-muted-foreground">{getMatchStatus()}</div>
+            )}
+            <div className={`relative ${awayIsLosing ? "text-foreground/60" : "text-foreground"}`}>
+              {awayIsWinning && (
+                <CaretFilledIcon className="size-3 -mt-0.5 absolute -left-6 top-1/2 -translate-y-1/2" />
+              )}
+              {awayScore}
+            </div>
           </div>
         </div>
         <div className="relative p-8 flex items-center gap-4 justify-end">

@@ -217,3 +217,21 @@ export const InformationCircleIcon = createIcon(
   />
 )
 
+export const WhistleIcon = createIcon(
+  "WhistleIcon",
+  <path
+    fillRule="evenodd"
+    d="M10 5V1H8v4h2ZM2 8H1v8h7.0164c0.2573 3.909 3.5095 7 7.4836 7 4.1421 0 7.5 -3.3579 7.5 -7.5S19.6421 8 15.5 8H2Zm12 6h3v3h-3v-3ZM4.26822 2.35982l2.5 3 -1.53644 1.28036 -2.5 -3 1.53644 -1.28036Zm6.96358 3 2.5 -3 1.5364 1.28036 -2.5 3 -1.5364 -1.28036Z"
+    clipRule="evenodd"
+  />
+)
+
+export const SubstituteIcon = createIcon(
+  "SubstituteIcon",
+  <g>
+    <polygon points="0 15.5 .383 15.883 7.575 23.075 8.5 24 9.425 23.075 16.617 15.883 17 15.5 17 14.958 17 14.304 16.999 12.997 15.692 12.997 1.308 12.997 0 12.997 0 14.304 0 14.958 0 15.5" fillRule="evenodd" />
+    <polygon points=".383 8.117 0 8.5 0 9.042 0 9.696 0 11.003 1.308 11.003 15.692 11.003 16.999 11.003 17 9.696 17 9.042 17 8.5 16.617 8.117 9.425 .925 8.5 0 7.575 .925 .383 8.117" fillRule="evenodd" />
+  </g>,
+  "0 0 17 24"
+)
+

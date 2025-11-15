@@ -1,26 +1,59 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from '@/components/ui/carousel'
+import { CaretRightIcon } from '@/components/website-base/icons'
+import { cn } from '@/lib/utils'
+import type { GameCard } from '@/types/components'
+import { GameCard as GameCardComponent } from '@/components/blocks/game/game-card'
+import { normalizeOptaId } from '@/lib/opta/utils'
+import { GamesSliderFilter } from './games-slider-filter'
+import type { TournamentDocument } from '../../../../../prismicio-types'
+import { LinePattern } from '../../line-pattern'
 
 interface GamesSliderProps {
-  items?: Array<{ id?: string | number; title?: string; description?: string }>
+  gameCards?: GameCard[]
+  tournament: TournamentDocument
   isLoading?: boolean
 }
 
-const DUMMY_ITEMS = [
-  { id: 1, title: 'Item 1', description: 'Description for item 1' },
-  { id: 2, title: 'Item 2', description: 'Description for item 2' },
-  { id: 3, title: 'Item 3', description: 'Description for item 3' },
-  { id: 4, title: 'Item 4', description: 'Description for item 4' },
-  { id: 5, title: 'Item 5', description: 'Description for item 5' },
-  { id: 6, title: 'Item 6', description: 'Description for item 6' },
-]
-
-export function GamesSlider({ items = DUMMY_ITEMS, isLoading = false }: GamesSliderProps) {
+export function GamesSlider({ gameCards = [], tournament, isLoading = false }: GamesSliderProps) {
   const [api, setApi] = useState<CarouselApi | null>(null)
   const [canScrollPrev, setCanScrollPrev] = useState(false)
   const [canScrollNext, setCanScrollNext] = useState(false)
+
+  const uniqueDates = useMemo(() => {
+    const dates = gameCards.map(card => {
+      const dateString = card.fixture.MatchInfo.Date
+      return dateString.split(' ')[0]
+    })
+    return Array.from(new Set(dates)).sort()
+  }, [gameCards])
+
+  const defaultDate = useMemo(() => {
+    if (uniqueDates.length === 0) return undefined
+    
+    const now = new Date()
+    const todayString = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()))
+      .toISOString().split('T')[0]
+    
+    return uniqueDates.includes(todayString) ? todayString : uniqueDates[0]
+  }, [uniqueDates])
+
+  const [selectedDate, setSelectedDate] = useState<string | undefined>(defaultDate)
+
+  useEffect(() => {
+    setSelectedDate(defaultDate)
+  }, [defaultDate])
+
+  const filteredGameCards = useMemo(() => {
+    if (!selectedDate) return gameCards
+    
+    return gameCards.filter(card => {
+      const cardDate = card.fixture.MatchInfo.Date.split(' ')[0]
+      return cardDate === selectedDate
+    })
+  }, [gameCards, selectedDate])
 
   useEffect(() => {
     if (!api) return
@@ -43,45 +76,55 @@ export function GamesSlider({ items = DUMMY_ITEMS, isLoading = false }: GamesSli
 
   return (
     <div className='overflow-hidden relative'>
-      <div className='relative grid grid-cols-[auto,1fr] border-b border-border'>
+      <div className='relative grid grid-cols-[auto_1fr] border-t border-border/50'>
         <div className='relative px-6 py-2 flex items-center justify-center'>
-          {/* Filter/selector component goes here */}
+          <GamesSliderFilter 
+            dates={uniqueDates} 
+            tournament={tournament}
+            value={selectedDate}
+            onValueChange={setSelectedDate}
+          />
         </div>
         <div className="w-full">
           <Carousel 
-            className='grid grid-cols-[auto,1fr,auto] h-full' 
+            className='grid grid-cols-[auto_1fr_auto] h-full' 
             opts={{ align: "start" }} 
             setApi={setApi}
           >
             <CarouselPrevious 
-              className='w-6 h-full rounded-none border-r border-border border-l border-t-0 border-b-0 relative flex left-0 hover:bg-muted/25 disabled:text-muted-foreground/70' 
+              className='w-6 bg-muted/20  h-full rounded-none border-r border-border/50 border-l border-t-0 border-b-0 relative flex left-0 hover:bg-muted/25 disabled:text-muted-foreground/70' 
               disabled={isLoading || !canScrollPrev}
+              icon={({ className }) => <CaretRightIcon className={cn(className, 'rotate-180')} />}
             />
             <CarouselContent className='-ml-[1px] -mr-[1px] h-full'>
               {isLoading ? (
                 Array.from({ length: 6 }).map((_, index) => (
-                  <CarouselItem key={`skeleton-${index}`} className='lg:basis-1/3 md:basis-1/2 basis-full pl-0'>
+                  <CarouselItem key={`skeleton-${index}`} className='lg:basis-1/6 md:basis-1/4 basis-full pl-0'>
                     {/* Skeleton component goes here */}
                   </CarouselItem>
                 ))
-              ) : items.length > 0 ? (
-                items.map((item, index) => (
-                  <CarouselItem key={item.id || index} className='lg:basis-1/3 md:basis-1/2 basis-full pl-0'>
-                    <div className='h-[6.875rem] border-r border-border p-4 flex flex-col justify-center'>
-                      <h3 className='font-semibold'>{item.title}</h3>
-                      <p className='text-sm text-muted-foreground'>{item.description}</p>
+              ) : filteredGameCards.length > 0 ? (
+                filteredGameCards.map((gameCard, index) => (
+                  <CarouselItem key={normalizeOptaId(gameCard.fixture.uID) || index} className='lg:basis-1/6 md:basis-1/4 basis-full pl-0'>
+                    <div className='border-r border-border/50'>
+                      <GameCardComponent variant="mini" {...gameCard} />
                     </div>
                   </CarouselItem>
+                  
                 ))
               ) : (
-                <div className='w-full h-[6.875rem] flex items-center justify-center text-sm text-muted-foreground'>
+                <div className='w-full h-[83.59px] flex items-center justify-center text-sm text-muted-foreground'>
                   No items available
                 </div>
               )}
+              <div className='flex-grow relative overflow-hidden'>
+                <LinePattern className='absolute top-0 left-0 w-[200vw] h-[100vh]' patternSize={5}/>
+              </div>
             </CarouselContent>
             <CarouselNext 
-              className='w-6 h-full rounded-none border-l border-border border-r-0 border-t-0 border-b-0 relative flex left-0 hover:bg-muted/25 disabled:text-muted-foreground/70' 
+              className='w-6 bg-muted/20 h-full rounded-none border-l border-border/50 border-r-0 border-t-0 border-b-0 relative flex left-0 hover:bg-muted/25 disabled:text-muted-foreground/70'
               disabled={isLoading || !canScrollNext}
+              icon={({ className }) => <CaretRightIcon className={className} />}
             />
           </Carousel>
         </div>

@@ -19,11 +19,10 @@ export class OptaClient {
   private xmlParser: XMLParser;
 
   constructor() {
-    this.baseUrl = 'http://omo.akamai.opta.net';
+    this.baseUrl = 'https://omo.akamai.opta.net';
     this.username = process.env.OPTA_USERNAME || '';
     this.password = process.env.OPTA_PASSWORD || '';
 
-    // Configure XML parser to handle attributes properly
     this.xmlParser = new XMLParser({
       ignoreAttributes: false,
       attributeNamePrefix: '',
@@ -43,6 +42,29 @@ export class OptaClient {
     });
 
     const url = `${this.baseUrl}/competition.php?${queryParams.toString()}`;
+
+    const response = await fetch(url, {
+      method: 'GET',
+      next: { revalidate: 300 },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Opta API error: ${response.status} ${response.statusText}`);
+    }
+
+    return response;
+  }
+
+  private async makeDirectRequest(params: Record<string, string | number>): Promise<Response> {
+    const queryParams = new URLSearchParams({
+      user: this.username,
+      psw: this.password,
+      ...Object.fromEntries(
+        Object.entries(params).map(([key, value]) => [key, String(value)])
+      )
+    });
+
+    const url = `${this.baseUrl}/?${queryParams.toString()}`;
 
     const response = await fetch(url, {
       method: 'GET',
@@ -160,11 +182,9 @@ export class OptaClient {
     seasonId: string | number,
     language: F13LanguageCode = 'en'
   ): Promise<F13CommentaryResponse> {
-    const response = await this.makeRequest({
-      feed_type: 'f13',
+    const response = await this.makeDirectRequest({
+      feed_type: 'F13',
       game_id: matchId,
-      competition: competitionId,
-      season_id: seasonId,
       language: language,
     });
 

@@ -4,8 +4,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger, TabsContents } from "@/compon
 import { H2 } from "@/components/website-base/typography";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { useEffect, useState } from "react";
+import React from "react";
+import { cn } from "@/lib/utils";
 
-interface PlayByPlayProps {
+interface PlayByPlayProps extends React.ComponentProps<"div"> {
     matchId: string;
     competitionId: string;
     seasonId: string;
@@ -46,16 +48,18 @@ interface CommentCellProps {
 function CommentCell({ comment, type }: CommentCellProps) {
     const isGoalOrPenaltyGoal = type === 'goal' || 
         (typeof type === 'string' && type.toLowerCase().includes('penalty') && type.toLowerCase().includes('goal'));
-    const fontWeight = isGoalOrPenaltyGoal ? 'font-medium' : 'font-light text-muted-foreground';
     
     return (
         <TableCell className="align-top whitespace-normal">
-            <div className={`${fontWeight} break-words`}>{comment}</div>
+            <div className={cn(
+                "break-words",
+                isGoalOrPenaltyGoal ? 'font-medium' : 'font-light text-muted-foreground'
+            )}>{comment}</div>
         </TableCell>
     );
 }
 
-export default function PlayByPlay({ matchId, competitionId, seasonId }: PlayByPlayProps) {
+export default function PlayByPlay({ matchId, competitionId, seasonId, className, ...props }: PlayByPlayProps) {
     const [commentary, setCommentary] = useState<F13CommentaryResponse | null>(null);
 
     useEffect(() => {
@@ -76,14 +80,14 @@ export default function PlayByPlay({ matchId, competitionId, seasonId }: PlayByP
     );
 
     return (
-        <div className="space-y-6">
-            <div className="pt-12 border-b">
+        <div className={cn("space-y-6", className)} {...props}>
+            <div className="border-b">
                 <H2>Play-By-Play</H2>
             </div>
             <Tabs defaultValue="all-plays">
                 <TabsList className="bg-card w-full">
                     <TabsTrigger value="all-plays">All Plays</TabsTrigger>
-                    <TabsTrigger value="scoring-plays">Scoring Plays</TabsTrigger>
+                    <TabsTrigger value="scoring-chances">Scoring Chances</TabsTrigger>
                 </TabsList>
                 <TabsContents>
                     <TabsContent value="all-plays">
@@ -91,7 +95,9 @@ export default function PlayByPlay({ matchId, competitionId, seasonId }: PlayByP
                             <Table>
                                 <TableBody>
                                     {messages.map((message, index) => (
-                                        <TableRow key={message.id} className={index % 2 === 1 ? 'bg-muted/20 hover:bg-muted/20' : 'hover:bg-transparent'}>
+                                        <TableRow key={message.id} className={cn(
+                                            index % 2 === 1 ? 'bg-muted/20 hover:bg-muted/20' : 'hover:bg-transparent'
+                                        )}>
                                             <TimestampCell 
                                                 time={message.time}
                                                 period={message.period}
@@ -113,7 +119,9 @@ export default function PlayByPlay({ matchId, competitionId, seasonId }: PlayByP
                             <Table>
                                 <TableBody>
                                     {scoringMessages.map((message, index) => (
-                                        <TableRow key={message.id} className={index % 2 === 1 ? 'bg-muted/20 hover:bg-muted/20' : 'hover:bg-transparent'}>
+                                        <TableRow key={message.id} className={cn(
+                                            index % 2 === 1 ? 'bg-muted/20 hover:bg-muted/20' : 'hover:bg-transparent'
+                                        )}>
                                             <TimestampCell 
                                                 time={message.time}
                                                 period={message.period}

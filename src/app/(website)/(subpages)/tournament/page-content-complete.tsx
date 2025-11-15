@@ -78,11 +78,11 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                     )}
                     <div className="mt-8 flex justify-start">
                         <div className="grid grid-cols-2 gap-4">
-                            <Button asChild size="skew_lg">
-                                <Link href="#highlights"><span>Final Results</span></Link>
+                            <Button asChild size="skew_lg" className="clip-chop-sm">
+                                <Link href="#results"><span>Results</span></Link>
                             </Button>
                             <Button asChild size="skew_lg" variant="outline">
-                                <Link href="#results"><span>Stat Sheet</span></Link>
+                                <Link href="#stat-sheet"><span>Stat Sheet</span></Link>
                             </Button>
                         </div>
                     </div>
@@ -169,7 +169,7 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                         </div>
                     </Section>
                 )}
-                <Section padding="md">
+                <Section padding="md" id="results">
                     <SectionHeading variant="split">
                         <SectionHeadingHeading>
                             Group Stage
@@ -331,7 +331,7 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                         </LinePattern>
                     </div>
                 </Section>
-                <Section padding="md">
+                <Section padding="md" id="stat-sheet">
                     <SectionHeading className="pb-8">
                         <SectionHeadingHeading variant="h2">
                             Stat Sheet

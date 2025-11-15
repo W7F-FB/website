@@ -1,9 +1,18 @@
 import { clsx, type ClassValue } from "clsx"
-import { twMerge } from "tailwind-merge"
+import { extendTailwindMerge } from "tailwind-merge"
 import { format, parseISO } from "date-fns";
 import numeral from "numeral";
 import type { BlogDocument } from "../../prismicio-types";
 import type { BlogMetadata } from "@/components/blocks/posts/post";
+import countries from "world-countries";
+
+const twMerge = extendTailwindMerge({
+  extend: {
+    classGroups: {
+      'font-size': ['text-xxs'],
+    },
+  },
+})
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -51,12 +60,43 @@ export function formatDateRange(startDate: string | Date | null | undefined, end
 export function cleanCountryCode(countryCode: string | null | undefined): string | null {
   if (!countryCode) return null
   
-  // Remove all invisible Unicode characters that Sanity visual editing adds
   return countryCode
-    .replace(/[\u200B-\u200F\uFEFF\u2060-\u2064]/g, '') // Zero-width spaces, joiners, etc.
-    .replace(/[\u202A-\u202E]/g, '') // Text direction marks
+    .replace(/[\u200B-\u200F\uFEFF\u2060-\u2064]/g, '')
+    .replace(/[\u202A-\u202E]/g, '')
     .trim()
     .toLowerCase()
+}
+
+const UK_COUNTRIES: Record<string, string> = {
+  "england": "GB",
+  "scotland": "GB",
+  "wales": "GB",
+  "northern ireland": "GB"
+}
+
+export function getCountryIsoCode(countryNameOrCode: string | null | undefined): string | null {
+  if (!countryNameOrCode) return null
+  
+  const cleaned = countryNameOrCode.trim()
+  
+  if (cleaned.length === 2) {
+    return cleaned.toUpperCase()
+  }
+  
+  const normalizedInput = cleaned.toLowerCase()
+  
+  const ukCountry = UK_COUNTRIES[normalizedInput]
+  if (ukCountry) {
+    return ukCountry
+  }
+  
+  const country = countries.find(c => 
+    c.name.common.toLowerCase() === normalizedInput ||
+    c.name.official.toLowerCase() === normalizedInput ||
+    c.altSpellings.some(alt => alt.toLowerCase() === normalizedInput)
+  )
+  
+  return country?.cca2 || null
 }
 
 /**
