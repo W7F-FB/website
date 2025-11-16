@@ -13,6 +13,15 @@
           "placeholder": "URL slug for this tournament"
         }
       },
+      "featured": {
+        "type": "Boolean",
+        "config": {
+          "label": "Featured",
+          "placeholder_false": "false",
+          "placeholder_true": "true",
+          "default_value": false
+        }
+      },
       "status": {
         "type": "Select",
         "config": {

@@ -5,19 +5,17 @@ import { F13LanguageCode } from '@/types/opta-feeds/f13-commentary';
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const matchId = searchParams.get('matchId');
-  const competitionId = searchParams.get('competitionId');
-  const seasonId = searchParams.get('seasonId');
   const language = (searchParams.get('language') || 'en') as F13LanguageCode;
 
-  if (!matchId || !competitionId || !seasonId) {
+  if (!matchId) {
     return NextResponse.json(
-      { error: 'Missing required parameters: matchId, competitionId, seasonId' },
+      { error: 'Missing required parameter: matchId' },
       { status: 400 }
     );
   }
 
   try {
-    const data = await getF13Commentary(matchId, competitionId, seasonId, language);
+    const data = await getF13Commentary(matchId, language);
     return NextResponse.json(data);
   } catch (error) {
     console.error('Error fetching F13 commentary:', error);

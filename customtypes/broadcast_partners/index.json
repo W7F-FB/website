@@ -1,0 +1,89 @@
+{
+  "format": "custom",
+  "id": "broadcast_partners",
+  "label": "Broadcast Partner",
+  "repeatable": true,
+  "status": true,
+  "json": {
+    "Main": {
+      "uid": {
+        "type": "UID",
+        "config": {
+          "label": "UID"
+        }
+      },
+      "name": {
+        "type": "Text",
+        "config": {
+          "label": "Name",
+          "placeholder": ""
+        }
+      },
+      "logo": {
+        "type": "Image",
+        "config": {
+          "label": "Logo",
+          "constraint": {
+            "width": 1000,
+            "height": ""
+          },
+          "thumbnails": []
+        }
+      },
+      "logo_white": {
+        "type": "Image",
+        "config": {
+          "label": "Logo White",
+          "constraint": {
+            "width": 1000,
+            "height": ""
+          },
+          "thumbnails": []
+        }
+      },
+      "icon_logo": {
+        "type": "Image",
+        "config": {
+          "label": "Icon Logo",
+          "constraint": {
+            "width": 1000,
+            "height": ""
+          },
+          "thumbnails": []
+        }
+      },
+      "logo_on_primary": {
+        "type": "Image",
+        "config": {
+          "label": "Logo on Primary",
+          "constraint": {
+            "width": 1000,
+            "height": null
+          },
+          "thumbnails": []
+        }
+      },
+      "color_primary": {
+        "type": "Text",
+        "config": {
+          "label": "Color Primary",
+          "placeholder": ""
+        }
+      },
+      "color_secondary": {
+        "type": "Text",
+        "config": {
+          "label": "Color Secondary",
+          "placeholder": ""
+        }
+      },
+      "streaming_link": {
+        "type": "Text",
+        "config": {
+          "label": "Streaming Link",
+          "placeholder": ""
+        }
+      }
+    }
+  }
+}

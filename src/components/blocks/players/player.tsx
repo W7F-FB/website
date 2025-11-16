@@ -15,7 +15,7 @@ export function PlayerHeadshot({ logoUrl, headshotUrl, primaryColor }: PlayerHea
                     src={logoUrl}
                     alt="Team logo"
                     fill
-                    className="object-cover opacity-40 mask-b-from-10% mask-r-from-10%  mask-radial-from-1%"
+                    className="object-cover opacity-60 mask-b-from-20% mask-r-from-50%  mask-radial-from-1%"
                 />
             )}
             {headshotUrl ? (

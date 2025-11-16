@@ -1,7 +1,7 @@
 import type { F1MatchInfo, F1MatchData, F1TeamData } from "@/types/opta-feeds/f1-fixtures"
 
 export function normalizeOptaId(id: string): string {
-  if (id.startsWith('t') || id.startsWith('g')) {
+  if (id.startsWith('t') || id.startsWith('g') || id.startsWith('p')) {
     return id.slice(1)
   }
   return id
@@ -44,4 +44,15 @@ export function getMatchTeams(fixture: F1MatchData, optaTeams: F1TeamData[]): F1
   if (awayOptaTeam) result.push(awayOptaTeam)
   
   return result
+}
+
+export function removeW7F(text: string): string {
+  return text
+    .replace(/\s*W7F\s+2/g, ' 2')
+    .replace(/\s*W7F(?=[.,;:!?\)])/g, '')
+    .replace(/\s*W7F\s*/g, ' ')
+    .replace(/\s+/g, ' ')
+    .replace(/\s+([.,;:!?\)])/g, '$1')
+    .replace(/,([^\s])/g, ', $1')
+    .trim()
 }

@@ -1,7 +1,8 @@
 "use client"
 
 import { F30Player, getPlayerStat } from "@/types/opta-feeds/f30-season-stats"
-import { F30_STAT_TYPES, StatMetadata } from "@/lib/opta/f30-stat-dictionary"
+import { STAT_TYPES, StatMetadata } from "@/lib/opta/dictionaries/stat-dictionary"
+import type { PlayerStatDisplay } from "@/types/components"
 import {
   Table,
   TableBody,
@@ -28,21 +29,73 @@ function StatHorizontal({ label, value, className }: StatHorizontalProps) {
   )
 }
 
-interface PlayerMiniStatTableProps {
-  player: F30Player
-  stats: StatMetadata[]
-  useCurrentTeamOnly?: boolean
-  className?: string
-  variant?: "table" | "stacked"
+type PlayerMiniStatTableProps = 
+  | {
+      statDisplays: PlayerStatDisplay[]
+      className?: string
+      variant?: "table" | "stacked"
+      player?: never
+      stats?: never
+      useCurrentTeamOnly?: never
+    }
+  | {
+      player: F30Player
+      stats: StatMetadata[]
+      useCurrentTeamOnly?: boolean
+      className?: string
+      variant?: "table" | "stacked"
+      statDisplays?: never
+    }
+
+export function PlayerMiniStatTable(props: PlayerMiniStatTableProps) {
+  const { className, variant = "table" } = props
+
+  let statDisplays: PlayerStatDisplay[]
+
+  if (props.statDisplays) {
+    statDisplays = props.statDisplays
+  } else {
+    const { player, stats, useCurrentTeamOnly = false } = props
+    statDisplays = computeStatDisplays(player, stats, useCurrentTeamOnly)
+  }
+
+  if (variant === "stacked") {
+    return (
+      <div className={cn("flex flex-col gap-1", className)}>
+        {statDisplays.map((stat, idx) => (
+          <StatHorizontal
+            key={idx}
+            label={stat.label}
+            value={stat.value}
+          />
+        ))}
+      </div>
+    )
+  }
+
+  return (
+    <Table className={cn("rounded-xs", className)}>
+      <TableHeader className={cn("bg-muted/30")}>
+        <TableRow>
+          {statDisplays.map((stat, idx) => (
+            <TableHead key={idx} className={cn("text-center h-5 text-xxs font-normal text-muted-foreground/90 font-headers border-b border-muted/60")}>{stat.label}</TableHead>
+          ))}
+        </TableRow>
+      </TableHeader>
+      <TableBody className={cn("text-sm bg-muted/10")}>
+        <TableRow className="">
+          {statDisplays.map((stat, idx) => (
+            <TableCell key={idx} className={cn("text-center py-0 h-6 text-base text-foreground pt-0.5 font-medium ")}>
+              {stat.value}
+            </TableCell>
+          ))}
+        </TableRow>
+      </TableBody>
+    </Table>
+  )
 }
 
-export function PlayerMiniStatTable({
-  player,
-  stats,
-  useCurrentTeamOnly = false,
-  className,
-  variant = "table",
-}: PlayerMiniStatTableProps) {
+function computeStatDisplays(player: F30Player, stats: StatMetadata[], useCurrentTeamOnly: boolean): PlayerStatDisplay[] {
   const getStatValue = (stat: StatMetadata) => {
     if (stat.stat === "totalShotsConceded") {
       const saves = getPlayerStat(player, "Saves Made", useCurrentTeamOnly)
@@ -65,52 +118,24 @@ export function PlayerMiniStatTable({
       return 0
     }
     
-    const statEntry = Object.entries(F30_STAT_TYPES).find(
+    const statEntry = Object.entries(STAT_TYPES).find(
       ([, meta]) => meta.stat === stat.stat
     )
     
     if (!statEntry) return 0
     
-    const [statName] = statEntry
-    const value = getPlayerStat(player, statName, useCurrentTeamOnly)
+    const [, metadata] = statEntry
+    if (!metadata.f30Key) return 0
+    
+    const value = getPlayerStat(player, metadata.f30Key, useCurrentTeamOnly)
     
     return value ?? 0
   }
 
-  if (variant === "stacked") {
-    return (
-      <div className={cn("flex flex-col gap-1", className)}>
-        {stats.map((stat) => (
-          <StatHorizontal
-            key={stat.stat}
-            label={stat.abbr}
-            value={getStatValue(stat)}
-          />
-        ))}
-      </div>
-    )
-  }
-
-  return (
-    <Table className={cn("rounded-xs", className)}>
-      <TableHeader className={cn("bg-muted/30")}>
-        <TableRow>
-          {stats.map((stat) => (
-            <TableHead key={stat.stat} className={cn("text-center h-6 text-xs font-medium font-headers border-b border-muted/60")}>{stat.abbr}</TableHead>
-          ))}
-        </TableRow>
-      </TableHeader>
-      <TableBody className={cn("text-sm bg-muted/10")}>
-        <TableRow className="">
-          {stats.map((stat) => (
-            <TableCell key={stat.stat} className={cn("text-center pb-0.5 pt-1 text-muted-foreground/90 ")}>
-              {getStatValue(stat)}
-            </TableCell>
-          ))}
-        </TableRow>
-      </TableBody>
-    </Table>
-  )
+  return stats.map(stat => ({
+    label: stat.abbr,
+    value: getStatValue(stat)
+  }))
 }
 
 export { StatHorizontal }

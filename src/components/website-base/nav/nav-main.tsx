@@ -15,6 +15,9 @@ import { PaddingGlobal } from "@/components/website-base/padding-containers"
 import { getNavigationTournaments } from "@/cms/queries/tournaments"
 import { Button } from "@/components/ui/button"
 import { PageBreadcrumbs } from "@/components/blocks/page-breadcrumbs"
+import type { GameCard } from "@/types/components"
+import { GamesSlider } from "@/components/blocks/tournament/games-slider/games-slider"
+import type { TournamentDocument } from "../../../../prismicio-types"
 
 const exploreNavItems = [
   { href: "/news", label: "News", key: "nav-news" },
@@ -32,9 +35,11 @@ type NavMainProps = {
   showBreadcrumbs?: boolean;
   pathname?: string;
   customBreadcrumbs?: BreadcrumbItem[];
+  gameCards?: GameCard[];
+  tournament?: TournamentDocument;
 }
 
-async function NavMain({ showBreadcrumbs, pathname, customBreadcrumbs }: NavMainProps = {} as NavMainProps) {
+async function NavMain({ showBreadcrumbs, pathname, customBreadcrumbs, gameCards, tournament }: NavMainProps = {} as NavMainProps) {
   // Add error handling to prevent nav failure
   let tournaments: Awaited<ReturnType<typeof getNavigationTournaments>> = []
   try {
@@ -45,55 +50,58 @@ async function NavMain({ showBreadcrumbs, pathname, customBreadcrumbs }: NavMain
   }
 
   return (
-    <nav className="sticky top-0 z-50 w-full border-b border-border/50 bg-background backdrop-blur supports-[backdrop-filter]:bg-background/90">
-      <PaddingGlobal>
-        <div className="mx-auto flex w-full items-center gap-12 h-18">
-          <Logo size="lg" link color="white" variant="2-lines" />
-          <NavigationMenu viewport={false} className="justify-end">
-            <NavigationMenuList className="gap-2">
-              <NavigationMenuItem>
-                <NavigationMenuTrigger><span>Events & Tickets</span></NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <ul className="grid gap-2 md:w-[320px]">
-                    {tournaments.map((tournament) => (
-                      <NavigationMenuTournament
-                        key={tournament.id}
-                        tournament={tournament}
-                      />
-                    ))}
-                  </ul>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <NavigationMenuTrigger><span>Explore</span></NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <ul className="grid gap-1 md:w-[320px]">
-                    {exploreNavItems.map((item) => (
-                      <li key={item.key}>
-                        <NavigationMenuLink href={item.href}>
-                          <span>{item.label}</span>
-                          {item.subtitle && <span className="text-xs font-normal text-muted-foreground">{item.subtitle}</span>}
-                        </NavigationMenuLink>
-                      </li>
-                    ))}
-                  </ul>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
+    <div className="sticky top-0 z-50 w-full border-b border-border/50 bg-background backdrop-blur supports-[backdrop-filter]:bg-background/90">
+      <nav>
+        <PaddingGlobal>
+          <div className="mx-auto flex w-full items-center gap-12 h-18">
+            <Logo size="lg" link color="white" variant="2-lines" />
+            <NavigationMenu viewport={false} className="justify-end">
+              <NavigationMenuList className="gap-2">
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger><span>Events & Tickets</span></NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <ul className="grid gap-2 md:w-[320px]">
+                      {tournaments.map((tournament) => (
+                        <NavigationMenuTournament
+                          key={tournament.id}
+                          tournament={tournament}
+                        />
+                      ))}
+                    </ul>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger><span>Explore</span></NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <ul className="grid gap-1 md:w-[320px]">
+                      {exploreNavItems.map((item) => (
+                        <li key={item.key}>
+                          <NavigationMenuLink href={item.href}>
+                            <span>{item.label}</span>
+                            {item.subtitle && <span className="text-xs font-normal text-muted-foreground">{item.subtitle}</span>}
+                          </NavigationMenuLink>
+                        </li>
+                      ))}
+                    </ul>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
 
-              <NavigationMenuItem>
-                <NavigationMenuLink href="https://shopw7f.myshopify.com/" target="_blank" rel="me" className={navigationMenuTriggerStyle()}>
-                  <span>Shop</span>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-            </NavigationMenuList>
-          </NavigationMenu>
-          <div className="flex-grow flex justify-end">
-            <Button asChild size="skew"><Link href="#"><span>Purchase Tickets</span></Link></Button>
+                <NavigationMenuItem>
+                  <NavigationMenuLink href="https://shopw7f.myshopify.com/" target="_blank" rel="me" className={navigationMenuTriggerStyle()}>
+                    <span>Shop</span>
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
+            <div className="flex-grow flex justify-end">
+              <Button asChild size="skew"><Link href="#"><span>Purchase Tickets</span></Link></Button>
+            </div>
           </div>
-        </div>
-      </PaddingGlobal>
-      {showBreadcrumbs && <PageBreadcrumbs pathname={pathname} customBreadcrumbs={customBreadcrumbs} />}
-    </nav>
+        </PaddingGlobal>
+        {showBreadcrumbs && <PageBreadcrumbs pathname={pathname} customBreadcrumbs={customBreadcrumbs} />}
+      </nav>
+      {gameCards && gameCards.length > 0 && tournament && <GamesSlider gameCards={gameCards} tournament={tournament} />}
+    </div>
   )
 }
 

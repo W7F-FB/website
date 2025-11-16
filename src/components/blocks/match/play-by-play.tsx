@@ -1,27 +1,32 @@
 'use client';
-import { F13CommentaryResponse, F13MessageType } from "@/types/opta-feeds/f13-commentary";
+import { F13CommentaryResponse, F13MessageType, isScoringAttempt } from "@/types/opta-feeds/f13-commentary";
 import { Tabs, TabsContent, TabsList, TabsTrigger, TabsContents } from "@/components/ui/motion-tabs"
-import { H2 } from "@/components/website-base/typography";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
-import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
+import React from "react";
+import { cn } from "@/lib/utils";
+import { removeW7F } from "@/lib/opta/utils";
+import { SoccerIcon, SubstituteIcon, WhistleIcon, BlockedIcon, SavedIcon, BounceIcon, ReplayIcon } from "@/components/website-base/icons";
 
-interface PlayByPlayProps {
-    matchId: string;
-    competitionId: string;
-    seasonId: string;
+interface PlayByPlayProps extends React.ComponentProps<"div"> {
+    commentary: F13CommentaryResponse | null;
 }
 
 interface TimestampCellProps {
     time?: string;
-    period?: string;
-    minute?: string;
-    second?: string;
+    isGoal?: boolean;
 }
 
-function TimestampCell({ time, period, minute, second }: TimestampCellProps) {
+function TimestampCell({ time, isGoal }: TimestampCellProps) {
+    const isValidTimestamp = time && /^\d+'$/.test(time);
+    const displayTime = isValidTimestamp ? time : null;
+    
     return (
-        <TableCell className="align-middle text-sm text-muted-foreground w-[120px]">
-            {time || `${period}H ${minute}:${second}`}
+        <TableCell className="align-middle text-sm text-muted-foreground w-10 font-headers text-xxs font-medium relative pl-3">
+            {isGoal && (
+                <div className="absolute h-full top-0 bottom-0 left-0 w-1.5 bg-gradient-to-r from-foreground/50 to-foreground/0" />
+            )}
+            {displayTime || ''}
         </TableCell>
     );
 }
@@ -31,9 +36,37 @@ interface EventTypeCellProps {
 }
 
 function EventTypeCell({ type }: EventTypeCellProps) {
+    const getIcon = () => {
+        if (type === 'goal') {
+            return <SoccerIcon className="size-3" />;
+        }
+        if (type === 'substitution') {
+            return <SubstituteIcon className="size-3" />;
+        }
+        if (type === 'miss' || type === 'post') {
+            return <BounceIcon className="size-3" />;
+        }
+        if (type === 'attempt saved' || type === 'save') {
+            return <SavedIcon className="size-3" />;
+        }
+        if (type === 'attempt blocked') {
+            return <BlockedIcon className="size-3" />;
+        }
+        if (type === 'yellow card') {
+            return <div className="h-3.5 w-2.5 rounded-sm bg-yellow-500 mx-auto" />;
+        }
+        if (type === 'red card' || type === 'second yellow card') {
+            return <div className="h-3.5 w-2.5 rounded-sm bg-red-600 mx-auto" />;
+        }
+        if (type === 'free kick lost') {
+            return <WhistleIcon className="size-3" />;
+        }
+        return null;
+    };
+
     return (
-        <TableCell className="align-middle text-xs text-muted-foreground capitalize w-[150px]">
-            {type}
+        <TableCell className="align-middle text-xs text-muted-foreground capitalize w-6">
+            {getIcon()}
         </TableCell>
     );
 }
@@ -44,94 +77,97 @@ interface CommentCellProps {
 }
 
 function CommentCell({ comment, type }: CommentCellProps) {
-    const isGoalOrPenaltyGoal = type === 'goal' || 
-        (typeof type === 'string' && type.toLowerCase().includes('penalty') && type.toLowerCase().includes('goal'));
-    const fontWeight = isGoalOrPenaltyGoal ? 'font-medium' : 'font-light text-muted-foreground';
+    const cleanedComment = removeW7F(comment);
     
     return (
-        <TableCell className="align-top whitespace-normal">
-            <div className={`${fontWeight} break-words`}>{comment}</div>
+        <TableCell className="align-center whitespace-normal">
+            <div className={cn(
+                "break-words text-xs",
+                type === 'goal' ? 'font-semibold' : 'font-base text-muted-foreground'
+            )}>{cleanedComment}</div>
         </TableCell>
     );
 }
 
-export default function PlayByPlay({ matchId, competitionId, seasonId }: PlayByPlayProps) {
-    const [commentary, setCommentary] = useState<F13CommentaryResponse | null>(null);
+interface ActionCellProps {
+    type: F13MessageType;
+}
 
-    useEffect(() => {
-        async function fetchCommentary() {
-            const fetchUrl = `/api/opta/f13-commentary-feed?matchId=${matchId}&competitionId=${competitionId}&seasonId=${seasonId}&language=en`;
-            console.log('F13 Request URL:', fetchUrl);
-            const response = await fetch(fetchUrl);
-            const data = await response.json();
-            console.log('F13 Commentary Response:', data);
-            setCommentary(data);
-        }
-        fetchCommentary();
-    }, [matchId, competitionId, seasonId]);
-
-    const messages = commentary?.Commentary?.message || [];
-    const scoringMessages = messages.filter(msg => 
-        msg.type === 'goal' || msg.type === 'miss' || msg.type === 'post' || msg.type === 'attempt saved'
-    );
+function ActionCell({ type }: ActionCellProps) {
+    if (type !== 'goal') {
+        return <TableCell className="w-16" />;
+    }
 
     return (
-        <div className="space-y-6">
-            <div className="pt-12 border-b">
-                <H2>Play-By-Play</H2>
-            </div>
-            <Tabs defaultValue="all-plays">
-                <TabsList className="bg-card w-full">
-                    <TabsTrigger value="all-plays">All Plays</TabsTrigger>
-                    <TabsTrigger value="scoring-plays">Scoring Plays</TabsTrigger>
-                </TabsList>
-                <TabsContents>
-                    <TabsContent value="all-plays">
-                        {messages.length > 0 ? (
-                            <Table>
-                                <TableBody>
-                                    {messages.map((message, index) => (
-                                        <TableRow key={message.id} className={index % 2 === 1 ? 'bg-muted/20 hover:bg-muted/20' : 'hover:bg-transparent'}>
-                                            <TimestampCell 
-                                                time={message.time}
-                                                period={message.period}
-                                                minute={message.minute}
-                                                second={message.second}
-                                            />
-                                            <EventTypeCell type={message.type} />
-                                            <CommentCell comment={message.comment} type={message.type} />
-                                        </TableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>
-                        ) : (
-                            <div className="text-center py-8 text-muted-foreground">No commentary available</div>
-                        )}
-                    </TabsContent>
-                    <TabsContent value="scoring-plays">
-                        {scoringMessages.length > 0 ? (
-                            <Table>
-                                <TableBody>
-                                    {scoringMessages.map((message, index) => (
-                                        <TableRow key={message.id} className={index % 2 === 1 ? 'bg-muted/20 hover:bg-muted/20' : 'hover:bg-transparent'}>
-                                            <TimestampCell 
-                                                time={message.time}
-                                                period={message.period}
-                                                minute={message.minute}
-                                                second={message.second}
-                                            />
-                                            <EventTypeCell type={message.type} />
-                                            <CommentCell comment={message.comment} type={message.type} />
-                                        </TableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>
-                        ) : (
-                            <div className="text-center py-8 text-muted-foreground">No scoring plays</div>
-                        )}
-                    </TabsContent>
-                </TabsContents>
-            </Tabs>
-        </div>
+        <TableCell className="w-16 align-middle">
+            <Button size="sm" variant="outline" className="h-7 px-2 text-xs gap-1">
+                <ReplayIcon className="size-3" />
+                watch
+            </Button>
+        </TableCell>
+    );
+}
+
+export default function PlayByPlay({ commentary, className }: PlayByPlayProps) {
+    const messages = commentary?.Commentary?.message || [];
+    const scoringMessages = messages.filter(msg => isScoringAttempt(msg));
+
+    return (
+        <Tabs className={cn("",className)}>
+            <TabsList className="bg-card w-full">
+                <TabsTrigger value="all-plays">All Plays</TabsTrigger>
+                <TabsTrigger value="scoring-chances">Scoring Chances</TabsTrigger>
+            </TabsList>
+            <TabsContents>
+                <TabsContent value="all-plays">
+                    {messages.length > 0 ? (
+                        <Table className={cn()}>
+                            <TableBody>
+                                {messages.map((message, index) => (
+                                    <TableRow key={message.id} className={cn(
+                                        message.type === 'goal' ? 'bg-muted/50 hover:bg-muted/50' :
+                                        index % 2 === 1 ? 'bg-muted/20 hover:bg-muted/20' : 'hover:bg-transparent'
+                                    )}>
+                                        <TimestampCell 
+                                            time={message.time}
+                                            isGoal={message.type === 'goal'}
+                                        />
+                                        <EventTypeCell type={message.type} />
+                                        <CommentCell comment={message.comment} type={message.type} />
+                                        <ActionCell type={message.type} />
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    ) : (
+                        <div className="text-center py-8 text-muted-foreground">No commentary available</div>
+                    )}
+                </TabsContent>
+                <TabsContent value="scoring-chances">
+                    {scoringMessages.length > 0 ? (
+                        <Table className={cn()}>
+                            <TableBody>
+                                {scoringMessages.map((message, index) => (
+                                    <TableRow key={message.id} className={cn(
+                                        message.type === 'goal' ? 'bg-muted/80 hover:bg-muted/80' :
+                                        index % 2 === 1 ? 'bg-muted/20 hover:bg-muted/20' : 'hover:bg-transparent'
+                                    )}>
+                                        <TimestampCell 
+                                            time={message.time}
+                                            isGoal={message.type === 'goal'}
+                                        />
+                                        <EventTypeCell type={message.type} />
+                                        <CommentCell comment={message.comment} type={message.type} />
+                                        <ActionCell type={message.type} />
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    ) : (
+                        <div className="text-center py-8 text-muted-foreground">No scoring plays</div>
+                    )}
+                </TabsContent>
+            </TabsContents>
+        </Tabs>
     )
 }

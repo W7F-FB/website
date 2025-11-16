@@ -119,12 +119,14 @@ type TabsListProps = React.ComponentProps<'div'> & {
   children: React.ReactNode;
   activeClassName?: string;
   transition?: Transition;
+  variant?: "default" | "skew";
 };
 
 function TabsList({
   children,
   className,
   activeClassName,
+  variant = "default",
   transition = {
     type: 'spring',
     stiffness: 500,
@@ -135,7 +137,7 @@ function TabsList({
   const { activeValue } = useTabs();
 
   return (
-    <div className="pr-6">
+    <div className={cn("", className, variant === "skew" && "pr-6")}>
       <MotionHighlight
         controlledItems
         className={cn('bg-muted', activeClassName)}
@@ -145,8 +147,10 @@ function TabsList({
         <div
           role="tablist"
           data-slot="tabs-list"
+          data-variant={variant}
           className={cn(
-            'bg-muted/50 gap-1.5 origin-bottom-left -skew-x-[var(--skew-btn)] text-muted-foreground/75 inline-flex h-12 w-fit items-center justify-center p-1.5',
+            'bg-muted/50 gap-1.5 text-muted-foreground/75 inline-flex h-12 w-fit items-center justify-center p-1.5',
+            variant === "skew" && 'origin-bottom-left -skew-x-[var(--skew-btn)] [&_[data-slot=tabs-trigger]_span]:skew-x-[var(--skew-btn)] [&_[data-slot=tabs-trigger]_span]:will-change-transform [&_[data-slot=tabs-trigger]_span]:[backface-visibility:hidden]',
             className,
           )}
           {...props}
@@ -158,7 +162,7 @@ function TabsList({
   );
 }
 
-type TabsTriggerProps = React.ComponentProps<typeof Button> & {
+type TabsTriggerProps = Omit<React.ComponentProps<typeof Button>, 'variant'> & {
   value: string;
   children: React.ReactNode;
 };
@@ -192,7 +196,7 @@ function TabsTrigger({
         )}
         {...props}
       >
-        <span className="skew-x-[var(--skew-btn)] will-change-transform [backface-visibility:hidden]">
+        <span>
           {children}
         </span>
       </Button>

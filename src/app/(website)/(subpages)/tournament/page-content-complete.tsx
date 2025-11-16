@@ -21,7 +21,7 @@ import { getPlayerByName } from "@/types/opta-feeds/f30-season-stats"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { SectionHeading, SectionHeadingHeading, SectionHeadingText, SectionHeadingSubtitle } from "@/components/sections/section-heading"
 import { Badge } from "@/components/ui/badge"
-import { GameCard } from "@/components/blocks/game/game-card"
+import { MatchCard } from "@/components/blocks/match/match-card"
 import { getGroupStageMatches, getSemiFinalMatches, getThirdPlaceMatch, getFinalMatch, groupMatchesByDate, formatMatchDayDate } from "./utils"
 import { getMatchTeams } from "@/lib/opta/utils"
 import { formatDateRange, formatCurrencyInWords, mapBlogDocumentToMetadata } from "@/lib/utils"
@@ -35,7 +35,7 @@ import { VideoBanner } from "@/components/blocks/video-banner/video-banner"
 import { cn } from "@/lib/utils"
 import { NavMain } from "@/components/website-base/nav/nav-main";
 import { PlayerAwardCard } from "@/components/blocks/players/player-award-card"
-import { LinePattern } from "@/components/blocks/line-pattern"
+import { FastBanner } from "@/components/blocks/fast-banners"
 import { StatSheetTabs } from "@/components/blocks/tournament/stat-sheet/stat-sheet-tabs"
 import { ChampionsCard } from "@/components/blocks/tournament/champions-card"
 
@@ -78,11 +78,11 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                     )}
                     <div className="mt-8 flex justify-start">
                         <div className="grid grid-cols-2 gap-4">
-                            <Button asChild size="skew_lg">
-                                <Link href="#highlights"><span>Final Results</span></Link>
+                            <Button asChild size="skew_lg" className="clip-chop-sm">
+                                <Link href="#results"><span>Results</span></Link>
                             </Button>
                             <Button asChild size="skew_lg" variant="outline">
-                                <Link href="#results"><span>Stat Sheet</span></Link>
+                                <Link href="#stat-sheet"><span>Stat Sheet</span></Link>
                             </Button>
                         </div>
                     </div>
@@ -169,7 +169,7 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                         </div>
                     </Section>
                 )}
-                <Section padding="md">
+                <Section padding="md" id="results">
                     <SectionHeading variant="split">
                         <SectionHeadingHeading>
                             Group Stage
@@ -179,18 +179,15 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                         </SectionHeadingText>
                     </SectionHeading>
                     <div className="grid grid-cols-1 md:grid-cols-7 gap-12">
-                        <Card className="p-0 gap-0 col-span-1 md:col-span-2 self-start sticky top-32">
+                        <Card banner className="col-span-1 md:col-span-2 self-start sticky top-32">
                             {f3StandingsData?.SoccerFeed?.SoccerDocument?.Competition?.TeamStandings?.map((groupStandings) => {
                                 const groupName = groupStandings.Round?.Name.value || 'Unknown Group'
                                 return (
-
                                     <div key={groupStandings.Round?.Name.id || Math.random()}>
-                                        <CardHeader className="bg-muted/50 gap-0 py-4 px-6">
-                                            <CardTitle className="font-headers text-xl">
-                                                {groupName}
-                                            </CardTitle>
+                                        <CardHeader>
+                                            <CardTitle>{groupName}</CardTitle>
                                         </CardHeader>
-                                        <CardContent className="divide-y divide-muted/50 py-4 px-6">
+                                        <CardContent>
                                             <GroupList
                                                 groupStandings={groupStandings}
                                                 teams={f3StandingsData?.SoccerFeed?.SoccerDocument?.Team || []}
@@ -225,7 +222,7 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                                         </div>
                                         <div className={cn("grid grid-cols-1 md:grid-cols-2 gap-6", compact && "md:grid-cols-3")}>
                                             {matches.map((match) => (
-                                                <GameCard
+                                                <MatchCard
                                                     key={match.uID}
                                                     fixture={match}
                                                     prismicTeams={prismicTeams}
@@ -271,15 +268,11 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                         )}
                     </div>
                     <div className="flex justify-center items-start gap-8">
-                        <LinePattern className="flex-grow self-stretch flex items-center justify-center relative">
-                            <div className="absolute top-8 left-8 writing-mode-vrl text-[6vw] font-headers leading-none italic font-black whitespace-nowrap text-background text-stroke-[1px]/line-pattern select-none uppercase">
-                                <span className="block">FAST.</span>
-                            </div>
-                        </LinePattern>
+                        <FastBanner text="FAST." position="left" strokeWidth="1px" uppercase />
                         <div className="max-w-3xl w-full space-y-6">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 {semiFinalMatches[0] && (
-                                    <GameCard
+                                    <MatchCard
                                         fixture={semiFinalMatches[0]}
                                         prismicTeams={prismicTeams}
                                         optaTeams={getMatchTeams(semiFinalMatches[0], f1FixturesData?.SoccerFeed?.SoccerDocument?.Team || [])}
@@ -288,7 +281,7 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                                     />
                                 )}
                                 {semiFinalMatches[1] && (
-                                    <GameCard
+                                    <MatchCard
                                         fixture={semiFinalMatches[1]}
                                         prismicTeams={prismicTeams}
                                         optaTeams={getMatchTeams(semiFinalMatches[1], f1FixturesData?.SoccerFeed?.SoccerDocument?.Team || [])}
@@ -298,7 +291,7 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                                 )}
                             </div>
                             {thirdPlaceMatches.map((match) => (
-                                <GameCard
+                                <MatchCard
                                     key={match.uID}
                                     fixture={match}
                                     prismicTeams={prismicTeams}
@@ -309,7 +302,7 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                             ))}
                             <Separator variant="gradient" className="my-12" />
                             {finalMatches.map((match) => (
-                                <GameCard
+                                <MatchCard
                                     key={match.uID}
                                     fixture={match}
                                     prismicTeams={prismicTeams}
@@ -324,14 +317,10 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                                 prismicTeams={prismicTeams}
                             />
                         </div>
-                        <LinePattern className="flex-grow self-stretch flex items-center justify-center relative">
-                            <div className="absolute top-8 right-8 writing-mode-vrl text-[6vw] font-headers leading-none italic font-black whitespace-nowrap text-background text-stroke-[1.5px]/line-pattern select-none">
-                                <span className="block">FORWARD.</span>
-                            </div>
-                        </LinePattern>
+                        <FastBanner text="FORWARD." position="right" strokeWidth="1.5px" />
                     </div>
                 </Section>
-                <Section padding="md">
+                <Section padding="md" id="stat-sheet">
                     <SectionHeading className="pb-8">
                         <SectionHeadingHeading variant="h2">
                             Stat Sheet

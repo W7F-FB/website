@@ -2,12 +2,24 @@ import * as React from "react"
 
 import { cn } from "@/lib/utils"
 
-function Card({ className, ...props }: React.ComponentProps<"div">) {
+type CardProps = React.ComponentProps<"div"> & {
+  banner?: boolean
+}
+
+const bannerDescendantClasses =
+  "[&_[data-slot=card-header]]:bg-muted/30 [&_[data-slot=card-header]]:py-4 [&_[data-slot=card-header]]:gap-0 [&_[data-slot=card-header]]:px-4 [&_[data-slot=card-title]]:text-xl [&_[data-slot=card-title]]:font-medium [&_[data-slot=card-title]]:font-headers [&_[data-slot=card-title]]:tracking-wider [&_[data-slot=card-title]]:uppercase [&_[data-slot=card-content]]:px-4 [&_[data-slot=card-content]]:py-3"
+
+function Card({ className, banner, ...props }: CardProps) {
   return (
     <div
       data-slot="card"
+      data-variant={banner ? "banner" : undefined}
       className={cn(
-        "bg-card text-card-foreground flex flex-col gap-6 rounded-none border py-8 shadow-sm",
+        "bg-card text-card-foreground flex flex-col rounded-none border shadow-sm",
+        banner
+          ? "gap-0 p-0 self-start bg-card/50 border-border/50"
+          : "gap-6 py-8",
+        banner && bannerDescendantClasses,
         className
       )}
       {...props}

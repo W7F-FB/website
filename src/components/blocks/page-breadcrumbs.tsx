@@ -31,8 +31,10 @@ export function PageBreadcrumbs({ pathname, customBreadcrumbs }: PageBreadcrumbs
   const breadcrumbs = customBreadcrumbs ?? generateBreadcrumbs(currentPathname);
 
   return (
-    <Breadcrumb className="relative">
-      <LinePattern patternSize={5} className="absolute inset-0 -z-10" />
+    <Breadcrumb className="relative overflow-hidden">
+      <div className="absolute -z-10 mt-px">
+        <LinePattern patternSize={5} className="absolute w-[200vw] h-[100vh] top-0left-0 " />
+      </div>
       <PaddingGlobal className="pt-1.5 pb-1 border-t border-border/50">
         <BreadcrumbList>
           {breadcrumbs.flatMap((breadcrumb, index) => [

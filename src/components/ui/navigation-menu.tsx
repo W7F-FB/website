@@ -4,7 +4,7 @@ import { cva } from "class-variance-authority"
 import Link from "next/link"
 
 import { cn } from "@/lib/utils"
-import { CaretDownIcon } from "@/components/website-base/icons"
+import { CaretRightIcon } from "@/components/website-base/icons"
 
 
 function NavigationMenu({
@@ -79,10 +79,12 @@ function NavigationMenuTrigger({
       {...props}
     >
       {children}{" "}
-      <CaretDownIcon
-        className="relative top-[1px] ml-2.5 size-3 transition duration-300 group-data-[state=open]:rotate-180"
-        aria-hidden="true"
-      />
+      <span className="inline-flex">
+        <CaretRightIcon
+          className="relative top-[1px] ml-2.5 size-3 transition duration-300 rotate-90 group-data-[state=open]:rotate-[270deg]"
+          aria-hidden="true"
+        />
+      </span>
     </NavigationMenuPrimitive.Trigger>
   )
 }
