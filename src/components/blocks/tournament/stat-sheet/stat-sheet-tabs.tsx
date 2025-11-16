@@ -30,9 +30,10 @@ type StatSheetTabsProps = {
     prismicTeams: TeamDocument[]
     f30TeamStats: Map<string, F30SeasonStatsResponse>
     f1FixturesData: F1FixturesResponse | null
+    tournamentStatus?: string
 }
 
-export function StatSheetTabs({ prismicTeams, f30TeamStats, f1FixturesData }: StatSheetTabsProps) {
+export function StatSheetTabs({ prismicTeams, f30TeamStats, f1FixturesData, tournamentStatus }: StatSheetTabsProps) {
     const [selectedTeamId, setSelectedTeamId] = useState<string>("")
     const [leaderView, setLeaderView] = useState<StatSheetLeaderValue>("goals")
 
@@ -46,6 +47,7 @@ export function StatSheetTabs({ prismicTeams, f30TeamStats, f1FixturesData }: St
                 onTeamSelect={setSelectedTeamId}
                 leaderView={leaderView}
                 onLeaderViewChange={setLeaderView}
+                tournamentStatus={tournamentStatus}
             />
         </Tabs>
     )
@@ -59,6 +61,7 @@ type StatSheetTabsContentProps = {
     onTeamSelect: (teamId: string) => void
     leaderView: StatSheetLeaderValue
     onLeaderViewChange: (value: StatSheetLeaderValue) => void
+    tournamentStatus?: string
 }
 
 function StatSheetTabsContent({ 
@@ -68,7 +71,8 @@ function StatSheetTabsContent({
     selectedTeamId,
     onTeamSelect,
     leaderView,
-    onLeaderViewChange
+    onLeaderViewChange,
+    tournamentStatus
 }: StatSheetTabsContentProps) {
     const { activeValue } = useTabs()
 
@@ -92,7 +96,7 @@ function StatSheetTabsContent({
 
             <TabsContents>
                 <TabsContent value="teams" className="pt-4">
-                    <StatSheetTeamsTable prismicTeams={prismicTeams} f30TeamStats={f30TeamStats} f1FixturesData={f1FixturesData} />
+                    <StatSheetTeamsTable prismicTeams={prismicTeams} f30TeamStats={f30TeamStats} f1FixturesData={f1FixturesData} tournamentStatus={tournamentStatus} />
                 </TabsContent>
 
                 <TabsContent value="players" className="pt-4">

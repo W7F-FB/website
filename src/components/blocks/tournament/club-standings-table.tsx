@@ -14,9 +14,10 @@ type ClubStandingsTableProps = {
     prismicTeams: TeamDocument[]
     f1FixturesData: F1FixturesResponse | null
     f40Squads?: F40SquadsResponse | null
+    tournamentStatus?: string
 }
 
-export function ClubStandingsTable({ prismicTeams, f1FixturesData, f40Squads }: ClubStandingsTableProps) {
+export function ClubStandingsTable({ prismicTeams, f1FixturesData, f40Squads, tournamentStatus }: ClubStandingsTableProps) {
     const finalMatches = getFinalMatch(f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData)
     const thirdPlaceMatches = getThirdPlaceMatch(f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData)
     
@@ -95,6 +96,7 @@ export function ClubStandingsTable({ prismicTeams, f1FixturesData, f40Squads }: 
                                 name={row.name}
                                 record={row.record}
                                 className="pr-2"
+                                tournamentStatus={tournamentStatus}
                             />
                         </TableRow>
                         {row.placement === '4th' && (

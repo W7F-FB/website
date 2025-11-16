@@ -9,18 +9,21 @@ type ClubRankCellProps = {
     name: string
     record?: string
     className?: string
+    tournamentStatus?: string
 }
 
-export function ClubRankCell({ placement, logo, name, record, className }: ClubRankCellProps) {
+export function ClubRankCell({ placement, logo, name, record, className, tournamentStatus }: ClubRankCellProps) {
+    const isComplete = tournamentStatus === 'Complete'
+    
     return (
         <TableCell className={cn("h-12 py-0 font-medium font-headers pr-10", className)}>
             <div className="flex items-center gap-3 justify-between">
                 <div className="flex items-center gap-3">
                     <div className={cn(
                         "text-xs w-8",
-                        placement === '1st' && "font-semibold bg-gold-gradient bg-clip-text text-transparent",
-                        placement === '2nd' && "font-semibold bg-silver-gradient bg-clip-text text-transparent",
-                        placement === '3rd' && "font-semibold bg-bronze-gradient bg-clip-text text-transparent",
+                        isComplete && placement === '1st' && "font-semibold bg-gold-gradient bg-clip-text text-transparent",
+                        isComplete && placement === '2nd' && "font-semibold bg-silver-gradient bg-clip-text text-transparent",
+                        isComplete && placement === '3rd' && "font-semibold bg-bronze-gradient bg-clip-text text-transparent",
                         placement === 'E' && "text-muted-foreground/80",
                         !['1st', '2nd', '3rd', 'E'].includes(placement) && "text-muted-foreground"
                     )}>{placement}</div>

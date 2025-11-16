@@ -15,9 +15,10 @@ type StatSheetTeamsTableProps = {
     prismicTeams: TeamDocument[]
     f30TeamStats: Map<string, F30SeasonStatsResponse>
     f1FixturesData: F1FixturesResponse | null
+    tournamentStatus?: string
 }
 
-export function StatSheetTeamsTable({ prismicTeams, f30TeamStats, f1FixturesData }: StatSheetTeamsTableProps) {
+export function StatSheetTeamsTable({ prismicTeams, f30TeamStats, f1FixturesData, tournamentStatus }: StatSheetTeamsTableProps) {
     const [hoveredRow, setHoveredRow] = useState<number | null>(null)
 
     const finalMatches = getFinalMatch(f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData)
@@ -111,6 +112,7 @@ export function StatSheetTeamsTable({ prismicTeams, f30TeamStats, f1FixturesData
                                         placement={row.placement}
                                         logo={row.team.data.logo}
                                         name={row.name}
+                                        tournamentStatus={tournamentStatus}
                                     />
                                 </TableRow>
                                 {row.placement === '4th' && (

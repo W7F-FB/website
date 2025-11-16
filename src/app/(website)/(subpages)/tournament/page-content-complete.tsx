@@ -327,7 +327,7 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                         </SectionHeadingHeading>
                     </SectionHeading>
                     
-                    <StatSheetTabs prismicTeams={prismicTeams} f30TeamStats={f30TeamStats} f1FixturesData={f1FixturesData} />
+                    <StatSheetTabs prismicTeams={prismicTeams} f30TeamStats={f30TeamStats} f1FixturesData={f1FixturesData} tournamentStatus={tournament.data.status} />
                 </Section>
                 {tournamentBlogs.length > 0 && (
                     <>
