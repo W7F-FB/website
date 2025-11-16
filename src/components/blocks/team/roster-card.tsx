@@ -1,52 +1,32 @@
 "use client"
-import { useState } from "react"
-import Image from "next/image"
 import type { F40Player } from "@/types/opta-feeds/f40-squads-feed"
 import { getPlayerFullName, getPlayerJerseyNumber, getPlayerNationality } from "@/types/opta-feeds/f40-squads-feed"
-import { H2, H3 } from "@/components/website-base/typography"
-import { Card, CardContent, CardHeader } from "@/components/ui/card"
-import { Separator } from "@/components/ui/separator"
-import type { TeamDocument } from "../../../../prismicio-types"
-
-function getCountryFlagUrl(nationality: string, size: string = "21x21"): string {
-    const baseUrl = "https://omo.akamai.opta.net/image.php"
-    const params = new URLSearchParams({
-        secure: "true",
-        h: "omo.akamai.opta.net",
-        sport: "football",
-        entity: "flags",
-        description: "countries",
-        dimensions: size,
-        id: nationality
-    })
-    return `${baseUrl}?${params.toString()}`
-}
+import { Tabs, TabsContent, TabsList, TabsTrigger, TabsContents } from "@/components/ui/motion-tabs"
+import { Table, TableBody, TableCell, TableHead, TableRow } from "@/components/ui/table"
+import React from "react"
+import { cn, getCountryIsoCode } from "@/lib/utils"
+import ReactCountryFlag from "react-country-flag"
 
 function CountryFlag({ country }: { country: string }) {
-    const [error, setError] = useState(false)
+    const countryIso = getCountryIsoCode(country)
 
-    if (error) {
-        return <span className="text-base">-</span>
-    }
+    if (!countryIso) return null
 
     return (
-        <Image
-            src={getCountryFlagUrl(country)}
-            alt={`${country} flag`}
-            width={21}
-            height={21}
-            className="inline-block"
-            onError={() => setError(true)}
+        <ReactCountryFlag
+            countryCode={countryIso}
+            svg
+            className="w-5! h-5! rounded"
         />
     )
 }
 
 type Props = {
     players: F40Player[]
-    team: TeamDocument
+    className?: string
 }
 
-export function RosterCard({ players, team }: Props) {
+export function RosterCard({ players, className }: Props) {
     const goalkeepers = players.filter(p => p.Position === "Goalkeeper")
     const defenders = players.filter(p => p.Position === "Defender")
     const midfielders = players.filter(p => p.Position === "Midfielder")
@@ -54,94 +34,57 @@ export function RosterCard({ players, team }: Props) {
 
     return (
         <div className="space-y-8">
-            {goalkeepers.length > 0 && (
-                <Card>
-                    <CardHeader>
-                        <H3 className="uppercase">
-                            Goalkeepers
-                        </H3>
-                    </CardHeader>
-                    <Separator />
-                    <CardContent>
-                        <HeaderRow />
-                        <div className="grid">
-                            {goalkeepers.map(player => (
-                                <PlayerRow key={player.uID} player={player} />
-                            ))}
-                        </div>
-                    </CardContent>
-                </Card>
-            )}
-
-            {defenders.length > 0 && (
-                <Card>
-                    <CardHeader>
-                        <H3 className="uppercase">
-                            Defenders
-                        </H3>
-                    </CardHeader>
-                    <Separator />
-                    <CardContent>
-                        <HeaderRow />
-                        <div className="grid">
-                            {defenders.map(player => (
-                                <PlayerRow key={player.uID} player={player} />
-                            ))}
-                        </div>
-                    </CardContent>
-                </Card>
-            )}
-
-            {midfielders.length > 0 && (
-                <Card>
-                    <CardHeader>
-                        <H3 className="uppercase">
-                            Midfielders
-                        </H3>
-                    </CardHeader>
-                    <Separator />
-                    <CardContent>
-                        <HeaderRow />
-                        <div className="grid">
-                            {midfielders.map(player => (
-                                <PlayerRow key={player.uID} player={player} />
-                            ))}
-                        </div>
-                    </CardContent>
-                </Card>
-            )}
-
-            {forwards.length > 0 && (
-                <Card>
-                    <CardHeader>
-                        <H3 className="uppercase">
-                            Forwards
-                        </H3>
-                    </CardHeader>
-                    <Separator />
-                    <CardContent>
-                        <HeaderRow />
-                        <div className="grid">
-                            {forwards.map(player => (
-                                <PlayerRow key={player.uID} player={player} />
-                            ))}
-                        </div>
-                    </CardContent>
-                </Card>
-            )}
+            <Tabs defaultValue="goalkeepers" className={cn("", className)}>
+                <TabsList className="bg-card w-full">
+                    <TabsTrigger value="goalkeepers">Goalkeepers</TabsTrigger>
+                    <TabsTrigger value="defenders">Defenders</TabsTrigger>
+                    <TabsTrigger value="midfielders">Midfielders</TabsTrigger>
+                    <TabsTrigger value="forwards">Forwards</TabsTrigger>
+                </TabsList>
+                <TabsContents>
+                    <TabsContent value="goalkeepers">
+                        <PlayersTable players={goalkeepers} />
+                    </TabsContent>
+                    <TabsContent value="defenders">
+                        <PlayersTable players={defenders} />
+                    </TabsContent>
+                    <TabsContent value="midfielders">
+                        <PlayersTable players={midfielders} />
+                    </TabsContent>
+                    <TabsContent value="forwards">
+                        <PlayersTable players={forwards} />
+                    </TabsContent>
+                </TabsContents>
+            </Tabs>
         </div>
     )
 }
 
-function HeaderRow() {
+function PlayersTable({ players }: { players: F40Player[] }) {
+    if (!players.length) {
+        return (
+            <div className="text-center py-8 text-muted-foreground">
+                No players in this position
+            </div>
+        )
+    }
+
     return (
-        <div className="grid grid-cols-[20rem_1fr_1fr] px-4 py-4 border-b bg-muted/20 text-sm font-semibold uppercase text-muted-foreground">
-            <span>#</span>
-            <span>Name</span>
-            <span className="justify-self-end">Country</span>
-        </div>
+        <Table>
+            <TableBody>
+                <TableRow className="bg-muted/20 text-sm font-semibold uppercase hover:bg-muted/20">
+                    <TableHead className="w-20">#</TableHead>
+                    <TableHead>Name</TableHead>
+                    <TableHead className="text-right w-32">Country</TableHead>
+                </TableRow>
+                {players.map(player => (
+                    <PlayerRow key={player.uID} player={player} />
+                ))}
+            </TableBody>
+        </Table>
     )
 }
+
 
 function PlayerRow({ player }: { player: F40Player }) {
     const jerseyNum = getPlayerJerseyNumber(player)
@@ -149,27 +92,24 @@ function PlayerRow({ player }: { player: F40Player }) {
     const nationality = getPlayerNationality(player)
 
     return (
-        <div className="grid grid-cols-[20rem_1fr_1fr] p-4 border-b hover:bg-accent/50 transition-colors">
-            <div className="">
-                <span className="inline-block font-[450] font-headers uppercase text-accent-foreground">
+        <TableRow className="hover:bg-accent/50 transition-colors">
+            <TableCell className="w-20">
+                <span className="font-[450] font-headers uppercase text-accent-foreground">
                     {jerseyNum !== "Unknown" && jerseyNum !== "?" ? jerseyNum : "-"}
                 </span>
-            </div>
-
-            <div>
-                <div className="flex items-center gap-2">
-                    <p className="font-semibold text-base truncate">
-                        {fullName}
-                    </p>
-                </div>
-            </div>
-            <div className="flex items-center justify-self-end">
+            </TableCell>
+            <TableCell>
+                <p className="font-semibold text-base truncate">
+                    {fullName}
+                </p>
+            </TableCell>
+            <TableCell className="text-right w-32">
                 {nationality && nationality !== "Unknown" && (
-                    <span className="flex items-center gap-1.5">
+                    <span className="flex items-center gap-1.5 justify-end">
                         <CountryFlag country={nationality} />
                     </span>
                 )}
-            </div>
-        </div>
+            </TableCell>
+        </TableRow>
     )
 }

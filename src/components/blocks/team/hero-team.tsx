@@ -1,39 +1,28 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useMemo } from "react"
 import type { TeamDocument } from "../../../../prismicio-types"
 import { H1, P } from "@/components/website-base/typography"
 import { PrismicNextImage } from "@prismicio/next"
 import Link from "next/link"
-import Image from "next/image"
-
-function getCountryFlagUrl(nationality: string, size: string = "21x21"): string {
-    const baseUrl = "https://omo.akamai.opta.net/image.php"
-    const params = new URLSearchParams({
-        secure: "true",
-        h: "omo.akamai.opta.net",
-        sport: "football",
-        entity: "flags",
-        description: "countries",
-        dimensions: size,
-        id: nationality
-    })
-    return `${baseUrl}?${params.toString()}`
-}
+import ReactCountryFlag from "react-country-flag"
+import { getCountryIsoCode } from "@/lib/utils"
+import { Card, CardHeader } from "@/components/ui/card"
+import { FastDash } from "@/components/ui/fast-dash"
+import type { TournamentDocument } from "../../../../prismicio-types"
+import type { F3StandingsResponse } from "@/types/opta-feeds/f3-standings"
+import { isFilled } from "@prismicio/client"
 
 function CountryFlag({ country }: { country: string }) {
-    const [error, setError] = useState(false)
+    const countryIso = getCountryIsoCode(country)
 
-    if (error) return <span>-</span>
+    if (!countryIso) return null
 
     return (
-        <Image
-            src={getCountryFlagUrl(country)}
-            alt={`${country} flag`}
-            width={21}
-            height={21}
-            className="inline-block rounded-sm"
-            onError={() => setError(true)}
+        <ReactCountryFlag
+            countryCode={countryIso}
+            svg
+            className="!w-5 !h-5 rounded"
         />
     )
 }
@@ -46,13 +35,60 @@ const navLinks = [
     { label: "More", href: "#more" },
 ]
 
-export function HeroTeam({ team }: { team: TeamDocument }) {
+export function HeroTeam({ team, homeTeamColor, currentTournament, standings }: { team: TeamDocument, homeTeamColor?: string, currentTournament?: TournamentDocument | null, standings?: F3StandingsResponse | null }) {
     const [active, setActive] = useState("#home")
 
+    const teamStanding = useMemo(() => {
+        return standings?.SoccerFeed?.SoccerDocument?.Competition?.TeamStandings
+            ?.flatMap(group => group.TeamRecord || [])
+            .find(record => record.TeamRef === `t${team.data.opta_id}`)
+    }, [standings, team.data.opta_id])
+
+    const record = useMemo(() => {
+        const wins = teamStanding?.Standing.Won || 0
+        const losses = teamStanding?.Standing.Lost || 0
+        const draws = teamStanding?.Standing.Drawn || 0
+        return draws > 0 ? `${wins}-${losses}-${draws}` : `${wins}-${losses}`
+    }, [teamStanding])
+
+    const tournaments = useMemo(() => {
+        return team.data.tournaments
+            ?.filter(item => isFilled.contentRelationship(item.tournament))
+            .map(item => {
+                if (!isFilled.contentRelationship(item.tournament)) return null
+                return {
+                    uid: item.tournament.uid || "",
+                    title: item.tournament.data?.title || "Untitled Tournament",
+                    year: item.tournament.data?.start_date
+                        ? new Date(item.tournament.data.start_date).getFullYear()
+                        : null
+                }
+            })
+            .filter((t): t is NonNullable<typeof t> => t !== null) || []
+    }, [team.data.tournaments])
+
     return (
-        <div>
-            <div className="px-12 py-8 border-b border-border/20">
-                <div className="flex gap-8 items-center">
+        <Card className="p-0 gap-0 bg-card/50 border-border/50 overflow-hidden">
+            <CardHeader className="px-6 py-3 !pb-3 flex items-center justify-between bg-muted/30 border-b text-sm text-muted-foreground/75">
+                <div className="font-headers flex items-center gap-2">
+                    {tournaments && tournaments[0].title}
+                </div>
+                <div className="flex items-center gap-2 font-headers font-medium uppercase">
+                    {teamStanding?.Standing.Position && `Position ${teamStanding.Standing.Position}`}
+                    {record && (
+                        <>
+                            <FastDash />
+                            {record}
+                        </>
+                    )}
+                </div>
+            </CardHeader>
+            <div className="px-12 py-8 border-b border-border/20 relative overflow-hidden">
+                <div
+                    className="absolute top-0 -left-10 w-[500px] -skew-x-btn h-full pointer-events-none opacity-30"
+                    style={homeTeamColor ? { backgroundImage: `linear-gradient(to right, ${homeTeamColor}, transparent)` } : undefined}
+                />
+                <div className="flex gap-8 items-center relative z-10">
                     <div>
                         <PrismicNextImage field={team.data.logo} width={100} height={100} />
                     </div>
@@ -60,7 +96,7 @@ export function HeroTeam({ team }: { team: TeamDocument }) {
                     <div>
                         <H1>{team.data.name}</H1>
 
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-2 mt-2">
                             <P noSpace>{team.data.country}</P>
                             <CountryFlag country={team.data.country || ""} />
                         </div>
@@ -68,7 +104,7 @@ export function HeroTeam({ team }: { team: TeamDocument }) {
                 </div>
             </div>
 
-            <div className="flex gap-6 pt-3 px-12 border-b">
+            <div className="flex gap-6 pt-3 px-12">
                 {navLinks.map((link) => {
                     const isActive = active === link.href
 
@@ -90,6 +126,6 @@ export function HeroTeam({ team }: { team: TeamDocument }) {
                     )
                 })}
             </div>
-        </div>
+        </Card>
     )
 }

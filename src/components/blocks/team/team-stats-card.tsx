@@ -8,6 +8,7 @@ import { PrismicNextImage } from "@prismicio/next"
 import type { TeamDocument, TournamentDocument } from "../../../../prismicio-types"
 import type { F3StandingsResponse } from "@/types/opta-feeds/f3-standings"
 import type { F1FixturesResponse } from "@/types/opta-feeds/f1-fixtures"
+import { Table, TableBody, TableRow, TableCell } from "@/components/ui/table"
 
 type TeamStatsCardProps = {
     team: TeamDocument
@@ -109,43 +110,52 @@ export function TeamStatsCard({ team, standings, fixtures, currentTournament, pr
     const renderTeamStats = () => {
         if (!teamStanding) {
             return (
-                <div className="text-center py-4">
-                    <span className="text-sm text-muted-foreground">No statistics available</span>
-                </div>
+                <Table>
+                    <TableBody>
+                        <TableRow>
+                            <TableCell className="text-center py-4 text-sm text-muted-foreground">
+                                No statistics available
+                            </TableCell>
+                        </TableRow>
+                    </TableBody>
+                </Table>
             )
         }
 
-        const statItems = [
+        const rows = [
             { label: "Record", value: record },
             { label: "Goals", value: `${goalsFor} / ${goalsAgainst}` },
             { label: "Goal Differential", value: goalDiffDisplay },
         ]
 
         return (
-            <div>
-                {statItems.map((item, idx) => (
-                    <div
-                        key={item.label}
-                        className={`flex items-center justify-between py-2.5 ${idx !== 0 ? "border-t border-muted/50" : ""
-                            }`}
-                    >
-                        <span className="text-sm text-muted-foreground">{item.label}</span>
-                        <span className="font-headers text-lg font-semibold">{item.value}</span>
-                    </div>
-                ))}
+            <Table>
+                <TableBody>
+                    {rows.map(row => (
+                        <TableRow key={row.label}>
+                            <TableCell className="text-sm text-muted-foreground w-1/2">
+                                {row.label}
+                            </TableCell>
+                            <TableCell className="text-right font-headers text-lg font-semibold">
+                                {row.value}
+                            </TableCell>
+                        </TableRow>
+                    ))}
 
-                {showPlacement && placement && (
-                    <>
-                        <div className="border-t border-muted/50 pt-4"></div>
-                        <div className="flex items-center justify-between">
-                            <span className="text-sm text-muted-foreground">Tournament Finish</span>
-                            <Badge variant={placement.variant} className="font-headers">
-                                {placement.text}
-                            </Badge>
-                        </div>
-                    </>
-                )}
-            </div>
+                    {showPlacement && placement && (
+                        <TableRow>
+                            <TableCell className="text-sm text-muted-foreground">
+                                Tournament Finish
+                            </TableCell>
+                            <TableCell className="text-right">
+                                <Badge variant={placement.variant} className="font-headers">
+                                    {placement.text}
+                                </Badge>
+                            </TableCell>
+                        </TableRow>
+                    )}
+                </TableBody>
+            </Table>
         )
     }
 
@@ -153,86 +163,96 @@ export function TeamStatsCard({ team, standings, fixtures, currentTournament, pr
     const renderParticipation = () => {
         if (tournaments.length === 0) {
             return (
-                <div className="text-center py-4 text-sm text-muted-foreground">
-                    No tournament participation
-                </div>
+                <Table>
+                    <TableBody>
+                        <TableRow>
+                            <TableCell className="text-center py-4 text-sm text-muted-foreground">
+                                No tournament participation
+                            </TableCell>
+                        </TableRow>
+                    </TableBody>
+                </Table>
             )
         }
 
         return (
-            <div className="space-y-1">
-                {tournaments.map((t) => (
-                    <Link
-                        key={t.uid}
-                        href={`/tournament/${t.uid}`}
-                        className="block group py-2 transition-colors hover:text-foreground"
-                    >
-                        <div className="text-sm font-medium group-hover:underline">
-                            {t.title}
-                        </div>
-                        {t.year && (
-                            <div className="text-sm text-muted-foreground mt-0.5">
-                                {t.year}
-                            </div>
-                        )}
-                    </Link>
-                ))}
-            </div>
+            <Table>
+                <TableBody>
+                    {tournaments.map(t => (
+                        <TableRow key={t.uid}>
+                            <TableCell>
+                                <Link
+                                    href={`/tournament/${t.uid}`}
+                                    className="font-medium hover:underline"
+                                >
+                                    {t.title}
+                                </Link>
+                            </TableCell>
+                            <TableCell className="text-right text-sm text-muted-foreground w-24">
+                                {t.year ?? "—"}
+                            </TableCell>
+                        </TableRow>
+                    ))}
+                </TableBody>
+            </Table>
         )
     }
 
     const renderRecentResults = () => {
         if (recentResults.length === 0) {
             return (
-                <div className="text-center py-4 text-sm text-muted-foreground">
-                    No recent results
-                </div>
+                <Table>
+                    <TableBody>
+                        <TableRow>
+                            <TableCell colSpan={3} className="text-center py-4 text-sm text-muted-foreground">
+                                No recent results
+                            </TableCell>
+                        </TableRow>
+                    </TableBody>
+                </Table>
             )
         }
 
         return (
-            <div className="space-y-2">
-                {recentResults.map((result) => (
-                    <div
-                        key={result.matchId}
-                        className="flex items-center justify-between py-2 border-b border-muted/30 last:border-0"
-                    >
-                        <div className="flex items-center gap-3">
-                            <div
-                                className="text-white/60 font-headers text-base font-medium min-w-[1.5rem]"
-                            >
-                                {result.result}
-                            </div>
-                            <div>
+            <Table>
+                <TableBody>
+                    {recentResults.map((result) => (
+                        <TableRow key={result.matchId}>
+                            <TableCell className="w-8">
+                                <div className="text-white/60 font-headers text-base font-medium">
+                                    {result.result}
+                                </div>
+                            </TableCell>
+                            <TableCell>
                                 <div className="flex items-center gap-2">
-                                    <span>
-                                        vs
-                                    </span>
+                                    <span className="text-muted-foreground text-sm">vs</span>
                                     <Link href={`/team/${result.opponentTeam?.uid}`} className="hover:underline">
                                         <H4 className="text-sm">
                                             {result.opponentName}
                                         </H4>
                                     </Link>
                                     {result.opponentTeam?.data.logo && (
-                                        <div className="relative w-6 h-6">
+                                        <div className="relative w-6 h-6 shrink-0">
                                             <PrismicNextImage field={result.opponentTeam.data.logo} fill className="object-contain" />
                                         </div>
                                     )}
                                 </div>
-                                <div className="text-xs text-muted-foreground">
+                                <div className="text-xs text-muted-foreground mt-0.5">
                                     {new Date(result.date).toLocaleDateString('en-US', {
                                         month: 'short',
                                         day: 'numeric'
                                     })}
                                 </div>
-                            </div>
-                        </div>
-                        <div className="text-sm font-headers font-semibold">
-                            {result.teamScore}-{result.opponentScore}
-                        </div>
-                    </div>
-                ))}
-            </div>
+                            </TableCell>
+                            <TableCell className="text-right">
+                                <div className="text-sm font-headers font-semibold">
+                                    {result.teamScore}-{result.opponentScore}
+                                </div>
+                            </TableCell>
+                        </TableRow>
+                    ))}
+                </TableBody>
+            </Table>
         )
     }
 
@@ -250,13 +270,13 @@ export function TeamStatsCard({ team, standings, fixtures, currentTournament, pr
 
 
     return (
-        <Card className="p-0 gap-0 divide-y divide-muted/50">
+        <Card banner>
             {sidebarSections.map((section) => (
                 <div key={section.id}>
-                    <CardHeader className="bg-muted/50 py-4 px-6">
-                        <CardTitle className="font-headers text-xl">{section.title}</CardTitle>
+                    <CardHeader>
+                        <CardTitle>{section.title}</CardTitle>
                     </CardHeader>
-                    <CardContent className="py-4 px-6">
+                    <CardContent>
                         {renderers[section.id]()}
                     </CardContent>
                 </div>
