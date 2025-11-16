@@ -249,15 +249,15 @@
 }
 
 @utility bg-gold-gradient {
-  background: linear-gradient(to bottom, #FFD700 0%, #FFED4E 50%, #D4AF37 100%);
+  background-image: linear-gradient(to bottom, #FFD700 0%, #FFED4E 50%, #D4AF37 100%);
 }
 
 @utility bg-silver-gradient {
-  background: linear-gradient(to bottom, #E8E8E8 0%, #FFFFFF 50%, #C0C0C0 100%);
+  background-image: linear-gradient(to bottom, #E8E8E8 0%, #FFFFFF 50%, #C0C0C0 100%);
 }
 
 @utility bg-bronze-gradient {
-  background: linear-gradient(to bottom, #CD7F32 0%, #E8A87C 50%, #A0522D 100%);
+  background-image: linear-gradient(to bottom, #CD7F32 0%, #E8A87C 50%, #A0522D 100%);
 }
 
 .bg-lines-pattern {

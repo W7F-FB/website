@@ -16,7 +16,14 @@ export function ClubRankCell({ placement, logo, name, record, className }: ClubR
         <TableCell className={cn("h-12 py-0 font-medium font-headers pr-10", className)}>
             <div className="flex items-center gap-3 justify-between">
                 <div className="flex items-center gap-3">
-                    <span className={cn("text-muted-foreground text-xs w-8", placement === 'E' && "text-muted-foreground/80")}>{placement}</span>
+                    <div className={cn(
+                        "text-xs w-8",
+                        placement === '1st' && "font-semibold bg-gold-gradient bg-clip-text text-transparent",
+                        placement === '2nd' && "font-semibold bg-silver-gradient bg-clip-text text-transparent",
+                        placement === '3rd' && "font-semibold bg-bronze-gradient bg-clip-text text-transparent",
+                        placement === 'E' && "text-muted-foreground/80",
+                        !['1st', '2nd', '3rd', 'E'].includes(placement) && "text-muted-foreground"
+                    )}>{placement}</div>
                     {logo && (
                         <div className="relative size-7 flex-shrink-0">
                             <PrismicNextImage
