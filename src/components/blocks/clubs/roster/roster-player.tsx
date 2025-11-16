@@ -1,6 +1,6 @@
 import { TableCell, TableRow } from "@/components/ui/table"
 import type { RosterPlayer as RosterPlayerType } from "@/types/components"
-import { OPTA_POSITIONS } from "@/lib/opta/position-dictionary"
+import { OPTA_POSITIONS } from "@/lib/opta/dictionaries/position-dictionary"
 import { getCountryIsoCode } from "@/lib/utils"
 import ReactCountryFlag from "react-country-flag"
 
@@ -32,7 +32,7 @@ export function RosterPlayer({ player }: RosterPlayerProps) {
           <ReactCountryFlag
             countryCode={countryIso}
             svg
-            className="!w-5 !h-5 rounded"
+            className="!w-4.5 !h-4.5 rounded"
           />
         )}
       </TableCell>

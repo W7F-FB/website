@@ -2,10 +2,10 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import type { F30Player } from "@/types/opta-feeds/f30-season-stats"
 import type { F1TeamData } from "@/types/opta-feeds/f1-fixtures"
 import { PlayerHeadshot } from "./player"
-import { getPositionAbbr } from "@/lib/opta/position-dictionary"
+import { getPositionAbbr } from "@/lib/opta/dictionaries/position-dictionary"
 import { isFilled } from "@prismicio/client"
 import { PlayerMiniStatTable } from "./player-mini-stat.table"
-import { F30_STAT_TYPES } from "@/lib/opta/f30-stat-dictionary"
+import { STAT_TYPES } from "@/lib/opta/dictionaries/stat-dictionary"
 import type { TournamentDocumentDataAwardsItem } from "../../../../prismicio-types"
 import type * as prismic from "@prismicio/client"
 
@@ -72,13 +72,13 @@ export function PlayerAwardCard({ award, player, optaTeam }: PlayerAwardCardProp
                             <PlayerMiniStatTable className="mt-3"
                                 player={player}
                                 stats={player.position === "Goalkeeper" ? [
-                                    F30_STAT_TYPES["Saves Made"],
-                                    F30_STAT_TYPES["Total Shots Conceded"],
-                                    F30_STAT_TYPES["Goals Conceded"],
+                                    STAT_TYPES["savesMade"],
+                                    STAT_TYPES["totalShotsConceded"],
+                                    STAT_TYPES["goalsConceded"],
                                 ] : [
-                                    F30_STAT_TYPES["Shots On Target ( inc goals )"],
-                                    F30_STAT_TYPES["Goals"],
-                                    F30_STAT_TYPES["Goal Assists"],
+                                    STAT_TYPES["shotsOnTarget"],
+                                    STAT_TYPES["goals"],
+                                    STAT_TYPES["goalAssists"],
                                 ]}
                             />
                         )}

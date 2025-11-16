@@ -76,6 +76,7 @@ const UK_COUNTRIES: Record<string, string> = {
 
 const OPTA_COUNTRY_MAPPINGS: Record<string, string> = {
   "korea republic": "KR",
+  "congo dr": "CD",
 }
 
 export function getCountryIsoCode(countryNameOrCode: string | null | undefined): string | null {

@@ -13,7 +13,7 @@ import { getGameCardData } from "./utils"
 import { Separator } from "@/components/ui/separator"
 import { Button } from "@/components/ui/button"
 
-const GAME_CARD_VARIANTS = {
+const MATCH_CARD_VARIANTS = {
     default: {
         card: "rounded-sm bg-card/50 border-border/50",
         bannerHeader: "px-6 py-3",
@@ -50,9 +50,9 @@ const GAME_CARD_VARIANTS = {
     },
 } as const
 
-type GameCardVariant = keyof typeof GAME_CARD_VARIANTS
+type MatchCardVariant = keyof typeof MATCH_CARD_VARIANTS
 
-function GameCardTeam({
+function MatchCardTeam({
     team,
     logoUrl,
     logoAlt,
@@ -145,7 +145,7 @@ function GameCardTeam({
     )
 }
 
-function GameCard({ fixture, prismicTeams, optaTeams, compact = false, banner, className, variant = "default", ...props }: GameCardType) {
+function MatchCard({ fixture, prismicTeams, optaTeams, compact = false, banner, className, variant = "default", ...props }: GameCardType) {
     const {
         homeTeam,
         awayTeam,
@@ -165,8 +165,8 @@ function GameCard({ fixture, prismicTeams, optaTeams, compact = false, banner, c
     } = getGameCardData(fixture, prismicTeams, optaTeams)
 
     const gameDate = formatGameDate(startTime)
-    const resolvedVariant: GameCardVariant = variant ?? "default"
-    const variantStyles = GAME_CARD_VARIANTS[resolvedVariant] ?? GAME_CARD_VARIANTS.default
+    const resolvedVariant: MatchCardVariant = variant ?? "default"
+    const variantStyles = MATCH_CARD_VARIANTS[resolvedVariant] ?? MATCH_CARD_VARIANTS.default
     const isCompact = compact || resolvedVariant === "mini"
     const matchHref = `/match/${normalizeOptaId(fixture.uID)}`
     const interstitialPadding = resolvedVariant === "mini" ? "px-4 pl-6.5 py-0 hidden" : "px-6 py-2"
@@ -194,7 +194,7 @@ function GameCard({ fixture, prismicTeams, optaTeams, compact = false, banner, c
                 </div>
             </CardHeader>
             <CardContent className={cn("px-0", variantStyles.content)}>
-                <GameCardTeam
+                <MatchCardTeam
                     team={homeTeam ?? null}
                     logoUrl={homeLogoUrl}
                     logoAlt={homeLogoAlt}
@@ -221,7 +221,7 @@ function GameCard({ fixture, prismicTeams, optaTeams, compact = false, banner, c
                     </div>
                 </div>
 
-                <GameCardTeam
+                <MatchCardTeam
                     team={awayTeam ?? null}
                     logoUrl={awayLogoUrl}
                     logoAlt={awayLogoAlt}
@@ -272,7 +272,7 @@ function GameCard({ fixture, prismicTeams, optaTeams, compact = false, banner, c
     return cardBody
 }
 
-export { GameCard }
+export { MatchCard }
 
 
 

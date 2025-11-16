@@ -182,7 +182,6 @@
 
 
 
-/*
 @utility clip-skew-xs {
   clip-path: polygon(var(--skew-xs) 0%, 100% 0%, calc(100% - var(--skew-xs)) 100%, 0% 100%);
 }
@@ -206,7 +205,6 @@
 @utility clip-watercolor-mask {
   clip-path: url(#WatercolorMask);
 }
-*/
 
 /* Text Stroke Utilities */
 @utility text-stroke-* {

@@ -1,11 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getF13Commentary } from '@/app/api/opta/feeds';
-import { F13LanguageCode } from '@/types/opta-feeds/f13-commentary';
+import { getF9MatchDetails } from '@/app/api/opta/feeds';
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const matchId = searchParams.get('matchId');
-  const language = (searchParams.get('language') || 'en') as F13LanguageCode;
 
   if (!matchId) {
     return NextResponse.json(
@@ -15,12 +13,16 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const data = await getF13Commentary(matchId, language);
-    return NextResponse.json(data);
+    const data = await getF9MatchDetails(matchId);
+    return NextResponse.json(data, {
+      headers: {
+        'Cache-Control': 'public, s-maxage=90, stale-while-revalidate=180',
+      },
+    });
   } catch (error) {
-    console.error('Error fetching F13 commentary:', error);
+    console.error('Error fetching F9 match details:', error);
     return NextResponse.json(
-      { error: 'Failed to fetch commentary' },
+      { error: 'Failed to fetch match details' },
       { status: 500 }
     );
   }

@@ -6,10 +6,10 @@ import type { TeamDocument } from "../../../../../prismicio-types"
 import type { F30SeasonStatsResponse } from "@/types/opta-feeds/f30-season-stats"
 import type { F1FixturesResponse } from "@/types/opta-feeds/f1-fixtures"
 import { getTeamStat } from "@/types/opta-feeds/f30-season-stats"
-import { PrismicNextImage } from "@prismicio/next"
 import { cn } from "@/lib/utils"
 import { getFinalMatch, getThirdPlaceMatch, calculateTeamRecordsFromMatches } from "@/app/(website)/(subpages)/tournament/utils"
 import { LinePattern } from "@/components/blocks/line-pattern"
+import { ClubRankCell } from "@/components/blocks/tournament/club-rank-cell"
 
 type StatSheetTeamsTableProps = {
     prismicTeams: TeamDocument[]
@@ -107,21 +107,11 @@ export function StatSheetTeamsTable({ prismicTeams, f30TeamStats, f1FixturesData
                                     onMouseLeave={() => setHoveredRow(null)}
                                     className={cn(hoveredRow === index && "bg-muted/30 hover:bg-muted/30")}
                                 >
-                                    <TableCell className="h-12 py-0 font-medium font-headers pr-10">
-                                        <div className="flex items-center gap-3">
-                                            <span className={cn("text-muted-foreground text-xs w-8", row.placement === 'E' && "text-muted-foreground/80")}>{row.placement}</span>
-                                            {row.team.data.logo && (
-                                                <div className="relative size-7 flex-shrink-0">
-                                                    <PrismicNextImage
-                                                        field={row.team.data.logo}
-                                                        fill
-                                                        className="object-contain"
-                                                    />
-                                                </div>
-                                            )}
-                                            <span>{row.name}</span>
-                                        </div>
-                                    </TableCell>
+                                    <ClubRankCell
+                                        placement={row.placement}
+                                        logo={row.team.data.logo}
+                                        name={row.name}
+                                    />
                                 </TableRow>
                                 {row.placement === '4th' && (
                                     <TableRow className="hover:bg-transparent">

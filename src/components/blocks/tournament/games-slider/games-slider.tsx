@@ -5,7 +5,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { CaretRightIcon } from '@/components/website-base/icons'
 import { cn } from '@/lib/utils'
 import type { GameCard } from '@/types/components'
-import { GameCard as GameCardComponent } from '@/components/blocks/game/game-card'
+import { MatchCard as GameCardComponent } from '@/components/blocks/match/match-card'
 import { normalizeOptaId } from '@/lib/opta/utils'
 import { GamesSliderFilter } from './games-slider-filter'
 import type { TournamentDocument } from '../../../../../prismicio-types'

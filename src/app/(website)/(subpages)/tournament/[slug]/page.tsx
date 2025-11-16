@@ -2,7 +2,7 @@ import { notFound } from "next/navigation"
 import { getTournamentByUid } from "@/cms/queries/tournaments"
 import { getBlogsByTournament } from "@/cms/queries/blog"
 import { getTeamsByTournament } from "@/cms/queries/team"
-import { getF3Standings, getF1Fixtures, getF30SeasonStats, getF13Commentary, getF42ComprehensiveTournament } from "@/app/api/opta/feeds"
+import { getF3Standings, getF1Fixtures, getF30SeasonStats } from "@/app/api/opta/feeds"
 import TournamentPageUpcoming from "../page-content-upcoming"
 import TournamentPagePast from "../page-content-complete"
 import type { TeamDocument, TournamentDocumentDataAwardsItem } from "../../../../../../prismicio-types"
@@ -43,20 +43,15 @@ export default async function TournamentPage({ params }: Props) {
 
     if (competitionId && seasonId && tournament.uid) {
       try {
-        const [standings, fixtures, teams, f42Data] = await Promise.all([
+        const [standings, fixtures, teams] = await Promise.all([
           getF3Standings(competitionId, seasonId),
           getF1Fixtures(competitionId, seasonId),
-          getTeamsByTournament(tournament.uid),
-          getF42ComprehensiveTournament(competitionId, seasonId)
+          getTeamsByTournament(tournament.uid)
         ])
         f3StandingsData = standings
         f1FixturesData = fixtures
         prismicTeams = teams
 
-        console.log('=== F42 COMPREHENSIVE TOURNAMENT FEED ===')
-        console.log('Competition ID:', competitionId)
-        console.log('Season ID:', seasonId)
-        console.log('F42 Data:', f42Data)
 
         const uniqueTeamIds = prismicTeams
           .map(team => team.data.opta_id)
@@ -78,23 +73,7 @@ export default async function TournamentPage({ params }: Props) {
             f30TeamStats.set(result.teamId, result.stats)
           }
         })
-
-        if (f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData) {
-          const matches = f1FixturesData.SoccerFeed.SoccerDocument.MatchData
-          if (matches.length > 0) {
-            const randomMatch = matches[Math.floor(Math.random() * matches.length)]
-            console.log('=== F13 COMMENTARY FEED - RANDOM MATCH ===')
-            console.log('Match ID:', randomMatch.uID)
-            console.log('Competition ID:', competitionId)
-            console.log('Season ID:', seasonId)
-            try {
-              const f13Data = await getF13Commentary(randomMatch.uID, competitionId, seasonId)
-              console.log('F13 Commentary Data:', f13Data)
-            } catch (error) {
-              console.error('Error fetching F13 commentary:', error)
-            }
-          }
-        }
+        
       } catch (error) {
         console.error('Error fetching tournament data:', error)
       }

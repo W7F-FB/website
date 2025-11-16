@@ -2,16 +2,14 @@
 import { F13CommentaryResponse, F13MessageType, isScoringAttempt } from "@/types/opta-feeds/f13-commentary";
 import { Tabs, TabsContent, TabsList, TabsTrigger, TabsContents } from "@/components/ui/motion-tabs"
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
-import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
 import React from "react";
 import { cn } from "@/lib/utils";
 import { removeW7F } from "@/lib/opta/utils";
-import { SoccerIcon, SubstituteIcon, WhistleIcon, BlockIcon, BounceIcon } from "@/components/website-base/icons";
+import { SoccerIcon, SubstituteIcon, WhistleIcon, BlockedIcon, SavedIcon, BounceIcon, ReplayIcon } from "@/components/website-base/icons";
 
 interface PlayByPlayProps extends React.ComponentProps<"div"> {
-    matchId: string;
-    competitionId: string;
-    seasonId: string;
+    commentary: F13CommentaryResponse | null;
 }
 
 interface TimestampCellProps {
@@ -48,10 +46,19 @@ function EventTypeCell({ type }: EventTypeCellProps) {
         if (type === 'miss' || type === 'post') {
             return <BounceIcon className="size-3" />;
         }
-        if (type === 'attempt saved' || type === 'save' || type === 'attempt blocked') {
-            return <BlockIcon className="size-3" />;
+        if (type === 'attempt saved' || type === 'save') {
+            return <SavedIcon className="size-3" />;
         }
-        if (type === 'yellow card' || type === 'red card' || type === 'second yellow card' || type === 'free kick lost') {
+        if (type === 'attempt blocked') {
+            return <BlockedIcon className="size-3" />;
+        }
+        if (type === 'yellow card') {
+            return <div className="h-3.5 w-2.5 rounded-sm bg-yellow-500 mx-auto" />;
+        }
+        if (type === 'red card' || type === 'second yellow card') {
+            return <div className="h-3.5 w-2.5 rounded-sm bg-red-600 mx-auto" />;
+        }
+        if (type === 'free kick lost') {
             return <WhistleIcon className="size-3" />;
         }
         return null;
@@ -82,26 +89,31 @@ function CommentCell({ comment, type }: CommentCellProps) {
     );
 }
 
-export default function PlayByPlay({ matchId, competitionId, seasonId, className }: PlayByPlayProps) {
-    const [commentary, setCommentary] = useState<F13CommentaryResponse | null>(null);
+interface ActionCellProps {
+    type: F13MessageType;
+}
 
-    useEffect(() => {
-        async function fetchCommentary() {
-            const fetchUrl = `/api/opta/f13-commentary-feed?matchId=${matchId}&competitionId=${competitionId}&seasonId=${seasonId}&language=en`;
-            console.log('F13 Request URL:', fetchUrl);
-            const response = await fetch(fetchUrl);
-            const data = await response.json();
-            console.log('F13 Commentary Response:', data);
-            setCommentary(data);
-        }
-        fetchCommentary();
-    }, [matchId, competitionId, seasonId]);
+function ActionCell({ type }: ActionCellProps) {
+    if (type !== 'goal') {
+        return <TableCell className="w-16" />;
+    }
 
+    return (
+        <TableCell className="w-16 align-middle">
+            <Button size="sm" variant="outline" className="h-7 px-2 text-xs gap-1">
+                <ReplayIcon className="size-3" />
+                watch
+            </Button>
+        </TableCell>
+    );
+}
+
+export default function PlayByPlay({ commentary, className }: PlayByPlayProps) {
     const messages = commentary?.Commentary?.message || [];
     const scoringMessages = messages.filter(msg => isScoringAttempt(msg));
 
     return (
-        <Tabs className={cn("",className)} defaultValue="all-plays">
+        <Tabs className={cn("",className)}>
             <TabsList className="bg-card w-full">
                 <TabsTrigger value="all-plays">All Plays</TabsTrigger>
                 <TabsTrigger value="scoring-chances">Scoring Chances</TabsTrigger>
@@ -122,6 +134,7 @@ export default function PlayByPlay({ matchId, competitionId, seasonId, className
                                         />
                                         <EventTypeCell type={message.type} />
                                         <CommentCell comment={message.comment} type={message.type} />
+                                        <ActionCell type={message.type} />
                                     </TableRow>
                                 ))}
                             </TableBody>
@@ -145,6 +158,7 @@ export default function PlayByPlay({ matchId, competitionId, seasonId, className
                                         />
                                         <EventTypeCell type={message.type} />
                                         <CommentCell comment={message.comment} type={message.type} />
+                                        <ActionCell type={message.type} />
                                     </TableRow>
                                 ))}
                             </TableBody>

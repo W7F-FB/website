@@ -4,11 +4,10 @@
 import { OptaClient } from './client';
 import { F1FixturesResponse } from '@/types/opta-feeds/f1-fixtures';
 import { F3StandingsResponse } from '@/types/opta-feeds/f3-standings';
-import { F9MatchResponse } from '@/types/opta-feeds/f9-match-details';
-import { F24EventsResponse } from '@/types/opta-feeds/f24-match';
+import { F9MatchResponse } from '@/types/opta-feeds/f9-match';
 import { F13CommentaryResponse, F13LanguageCode } from '@/types/opta-feeds/f13-commentary';
+import { F24EventDetailsFeed } from '@/types/opta-feeds/f24-match-events';
 import { F40SquadsResponse } from '@/types/opta-feeds/f40-squads-feed';
-import { F42ComprehensiveTournamentResponse } from '@/types/opta-feeds/f42-comprehensive-tournament';
 import { F15RankingsResponse } from '@/types/opta-feeds/f15-rankings';
 import { F30SeasonStatsResponse } from '@/types/opta-feeds/f30-season-stats';
 
@@ -41,35 +40,9 @@ export async function getF3Standings(
  * Returns detailed match information including teams, venue, referee, stats, etc.
  */
 export async function getF9MatchDetails(
-  matchId: string | number,
-  competitionId: string | number,
-  seasonId: string | number
+  matchId: string | number
 ): Promise<F9MatchResponse> {
-  return await optaClient.getF9MatchDetails(matchId, competitionId, seasonId);
-}
-
-/**
- * F24 - Match Events Feed
- * Returns all match events (goals, cards, substitutions, etc.)
- */
-export async function getF24MatchEvents(
-  matchId: string | number,
-  competitionId: string | number,
-  seasonId: string | number
-): Promise<F24EventsResponse> {
-  return await optaClient.getF24MatchEvents(matchId, competitionId, seasonId);
-}
-
-/**
- * F24b - Key Events Feed
- * Returns key match events only (goals, shots, cards, corners, fouls, substitutions, etc.)
- */
-export async function getF24bKeyEvents(
-  matchId: string | number,
-  competitionId: string | number,
-  seasonId: string | number
-): Promise<F24EventsResponse> {
-  return await optaClient.getF24bKeyEvents(matchId, competitionId, seasonId);
+  return await optaClient.getF9MatchDetails(matchId);
 }
 
 /**
@@ -78,11 +51,15 @@ export async function getF24bKeyEvents(
  */
 export async function getF13Commentary(
   matchId: string | number,
-  competitionId: string | number,
-  seasonId: string | number,
   language: F13LanguageCode = 'en'
 ): Promise<F13CommentaryResponse> {
-  return await optaClient.getF13Commentary(matchId, competitionId, seasonId, language);
+  return await optaClient.getF13Commentary(matchId, language);
+}
+
+export async function getF24Events(
+  matchId: string | number
+): Promise<F24EventDetailsFeed> {
+  return await optaClient.getF24Events(matchId);
 }
 
 /**
@@ -95,18 +72,6 @@ export async function getF40Squads(
   seasonId: string | number
 ): Promise<F40SquadsResponse> {
   return await optaClient.getF40Squads(competitionId, seasonId);
-}
-
-/**
- * F42 - Comprehensive Tournament Feed
- * Returns fixtures/results, squads, and standings for a competition and season.
- * Includes match details, team squads with player info, and league standings.
- */
-export async function getF42ComprehensiveTournament(
-  competitionId: string | number,
-  seasonId: string | number
-): Promise<F42ComprehensiveTournamentResponse> {
-  return await optaClient.getF42ComprehensiveTournament(competitionId, seasonId);
 }
 
 /**

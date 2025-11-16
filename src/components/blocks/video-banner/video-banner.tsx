@@ -39,9 +39,11 @@ export const VideoBanner: React.FC<VideoBannerProps> = ({
                 />
             </div>
 
-            <div className="absolute top-4 left-4 z-10">
-                <Badge fast variant="default">{label}</Badge>
-            </div>
+            {label && (
+                <div className="absolute top-4 left-4 z-10">
+                    <Badge fast variant="default">{label}</Badge>
+                </div>
+            )}
 
             <div className={cn("z-10 bg-primary/5 backdrop-blur-sm group-hover:backdrop-blur-lg transition-all flex items-center justify-center rounded-[0.1rem] border border-primary/5", size === "sm" ? "w-14 h-14" : "w-20 h-20")}>
                 <PlayIcon className={cn(size === "sm" ? "size-4" : "size-6")}/>

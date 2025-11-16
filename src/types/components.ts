@@ -1,6 +1,9 @@
 import * as React from "react"
 import type { TeamDocument } from "../../prismicio-types"
 import type { F1MatchData, F1TeamData } from "./opta-feeds/f1-fixtures"
+import type { F9MatchPlayer, F9Team } from "./opta-feeds/f9-match"
+import type { F24Event } from "./opta-feeds/f24-match-events"
+import type { LeaderType } from "./game-leaders"
 
 export type PlayerPosition = "Goalkeeper" | "Defender" | "Midfielder" | "Forward" | "Substitute"
 
@@ -22,6 +25,27 @@ export interface RosterTeam {
   country?: string
   countryIso?: string
   players?: RosterPlayer[]
+}
+
+export type MatchLineupPlayer = F9MatchPlayer & {
+  name?: string
+  nationality?: string
+  country?: string
+  events?: F24Event[]
+}
+
+export type PlayerLeaderCard = {
+  prismicTeam?: TeamDocument
+  playerHeadshotUrl?: string
+  player?: F9MatchPlayer
+  optaTeam?: F9Team
+  leaderType: LeaderType
+  f40Position?: string
+}
+
+export type PlayerStatDisplay = {
+  label: string
+  value: string | number
 }
 
 export interface GameCardTeam {

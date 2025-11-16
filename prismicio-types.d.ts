@@ -279,6 +279,115 @@ export type BlogDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithUID<Simplify<BlogDocumentData>, "blog", Lang>;
 
 /**
+ * Content for Broadcast Partner documents
+ */
+interface BroadcastPartnersDocumentData {
+  /**
+   * Name field in *Broadcast Partner*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: broadcast_partners.name
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  name: prismic.KeyTextField;
+
+  /**
+   * Logo field in *Broadcast Partner*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: broadcast_partners.logo
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  logo: prismic.ImageField<never>;
+
+  /**
+   * Logo White field in *Broadcast Partner*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: broadcast_partners.logo_white
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  logo_white: prismic.ImageField<never>;
+
+  /**
+   * Icon Logo field in *Broadcast Partner*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: broadcast_partners.icon_logo
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  icon_logo: prismic.ImageField<never>;
+
+  /**
+   * Logo on Primary field in *Broadcast Partner*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: broadcast_partners.logo_on_primary
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  logo_on_primary: prismic.ImageField<never>;
+
+  /**
+   * Color Primary field in *Broadcast Partner*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: broadcast_partners.color_primary
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  color_primary: prismic.KeyTextField;
+
+  /**
+   * Color Secondary field in *Broadcast Partner*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: broadcast_partners.color_secondary
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  color_secondary: prismic.KeyTextField;
+
+  /**
+   * Streaming Link field in *Broadcast Partner*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: broadcast_partners.streaming_link
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  streaming_link: prismic.KeyTextField;
+}
+
+/**
+ * Broadcast Partner document from Prismic
+ *
+ * - **API ID**: `broadcast_partners`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/content-modeling
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type BroadcastPartnersDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<
+    Simplify<BroadcastPartnersDocumentData>,
+    "broadcast_partners",
+    Lang
+  >;
+
+/**
  * Content for Image with text documents
  */
 interface ImageWithTextDocumentData {
@@ -424,6 +533,82 @@ interface PolicyDocumentData {
  */
 export type PolicyDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithUID<Simplify<PolicyDocumentData>, "policy", Lang>;
+
+/**
+ * Content for Sponsor documents
+ */
+interface SponsorDocumentData {
+  /**
+   * Name field in *Sponsor*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: sponsor.name
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  name: prismic.KeyTextField;
+
+  /**
+   * Logo field in *Sponsor*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: sponsor.logo
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  logo: prismic.ImageField<never>;
+
+  /**
+   * Color Primary field in *Sponsor*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: sponsor.color_primary
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  color_primary: prismic.KeyTextField;
+
+  /**
+   * Color Secondary field in *Sponsor*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: sponsor.color_secondary
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  color_secondary: prismic.KeyTextField;
+
+  /**
+   * Website Link field in *Sponsor*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: sponsor.website_link
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  website_link: prismic.KeyTextField;
+}
+
+/**
+ * Sponsor document from Prismic
+ *
+ * - **API ID**: `sponsor`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/content-modeling
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type SponsorDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<
+    Simplify<SponsorDocumentData>,
+    "sponsor",
+    Lang
+  >;
 
 /**
  * Item in *Team → Tournaments*
@@ -714,6 +899,18 @@ type TournamentDocumentDataSlicesSlice = never;
  * Content for Tournament documents
  */
 interface TournamentDocumentData {
+  /**
+   * Featured field in *Tournament*
+   *
+   * - **Field Type**: Boolean
+   * - **Placeholder**: *None*
+   * - **Default Value**: false
+   * - **API ID Path**: tournament.featured
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/boolean
+   */
+  featured: prismic.BooleanField;
+
   /**
    * Status field in *Tournament*
    *
@@ -1058,8 +1255,10 @@ export type WebsiteDocument<Lang extends string = string> =
 export type AllDocumentTypes =
   | AwardsDocument
   | BlogDocument
+  | BroadcastPartnersDocument
   | ImageWithTextDocument
   | PolicyDocument
+  | SponsorDocument
   | TeamDocument
   | TeamMemberDocument
   | TournamentDocument
@@ -1091,10 +1290,14 @@ declare module "@prismicio/client" {
       BlogDocument,
       BlogDocumentData,
       BlogDocumentDataSlicesSlice,
+      BroadcastPartnersDocument,
+      BroadcastPartnersDocumentData,
       ImageWithTextDocument,
       ImageWithTextDocumentData,
       PolicyDocument,
       PolicyDocumentData,
+      SponsorDocument,
+      SponsorDocumentData,
       TeamDocument,
       TeamDocumentData,
       TeamDocumentDataTournamentsItem,

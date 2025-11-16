@@ -1,7 +1,7 @@
 import type { F1MatchInfo, F1MatchData, F1TeamData } from "@/types/opta-feeds/f1-fixtures"
 
 export function normalizeOptaId(id: string): string {
-  if (id.startsWith('t') || id.startsWith('g')) {
+  if (id.startsWith('t') || id.startsWith('g') || id.startsWith('p')) {
     return id.slice(1)
   }
   return id
