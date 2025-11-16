@@ -18,6 +18,7 @@ import { PageBreadcrumbs } from "@/components/blocks/page-breadcrumbs"
 import type { GameCard } from "@/types/components"
 import { GamesSlider } from "@/components/blocks/tournament/games-slider/games-slider"
 import type { TournamentDocument } from "../../../../prismicio-types"
+import { cn } from "@/lib/utils"
 
 const exploreNavItems = [
   { href: "/news", label: "News", key: "nav-news" },
@@ -50,7 +51,7 @@ async function NavMain({ showBreadcrumbs, pathname, customBreadcrumbs, gameCards
   }
 
   return (
-    <div className="sticky top-0 z-50 w-full border-b border-border/50 bg-background backdrop-blur supports-[backdrop-filter]:bg-background/90">
+    <div className={cn("sticky top-0 z-50 w-full border-b border-border/50 bg-background backdrop-blur supports-[backdrop-filter]:bg-background/90", gameCards && gameCards.length > 0 && "bg-background supports-[backdrop-filter]:bg-background")}>
       <nav>
         <PaddingGlobal>
           <div className="mx-auto flex w-full items-center gap-12 h-18">
