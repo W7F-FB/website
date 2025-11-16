@@ -179,18 +179,15 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                         </SectionHeadingText>
                     </SectionHeading>
                     <div className="grid grid-cols-1 md:grid-cols-7 gap-12">
-                        <Card className="p-0 gap-0 col-span-1 md:col-span-2 self-start sticky top-32">
+                        <Card banner className="col-span-1 md:col-span-2 self-start sticky top-32">
                             {f3StandingsData?.SoccerFeed?.SoccerDocument?.Competition?.TeamStandings?.map((groupStandings) => {
                                 const groupName = groupStandings.Round?.Name.value || 'Unknown Group'
                                 return (
-
                                     <div key={groupStandings.Round?.Name.id || Math.random()}>
-                                        <CardHeader className="bg-muted/50 gap-0 py-4 px-6">
-                                            <CardTitle className="font-headers text-xl">
-                                                {groupName}
-                                            </CardTitle>
+                                        <CardHeader>
+                                            <CardTitle>{groupName}</CardTitle>
                                         </CardHeader>
-                                        <CardContent className="divide-y divide-muted/50 py-4 px-6">
+                                        <CardContent>
                                             <GroupList
                                                 groupStandings={groupStandings}
                                                 teams={f3StandingsData?.SoccerFeed?.SoccerDocument?.Team || []}
