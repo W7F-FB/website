@@ -103,6 +103,7 @@ export default function MatchPageContent({
         awayTeamPrismic={awayTeamPrismic}
         tournament={tournament}
         broadcastPartners={broadcastPartners}
+        f1FixturesData={f1FixturesData}
       />
       <Separator variant="gradient" className="my-8" />
       <Section padding="none" className="grid grid-cols-1 md:grid-cols-4 gap-8">

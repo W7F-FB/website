@@ -263,20 +263,43 @@ export function mapBlogDocumentToMetadata(blog: BlogDocument): BlogMetadata {
   }
 }
 
+export function normalizeDateString(dateStr: string | Date): string {
+  const date = typeof dateStr === 'string' ? parseISO(dateStr) : dateStr
+  const year = date.getFullYear()
+  const month = String(date.getMonth() + 1).padStart(2, '0')
+  const day = String(date.getDate()).padStart(2, '0')
+  return `${year}-${month}-${day}`
+}
+
 export function formatGameDate(startTime: string | Date | null | undefined): { day: string; month: string; time: string } {
   if (!startTime) return { day: "", month: "", time: "" }
   
   try {
-    const date = new Date(startTime)
-    const day = date.getUTCDate().toString()
-    const month = date.toLocaleDateString("en-US", { month: "short", timeZone: "UTC" }).toUpperCase()
+    const date = typeof startTime === 'string' ? parseISO(startTime) : startTime
+    
+    if (isNaN(date.getTime())) {
+      return { day: "", month: "", time: "" }
+    }
+    
+    const dayFormatter = new Intl.DateTimeFormat("en-US", {
+      day: "numeric",
+      timeZone: "America/New_York",
+    })
+    const monthFormatter = new Intl.DateTimeFormat("en-US", {
+      month: "short",
+      timeZone: "America/New_York",
+    })
     const timeFormatter = new Intl.DateTimeFormat("en-US", {
       hour: "numeric",
       minute: "2-digit",
       hour12: true,
       timeZone: "America/New_York",
     })
+    
+    const day = dayFormatter.format(date)
+    const month = monthFormatter.format(date).toUpperCase()
     const time = timeFormatter.format(date)
+    
     return { day, month, time }
   } catch {
     return { day: "", month: "", time: "" }

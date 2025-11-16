@@ -3,12 +3,13 @@
 import { F9MatchData, F9TeamData, F9Team } from "@/types/opta-feeds/f9-match";
 import { PrismicNextImage } from "@prismicio/next";
 import type { TeamDocument, TournamentDocument, BroadcastPartnersDocument } from "@/../prismicio-types";
+import type { F1FixturesResponse } from "@/types/opta-feeds/f1-fixtures";
 import { Card, CardHeader } from "@/components/ui/card";
 import { FastDash } from "@/components/ui/fast-dash";
-import { formatGameDate } from "@/lib/utils";
+import { formatGameDate, normalizeDateString } from "@/lib/utils";
 import { CaretFilledIcon, StadiumIcon } from "@/components/website-base/icons";
 import { BroadcastPartnerButton } from "../broadcast-partner";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 
 interface MatchHeroProps {
   f9MatchData: F9MatchData;
@@ -20,9 +21,10 @@ interface MatchHeroProps {
   awayTeamPrismic?: TeamDocument | null;
   tournament?: TournamentDocument | null;
   broadcastPartners?: BroadcastPartnersDocument[];
+  f1FixturesData?: F1FixturesResponse | null;
 }
 
-export default function MatchHero({ f9MatchData, homeTeamData, awayTeamData, homeTeam, awayTeam, homeTeamPrismic, awayTeamPrismic, tournament, broadcastPartners }: MatchHeroProps) {
+export default function MatchHero({ f9MatchData, homeTeamData, awayTeamData, homeTeam, awayTeam, homeTeamPrismic, awayTeamPrismic, tournament, broadcastPartners, f1FixturesData }: MatchHeroProps) {
   const homeTeamColor = homeTeamPrismic?.data.color_primary || undefined;
   const awayTeamColor = awayTeamPrismic?.data.color_primary || undefined;
 
@@ -34,6 +36,18 @@ export default function MatchHero({ f9MatchData, homeTeamData, awayTeamData, hom
       setDisplayPartners(shuffled);
     }
   }, [broadcastPartners]);
+
+  const matchDay = useMemo(() => {
+    if (!f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData) return null;
+    
+    const allMatches = f1FixturesData.SoccerFeed.SoccerDocument.MatchData;
+    const groupStageMatches = allMatches.filter(match => match.MatchInfo.RoundType === "Round");
+    const currentMatchDate = normalizeDateString(f9MatchData.MatchInfo.Date);
+    const sortedDates = [...new Set(groupStageMatches.map(m => normalizeDateString(m.MatchInfo.Date)))].sort();
+    const matchDayIndex = sortedDates.indexOf(currentMatchDate);
+    
+    return matchDayIndex !== -1 ? matchDayIndex + 1 : null;
+  }, [f1FixturesData, f9MatchData.MatchInfo.Date]);
 
   const gameDate = formatGameDate(f9MatchData.MatchInfo.Date)
   const stadium = tournament?.data.stadium_name || ""
@@ -66,6 +80,7 @@ export default function MatchHero({ f9MatchData, homeTeamData, awayTeamData, hom
           </div>
         )}
         <div className="flex items-center gap-2 font-headers font-medium uppercase">
+          {matchDay && `Match Day ${matchDay}`}
           <FastDash />
           {gameDate.time ? `${gameDate.month} ${gameDate.day}, ${gameDate.time} ET` : ""}
         </div>
