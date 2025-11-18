@@ -8,9 +8,22 @@ import { PrismicNextImage } from "@prismicio/next"
 import type { TeamDocument, TournamentDocument } from "../../../../prismicio-types"
 import type { F3StandingsResponse } from "@/types/opta-feeds/f3-standings"
 import type { F1FixturesResponse } from "@/types/opta-feeds/f1-fixtures"
-import { Table, TableBody, TableRow, TableCell } from "@/components/ui/table"
+import { Table, TableBody, TableRow, TableCell, TableHeader } from "@/components/ui/table"
 
-type TeamStatsCardProps = {
+const MAX_RECENT_RESULTS = 5
+const TOP_PLACEMENT_THRESHOLD = 3
+
+type SectionId = "team-stats" | "participation" | "recent-results"
+type SectionRenderer = () => React.ReactNode
+
+function formatResultDate(date: string): string {
+    return new Date(date).toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric'
+    })
+}
+
+type Props = {
     team: TeamDocument
     standings?: F3StandingsResponse | null
     fixtures?: F1FixturesResponse | null
@@ -18,11 +31,13 @@ type TeamStatsCardProps = {
     prismicTeams?: TeamDocument[]
 }
 
-export function TeamStatsCard({ team, standings, fixtures, currentTournament, prismicTeams = [] }: TeamStatsCardProps) {
+export function TeamStatsCard({ team, standings, fixtures, currentTournament, prismicTeams = [] }: Props) {
 
-    const teamStanding = standings?.SoccerFeed?.SoccerDocument?.Competition?.TeamStandings
+    const teamStanding = team.data.opta_id 
+    ? standings?.SoccerFeed?.SoccerDocument?.Competition?.TeamStandings
         ?.flatMap(group => group.TeamRecord || [])
         .find(record => record.TeamRef === `t${team.data.opta_id}`)
+    : undefined
 
     const wins = teamStanding?.Standing.Won || 0
     const losses = teamStanding?.Standing.Lost || 0
@@ -36,7 +51,7 @@ export function TeamStatsCard({ team, standings, fixtures, currentTournament, pr
 
     const finalPosition = teamStanding?.Standing.Position
     const isComplete = currentTournament?.data?.status === "Complete"
-    const showPlacement = isComplete && finalPosition && finalPosition <= 3
+    const showPlacement = isComplete && finalPosition && finalPosition <= TOP_PLACEMENT_THRESHOLD
 
     const placementConfig = {
         1: { text: "1st Place", variant: "default" as const },
@@ -63,8 +78,14 @@ export function TeamStatsCard({ team, standings, fixtures, currentTournament, pr
     }, [team.data.tournaments])
 
     const recentResults = useMemo(() => {
+        if (!team.data.opta_id) return []
+
         const teamOptaRef = `t${team.data.opta_id}`
         const allMatches = fixtures?.SoccerFeed?.SoccerDocument?.MatchData || []
+
+        const teamsMap = new Map(
+            prismicTeams.map(t => [t.data.opta_id, t])
+        )
 
         const completedMatches = allMatches
             .filter(match => {
@@ -77,7 +98,7 @@ export function TeamStatsCard({ team, standings, fixtures, currentTournament, pr
                 const dateB = new Date(b.MatchInfo.Date).getTime()
                 return dateB - dateA
             })
-            .slice(0, 5)
+            .slice(0, MAX_RECENT_RESULTS)
 
         return completedMatches.map(match => {
             const teamData = match.TeamData.find(t => t.TeamRef === teamOptaRef)
@@ -88,10 +109,9 @@ export function TeamStatsCard({ team, standings, fixtures, currentTournament, pr
 
             const isWin = teamScore > opponentScore
             const isLoss = teamScore < opponentScore
-            const isDraw = teamScore === opponentScore
 
             const opponentOptaId = opponentData?.TeamRef?.replace('t', '') || ""
-            const opponentTeam = prismicTeams.find(t => t.data.opta_id === opponentOptaId)
+            const opponentTeam = opponentOptaId ? teamsMap.get(opponentOptaId) : undefined
             const opponentName = opponentTeam?.data.name || opponentData?.TeamRef?.replace('t', 'Team ') || "Unknown"
 
             return {
@@ -111,6 +131,11 @@ export function TeamStatsCard({ team, standings, fixtures, currentTournament, pr
         if (!teamStanding) {
             return (
                 <Table>
+                    <TableHeader>
+                        <TableRow>
+                            <th className="sr-only">Team Statistics</th>
+                        </TableRow>
+                    </TableHeader>
                     <TableBody>
                         <TableRow>
                             <TableCell className="text-center py-4 text-sm text-muted-foreground">
@@ -130,6 +155,12 @@ export function TeamStatsCard({ team, standings, fixtures, currentTournament, pr
 
         return (
             <Table>
+                <TableHeader>
+                    <TableRow>
+                        <th className="sr-only">Statistic</th>
+                        <th className="sr-only">Value</th>
+                    </TableRow>
+                </TableHeader>
                 <TableBody>
                     {rows.map(row => (
                         <TableRow key={row.label}>
@@ -164,6 +195,11 @@ export function TeamStatsCard({ team, standings, fixtures, currentTournament, pr
         if (tournaments.length === 0) {
             return (
                 <Table>
+                    <TableHeader>
+                        <TableRow>
+                            <th className="sr-only">Tournament Participation</th>
+                        </TableRow>
+                    </TableHeader>
                     <TableBody>
                         <TableRow>
                             <TableCell className="text-center py-4 text-sm text-muted-foreground">
@@ -177,6 +213,12 @@ export function TeamStatsCard({ team, standings, fixtures, currentTournament, pr
 
         return (
             <Table>
+                <TableHeader>
+                    <TableRow>
+                        <th className="sr-only">Tournament</th>
+                        <th className="sr-only">Year</th>
+                    </TableRow>
+                </TableHeader>
                 <TableBody>
                     {tournaments.map(t => (
                         <TableRow key={t.uid}>
@@ -202,6 +244,11 @@ export function TeamStatsCard({ team, standings, fixtures, currentTournament, pr
         if (recentResults.length === 0) {
             return (
                 <Table>
+                    <TableHeader>
+                        <TableRow>
+                            <th className="sr-only">Recent Results</th>
+                        </TableRow>
+                    </TableHeader>
                     <TableBody>
                         <TableRow>
                             <TableCell colSpan={3} className="text-center py-4 text-sm text-muted-foreground">
@@ -215,11 +262,18 @@ export function TeamStatsCard({ team, standings, fixtures, currentTournament, pr
 
         return (
             <Table>
+                <TableHeader>
+                    <TableRow>
+                        <th className="sr-only">Result</th>
+                        <th className="sr-only">Opponent</th>
+                        <th className="sr-only">Score</th>
+                    </TableRow>
+                </TableHeader>
                 <TableBody>
                     {recentResults.map((result) => (
                         <TableRow key={result.matchId}>
                             <TableCell className="w-8">
-                                <div className="text-white/60 font-headers text-base font-medium">
+                                <div className="text-muted-foreground font-headers text-base font-medium">
                                     {result.result}
                                 </div>
                             </TableCell>
@@ -238,10 +292,7 @@ export function TeamStatsCard({ team, standings, fixtures, currentTournament, pr
                                     )}
                                 </div>
                                 <div className="text-xs text-muted-foreground mt-0.5">
-                                    {new Date(result.date).toLocaleDateString('en-US', {
-                                        month: 'short',
-                                        day: 'numeric'
-                                    })}
+                                    {formatResultDate(result.date)}
                                 </div>
                             </TableCell>
                             <TableCell className="text-right">
@@ -256,13 +307,13 @@ export function TeamStatsCard({ team, standings, fixtures, currentTournament, pr
         )
     }
 
-    const renderers: Record<string, () => React.ReactNode> = {
+    const renderers: Record<SectionId, SectionRenderer> = {
         "team-stats": renderTeamStats,
         "participation": renderParticipation,
         "recent-results": renderRecentResults,
     }
 
-    const sidebarSections = [
+    const sidebarSections: Array<{ id: SectionId; title: string }> = [
         { id: "team-stats", title: "Team Statistics" },
         { id: "participation", title: "Tournament Participation" },
         { id: "recent-results", title: "Recent Results" },
