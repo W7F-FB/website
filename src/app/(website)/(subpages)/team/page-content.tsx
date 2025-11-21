@@ -51,11 +51,12 @@ export default function TeamPageContent({
         homeTeamColor={team.data.color_primary || undefined}
         currentTournament={currentTournament}
         standings={standings}
+        fixtures={fixtures}
       />
       <Separator variant="gradient" className="my-8" />
       <Section padding="none">
         <div className="grid grid-cols-3 gap-8">
-          <div className="col-span-1">
+          <div className="col-span-1 h-full">
             <TeamStatsCard
               team={team}
               standings={standings}
@@ -64,18 +65,22 @@ export default function TeamPageContent({
               prismicTeams={prismicTeams}
             />
           </div>
-          <div className="col-span-2 space-y-8">
-            <TeamHub
-              scorer={teamLeaders.scorer}
-              playmaker={teamLeaders.playmaker}
-              keeper={teamLeaders.keeper}
-            />
-            <UpcomingMatch
-              team={team}
-              fixtures={fixtures}
-              prismicTeams={prismicTeams}
-              optaTeams={teamSquad ? [teamSquad] : []}
-            />
+          <div className="flex flex-col gap-8 relative col-span-2 h-full">
+            <div>
+              <TeamHub
+                scorer={teamLeaders.scorer}
+                playmaker={teamLeaders.playmaker}
+                keeper={teamLeaders.keeper}
+              />
+            </div>
+            <div className="flex-1 min-h-0">
+              <UpcomingMatch
+                team={team}
+                fixtures={fixtures}
+                prismicTeams={prismicTeams}
+                optaTeams={teamSquad ? [teamSquad] : []}
+              />
+            </div>
           </div>
           <div className="col-span-3">
             <Card banner className="bg-card/50 border-muted/50">

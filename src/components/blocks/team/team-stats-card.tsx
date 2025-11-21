@@ -8,7 +8,9 @@ import { PrismicNextImage } from "@prismicio/next"
 import type { TeamDocument, TournamentDocument } from "../../../../prismicio-types"
 import type { F3StandingsResponse } from "@/types/opta-feeds/f3-standings"
 import type { F1FixturesResponse } from "@/types/opta-feeds/f1-fixtures"
+import { Button } from "@/components/ui/button"
 import { Table, TableBody, TableRow, TableCell, TableHeader } from "@/components/ui/table"
+import { ReplayIcon } from "@/components/website-base/icons"
 
 const MAX_RECENT_RESULTS = 5
 const TOP_PLACEMENT_THRESHOLD = 3
@@ -33,11 +35,11 @@ type Props = {
 
 export function TeamStatsCard({ team, standings, fixtures, currentTournament, prismicTeams = [] }: Props) {
 
-    const teamStanding = team.data.opta_id 
-    ? standings?.SoccerFeed?.SoccerDocument?.Competition?.TeamStandings
-        ?.flatMap(group => group.TeamRecord || [])
-        .find(record => record.TeamRef === `t${team.data.opta_id}`)
-    : undefined
+    const teamStanding = team.data.opta_id
+        ? standings?.SoccerFeed?.SoccerDocument?.Competition?.TeamStandings
+            ?.flatMap(group => group.TeamRecord || [])
+            .find(record => record.TeamRef === `t${team.data.opta_id}`)
+        : undefined
 
     const wins = teamStanding?.Standing.Won || 0
     const losses = teamStanding?.Standing.Lost || 0
@@ -295,9 +297,16 @@ export function TeamStatsCard({ team, standings, fixtures, currentTournament, pr
                                     {formatResultDate(result.date)}
                                 </div>
                             </TableCell>
-                            <TableCell className="text-right">
+                            <TableCell className="text-right flex items-center gap-2 justify-end">
                                 <div className="text-sm font-headers font-semibold">
                                     {result.teamScore}-{result.opponentScore}
+                                </div>
+                                <div>
+                                    <Button size="sm" variant="outline" className="h-7 px-2 text-xs gap-1">
+                                        <Link href={`/match/${result.matchId}`}>
+                                            <ReplayIcon className="size-3" />
+                                        </Link>
+                                    </Button>
                                 </div>
                             </TableCell>
                         </TableRow>

@@ -7,7 +7,9 @@ import { getPlayerFullName, getPlayerJerseyNumber, getPlayerNationality } from "
 import { cn, getCountryIsoCode } from "@/lib/utils";
 import ReactCountryFlag from "react-country-flag";
 import type { F40Player } from "@/types/opta-feeds/f40-squads-feed";
-
+import { LinePattern } from "../line-pattern";
+import { Separator } from "@/components/ui/separator";
+import { P } from "@/components/website-base/typography";
 interface RosterCardProps extends React.ComponentProps<"div"> {
   players: F40Player[];
 }
@@ -22,10 +24,10 @@ export function RosterCard({ players, className }: RosterCardProps) {
     <div className="space-y-8">
       <Tabs defaultValue="goalkeepers" className={cn("", className)}>
         <TabsList className="bg-card w-full">
-          <TabsTrigger value="goalkeepers">Goalkeepers</TabsTrigger>
-          <TabsTrigger value="defenders">Defenders</TabsTrigger>
-          <TabsTrigger value="midfielders">Midfielders</TabsTrigger>
-          <TabsTrigger value="forwards">Forwards</TabsTrigger>
+          <TabsTrigger value="goalkeepers">Goalkeepers ({goalkeepers.length})</TabsTrigger>
+          <TabsTrigger value="defenders">Defenders ({defenders.length})</TabsTrigger>
+          <TabsTrigger value="midfielders">Midfielders ({midfielders.length})</TabsTrigger>
+          <TabsTrigger value="forwards">Forwards ({forwards.length})</TabsTrigger>
         </TabsList>
         <TabsContents>
           <TabsContent value="goalkeepers">
@@ -62,10 +64,13 @@ function PlayersTable({ players }: PlayersTableProps) {
   return (
     <Table>
       <TableBody>
-        <TableRow className="bg-muted/20 text-sm font-semibold uppercase hover:bg-muted/20">
-          <TableHead className="w-20">#</TableHead>
-          <TableHead>Name</TableHead>
-          <TableHead className="text-right w-32">Country</TableHead>
+        <TableRow className="bg-background font-headers font-semibold uppercase hover:bg-muted/10 relative overflow-hidden">
+          <TableHead className="w-20 relative z-10">#</TableHead>
+          <TableHead className="relative z-10">Name</TableHead>
+          <TableHead className="text-right w-32 relative z-10">Country</TableHead>
+          <td className="absolute inset-0 pointer-events-none p-0 m-0 border-0">
+            <LinePattern patternSize={5} className="absolute inset-0" />
+          </td>
         </TableRow>
         {players.map((player) => (
           <PlayerRow key={player.uID} player={player} />
@@ -87,12 +92,12 @@ function PlayerRow({ player }: PlayerRowProps) {
   return (
     <TableRow className="hover:bg-accent/50 transition-colors">
       <TableCell className="w-20">
-        <span className="font-[450] font-headers uppercase text-accent-foreground">
-          {jerseyNum !== "Unknown" && jerseyNum !== "?" ? jerseyNum : "-"}
+        <span className="font-medium text-accent-foreground">
+          # {jerseyNum !== "Unknown" && jerseyNum !== "?" ? jerseyNum : "-"}
         </span>
       </TableCell>
       <TableCell>
-        <p className="font-semibold text-base truncate">{fullName}</p>
+        <span className="font-medium text-base">{fullName}</span>
       </TableCell>
       <TableCell className="text-right w-32">
         {nationality && nationality !== "Unknown" && (
@@ -104,6 +109,7 @@ function PlayerRow({ player }: PlayerRowProps) {
     </TableRow>
   );
 }
+
 
 interface CountryFlagProps {
   country: string;
