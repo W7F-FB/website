@@ -149,7 +149,7 @@ function PlayerRow({ player, seasonStats }: PlayerRowProps) {
   const redCards = f30Player
     ? Number(getPlayerStat(f30Player, "Total Red Cards") ?? 0)
     : 0;
-  const cards = f30Player ? yellowCards + redCards : "-";
+    const cards = f30Player ? yellowCards + redCards : 0;
 
   return (
     <TableRow className="hover:bg-accent/50 transition-colors">
