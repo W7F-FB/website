@@ -5,6 +5,7 @@ import numeral from "numeral";
 import type { BlogDocument } from "../../prismicio-types";
 import type { BlogMetadata } from "@/components/blocks/posts/post";
 import countries from "world-countries";
+import { DEFAULT_GRADIENT_COLORS } from "@/components/ui/gradient-bg";
 
 const twMerge = extendTailwindMerge({
   extend: {
@@ -161,36 +162,23 @@ export function generateBreadcrumbs(pathname: string) {
 }
 
 export function createGrainGradientBackground(
-  overlayColor = "#c4c4c4",
-  accentColor = "#708e53", 
-  shadowColor = "#242424"
+  overlayColor: string = DEFAULT_GRADIENT_COLORS.overlay,
+  accentColor: string = DEFAULT_GRADIENT_COLORS.accent, 
+  shadowColor: string = DEFAULT_GRADIENT_COLORS.shadow, 
+  accentOpacity: number = 1,
 ) {
-  // Use consistent fallback colors for SSR/client consistency
-  const resolveColor = (color: string) => {
-    if (color.startsWith('var(')) {
-      // Use consistent fallback colors instead of checking window
-      return color.replace('var(--muted)', '#f5f5f5')
-                  .replace('var(--primary)', '#1a1a1a')
-                  .replace('var(--accent)', '#1a1a1a');
-    }
-    return color;
-  };
-
-  const resolvedOverlay = resolveColor(overlayColor);
-  const resolvedAccent = resolveColor(accentColor);
-  const resolvedShadow = resolveColor(shadowColor);
 
   const svg = `<svg width="1600" height="1600" viewBox="0 0 1600 1600" fill="none" xmlns="http://www.w3.org/2000/svg">
     <rect width="1600" height="1600" fill="#000000"/>
-    <rect width="1600" height="1600" fill="${resolvedOverlay}" fill-opacity="0.3615796519203419"/>
+    <rect width="1600" height="1600" fill="${overlayColor}" fill-opacity="0.3615796519203419"/>
     <g clip-path="url(#clip0_50_327)">
       <g filter="url(#filter0_f_50_327)">
-        <rect x="328" y="429" width="1070" height="872" fill="${resolvedAccent}"/>
-        <rect x="0" y="618" width="1034" height="837" fill="${resolvedShadow}"/>
+        <rect x="328" y="429" width="1070" height="872" fill="${accentColor}" fill-opacity="${accentOpacity}"/>
+        <rect x="0" y="618" width="1034" height="837" fill="${shadowColor}" />
       </g>
     </g>
     <g style="mix-blend-mode:overlay">
-      <rect width="1600" height="1600" fill="url(#pattern0)" fill-opacity="0.75"/>
+      <rect width="1600" height="1600" fill="url(#pattern0)" fill-opacity="1"/>
       <rect x="0" y="0" width="1600" height="1600" style="fill:gray; stroke:transparent; filter: url(#feTurb02)" />
     </g>
     <defs>

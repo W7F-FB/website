@@ -10,15 +10,20 @@ import {
   NavigationMenuLink,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
-import { NavigationMenuTournament } from "./nav-tournament-item"
+import { NavigationMenuTournament, NavigationMenuTournamentFeatured } from "./nav-tournament-item"
 import { PaddingGlobal } from "@/components/website-base/padding-containers"
 import { getNavigationTournaments } from "@/cms/queries/tournaments"
+import { getMostRecentBlog } from "@/cms/queries/blog"
 import { Button } from "@/components/ui/button"
 import { PageBreadcrumbs } from "@/components/blocks/page-breadcrumbs"
 import type { GameCard } from "@/types/components"
 import { GamesSlider } from "@/components/blocks/tournament/games-slider/games-slider"
 import type { TournamentDocument } from "../../../../prismicio-types"
 import { cn } from "@/lib/utils"
+import { Subtitle } from "../typography"
+import { Separator } from "@/components/ui/separator"
+import { PostMini } from "@/components/blocks/posts/post"
+import { isFilled } from "@prismicio/client"
 
 const exploreNavItems = [
   { href: "/news", label: "News", key: "nav-news" },
@@ -41,13 +46,19 @@ type NavMainProps = {
 }
 
 async function NavMain({ showBreadcrumbs, pathname, customBreadcrumbs, gameCards, tournament }: NavMainProps = {} as NavMainProps) {
-  // Add error handling to prevent nav failure
   let tournaments: Awaited<ReturnType<typeof getNavigationTournaments>> = []
+  let recentBlog: Awaited<ReturnType<typeof getMostRecentBlog>> = null
+  
   try {
     tournaments = await getNavigationTournaments()
   } catch (error) {
     console.error("Failed to load tournaments for navigation:", error)
-    // Navigation will still render, just without tournaments
+  }
+  
+  try {
+    recentBlog = await getMostRecentBlog()
+  } catch (error) {
+    console.error("Failed to load recent blog for navigation:", error)
   }
 
   return (
@@ -55,25 +66,69 @@ async function NavMain({ showBreadcrumbs, pathname, customBreadcrumbs, gameCards
       <nav>
         <PaddingGlobal>
           <div className="mx-auto flex w-full items-center gap-12 h-18">
-            <Logo size="lg" link color="white" variant="2-lines" />
+            <Logo size="lg" link variant="2-lines" />
             <NavigationMenu viewport={false} className="justify-end">
               <NavigationMenuList className="gap-2">
                 <NavigationMenuItem>
                   <NavigationMenuTrigger><span>Events & Tickets</span></NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <ul className="grid gap-2 md:w-[320px]">
-                      {tournaments.map((tournament) => (
-                        <NavigationMenuTournament
-                          key={tournament.id}
-                          tournament={tournament}
-                        />
-                      ))}
-                    </ul>
+                  <NavigationMenuContent className="right-auto !w-max">
+                    {(() => {
+                      const featuredTournament = tournaments.find(t => t.data.featured === true)
+                      const otherTournaments = tournaments.filter(t => t.data.featured !== true)
+
+                      return (
+                        <div className="grid grid-cols-[1fr_1px_auto] gap-4">
+                          {featuredTournament && (
+                            <ul className="grid gap-2 h-full">
+                              <NavigationMenuTournamentFeatured
+                                key={featuredTournament.id}
+                                tournament={featuredTournament}
+                              />
+                            </ul>
+                          )}
+                          <Separator orientation="vertical" />
+                          <div className="flex flex-col gap-6 py-3">
+                            {recentBlog && (
+                              <div className="flex flex-col gap-3 content-start">
+                                <div className="flex items-center gap-3 w-full">
+                                  <Subtitle className="mb-0 text-xs whitespace-nowrap">Recent News</Subtitle>
+                                </div>
+                                <PostMini
+                                  blog={{
+                                    title: recentBlog.data.title || "",
+                                    slug: recentBlog.uid,
+                                    excerpt: recentBlog.data.excerpt || null,
+                                    image: isFilled.image(recentBlog.data.image) ? recentBlog.data.image.url : undefined,
+                                    category: recentBlog.data.category || null,
+                                    author: recentBlog.data.author || null,
+                                    date: recentBlog.data.date || null,
+                                  }}
+                                  className="w-[320px]"
+                                />
+                              </div>
+                            )}
+                            <div className="flex flex-col items-stretch gap-3 flex-grow items-start">
+                              <div className="flex items-center gap-3 w-full">
+                                <Subtitle className="mb-0 text-xs whitespace-nowrap">Past Events</Subtitle>    
+                              </div>
+                              <ul className="grid gap-2 flex-grow">
+                                {otherTournaments.map((tournament) => (
+                                  <NavigationMenuTournament
+                                    key={tournament.id}
+                                    tournament={tournament}
+                                  />
+                                ))}
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      )
+                    })()}
                   </NavigationMenuContent>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
                   <NavigationMenuTrigger><span>Explore</span></NavigationMenuTrigger>
-                  <NavigationMenuContent>
+                  <NavigationMenuContent className="!w-max">
                     <ul className="grid gap-1 md:w-[320px]">
                       {exploreNavItems.map((item) => (
                         <li key={item.key}>
@@ -95,7 +150,7 @@ async function NavMain({ showBreadcrumbs, pathname, customBreadcrumbs, gameCards
               </NavigationMenuList>
             </NavigationMenu>
             <div className="flex-grow flex justify-end">
-              <Button asChild size="skew"><Link href="#"><span>Purchase Tickets</span></Link></Button>
+              <Button asChild size="skew"><Link href="/checkout"><span>Purchase Tickets</span></Link></Button>
             </div>
           </div>
         </PaddingGlobal>

@@ -10,7 +10,7 @@ interface LinePatternProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 
-export function LinePattern({ className, children, fill = 'oklch(0.187 0.000 0.000)', patternSize = 8, fillOpacity = 1, ...props }: LinePatternProps) {
+export function LinePattern({ className, children, fill = 'oklch(0.1949 0.0274 260.031)', patternSize = 8, fillOpacity = 1, ...props }: LinePatternProps) {
     return (
         <div 
             className={cn('',className)}

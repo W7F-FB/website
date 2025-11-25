@@ -3,7 +3,7 @@
 import { PrismicNextImage } from "@prismicio/next";
 import Link from "next/link";
 import ReactCountryFlag from "react-country-flag";
-import type { TeamDocument, TournamentDocument } from "../../../../prismicio-types";
+import type { TeamDocument } from "../../../../prismicio-types";
 import type { F3StandingsResponse } from "@/types/opta-feeds/f3-standings";
 import type { F1FixturesResponse } from "@/types/opta-feeds/f1-fixtures";
 import { Card, CardHeader } from "@/components/ui/card";
@@ -32,12 +32,11 @@ const navLinks: NavLink[] = [
 interface HeroTeamProps {
   team: TeamDocument;
   homeTeamColor?: string;
-  currentTournament?: TournamentDocument | null;
   standings?: F3StandingsResponse | null;
   fixtures?: F1FixturesResponse | null;
 }
 
-export function HeroTeam({ team, homeTeamColor, currentTournament, standings, fixtures }: HeroTeamProps) {
+export function HeroTeam({ team, homeTeamColor, standings, fixtures }: HeroTeamProps) {
   const [active, setActive] = useState("#home");
 
   const teamStanding = useMemo(() => {

@@ -1,7 +1,5 @@
 import { Section, Container, PaddingGlobal } from "@/components/website-base/padding-containers"
-import type { F3StandingsResponse } from "@/types/opta-feeds/f3-standings"
 import type { F1FixturesResponse } from "@/types/opta-feeds/f1-fixtures"
-import type { F30SeasonStatsResponse } from "@/types/opta-feeds/f30-season-stats"
 import type { TournamentDocument, BlogDocument } from "../../../../../prismicio-types"
 import type { TeamDocument } from "../../../../../prismicio-types"
 import { getGroupStageMatches} from "./utils"
@@ -26,13 +24,11 @@ import { PrismicLink } from "@prismicio/react"
 type Props = {
     tournament: TournamentDocument
     tournamentBlogs: BlogDocument[]
-    f3StandingsData: F3StandingsResponse | null
     f1FixturesData: F1FixturesResponse | null
-    f30TeamStats: Map<string, F30SeasonStatsResponse>
     prismicTeams: TeamDocument[]
 }
 
-export default function TournamentPageLive({ tournament, tournamentBlogs, f3StandingsData, f1FixturesData, f30TeamStats, prismicTeams }: Props) {
+export default function TournamentPageLive({ tournament, tournamentBlogs, f1FixturesData, prismicTeams }: Props) {
 
     const groupStageMatches = getGroupStageMatches(f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData)
 
@@ -48,15 +44,6 @@ export default function TournamentPageLive({ tournament, tournamentBlogs, f3Stan
         const today = new Date().toISOString().split('T')[0]
         return period === "PreMatch" && matchDate === today
     })
-
-    const completedTodayMatches = groupStageMatches.filter(match => {
-        const period = match.MatchInfo?.Period
-        const matchDate = match.MatchInfo?.Date?.split(' ')[0]
-        const today = new Date().toISOString().split('T')[0]
-        return (period === "FullTime" || period === "PostMatch") && matchDate === today
-    })
-
-    const nextMatch = upcomingTodayMatches[0]
 
     return (
         <>

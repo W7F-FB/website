@@ -12,9 +12,9 @@ interface ClubListProps extends React.ComponentProps<"div"> {
 
 export async function ClubList({ tournament, className, ...props }: ClubListProps) {
   const teams = await getTeamsByTournament(tournament.uid)
-  const sortedTeams = teams.sort((a, b) => {
-    const aSort = a.data.alphabetical_sort_string || ""
-    const bSort = b.data.alphabetical_sort_string || ""
+  const sortedTeams = [...teams].sort((a, b) => {
+    const aSort = (a.data.alphabetical_sort_string || "").toLowerCase()
+    const bSort = (b.data.alphabetical_sort_string || "").toLowerCase()
     return aSort.localeCompare(bSort)
   })
   const numberOfTeams = tournament.data.number_of_teams || sortedTeams.length
@@ -81,7 +81,7 @@ export async function ClubList({ tournament, className, ...props }: ClubListProp
       style={{ gridTemplateColumns: `repeat(${numberOfTeams}, 1fr)` }}
       {...props}
     >
-      {allItems.map((item, index) => {
+      {allItems.map((item) => {
         if (item.type === 'team') {
           const optaId = item.team.data.opta_id
           const placement = optaId ? placementMap[optaId] : undefined
@@ -90,8 +90,6 @@ export async function ClubList({ tournament, className, ...props }: ClubListProp
             <ClubBasic 
               key={item.team.id} 
               team={item.team} 
-              first={index === 0}
-              last={index === allItems.length - 1}
               placement={placement}
             />
           )
@@ -101,8 +99,6 @@ export async function ClubList({ tournament, className, ...props }: ClubListProp
               key={`coming-soon-${item.number}`} 
               team={{} as TeamDocument}
               comingSoon={item.number}
-              first={index === 0}
-              last={index === allItems.length - 1}
             />
           )
         }

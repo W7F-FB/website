@@ -11,11 +11,14 @@ const badgeVariants = cva(
         default:
           "border-transparent bg-primary text-primary-foreground hover:bg-primary/80",
         secondary:
-          "border-transparent bg-secondary text-muted-foreground hover:bg-secondary/80",
+          "border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80",
         destructive:
           "border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80",
         outline: "text-foreground/80 bg-muted/10",
-        backdrop_blur: "border-transparent bg-primary/20 border-primary/10 text-foreground backdrop-blur-sm",
+        accent: "border-transparent bg-accent text-accent-foreground hover:bg-accent/80",
+        muted: "border-transparent bg-muted hover:bg-muted/80",
+        extra_muted: "border-transparent bg-extra-muted hover:bg-extra-muted/80",
+        backdrop_blur: "bg-secondary/10 border-secondary/20 text-foreground backdrop-blur-sm",
       },
       size: {
         default: "px-3.5 pt-1 pb-1 text-sm",
@@ -45,11 +48,12 @@ function Badge({ className, variant, size, children, fast, origin, noSkew, ...pr
   
   if (fast) {
     return (
-      <div className="grid grid-cols-[auto_auto_auto_1fr] gap-0.5">
+      <div className="grid grid-cols-[auto_auto_auto_1fr] gap-0.5 relative">
         <div className={cn(badgeVariants({ variant, size }), "w-2 h-full p-0", skewClass, originClass)}/>
         <div className={cn(badgeVariants({ variant, size }), "w-2 h-full p-0", skewClass, originClass)}/>
         <div className={cn(badgeVariants({ variant, size }), "w-2 h-full p-0", skewClass, originClass)}/>
-        <div className={cn(badgeVariants({ variant, size }), skewClass, originClass, className)} {...props}>
+        <div className={cn(badgeVariants({ variant, size }), "relative", skewClass, originClass, className)} {...props}>
+          
           <span className={innerSkewClass}>{children}</span>
         </div>
       </div>

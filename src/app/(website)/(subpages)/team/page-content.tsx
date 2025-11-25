@@ -49,7 +49,6 @@ export default function TeamPageContent({
       <HeroTeam
         team={team}
         homeTeamColor={team.data.color_primary || undefined}
-        currentTournament={currentTournament}
         standings={standings}
         fixtures={fixtures}
       />

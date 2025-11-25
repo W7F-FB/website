@@ -81,7 +81,7 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                             <Button asChild size="skew_lg" className="clip-chop-sm">
                                 <Link href="#results"><span>Results</span></Link>
                             </Button>
-                            <Button asChild size="skew_lg" variant="outline">
+                            <Button asChild size="skew_lg" variant="secondary">
                                 <Link href="#stat-sheet"><span>Stat Sheet</span></Link>
                             </Button>
                         </div>
@@ -212,12 +212,12 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                                     <div key={date} id={`match-day-${index + 1}`} className="space-y-8">
                                         <div className="flex justify-start gap-0.5 pr-3">
                                             <div className="flex-grow">
-                                                <Badge fast variant="backdrop_blur" origin="bottom-left" size="lg" className="text-2xl">
+                                                <Badge fast variant="muted" origin="bottom-left" size="lg" className="text-2xl">
                                                     Match day {index + 1}
                                                 </Badge>
                                             </div>
-                                            <Badge variant="backdrop_blur" origin="bottom-left" size="lg" className="text-base">
-                                                {formatMatchDayDate(date)}
+                                            <Badge variant="muted" origin="bottom-left" size="lg" className="text-base relative">                                             
+                                                <span className="relative z-10">{formatMatchDayDate(date)}</span>
                                             </Badge>
                                         </div>
                                         <div className={cn("grid grid-cols-1 md:grid-cols-2 gap-6", compact && "md:grid-cols-3")}>
@@ -257,12 +257,12 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                     </SectionHeading>
                     <div className="flex justify-start gap-0.5 pr-3 mb-8">
                         <div className="flex-grow">
-                            <Badge fast variant="backdrop_blur" origin="bottom-left" size="lg" className="text-2xl">
+                            <Badge fast variant="muted" origin="bottom-left" size="lg" className="text-2xl">
                                 Match day 3
                             </Badge>
                         </div>
                         {knockoutDate && (
-                            <Badge variant="backdrop_blur" origin="bottom-left" size="lg" className="text-base">
+                            <Badge variant="muted" origin="bottom-left" size="lg" className="text-base">
                                 {formatMatchDayDate(knockoutDate.split(' ')[0])}
                             </Badge>
                         )}
@@ -327,7 +327,7 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                         </SectionHeadingHeading>
                     </SectionHeading>
                     
-                    <StatSheetTabs prismicTeams={prismicTeams} f30TeamStats={f30TeamStats} f1FixturesData={f1FixturesData} tournamentStatus={tournament.data.status} />
+                    <StatSheetTabs prismicTeams={prismicTeams} f30TeamStats={f30TeamStats} f1FixturesData={f1FixturesData} tournamentStatus={tournament.data.status ?? undefined} />
                 </Section>
                 {tournamentBlogs.length > 0 && (
                     <>

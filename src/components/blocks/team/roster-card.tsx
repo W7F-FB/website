@@ -8,8 +8,6 @@ import { cn, getCountryIsoCode } from "@/lib/utils";
 import ReactCountryFlag from "react-country-flag";
 import type { F40Player } from "@/types/opta-feeds/f40-squads-feed";
 import { LinePattern } from "../line-pattern";
-import { Separator } from "@/components/ui/separator";
-import { P } from "@/components/website-base/typography";
 interface RosterCardProps extends React.ComponentProps<"div"> {
   players: F40Player[];
 }

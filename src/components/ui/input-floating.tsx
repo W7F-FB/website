@@ -13,7 +13,7 @@ type SelectFloatingItem = {
 }
 
 const inputFloatingVariants = cva(
-  "border-input/50 border-2 font-semibold flex items-center justify-start relative flex w-full min-w-0 rounded-md bg-input/5 shadow-xs transition-[color,box-shadow] outline-none",
+  "border-input/75 border-1 font-semibold flex items-center justify-start relative flex w-full min-w-0 bg-input/5 shadow-xs transition-[color,box-shadow] outline-none",
   {
     variants: {
       size: {
@@ -102,7 +102,7 @@ const InputFloating = React.forwardRef<HTMLInputElement, InputFloatingProps>(
           data-slot="input-floating"
           className={cn(
             inputFloatingVariants({ size, className }),
-            isKeyboardFocus && "border-ring/50 ring-1 ring-ring/20"
+            isKeyboardFocus && "border-ring ring-1 ring-ring/80"
           )}
           onClick={handleContainerClick}
         >

@@ -97,7 +97,7 @@ export function TicketTypes() {
                                 {ticketsCard.subtitle}
                             </span>
                             <Button asChild variant="link" size="sm" className="p-0">
-                                <Link href="/">View Schedule</Link>
+                                <Link href="/tournament/fort-lauderdale#schedule">View Schedule</Link>
                             </Button>
                         </div>
                         <H2 className="text-3xl font-bold uppercase text-white">

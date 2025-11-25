@@ -82,3 +82,21 @@ export async function getBlogsByTournament(tournamentId: string): Promise<BlogDo
     throw error;
   }
 }
+
+export async function getMostRecentBlog(): Promise<BlogDocument | null> {
+  try {
+    const client = createClient();
+    const results = await client.getAllByType("blog", {
+      orderings: [
+        { field: "my.blog.date", direction: "desc" },
+      ],
+      limit: 1,
+    });
+    return results[0] || null;
+  } catch (error) {
+    if (error instanceof Error && error.message.includes("No documents were returned")) {
+      return null;
+    }
+    throw error;
+  }
+}

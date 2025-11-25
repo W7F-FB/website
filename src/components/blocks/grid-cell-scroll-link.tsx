@@ -14,14 +14,14 @@ export function GridCellScrollLink({ href, className, iconClassName }: GridCellS
         <Link 
             href={href} 
             className={cn(
-                "relative text-background block flex items-end justify-end hover:text-muted transition-color duration-200 col-start-3",
+                "relative text-background block flex items-end justify-end hover:text-extra-muted transition-color duration-200 col-start-3",
                 className
             )}
         >
             <div className="absolute inset-0 bg-lines-pattern flex items-end justify-end p-12 opacity-5"></div>
             <BiDownArrowAlt 
                 className={cn(
-                    "relative w-36 h-36 stroke-muted stroke-[0.1]",
+                    "relative w-36 h-36 stroke-line-pattern stroke-[0.1]",
                     iconClassName
                 )} 
             />

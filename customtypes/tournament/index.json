@@ -147,6 +147,15 @@
           "placeholder": ""
         }
       },
+      "opta_enabled": {
+        "type": "Boolean",
+        "config": {
+          "label": "Opta Enabled",
+          "placeholder_false": "false",
+          "placeholder_true": "true",
+          "default_value": false
+        }
+      },
       "awards": {
         "type": "Group",
         "config": {
@@ -226,6 +235,13 @@
           "constraint": {},
           "thumbnails": [],
           "label": "Navigation Image"
+        }
+      },
+      "navigation_description": {
+        "type": "Text",
+        "config": {
+          "label": "Navigation Description",
+          "placeholder": ""
         }
       }
     }

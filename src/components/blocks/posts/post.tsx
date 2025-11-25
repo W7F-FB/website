@@ -34,7 +34,7 @@ export type PostProps = {
 function PostStandard({ blog, className }: PostProps) {
   return (
     <PrismicLink href={`/news/${blog.slug}`}>
-      <Card className={cn("overflow-hidden group rounded-none pt-0", className)}>
+      <Card className={cn("overflow-hidden group/post rounded-none pt-0", className)}>
         {blog.image && (
           <div className="relative w-full h-64">
             <Image
@@ -74,7 +74,7 @@ function PostStandard({ blog, className }: PostProps) {
 function PostCompact({ blog, className }: PostProps) {
   return (
     <PrismicLink href={`/news/${blog.slug}`}>
-      <Card className={cn("flex flex-col md:flex-row overflow-hidden group rounded-none p-0 gap-0 bg-card/35 border-border/40", className)}>
+      <Card className={cn("flex flex-col md:flex-row overflow-hidden group/post rounded-none p-0 gap-0 bg-card/35 border-border/40", className)}>
         {blog.image && (
           <div className="relative w-full md:w-[40%] aspect-square flex-shrink-0">
             <Image
@@ -114,7 +114,7 @@ function PostCompact({ blog, className }: PostProps) {
 function PostCardHoriz({ blog, className }: PostProps) {
   return (
     <PrismicLink href={`/news/${blog.slug}`}>
-      <Card className={cn("flex flex-col md:flex-row overflow-hidden group rounded-none p-0 gap-0 bg-card/35 border-border/40", className)}>
+      <Card className={cn("flex flex-col md:flex-row overflow-hidden group/post rounded-none p-0 gap-0 bg-card/35 border-border/40", className)}>
         {blog.image && (
           <div className="relative w-full md:w-1/2 aspect-[4/3] flex-shrink-0">
             <Image
@@ -155,7 +155,7 @@ function PostCardHoriz({ blog, className }: PostProps) {
 function PostCardVert({ blog, className }: PostProps) {
   return (
     <PrismicLink href={`/news/${blog.slug}`}>
-      <Card className={cn("overflow-hidden group rounded-none pt-0 bg-card/35 border-border/40", className)}>
+      <Card className={cn("overflow-hidden group/post rounded-none pt-0 bg-card/35 border-border/40", className)}>
         {blog.image && (
           <div className="relative w-full aspect-[12/8]">
             <Image
@@ -195,7 +195,7 @@ function PostCardVert({ blog, className }: PostProps) {
 function PostBanner({ blog, className }: PostProps) {
   return (
     <PrismicLink href={`/news/${blog.slug}`}>
-      <div className={cn("flex flex-col md:flex-row overflow-hidden group rounded-none bg-card/35 border border-border/40", className)}>
+      <div className={cn("flex flex-col md:flex-row overflow-hidden group/post rounded-none bg-card/35 border border-border/40", className)}>
         {blog.image && (
           <div className="relative w-full md:w-48  flex-shrink-0">
             <Image
@@ -231,10 +231,31 @@ function PostBanner({ blog, className }: PostProps) {
   )
 }
 
+function PostMini({ blog, className }: PostProps) {
+  return (
+    <PrismicLink href={`/news/${blog.slug}`} className="group/post p-3 bg-gradient-to-r from-muted/30 to-muted/10 self-start">
+      <div className={cn("flex flex-col", className)}>
+        <H3 className="text-xs font-semibold text-foreground line-clamp-2 mb-3">
+          {blog.title}
+        </H3>
+        <div className="flex items-center justify-between">
+          {blog.date && (
+            <span className="text-sm text-muted-foreground">
+              {formatDate(blog.date)}
+            </span>
+          )}
+          <ReadMoreButton size="sm" />
+        </div>
+      </div>
+    </PrismicLink>
+  )
+}
+
 export {
   PostStandard,
   PostCompact,
   PostCardHoriz,
   PostCardVert,
   PostBanner,
+  PostMini,
 }

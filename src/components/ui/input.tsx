@@ -25,7 +25,7 @@ export interface InputProps
 function Input({ className, type, variant, ...props }: InputProps) {
   if (variant === "skew") {
     return (
-      <div className="-skew-x-[var(--skew-btn)] group overflow-hidden relative h-12 w-full border-b border-input transition-colors focus-within:border-primary/50 bg-transparent dark:bg-input/30">
+      <div className={cn("-skew-x-[var(--skew-btn)] group overflow-hidden relative h-12 w-full border-b border-input transition-colors focus-within:border-input", className)}>
         <div className="skew-x-[var(--skew-btn)] h-full">
           <input
             type={type}

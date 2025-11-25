@@ -37,14 +37,14 @@ function SubpageHeroContent({
 }) {
   return (
     <div
-      className={cn("relative z-10 pb-24 pt-36 px-18 min-h-[20rem] flex flex-col gap-4 max-w-3xl w-full bg-muted", className)}
+      className={cn("relative z-10 pb-24 pt-36 px-18 min-h-[20rem] flex flex-col gap-4 max-w-3xl w-full bg-extra-muted", className)}
       {...props}
     >
       <div
-        className="absolute top-0 bottom-0 -right-[0.5rem] -left-[50%] origin-bottom-right -skew-x-[var(--skew-btn)] bg-muted/20 backdrop-blur-sm border-r border-foreground/10"
+        className="absolute top-0 bottom-0 -right-[0.5rem] -left-[50%] origin-bottom-right -skew-x-[var(--skew-btn)] bg-secondary/15 backdrop-blur-sm border-r border-foreground/10"
       />
       <div
-        className="absolute top-0 bottom-0 right-0 -left-[50%] origin-bottom-right -skew-x-[var(--skew-btn)] bg-muted"
+        className="absolute top-0 bottom-0 right-0 -left-[50%] origin-bottom-right -skew-x-[var(--skew-btn)] bg-extra-muted"
       />
       <GradientBg
         className="top-0 bottom-0 right-0 -left-[50%] origin-bottom-right -skew-x-[var(--skew-btn)] opacity-30"
@@ -74,9 +74,10 @@ function SubpageHeroMediaBanner({
 }) {
   return (
     <Card
-      className={cn("relative z-10 p-4 pl-6 bg-muted absolute bottom-8 right-8 max-w-sm overflow-hidden", className)}
+      className={cn("relative z-10 p-4 pl-6 bg-extra-muted absolute bottom-8 right-8 max-w-sm overflow-hidden border-none", className)}
       {...props}
     >
+      <div className="absolute w-3 h-full bg-gradient-to-r from-primary to-transparent -left-1 top-0 bottom-0 z-10"></div>
       <GradientBg
         className="inset-0 opacity-40"
         overlayColor={overlayColor}

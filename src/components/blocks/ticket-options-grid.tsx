@@ -116,7 +116,7 @@ export function TicketOptionsGrid() {
                             <CalendarIcon className="size-3.5 mb-1" />
                             <span className="text-lg">{eventDetails.date}</span>
                             <Button asChild variant="link" size="sm" className="p-0">
-                                <Link href="/">View Schedule</Link>
+                                <Link href="/tournament/fort-lauderdale#schedule">View Schedule</Link>
                             </Button>
                         </div>
 
@@ -127,7 +127,7 @@ export function TicketOptionsGrid() {
                                 variant="link"
                                 size="sm"
                                 onClick={() => setLightboxOpen(true)}
-                                className="p-0"
+                                className="p-0 text-foreground"
                             >
                                 View Layout
                             </Button>
@@ -155,7 +155,7 @@ export function TicketOptionsGrid() {
                     <Separator />
                     <div className="pr-5 w-full">
                         <Button asChild size="skew_lg" className="w-full origin-bottom-left">
-                            <Link href="#"><span>Purchase Tickets</span></Link>
+                            <Link href="/checkout"><span>Purchase Tickets</span></Link>
                         </Button>
                     </div>
                     <GradientAside>
@@ -183,7 +183,7 @@ export function TicketOptionsGrid() {
             <div className="grid gap-6">
                 {ticketOptions.map(option => (
                     <Card key={option.id} className="overflow-hidden relative bg-card/30">
-                        <div className="absolute w-1 left-0 top-0 bottom-0 bg-primary"></div>
+                        <div className="absolute w-1 left-0 top-0 bottom-0 bg-border"></div>
                         <CardHeader className="border-b">
                             <CardTitle>
                                 <H3 className="uppercase">{option.title}</H3>
@@ -209,7 +209,7 @@ export function TicketOptionsGrid() {
                 ))}
                 <div className="flex items-center justify-center mt-8">
                     <Button asChild size="skew_lg">
-                        <Link href="#"><span>Purchase Tickets</span></Link>
+                        <Link href="/checkout"><span>Purchase Tickets</span></Link>
                     </Button>
                 </div>
             </div>

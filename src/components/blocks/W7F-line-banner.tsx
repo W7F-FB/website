@@ -76,7 +76,7 @@ function ImageSequence({ isHovered, images }: { isHovered: boolean; images?: Ima
     );
 }
 
-const LINE_COLOR = 'oklch(0.187 0.000 0.000)';
+const LINE_COLOR = 'oklch(0.1949 0.0274 260.031)';
 const HOVER_LINE_COLOR = 'oklch(0.985 0 0)';
 
 export function W7FLineBanner({ className, images }: W7FLineBannerProps) {

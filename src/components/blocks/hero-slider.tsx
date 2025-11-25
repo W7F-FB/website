@@ -131,7 +131,7 @@ function HeroSlider({ className, children, autoplay = false, autoplayDelay = 500
           <HeroSliderPrevious className="-mr-[0.5px] z-1 hover:z-2" />
           <HeroSliderNext className="-ml-[0.5px] z-1 hover:z-2" />
         </div>
-        <div className="w-full relative border-l border-r border-b dark:border-input backdrop-blur-sm bg-background/40">
+        <div className="w-full relative border-l border-r border-b border-muted backdrop-blur-sm bg-background/40">
           <Progress
             className="h-1.5 rounded-none !bg-transparent"
             value={autoplay ? ((currentSlide * 100) + progress) / slideCount : ((currentSlide + 1) * 100) / slideCount}
@@ -140,10 +140,10 @@ function HeroSlider({ className, children, autoplay = false, autoplayDelay = 500
           {Array.from({ length: slideCount - 1 }, (_, index) => (
             <div
               key={index}
-              className="absolute top-0 bottom-0 w-px bg-background/40 z-[20] border-r dark:border-input"
+              className="absolute top-0 bottom-0 w-px bg-background/40 z-[20] border-r border-muted"
               style={{ left: `calc(${((index + 1) / slideCount) * 100}% - 0.5px)` }}
             >
-              <div className="w-full h-full border-r dark:border-input " />
+              <div className="w-full h-full border-r border-muted" />
             </div>
           ))}
         </div>

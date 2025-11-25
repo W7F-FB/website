@@ -118,7 +118,7 @@ export function StatSheetTeamsTable({ prismicTeams, f30TeamStats, f1FixturesData
                                 {row.placement === '4th' && (
                                     <TableRow className="hover:bg-transparent">
                                         <TableCell className="p-0 h-4">
-                                            <LinePattern className="h-full w-full" patternSize={7} />
+                                            <LinePattern className="h-full w-full" patternSize={5} />
                                         </TableCell>
                                     </TableRow>
                                 )}
@@ -166,7 +166,7 @@ export function StatSheetTeamsTable({ prismicTeams, f30TeamStats, f1FixturesData
                                 {row.placement === '4th' && (
                                     <TableRow className="hover:bg-transparent">
                                         <TableCell colSpan={7} className="p-0 h-4">
-                                            <LinePattern className="h-full w-full" patternSize={7} />
+                                            <LinePattern className="h-full w-full" patternSize={5} />
                                         </TableCell>
                                     </TableRow>
                                 )}

@@ -198,9 +198,14 @@ export default function TournamentPageUpcoming({ tournament, tournamentBlogs }: 
                                         </AccordionItem>
                                     ))}
                                 </Accordion>
-                                <div className="mt-8 pl-2">
-                                    <Button asChild size="skew">
-                                        <Link href="/faqs"><span>Read More</span></Link>
+                                <div className="mt-8 pl-2 w-full flex justify-end">
+                                    <Button asChild variant="link">
+                                        <Link href="/faqs">
+                                            <span>Read More</span>
+                                            <CaretRightIcon
+                                                className="size-3 mt-0.5"
+                                            />
+                                        </Link>
                                     </Button>
                                 </div>
                             </CardContent>

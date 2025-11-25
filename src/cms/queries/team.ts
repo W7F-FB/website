@@ -73,8 +73,20 @@ export async function getTeamsByTournament(tournamentUID: string): Promise<TeamD
     const client = createClient();
 
     // Get all teams first, then filter by tournament participation
+    // Fetch tournament fields including opta_enabled to check if team has Opta-enabled tournament
     const allTeams = await client.getAllByType("team", {
-      fetchLinks: ["tournament.uid"],
+      fetchLinks: [
+        "tournament.uid",
+        "tournament.opta_enabled",
+        "tournament.title",
+        "tournament.country_code",
+        "tournament.start_date",
+        "tournament.end_date",
+        "tournament.opta_competition_id",
+        "tournament.opta_season_id",
+        "tournament.featured",
+        "tournament.nickname"
+      ],
       orderings: [
         { field: "my.team.alphabetical_sort_string", direction: "asc" }
       ]

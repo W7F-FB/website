@@ -37,19 +37,16 @@ export default async function TournamentPage({ params }: Props) {
     const competitionId = tournament.data.opta_competition_id
     const seasonId = tournament.data.opta_season_id
 
-    let f3StandingsData = null
     let f1FixturesData = null
     let prismicTeams: TeamDocument[] = []
     const f30TeamStats: Map<string, F30SeasonStatsResponse> = new Map()
 
     if (competitionId && seasonId && tournament.uid) {
       try {
-        const [standings, fixtures, teams] = await Promise.all([
-          getF3Standings(competitionId, seasonId),
+        const [fixtures, teams] = await Promise.all([
           getF1Fixtures(competitionId, seasonId),
           getTeamsByTournament(tournament.uid)
         ])
-        f3StandingsData = standings
         f1FixturesData = fixtures
         prismicTeams = teams
 
@@ -83,9 +80,7 @@ export default async function TournamentPage({ params }: Props) {
       <TournamentPageLive
         tournament={tournament}
         tournamentBlogs={tournamentBlogs}
-        f3StandingsData={f3StandingsData}
         f1FixturesData={f1FixturesData}
-        f30TeamStats={f30TeamStats}
         prismicTeams={prismicTeams}
       />
     )

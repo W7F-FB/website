@@ -626,7 +626,17 @@ export interface TeamDocumentDataTournamentsItem {
     [
       {
         id: "tournament";
-        fields: ["title", "country_code", "start_date", "end_date"];
+        fields: [
+          "title",
+          "country_code",
+          "start_date",
+          "end_date",
+          "opta_competition_id",
+          "opta_season_id",
+          "opta_enabled",
+          "featured",
+          "nickname",
+        ];
       },
     ]
   >;
@@ -1085,6 +1095,18 @@ interface TournamentDocumentData {
   opta_season_id: prismic.KeyTextField;
 
   /**
+   * Opta Enabled field in *Tournament*
+   *
+   * - **Field Type**: Boolean
+   * - **Placeholder**: *None*
+   * - **Default Value**: false
+   * - **API ID Path**: tournament.opta_enabled
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/boolean
+   */
+  opta_enabled: prismic.BooleanField;
+
+  /**
    * Awards field in *Tournament*
    *
    * - **Field Type**: Group
@@ -1137,6 +1159,17 @@ interface TournamentDocumentData {
    * - **Documentation**: https://prismic.io/docs/fields/image
    */
   nav_image: prismic.ImageField<never>;
+
+  /**
+   * Navigation Description field in *Tournament*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: tournament.navigation_description
+   * - **Tab**: Navigation
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  navigation_description: prismic.KeyTextField;
 }
 
 /**

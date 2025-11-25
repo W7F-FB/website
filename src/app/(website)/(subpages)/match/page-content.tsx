@@ -134,7 +134,7 @@ export default function MatchPageContent({
                   prismicTeams={prismicTeams}
                   f1FixturesData={f1FixturesData}
                   f40Squads={f40Squads}
-                  tournamentStatus={tournament?.data.status}
+                  tournamentStatus={tournament?.data.status ?? undefined}
                 />
               </CardContent>
             </Card>

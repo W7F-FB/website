@@ -98,7 +98,12 @@
                       "title",
                       "country_code",
                       "start_date",
-                      "end_date"
+                      "end_date",
+                      "opta_competition_id",
+                      "opta_season_id",
+                      "opta_enabled",
+                      "featured",
+                      "nickname"
                     ]
                   }
                 ]

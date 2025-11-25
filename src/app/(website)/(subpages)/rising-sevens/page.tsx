@@ -47,7 +47,7 @@ const infoData: InfoCardItem[] = [
     {
         id: "item-3",
         subtitle: "Deadline",
-        title: "Friday, November 21, 2025",
+        title: "Friday, November 28, 2025",
     },
     {
         id: "item-4",
@@ -79,7 +79,7 @@ const faqData: FAQItem[] = [
         question: "How Do I Register?",
         answer: (
             <>
-                <P>Teams must register via Bracket Teams. Please complete the online application fully. Incomplete applications cannot be processed.  Any team not accepted will receive a full refund. Any team which withdraws after the application deadline of November 21, 2025 will not be eligible for a refund.</P>
+                <P>Teams must register via Bracket Teams. Please complete the online application fully. Incomplete applications cannot be processed.  Any team not accepted will receive a full refund. Any team which withdraws after the application deadline of November 28, 2025 will not be eligible for a refund.</P>
             </>
         )
     },

@@ -83,7 +83,7 @@ const FooterMain = React.forwardRef<HTMLElement, React.ComponentProps<"footer">>
           <div className="flex-grow flex justify-end">
             <div className="w-full lg:w-auto lg:flex-1 lg:max-w-[25rem] mt-4">
               <H3 className="mb-2">Keep up with us</H3>
-              <p className="mb-4">Stay updated on W7F news, tickets, giveaways, merchandise and more.</p>
+              <p className="mb-4 text-muted-foreground">Stay updated on W7F news, tickets, giveaways, merchandise and more.</p>
               <FormFooterSubscribe />
             </div>
           </div>

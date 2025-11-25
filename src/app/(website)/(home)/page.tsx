@@ -23,6 +23,7 @@ import { getSocialBlogsByCategory } from "@/cms/queries/blog";
 import { PrismicLink } from "@prismicio/react";
 import { FAQBannerLayout } from "@/components/blocks/faq-banner-layout";
 import { mapBlogDocumentToMetadata } from "@/lib/utils";
+import { CaretRightIcon } from "@/components/website-base/icons";
 
 export const metadata: Metadata = {
     title: "World Sevens Football - The Future of 7v7 Soccer",
@@ -122,7 +123,10 @@ export default async function HomePage() {
                                     <H1 className="font-proxima uppercase font-black text-6xl">Fort Lauderdale,<br />FLorida, USA</H1>
                                     <P noSpace className="text-3xl text-balance font-headers font-medium text-foreground">New City. Same Stakes. <span className="font-bold">$5 Million Prize Pool.</span></P>
                                 </TextProtect>
-                                <Button asChild size="skew_lg" className="mt-10"><Link href="#"><span>Purchase Tickets</span></Link></Button>
+                                <div className="mt-10 flex gap-4">
+                                    <Button asChild size="skew_lg"><Link href="#"><span>Purchase Tickets</span></Link></Button>
+                                    <Button asChild size="skew_lg" variant="secondary"><Link href="/tournament/fort-lauderdale#schedule"><span>Schedule</span></Link></Button>
+                                </div>
                             </HeroSliderSlideContent>
                             <HeroSliderSlideContent className="w-full h-full pb-12 pr-36 flex flex-col items-start justify-end text-shadow-xl gap-2">
                                 <H3 className="uppercase">Beyond Bancard Field</H3>
@@ -132,17 +136,16 @@ export default async function HomePage() {
                         <HeroSliderSlide className="grid grid-cols-2">
                             <HeroSliderSlideBackground>
                                 <Image src="/images/static-media/estoril-champs.avif" alt="Hero Slider 1" fill className="object-cover object-bottom" />
-                                <div className="absolute bottom-0 left-0 right-0 h-full bg-gradient-to-r from-background/90 to-transparent" />
+                                <div className="absolute bottom-0 left-0 right-0 h-full bg-gradient-to-r from-background/95 to-transparent" />
                             </HeroSliderSlideBackground>
                             <HeroSliderSlideContent className="max-w-3xl justify-self-start pr-48 flex items-end grid justify-items-start">
-                                <TextProtect className="relative z-10">
+                                <TextProtect className="relative z-10 space-y-5">
                                     <Subtitle className="text-primary text-xl">Recap</Subtitle>
                                     <H1 className="font-proxima uppercase font-black text-6xl">Estoril,<br />Portugal</H1>
                                     <P noSpace className="text-xl text-balance font-headers font-medium mt-3">Bayern take home the title and prize pool in an action packed event.</P>
                                 </TextProtect>
                                 <div className="mt-10 flex gap-4">
-                                    <Button asChild size="skew_lg"><Link href="#"><span>View Recap</span></Link></Button>
-                                    <Button asChild size="skew_lg" variant="outline"><Link href="#"><span>All Results</span></Link></Button>
+                                    <Button asChild size="skew_lg" variant="secondary"><Link href="/tournament/estoril-portugal"><span>View Recap</span></Link></Button>
                                 </div>
                             </HeroSliderSlideContent>
                         </HeroSliderSlide>
@@ -168,7 +171,7 @@ export default async function HomePage() {
                     <TicketOptionsGrid />
                 </Section>
                 <Section padding="md">
-                    <Separator />
+                    <Separator variant="gradient" />
                 </Section>
                 <Section padding="md">
                     <SectionHeading variant="split">
@@ -195,7 +198,7 @@ export default async function HomePage() {
                 </Section>
                 <Section padding="md" >
                     <SectionHeading variant="split">
-                        <div> 
+                        <div>
                             <SectionHeadingHeading variant="h2">
                                 Event #1 Founding Participants
                             </SectionHeadingHeading>
@@ -218,8 +221,8 @@ export default async function HomePage() {
                             Recent News
                         </SectionHeadingHeading>
                         <Button asChild size="skew" variant="outline" className="ml-auto mt-auto">
-                                <PrismicLink href="/news"><span>All News</span></PrismicLink>
-                            </Button>                       
+                            <PrismicLink href="/news"><span>All News</span></PrismicLink>
+                        </Button>
                     </SectionHeading>
                     <RecentNewsGrid />
                 </Section>
@@ -248,9 +251,14 @@ export default async function HomePage() {
                                         </AccordionItem>
                                     ))}
                                 </Accordion>
-                                <div className="mt-8 pl-2">
-                                    <Button asChild size="skew">
-                                        <Link href="/faqs"><span>Read More</span></Link>
+                                <div className="mt-8 pl-2 w-full flex justify-end">
+                                    <Button asChild variant="link">
+                                        <Link href="/faqs">
+                                            <span>Read More</span>
+                                            <CaretRightIcon
+                                                className="size-3 mt-0.5"
+                                            />
+                                        </Link>
                                     </Button>
                                 </div>
                             </CardContent>

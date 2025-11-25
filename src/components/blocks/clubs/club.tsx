@@ -2,6 +2,8 @@ import * as React from "react"
 import Image from "next/image"
 import ReactCountryFlag from "react-country-flag"
 import type { TeamDocument } from "../../../../prismicio-types"
+import { PrismicLink } from "@prismicio/react"
+import { isFilled } from "@prismicio/client"
 
 import { cn } from "@/lib/utils"
 import { getImageUrl, getImageAlt } from "@/cms/utils"
@@ -9,28 +11,43 @@ import { Separator } from "@/components/ui/separator"
 import { H3 } from "@/components/website-base/typography"
 import { QuestionMarkIcon } from "@/components/website-base/icons"
 import type { Record } from "@/types/stats"
+import { GradientBg } from "@/components/ui/gradient-bg"
 
 interface ClubBasicProps extends React.ComponentProps<"div"> {
   team: TeamDocument
-  first?: boolean
-  last?: boolean
   comingSoon?: number
   placement?: number
 }
 
-function ClubBasic({ team, first, last, comingSoon, placement, className, ...props }: ClubBasicProps) {
+function ClubBasic({ team, comingSoon, placement, className, ...props }: ClubBasicProps) {
   const logoUrl = comingSoon ? null : getImageUrl(team.data.logo)
   const logoAlt = comingSoon ? null : getImageAlt(team.data.logo)
 
-  return (
-    <div
-      className={cn(
-        "relative -skew-x-[calc(var(--skew-btn)/5)] origin-center bg-extra-muted overflow-hidden",
-        !comingSoon && "hover:scale-98 transition-transform"
-      )}
-    >
-      {first && <div className="hidden absolute top-0 left-0 w-1/2 h-full skew-x-[calc(var(--skew-btn)/5)] origin-bottom-left bg-extra-muted"></div>}
-      {last && <div className="hidden absolute top-0 right-0 w-1/2 h-full skew-x-[calc(var(--skew-btn)/5)] origin-top-right bg-extra-muted"></div>}
+  const hasOptaTournament = (() => {
+    if (!team.data.tournaments || comingSoon) return false
+    
+    return team.data.tournaments.some((item) => {
+      if (!isFilled.contentRelationship(item.tournament)) return false
+      
+      const tournamentData = item.tournament.data
+      return tournamentData?.opta_enabled === true
+    })
+  })()
+
+  const containerClassName = cn(
+    "relative -skew-x-[calc(var(--skew-btn)/5)] origin-center overflow-hidden border border-border/50 ",
+    !comingSoon && "hover:scale-98 transition-transform"
+  )
+
+  const content = (
+    <>
+      <GradientBg 
+        className="w-[300%] aspect-square absolute bottom-0 right-0"
+        overlayColor="oklch(0.1949 0.0274 260.031)"
+        accentColor={team.data?.color_primary || "#0c224a"}
+        shadowColor="oklch(0.1949 0.0274 260.031)"
+        accentOpacity={0.4}
+      />
       <div
         className={cn("skew-x-[calc(var(--skew-btn)/5)] relative origin-center h-full", className)}
         {...props}
@@ -63,7 +80,7 @@ function ClubBasic({ team, first, last, comingSoon, placement, className, ...pro
             {comingSoon ? `Team #${comingSoon}` : team.data?.name}
           </H3>
           <div className="flex-grow w-full flex flex-col items-center justify-end space-y-2">
-            <Separator className="mr-2" />
+            <Separator className="mr-2 bg-muted" />
             <span className="font-headers text-muted-foreground text-xs font-medium text-center">
               {comingSoon ? "Coming soon" : team.data?.country}
             </span>
@@ -80,6 +97,20 @@ function ClubBasic({ team, first, last, comingSoon, placement, className, ...pro
 
         </div>
       )}
+    </>
+  )
+
+  if (hasOptaTournament) {
+    return (
+      <PrismicLink href={`/team/${team.uid}`} className={containerClassName}>
+        {content}
+      </PrismicLink>
+    )
+  }
+
+  return (
+    <div className={containerClassName}>
+      {content}
     </div>
   )
 }

@@ -53,6 +53,7 @@ export function FormFooterSubscribe() {
                 type="email"
                 placeholder="Enter your email*"
                 autoComplete="email"
+                className="bg-muted/50 border-muted focus-within:border-muted-foreground/50 pt-0.5"
                 {...field}
               />
               <FieldError errors={fieldState.error ? [fieldState.error] : undefined} />

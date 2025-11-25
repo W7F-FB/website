@@ -9,7 +9,7 @@ import { H4 } from "@/components/website-base/typography"
 
 const Footer = React.forwardRef<HTMLElement, React.ComponentProps<"footer">>(({ className, children, ...props }, ref) => {
   return (
-    <footer ref={ref} className={cn("bg-muted/50 pt-16", className)} {...props}>
+    <footer ref={ref} className={cn("bg-extra-muted pt-16", className)} {...props}>
       <PaddingGlobal>
         {children}
       </PaddingGlobal>
