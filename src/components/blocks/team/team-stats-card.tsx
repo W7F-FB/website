@@ -11,6 +11,8 @@ import type { F1FixturesResponse } from "@/types/opta-feeds/f1-fixtures"
 import { Button } from "@/components/ui/button"
 import { Table, TableBody, TableRow, TableCell, TableHeader } from "@/components/ui/table"
 import { ReplayIcon } from "@/components/website-base/icons"
+import { normalizeOptaId } from "@/lib/opta/utils"
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 const MAX_RECENT_RESULTS = 5
 const TOP_PLACEMENT_THRESHOLD = 3
@@ -62,7 +64,6 @@ export function TeamStatsCard({ team, standings, fixtures, currentTournament, pr
     }
     const placement = finalPosition && placementConfig[finalPosition as 1 | 2 | 3]
 
-
     const tournaments = useMemo(() => {
         return team.data.tournaments
             ?.filter(item => isFilled.contentRelationship(item.tournament))
@@ -111,10 +112,13 @@ export function TeamStatsCard({ team, standings, fixtures, currentTournament, pr
 
             const isWin = teamScore > opponentScore
             const isLoss = teamScore < opponentScore
+            const isDraw = teamScore === opponentScore
 
             const opponentOptaId = opponentData?.TeamRef?.replace('t', '') || ""
             const opponentTeam = opponentOptaId ? teamsMap.get(opponentOptaId) : undefined
             const opponentName = opponentTeam?.data.name || opponentData?.TeamRef?.replace('t', 'Team ') || "Unknown"
+
+            const resultVariant = isWin ? "default" : isLoss ? "destructive" : "secondary"
 
             return {
                 matchId: match.uID,
@@ -124,6 +128,10 @@ export function TeamStatsCard({ team, standings, fixtures, currentTournament, pr
                 teamScore,
                 opponentScore,
                 result: isWin ? "W" : isLoss ? "L" : "D",
+                isWin,
+                isLoss,
+                isDraw,
+                resultVariant,
                 date: match.MatchInfo.Date
             }
         })
@@ -167,7 +175,39 @@ export function TeamStatsCard({ team, standings, fixtures, currentTournament, pr
                     {rows.map(row => (
                         <TableRow key={row.label}>
                             <TableCell className="text-sm text-muted-foreground w-1/2">
-                                {row.label}
+                                {row.label === "Record" ? (
+                                    <div className="flex items-center gap-1.5">
+                                        <span className="mt-0.5">{row.label}</span>
+                                        <Tooltip>
+                                            <TooltipTrigger className="size-3" />
+                                            <TooltipContent header="Record">
+                                                <p>Wins - Losses{teamStanding?.Standing.Drawn ? " - Draws" : ""}</p>
+                                            </TooltipContent>
+                                        </Tooltip>
+                                    </div>
+                                ) : row.label === "Goals" ? (
+                                    <div className="flex items-center gap-1.5">
+                                        <span className="mt-0.5">{row.label}</span>
+                                        <Tooltip>
+                                            <TooltipTrigger className="size-3" />
+                                            <TooltipContent header="Goals">
+                                                <p>Goals For / Goals Against</p>
+                                            </TooltipContent>
+                                        </Tooltip>
+                                    </div>
+                                ) : row.label === "Goal Differential" ? (
+                                    <div className="flex items-center gap-1.5">
+                                        <span className="mt-0.5">{row.label}</span>
+                                        <Tooltip>
+                                            <TooltipTrigger className="size-3" />
+                                            <TooltipContent header="Goal Differential">
+                                                <p>Difference between goals scored and goals conceded</p>
+                                            </TooltipContent>
+                                        </Tooltip>
+                                    </div>
+                                ) : (
+                                    row.label
+                                )}
                             </TableCell>
                             <TableCell className="text-right font-headers text-lg font-semibold">
                                 {row.value}
@@ -274,10 +314,14 @@ export function TeamStatsCard({ team, standings, fixtures, currentTournament, pr
                 <TableBody>
                     {recentResults.map((result) => (
                         <TableRow key={result.matchId}>
-                            <TableCell className="w-8">
-                                <div className="text-muted-foreground font-headers text-base font-medium">
+                            <TableCell className="w-12">
+                                <Badge 
+                                    variant={result.resultVariant as "default" | "destructive" | "secondary"} 
+                                    size="sm"
+                                    className="font-headers font-semibold"
+                                >
                                     {result.result}
-                                </div>
+                                </Badge>
                             </TableCell>
                             <TableCell>
                                 <div className="flex items-center gap-2">
@@ -302,8 +346,8 @@ export function TeamStatsCard({ team, standings, fixtures, currentTournament, pr
                                     {result.teamScore}-{result.opponentScore}
                                 </div>
                                 <div>
-                                    <Button size="sm" variant="outline" className="h-7 px-2 text-xs gap-1">
-                                        <Link href={`/match/${result.matchId}`}>
+                                    <Button size="sm" variant="outline" className="h-7 px-2 text-xs gap-1" asChild>
+                                        <Link href={`/match/${normalizeOptaId(result.matchId)}`}>
                                             <ReplayIcon className="size-3" />
                                         </Link>
                                     </Button>
