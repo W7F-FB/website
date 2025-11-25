@@ -71,8 +71,9 @@ export function NavigationMenuTournament({
                 <PrismicNextImage
                     field={tournament.data.nav_image}
                     fill
+                    priority
+                    loading="eager"
                     className="object-cover grayscale-20 opacity-100 group-hover/tournament:scale-102 group-hover/tournament:grayscale-0 group-hover/tournament:opacity-100 transition-all duration-300 mask-b-from-30%"
-                    sizes="1000px"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-background/50 from-20% to-background/20" />
             </Background>
@@ -130,8 +131,9 @@ export async function NavigationMenuTournamentFeatured({
                     <PrismicNextImage
                         field={tournament.data.nav_image}
                         fill
+                        priority
+                        loading="eager"
                         className="object-bottom-right object-cover grayscale-20 opacity-100 group-hover/tournament:scale-102 group-hover/tournament:grayscale-0 group-hover/tournament:opacity-100 transition-all duration-300 mask-b-from-30% "
-                        sizes="1000px"
                     />
                 </div>
             </PrismicLink>
@@ -174,6 +176,8 @@ export async function NavigationMenuTournamentFeatured({
                                             fill
                                             className="object-contain"
                                             sizes="32px"
+                                            priority
+                                            loading="eager"
                                         />
                                     </div>
                                 )
