@@ -3,7 +3,7 @@ import { getTeamByOptaId, getTeamsByTournament } from "@/cms/queries/team";
 import { getTournamentByOptaCompetitionId } from "@/cms/queries/tournaments";
 import { getAllBroadcastPartners } from "@/cms/queries/broadcast-partners";
 import { notFound } from "next/navigation";
-import { normalizeOptaId } from "@/lib/opta/utils";
+import { normalizeOptaId, removeW7F } from "@/lib/opta/utils";
 import MatchPageContent from "../page-content";
 import { NavMain } from "@/components/website-base/nav/nav-main";
 import type { GameCard } from "@/types/components";
@@ -96,8 +96,21 @@ export default async function MatchPage({
       }));
   }
 
-  const homeTeamName = homeTeam?.Name || homeTeamPrismic?.data?.name || "TBD";
-  const awayTeamName = awayTeam?.Name || awayTeamPrismic?.data?.name || "TBD";
+  const homeTeamShortName = homeSquadTeam?.short_club_name || null;
+  const awayTeamShortName = awaySquadTeam?.short_club_name || null;
+  
+  const homeTeamName = removeW7F(
+    homeTeamShortName || 
+    homeTeam?.Name || 
+    homeTeamPrismic?.data?.name || 
+    "TBD"
+  );
+  const awayTeamName = removeW7F(
+    awayTeamShortName || 
+    awayTeam?.Name || 
+    awayTeamPrismic?.data?.name || 
+    "TBD"
+  );
 
   const customBreadcrumbs = [
     { label: "Home", href: "/" },

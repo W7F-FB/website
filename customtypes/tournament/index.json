@@ -156,6 +156,74 @@
           "default_value": false
         }
       },
+      "matches": {
+        "type": "Group",
+        "config": {
+          "label": "Matches",
+          "repeat": true,
+          "fields": {
+            "match": {
+              "type": "Link",
+              "config": {
+                "label": "Match",
+                "select": "document",
+                "repeat": false,
+                "customtypes": [
+                  {
+                    "id": "match",
+                    "fields": [
+                      "match_number",
+                      {
+                        "id": "home_team",
+                        "customtypes": [
+                          {
+                            "id": "team",
+                            "fields": [
+                              "opta_id",
+                              "name",
+                              "key",
+                              "country",
+                              "country_code",
+                              "logo",
+                              "color_primary",
+                              "color_secondary",
+                              "alphabetical_sort_string"
+                            ]
+                          }
+                        ]
+                      },
+                      "home_team_name_override",
+                      {
+                        "id": "away_team",
+                        "customtypes": [
+                          {
+                            "id": "team",
+                            "fields": [
+                              "opta_id",
+                              "key",
+                              "name",
+                              "country",
+                              "country_code",
+                              "logo",
+                              "color_primary",
+                              "color_secondary",
+                              "alphabetical_sort_string"
+                            ]
+                          }
+                        ]
+                      },
+                      "away_team_name_override",
+                      "start_time",
+                      "stage",
+                      "knockout_stage_match_type"
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
       "awards": {
         "type": "Group",
         "config": {

@@ -41,15 +41,6 @@
           ]
         }
       },
-      "tournament": {
-        "type": "Link",
-        "config": {
-          "label": "Tournament",
-          "select": "document",
-          "repeat": false,
-          "customtypes": ["tournament"]
-        }
-      },
       "date": {
         "type": "Date",
         "config": {
@@ -78,6 +69,71 @@
           "placeholder": "",
           "allowTargetBlank": true,
           "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+        }
+      },
+      "tournament": {
+        "type": "Link",
+        "config": {
+          "label": "Tournament",
+          "select": "document",
+          "repeat": false,
+          "customtypes": ["tournament"]
+        }
+      },
+      "matches": {
+        "type": "Group",
+        "config": {
+          "label": "Matches",
+          "repeat": true,
+          "fields": {
+            "match": {
+              "type": "Link",
+              "config": {
+                "label": "Match",
+                "select": "document",
+                "repeat": false,
+                "customtypes": [
+                  {
+                    "id": "match",
+                    "fields": ["opta_id"]
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "teams": {
+        "type": "Group",
+        "config": {
+          "label": "Teams",
+          "repeat": true,
+          "fields": {
+            "team": {
+              "type": "Link",
+              "config": {
+                "label": "Team",
+                "select": "document",
+                "repeat": false,
+                "customtypes": [
+                  {
+                    "id": "team",
+                    "fields": [
+                      "opta_id",
+                      "name",
+                      "key",
+                      "country",
+                      "logo",
+                      "country_code",
+                      "color_primary",
+                      "color_secondary",
+                      "alphabetical_sort_string"
+                    ]
+                  }
+                ]
+              }
+            }
+          }
         }
       },
       "slices": {

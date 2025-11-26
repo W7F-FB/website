@@ -154,6 +154,55 @@ interface AwardsDocumentData {
 export type AwardsDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithUID<Simplify<AwardsDocumentData>, "awards", Lang>;
 
+/**
+ * Item in *blog → Matches*
+ */
+export interface BlogDocumentDataMatchesItem {
+  /**
+   * Match field in *blog → Matches*
+   *
+   * - **Field Type**: Content Relationship
+   * - **Placeholder**: *None*
+   * - **API ID Path**: blog.matches[].match
+   * - **Documentation**: https://prismic.io/docs/fields/content-relationship
+   */
+  match: ContentRelationshipFieldWithData<
+    [{ id: "match"; fields: ["opta_id"] }]
+  >;
+}
+
+/**
+ * Item in *blog → Teams*
+ */
+export interface BlogDocumentDataTeamsItem {
+  /**
+   * Team field in *blog → Teams*
+   *
+   * - **Field Type**: Content Relationship
+   * - **Placeholder**: *None*
+   * - **API ID Path**: blog.teams[].team
+   * - **Documentation**: https://prismic.io/docs/fields/content-relationship
+   */
+  team: ContentRelationshipFieldWithData<
+    [
+      {
+        id: "team";
+        fields: [
+          "opta_id",
+          "name",
+          "key",
+          "country",
+          "logo",
+          "country_code",
+          "color_primary",
+          "color_secondary",
+          "alphabetical_sort_string",
+        ];
+      },
+    ]
+  >;
+}
+
 type BlogDocumentDataSlicesSlice = never;
 
 /**
@@ -200,17 +249,6 @@ interface BlogDocumentData {
   >;
 
   /**
-   * Tournament field in *blog*
-   *
-   * - **Field Type**: Content Relationship
-   * - **Placeholder**: *None*
-   * - **API ID Path**: blog.tournament
-   * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/fields/content-relationship
-   */
-  tournament: prismic.ContentRelationshipField<"tournament">;
-
-  /**
    * date field in *blog*
    *
    * - **Field Type**: Date
@@ -253,6 +291,39 @@ interface BlogDocumentData {
    * - **Documentation**: https://prismic.io/docs/fields/rich-text
    */
   content: prismic.RichTextField;
+
+  /**
+   * Tournament field in *blog*
+   *
+   * - **Field Type**: Content Relationship
+   * - **Placeholder**: *None*
+   * - **API ID Path**: blog.tournament
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/content-relationship
+   */
+  tournament: prismic.ContentRelationshipField<"tournament">;
+
+  /**
+   * Matches field in *blog*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: blog.matches[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  matches: prismic.GroupField<Simplify<BlogDocumentDataMatchesItem>>;
+
+  /**
+   * Teams field in *blog*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: blog.teams[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  teams: prismic.GroupField<Simplify<BlogDocumentDataTeamsItem>>;
 
   /**
    * Slice Zone field in *blog*
@@ -462,6 +533,211 @@ export type ImageWithTextDocument<Lang extends string = string> =
     "image_with_text",
     Lang
   >;
+
+/**
+ * Item in *Match → Broadcasts*
+ */
+export interface MatchDocumentDataBroadcastsItem {
+  /**
+   * Streaming Service field in *Match → Broadcasts*
+   *
+   * - **Field Type**: Content Relationship
+   * - **Placeholder**: *None*
+   * - **API ID Path**: match.broadcasts[].streaming_service
+   * - **Documentation**: https://prismic.io/docs/fields/content-relationship
+   */
+  streaming_service: ContentRelationshipFieldWithData<
+    [
+      {
+        id: "broadcast_partners";
+        fields: [
+          "name",
+          "logo",
+          "logo_white",
+          "icon_logo",
+          "logo_on_primary",
+          "color_primary",
+          "color_secondary",
+          "streaming_link",
+        ];
+      },
+    ]
+  >;
+}
+
+type MatchDocumentDataSlicesSlice = never;
+
+/**
+ * Content for Match documents
+ */
+interface MatchDocumentData {
+  /**
+   * Opta ID field in *Match*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: match.opta_id
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  opta_id: prismic.KeyTextField;
+
+  /**
+   * Broadcasts field in *Match*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: match.broadcasts[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  broadcasts: prismic.GroupField<Simplify<MatchDocumentDataBroadcastsItem>>;
+
+  /**
+   * Match Number field in *Match*
+   *
+   * - **Field Type**: Number
+   * - **Placeholder**: *None*
+   * - **API ID Path**: match.match_number
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/number
+   */
+  match_number: prismic.NumberField;
+
+  /**
+   * Home Team field in *Match*
+   *
+   * - **Field Type**: Content Relationship
+   * - **Placeholder**: *None*
+   * - **API ID Path**: match.home_team
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/content-relationship
+   */
+  home_team: ContentRelationshipFieldWithData<
+    [
+      {
+        id: "team";
+        fields: [
+          "opta_id",
+          "name",
+          "key",
+          "country",
+          "country_code",
+          "color_primary",
+          "logo",
+          "color_secondary",
+        ];
+      },
+    ]
+  >;
+
+  /**
+   * Home Team Name Override field in *Match*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: match.home_team_name_override
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  home_team_name_override: prismic.KeyTextField;
+
+  /**
+   * Away Team field in *Match*
+   *
+   * - **Field Type**: Content Relationship
+   * - **Placeholder**: *None*
+   * - **API ID Path**: match.away_team
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/content-relationship
+   */
+  away_team: ContentRelationshipFieldWithData<
+    [
+      {
+        id: "team";
+        fields: [
+          "opta_id",
+          "name",
+          "key",
+          "country_code",
+          "country",
+          "logo",
+          "color_primary",
+          "color_secondary",
+        ];
+      },
+    ]
+  >;
+
+  /**
+   * Away Team Name Override field in *Match*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: match.away_team_name_override
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  away_team_name_override: prismic.KeyTextField;
+
+  /**
+   * Start Time field in *Match*
+   *
+   * - **Field Type**: Timestamp
+   * - **Placeholder**: *None*
+   * - **API ID Path**: match.start_time
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/timestamp
+   */
+  start_time: prismic.TimestampField;
+
+  /**
+   * Stage field in *Match*
+   *
+   * - **Field Type**: Select
+   * - **Placeholder**: *None*
+   * - **API ID Path**: match.stage
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/select
+   */
+  stage: prismic.SelectField<"Group Stage" | "Knockout Stage">;
+
+  /**
+   * Knockout Stage Match Type field in *Match*
+   *
+   * - **Field Type**: Select
+   * - **Placeholder**: *None*
+   * - **API ID Path**: match.knockout_stage_match_type
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/select
+   */
+  knockout_stage_match_type: prismic.SelectField<
+    "Group 1 Semifinal" | "Group 2 Semifinal" | "Third Place Match" | "Final"
+  >;
+
+  /**
+   * Slice Zone field in *Match*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: match.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/slices
+   */
+  slices: prismic.SliceZone<MatchDocumentDataSlicesSlice>;
+}
+
+/**
+ * Match document from Prismic
+ *
+ * - **API ID**: `match`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/content-modeling
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type MatchDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<Simplify<MatchDocumentData>, "match", Lang>;
 
 /**
  * Content for Policy documents
@@ -857,6 +1133,73 @@ export type TeamMemberDocument<Lang extends string = string> =
   >;
 
 /**
+ * Item in *Tournament → Matches*
+ */
+export interface TournamentDocumentDataMatchesItem {
+  /**
+   * Match field in *Tournament → Matches*
+   *
+   * - **Field Type**: Content Relationship
+   * - **Placeholder**: *None*
+   * - **API ID Path**: tournament.matches[].match
+   * - **Documentation**: https://prismic.io/docs/fields/content-relationship
+   */
+  match: ContentRelationshipFieldWithData<
+    [
+      {
+        id: "match";
+        fields: [
+          "match_number",
+          {
+            id: "home_team";
+            customtypes: [
+              {
+                id: "team";
+                fields: [
+                  "opta_id",
+                  "name",
+                  "key",
+                  "country",
+                  "country_code",
+                  "logo",
+                  "color_primary",
+                  "color_secondary",
+                  "alphabetical_sort_string",
+                ];
+              },
+            ];
+          },
+          "home_team_name_override",
+          {
+            id: "away_team";
+            customtypes: [
+              {
+                id: "team";
+                fields: [
+                  "opta_id",
+                  "key",
+                  "name",
+                  "country",
+                  "country_code",
+                  "logo",
+                  "color_primary",
+                  "color_secondary",
+                  "alphabetical_sort_string",
+                ];
+              },
+            ];
+          },
+          "away_team_name_override",
+          "start_time",
+          "stage",
+          "knockout_stage_match_type",
+        ];
+      },
+    ]
+  >;
+}
+
+/**
  * Item in *Tournament → Awards*
  */
 export interface TournamentDocumentDataAwardsItem {
@@ -1107,6 +1450,17 @@ interface TournamentDocumentData {
   opta_enabled: prismic.BooleanField;
 
   /**
+   * Matches field in *Tournament*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: tournament.matches[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  matches: prismic.GroupField<Simplify<TournamentDocumentDataMatchesItem>>;
+
+  /**
    * Awards field in *Tournament*
    *
    * - **Field Type**: Group
@@ -1290,6 +1644,7 @@ export type AllDocumentTypes =
   | BlogDocument
   | BroadcastPartnersDocument
   | ImageWithTextDocument
+  | MatchDocument
   | PolicyDocument
   | SponsorDocument
   | TeamDocument
@@ -1322,11 +1677,17 @@ declare module "@prismicio/client" {
       AwardsDocumentData,
       BlogDocument,
       BlogDocumentData,
+      BlogDocumentDataMatchesItem,
+      BlogDocumentDataTeamsItem,
       BlogDocumentDataSlicesSlice,
       BroadcastPartnersDocument,
       BroadcastPartnersDocumentData,
       ImageWithTextDocument,
       ImageWithTextDocumentData,
+      MatchDocument,
+      MatchDocumentData,
+      MatchDocumentDataBroadcastsItem,
+      MatchDocumentDataSlicesSlice,
       PolicyDocument,
       PolicyDocumentData,
       SponsorDocument,
@@ -1338,6 +1699,7 @@ declare module "@prismicio/client" {
       TeamMemberDocumentData,
       TournamentDocument,
       TournamentDocumentData,
+      TournamentDocumentDataMatchesItem,
       TournamentDocumentDataAwardsItem,
       TournamentDocumentDataSlicesSlice,
       WebsiteDocument,

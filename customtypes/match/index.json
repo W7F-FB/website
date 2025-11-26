@@ -1,0 +1,158 @@
+{
+  "format": "page",
+  "id": "match",
+  "label": "Match",
+  "repeatable": true,
+  "status": true,
+  "json": {
+    "Main": {
+      "uid": {
+        "type": "UID",
+        "config": {
+          "label": "UID"
+        }
+      },
+      "opta_id": {
+        "type": "Text",
+        "config": {
+          "label": "Opta ID",
+          "placeholder": ""
+        }
+      },
+      "broadcasts": {
+        "type": "Group",
+        "config": {
+          "label": "Broadcasts",
+          "repeat": true,
+          "fields": {
+            "streaming_service": {
+              "type": "Link",
+              "config": {
+                "label": "Streaming Service",
+                "select": "document",
+                "repeat": false,
+                "customtypes": [
+                  {
+                    "id": "broadcast_partners",
+                    "fields": [
+                      "name",
+                      "logo",
+                      "logo_white",
+                      "icon_logo",
+                      "logo_on_primary",
+                      "color_primary",
+                      "color_secondary",
+                      "streaming_link"
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "match_number": {
+        "type": "Number",
+        "config": {
+          "label": "Match Number",
+          "placeholder": ""
+        }
+      },
+      "home_team": {
+        "type": "Link",
+        "config": {
+          "label": "Home Team",
+          "select": "document",
+          "repeat": false,
+          "customtypes": [
+            {
+              "id": "team",
+              "fields": [
+                "opta_id",
+                "name",
+                "key",
+                "country",
+                "country_code",
+                "color_primary",
+                "logo",
+                "color_secondary"
+              ]
+            }
+          ]
+        }
+      },
+      "home_team_name_override": {
+        "type": "Text",
+        "config": {
+          "label": "Home Team Name Override",
+          "placeholder": ""
+        }
+      },
+      "away_team": {
+        "type": "Link",
+        "config": {
+          "label": "Away Team",
+          "select": "document",
+          "repeat": false,
+          "customtypes": [
+            {
+              "id": "team",
+              "fields": [
+                "opta_id",
+                "name",
+                "key",
+                "country_code",
+                "country",
+                "logo",
+                "color_primary",
+                "color_secondary"
+              ]
+            }
+          ]
+        }
+      },
+      "away_team_name_override": {
+        "type": "Text",
+        "config": {
+          "label": "Away Team Name Override",
+          "placeholder": ""
+        }
+      },
+      "start_time": {
+        "type": "Timestamp",
+        "config": {
+          "label": "Start Time",
+          "placeholder": ""
+        }
+      },
+      "stage": {
+        "type": "Select",
+        "config": {
+          "label": "Stage",
+          "placeholder": "",
+          "options": ["Group Stage", "Knockout Stage"]
+        }
+      },
+      "knockout_stage_match_type": {
+        "type": "Select",
+        "config": {
+          "label": "Knockout Stage Match Type",
+          "placeholder": "",
+          "options": [
+            "Group 1 Semifinal",
+            "Group 2 Semifinal",
+            "Third Place Match",
+            "Final"
+          ]
+        }
+      },
+      "slices": {
+        "type": "Slices",
+        "fieldset": "Slice Zone",
+        "config": {
+          "choices": {}
+        }
+      }
+    }
+  }
+}
