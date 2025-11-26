@@ -9,10 +9,10 @@ import type { F1FixturesResponse } from "@/types/opta-feeds/f1-fixtures";
 import { Card, CardHeader } from "@/components/ui/card";
 import { FastDash } from "@/components/ui/fast-dash";
 import { H1, P } from "@/components/website-base/typography";
-import { getCountryIsoCode } from "@/lib/utils";
+import { getCountryIsoCode, cn } from "@/lib/utils";
 import { isFilled } from "@prismicio/client";
 import { useState, useMemo } from "react";
-import { StadiumIcon } from "@/components/website-base/icons";
+import { StadiumIcon, ChampionIcon, RunnerUpIcon } from "@/components/website-base/icons";
 import { getFinalMatch, getThirdPlaceMatch } from "@/app/(website)/(subpages)/tournament/utils";
 
 interface NavLink {
@@ -22,11 +22,9 @@ interface NavLink {
 
 const navLinks: NavLink[] = [
   { label: "Home", href: "#home" },
-  { label: "Stats", href: "#stats" },
+  { label: "Stats", href: "#team-stats" },
   { label: "Roster", href: "#roster" },
   { label: "Blog", href: "#blog" },
-  { label: "Match Highlights", href: "#match-highlights" },
-  { label: "More", href: "#more" },
 ];
 
 interface HeroTeamProps {
@@ -102,7 +100,15 @@ export function HeroTeam({ team, homeTeamColor, standings, fixtures }: HeroTeamP
           <StadiumIcon size={16} />
           {tournaments && tournaments[0].title}
         </div>
-        <div className="flex items-center gap-2 font-headers font-medium uppercase">
+        <div className={cn(
+          "flex items-center gap-2 font-headers font-medium uppercase",
+          placement === '1st' && "font-semibold bg-gold-gradient bg-clip-text text-transparent",
+          placement === '2nd' && "font-semibold bg-silver-gradient bg-clip-text text-transparent",
+          placement === '3rd' && "font-semibold bg-bronze-gradient bg-clip-text text-transparent",
+          placement === 'E' && "text-muted-foreground/80"
+        )}>
+          {placement === '1st' && <ChampionIcon size={18} className="shrink-0" fill="url(#gold-gradient)" />}
+          {placement === '2nd' && <RunnerUpIcon size={18} className="shrink-0" fill="url(#silver-gradient)" />}
           {placement && placement !== 'E' && `${placement} Place`}
           {placement === 'E' && 'Eliminated'}
         </div>

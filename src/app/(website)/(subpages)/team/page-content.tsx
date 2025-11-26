@@ -53,7 +53,7 @@ export default function TeamPageContent({
         fixtures={fixtures}
       />
       <Separator variant="gradient" className="my-8" />
-      <Section padding="none">
+      <Section padding="none" id="team-stats">
         <div className="grid grid-cols-3 gap-8">
           <div className="col-span-1 h-full">
             <TeamStatsCard
@@ -81,23 +81,26 @@ export default function TeamPageContent({
               />
             </div>
           </div>
-          <div className="col-span-3">
-            <Card banner className="bg-card/50 border-muted/50">
-              <CardHeader>
-                <CardTitle>Roster</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <RosterCard players={teamSquad?.Player || []} />
-              </CardContent>
-            </Card>
-          </div>
         </div>
+      </Section>
+      <Section padding="sm" id="roster">
+        <Card banner className="bg-card/50 border-muted/50">
+          <CardHeader>
+            <CardTitle>Roster</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <RosterCard
+              players={teamSquad?.Player || []}
+              seasonStats={seasonStats}
+            />
+          </CardContent>
+        </Card>
       </Section>
       {teamBlogs.length > 0 && (
         <>
           <Container>
             <Separator variant="gradient" className="my-16" />
-            <Section padding="none">
+            <Section padding="none" id="blog">
               <SectionHeading variant="split">
                 <SectionHeadingSubtitle>Latest Coverage</SectionHeadingSubtitle>
                 <SectionHeadingHeading>Tournament News</SectionHeadingHeading>
