@@ -1,4 +1,5 @@
 import * as React from "react"
+import Image from "next/image"
 import { FaFacebookF, FaInstagram, FaXTwitter, FaTiktok } from "react-icons/fa6"
 
 import { Logo } from "@/components/website-base/logo"
@@ -19,6 +20,7 @@ import { H3 } from "../typography"
 
 import { FooterColumns } from "./footer-columns"
 import { FooterFast } from "./footer-fast"
+import Link from "next/link"
 
 async function PolicyLinks() {
   const policies = await getPoliciesForNav()
@@ -85,6 +87,24 @@ const FooterMain = React.forwardRef<HTMLElement, React.ComponentProps<"footer">>
               <H3 className="mb-2">Keep up with us</H3>
               <p className="mb-4 text-muted-foreground">Stay updated on W7F news, tickets, giveaways, merchandise and more.</p>
               <FormFooterSubscribe />
+              <div className="flex flex-wrap items-center justify-center gap-6 mt-12">
+                <Image
+                  src="/images/decorative/visit-lauderdale.svg"
+                  alt="Visit Lauderdale Logo"
+                  width={100}
+                  height={100}
+                  style={{ height: "auto" }}
+                />
+                <Link href="https://www.stubhub.com/world-sevens-football-tickets/grouping/150588776?categoryPageType=Sports&isLeafCategory=True&categoryId=150588776&lat=40.736&lon=-74.006" target="_blank" rel="noopener noreferrer">
+                  <Image
+                    src="/images/decorative/stubhub-logo.svg"
+                    alt="StubHub Logo"
+                    width={100}
+                    height={100}
+                    style={{ height: "auto" }}
+                  />
+                </Link>
+              </div>
             </div>
           </div>
         </div>
