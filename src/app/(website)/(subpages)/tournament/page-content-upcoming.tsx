@@ -9,7 +9,7 @@ import type { TournamentDocument, BlogDocument } from "../../../../../prismicio-
 import { SubpageHero, SubpageHeroMedia, SubpageHeroContent, SubpageHeroMediaBanner } from "@/components/blocks/subpage-hero"
 import { PrismicNextImage } from "@prismicio/next"
 import { CaretRightIcon } from "@/components/website-base/icons"
-import { SectionHeading, SectionHeadingHeading, SectionHeadingSubtitle } from "@/components/sections/section-heading"
+import { SectionHeading, SectionHeadingHeading, SectionHeadingSubtitle, SectionHeadingLeft, SectionHeadingRight } from "@/components/sections/section-heading"
 import { ClubList } from "@/components/blocks/clubs/club-list"
 import { Separator } from "@/components/ui/separator"
 import { TicketOptionsGrid } from "@/components/blocks/ticket-options-grid"
@@ -19,7 +19,8 @@ import { ScheduleTabs } from "@/components/blocks/tournament/schedule/schedule-t
 import { PrivateVipForm } from "@/components/blocks/forms/vip-cabanas/private-vip-form"
 import { ImageSlider, ImageSliderSlide } from "@/components/blocks/image-slider"
 import Image from "next/image"
-import { formatDateRange, mapBlogDocumentToMetadata } from "@/lib/utils"
+import { formatDateRange, formatCurrencyInWords, mapBlogDocumentToMetadata } from "@/lib/utils"
+import { isFilled } from "@prismicio/client"
 import { Badge } from "@/components/ui/badge"
 import { NavMain } from "@/components/website-base/nav/nav-main";
 import { PostGrid } from "@/components/blocks/posts/post-grid"
@@ -71,14 +72,17 @@ export default function TournamentPageUpcoming({ tournament, tournamentBlogs }: 
                 <SubpageHeroContent>
                     <Subtitle>{tournament.data.title}</Subtitle>
                     <H1 className="uppercase">Tickets on sale now</H1>
-                    <P className="text-lg">{formatDateRange(tournament.data.start_date, tournament.data.end_date)}<br />{tournament.data.stadium_name}</P>
+                    <P className="text-lg"><span className="font-semibold">{formatDateRange(tournament.data.start_date, tournament.data.end_date)}</span><span className="ml-3 font-light text-sm">{tournament.data.stadium_name}</span></P>
+                    {isFilled.number(tournament.data.prize_pool) && (
+                        <P noSpace className="text-lg mt-1"><span className="font-semibold">{formatCurrencyInWords(tournament.data.prize_pool)}</span><span className="ml-3 font-light text-sm">Prize Pool</span></P>
+                    )}
                     <div className="mt-8 flex justify-start">
                         <div className="grid grid-cols-2 gap-4">
                             <Button asChild size="skew_lg">
                                 <Link href="/checkout"><span>Purchase Tickets</span></Link>
                             </Button>
                             <Button asChild size="skew_lg" variant="outline">
-                                <Link href="#schedule"><span>View Schedule</span></Link>
+                                <Link href={`/tournament/${tournament.uid}/schedule`}><span>View Schedule</span></Link>
                             </Button>
                         </div>
                     </div>
@@ -93,7 +97,7 @@ export default function TournamentPageUpcoming({ tournament, tournamentBlogs }: 
                         <SubpageHeroMediaBanner>
                             <P noSpace>Interested in watching the action from a pitchside cabana? <span>
                                 <Button asChild variant="link" size="sm" className=" ml-1 p-0 h-auto !px-0">
-                                    <Link href="/">
+                                    <Link href="#vip-cabanas">
                                         Contact Us
                                         <CaretRightIcon className="size-3 mt-px" />
                                     </Link>
@@ -115,14 +119,21 @@ export default function TournamentPageUpcoming({ tournament, tournamentBlogs }: 
                     <TicketOptionsGrid />
                 </Section>
                 <Section padding="md" id="schedule">
-                    <SectionHeading className="pb-8">
-                        <SectionHeadingHeading variant="h2">Schedule</SectionHeadingHeading>
-                        <P noSpace>All times are subject to change</P>
+                    <SectionHeading variant="split" className="pb-8">
+                        <SectionHeadingLeft>
+                            <SectionHeadingHeading variant="h2" className="pb-0">Schedule</SectionHeadingHeading>
+                            <P noSpace>All times are subject to change</P>
+                        </SectionHeadingLeft>
+                        <SectionHeadingRight>
+                            <Button asChild size="skew" className="mt-auto">
+                                <Link href={`/tournament/${tournament.uid}/schedule`}><span>View Match Schedule</span></Link>
+                            </Button>
+                        </SectionHeadingRight>
                     </SectionHeading>
-                    <ScheduleTabs />
+                    <ScheduleTabs tournamentSlug={tournament.uid} />
                 </Section>
                 <Separator variant="gradient" />
-                <Section padding="lg" className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+                <Section padding="lg" id="vip-cabanas" className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
                     <div className="relative h-full w-full">
                         <div className="absolute top-4 left-4 z-10">
                             <Badge fast size="lg" variant="default">VIP Cabanas</Badge>

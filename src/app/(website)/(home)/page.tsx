@@ -124,29 +124,13 @@ export default async function HomePage() {
                                     <P noSpace className="text-3xl text-balance font-headers font-medium text-foreground">New City. Same Stakes. <span className="font-bold">$5 Million Prize Pool.</span></P>
                                 </TextProtect>
                                 <div className="mt-10 flex gap-4">
-                                    <Button asChild size="skew_lg"><Link href="#"><span>Purchase Tickets</span></Link></Button>
-                                    <Button asChild size="skew_lg" variant="secondary"><Link href="/tournament/fort-lauderdale#schedule"><span>Schedule</span></Link></Button>
+                                    <Button asChild size="skew_lg"><Link href="/checkout"><span>Purchase Tickets</span></Link></Button>
+                                    <Button asChild size="skew_lg" variant="secondary"><Link href="/tournament/fort-lauderdale/schedule"><span>Schedule</span></Link></Button>
                                 </div>
                             </HeroSliderSlideContent>
                             <HeroSliderSlideContent className="w-full h-full pb-12 pr-36 flex flex-col items-start justify-end text-shadow-xl gap-2">
                                 <H3 className="uppercase">Beyond Bancard Field</H3>
                                 <p className="text-5xl font-black font-proxima uppercase">Dec 5-7, 2025</p>
-                            </HeroSliderSlideContent>
-                        </HeroSliderSlide>
-                        <HeroSliderSlide className="grid grid-cols-2">
-                            <HeroSliderSlideBackground>
-                                <Image src="/images/static-media/estoril-champs.avif" alt="Hero Slider 1" fill className="object-cover object-bottom" />
-                                <div className="absolute bottom-0 left-0 right-0 h-full bg-gradient-to-r from-background/95 to-transparent" />
-                            </HeroSliderSlideBackground>
-                            <HeroSliderSlideContent className="max-w-3xl justify-self-start pr-48 flex items-end grid justify-items-start">
-                                <TextProtect className="relative z-10 space-y-5">
-                                    <Subtitle className="text-primary text-xl">Recap</Subtitle>
-                                    <H1 className="font-proxima uppercase font-black text-6xl">Estoril,<br />Portugal</H1>
-                                    <P noSpace className="text-xl text-balance font-headers font-medium mt-3">Bayern take home the title and prize pool in an action packed event.</P>
-                                </TextProtect>
-                                <div className="mt-10 flex gap-4">
-                                    <Button asChild size="skew_lg" variant="secondary"><Link href="/tournament/estoril-portugal"><span>View Recap</span></Link></Button>
-                                </div>
                             </HeroSliderSlideContent>
                         </HeroSliderSlide>
                     </HeroSlider>

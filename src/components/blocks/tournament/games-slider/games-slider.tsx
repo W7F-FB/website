@@ -17,16 +17,30 @@ interface GamesSliderProps {
   isLoading?: boolean
 }
 
+function getCardDate(card: GameCard): string {
+  if ('fixture' in card) {
+    return card.fixture.MatchInfo.Date.split(' ')[0]
+  } else {
+    const date = new Date(card.prismicMatch.data.start_time || new Date())
+    return date.toISOString().split('T')[0]
+  }
+}
+
+function getCardId(card: GameCard): string {
+  if ('fixture' in card) {
+    return normalizeOptaId(card.fixture.uID) || ''
+  } else {
+    return card.prismicMatch.uid
+  }
+}
+
 export function GamesSlider({ gameCards = [], tournament, isLoading = false }: GamesSliderProps) {
   const [api, setApi] = useState<CarouselApi | null>(null)
   const [canScrollPrev, setCanScrollPrev] = useState(false)
   const [canScrollNext, setCanScrollNext] = useState(false)
 
   const uniqueDates = useMemo(() => {
-    const dates = gameCards.map(card => {
-      const dateString = card.fixture.MatchInfo.Date
-      return dateString.split(' ')[0]
-    })
+    const dates = gameCards.map(card => getCardDate(card))
     return Array.from(new Set(dates)).sort()
   }, [gameCards])
 
@@ -50,7 +64,7 @@ export function GamesSlider({ gameCards = [], tournament, isLoading = false }: G
     if (!selectedDate) return gameCards
     
     return gameCards.filter(card => {
-      const cardDate = card.fixture.MatchInfo.Date.split(' ')[0]
+      const cardDate = getCardDate(card)
       return cardDate === selectedDate
     })
   }, [gameCards, selectedDate])
@@ -105,7 +119,7 @@ export function GamesSlider({ gameCards = [], tournament, isLoading = false }: G
                 ))
               ) : filteredGameCards.length > 0 ? (
                 filteredGameCards.map((gameCard, index) => (
-                  <CarouselItem key={normalizeOptaId(gameCard.fixture.uID) || index} className='lg:basis-1/6 md:basis-1/4 basis-full pl-0'>
+                  <CarouselItem key={getCardId(gameCard) || index} className='lg:basis-1/6 md:basis-1/4 basis-full pl-0'>
                     <div className='border-r border-border/50'>
                       <GameCardComponent variant="mini" {...gameCard} />
                     </div>

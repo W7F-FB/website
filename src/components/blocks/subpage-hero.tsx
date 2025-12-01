@@ -92,9 +92,47 @@ function SubpageHeroMediaBanner({
   )
 }
 
+function SubpageHeroSecondary({
+  className,
+  children,
+  overlayColor,
+  accentColor,
+  shadowColor,
+  ...props
+}: React.ComponentProps<"div"> & {
+  children?: React.ReactNode;
+  overlayColor?: string;
+  accentColor?: string;
+  shadowColor?: string;
+}) {
+  return (
+    <div
+      className={cn("relative overflow-hidden w-full bg-extra-muted text-center", className)}
+      {...props}
+    >
+      <div
+        className="absolute inset-0 bg-secondary/15 border-b border-foreground/10"
+      />
+      <div
+        className="absolute inset-0 bg-extra-muted"
+      />
+      <GradientBg
+        className="inset-0 opacity-30"
+        overlayColor={overlayColor}
+        accentColor={accentColor}
+        shadowColor={shadowColor}
+      />
+      <div className="relative z-10 py-18 px-18 flex flex-col items-center justify-center">
+        {children}
+      </div>
+    </div>
+  )
+}
+
 export {
   SubpageHero,
   SubpageHeroMedia,
   SubpageHeroContent,
   SubpageHeroMediaBanner,
+  SubpageHeroSecondary,
 }

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getF3Standings } from '@/app/api/opta/feeds';
+import { dev } from '@/lib/dev';
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
@@ -21,7 +22,7 @@ export async function GET(request: NextRequest) {
       },
     });
   } catch (error) {
-    console.error('Error fetching F3 standings:', error);
+    dev.log('Error fetching F3 standings:', error);
     return NextResponse.json(
       { error: 'Failed to fetch standings' },
       { status: 500 }

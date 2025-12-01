@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button"
 import { TextLink } from "@/components/ui/text-link"
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card"
 import { useAppForm } from "@/hooks/use-app-form"
+import { dev } from "@/lib/dev"
 
 const schema = z.object({
   firstName: z
@@ -61,11 +62,11 @@ export function PrivateVipForm() {
 
   const onSubmit = async (data: z.infer<typeof schema>) => {
     try {
-      console.log("Form data:", data)
+      dev.log("Form data:", data)
       await new Promise(resolve => setTimeout(resolve, 1000))
       setIsSubmitted(true)
     } catch (error) {
-      console.error("Error submitting form:", error)
+      dev.log("Error submitting form:", error)
     }
   }
 

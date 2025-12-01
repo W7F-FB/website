@@ -20,6 +20,7 @@ import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Separator } from "@/components/ui/separator"
+import { dev } from "@/lib/dev"
 
 
 const schema = z.object({
@@ -81,11 +82,11 @@ export default function ContactPageContent() {
 
     async function onSubmit(values: z.infer<typeof schema>) {
         try {
-            console.log(values)
+            dev.log(values)
             await new Promise(resolve => setTimeout(resolve, 1000))
             setIsSubmitted(true)
         } catch (error) {
-            console.error("Error submitting form:", error)
+            dev.log("Error submitting form:", error)
         }
     }
 

@@ -111,6 +111,14 @@
             }
           }
         }
+      },
+      "group": {
+        "type": "Select",
+        "config": {
+          "label": "Group",
+          "placeholder": "",
+          "options": ["Group 1", "Group 2"]
+        }
       }
     }
   }

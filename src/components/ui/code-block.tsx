@@ -95,6 +95,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { cn } from '@/lib/utils';
+import { dev } from '@/lib/dev';
 
 export type BundledLanguage = string;
 
@@ -599,7 +600,7 @@ export const CodeBlockContent = ({
         setHighlightedCode(html);
         setIsLoading(false);
       } catch (error) {
-        console.error(`Failed to highlight code for language "${language}":`, error);
+        dev.log(`Failed to highlight code for language "${language}":`, error);
         setIsLoading(false);
       }
     };

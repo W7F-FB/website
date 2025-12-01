@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getF9MatchDetails } from '@/app/api/opta/feeds';
+import { dev } from '@/lib/dev';
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
@@ -20,7 +21,7 @@ export async function GET(request: NextRequest) {
       },
     });
   } catch (error) {
-    console.error('Error fetching F9 match details:', error);
+    dev.log('Error fetching F9 match details:', error);
     return NextResponse.json(
       { error: 'Failed to fetch match details' },
       { status: 500 }

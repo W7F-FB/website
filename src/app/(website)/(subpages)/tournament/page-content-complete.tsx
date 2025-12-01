@@ -65,7 +65,10 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
 
     return (
         <>
-            <NavMain showBreadcrumbs />
+            <NavMain showBreadcrumbs customBreadcrumbs={[
+                { label: "Home", href: "/" },
+                { label: tournament.data.title, href: `/tournament/${tournament.uid}` }
+            ]} />
             <PaddingGlobal>
             <div>
             <SubpageHero>
@@ -81,7 +84,7 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                             <Button asChild size="skew_lg" className="clip-chop-sm">
                                 <Link href="#results"><span>Results</span></Link>
                             </Button>
-                            <Button asChild size="skew_lg" variant="secondary">
+                            <Button asChild size="skew_lg" variant="outline">
                                 <Link href="#stat-sheet"><span>Stat Sheet</span></Link>
                             </Button>
                         </div>

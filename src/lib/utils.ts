@@ -259,20 +259,26 @@ export function normalizeDateString(dateStr: string | Date): string {
   return `${year}-${month}-${day}`
 }
 
-export function formatGameDate(startTime: string | Date | null | undefined): { day: string; month: string; time: string } {
-  if (!startTime) return { day: "", month: "", time: "" }
+function getOrdinalSuffix(day: number): string {
+  if (day > 3 && day < 21) return 'th'
+  switch (day % 10) {
+    case 1: return 'st'
+    case 2: return 'nd'
+    case 3: return 'rd'
+    default: return 'th'
+  }
+}
+
+export function formatGameDate(startTime: string | Date | null | undefined): { day: string; month: string; time: string; weekday: string } {
+  if (!startTime) return { day: "", month: "", time: "", weekday: "" }
   
   try {
     const date = typeof startTime === 'string' ? parseISO(startTime) : startTime
     
     if (isNaN(date.getTime())) {
-      return { day: "", month: "", time: "" }
+      return { day: "", month: "", time: "", weekday: "" }
     }
     
-    const dayFormatter = new Intl.DateTimeFormat("en-US", {
-      day: "numeric",
-      timeZone: "America/New_York",
-    })
     const monthFormatter = new Intl.DateTimeFormat("en-US", {
       month: "short",
       timeZone: "America/New_York",
@@ -283,13 +289,19 @@ export function formatGameDate(startTime: string | Date | null | undefined): { d
       hour12: true,
       timeZone: "America/New_York",
     })
+    const weekdayFormatter = new Intl.DateTimeFormat("en-US", {
+      weekday: "short",
+      timeZone: "America/New_York",
+    })
     
-    const day = dayFormatter.format(date)
+    const dayNum = date.getDate()
+    const day = `${dayNum}${getOrdinalSuffix(dayNum)}`
     const month = monthFormatter.format(date).toUpperCase()
-    const time = timeFormatter.format(date)
+    const time = timeFormatter.format(date).toUpperCase()
+    const weekday = weekdayFormatter.format(date).toUpperCase()
     
-    return { day, month, time }
+    return { day, month, time, weekday }
   } catch {
-    return { day: "", month: "", time: "" }
+    return { day: "", month: "", time: "", weekday: "" }
   }
 }

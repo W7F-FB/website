@@ -1,4 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
+import { dev } from "@/lib/dev";
 
 const SUPABASE_URL = process.env.SUPABASE_URL!;
 const SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY!;
@@ -96,10 +97,10 @@ export async function ingestHighlight(payload: HighlightIngestPayload) {
 
   const providerClipId = toPathSafe(payload.provider_clip_id);
 
-  if (IS_DEV) console.log(`Downloading video from: ${payload.video_source_url}`);
+  if (IS_DEV) dev.log(`Downloading video from: ${payload.video_source_url}`);
   const videoDownload = await fetchAsBlob(payload.video_source_url);
   if (IS_DEV) {
-    console.log(
+    dev.log(
       `Video downloaded: ${videoDownload.blob.size} bytes, content-type: ${videoDownload.contentType}`
     );
   }
@@ -115,7 +116,7 @@ export async function ingestHighlight(payload: HighlightIngestPayload) {
   const clipPath = `clips/${providerClipId}${videoExt}`;
 
   if (IS_DEV) {
-    console.log(`Uploading video to Supabase: ${clipPath} (${(videoDownload.blob.size / 1024 / 1024).toFixed(2)} MB)...`);
+    dev.log(`Uploading video to Supabase: ${clipPath} (${(videoDownload.blob.size / 1024 / 1024).toFixed(2)} MB)...`);
   }
   const uploadStartTime = Date.now();
   
@@ -128,7 +129,7 @@ export async function ingestHighlight(payload: HighlightIngestPayload) {
       throw new Error(`Failed to get signed upload URL: ${signedUrlError?.message}`);
     }
 
-    if (IS_DEV) console.log(`Got signed upload URL, uploading directly...`);
+    if (IS_DEV) dev.log(`Got signed upload URL, uploading directly...`);
 
     const uploadResponse = await fetch(signedUrl.signedUrl, {
       method: 'PUT',
@@ -148,12 +149,12 @@ export async function ingestHighlight(payload: HighlightIngestPayload) {
 
     if (IS_DEV) {
       const uploadDuration = ((Date.now() - uploadStartTime) / 1000).toFixed(2);
-      console.log(`Video upload completed successfully in ${uploadDuration}s`);
+      dev.log(`Video upload completed successfully in ${uploadDuration}s`);
     }
   } catch (err) {
     if (IS_DEV) {
       const uploadDuration = ((Date.now() - uploadStartTime) / 1000).toFixed(2);
-      console.error(`Upload failed after ${uploadDuration}s:`, err);
+      dev.log(`Upload failed after ${uploadDuration}s:`, err);
     }
     throw new Error(
       `Failed to upload video: ${err instanceof Error ? err.message : String(err)}`
@@ -165,12 +166,12 @@ export async function ingestHighlight(payload: HighlightIngestPayload) {
 
   if (payload.thumbnail_source_url) {
     try {
-      if (IS_DEV) console.log(`Downloading thumbnail from: ${payload.thumbnail_source_url}`);
+      if (IS_DEV) dev.log(`Downloading thumbnail from: ${payload.thumbnail_source_url}`);
       const thumbDownload = await fetchAsBlob(
         payload.thumbnail_source_url
       );
       if (IS_DEV) {
-        console.log(
+        dev.log(
           `Thumbnail downloaded: ${thumbDownload.blob.size} bytes, content-type: ${thumbDownload.contentType}`
         );
       }
@@ -191,7 +192,7 @@ export async function ingestHighlight(payload: HighlightIngestPayload) {
         .createSignedUploadUrl(thumbPath);
 
       if (thumbSignedUrlError || !thumbSignedUrl) {
-        if (IS_DEV) console.warn("Failed to get signed upload URL for thumbnail, skipping");
+        if (IS_DEV) dev.log("Failed to get signed upload URL for thumbnail, skipping");
         thumbPath = null;
       } else {
         const thumbUploadResponse = await fetch(thumbSignedUrl.signedUrl, {
@@ -204,16 +205,16 @@ export async function ingestHighlight(payload: HighlightIngestPayload) {
         });
 
         if (!thumbUploadResponse.ok) {
-          if (IS_DEV) console.warn(`Thumbnail upload failed: ${thumbUploadResponse.status}, continuing without thumbnail`);
+          if (IS_DEV) dev.log(`Thumbnail upload failed: ${thumbUploadResponse.status}, continuing without thumbnail`);
           thumbPath = null;
         } else {
-          if (IS_DEV) console.log("Thumbnail uploaded successfully");
+          if (IS_DEV) dev.log("Thumbnail uploaded successfully");
         }
       }
     } catch (e) {
       if (IS_DEV) {
-        console.error("Thumbnail processing error:", e);
-        console.warn("Thumbnail processing failed, continuing without thumbnail");
+        dev.log("Thumbnail processing error:", e);
+        dev.log("Thumbnail processing failed, continuing without thumbnail");
       }
       thumbPath = null;
     }

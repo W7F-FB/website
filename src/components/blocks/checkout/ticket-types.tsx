@@ -2,7 +2,7 @@
 
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { H2, H4, P } from "@/components/website-base/typography";
-import { PalmtreeIcon, MapPinAreaIcon, TagChevronIcon } from "@/components/website-base/icons";
+import { MapPinAreaIcon, TagChevronIcon } from "@/components/website-base/icons";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -86,45 +86,41 @@ export function TicketTypes() {
     return (
         <div>
             <Card className="w-[30rem]">
-                <div className="absolute inset-0 flex items-end justify-center opacity-1 pointer-events-none overflow-hidden">
-                    <PalmtreeIcon fill="currentColor" className="text-foreground w-auto h-full rotate-y-180" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-card to-transparent"></div>
-                </div>
                 <CardHeader>
                     <CardTitle>
                         <div className="flex justify-between items-center mb-4">
                             <span className="font-[450] font-headers uppercase text-accent-foreground block">
                                 {ticketsCard.subtitle}
                             </span>
-                            <Button asChild variant="link" size="sm" className="p-0">
-                                <Link href="/tournament/fort-lauderdale#schedule">View Schedule</Link>
+                            <Button asChild variant="outline" size="sm" className="text-foreground">
+                                <Link href={`/tournament/fort-lauderdale/schedule`}>View Schedule</Link>
                             </Button>
                         </div>
-                        <H2 className="text-3xl font-bold uppercase text-white">
+                        <H2 className="text-3xl uppercase text-white">
                             {ticketsCard.title}
                         </H2>
                         <P noSpace className="text-sm">{ticketsCard.description}</P>
                     </CardTitle>
-                    <Separator className="my-4" />
+                    <Separator className="mt-4" />
                 </CardHeader>
                 <CardContent>
                     <div>
-                        <Accordion type="single" collapsible className="w-full">
+                        <Accordion type="single" collapsible className="w-full ">
                             {ticketOptions.map((option) => (
                                 <AccordionItem key={option.id} value={option.id}>
-                                    <AccordionTrigger>
-                                        <H4>{option.title}</H4>
+                                    <AccordionTrigger className="py-3">
+                                        <H4 className="text-base">{option.title}</H4>
                                     </AccordionTrigger>
-                                    <AccordionContent>
+                                    <AccordionContent className="text-sm">
                                         <div className="space-y-4">
                                             <P>{option.description}</P>
                                             {option.features.length > 0 && (
                                                 <div className="space-y-2">
-                                                    <ul className="space-y-1">
+                                                    <ul className="space-y-1.5">
                                                         {option.features.map((feature, index) => (
                                                             <li key={index} className="flex items-start gap-2">
                                                                 <TagChevronIcon  className="size-3 mt-1.25" />
-                                                                {feature}
+                                                                <span className="mt-0.5">{feature}</span>
                                                             </li>
                                                         ))}
                                                     </ul>
@@ -136,14 +132,16 @@ export function TicketTypes() {
                             ))}
                         </Accordion>
                     </div>
-                    <div className="flex items-center gap-3 py-6">
-                        <MapPinAreaIcon className="size-3.5 mb-0.75" />
-                        <span className="text-lg">{ticketsCard.venue}</span>
+                    <div className="flex items-center justify-between gap-3 py-6">
+                        <div className="flex items-center gap-3">
+                            <MapPinAreaIcon className="size-3.5 mb-0.75" />
+                            <span className="text-lg">{ticketsCard.venue}</span>
+                        </div>
                         <Button
-                            variant="link"
+                            variant="outline"
                             size="sm"
                             onClick={() => setLightboxOpen(true)}
-                            className="p-0"
+                            className="text-foreground"
                         >
                             View Layout
                         </Button>

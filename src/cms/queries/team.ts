@@ -2,6 +2,7 @@ import * as prismic from "@prismicio/client";
 
 import { createClient } from "../../prismicio";
 import type { TeamMemberDocument, TeamDocument } from "../../../prismicio-types";
+import { dev } from "@/lib/dev";
 
 /**
  * Get all team members
@@ -17,7 +18,7 @@ export async function getAllTeamMembers(): Promise<TeamMemberDocument[]> {
     });
     return teamMembers;
   } catch (error) {
-    console.error("Error fetching team members:", error);
+    dev.log("Error fetching team members:", error);
     return [];
   }
 }
@@ -39,7 +40,7 @@ export async function getTeamMembersByDepartment(department: string): Promise<Te
     });
     return teamMembers;
   } catch (error) {
-    console.error(`Error fetching team members for department ${department}:`, error);
+    dev.log(`Error fetching team members for department ${department}:`, error);
     return [];
   }
 }
@@ -104,7 +105,7 @@ export async function getTeamsByTournament(tournamentUID: string): Promise<TeamD
 
     return filteredTeams;
   } catch (error) {
-    console.error(`Error fetching teams for tournament ${tournamentUID}:`, error);
+    dev.log(`Error fetching teams for tournament ${tournamentUID}:`, error);
     return [];
   }
 }
@@ -124,7 +125,7 @@ export async function getTeamByOptaId(optaId: string): Promise<TeamDocument | nu
     
     return teams.length > 0 ? teams[0] : null;
   } catch (error) {
-    console.error(`Error fetching team with Opta ID ${optaId}:`, error);
+    dev.log(`Error fetching team with Opta ID ${optaId}:`, error);
     return null;
   }
 }
@@ -143,7 +144,7 @@ export async function getTeamsByOptaIds(optaIds: string[]): Promise<TeamDocument
     
     return teams;
   } catch (error) {
-    console.error(`Error fetching teams with Opta IDs:`, error);
+    dev.log(`Error fetching teams with Opta IDs:`, error);
     return [];
   }
 }
@@ -159,7 +160,7 @@ export async function getTeamByUid(uid: string): Promise<TeamDocument | null> {
     if (error instanceof Error && 'status' in error && (error as { status: number }).status === 404) {
       return null;
     }
-    console.error(`Error fetching team with UID ${uid}:`, error);
+    dev.log(`Error fetching team with UID ${uid}:`, error);
     throw error;
   }
 }

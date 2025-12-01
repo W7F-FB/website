@@ -5,6 +5,7 @@ import { getTeamsByTournament } from "@/cms/queries/team"
 import { ClubBasic } from "./club"
 import { getF1Fixtures } from "@/app/api/opta/feeds"
 import { normalizeOptaId } from "@/lib/opta/utils"
+import { dev } from "@/lib/dev"
 
 interface ClubListProps extends React.ComponentProps<"div"> {
   tournament: TournamentDocument
@@ -53,7 +54,7 @@ export async function ClubList({ tournament, className, ...props }: ClubListProp
         if (normalizedLoser) placementMap[normalizedLoser] = 4
       }
     } catch (error) {
-      console.error('Failed to fetch fixtures for completed tournament:', error)
+      dev.log('Failed to fetch fixtures for completed tournament:', error)
     }
   }
 

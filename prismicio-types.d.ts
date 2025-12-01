@@ -1031,6 +1031,17 @@ interface TeamDocumentData {
    * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
    */
   tournaments: prismic.GroupField<Simplify<TeamDocumentDataTournamentsItem>>;
+
+  /**
+   * Group field in *Team*
+   *
+   * - **Field Type**: Select
+   * - **Placeholder**: *None*
+   * - **API ID Path**: team.group
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/select
+   */
+  group: prismic.SelectField<"Group 1" | "Group 2">;
 }
 
 /**
@@ -1193,6 +1204,30 @@ export interface TournamentDocumentDataMatchesItem {
           "start_time",
           "stage",
           "knockout_stage_match_type",
+          "opta_id",
+          {
+            id: "broadcasts";
+            fields: [
+              {
+                id: "streaming_service";
+                customtypes: [
+                  {
+                    id: "broadcast_partners";
+                    fields: [
+                      "name",
+                      "logo",
+                      "logo_white",
+                      "icon_logo",
+                      "color_secondary",
+                      "logo_on_primary",
+                      "color_primary",
+                      "streaming_link",
+                    ];
+                  },
+                ];
+              },
+            ];
+          },
         ];
       },
     ]

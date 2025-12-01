@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getF30SeasonStats } from '@/app/api/opta/feeds';
+import { dev } from '@/lib/dev';
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
@@ -22,7 +23,7 @@ export async function GET(request: NextRequest) {
       },
     });
   } catch (error) {
-    console.error('Error fetching F30 season statistics:', error);
+    dev.log('Error fetching F30 season statistics:', error);
     return NextResponse.json(
       { error: 'Failed to fetch season statistics' },
       { status: 500 }

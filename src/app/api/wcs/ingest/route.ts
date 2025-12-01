@@ -3,6 +3,7 @@ import {
   ingestHighlight,
   HighlightIngestPayload,
 } from "@/lib/supabase/hightlight-ingest";
+import { dev } from "@/lib/dev";
 
 export const runtime = "edge";
 export const maxDuration = 300;
@@ -37,7 +38,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ data: inserted }, { status: 201 });
   } catch (e) {
-    console.error("Highlight ingest error:", e);
+    dev.log("Highlight ingest error:", e);
 
     if (e instanceof Error) {
       return NextResponse.json(

@@ -214,7 +214,7 @@ export async function NavigationMenuTournamentFeatured({
                         </div>
                     </CategoryButton>
                     <Separator variant="gradient" gradientDirection="toRight" />
-                    <CategoryButton href="/tournament/fort-lauderdale#schedule">
+                    <CategoryButton href={`/tournament/${tournament.uid}/schedule`}>
                         <div className="flex items-center gap-3">
                             <WhistleIcon className="size-4 text-foreground" />
                             Schedule

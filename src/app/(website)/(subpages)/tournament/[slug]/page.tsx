@@ -10,6 +10,7 @@ import type { TeamDocument, TournamentDocumentDataAwardsItem } from "../../../..
 import { isFilled } from "@prismicio/client"
 import type { F30SeasonStatsResponse } from "@/types/opta-feeds/f30-season-stats"
 import type * as prismic from "@prismicio/client"
+import { dev } from "@/lib/dev"
 
 type AwardAwardsField = TournamentDocumentDataAwardsItem['awards']
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -59,7 +60,7 @@ export default async function TournamentPage({ params }: Props) {
             const stats = await getF30SeasonStats(competitionId, seasonId, teamId)
             return { teamId, stats }
           } catch (error) {
-            console.error(`Error fetching F30 stats for team ${teamId}:`, error)
+            dev.log(`Error fetching F30 stats for team ${teamId}:`, error)
             return null
           }
         })
@@ -72,7 +73,7 @@ export default async function TournamentPage({ params }: Props) {
         })
         
       } catch (error) {
-        console.error('Error fetching tournament data:', error)
+        dev.log('Error fetching tournament data:', error)
       }
     }
 
@@ -116,7 +117,7 @@ export default async function TournamentPage({ params }: Props) {
             const stats = await getF30SeasonStats(competitionId, seasonId, teamId)
             return { teamId, stats }
           } catch (error) {
-            console.error(`Error fetching F30 stats for team ${teamId}:`, error)
+            dev.log(`Error fetching F30 stats for team ${teamId}:`, error)
             return null
           }
         })
@@ -129,7 +130,7 @@ export default async function TournamentPage({ params }: Props) {
         })
         
       } catch (error) {
-        console.error('Error fetching tournament data:', error)
+        dev.log('Error fetching tournament data:', error)
       }
     }
 

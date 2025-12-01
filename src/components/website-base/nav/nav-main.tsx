@@ -24,6 +24,7 @@ import { Subtitle } from "../typography"
 import { Separator } from "@/components/ui/separator"
 import { PostMini } from "@/components/blocks/posts/post"
 import { isFilled } from "@prismicio/client"
+import { dev } from "@/lib/dev"
 
 const exploreNavItems = [
   { href: "/news", label: "News", key: "nav-news" },
@@ -52,13 +53,13 @@ async function NavMain({ showBreadcrumbs, pathname, customBreadcrumbs, gameCards
   try {
     tournaments = await getNavigationTournaments()
   } catch (error) {
-    console.error("Failed to load tournaments for navigation:", error)
+    dev.log("Failed to load tournaments for navigation:", error)
   }
   
   try {
     recentBlog = await getMostRecentBlog()
   } catch (error) {
-    console.error("Failed to load recent blog for navigation:", error)
+    dev.log("Failed to load recent blog for navigation:", error)
   }
 
   return (

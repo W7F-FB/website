@@ -1,6 +1,8 @@
 import { SessionBlock } from "@/components/blocks/tournament/schedule/session-block"
 import { H3, P } from "@/components/website-base/typography"
 import { CircleAlert } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import Link from "next/link"
 
 interface Session {
     title: string
@@ -14,19 +16,23 @@ interface Session {
 interface ScheduleDayProps {
     session: string
     note?: string
+    tournamentSlug: string
     sessions: Session[]
 }
 
 
 
-export function ScheduleDay({ session, note, sessions }: ScheduleDayProps) {
+export function ScheduleDay({ session, note, tournamentSlug, sessions }: ScheduleDayProps) {
     return (
         <div>
             {note && (
                 <P className="text-sm py-6 flex items-center gap-2"><CircleAlert className="w-4 h-4" /> {note}</P>
             )}
-            <div className="px-6 py-4 bg-card">
+            <div className="px-6 py-4 bg-card flex items-center justify-between">
                 <H3 className="uppercase">{session}</H3>
+                <Button asChild size="sm" variant="outline">
+                    <Link href={`/tournament/${tournamentSlug}/schedule`}><span>Match Schedule</span></Link>
+                </Button>
             </div>
 
             {sessions.map((session, i) =>

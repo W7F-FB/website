@@ -146,7 +146,7 @@ export default function TournamentPageLive({ tournament, tournamentBlogs, f1Fixt
                                 <SectionHeadingHeading variant="h2">Schedule</SectionHeadingHeading>
                                 <P noSpace>All times are subject to change</P>
                             </SectionHeading>
-                            <ScheduleTabs />
+                            <ScheduleTabs tournamentSlug={tournament.uid} />
                         </Section>
 
                         {tournamentBlogs.length > 0 && (

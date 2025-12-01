@@ -103,7 +103,7 @@ export function TicketOptionsGrid() {
                         <span className="font-[450] font-headers uppercase text-accent-foreground mb-4 block">
                             {eventDetails.title}
                         </span>
-                        <H2 className="text-3xl font-bold uppercase text-white">
+                        <H2 className="text-3xl uppercase text-white">
                             {eventDetails.location}
                         </H2>
                     </CardTitle>
@@ -112,22 +112,26 @@ export function TicketOptionsGrid() {
                 <CardContent className="space-y-4">
                     <Separator />
                     <div className="space-y-2">
-                        <div className="flex items-center gap-3">
-                            <CalendarIcon className="size-3.5 mb-1" />
-                            <span className="text-lg">{eventDetails.date}</span>
-                            <Button asChild variant="link" size="sm" className="p-0">
+                        <div className="flex items-center justify-between gap-3">
+                            <div className="flex items-center gap-3">
+                                <CalendarIcon className="size-3.5 mb-1" />
+                                <span className="text-lg">{eventDetails.date}</span>
+                            </div>
+                            <Button asChild variant="outline" size="sm" className="text-foreground">
                                 <Link href="/tournament/fort-lauderdale#schedule">View Schedule</Link>
                             </Button>
                         </div>
 
-                        <div className="flex items-center gap-3">
-                            <MapPinAreaIcon className="size-3.5 mb-0.75" />
-                            <span className="text-lg">{eventDetails.venue}</span>
+                        <div className="flex items-center justify-between gap-3">
+                            <div className="flex items-center gap-3">
+                                <MapPinAreaIcon className="size-3.5 mb-0.75" />
+                                <span className="text-lg">{eventDetails.venue}</span>
+                            </div>
                             <Button
-                                variant="link"
+                                variant="outline"
                                 size="sm"
                                 onClick={() => setLightboxOpen(true)}
-                                className="p-0 text-foreground"
+                                className="text-foreground"
                             >
                                 View Layout
                             </Button>

@@ -1,5 +1,5 @@
 import * as React from "react"
-import type { TeamDocument } from "../../prismicio-types"
+import type { TeamDocument, MatchDocument } from "../../prismicio-types"
 import type { F1MatchData, F1TeamData } from "./opta-feeds/f1-fixtures"
 import type { F9MatchPlayer, F9Team } from "./opta-feeds/f9-match"
 import type { F24Event } from "./opta-feeds/f24-match-events"
@@ -66,12 +66,23 @@ export interface GameCardTeam {
   indicatorClassName?: string
 }
 
-export interface GameCard extends React.HTMLAttributes<HTMLDivElement> {
+export interface GameCardOpta extends React.HTMLAttributes<HTMLDivElement> {
   fixture: F1MatchData
   prismicTeams: TeamDocument[]
   optaTeams: F1TeamData[]
   compact?: boolean
   banner?: React.ReactNode
   variant?: "default" | "mini"
+  optaEnabled?: boolean
 }
+
+export interface GameCardPrismic extends React.HTMLAttributes<HTMLDivElement> {
+  prismicMatch: MatchDocument
+  compact?: boolean
+  banner?: React.ReactNode
+  variant?: "default" | "mini"
+  optaEnabled?: boolean
+}
+
+export type GameCard = GameCardOpta | GameCardPrismic
 

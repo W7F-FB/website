@@ -133,7 +133,7 @@ function ClubHorizontal({ team, index, record, className, ...props }: ClubHorizo
       )}
       {...props}
     >
-      {index !== undefined && (
+      {index !== undefined && record !== undefined && (
         <div className="text-white/60 font-headers text-base font-medium min-w-[1.5rem] mr-2">
           {index}
         </div>

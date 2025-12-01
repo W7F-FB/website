@@ -10,6 +10,7 @@ import { F24EventDetailsFeed } from '@/types/opta-feeds/f24-match-events';
 import { F40SquadsResponse } from '@/types/opta-feeds/f40-squads-feed';
 import { F15RankingsResponse } from '@/types/opta-feeds/f15-rankings';
 import { F30SeasonStatsResponse } from '@/types/opta-feeds/f30-season-stats';
+import { dev } from '@/lib/dev';
 
 export class OptaClient {
   private baseUrl: string;
@@ -141,7 +142,7 @@ export class OptaClient {
     });
 
     const url = `${this.baseUrl}/?${queryParams.toString()}`;
-    console.log('F9 Feed Request URL:', url);
+    dev.log('F9 Feed Request URL:', url);
 
     const response = await this.makeDirectRequest(params);
 

@@ -1,7 +1,8 @@
 import { normalizeOptaId } from "@/lib/opta/utils"
 import { getImageUrl, getImageAlt } from "@/cms/utils"
-import type { TeamDocument } from "../../../../prismicio-types"
+import type { TeamDocument, MatchDocument } from "../../../../prismicio-types"
 import type { F1MatchData, F1TeamData, F1TeamMatchData } from "@/types/opta-feeds/f1-fixtures"
+import { isFilled } from "@prismicio/client"
 
 export interface GameCardData {
     homeTeamData: F1TeamMatchData | undefined
@@ -31,6 +32,77 @@ export interface GameCardData {
 }
 
 export function getGameCardData(
+    fixture: F1MatchData,
+    prismicTeams: TeamDocument[],
+    optaTeams: F1TeamData[]
+): GameCardData
+export function getGameCardData(
+    prismicMatch: MatchDocument
+): GameCardData
+export function getGameCardData(
+    dataSource: F1MatchData | MatchDocument,
+    prismicTeams?: TeamDocument[],
+    optaTeams?: F1TeamData[]
+): GameCardData {
+    if ('type' in dataSource && dataSource.type === 'match') {
+        return getGameCardDataFromPrismic(dataSource as MatchDocument)
+    } else {
+        return getGameCardDataFromOpta(
+            dataSource as F1MatchData,
+            prismicTeams || [],
+            optaTeams || []
+        )
+    }
+}
+
+function getGameCardDataFromPrismic(prismicMatch: MatchDocument): GameCardData {
+    const hasHomeTeam = isFilled.contentRelationship(prismicMatch.data.home_team) && prismicMatch.data.home_team.data
+    const hasAwayTeam = isFilled.contentRelationship(prismicMatch.data.away_team) && prismicMatch.data.away_team.data
+    
+    const homeTeam = hasHomeTeam ? prismicMatch.data.home_team as unknown as TeamDocument : undefined
+    const awayTeam = hasAwayTeam ? prismicMatch.data.away_team as unknown as TeamDocument : undefined
+
+    const homeTeamShortName = homeTeam?.data?.key || 
+                              (prismicMatch.data.home_team_name_override ? null : null)
+    const awayTeamShortName = awayTeam?.data?.key || 
+                              (prismicMatch.data.away_team_name_override ? null : null)
+
+    const startTime = prismicMatch.data.start_time || new Date().toISOString()
+
+    const homeLogoUrl = homeTeam ? getImageUrl(homeTeam.data.logo) : null
+    const awayLogoUrl = awayTeam ? getImageUrl(awayTeam.data.logo) : null
+    const homeLogoAlt = homeTeam ? getImageAlt(homeTeam.data.logo) : (prismicMatch.data.home_team_name_override || "")
+    const awayLogoAlt = awayTeam ? getImageAlt(awayTeam.data.logo) : (prismicMatch.data.away_team_name_override || "")
+
+    return {
+        homeTeamData: undefined,
+        awayTeamData: undefined,
+        homeTeamRef: homeTeam?.data?.opta_id || "",
+        awayTeamRef: awayTeam?.data?.opta_id || "",
+        homeTeam,
+        awayTeam,
+        homeOptaTeam: undefined,
+        awayOptaTeam: undefined,
+        homeTeamShortName,
+        awayTeamShortName,
+        homeScore: null,
+        awayScore: null,
+        winnerRef: undefined,
+        isPKGame: false,
+        isFinal: false,
+        homeIsLosing: false,
+        awayIsLosing: false,
+        homeIsWinning: false,
+        awayIsWinning: false,
+        startTime,
+        homeLogoUrl,
+        awayLogoUrl,
+        homeLogoAlt,
+        awayLogoAlt,
+    }
+}
+
+function getGameCardDataFromOpta(
     fixture: F1MatchData,
     prismicTeams: TeamDocument[],
     optaTeams: F1TeamData[]

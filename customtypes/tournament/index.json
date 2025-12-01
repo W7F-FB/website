@@ -215,7 +215,31 @@
                       "away_team_name_override",
                       "start_time",
                       "stage",
-                      "knockout_stage_match_type"
+                      "knockout_stage_match_type",
+                      "opta_id",
+                      {
+                        "id": "broadcasts",
+                        "fields": [
+                          {
+                            "id": "streaming_service",
+                            "customtypes": [
+                              {
+                                "id": "broadcast_partners",
+                                "fields": [
+                                  "name",
+                                  "logo",
+                                  "logo_white",
+                                  "icon_logo",
+                                  "color_secondary",
+                                  "logo_on_primary",
+                                  "color_primary",
+                                  "streaming_link"
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
                     ]
                   }
                 ]

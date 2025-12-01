@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getF15Rankings } from '@/app/api/opta/feeds';
+import { dev } from '@/lib/dev';
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
@@ -21,7 +22,7 @@ export async function GET(request: NextRequest) {
       },
     });
   } catch (error) {
-    console.error('Error fetching F15 rankings:', error);
+    dev.log('Error fetching F15 rankings:', error);
     return NextResponse.json(
       { error: 'Failed to fetch rankings' },
       { status: 500 }

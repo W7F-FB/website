@@ -1,3 +1,4 @@
+"use client"
 import { TicketTypes } from "@/components/blocks/checkout/ticket-types";
 import { SquadUpCheckout } from "@/components/blocks/checkout/squadupp-checkout";
 import { Section } from "@/components/website-base/padding-containers";

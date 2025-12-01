@@ -29,6 +29,9 @@ function HeroSlider({ className, children, autoplay = false, autoplayDelay = 500
   const intervalRef = React.useRef<NodeJS.Timeout | null>(null)
   const progressIntervalRef = React.useRef<NodeJS.Timeout | null>(null)
 
+  const isSingleSlide = slideCount <= 1
+  const effectiveAutoplay = autoplay && !isSingleSlide
+
   const startAutoplay = React.useCallback((startFromProgress = 0) => {
     if (intervalRef.current) {
       clearInterval(intervalRef.current)
@@ -67,14 +70,14 @@ function HeroSlider({ className, children, autoplay = false, autoplayDelay = 500
       setCurrentSlide(api.selectedScrollSnap())
       setProgress(0)
       setPausedProgress(0)
-      if (autoplay && !isPaused) {
+      if (effectiveAutoplay && !isPaused) {
         startAutoplay(0)
       }
     })
-  }, [api, autoplay, isPaused, startAutoplay])
+  }, [api, effectiveAutoplay, isPaused, startAutoplay])
 
   React.useEffect(() => {
-    if (!api || !autoplay) return
+    if (!api || !effectiveAutoplay) return
 
     if (isPaused) {
       if (progressIntervalRef.current) {
@@ -96,16 +99,16 @@ function HeroSlider({ className, children, autoplay = false, autoplayDelay = 500
         progressIntervalRef.current = null
       }
     }
-  }, [api, autoplay, startAutoplay, isPaused, pausedProgress])
+  }, [api, effectiveAutoplay, startAutoplay, isPaused, pausedProgress])
 
   const handleMouseEnter = () => {
-    if (!autoplay) return
+    if (!effectiveAutoplay) return
     setPausedProgress(progress)
     setIsPaused(true)
   }
 
   const handleMouseLeave = () => {
-    if (!autoplay) return
+    if (!effectiveAutoplay) return
     setIsPaused(false)
   }
 
@@ -126,28 +129,29 @@ function HeroSlider({ className, children, autoplay = false, autoplayDelay = 500
       <CarouselContent className="!gap-0 !m-0">
         {children}
       </CarouselContent>
-      <div className="absolute bottom-0 right-0 mb-2 mr-2 z-[20]">
-        <div className="flex">
-          <HeroSliderPrevious className="-mr-[0.5px] z-1 hover:z-2" />
-          <HeroSliderNext className="-ml-[0.5px] z-1 hover:z-2" />
+      {!isSingleSlide && (
+        <div className="absolute bottom-0 right-0 mb-2 mr-2 z-[20]">
+          <div className="flex">
+            <HeroSliderPrevious className="-mr-[0.5px] z-1 hover:z-2" />
+            <HeroSliderNext className="-ml-[0.5px] z-1 hover:z-2" />
+          </div>
+          <div className="w-full relative border-l border-r border-b border-muted backdrop-blur-sm bg-background/40">
+            <Progress
+              className="h-1.5 rounded-none !bg-transparent"
+              value={effectiveAutoplay ? ((currentSlide * 100) + progress) / slideCount : ((currentSlide + 1) * 100) / slideCount}
+            />
+            {Array.from({ length: slideCount - 1 }, (_, index) => (
+              <div
+                key={index}
+                className="absolute top-0 bottom-0 w-px bg-background/40 z-[20] border-r border-muted"
+                style={{ left: `calc(${((index + 1) / slideCount) * 100}% - 0.5px)` }}
+              >
+                <div className="w-full h-full border-r border-muted" />
+              </div>
+            ))}
+          </div>
         </div>
-        <div className="w-full relative border-l border-r border-b border-muted backdrop-blur-sm bg-background/40">
-          <Progress
-            className="h-1.5 rounded-none !bg-transparent"
-            value={autoplay ? ((currentSlide * 100) + progress) / slideCount : ((currentSlide + 1) * 100) / slideCount}
-          />
-          {/* Dividers */}
-          {Array.from({ length: slideCount - 1 }, (_, index) => (
-            <div
-              key={index}
-              className="absolute top-0 bottom-0 w-px bg-background/40 z-[20] border-r border-muted"
-              style={{ left: `calc(${((index + 1) / slideCount) * 100}% - 0.5px)` }}
-            >
-              <div className="w-full h-full border-r border-muted" />
-            </div>
-          ))}
-        </div>
-      </div>
+      )}
     </Carousel>
   )
 }

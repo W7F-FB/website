@@ -78,9 +78,51 @@ function SectionHeadingText({
   )
 }
 
+function SectionHeadingContent({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="section-heading-content"
+      className={cn(
+        "col-span-2 group-[.split-variant]:col-span-1 flex flex-col gap-4",
+        className
+      )}
+      {...props}
+    />
+  )
+}
+
+function SectionHeadingLeft({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="section-heading-left"
+      className={cn(
+        "col-span-2 group-[.split-variant]:col-span-1 flex flex-col gap-4",
+        className
+      )}
+      {...props}
+    />
+  )
+}
+
+function SectionHeadingRight({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="section-heading-right"
+      className={cn(
+        "col-span-2 group-[.split-variant]:col-span-1 flex flex-col gap-4 group-[.split-variant]:justify-self-end group-[.split-variant]:items-end",
+        className
+      )}
+      {...props}
+    />
+  )
+}
+
 export {
   SectionHeading,
   SectionHeadingSubtitle,
   SectionHeadingHeading,
   SectionHeadingText,
+  SectionHeadingContent,
+  SectionHeadingLeft,
+  SectionHeadingRight,
 }
