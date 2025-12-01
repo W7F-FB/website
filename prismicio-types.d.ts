@@ -868,6 +868,29 @@ interface SponsorDocumentData {
    * - **Documentation**: https://prismic.io/docs/fields/text
    */
   website_link: prismic.KeyTextField;
+
+  /**
+   * Sort Order field in *Sponsor*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: sponsor.sort_order
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  sort_order: prismic.KeyTextField;
+
+  /**
+   * Visibility field in *Sponsor*
+   *
+   * - **Field Type**: Boolean
+   * - **Placeholder**: *None*
+   * - **Default Value**: true
+   * - **API ID Path**: sponsor.visibility
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/boolean
+   */
+  visibility: prismic.BooleanField;
 }
 
 /**

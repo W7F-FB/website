@@ -50,6 +50,22 @@
           "label": "Website Link",
           "placeholder": ""
         }
+      },
+      "sort_order": {
+        "type": "Text",
+        "config": {
+          "label": "Sort Order",
+          "placeholder": ""
+        }
+      },
+      "visibility": {
+        "type": "Boolean",
+        "config": {
+          "label": "Visibility",
+          "placeholder_false": "false",
+          "placeholder_true": "true",
+          "default_value": true
+        }
       }
     }
   }
