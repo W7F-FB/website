@@ -1,13 +1,14 @@
 import { notFound } from "next/navigation"
 import Image from "next/image"
 import { PrismicRichText } from "@prismicio/react"
+import * as prismic from "@prismicio/client"
 
 import { getBlogBySlug } from "@/cms/queries/blog"
 import { formatDate } from "@/lib/utils"
 import { Section, Container, PaddingGlobal } from "@/components/website-base/padding-containers"
 import { Card, CardHeader } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { H2, P} from "@/components/website-base/typography";
+import { H1, H2, H3, H4, P, Blockquote, List } from "@/components/website-base/typography";
 import { cn } from "@/lib/utils"
 import { getAllBlogs } from "@/cms/queries/blog"
 import { PostStandard } from "@/components/blocks/posts/post"
@@ -44,7 +45,7 @@ export default async function BlogPostPage({ params }: Props) {
                         <div className="flex-col md:flex-row flex justify-between text-sm mb-2">
                             {blog.category && (
                                 <Badge
-                                    variant="secondary"
+                                    variant="outline"
                                     className="text-accent-foreground rounded-none uppercase text-md"
                                 >
                                     {blog.category}
@@ -76,10 +77,47 @@ export default async function BlogPostPage({ params }: Props) {
                 <PrismicRichText
                     field={blogDoc.data.content}
                     components={{
-                        paragraph: ({ children }) => <p className="mb-6">{children}</p>,
+                        heading1: ({ children }) => <H1 className="mt-8 mb-4">{children}</H1>,
+                        heading2: ({ children }) => <H2 className="mt-8 mb-4">{children}</H2>,
+                        heading3: ({ children }) => <H3 className="mt-6 mb-3">{children}</H3>,
+                        heading4: ({ children }) => <H4 className="mt-6 mb-3">{children}</H4>,
+                        paragraph: ({ children }) => <P className="mb-6">{children}</P>,
+                        preformatted: ({ children }) => <Blockquote className="my-6">{children}</Blockquote>,
+                        strong: ({ children }) => <strong className="font-semibold">{children}</strong>,
+                        em: ({ children }) => <em className="italic">{children}</em>,
+                        listItem: ({ children }) => <li className="mb-2">{children}</li>,
+                        oListItem: ({ children }) => <li className="mb-2">{children}</li>,
+                        list: ({ children }) => <List className="my-6">{children}</List>,
+                        oList: ({ children }) => <ol className="my-6 ml-6 list-decimal space-y-2">{children}</ol>,
+                        hyperlink: ({ node, children }) => {
+                            const isExternal = node.data.link_type === "Web"
+                            return (
+                                <a
+                                    href={node.data.url || ""}
+                                    className="underline underline-offset-2 text-primary hover:text-primary/80"
+                                    {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                                >
+                                    {children}
+                                </a>
+                            )
+                        },
+                        image: ({ node }) => {
+                            if (!prismic.isFilled.image(node)) return null
+                            
+                            return (
+                                <div className="my-8">
+                                    <Image
+                                        src={node.url}
+                                        alt={node.alt || ""}
+                                        width={node.dimensions?.width || 1200}
+                                        height={node.dimensions?.height || 800}
+                                        className="h-auto w-full"
+                                    />
+                                </div>
+                            )
+                        },
                     }}
                 />
-
             )}
 
             <Separator className="mt-16" />

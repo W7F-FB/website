@@ -7,6 +7,7 @@ import { getFooterData } from "@/cms/queries/website"
 import { getVisibleSponsors } from "@/cms/queries/sponsors"
 import FormFooterSubscribe from "@/components/forms/form-footer-subscribe"
 import { SponsorLogo } from "@/components/blocks/sponsor-logo"
+import { PrivacyChoicesIcon } from "@/components/website-base/icons"
 
 import {
   Footer,
@@ -24,10 +25,9 @@ import { FooterFast } from "./footer-fast"
 
 async function PolicyLinks() {
   const policies = await getPoliciesForNav()
-  if (!policies?.length) return null
   return (
     <div className="flex flex-wrap gap-x-6 gap-y-2">
-      {policies.map((p) => (
+      {policies?.map((p) => (
         <FooterPolicyLink
           key={p.slug}
           href={p.pdfUrl || `/resources/${p.slug}`}
@@ -88,7 +88,7 @@ const FooterMain = React.forwardRef<HTMLElement, React.ComponentProps<"footer">>
               <p className="mb-4 text-muted-foreground">Stay updated on W7F news, tickets, giveaways, merchandise and more.</p>
               <FormFooterSubscribe />
               {sponsors.length > 0 && (
-                <div className="flex flex-wrap items-center justify-center gap-6 mt-12">
+                <div className="flex flex-wrap items-center justify-center lg:justify-end gap-6 mt-12">
                   {sponsors.map((sponsor) => (
                     <SponsorLogo
                       key={sponsor.id}
@@ -102,10 +102,17 @@ const FooterMain = React.forwardRef<HTMLElement, React.ComponentProps<"footer">>
         </div>
 
         <FooterFast />
-
+        <div className="flex justify-end pb-4">
+          <FooterPolicyLink href="/" className="flex items-center gap-2">
+            <span>Your Privacy Choices</span>
+            <PrivacyChoicesIcon size={30} />
+          </FooterPolicyLink>
+        </div>
         <FooterBottom>
           <FooterCopyright>Copyright 2025 World Sevens Football</FooterCopyright>
-          <PolicyLinks />
+          <div className="flex flex-wrap items-center gap-6">
+            <PolicyLinks />
+          </div>
         </FooterBottom>
       </Footer>
     </div>

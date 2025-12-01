@@ -118,7 +118,7 @@ export function TicketOptionsGrid() {
                                 <span className="text-lg">{eventDetails.date}</span>
                             </div>
                             <Button asChild variant="outline" size="sm" className="text-foreground">
-                                <Link href="/tournament/fort-lauderdale#schedule">View Schedule</Link>
+                                <Link href="/tournament/fort-lauderdale/schedule">View Schedule</Link>
                             </Button>
                         </div>
 
@@ -167,7 +167,7 @@ export function TicketOptionsGrid() {
                             Interested in watching the action from a pitchside cabana?
                             <span>
                                 <Button asChild variant="link" size="sm" className="mt-1 p-0 h-auto !px-0">
-                                    <Link href="/">
+                                    <Link href="/tournament/fort-lauderdale#vip-cabanas">
                                         Contact Us
                                         <CaretRightIcon className="size-3 mt-px" />
                                     </Link>

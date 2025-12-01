@@ -23,6 +23,7 @@ import { Background } from "@/components/ui/background"
 import Link from "next/link"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { GroupListPrismic } from "@/components/blocks/tournament/group-list-prismic"
+import { ScheduleTabs } from "@/components/blocks/tournament/schedule-tabs"
 
 type Props = {
     tournament: TournamentDocument
@@ -38,26 +39,26 @@ export default function TournamentSchedulePageContent({ tournament, tournamentBl
         .map(item => item.match)
         .filter(match => isFilled.contentRelationship(match) && match.data)
         .map(match => match as unknown as MatchDocument)
-    
+
     const groupStageMatches = sortMatchesByNumber(getGroupStageMatchesPrismic(prismicMatches))
     const matchesByDay = groupMatchesByDatePrismic(groupStageMatches)
     const totalMatches = groupStageMatches.length
-    
+
     const semiFinalMatches = sortMatchesByNumber(getSemiFinalMatchesPrismic(prismicMatches))
     const thirdPlaceMatches = sortMatchesByNumber(getThirdPlaceMatchPrismic(prismicMatches))
     const finalMatches = sortMatchesByNumber(getFinalMatchPrismic(prismicMatches))
-    
+
     const knockoutMatches = semiFinalMatches.length + thirdPlaceMatches.length + finalMatches.length
 
     const knockoutDateRaw = (semiFinalMatches[0] as MatchDocument)?.data?.start_time
         || (thirdPlaceMatches[0] as MatchDocument)?.data?.start_time
         || (finalMatches[0] as MatchDocument)?.data?.start_time
-    
+
     const knockoutDate = knockoutDateRaw ? (() => {
         const date = new Date(knockoutDateRaw)
-        const etDateStr = date.toLocaleDateString('en-US', { 
-            year: 'numeric', 
-            month: '2-digit', 
+        const etDateStr = date.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: '2-digit',
             day: '2-digit',
             timeZone: 'America/New_York'
         })
@@ -76,8 +77,8 @@ export default function TournamentSchedulePageContent({ tournament, tournamentBl
                 <div>
                     <SubpageHeroSecondary className="max-w-none w-full">
                         <Background className="flex items-start justify-between">
-                        <PalmtreeIcon fill="currentColor" className="opacity-3 text-foreground w-auto h-100 mask-b-from-0% mask-b-to-85%" />
-                        <PalmtreeIcon fill="currentColor" className="opacity-3 text-foreground w-auto h-100 rotate-y-180 mask-b-from-0% mask-b-to-85%" />
+                            <PalmtreeIcon fill="currentColor" className="opacity-3 text-foreground w-auto h-100 mask-b-from-0% mask-b-to-85%" />
+                            <PalmtreeIcon fill="currentColor" className="opacity-3 text-foreground w-auto h-100 rotate-y-180 mask-b-from-0% mask-b-to-85%" />
                         </Background>
                         <div className="relative max-w-3xl mx-auto">
                             <Subtitle className="text-primary">{tournament.data.title}</Subtitle>
@@ -156,47 +157,47 @@ export default function TournamentSchedulePageContent({ tournament, tournamentBl
                                     </Card>
                                 )}
                                 <div className={cn(prismicTeams.length > 0 ? "col-span-1 md:col-span-5" : "col-span-1 md:col-span-7", "space-y-18")}>
-                                {Array.from(matchesByDay.entries() as IterableIterator<[string, MatchDocument[]]>).map(([date, matches], index) => {
-                                    const columns = compact ? 3 : 2
-                                    const filledCellsInLastRow = matches.length % columns
-                                    const emptyCells = filledCellsInLastRow === 0 ? 0 : columns - filledCellsInLastRow
-                                    const isLastMatchDay = index === matchesByDay.size - 1
-                                    const nextMatchDayHref = isLastMatchDay ? "#knockout" : `#match-day-${index + 2}`
+                                    {Array.from(matchesByDay.entries() as IterableIterator<[string, MatchDocument[]]>).map(([date, matches], index) => {
+                                        const columns = compact ? 3 : 2
+                                        const filledCellsInLastRow = matches.length % columns
+                                        const emptyCells = filledCellsInLastRow === 0 ? 0 : columns - filledCellsInLastRow
+                                        const isLastMatchDay = index === matchesByDay.size - 1
+                                        const nextMatchDayHref = isLastMatchDay ? "#knockout" : `#match-day-${index + 2}`
 
-                                    return (
-                                        <div key={date} id={`match-day-${index + 1}`} className="space-y-8">
-                                            <div className="flex justify-start gap-0.5 pr-3">
-                                                <div className="flex-grow">
-                                                    <Badge fast variant="muted" origin="bottom-left" size="lg" className="text-2xl">
-                                                        Match day {index + 1}
+                                        return (
+                                            <div key={date} id={`match-day-${index + 1}`} className="space-y-8">
+                                                <div className="flex justify-start gap-0.5 pr-3">
+                                                    <div className="flex-grow">
+                                                        <Badge fast variant="muted" origin="bottom-left" size="lg" className="text-2xl">
+                                                            Match day {index + 1}
+                                                        </Badge>
+                                                    </div>
+                                                    <Badge variant="muted" origin="bottom-left" size="lg" className="text-base relative">
+                                                        <span className="relative z-10">{formatMatchDayDate(date)}</span>
                                                     </Badge>
                                                 </div>
-                                                <Badge variant="muted" origin="bottom-left" size="lg" className="text-base relative">
-                                                    <span className="relative z-10">{formatMatchDayDate(date)}</span>
-                                                </Badge>
+                                                <div className={cn("grid grid-cols-1 md:grid-cols-2 gap-6", compact && "md:grid-cols-3")}>
+                                                    {matches.map((match) => (
+                                                        <MatchCard
+                                                            key={match.id}
+                                                            prismicMatch={match}
+                                                            compact={compact}
+                                                            optaEnabled={false}
+                                                        />
+                                                    ))}
+                                                    {emptyCells > 0 && (
+                                                        <GridCellScrollLink
+                                                            href={nextMatchDayHref}
+                                                            className={cn(
+                                                                emptyCells === 2 && "md:col-span-2",
+                                                                emptyCells === 3 && "md:col-span-3"
+                                                            )}
+                                                        />
+                                                    )}
+                                                </div>
                                             </div>
-                                            <div className={cn("grid grid-cols-1 md:grid-cols-2 gap-6", compact && "md:grid-cols-3")}>
-                                                {matches.map((match) => (
-                                                    <MatchCard
-                                                        key={match.id}
-                                                        prismicMatch={match}
-                                                        compact={compact}
-                                                        optaEnabled={false}
-                                                    />
-                                                ))}
-                                                {emptyCells > 0 && (
-                                                    <GridCellScrollLink
-                                                        href={nextMatchDayHref}
-                                                        className={cn(
-                                                            emptyCells === 2 && "md:col-span-2",
-                                                            emptyCells === 3 && "md:col-span-3"
-                                                        )}
-                                                    />
-                                                )}
-                                            </div>
-                                        </div>
-                                    )
-                                })}
+                                        )
+                                    })}
                                 </div>
                             </div>
                         </Section>
@@ -264,6 +265,9 @@ export default function TournamentSchedulePageContent({ tournament, tournamentBl
                                 </div>
                                 <FastBanner text="FORWARD." position="right" strokeWidth="1.5px" />
                             </div>
+                        </Section>
+                        <Section padding="md" className="mb-16">
+                            <ScheduleTabs tournamentSlug={tournament.uid} />
                         </Section>
                         {tournamentBlogs.length > 0 && (
                             <>

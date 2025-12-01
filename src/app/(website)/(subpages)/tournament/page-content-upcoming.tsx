@@ -65,7 +65,9 @@ export default function TournamentPageUpcoming({ tournament, tournamentBlogs }: 
 
     return (
         <>
-            <NavMain showBreadcrumbs />
+            <NavMain showBreadcrumbs customBreadcrumbs={[
+                { label: "Home", href: "/" }
+            ]} />
             <PaddingGlobal>
             <div>
             <SubpageHero>

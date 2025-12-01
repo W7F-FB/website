@@ -166,7 +166,7 @@ function PostCardVert({ blog, className }: PostProps) {
             />
           </div>
         )}
-        <div className="flex flex-col justify-between">
+        <div className="flex flex-col h-full justify-between">
           <CardHeader className="">
             <div className="flex-col md:flex-row flex justify-between text-sm mb-6">
               {blog.category && (

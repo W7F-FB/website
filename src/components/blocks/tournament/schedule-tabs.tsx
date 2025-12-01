@@ -16,11 +16,11 @@ export function ScheduleTabs({ tournamentSlug }: ScheduleTabsProps) {
                 </TabsTrigger>
                 <TabsTrigger value="tab2" className="flex-col items-center justify-center">
                     <div>Sat, Dec 6th</div>
-                    <div className="text-sm text-muted-foreground/75 font-medium">Session 1</div>
+                    <div className="text-sm text-muted-foreground/75 font-medium">Session 2 & 3</div>
                 </TabsTrigger>
                 <TabsTrigger value="tab3" className="flex-col items-center justify-center">
                     <div>Sun, Dec 7th</div>
-                    <div className="text-sm text-muted-foreground/75 font-medium">Session 1</div>
+                    <div className="text-sm text-muted-foreground/75 font-medium">Session 4</div>
                 </TabsTrigger>
             </TabsList>
             <TabsContents>
@@ -51,7 +51,7 @@ export function ScheduleTabs({ tournamentSlug }: ScheduleTabsProps) {
                             session="Session 3"
                             tournamentSlug={tournamentSlug}
                             sessions={[
-                                { title: "Session 3 Matches", gatesOpen: "4:00 PM", matches: "4 Matches", time: "4:30 - 8:30 PM", icon: SoccerIcon },
+                                { title: "Session 3 Matches", matches: "4 Matches", time: "4:30 - 8:30 PM", icon: SoccerIcon },
                             ]}
                         />
                     </div>
@@ -63,7 +63,7 @@ export function ScheduleTabs({ tournamentSlug }: ScheduleTabsProps) {
                             note="Session 4: Four clubs participate in the semi-final matches, the third place match and The Final"
                             tournamentSlug={tournamentSlug}
                             sessions={[
-                                { title: "Session 1 Matches", gatesOpen: "9:30 AM", matches: "2 Matches", time: "11:30 - 3:30 PM", icon: SoccerIcon },
+                                { title: "Session 1 Matches", gatesOpen: "9:30 AM", matches: "2 Matches", time: "11:30 - 2:00 PM", icon: SoccerIcon },
                                 { title: "3rd Place Match", time: "3:00 - 4:00 PM", icon: SoccerIcon },
                                 { title: "Championship Match", time: "4:30 - 5:30 PM", icon: ChampionIcon },
                             ]}
