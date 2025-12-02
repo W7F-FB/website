@@ -1,6 +1,6 @@
 import { getF40Squads, getF3Standings, getF1Fixtures, getF30SeasonStats } from "@/app/api/opta/feeds";
 import { getTeamByUid, getTeamsByOptaIds } from "@/cms/queries/team";
-import { getNavigationTournaments } from "@/cms/queries/tournaments";
+import { getNavigationTournaments, getTournamentByUid } from "@/cms/queries/tournaments";
 import { getBlogsByTournament } from "@/cms/queries/blog";
 import { notFound } from "next/navigation";
 import { isFilled } from "@prismicio/client";
@@ -53,13 +53,31 @@ export default async function TeamPage({ params }: Props) {
       })
       .filter((id): id is string => id !== null) || [];
 
-  const blogsPromises = tournamentIds.map((tournamentId) => getBlogsByTournament(tournamentId).catch(() => []));
-  const blogsResults = await Promise.all(blogsPromises);
+  const tournamentUids =
+    team.data.tournaments
+      ?.filter((item) => isFilled.contentRelationship(item.tournament))
+      .map((item) => {
+        if (isFilled.contentRelationship(item.tournament)) {
+          return item.tournament.uid;
+        }
+        return null;
+      })
+      .filter((uid): uid is string => uid !== null) || [];
+
+  const [blogsResults, tournamentDocumentsResults] = await Promise.all([
+    Promise.all(tournamentIds.map((tournamentId) => getBlogsByTournament(tournamentId).catch(() => []))),
+    Promise.all(tournamentUids.map((uid) => getTournamentByUid(uid).catch(() => null)))
+  ]);
+
   const teamBlogs = blogsResults.flat();
+  const tournamentDocuments = tournamentDocumentsResults.filter((t): t is NonNullable<typeof t> => t !== null);
 
   return (
     <>
-      <NavMain showBreadcrumbs />
+      <NavMain showBreadcrumbs customBreadcrumbs={[
+        { label: "Home", href: "/" },
+        { label: team.data.name, href: `/team/${team.uid}` }
+      ]} />
       <TeamPageContent
         team={team}
         teamSquad={teamSquad}
@@ -69,6 +87,7 @@ export default async function TeamPage({ params }: Props) {
         prismicTeams={prismicTeams}
         teamBlogs={teamBlogs}
         seasonStats={f30SeasonStats}
+        tournamentDocuments={tournamentDocuments}
       />
     </>
   );
