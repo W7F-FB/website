@@ -342,38 +342,38 @@ export function TeamStatsCard({ team, standings, fixtures, currentTournament, pr
                                 result.isLoss && "from-destructive/50",
                                 !result.isWin && !result.isLoss && "from-secondary/50"
                             )} />
-                            <TableCell className="w-12">
-                                <span className="font-headers font-semibold text-sm pl-2">
+                            <TableCell className="w-10 md:w-12 px-2 md:px-4">
+                                <span className="font-headers font-semibold text-xs md:text-sm pl-1 md:pl-2">
                                     {result.result}
                                 </span>
                             </TableCell>
-                            <TableCell>
-                                <div className="flex items-center gap-2">
-                                    <span className="text-muted-foreground text-sm">vs</span>
-                                    <Link href={`/team/${result.opponentTeam?.uid}`} className="hover:underline">
-                                        <H4 className="text-sm">
+                            <TableCell className="min-w-0 px-2 md:px-4">
+                                <div className="flex items-center gap-1 md:gap-2">
+                                    <span className="text-muted-foreground text-xs md:text-sm shrink-0 hidden md:inline">vs</span>
+                                    <Link href={`/team/${result.opponentTeam?.uid}`} className="hover:underline min-w-0 flex-1 md:flex-none">
+                                        <H4 className="text-xs md:text-sm truncate">
                                             {result.opponentName}
                                         </H4>
                                     </Link>
                                     {result.opponentTeam?.data.logo && (
-                                        <div className="relative w-6 h-6 shrink-0">
+                                        <div className="relative w-4 h-4 md:w-6 md:h-6 shrink-0">
                                             <PrismicNextImage field={result.opponentTeam.data.logo} fill className="object-contain" />
                                         </div>
                                     )}
                                 </div>
-                                <div className="text-xs text-muted-foreground mt-0.5">
+                                <div className="text-xs text-muted-foreground mt-0.5 truncate md:truncate-none">
                                     {formatResultDate(result.date, result.roundType)}
                                 </div>
                             </TableCell>
-                            <TableCell className="text-right align-middle">
-                                <div className="flex items-center gap-2 justify-end">
-                                    <div className="text-sm font-headers font-semibold">
+                            <TableCell className="text-right align-middle px-2 md:px-4">
+                                <div className="flex items-center gap-1 md:gap-2 justify-end">
+                                    <div className="text-xs md:text-sm font-headers font-semibold whitespace-nowrap">
                                         {result.teamScore}-{result.opponentScore}
                                     </div>
-                                    <div>
-                                        <Button size="sm" variant="outline" className="h-7 px-2 text-xs gap-1" asChild>
+                                    <div className="shrink-0">
+                                        <Button size="sm" variant="outline" className="h-6 md:h-7 px-1 md:px-2 text-xs gap-1" asChild>
                                             <Link href={`/match/${normalizeOptaId(result.matchId)}`}>
-                                                <ReplayIcon className="size-3" />
+                                                <ReplayIcon className="size-2.5 md:size-3" />
                                             </Link>
                                         </Button>
                                     </div>

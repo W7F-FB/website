@@ -15,7 +15,7 @@ export function TeamHub({ scorer, playmaker, keeper }: TeamHubProps) {
       <CardHeader>
         <CardTitle>Team Leaders</CardTitle>
       </CardHeader>
-      <CardContent className="grid grid-cols-3 gap-8">
+      <CardContent className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
         <div>
           <H3 className="text-xs text-muted-foreground mb-3 uppercase">Scorer</H3>
           {scorer && <PlayerLeaderCard {...scorer} />}
