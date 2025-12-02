@@ -103,7 +103,7 @@ export default function RisingSevensPage() {
                 <SubpageHero>
                     <SubpageHeroContent>
                         <Subtitle>Youth Tournament</Subtitle>
-                        <H1 className="uppercase text-6xl">Rising Sevens</H1>
+                        <H1 className="uppercase">Rising Sevens</H1>
                         <P>By World Sevens Football</P>
                     </SubpageHeroContent>
                     <SubpageHeroMedia>
@@ -114,7 +114,7 @@ export default function RisingSevensPage() {
             <Container maxWidth="lg">
                 <Section padding="md" className="text-center">
                     <Container maxWidth="md">
-                        <H2 variant="h1" className="uppercase py-12">Rising Sevens Youth Tournament by W7F</H2>
+                        <H2 variant="h1" className="uppercase text-2xl md:text-5xl py-6 md:py-12">Rising Sevens Youth Tournament by W7F</H2>
                         <P noSpace>December 6-7, 2025</P>
                         <P noSpace>Beyond Bancard Field & Dolphin Field at NSU</P>
                         <P noSpace>Fort Lauderdale, Florida</P>
@@ -126,7 +126,7 @@ export default function RisingSevensPage() {
                     </Container>
                 </Section>
                 <Section padding="md">
-                    <div className="grid grid-cols-2 gap-12">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12">
                         <div>
                             <H2 className="uppercase mb-6">About Rising Sevens</H2>
                             <P>World Sevens Football proudly introduces Rising Sevens, a youth version of the W7F experience — giving the next generation of elite players the opportunity to be part of this groundbreaking global series. Rising Sevens will take place at Dolphin Field on the campus of Nova Southeastern University (NSU) in Davie, Florida — adjacent to Beyond Bancard Stadium, the site of the professional tournament.</P>
@@ -142,14 +142,14 @@ export default function RisingSevensPage() {
                             <div className="flex mb-8 mt-3">
                                 <Badge fast variant="backdrop_blur" className="uppercase">Tournament Info</Badge>
                             </div>
-                            <div className="grid grid-cols-2 grid-rows-2 auto-cols-fr gap-6">
+                            <div className="grid grid-cols-1 md:grid-cols-2 auto-cols-fr gap-4 md:gap-6">
                                 {infoData.map((info, index) => (
                                     <InfoCard
                                         key={info.id}
                                         subtitle={info.subtitle}
                                         title={info.title}
                                         description={info.description}
-                                        className={index === infoData.length - 1 ? "col-span-2" : ""}
+                                        className={index === infoData.length - 1 ? "md:col-span-2" : ""}
                                     />
                                 ))}
                             </div>
@@ -160,7 +160,7 @@ export default function RisingSevensPage() {
                     <Container maxWidth="md">
                         <Card>
                             <CardHeader>
-                                <CardTitle className="text-4xl font-headers font-semibold">
+                                <CardTitle className="text-2xl md:text-4xl font-headers font-semibold">
                                     FAQs
                                 </CardTitle>
                                 <CardDescription className="text-base">Frequently asked questions about World Sevens Football</CardDescription>

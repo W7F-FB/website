@@ -96,9 +96,9 @@ export default function TournamentSchedulePageContent({ tournament, tournamentBl
                             )}
                         </div>
                     </SubpageHeroSecondary>
-                    <div className="grid grid-cols-3 w-full gap-8 mt-8">
+                    <div className="grid grid-cols-1 md:grid-cols-3 w-full gap-4 md:gap-8 mt-8">
                         {isFilled.contentRelationship(tournament.data.recap) && tournament.data.recap.data && (
-                            <div className="col-span-2">
+                            <div className="col-span-1 md:col-span-2">
                                 <PostBanner blog={{
                                     slug: tournament.data.recap.uid ?? "",
                                     title: tournament.data.recap.data.title ?? "Untitled",
@@ -133,9 +133,9 @@ export default function TournamentSchedulePageContent({ tournament, tournamentBl
                                     {totalMatches} {totalMatches === 1 ? 'Match' : 'Matches'}
                                 </SectionHeadingText>
                             </SectionHeading>
-                            <div className="grid grid-cols-1 md:grid-cols-7 gap-12">
+                            <div className="grid grid-cols-1 md:grid-cols-7 gap-4 md:gap-12">
                                 {prismicTeams.length > 0 && (
-                                    <Card banner className="col-span-1 md:col-span-2 self-start sticky top-32">
+                                    <Card banner className="col-span-1 md:col-span-2 self-start md:sticky md:top-32">
                                         <CardHeader>
                                             <CardTitle>Group 1</CardTitle>
                                         </CardHeader>
@@ -172,11 +172,11 @@ export default function TournamentSchedulePageContent({ tournament, tournamentBl
                                                             Match day {index + 1}
                                                         </Badge>
                                                     </div>
-                                                    <Badge variant="muted" origin="bottom-left" size="lg" className="text-base relative">
+                                                    <Badge variant="muted" origin="bottom-left" size="lg" className="text-sm md:text-base relative">                                             
                                                         <span className="relative z-10">{formatMatchDayDate(date)}</span>
                                                     </Badge>
                                                 </div>
-                                                <div className={cn("grid grid-cols-1 md:grid-cols-2 gap-6", compact && "md:grid-cols-3")}>
+                                                <div className={cn("grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6", compact && "md:grid-cols-3")}>
                                                     {matches.map((match) => (
                                                         <MatchCard
                                                             key={match.id}
@@ -218,14 +218,14 @@ export default function TournamentSchedulePageContent({ tournament, tournamentBl
                                 </div>
                                 {knockoutDate && (
                                     <Badge variant="muted" origin="bottom-left" size="lg" className="text-base">
-                                        {formatMatchDayDate(knockoutDate)}
+                                        {formatMatchDayDate(knockoutDate.split(' ')[0])}
                                     </Badge>
                                 )}
                             </div>
-                            <div className="flex justify-center items-start gap-8">
-                                <FastBanner text="FAST." position="left" strokeWidth="1px" uppercase />
-                                <div className="max-w-3xl w-full space-y-6">
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div className="flex justify-center items-start gap-4 md:gap-8">
+                                <FastBanner text="FAST." position="left" strokeWidth="1px" uppercase className="hidden md:block" />
+                                <div className="max-w-3xl w-full space-y-4 md:space-y-6">
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                                         {semiFinalMatches[0] && (
                                             <MatchCard
                                                 prismicMatch={semiFinalMatches[0]}
@@ -263,7 +263,7 @@ export default function TournamentSchedulePageContent({ tournament, tournamentBl
                                         />
                                     ))}
                                 </div>
-                                <FastBanner text="FORWARD." position="right" strokeWidth="1.5px" />
+                                <FastBanner text="FORWARD." position="right" strokeWidth="1.5px" className="hidden md:block" />
                             </div>
                         </Section>
                         <Section padding="md" className="mb-16">

@@ -7,7 +7,7 @@ import { GradientBg } from "../ui/gradient-bg";
 function SubpageHero({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
-      className={cn("relative overflow-hidden w-full grid grid-cols-[auto_1fr]", className)}
+      className={cn("relative overflow-hidden w-full grid grid-cols-1 md:grid-cols-[auto_1fr]", className)}
       {...props}
     />
   )
@@ -16,7 +16,7 @@ function SubpageHero({ className, ...props }: React.ComponentProps<"div">) {
 function SubpageHeroMedia({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
-      className={cn("relative h-full overflow-hidden", className)}
+      className={cn("relative h-80 md:h-full overflow-hidden", className)}
       {...props}
     />
   )
@@ -37,7 +37,7 @@ function SubpageHeroContent({
 }) {
   return (
     <div
-      className={cn("relative z-10 pb-24 pt-36 px-18 min-h-[20rem] flex flex-col gap-4 max-w-3xl w-full bg-extra-muted", className)}
+      className={cn("relative z-10 pb-12 md:pb-24 pt-24 md:pt-36 px-4 md:px-18 min-h-80 flex flex-col gap-4 max-w-3xl w-full bg-extra-muted", className)}
       {...props}
     >
       <div

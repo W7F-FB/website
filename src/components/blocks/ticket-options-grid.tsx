@@ -115,7 +115,7 @@ export function TicketOptionsGrid() {
                         <div className="flex items-center justify-between gap-3">
                             <div className="flex items-center gap-3">
                                 <CalendarIcon className="size-3.5 mb-1" />
-                                <span className="text-lg">{eventDetails.date}</span>
+                                <span className="text-base md:text-lg">{eventDetails.date}</span>
                             </div>
                             <Button asChild variant="outline" size="sm" className="text-foreground">
                                 <Link href="/tournament/fort-lauderdale/schedule">View Schedule</Link>
@@ -125,7 +125,7 @@ export function TicketOptionsGrid() {
                         <div className="flex items-center justify-between gap-3">
                             <div className="flex items-center gap-3">
                                 <MapPinAreaIcon className="size-3.5 mb-0.75" />
-                                <span className="text-lg">{eventDetails.venue}</span>
+                                <span className="text-base md:text-lg">{eventDetails.venue}</span>
                             </div>
                             <Button
                                 variant="outline"

@@ -79,7 +79,7 @@ export default function TournamentPageUpcoming({ tournament, tournamentBlogs }: 
                         <P noSpace className="text-lg mt-1"><span className="font-semibold">{formatCurrencyInWords(tournament.data.prize_pool)}</span><span className="ml-3 font-light text-sm">Prize Pool</span></P>
                     )}
                     <div className="mt-8 flex justify-start">
-                        <div className="grid grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <Button asChild size="skew_lg">
                                 <Link href="/checkout"><span>Purchase Tickets</span></Link>
                             </Button>
@@ -135,8 +135,8 @@ export default function TournamentPageUpcoming({ tournament, tournamentBlogs }: 
                     <ScheduleTabs tournamentSlug={tournament.uid} />
                 </Section>
                 <Separator variant="gradient" />
-                <Section padding="lg" id="vip-cabanas" className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
-                    <div className="relative h-full w-full">
+                <Section padding="lg" id="vip-cabanas" className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 items-start">
+                    <div className="relative h-80 md:h-full w-full">
                         <div className="absolute top-4 left-4 z-10">
                             <Badge fast size="lg" variant="default">VIP Cabanas</Badge>
                         </div>
@@ -172,7 +172,7 @@ export default function TournamentPageUpcoming({ tournament, tournamentBlogs }: 
                                 <SectionHeadingHeading>
                                     Tournament News
                                 </SectionHeadingHeading>
-                                <Button asChild size="skew" variant="outline" className="ml-auto mt-auto">
+                                <Button asChild size="skew" variant="outline" className="w-fit ml-0 md:ml-auto mt-auto">
                                     <PrismicLink href="/news"><span>All News</span></PrismicLink>
                                 </Button>
                             </SectionHeading>

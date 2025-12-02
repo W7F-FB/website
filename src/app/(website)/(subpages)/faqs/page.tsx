@@ -329,14 +329,14 @@ export default function FAQsPage() {
             <H1 className="uppercase text-2xl md:text-6xl text-left md:my-16">Faq</H1>
         </Section>
 
-        <Section padding="md" className="min-h-screen grid grid-cols-12 gap-16">
-            <div className="col-span-3 sticky top-24 self-start">
+        <Section padding="md" className="min-h-screen grid grid-cols-12 gap-4 md:gap-16 w-full">
+            <div className="hidden md:block col-span-3 md:sticky md:top-24 md:self-start">
                 <SectionNav sections={faqSections} />
             </div>
 
-            <div className="col-span-9 space-y-10">
+            <div className="col-span-12 md:col-span-9 space-y-10 w-full min-w-0">
                 {faqSections.map((section) => (
-                    <div key={section.id} id={section.id} className="scroll-mt-24">
+                    <div key={section.id} id={section.id} className="scroll-mt-24 w-full">
                         <Accordion type="single" collapsible className="w-full">
                             <H2 className="uppercase">{section.title}</H2>
                             {section.items.map((faq) => (

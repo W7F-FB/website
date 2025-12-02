@@ -14,7 +14,7 @@ export function GridCellScrollLink({ href, className, iconClassName }: GridCellS
         <Link 
             href={href} 
             className={cn(
-                "relative text-background block flex items-end justify-end hover:text-extra-muted transition-color duration-200 col-start-3",
+                "relative text-background block flex items-end justify-end hover:text-extra-muted transition-color duration-200 col-span-1 md:col-start-3",
                 className
             )}
         >

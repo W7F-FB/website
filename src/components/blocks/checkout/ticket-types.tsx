@@ -85,7 +85,7 @@ export function TicketTypes() {
 
     return (
         <div>
-            <Card className="w-[30rem]">
+            <Card className="w-full md:w-[30rem]">
                 <CardHeader>
                     <CardTitle>
                         <div className="flex justify-between items-center mb-4">

@@ -42,7 +42,7 @@ export default async function BlogPostPage({ params }: Props) {
             <Card className={cn("flex flex-col md:flex-row overflow-hidden group rounded-none p-0 bg-transparent border-0 gap-16")}>
                 <div className="flex flex-col justify-between w-full md:w-1/2 px-0 py-6 md:mt-6">
                     <CardHeader className="p-0">
-                        <div className="flex-col md:flex-row flex justify-between text-sm mb-2">
+                        <div className="flex flex-row justify-between items-center text-sm mb-2 gap-4">
                             {blog.category && (
                                 <Badge
                                     variant="outline"
@@ -51,11 +51,11 @@ export default async function BlogPostPage({ params }: Props) {
                                     {blog.category}
                                 </Badge>
                             )}
-                            {blog.date && <span className="text-white text-md">{formatDate(blog.date)}</span>}
+                            {blog.date && <span className="text-white text-md whitespace-nowrap">{formatDate(blog.date)}</span>}
                         </div>
-                        <H2 className="text-md font-semibold text-white md:text-3xl">{blog.title}</H2>
+                        <H2 className="text-2xl font-semibold text-white md:text-3xl">{blog.title}</H2>
                         {blog.excerpt && (
-                            <P noSpace className="text-sm text-white line-clamp-3 mb-4">{blog.excerpt}</P>
+                            <P noSpace className="text-base md:text-sm text-white line-clamp-3 mb-4">{blog.excerpt}</P>
                         )}
                     </CardHeader>
                 </div>

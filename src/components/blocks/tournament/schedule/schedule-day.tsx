@@ -29,7 +29,7 @@ export function ScheduleDay({ session, note, tournamentSlug, sessions }: Schedul
                 <P className="text-sm py-6 flex items-center gap-2"><CircleAlert className="w-4 h-4" /> {note}</P>
             )}
             <div className="px-6 py-4 bg-card flex items-center justify-between">
-                <H3 className="uppercase">{session}</H3>
+                <H3 className="uppercase text-base md:text-2xl">{session}</H3>
                 <Button asChild size="sm" variant="outline">
                     <Link href={`/tournament/${tournamentSlug}/schedule`}><span>Match Schedule</span></Link>
                 </Button>

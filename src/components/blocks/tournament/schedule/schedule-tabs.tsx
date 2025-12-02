@@ -9,20 +9,22 @@ interface ScheduleTabsProps {
 export function ScheduleTabs({ tournamentSlug }: ScheduleTabsProps) {
     return (
         <Tabs defaultValue="tab1">
-            <TabsList variant="skew" className="w-full !h-18">
-                <TabsTrigger value="tab1" className=" flex-col items-center justify-center">
-                    <div>Fri, Dec 5th</div>
-                    <div className="text-sm text-muted-foreground/75 font-medium">Session 1</div>
-                </TabsTrigger>
-                <TabsTrigger value="tab2" className="flex-col items-center justify-center">
-                    <div>Sat, Dec 6th</div>
-                    <div className="text-sm text-muted-foreground/75 font-medium">Sessions 2 & 3</div>
-                </TabsTrigger>
-                <TabsTrigger value="tab3" className="flex-col items-center justify-center">
-                    <div>Sun, Dec 7th</div>
-                    <div className="text-sm text-muted-foreground/75 font-medium">Session 4</div>
-                </TabsTrigger>
-            </TabsList>
+            <div className="overflow-x-auto overflow-y-hidden -mx-4 px-4 md:mx-0 md:px-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+                <TabsList variant="skew" className="w-full h-18! md:w-full [&>div]:min-w-fit">
+                    <TabsTrigger value="tab1" className=" flex-col items-center justify-center whitespace-nowrap">
+                        <div>Fri, Dec 5th</div>
+                        <div className="text-sm text-muted-foreground/75 font-medium">Session 1</div>
+                    </TabsTrigger>
+                    <TabsTrigger value="tab2" className="flex-col items-center justify-center whitespace-nowrap">
+                        <div>Sat, Dec 6th</div>
+                        <div className="text-sm text-muted-foreground/75 font-medium">Sessions 2 & 3</div>
+                    </TabsTrigger>
+                    <TabsTrigger value="tab3" className="flex-col items-center justify-center whitespace-nowrap">
+                        <div>Sun, Dec 7th</div>
+                        <div className="text-sm text-muted-foreground/75 font-medium">Session 4</div>
+                    </TabsTrigger>
+                </TabsList>
+            </div>
             <TabsContents>
                 <TabsContent value="tab1">
                     <div>

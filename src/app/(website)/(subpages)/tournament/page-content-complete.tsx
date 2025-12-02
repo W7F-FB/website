@@ -177,7 +177,7 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                         <SectionHeadingHeading>
                             Group Stage
                         </SectionHeadingHeading>
-                        <SectionHeadingText variant="lg" className="ml-auto mt-auto">
+                        <SectionHeadingText variant="lg" className="ml-0 md:ml-auto mt-auto">
                             {totalMatches} {totalMatches === 1 ? 'Match' : 'Matches'}
                         </SectionHeadingText>
                     </SectionHeading>
@@ -219,7 +219,7 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                                                     Match day {index + 1}
                                                 </Badge>
                                             </div>
-                                            <Badge variant="muted" origin="bottom-left" size="lg" className="text-base relative">                                             
+                                            <Badge variant="muted" origin="bottom-left" size="lg" className="text-sm md:text-base relative">                                             
                                                 <span className="relative z-10">{formatMatchDayDate(date)}</span>
                                             </Badge>
                                         </div>
@@ -237,8 +237,9 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                                                 <GridCellScrollLink
                                                     href={nextMatchDayHref}
                                                     className={cn(
-                                                        emptyCells === 2 && "md:col-span-2",
-                                                        emptyCells === 3 && "md:col-span-3"
+                                                        "col-span-1",
+                                                        emptyCells === 2 && "md:col-span-2 md:col-start-auto",
+                                                        emptyCells === 3 && "md:col-span-3 md:col-start-auto"
                                                     )}
                                                 />
                                             )}
@@ -254,7 +255,7 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                         <SectionHeadingHeading>
                             Knockout Stage
                         </SectionHeadingHeading>
-                        <SectionHeadingText variant="lg" className="ml-auto mt-auto">
+                        <SectionHeadingText variant="lg" className="ml-0 md:ml-auto mt-auto">
                             {knockoutMatches} {knockoutMatches === 1 ? 'Match' : 'Matches'}
                         </SectionHeadingText>
                     </SectionHeading>
@@ -271,7 +272,7 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                         )}
                     </div>
                     <div className="flex justify-center items-start gap-8">
-                        <FastBanner text="FAST." position="left" strokeWidth="1px" uppercase />
+                        <FastBanner text="FAST." position="left" strokeWidth="1px" uppercase className="hidden md:block" />
                         <div className="max-w-3xl w-full space-y-6">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 {semiFinalMatches[0] && (
@@ -320,7 +321,7 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                                 prismicTeams={prismicTeams}
                             />
                         </div>
-                        <FastBanner text="FORWARD." position="right" strokeWidth="1.5px" />
+                        <FastBanner text="FORWARD." position="right" strokeWidth="1.5px" className="hidden md:block" />
                     </div>
                 </Section>
                 <Section padding="md" id="stat-sheet">
@@ -345,7 +346,7 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                                 <SectionHeadingHeading>
                                     Tournament News
                                 </SectionHeadingHeading>
-                                <Button asChild size="skew" variant="outline" className="ml-auto mt-auto">
+                                <Button asChild size="skew" variant="outline" className="w-fit ml-0 md:ml-auto mt-auto">
                                     <PrismicLink href="/news"><span>All News</span></PrismicLink>
                                 </Button>
                             </SectionHeading>

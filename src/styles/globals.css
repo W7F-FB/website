@@ -248,8 +248,14 @@
   clip-path: polygon(var(--skew-22-5) 0%, 100% 0%, calc(100% - var(--skew-22-5)) 100%, 0% 100%);
 }
 
-@utility clip-watercolor-mask {
-  clip-path: url(#WatercolorMask);
+.clip-watercolor-mask {
+  clip-path: url(#WatercolorMaskDown);
+}
+
+@media (min-width: 768px) {
+  .clip-watercolor-mask {
+    clip-path: url(#WatercolorMask);
+  }
 }
 
 /* Text Stroke Utilities */
