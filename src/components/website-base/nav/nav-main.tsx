@@ -29,6 +29,7 @@ import { dev } from "@/lib/dev"
 const exploreNavItems = [
   { href: "/news", label: "News", key: "nav-news" },
   { href: "/social-impact", label: "Social Impact", key: "nav-social" },
+  { href: "/leadership", label: "Leadership", key: "nav-leadership" },
   { href: "/rising-sevens", label: "Rising Sevens", key: "nav-rising-sevens", subtitle: "Youth Tournament" },
   { href: "/faqs", label: "FAQs", key: "nav-faqs" }
 ]
