@@ -104,7 +104,7 @@ export async function NavigationMenuTournamentFeatured({
 
     const status = relativeDateRange(tournament.data.start_date, tournament.data.end_date)
     const dateRange = formatDateRange(tournament.data.start_date, tournament.data.end_date)
-    
+
     const teams = tournament.uid ? await getTeamsByTournament(tournament.uid) : []
 
     const getStatusText = () => {
@@ -161,11 +161,11 @@ export async function NavigationMenuTournamentFeatured({
                         <div className="flex items-center gap-3">
                             {teams.slice(0, 8).map((team) => {
                                 if (!isFilled.image(team.data.logo)) return null
-                                
+
                                 const optaEnabled = tournament.data.opta_enabled
                                 const logoContent = (
-                                    <div 
-                                        key={team.id} 
+                                    <div
+                                        key={team.id}
                                         className={cn(
                                             "relative size-6.5 flex-shrink-0",
                                             optaEnabled && "opacity-100 hover:opacity-90 transition-opacity"
@@ -221,6 +221,9 @@ export async function NavigationMenuTournamentFeatured({
                         </div>
                     </CategoryButton>
                     <Separator variant="gradient" gradientDirection="toRight" />
+                    <CategoryButton href={`/tournament/${tournament.uid}/know-before-you-go`}>
+                        Know before you go
+                    </CategoryButton>
                 </div>
             </div>
         </div>
