@@ -7,7 +7,6 @@ import { getFooterData } from "@/cms/queries/website"
 import { getVisibleSponsors } from "@/cms/queries/sponsors"
 import FormFooterSubscribe from "@/components/forms/form-footer-subscribe"
 import { SponsorLogo } from "@/components/blocks/sponsor-logo"
-import { PrivacyChoicesIcon } from "@/components/website-base/icons"
 
 import {
   Footer,
@@ -22,6 +21,7 @@ import { H3 } from "../typography"
 
 import { FooterColumns } from "./footer-columns"
 import { FooterFast } from "./footer-fast"
+import { PrivacyChoicesButton } from "./privacy-choices-button"
 
 async function PolicyLinks() {
   const policies = await getPoliciesForNav()
@@ -102,12 +102,7 @@ const FooterMain = React.forwardRef<HTMLElement, React.ComponentProps<"footer">>
         </div>
 
         <FooterFast />
-        <div className="flex justify-end pb-4">
-          <FooterPolicyLink href="/" className="flex items-center gap-2">
-            <span>Your Privacy Choices</span>
-            <PrivacyChoicesIcon size={30} />
-          </FooterPolicyLink>
-        </div>
+        <PrivacyChoicesButton />
         <FooterBottom>
           <FooterCopyright>Copyright 2025 World Sevens Football</FooterCopyright>
           <div className="flex flex-wrap items-center gap-6">
