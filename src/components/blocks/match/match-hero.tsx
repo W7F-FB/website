@@ -72,11 +72,11 @@ export default function MatchHero({ f9MatchData, homeTeamData, awayTeamData, hom
 
   return (
     <Card className="p-0 gap-0 bg-card/50 border-border/50 overflow-hidden">
-      <CardHeader className="px-6 py-3 !pb-3 flex items-center justify-between bg-muted/30 border-b text-sm text-muted-foreground/75">
+      <CardHeader className="px-4 md:px-6 py-3 !pb-3 flex flex-col md:flex-row items-start md:items-center justify-between gap-2 md:gap-0 bg-muted/30 border-b text-xs md:text-sm text-muted-foreground/75">
         {stadium && (
           <div className="font-headers flex items-center gap-2">
             <StadiumIcon size={16} />
-            {stadium}
+            <span className="truncate">{stadium}</span>
           </div>
         )}
         <div className="flex items-center gap-2 font-headers font-medium uppercase">
@@ -85,16 +85,61 @@ export default function MatchHero({ f9MatchData, homeTeamData, awayTeamData, hom
           {gameDate.time ? `${gameDate.month} ${gameDate.day}, ${gameDate.time} ET` : ""}
         </div>
       </CardHeader>
-      <div className="grid grid-cols-[1fr_auto_1fr] items-center relative p-8 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] items-center relative p-4 md:p-8 gap-6">
         <div
-          className="absolute top-0 -left-48 w-80 -skew-x-[var(--skew-btn)] h-full pointer-events-none"
+          className="hidden md:block absolute top-0 -left-48 w-80 -skew-x-[var(--skew-btn)] h-full pointer-events-none"
           style={homeTeamColor ? { backgroundImage: `linear-gradient(to right, ${homeTeamColor}, transparent)` } : undefined}
         />
         <div
-          className="absolute top-0 -right-48 w-80 skew-x-[var(--skew-btn)] h-full pointer-events-none"
+          className="hidden md:block absolute top-0 -right-48 w-80 skew-x-[var(--skew-btn)] h-full pointer-events-none"
           style={awayTeamColor ? { backgroundImage: `linear-gradient(to left, ${awayTeamColor}, transparent)` } : undefined}
         />
-        <div className="relative">
+        <div className="md:hidden grid grid-cols-[1fr_auto_1fr] gap-4 w-full items-start">
+          <div className="flex flex-col items-start md:items-center gap-3">
+            <div className="w-16 h-16 relative">
+              {homeTeamPrismic?.data.logo && (
+                <PrismicNextImage
+                  field={homeTeamPrismic.data.logo}
+                  fill
+                  className="object-contain"
+                />
+              )}
+            </div>
+            <div className="font-headers text-sm md:text-lg font-medium text-center">
+              {homeTeamPrismic?.data.name || homeTeam?.Name || 'Home Team'}
+            </div>
+            <div className={`relative text-4xl font-semibold ${homeIsLosing ? "text-foreground/60" : "text-foreground"}`}>
+              <div className="max-h-[0.8em]">
+                {homeScore}
+              </div>
+            </div>
+          </div>
+          {getMatchStatus() && (
+            <div className="flex items-center justify-center self-end text-base font-normal text-muted-foreground pb-1">
+              {getMatchStatus()}
+            </div>
+          )}
+          <div className="flex flex-col items-end md:items-center gap-3">
+            <div className="w-16 h-16 relative">
+              {awayTeamPrismic?.data.logo && (
+                <PrismicNextImage
+                  field={awayTeamPrismic.data.logo}
+                  fill
+                  className="object-contain"
+                />
+              )}
+            </div>
+            <div className="font-headers text-sm md:text-lg font-medium text-center">
+              {awayTeamPrismic?.data.name || awayTeam?.Name || 'Away Team'}
+            </div>
+            <div className={`relative text-4xl font-semibold ${awayIsLosing ? "text-foreground/60" : "text-foreground"}`}>
+              <div className="max-h-[0.8em]">
+                {awayScore}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="hidden md:block relative">
           <div className="flex relative z-2 items-center gap-4">
             <div className="w-18 h-18 relative">
               {homeTeamPrismic?.data.logo && (
@@ -110,7 +155,7 @@ export default function MatchHero({ f9MatchData, homeTeamData, awayTeamData, hom
             </div>
           </div>
         </div>
-        <div className="flex flex-1 gap-6 items-center">
+        <div className="hidden md:flex flex-1 gap-6 items-center">
           <div className="flex-shrink text-6xl font-semibold flex items-center justify-center gap-10 leading-none">
             <div className={`relative ${homeIsLosing ? "text-foreground/60" : "text-foreground"}`}>
               {homeIsWinning && (
@@ -133,7 +178,7 @@ export default function MatchHero({ f9MatchData, homeTeamData, awayTeamData, hom
             </div>
           </div>
         </div>
-        <div className="relative flex items-center gap-4 justify-end">
+        <div className="hidden md:flex relative items-center gap-4 justify-end">
           <div className="font-headers text-xl font-medium">
             {awayTeamPrismic?.data.name || awayTeam?.Name || 'Away Team'}
           </div>
@@ -148,7 +193,7 @@ export default function MatchHero({ f9MatchData, homeTeamData, awayTeamData, hom
           </div>
         </div>
         {displayPartners.length > 0 && (
-          <div className="col-span-full px-6 text-center text-xs flex flex-col gap-2 items-center">
+          <div className="col-span-full px-6 text-center text-xs flex flex-col gap-2 items-center pt-4 md:pt-0">
             <div className="font-headers text-xs uppercase font-medium text-muted-foreground">Stream Free</div>
             <div className="grid grid-flow-col gap-2" style={{ gridTemplateColumns: `repeat(${displayPartners.length}, minmax(0, 1fr))` }}>
               {displayPartners.map((partner) => (
