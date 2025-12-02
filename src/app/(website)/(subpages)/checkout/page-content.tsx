@@ -23,7 +23,7 @@ export default function CheckoutPageContent() {
                     </div>
                 </SubpageHeroSecondary>
                 <CheckoutShow />
-                <div className="flex flex-row gap-6 items-center text-center justify-center py-4 opacity-50">
+                <div className="flex flex-col md:flex-row gap-6 items-center text-center justify-center py-4 opacity-50">
                     <p>Powered by</p>
                     <Image src="/images/decorative/CTS_logo.webp" alt="CTS Logo" width={100} height={100} className="grayscale brightness-200"/>
                 </div>

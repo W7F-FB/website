@@ -15,7 +15,7 @@ export default function ConfirmationPage() {
             <Container maxWidth="lg">
             <Section padding="sm">
                 <div className="flex flex-col items-center justify-center text-center">
-                    <H1 className="uppercase text-2xl md:text-6xl text-center md:my-8">Thank you for your purchase</H1>
+                    <H1 className="uppercase text-2xl md:text-6xl text-center pb-4 md:pb-0 md:my-8">Thank you for your purchase</H1>
                     <P noSpace>Fort Lauderdale, FL, USA</P>
                     <P noSpace>December 5-7, 2025</P>
                 </div>

@@ -74,7 +74,7 @@ const FooterMain = React.forwardRef<HTMLElement, React.ComponentProps<"footer">>
             </FooterSocialLinks>
           </FooterBrand>
 
-          <div className="flex flex-wrap gap-x-12 gap-y-16 lg:gap-x-24  mt-4">
+          <div className="flex flex-col md:flex-row flex-wrap gap-x-12 gap-y-16 lg:gap-x-24 mt-4">
             {footerData?.footerMenus && (
               <FooterColumns
                 columns={footerData.footerMenus}
