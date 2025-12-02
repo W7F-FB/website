@@ -28,7 +28,7 @@ export function ChampionsCard({ finalMatches, f1FixturesData, prismicTeams, over
                 shadowColor={shadowColor}
             />
             <ChampionIcon className="hidden absolute -bottom-24 opacity-2 size-100" />
-            <H2 className="text-5xl font-headers tracking-wider italic relative">Champions</H2>
+            <H2 className="text-3xl md:text-5xl font-headers tracking-wider italic relative">Champions</H2>
             {finalMatches[0] && (() => {
                 const finalMatch = finalMatches[0]
                 const optaTeams = f1FixturesData?.SoccerFeed?.SoccerDocument?.Team || []

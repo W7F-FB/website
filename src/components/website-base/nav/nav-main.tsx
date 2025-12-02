@@ -66,9 +66,9 @@ async function NavMain({ showBreadcrumbs, pathname, customBreadcrumbs, gameCards
     <div className={cn("sticky top-0 z-50 w-full border-b border-border/50 bg-background backdrop-blur supports-[backdrop-filter]:bg-background/90", gameCards && gameCards.length > 0 && "bg-background supports-[backdrop-filter]:bg-background")}>
       <nav>
         <PaddingGlobal>
-          <div className="mx-auto flex w-full items-center gap-12 h-18">
+          <div className="mx-auto flex w-full items-center gap-4 md:gap-12 h-18">
             <Logo size="lg" link variant="2-lines" />
-            <NavigationMenu viewport={false} className="justify-end">
+            <NavigationMenu viewport={false} className="hidden md:flex justify-end">
               <NavigationMenuList className="gap-2">
                 <NavigationMenuItem>
                   <NavigationMenuTrigger><span>Events & Tickets</span></NavigationMenuTrigger>
@@ -150,7 +150,7 @@ async function NavMain({ showBreadcrumbs, pathname, customBreadcrumbs, gameCards
                 </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>
-            <div className="flex-grow flex justify-end">
+            <div className="hidden md:flex flex-grow justify-end">
               <Button asChild size="skew"><Link href="/checkout"><span>Purchase Tickets</span></Link></Button>
             </div>
           </div>

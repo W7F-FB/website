@@ -8,7 +8,7 @@ const PaddingGlobal = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTML
     return (
       <div
         ref={ref}
-        className={cn("px-12", className)}
+        className={cn("px-4 md:px-12", className)}
         {...props}
       />
     )
@@ -51,7 +51,7 @@ const Section = React.forwardRef<HTMLElement, SectionProps>(
 
 Section.displayName = "Section"
 
-const containerVariants = cva("mx-auto", {
+const containerVariants = cva("mx-auto px-6 md:px-0", {
   variants: {
     maxWidth: {
       sm: "max-w-3xl",

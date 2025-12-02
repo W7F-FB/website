@@ -112,9 +112,9 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                     </SubpageHeroMedia>
                 )}
             </SubpageHero>
-            <div className="grid grid-cols-3 w-full gap-8 mt-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 w-full gap-8 mt-8">
                 {isFilled.contentRelationship(tournament.data.recap) && tournament.data.recap.data && (
-                    <div className="col-span-2">
+                    <div className="col-span-1 md:col-span-2">
                         <PostBanner blog={{
                             slug: tournament.data.recap.uid ?? "",
                             title: tournament.data.recap.data.title ?? "Untitled",
@@ -127,12 +127,12 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                     </div>
                 )}
                 {tournament.data.highlight_reel_link && typeof tournament.data.highlight_reel_link === 'string' && (
-                    <div className="col-span-1 h-full">
+                    <div className="col-span-1 md:h-full">
                         <VideoBanner
                             thumbnail="/images/static-media/video-banner.avif"
                             videoUrl={tournament.data.highlight_reel_link}
                             label="Recap the action"
-                            className="h-full"
+                            className="md:h-full"
                             size="sm"
                         />
                     </div>
@@ -147,7 +147,7 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                                 Standouts
                             </SectionHeadingHeading>
                         </SectionHeading>
-                        <div className="grid grid-flow-col grid-cols-4 gap-6">
+                        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                             {awards.map((award, index) => {
                                 const teamId = isFilled.contentRelationship(award.player_team) ? award.player_team.data?.opta_id : undefined;
                                 const teamStats = teamId ? f30TeamStats.get(teamId) : undefined;
@@ -181,8 +181,8 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                             {totalMatches} {totalMatches === 1 ? 'Match' : 'Matches'}
                         </SectionHeadingText>
                     </SectionHeading>
-                    <div className="grid grid-cols-1 md:grid-cols-7 gap-12">
-                        <Card banner className="col-span-1 md:col-span-2 self-start sticky top-32">
+                    <div className="grid grid-cols-1 md:grid-cols-7 gap-6 md:gap-12">
+                        <Card banner className="col-span-1 md:col-span-2 self-start md:sticky md:top-32">
                             {f3StandingsData?.SoccerFeed?.SoccerDocument?.Competition?.TeamStandings?.map((groupStandings) => {
                                 const groupName = groupStandings.Round?.Name.value || 'Unknown Group'
                                 return (

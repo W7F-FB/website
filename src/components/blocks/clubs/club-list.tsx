@@ -77,11 +77,23 @@ export async function ClubList({ tournament, className, ...props }: ClubListProp
   }
 
   return (
-    <div 
-      className={`grid gap-3 ${className || ""}`}
-      style={{ gridTemplateColumns: `repeat(${numberOfTeams}, 1fr)` }}
-      {...props}
-    >
+    <>
+      <style dangerouslySetInnerHTML={{
+        __html: `
+          .club-list-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+          @media (min-width: 1024px) {
+            .club-list-grid {
+              grid-template-columns: repeat(${numberOfTeams}, 1fr);
+            }
+          }
+        `
+      }} />
+      <div 
+        className={`grid club-list-grid gap-3 ${className || ""}`}
+        {...props}
+      >
       {allItems.map((item) => {
         if (item.type === 'team') {
           const optaId = item.team.data.opta_id
@@ -104,6 +116,7 @@ export async function ClubList({ tournament, className, ...props }: ClubListProp
           )
         }
       })}
-    </div>
+      </div>
+    </>
   )
 }

@@ -47,7 +47,7 @@ function PostStandard({ blog, className }: PostProps) {
         )}
         <div className="flex flex-col justify-between">
           <CardHeader className="">
-            <div className="flex-col md:flex-row flex justify-between text-sm mb-6">
+            <div className="flex flex-row gap-4 md:justify-between text-sm mb-6">
               {blog.category && (
                 <Badge
                   variant="outline"
@@ -87,16 +87,17 @@ function PostCompact({ blog, className }: PostProps) {
         )}
         <div className="flex flex-col justify-between w-full md:w-[60%] py-6 gap-8">
           <CardHeader className="gap-4">
-            <div className="flex flex-col md:flex-row items-center justify-between text-sm gap-4">
+            <div className="flex flex-row items-center gap-3 md:gap-4 justify-between text-sm flex-wrap">
               {blog.category && (
                 <Badge
                   variant="outline"
                   size="sm"
+                  className="w-fit shrink-0"
                 >
                   {blog.category}
                 </Badge>
               )}
-              {blog.date && <span className="text-muted-foreground">{formatDate(blog.date)}</span>}
+              {blog.date && <span className="text-muted-foreground whitespace-nowrap shrink-0">{formatDate(blog.date)}</span>}
             </div>
             <H3 className="text-md font-semibold text-white md:text-lg !leading-[1.5]">
               {blog.title}
@@ -127,16 +128,16 @@ function PostCardHoriz({ blog, className }: PostProps) {
         )}
         <div className="flex flex-col justify-between w-full md:w-1/2 py-8">
           <CardHeader>
-            <div className="flex-col md:flex-row flex justify-between text-sm mb-6 items-center">
+            <div className="flex flex-row items-center gap-3 md:gap-4 justify-between text-sm mb-6 flex-wrap">
               {blog.category && (
                 <Badge
                   variant="outline"
+                  className="w-fit shrink-0"
                 >
                   {blog.category}
                 </Badge>
-
               )}
-              {blog.date && <span className="text-muted-foreground text-base">{formatDate(blog.date)}</span>}
+              {blog.date && <span className="text-muted-foreground text-base whitespace-nowrap shrink-0">{formatDate(blog.date)}</span>}
             </div>
             <H3 className="text-md font-semibold text-white md:text-3xl mb-2">{blog.title}</H3>
             {blog.excerpt && (
@@ -168,15 +169,16 @@ function PostCardVert({ blog, className }: PostProps) {
         )}
         <div className="flex flex-col h-full justify-between">
           <CardHeader className="">
-            <div className="flex-col md:flex-row flex justify-between text-sm mb-6">
+            <div className="flex flex-row items-center gap-3 md:gap-4 justify-between text-sm mb-6 flex-wrap">
               {blog.category && (
                 <Badge
                   variant="outline"
+                  className="w-fit shrink-0"
                 >
                   {blog.category}
                 </Badge>
               )}
-              {blog.date && <span className="text-muted-foreground">{formatDate(blog.date)}</span>}
+              {blog.date && <span className="text-muted-foreground whitespace-nowrap shrink-0">{formatDate(blog.date)}</span>}
             </div>
             <H3 className="text-md font-semibold text-white md:text-2xl mb-2">{blog.title}</H3>
             {blog.excerpt && (

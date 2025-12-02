@@ -31,14 +31,14 @@ export function FAQBannerLayout({ bannerClassName, children, images }: FAQBanner
     const bannerHeight = !isMobile && initialHeightRef.current ? initialHeightRef.current : null;
 
     return (
-        <div className="grid grid-cols-12 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
             <div
-                className={cn("col-span-4", bannerClassName)}
+                className={cn("lg:col-span-4", bannerClassName)}
                 style={bannerHeight ? { height: `${bannerHeight}px` } : undefined}
             >
                 <W7FLineBanner className="w-full h-full overflow-hidden p-12" images={images} />
             </div>
-            <div ref={faqRef} className="col-span-8">
+            <div ref={faqRef} className="lg:col-span-8">
                 {children}
             </div>
         </div>

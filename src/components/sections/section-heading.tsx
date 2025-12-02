@@ -13,8 +13,8 @@ function SectionHeading({ className, variant = "default", ...props }: SectionHea
       data-slot="section-heading"
       data-variant={variant}
       className={cn(
-        "pb-16 grid group",
-        variant === "default" ? "grid-cols-1" : "grid-cols-2",
+        "pb-16 grid group grid-cols-1",
+        variant !== "default" && "md:grid-cols-2",
         variant === "split" && "split-variant",
         className
       )}
@@ -27,7 +27,7 @@ function SectionHeadingSubtitle({ className, ...props }: React.ComponentProps<ty
   return (
     <Subtitle
       data-slot="section-heading-subtitle"
-      className={cn("col-span-2", className)}
+      className={cn("col-span-1 md:col-span-2", className)}
       {...props}
     />
   )
@@ -39,8 +39,7 @@ function SectionHeadingHeading({ className, variant, ...props }: React.Component
       variant={variant}
       data-slot="section-heading-heading"
       className={cn(
-        "col-span-2 group-[.split-variant]:col-span-1 max-w-lg",
-        !variant && "text-5xl",
+        "col-span-1 md:col-span-2 group-[.split-variant]:md:col-span-1 max-w-lg",
         className
       )}
       {...props}
@@ -49,12 +48,12 @@ function SectionHeadingHeading({ className, variant, ...props }: React.Component
 }
 
 const sectionHeadingTextVariants = cva(
-  "col-span-2 group-[.split-variant]:col-span-1 group-[.split-variant]:max-w-md group-[.split-variant]:justify-self-end",
+  "col-span-1 md:col-span-2 group-[.split-variant]:md:col-span-1 group-[.split-variant]:md:max-w-md group-[.split-variant]:md:justify-self-end",
   {
     variants: {
       variant: {
         default: "text-lg text-muted-foreground",
-        lg: "text-xl leading-7.5 mt-2 group-[.split-variant]:max-w-lg",
+        lg: "text-xl leading-7.5 mt-2 group-[.split-variant]:md:max-w-lg",
       },
     },
     defaultVariants: {
@@ -83,7 +82,7 @@ function SectionHeadingContent({ className, ...props }: React.ComponentProps<"di
     <div
       data-slot="section-heading-content"
       className={cn(
-        "col-span-2 group-[.split-variant]:col-span-1 flex flex-col gap-4",
+        "col-span-1 md:col-span-2 group-[.split-variant]:md:col-span-1 flex flex-col gap-4",
         className
       )}
       {...props}
@@ -96,7 +95,7 @@ function SectionHeadingLeft({ className, ...props }: React.ComponentProps<"div">
     <div
       data-slot="section-heading-left"
       className={cn(
-        "col-span-2 group-[.split-variant]:col-span-1 flex flex-col gap-4",
+        "col-span-1 md:col-span-2 group-[.split-variant]:md:col-span-1 flex flex-col gap-4",
         className
       )}
       {...props}
@@ -109,7 +108,7 @@ function SectionHeadingRight({ className, ...props }: React.ComponentProps<"div"
     <div
       data-slot="section-heading-right"
       className={cn(
-        "col-span-2 group-[.split-variant]:col-span-1 flex flex-col gap-4 group-[.split-variant]:justify-self-end group-[.split-variant]:items-end",
+        "col-span-1 md:col-span-2 group-[.split-variant]:md:col-span-1 flex flex-col gap-4 group-[.split-variant]:md:justify-self-end group-[.split-variant]:md:items-end",
         className
       )}
       {...props}

@@ -54,7 +54,7 @@ export function PrivacyChoicesButton() {
   }
 
   return (
-    <div className="flex justify-end pb-4">
+    <div className="flex md:justify-end pb-4">
       <button
         type="button"
         onClick={handlePrivacyClick}

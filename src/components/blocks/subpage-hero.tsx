@@ -122,7 +122,7 @@ function SubpageHeroSecondary({
         accentColor={accentColor}
         shadowColor={shadowColor}
       />
-      <div className="relative z-10 py-18 px-18 flex flex-col items-center justify-center">
+      <div className="relative z-10 py-18 px-4 md:px-18 flex flex-col items-center justify-center">
         {children}
       </div>
     </div>

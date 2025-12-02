@@ -179,7 +179,7 @@ function HeroSliderSlideContent({ className, ...props }: React.ComponentProps<"d
   return (
     <div
       data-slot="hero-slider-slide-content"
-      className={cn("relative z-10 pb-24 pt-36 px-18 min-h-[30rem]", className)}
+      className={cn("relative z-10 pb-12 pt-20 px-4 md:pb-24 md:pt-36 md:px-18 min-h-[20rem] md:min-h-[30rem]", className)}
       {...props}
     />
   )

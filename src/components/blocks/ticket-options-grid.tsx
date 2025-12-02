@@ -92,8 +92,8 @@ export function TicketOptionsGrid() {
     ];
 
     return (
-        <div className="grid grid-cols-[30rem_1fr] gap-4">
-            <Card className="w-[30rem] sticky mb-26 top-36 self-start">
+        <div className="grid grid-cols-1 lg:grid-cols-[30rem_1fr] gap-4">
+            <Card className="w-full lg:w-[30rem] lg:sticky mb-26 lg:top-36 self-start">
                 <div className="absolute inset-0 flex items-end justify-center opacity-1 pointer-events-none overflow-hidden">
                     <PalmtreeIcon fill="currentColor" className="text-foreground w-auto h-full rotate-y-180" />
                     <div className="absolute inset-0 bg-gradient-to-t from-card to-transparent"></div>

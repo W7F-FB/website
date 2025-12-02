@@ -112,25 +112,25 @@ export default async function HomePage() {
             <PaddingGlobal>
                 <Section padding="sm">
                     <HeroSlider autoplay={true}>
-                        <HeroSliderSlide className="grid grid-cols-2">
+                        <HeroSliderSlide className="grid grid-cols-1 md:grid-cols-2">
                             <HeroSliderSlideBackground>
                                 <Image src="/images/static-media/fl-hero.avif" alt="Hero Slider 1" fill className="object-cover" />
                             </HeroSliderSlideBackground>
-                            <HeroSliderSlideContent className="max-w-3xl justify-self-start pr-48 flex items-end grid justify-items-start">
+                            <HeroSliderSlideContent className="max-w-3xl justify-self-start pr-4 md:pr-48 flex flex-col items-start justify-end">
                                 <Image src="/images/static-media/watercolor-bg.jpg" alt="Hero Slider 1" fill className="object-cover clip-watercolor-mask" />
-                                <TextProtect className="relative z-10 block space-y-5">
-                                    <Subtitle className="text-xl text-primary">Tickets available now</Subtitle>
-                                    <H1 className="font-proxima uppercase font-black text-6xl">Fort Lauderdale,<br />FLorida, USA</H1>
-                                    <P noSpace className="text-3xl text-balance font-headers font-medium text-foreground">New City. Same Stakes. <span className="font-bold">$5 Million Prize Pool.</span></P>
+                                <TextProtect className="relative z-10 block space-y-3 md:space-y-5">
+                                    <Subtitle className="text-lg md:text-xl text-primary">Tickets available now</Subtitle>
+                                    <H1 className="font-proxima uppercase font-black text-3xl md:text-6xl">Fort Lauderdale,<br />FLorida, USA</H1>
+                                    <P noSpace className="text-xl md:text-3xl text-balance font-headers font-medium text-foreground">New City. Same Stakes. <span className="font-bold">$5 Million Prize Pool.</span></P>
                                 </TextProtect>
-                                <div className="mt-10 flex gap-4">
+                                <div className="mt-6 w-full md:mt-10 flex flex-col md:flex-row gap-3 md:gap-4">
                                     <Button asChild size="skew_lg"><Link href="/checkout"><span>Purchase Tickets</span></Link></Button>
                                     <Button asChild size="skew_lg" variant="secondary"><Link href="/tournament/fort-lauderdale/schedule"><span>Schedule</span></Link></Button>
                                 </div>
                             </HeroSliderSlideContent>
-                            <HeroSliderSlideContent className="w-full h-full pb-12 pr-36 flex flex-col items-start justify-end text-shadow-xl gap-2">
-                                <H3 className="uppercase">Beyond Bancard Field</H3>
-                                <p className="text-5xl font-black font-proxima uppercase">Dec 5-7, 2025</p>
+                            <HeroSliderSlideContent className="w-full h-full pb-6 md:pb-12 pr-4 md:pr-36 flex flex-col items-start justify-end text-shadow-xl gap-2">
+                                <H3 className="uppercase text-base md:text-lg">Beyond Bancard Field</H3>
+                                <p className="text-2xl md:text-5xl font-black font-proxima uppercase">Dec 5-7, 2025</p>
                             </HeroSliderSlideContent>
                         </HeroSliderSlide>
                     </HeroSlider>
@@ -186,11 +186,11 @@ export default async function HomePage() {
                             <SectionHeadingHeading variant="h2">
                                 Event #1 Founding Participants
                             </SectionHeadingHeading>
-                            <P className="text-lg">
+                            <P className="text-lg pb-6 md:pb-0">
                                 Estoril, Portugal • MAY 21-23, 2025
                             </P>
                         </div>
-                        <Button asChild size="skew" variant="outline" className="ml-auto mt-auto">
+                        <Button asChild size="skew" variant="outline" className="w-fit ml-0 md:ml-auto mt-auto">
                             <PrismicLink document={estorilTournament}><span>View Results</span></PrismicLink>
                         </Button>
                     </SectionHeading>
@@ -204,7 +204,7 @@ export default async function HomePage() {
                         <SectionHeadingHeading>
                             Recent News
                         </SectionHeadingHeading>
-                        <Button asChild size="skew" variant="outline" className="ml-auto mt-auto">
+                        <Button asChild size="skew" variant="outline" className="w-fit ml-0 md:ml-auto mt-auto">
                             <PrismicLink href="/news"><span>All News</span></PrismicLink>
                         </Button>
                     </SectionHeading>
