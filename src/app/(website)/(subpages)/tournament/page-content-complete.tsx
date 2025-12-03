@@ -33,6 +33,7 @@ import { isFilled } from "@prismicio/client"
 import { VideoBanner } from "@/components/blocks/video-banner/video-banner"
 import { cn } from "@/lib/utils"
 import { NavMain } from "@/components/website-base/nav/nav-main";
+import { Footer } from "@/components/website-base/footer/footer-main";
 import { PlayerAwardCard } from "@/components/blocks/players/player-award-card"
 import { FastBanner } from "@/components/blocks/fast-banners"
 import { StatSheetTabs } from "@/components/blocks/tournament/stat-sheet/stat-sheet-tabs"
@@ -68,7 +69,8 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                 { label: "Home", href: "/" },
                 { label: tournament.data.title, href: `/tournament/${tournament.uid}` }
             ]} />
-            <PaddingGlobal>
+            <main className="flex-grow min-h-[30rem]">
+                <PaddingGlobal>
             <div>
             <SubpageHero>
                 <SubpageHeroContent>
@@ -356,6 +358,8 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
             </Container>
         </div>
         </PaddingGlobal>
+            </main>
+            <Footer />
         </>
     )
 }

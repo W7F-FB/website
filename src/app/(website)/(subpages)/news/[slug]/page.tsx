@@ -13,6 +13,7 @@ import { cn } from "@/lib/utils"
 import { getAllBlogs } from "@/cms/queries/blog"
 import { PostStandard } from "@/components/blocks/posts/post"
 import { NavMain } from "@/components/website-base/nav/nav-main";
+import { Footer } from "@/components/website-base/footer/footer-main";
 import { Separator } from "@/components/ui/separator";
 
 import { mapBlogDocumentToMetadata } from "@/lib/utils"
@@ -36,7 +37,8 @@ export default async function BlogPostPage({ params }: Props) {
   return (
     <>
         <NavMain showBreadcrumbs />
-        <PaddingGlobal>
+        <main className="flex-grow min-h-[30rem]">
+            <PaddingGlobal>
         <Container maxWidth="lg">
         <Section padding="none" className="prose prose-invert prose-p:mb-2 mt-16">
             <Card className={cn("flex flex-col md:flex-row overflow-hidden group rounded-none p-0 bg-transparent border-0 gap-16")}>
@@ -140,6 +142,8 @@ export default async function BlogPostPage({ params }: Props) {
         )}
     </Container>
     </PaddingGlobal>
+        </main>
+        <Footer />
     </>
   )
 }

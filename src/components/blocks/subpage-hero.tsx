@@ -7,7 +7,7 @@ import { GradientBg } from "../ui/gradient-bg";
 function SubpageHero({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
-      className={cn("relative overflow-hidden w-full grid grid-cols-1 md:grid-cols-[auto_1fr]", className)}
+      className={cn("relative overflow-hidden w-full grid grid-cols-1 lg:grid-cols-[auto_1fr]", className)}
       {...props}
     />
   )
@@ -16,7 +16,7 @@ function SubpageHero({ className, ...props }: React.ComponentProps<"div">) {
 function SubpageHeroMedia({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
-      className={cn("relative h-80 md:h-full overflow-hidden", className)}
+      className={cn("relative h-80 lg:h-full overflow-hidden", className)}
       {...props}
     />
   )
@@ -37,7 +37,7 @@ function SubpageHeroContent({
 }) {
   return (
     <div
-      className={cn("relative z-10 pb-12 md:pb-24 pt-24 md:pt-36 px-4 md:px-18 min-h-80 flex flex-col gap-4 max-w-3xl w-full bg-extra-muted", className)}
+      className={cn("relative z-10 pb-12 lg:pb-24 pt-24 lg:pt-36 px-6 lg:px-18 min-h-80 flex flex-col gap-4 max-w-3xl w-full bg-extra-muted", className)}
       {...props}
     >
       <div
@@ -74,7 +74,7 @@ function SubpageHeroMediaBanner({
 }) {
   return (
     <Card
-      className={cn("relative z-10 p-4 pl-6 bg-extra-muted absolute bottom-8 left-4 right-4 md:left-auto md:right-8 max-w-sm overflow-hidden border-none", className)}
+      className={cn("relative z-10 p-4 pl-6 bg-extra-muted absolute bottom-8 left-4 right-4 lg:left-auto lg:right-8 max-w-sm overflow-hidden border-none", className)}
       {...props}
     >
       <div className="absolute w-3 h-full bg-gradient-to-r from-primary to-transparent -left-1 top-0 bottom-0 z-10"></div>
@@ -122,7 +122,7 @@ function SubpageHeroSecondary({
         accentColor={accentColor}
         shadowColor={shadowColor}
       />
-      <div className="relative z-10 py-18 px-4 md:px-18 flex flex-col items-center justify-center">
+      <div className="relative z-10 py-18 px-6 lg:px-18 flex flex-col items-center justify-center">
         {children}
       </div>
     </div>

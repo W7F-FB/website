@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils"
 import { getFinalMatch, getThirdPlaceMatch, calculateTeamRecordsFromMatches } from "@/app/(website)/(subpages)/tournament/utils"
 import { LinePattern } from "@/components/blocks/line-pattern"
 import { ClubRankCell } from "@/components/blocks/tournament/club-rank-cell"
+import { useIsTablet } from "@/hooks/use-tablet"
 
 type StatSheetTeamsTableProps = {
     prismicTeams: TeamDocument[]
@@ -20,6 +21,7 @@ type StatSheetTeamsTableProps = {
 
 export function StatSheetTeamsTable({ prismicTeams, f30TeamStats, f1FixturesData, tournamentStatus }: StatSheetTeamsTableProps) {
     const [hoveredRow, setHoveredRow] = useState<number | null>(null)
+    const isTablet = useIsTablet()
 
     const finalMatches = getFinalMatch(f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData)
     const thirdPlaceMatches = getThirdPlaceMatch(f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData)
@@ -28,6 +30,8 @@ export function StatSheetTeamsTable({ prismicTeams, f30TeamStats, f1FixturesData
     const thirdPlaceMatch = thirdPlaceMatches[0]
     
     const teamRecords = calculateTeamRecordsFromMatches(f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData)
+    
+    const optaTeams = f1FixturesData?.SoccerFeed?.SoccerDocument?.Team || []
     
     const getPlacement = (teamOptaId: string | null | undefined): string => {
         if (!teamOptaId) return 'E'
@@ -61,6 +65,9 @@ export function StatSheetTeamsTable({ prismicTeams, f30TeamStats, f1FixturesData
         const teamId = optaId ? `t${optaId}` : null
         const record = teamId ? teamRecords.get(teamId) : null
 
+        const optaTeam = optaTeams.find(t => t.uID === teamId)
+        const shortName = optaTeam?.ShortTeamName || optaTeam?.ShortName || team.data.key || ''
+
         const gamesPlayed = stats ? getTeamStat(stats, "Games Played") ?? 0 : 0
         const wins = record?.wins ?? 0
         const losses = record?.losses ?? 0
@@ -76,6 +83,7 @@ export function StatSheetTeamsTable({ prismicTeams, f30TeamStats, f1FixturesData
         return {
             team,
             name: team.data.name || '',
+            shortName,
             placement: getPlacement(optaId),
             gamesPlayed,
             wins,
@@ -112,6 +120,8 @@ export function StatSheetTeamsTable({ prismicTeams, f30TeamStats, f1FixturesData
                                         placement={row.placement}
                                         logo={row.team.data.logo}
                                         name={row.name}
+                                        shortName={row.shortName}
+                                        useShortName={isTablet}
                                         tournamentStatus={tournamentStatus}
                                     />
                                 </TableRow>

@@ -51,7 +51,7 @@ const Section = React.forwardRef<HTMLElement, SectionProps>(
 
 Section.displayName = "Section"
 
-const containerVariants = cva("mx-auto px-6 md:px-0", {
+const containerVariants = cva("mx-auto px-6 lg:px-2", {
   variants: {
     maxWidth: {
       sm: "max-w-3xl",

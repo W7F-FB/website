@@ -58,7 +58,7 @@ function MatchCardTeam({
     logoAlt,
     score,
     teamLabel,
-    teamShortName: _teamShortName,
+    teamShortName,
     compact,
     isLosing,
     isWinning,
@@ -69,7 +69,7 @@ function MatchCardTeam({
     teamNamesClassName,
     indicatorClassName,
 }: GameCardTeam) {
-    const displayName = team?.data?.name || teamLabel //compact && teamShortName ? teamShortName : (team?.data?.name || teamLabel)
+    const displayName = compact && teamShortName ? teamShortName : (team?.data?.name || teamLabel)
     
     const getIconSize = (logoSize: string) => {
         if (logoSize === "size-5") return "size-4"
@@ -111,15 +111,9 @@ function MatchCardTeam({
             <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
                     {team ? (
-                        linkToTeam ? (
-                            <Link href={`/team/${team.uid}`} className="flex items-center space-x-3 group">
-                                {teamIdentity}
-                            </Link>
-                        ) : (
-                            <div className="flex items-center">
-                                {teamIdentity}
-                            </div>
-                        )
+                        <div className="flex items-center">
+                            {teamIdentity}
+                        </div>
                     ) : (
                         <>
                             <div className="size-12 bg-muted/10 rounded flex items-center justify-center">

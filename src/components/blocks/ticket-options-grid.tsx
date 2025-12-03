@@ -109,15 +109,15 @@ export function TicketOptionsGrid() {
                     </CardTitle>
                 </CardHeader>
 
-                <CardContent className="space-y-4">
+                <CardContent className="space-y-4 px-4 lg:px-8">
                     <Separator />
-                    <div className="space-y-2">
+                    <div className="space-y-4">
                         <div className="flex items-center justify-between gap-3">
                             <div className="flex items-center gap-3">
-                                <CalendarIcon className="size-3.5 mb-1" />
-                                <span className="text-base md:text-lg">{eventDetails.date}</span>
+                                <CalendarIcon className="size-3.5" />
+                                <span className="text-base md:text-lg mt-1">{eventDetails.date}</span>
                             </div>
-                            <Button asChild variant="outline" size="sm" className="text-foreground">
+                            <Button asChild variant="outline" size="sm" className="text-foreground text-xxs lg:text-sm">
                                 <Link href="/tournament/fort-lauderdale/schedule">View Schedule</Link>
                             </Button>
                         </div>
@@ -125,13 +125,13 @@ export function TicketOptionsGrid() {
                         <div className="flex items-center justify-between gap-3">
                             <div className="flex items-center gap-3">
                                 <MapPinAreaIcon className="size-3.5 mb-0.75" />
-                                <span className="text-base md:text-lg">{eventDetails.venue}</span>
+                                <span className="text-base md:text-lg mt-1">{eventDetails.venue}</span>
                             </div>
                             <Button
                                 variant="outline"
                                 size="sm"
                                 onClick={() => setLightboxOpen(true)}
-                                className="text-foreground"
+                                className="text-foreground text-xxs lg:text-sm"
                             >
                                 View Layout
                             </Button>
@@ -178,7 +178,7 @@ export function TicketOptionsGrid() {
                 </CardContent>
                 <CardFooter className="border-t">
                     <Link href="https://www.dazn.com/en-US/competition/Competition:2ysblq9gh9ulnfw31299e659p?utm_source=web&utm_medium=organicpartner&utm_campaign=dazn_global_gl_display_soccer_acquisition_fs_2024&utm_term=allwomensfootballfreemium-worldsevensfootball_fixed" className="flex gap-3">
-                        <Image src="/images/decorative/dazn_logo.svg" width={30} height={30} alt="DAZN Logo" className="opacity-80" style={{ height: "auto" }} />
+                        <Image src="/images/decorative/dazn_logo.svg" width={30} height={30} alt="DAZN Logo" className="opacity-80 w-8 h-8"  />
                         <P noSpace className="leading-none font-headers font-bold">Watch LIVE for <br />free on DAZN</P>
                     </Link>
                 </CardFooter>

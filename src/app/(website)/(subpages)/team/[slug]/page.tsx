@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import { isFilled } from "@prismicio/client";
 import TeamPageContent from "../page-content";
 import { NavMain } from "@/components/website-base/nav/nav-main";
+import { Footer } from "@/components/website-base/footer/footer-main";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -78,17 +79,20 @@ export default async function TeamPage({ params }: Props) {
         { label: "Home", href: "/" },
         { label: team.data.name, href: `/team/${team.uid}` }
       ]} />
-      <TeamPageContent
-        team={team}
-        teamSquad={teamSquad}
-        standings={f3StandingsData}
-        fixtures={f1FixturesData}
-        currentTournament={currentTournament}
-        prismicTeams={prismicTeams}
-        teamBlogs={teamBlogs}
-        seasonStats={f30SeasonStats}
-        tournamentDocuments={tournamentDocuments}
-      />
+      <main className="flex-grow min-h-[30rem]">
+        <TeamPageContent
+          team={team}
+          teamSquad={teamSquad}
+          standings={f3StandingsData}
+          fixtures={f1FixturesData}
+          currentTournament={currentTournament}
+          prismicTeams={prismicTeams}
+          teamBlogs={teamBlogs}
+          seasonStats={f30SeasonStats}
+          tournamentDocuments={tournamentDocuments}
+        />
+      </main>
+      <Footer />
     </>
   );
 }

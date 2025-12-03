@@ -23,6 +23,7 @@ import { formatDateRange, formatCurrencyInWords, mapBlogDocumentToMetadata } fro
 import { isFilled } from "@prismicio/client"
 import { Badge } from "@/components/ui/badge"
 import { NavMain } from "@/components/website-base/nav/nav-main";
+import { Footer } from "@/components/website-base/footer/footer-main";
 import { PostGrid } from "@/components/blocks/posts/post-grid"
 import { PrismicLink } from "@prismicio/react"
 
@@ -68,7 +69,8 @@ export default function TournamentPageUpcoming({ tournament, tournamentBlogs }: 
             <NavMain showBreadcrumbs customBreadcrumbs={[
                 { label: "Home", href: "/" }
             ]} />
-            <PaddingGlobal>
+            <main className="flex-grow min-h-[30rem]">
+                <PaddingGlobal>
             <div>
             <SubpageHero>
                 <SubpageHeroContent>
@@ -138,7 +140,7 @@ export default function TournamentPageUpcoming({ tournament, tournamentBlogs }: 
                 <Section padding="lg" id="vip-cabanas" className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 items-start">
                     <div className="relative h-80 md:h-full w-full">
                         <div className="absolute top-4 left-4 z-10">
-                            <Badge fast size="lg" variant="default">VIP Cabanas</Badge>
+                            <Badge fast size="lg" variant="secondary">VIP Cabanas</Badge>
                         </div>
                         <ImageSlider autoplay autoplayDelay={5000}>
                             <ImageSliderSlide >
@@ -228,6 +230,8 @@ export default function TournamentPageUpcoming({ tournament, tournamentBlogs }: 
             </Section>
         </div>
         </PaddingGlobal>
+            </main>
+            <Footer />
         </>
     )
 }

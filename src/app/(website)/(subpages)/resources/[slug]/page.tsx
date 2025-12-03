@@ -1,4 +1,5 @@
 import { NavMain } from "@/components/website-base/nav/nav-main";
+import { Footer } from "@/components/website-base/footer/footer-main";
 import { notFound } from "next/navigation"
 
 import { getPolicyBySlug } from "@/cms/queries/policies"
@@ -17,7 +18,8 @@ export default async function PolicyPage(props: { params: Params }) {
   return (
     <>
       <NavMain showBreadcrumbs />
-      <PaddingGlobal>
+      <main className="flex-grow min-h-[30rem]">
+        <PaddingGlobal>
       <Container maxWidth="md">
         <Section padding="lg">
           <H1>{policy.data.name}</H1>
@@ -32,6 +34,8 @@ export default async function PolicyPage(props: { params: Params }) {
         </Section>
       </Container>
     </PaddingGlobal>
+      </main>
+      <Footer />
     </>
   )
 }

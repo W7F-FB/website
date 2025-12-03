@@ -100,7 +100,7 @@ function ActionCell({ type }: ActionCellProps) {
 
     return (
         <TableCell className="w-16 align-middle">
-            <Button size="sm" variant="outline" className="h-7 px-2 text-xs gap-1">
+            <Button size="sm" variant="outline" className="hidden h-7 px-2 text-xs gap-1">
                 <ReplayIcon className="size-3" />
                 watch
             </Button>

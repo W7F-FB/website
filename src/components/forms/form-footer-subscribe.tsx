@@ -23,8 +23,12 @@ const schema = z.object({
     .email({ message: "Invalid email" }),
 })
 
+const KLAVIYO_LIST_ID = "UrjmkJ"
+
 export function FormFooterSubscribe() {
   const [submitted, setSubmitted] = React.useState<string | null>(null)
+  const [error, setError] = React.useState<string | null>(null)
+  const [isLoading, setIsLoading] = React.useState(false)
 
   const form = useAppForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
@@ -33,9 +37,27 @@ export function FormFooterSubscribe() {
 
   async function onSubmit(values: z.infer<typeof schema>) {
     setSubmitted(null)
-    await new Promise((r) => setTimeout(r, 300))
-    setSubmitted(`Subscribed ${values.email}`)
-    form.reset()
+    setError(null)
+    setIsLoading(true)
+
+    try {
+      const response = await fetch("/api/klaviyo/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: values.email, listId: KLAVIYO_LIST_ID }),
+      })
+
+      if (!response.ok) {
+        throw new Error("Failed to subscribe")
+      }
+
+      setSubmitted("Thanks for subscribing!")
+      form.reset()
+    } catch {
+      setError("Something went wrong. Please try again.")
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -60,13 +82,16 @@ export function FormFooterSubscribe() {
             </Field>
           )}
         />
-        <Button type="submit" size="skew" aria-label="Subscribe" className="shrink-0 px-6 h-12">
-          <span>Subscribe</span>
+        <Button type="submit" size="skew" aria-label="Subscribe" className="shrink-0 px-6 h-12" disabled={isLoading}>
+          <span>{isLoading ? "Subscribing..." : "Subscribe"}</span>
         </Button>
       </form>
-      {submitted ? (
+      {submitted && (
         <FormMessageSuccess className="mt-2">{submitted}</FormMessageSuccess>
-      ) : null}
+      )}
+      {error && (
+        <p className="mt-2 text-sm text-destructive">{error}</p>
+      )}
     </div>
   )
 }

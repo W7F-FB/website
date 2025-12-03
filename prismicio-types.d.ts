@@ -1541,6 +1541,17 @@ interface TournamentDocumentData {
   know_before_you_go: prismic.RichTextField;
 
   /**
+   * Know before you go pdf field in *Tournament*
+   *
+   * - **Field Type**: Link to Media
+   * - **Placeholder**: *None*
+   * - **API ID Path**: tournament.know_before_you_go_pdf
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/link-to-media
+   */
+  know_before_you_go_pdf: prismic.LinkToMediaField<prismic.FieldState, never>;
+
+  /**
    * Slice Zone field in *Tournament*
    *
    * - **Field Type**: Slice Zone

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { NavMain } from "@/components/website-base/nav/nav-main";
+import { Footer } from "@/components/website-base/footer/footer-main";
 import type { FAQItem } from "@/types/basic";
 import { Section, Container, PaddingGlobal } from "@/components/website-base/padding-containers"
 import { H1, H2, P, List } from "@/components/website-base/typography"
@@ -323,7 +324,8 @@ const faqSections: FAQSection[] = [
 export default function FAQsPage() {
     return <>
         <NavMain showBreadcrumbs />
-        <PaddingGlobal>
+        <main className="flex-grow min-h-[30rem]">
+            <PaddingGlobal>
         <Container maxWidth="lg">
         <Section padding="none">
             <H1 className="uppercase text-2xl md:text-6xl text-left md:my-16">Faq</H1>
@@ -356,5 +358,7 @@ export default function FAQsPage() {
         </Section>
     </Container>
     </PaddingGlobal>
+        </main>
+        <Footer />
     </>
 }

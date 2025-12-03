@@ -1,4 +1,5 @@
 import { NavMain } from "@/components/website-base/nav/nav-main";
+import { Footer } from "@/components/website-base/footer/footer-main";
 import { VideoBanner } from "@/components/blocks/video-banner/video-banner";
 import { PaddingGlobal } from "@/components/website-base/padding-containers";
 
@@ -6,7 +7,8 @@ export default function SandboxPage() {
     return (
         <>
             <NavMain showBreadcrumbs />
-            <PaddingGlobal>
+            <main className="flex-grow min-h-[30rem]">
+                <PaddingGlobal>
             <div>
             <VideoBanner
                 thumbnail="/images/static-media/video-banner.avif"
@@ -15,6 +17,8 @@ export default function SandboxPage() {
             />
         </div>
         </PaddingGlobal>
+            </main>
+            <Footer />
         </>
     )
 }

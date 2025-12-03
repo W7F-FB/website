@@ -2,6 +2,7 @@ import Image from "next/image";
 import type { Metadata } from "next";
 
 import { NavMain } from "@/components/website-base/nav/nav-main";
+import { Footer } from "@/components/website-base/footer/footer-main";
 import { SubpageHero, SubpageHeroContent, SubpageHeroMedia } from "@/components/blocks/subpage-hero";
 import { Section, Container, PaddingGlobal } from "@/components/website-base/padding-containers";
 import { H1, H2, P, Subtitle } from "@/components/website-base/typography";
@@ -87,7 +88,8 @@ const championship = [
 export default function SocialImpactPage() {
   return <>
     <NavMain showBreadcrumbs />
-    <PaddingGlobal>
+    <main className="flex-grow min-h-[30rem]">
+      <PaddingGlobal>
       <SubpageHero>
         <SubpageHeroContent>
           <Subtitle>Global</Subtitle>
@@ -130,5 +132,7 @@ export default function SocialImpactPage() {
 
       </Container>
     </PaddingGlobal>
+    </main>
+    <Footer />
   </>
 }

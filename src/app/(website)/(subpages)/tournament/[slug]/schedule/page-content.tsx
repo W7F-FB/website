@@ -1,9 +1,9 @@
 import { Section, Container, PaddingGlobal } from "@/components/website-base/padding-containers"
-import { H1, P, Subtitle } from "@/components/website-base/typography"
+import { H1, H2, P, Subtitle } from "@/components/website-base/typography"
 import type { TournamentDocument, BlogDocument, MatchDocument, TeamDocument } from "../../../../../../../prismicio-types"
 import { SubpageHeroSecondary } from "@/components/blocks/subpage-hero"
 import { Button } from "@/components/ui/button"
-import { PalmtreeIcon, WhistleIcon } from "@/components/website-base/icons"
+import { PalmtreeIcon, WhistleIcon, ChampionIcon } from "@/components/website-base/icons"
 import { SectionHeading, SectionHeadingHeading, SectionHeadingText, SectionHeadingSubtitle } from "@/components/sections/section-heading"
 import { Badge } from "@/components/ui/badge"
 import { MatchCard } from "@/components/blocks/match/match-card"
@@ -18,11 +18,13 @@ import { isFilled } from "@prismicio/client"
 import { VideoBanner } from "@/components/blocks/video-banner/video-banner"
 import { cn } from "@/lib/utils"
 import { NavMain } from "@/components/website-base/nav/nav-main"
+import { Footer } from "@/components/website-base/footer/footer-main"
 import { FastBanner } from "@/components/blocks/fast-banners"
 import { Background } from "@/components/ui/background"
 import Link from "next/link"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { GroupListPrismic } from "@/components/blocks/tournament/group-list-prismic"
+import { GradientBg } from "@/components/ui/gradient-bg"
 
 type Props = {
     tournament: TournamentDocument
@@ -72,7 +74,8 @@ export default function TournamentSchedulePageContent({ tournament, tournamentBl
                 { label: tournament.data.title, href: `/tournament/${tournament.uid}` },
                 { label: "Schedule", href: `/tournament/${tournament.uid}/schedule` }
             ]} />
-            <PaddingGlobal>
+            <main className="flex-grow min-h-[30rem]">
+                <PaddingGlobal>
                 <div>
                     <SubpageHeroSecondary className="max-w-none w-full">
                         <Background className="flex items-start justify-between">
@@ -365,6 +368,16 @@ export default function TournamentSchedulePageContent({ tournament, tournamentBl
                                             optaEnabled={false}
                                         />
                                     ))}
+                                    <Card className={cn("py-12 px-8 text-center bg-card/50 border-border/50 gap-0 relative flex flex-col items-center justify-center overflow-hidden w-full mt-6")}>
+                                        <GradientBg
+                                            className="inset-0 opacity-20"
+                                        />
+                                        <div className="flex flex-col items-center gap-2 relative">
+                                            <ChampionIcon className="size-12 md:size-16 mb-2" />
+                                            <H2 className="text-3xl md:text-3xl font-headers tracking-wider italic relative">Awards ceremony</H2>
+                                            <Subtitle className="text-muted-foreground">5:30 PM EST</Subtitle>
+                                        </div>
+                                    </Card>
                                 </div>
                                 <FastBanner text="FORWARD." position="right" strokeWidth="1.5px" className="hidden md:block" />
                             </div>
@@ -393,6 +406,8 @@ export default function TournamentSchedulePageContent({ tournament, tournamentBl
                     </Container>
                 </div>
             </PaddingGlobal>
+            </main>
+            <Footer />
         </>
     )
 }

@@ -14,6 +14,7 @@ import { TextLink } from "@/components/ui/text-link"
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card"
 import { useAppForm } from "@/hooks/use-app-form"
 import { dev } from "@/lib/dev"
+import { phoneMask, phoneToE164 } from "@/lib/phone-utils"
 
 const schema = z.object({
   firstName: z
@@ -37,8 +38,7 @@ const schema = z.object({
     .string()
     .trim()
     .min(1, { message: "Phone number is required" })
-    .min(10, { message: "Phone number must be at least 10 digits" })
-    .regex(/^[\d\s\-\+\(\)]+$/, { message: "Invalid phone number" }),
+    .refine((val) => val.replace(/\D/g, "").length >= 10, { message: "Phone number must be 10 digits" }),
   newsletter: z.boolean().optional(),
   termsAccepted: z
     .boolean()
@@ -64,6 +64,77 @@ export function PrivateVipForm() {
     try {
       dev.log("Form data:", data)
       await new Promise(resolve => setTimeout(resolve, 1000))
+
+      const formattedPhone = phoneToE164(data.phone)
+      dev.log("Formatted phone for Klaviyo:", formattedPhone)
+
+      fetch("/api/resend/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+                    to: "vipexperience@worldsevens.com",
+                    cc: "ben@worldsevens.com",
+          subject: "New Private VIP Cabana Inquiry",
+          replyTo: data.email,
+          fromName: "W7F VIP Inquiries",
+          html: `
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+              <h2 style="color: #333; border-bottom: 2px solid #e5e5e5; padding-bottom: 10px;">
+                New Private VIP Cabana Inquiry
+              </h2>
+              <table style="width: 100%; border-collapse: collapse;">
+                <tr>
+                  <td style="padding: 12px 0; border-bottom: 1px solid #eee; font-weight: bold; width: 140px;">Name</td>
+                  <td style="padding: 12px 0; border-bottom: 1px solid #eee;">${data.firstName} ${data.lastName}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 12px 0; border-bottom: 1px solid #eee; font-weight: bold;">Email</td>
+                  <td style="padding: 12px 0; border-bottom: 1px solid #eee;">
+                    <a href="mailto:${data.email}" style="color: #0066cc;">${data.email}</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 12px 0; border-bottom: 1px solid #eee; font-weight: bold;">Phone</td>
+                  <td style="padding: 12px 0; border-bottom: 1px solid #eee;">
+                    <a href="tel:${formattedPhone}" style="color: #0066cc;">${formattedPhone}</a>
+                  </td>
+                </tr>
+              </table>
+              <p style="color: #666; font-size: 12px; margin-top: 20px;">
+                This inquiry was submitted via the W7F website VIP Cabana form.<br/>
+                You may reply to this email to contact the customer directly.
+              </p>
+            </div>
+          `,
+        }),
+      }).catch(() => {})
+
+      fetch("/api/klaviyo/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: data.email,
+          listId: "SAqwTH",
+          firstName: data.firstName,
+          lastName: data.lastName,
+          phone: formattedPhone,
+        }),
+      }).catch(() => {})
+
+      if (data.newsletter) {
+        fetch("/api/klaviyo/subscribe", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: data.email,
+            listId: "UrjmkJ",
+            firstName: data.firstName,
+            lastName: data.lastName,
+            phone: formattedPhone,
+          }),
+        }).catch(() => {})
+      }
+
       setIsSubmitted(true)
     } catch (error) {
       dev.log("Error submitting form:", error)
@@ -142,6 +213,7 @@ export function PrivateVipForm() {
                             <InputFloating
                               label="Phone Number"
                               type="tel"
+                              mask={phoneMask}
                               {...field}
                               errors={fieldState.error ? [fieldState.error] : undefined}
                             />

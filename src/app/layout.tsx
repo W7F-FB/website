@@ -4,7 +4,6 @@ import "../styles/globals.css";
 import { PrismicPreview } from "@prismicio/next";
 import Script from "next/script";
 
-import { Footer } from "@/components/website-base/footer/footer-main";
 import { ClipPaths } from "@/components/ui/clip-paths";
 import { MetallicGradients } from "@/components/website-base/icons";
 
@@ -21,7 +20,7 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark scroll-smooth scroll-pt-24 overscroll-auto lg:overscroll-none" data-scroll-behavior="smooth" suppressHydrationWarning>
-      <body className="w7f-v2 bg-background font-body min-h-dvh flex flex-col" suppressHydrationWarning>
+      <body className="w7f-v2 bg-background font-body min-h-dvh" suppressHydrationWarning>
         <Script
           async
           defer
@@ -29,10 +28,7 @@ export default async function RootLayout({
         />
         <ClipPaths />
         <MetallicGradients />
-        <main className="flex-grow min-h-[30rem]">
-          {children}
-        </main>
-        <Footer />
+        {children}
         <PrismicPreview repositoryName="world-sevens-football" />
       </body>
     </html>

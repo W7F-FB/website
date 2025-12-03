@@ -4,6 +4,7 @@ import { Section, Container, PaddingGlobal } from "@/components/website-base/pad
 import { SubpageHeroSecondary } from "@/components/blocks/subpage-hero";
 import { H1, Subtitle, P } from "@/components/website-base/typography"
 import { NavMain } from "@/components/website-base/nav/nav-main";
+import { Footer } from "@/components/website-base/footer/footer-main";
 import { PostCardHoriz, PostCardVert } from "@/components/blocks/posts/post"
 import { getAllBlogs } from "@/cms/queries/blog"
 import { Separator } from "@/components/ui/separator";
@@ -61,7 +62,8 @@ export default function NewsPage() {
   return (
     <>
       <NavMain showBreadcrumbs />
-      <PaddingGlobal>
+      <main className="flex-grow min-h-[30rem]">
+        <PaddingGlobal>
         <SubpageHeroSecondary className="max-w-none w-full">
           <Background className="flex items-start justify-between">
             <PalmtreeIcon fill="currentColor" className="opacity-3 text-foreground w-auto h-100 mask-b-from-0% mask-b-to-85%" />
@@ -79,6 +81,8 @@ export default function NewsPage() {
           </Section>
         </Container>
       </PaddingGlobal>
+      </main>
+      <Footer />
     </>
   )
 }

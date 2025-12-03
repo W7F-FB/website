@@ -124,21 +124,6 @@ export default function MatchPageContent({
               />
             </CardContent>
           </Card>
-          {prismicTeams.length > 0 && (
-            <Card banner className="w-full">
-              <CardHeader>
-                <CardTitle>Standings</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ClubStandingsTable
-                  prismicTeams={prismicTeams}
-                  f1FixturesData={f1FixturesData}
-                  f40Squads={f40Squads}
-                  tournamentStatus={tournament?.data.status ?? undefined}
-                />
-              </CardContent>
-            </Card>
-          )}
           <FastBanner text="FAST." position="left" strokeWidth="1px" uppercase className="hidden md:block" />
         </div>
         <div className="col-span-2 space-y-8">
@@ -177,7 +162,22 @@ export default function MatchPageContent({
           </Card>
         </div>
         <div className="flex flex-col gap-8 relative">
-          <Card banner className="w-full">
+          {prismicTeams.length > 0 && (
+            <Card banner className="w-full">
+              <CardHeader>
+                <CardTitle>Standings</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ClubStandingsTable
+                  prismicTeams={prismicTeams}
+                  f1FixturesData={f1FixturesData}
+                  f40Squads={f40Squads}
+                  tournamentStatus={tournament?.data.status ?? undefined}
+                />
+              </CardContent>
+            </Card>
+          )}
+          <Card banner className="w-full hidden">
             <CardHeader>
               <CardTitle>Match Highlights</CardTitle>
             </CardHeader>
@@ -190,7 +190,7 @@ export default function MatchPageContent({
               />
             </CardContent>
           </Card>
-          <Card banner className="w-full">
+          <Card banner className="w-full hidden">
             <CardHeader>
               <CardTitle>Stream Free</CardTitle>
             </CardHeader>

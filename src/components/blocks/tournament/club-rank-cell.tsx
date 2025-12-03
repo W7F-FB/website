@@ -7,13 +7,16 @@ type ClubRankCellProps = {
     placement: string
     logo: ImageField | null | undefined
     name: string
+    shortName?: string
+    useShortName?: boolean
     record?: string
     className?: string
     tournamentStatus?: string
 }
 
-export function ClubRankCell({ placement, logo, name, record, className, tournamentStatus }: ClubRankCellProps) {
+export function ClubRankCell({ placement, logo, name, shortName, useShortName = false, record, className, tournamentStatus }: ClubRankCellProps) {
     const isComplete = tournamentStatus === 'Complete'
+    const displayName = useShortName && shortName ? shortName : name
     
     return (
         <TableCell className={cn("h-12 py-0 font-medium font-headers pr-10", className)}>
@@ -36,7 +39,7 @@ export function ClubRankCell({ placement, logo, name, record, className, tournam
                             />
                         </div>
                     )}
-                    <span>{name}</span>
+                    <span>{displayName}</span>
                 </div>
                 {record && (
                     <span className="min-w-10 text-right flex-grow">{record}</span>

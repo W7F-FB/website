@@ -49,10 +49,9 @@ export function BroadcastPartnerButton({
         {logo?.url && (
           <div className="relative size-4 shrink-0 pointer-events-none">
             <PrismicNextImage
-              field={logo}
+              field={logo?.alt ? logo : { ...logo, alt: partner.data.name || "Broadcast partner logo" }}
               fill
               className="object-contain !max-w-full"
-              fallbackAlt={(partner.data.name || "Broadcast partner logo") as ""}
             />
           </div>
         )}
@@ -112,10 +111,9 @@ export function BroadcastPartnerLink({
             isSmall ? "w-8 h-6" : "w-12 h-9"
           )}>
             <PrismicNextImage
-              field={logo}
+              field={logo?.alt ? logo : { ...logo, alt: partner.data.name || "Broadcast partner logo" }}
               fill
               className="object-contain object-left"
-              fallbackAlt={(partner.data.name || "Broadcast partner logo") as ""}
             />
           </div>
         )}

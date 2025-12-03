@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { getSocialBlogsByCategory } from "@/cms/queries/blog";
 import type { BlogDocument } from "../../../prismicio-types";
 import { PrismicNextImage } from "@prismicio/next";
+import { isFilled } from "@prismicio/client";
 import Image from "next/image";
 
 interface ImageItem {
@@ -63,13 +64,21 @@ function ImageSequence({ isHovered, images }: { isHovered: boolean; images?: Ima
                                 className="object-cover"
                             />
                         </div>
-                    ) : (
-                        <PrismicNextImage
-                            field={blogs[currentIndex]?.data.image}
-                            className="w-full h-full object-cover"
-                            fallbackAlt={(blogs[currentIndex]?.data.title ?? "") as ""}
-                        />
-                    )}
+                    ) : (() => {
+                        const image = blogs[currentIndex]?.data.image;
+                        if (!image || !isFilled.image(image)) return null;
+                        
+                        const imageField = image.alt
+                            ? image
+                            : ({ ...image, alt: blogs[currentIndex]?.data.title ?? "" } as typeof image);
+                        
+                        return (
+                            <PrismicNextImage
+                                field={imageField}
+                                className="w-full h-full object-cover"
+                            />
+                        );
+                    })()}
                 </motion.div>
             )}
         </AnimatePresence>

@@ -305,6 +305,15 @@
           "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
         }
       },
+      "know_before_you_go_pdf": {
+        "type": "Link",
+        "config": {
+          "label": "Know before you go pdf",
+          "placeholder": "",
+          "select": "media",
+          "allowText": true
+        }
+      },
       "slices": {
         "type": "Slices",
         "fieldset": "Slice Zone",

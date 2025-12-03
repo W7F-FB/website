@@ -350,11 +350,11 @@ export function TeamStatsCard({ team, standings, fixtures, currentTournament, pr
                             <TableCell className="min-w-0 px-2 md:px-4">
                                 <div className="flex items-center gap-1 md:gap-2">
                                     <span className="text-muted-foreground text-xs md:text-sm shrink-0 hidden md:inline">vs</span>
-                                    <Link href={`/team/${result.opponentTeam?.uid}`} className="hover:underline min-w-0 flex-1 md:flex-none">
+                                    <div className="min-w-0 flex-1 md:flex-none">
                                         <H4 className="text-xs md:text-sm truncate">
                                             {result.opponentName}
                                         </H4>
-                                    </Link>
+                                    </div>
                                     {result.opponentTeam?.data.logo && (
                                         <div className="relative w-4 h-4 md:w-6 md:h-6 shrink-0">
                                             <PrismicNextImage field={result.opponentTeam.data.logo} fill className="object-contain" />

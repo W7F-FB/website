@@ -192,7 +192,7 @@ export default function MatchHero({ f9MatchData, homeTeamData, awayTeamData, hom
             )}
           </div>
         </div>
-        {displayPartners.length > 0 && (
+        {displayPartners.length < -1 && (
           <div className="col-span-full px-6 text-center text-xs flex flex-col gap-2 items-center pt-4 md:pt-0">
             <div className="font-headers text-xs uppercase font-medium text-muted-foreground">Stream Free</div>
             <div className="grid grid-flow-col gap-2" style={{ gridTemplateColumns: `repeat(${displayPartners.length}, minmax(0, 1fr))` }}>

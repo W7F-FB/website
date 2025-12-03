@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import * as prismic from "@prismicio/client";
 
 import { NavMain } from "@/components/website-base/nav/nav-main";
+import { Footer } from "@/components/website-base/footer/footer-main";
 import { SubpageHero, SubpageHeroContent, SubpageHeroMedia } from "@/components/blocks/subpage-hero";
 import { Section, PaddingGlobal } from "@/components/website-base/padding-containers";
 import { H1, H2, P, Subtitle } from "@/components/website-base/typography";
@@ -39,7 +40,8 @@ export default async function LeadershipPage() {
 
     return <>
         <NavMain showBreadcrumbs />
-        <PaddingGlobal>
+        <main className="flex-grow min-h-[30rem]">
+            <PaddingGlobal>
             <SubpageHero>
                 <SubpageHeroContent>
                     <Subtitle>World Sevens Football</Subtitle>
@@ -138,5 +140,7 @@ export default async function LeadershipPage() {
         </Section>
     </div>
     </PaddingGlobal>
+        </main>
+        <Footer />
     </>
 }

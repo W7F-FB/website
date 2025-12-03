@@ -1,5 +1,6 @@
 import { FAQItem, InfoCardItem } from "@/types/basic";
 import { NavMain } from "@/components/website-base/nav/nav-main";
+import { Footer } from "@/components/website-base/footer/footer-main";
 import { P, Subtitle } from "@/components/website-base/typography";
 import { Section, Container, PaddingGlobal } from "@/components/website-base/padding-containers";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -99,7 +100,8 @@ export default function RisingSevensPage() {
     return (
         <>
             <NavMain showBreadcrumbs />
-            <PaddingGlobal>
+            <main className="flex-grow min-h-[30rem]">
+                <PaddingGlobal>
                 <SubpageHero>
                     <SubpageHeroContent>
                         <Subtitle>Youth Tournament</Subtitle>
@@ -190,6 +192,8 @@ export default function RisingSevensPage() {
             </Container>
         </div>
         </PaddingGlobal>
+            </main>
+            <Footer />
         </>
     )
 }

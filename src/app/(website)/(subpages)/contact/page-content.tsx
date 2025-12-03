@@ -80,10 +80,87 @@ export default function ContactPageContent() {
     })
 
 
+    const topicLabels: Record<string, string> = {
+        career: "Career Opportunities",
+        tickets: "Ticket Questions",
+        media: "Media Inquiry",
+        club: "Club Participation",
+        partnership: "Partnership Discussion",
+        vip: "VIP Experiences",
+        other: "Other",
+    }
+
+    const topicEmails: Record<string, string> = {
+        career: "careers@worldsevens.com",
+        tickets: "ticketing@worldsevens.com",
+        media: "media@worldsevens.com",
+        club: "clubs@worldsevens.com",
+        partnership: "partners@worldsevens.com",
+        vip: "vipexperience@worldsevens.com",
+        other: "info@worldsevens.com",
+    }
+
     async function onSubmit(values: z.infer<typeof schema>) {
         try {
             dev.log(values)
             await new Promise(resolve => setTimeout(resolve, 1000))
+
+            fetch("/api/resend/send", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    to: topicEmails[values.topic] || "info@worldsevens.com",
+                    cc: "ben@worldsevens.com",
+                    subject: `Contact Form: ${topicLabels[values.topic] || values.topic}`,
+                    replyTo: values.email,
+                    fromName: "W7F Contact Form",
+                    html: `
+                        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+                            <h2 style="color: #333; border-bottom: 2px solid #e5e5e5; padding-bottom: 10px;">
+                                New Contact Form Submission
+                            </h2>
+                            <table style="width: 100%; border-collapse: collapse;">
+                                <tr>
+                                    <td style="padding: 12px 0; border-bottom: 1px solid #eee; font-weight: bold; width: 140px;">Topic</td>
+                                    <td style="padding: 12px 0; border-bottom: 1px solid #eee;">${topicLabels[values.topic] || values.topic}</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 12px 0; border-bottom: 1px solid #eee; font-weight: bold;">Name</td>
+                                    <td style="padding: 12px 0; border-bottom: 1px solid #eee;">${values.firstName} ${values.lastName}</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 12px 0; border-bottom: 1px solid #eee; font-weight: bold;">Email</td>
+                                    <td style="padding: 12px 0; border-bottom: 1px solid #eee;">
+                                        <a href="mailto:${values.email}" style="color: #0066cc;">${values.email}</a>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div style="margin-top: 20px;">
+                                <h3 style="color: #333; margin-bottom: 10px;">Message</h3>
+                                <div style="background: #f9f9f9; padding: 15px; border-radius: 4px; white-space: pre-wrap;">${values.message}</div>
+                            </div>
+                            <p style="color: #666; font-size: 12px; margin-top: 20px;">
+                                This message was submitted via the W7F website contact form.<br/>
+                                You may reply to this email to contact the customer directly.
+                            </p>
+                        </div>
+                    `,
+                }),
+            }).catch(() => {})
+
+            if (values.newsletter) {
+                fetch("/api/klaviyo/subscribe", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        email: values.email,
+                        listId: "UrjmkJ",
+                        firstName: values.firstName,
+                        lastName: values.lastName,
+                    }),
+                }).catch(() => {})
+            }
+
             setIsSubmitted(true)
         } catch (error) {
             dev.log("Error submitting form:", error)

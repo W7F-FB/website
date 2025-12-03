@@ -182,14 +182,6 @@ export async function NavigationMenuTournamentFeatured({
                                     </div>
                                 )
 
-                                if (optaEnabled) {
-                                    return (
-                                        <PrismicLink key={team.id} document={team}>
-                                            {logoContent}
-                                        </PrismicLink>
-                                    )
-                                }
-
                                 return logoContent
                             })}
                             {teams.length > 8 && (

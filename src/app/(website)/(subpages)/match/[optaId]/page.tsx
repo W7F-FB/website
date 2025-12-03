@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import { normalizeOptaId, removeW7F } from "@/lib/opta/utils";
 import MatchPageContent from "../page-content";
 import { NavMain } from "@/components/website-base/nav/nav-main";
+import { Footer } from "@/components/website-base/footer/footer-main";
 import type { GameCard } from "@/types/components";
 import type { F1MatchData } from "@/types/opta-feeds/f1-fixtures";
 import type { F9SoccerDocument } from "@/types/opta-feeds/f9-match";
@@ -135,26 +136,29 @@ export default async function MatchPage({
   return (
     <>
       <NavMain showBreadcrumbs customBreadcrumbs={customBreadcrumbs} gameCards={gameCards} tournament={tournament ?? undefined} />
-      <MatchPageContent
-        f9MatchData={f9MatchData}
-        homeTeamData={homeTeamData}
-        awayTeamData={awayTeamData}
-        homeTeam={homeTeam}
-        awayTeam={awayTeam}
-        homeSquadTeam={homeSquadTeam}
-        awaySquadTeam={awaySquadTeam}
-        homeTeamPrismic={homeTeamPrismic}
-        awayTeamPrismic={awayTeamPrismic}
-        matchId={optaId}
-        competitionId={competitionId}
-        tournament={tournament}
-        commentary={commentary}
-        f24Events={f24Events}
-        broadcastPartners={broadcastPartners}
-        prismicTeams={prismicTeams}
-        f1FixturesData={fixtures}
-        f40Squads={squads}
-      />
+      <main className="flex-grow min-h-[30rem]">
+        <MatchPageContent
+          f9MatchData={f9MatchData}
+          homeTeamData={homeTeamData}
+          awayTeamData={awayTeamData}
+          homeTeam={homeTeam}
+          awayTeam={awayTeam}
+          homeSquadTeam={homeSquadTeam}
+          awaySquadTeam={awaySquadTeam}
+          homeTeamPrismic={homeTeamPrismic}
+          awayTeamPrismic={awayTeamPrismic}
+          matchId={optaId}
+          competitionId={competitionId}
+          tournament={tournament}
+          commentary={commentary}
+          f24Events={f24Events}
+          broadcastPartners={broadcastPartners}
+          prismicTeams={prismicTeams}
+          f1FixturesData={fixtures}
+          f40Squads={squads}
+        />
+      </main>
+      <Footer />
     </>
   );
 }

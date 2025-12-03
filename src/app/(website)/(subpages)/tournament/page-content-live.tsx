@@ -7,6 +7,7 @@ import { getMatchTeams } from "@/lib/opta/utils"
 import { formatDateRange } from "@/lib/utils"
 import { SubpageHero, SubpageHeroMedia, SubpageHeroContent, SubpageHeroMediaBanner } from "@/components/blocks/subpage-hero"
 import { NavMain } from "@/components/website-base/nav/nav-main"
+import { Footer } from "@/components/website-base/footer/footer-main"
 import { H1, P, Subtitle } from "@/components/website-base/typography"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -48,7 +49,8 @@ export default function TournamentPageLive({ tournament, tournamentBlogs, f1Fixt
     return (
         <>
             <NavMain showBreadcrumbs />
-            <PaddingGlobal>
+            <main className="flex-grow min-h-[30rem]">
+                <PaddingGlobal>
                 <div>
                     <SubpageHero>
                         <SubpageHeroContent>
@@ -171,6 +173,8 @@ export default function TournamentPageLive({ tournament, tournamentBlogs, f1Fixt
                     </Container>
                 </div>
             </PaddingGlobal>
+            </main>
+            <Footer />
         </>
     )
 }

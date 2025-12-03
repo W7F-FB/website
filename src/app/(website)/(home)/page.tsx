@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { NavMain } from "@/components/website-base/nav/nav-main";
+import { Footer } from "@/components/website-base/footer/footer-main";
 import { PaddingGlobal, Section, Container } from "@/components/website-base/padding-containers";
 import { HeroSlider, HeroSliderSlide, HeroSliderSlideBackground, HeroSliderSlideContent } from "@/components/blocks/hero-slider";
 import { H1, H3, P, Subtitle, TextProtect } from "@/components/website-base/typography";
@@ -100,37 +101,41 @@ export default async function HomePage() {
 
     if (!tournament) {
         return (
-            <div className="text-center py-8">
-                <p className="text-muted-foreground">Tournament not found.</p>
-            </div>
+            <main className="flex-grow min-h-[30rem]">
+                <div className="text-center py-8">
+                    <p className="text-muted-foreground">Tournament not found.</p>
+                </div>
+            </main>
         );
     }
 
     return (
-        <div>
+        <>
             <NavMain />
+            <main className="flex-grow min-h-[30rem]">
+                <div>
             <PaddingGlobal>
                 <Section padding="sm">
                     <HeroSlider autoplay={true}>
-                        <HeroSliderSlide className="grid grid-cols-1 md:grid-cols-2">
-                            <HeroSliderSlideBackground>
-                                <Image src="/images/static-media/fl-hero.avif" alt="Hero Slider 1" fill className="object-cover" />
+                        <HeroSliderSlide className="grid grid-cols-1 lg:grid-cols-2">
+                            <HeroSliderSlideBackground className="h-[25rem] top-auto lg:top-0 lg:h-full">
+                                <Image src="/images/static-media/fl-hero.avif" alt="Hero Slider 1" fill className="object-cover object-bottom-right lg:object-center" />
                             </HeroSliderSlideBackground>
-                            <HeroSliderSlideContent className="max-w-3xl justify-self-start pr-4 md:pr-48 flex flex-col items-start justify-end">
+                            <HeroSliderSlideContent className="w-full lg:max-w-3xl justify-self-start px-8 pb-24  lg:pr-48 flex flex-col items-start justify-end">
                                 <Image src="/images/static-media/watercolor-bg.jpg" alt="Hero Slider 1" fill className="object-cover clip-watercolor-mask" />
-                                <TextProtect className="relative z-10 block space-y-3 md:space-y-5">
-                                    <Subtitle className="text-lg md:text-xl text-primary">Tickets available now</Subtitle>
-                                    <H1 className="font-proxima uppercase font-black text-3xl md:text-6xl">Fort Lauderdale,<br />FLorida, USA</H1>
-                                    <P noSpace className="text-xl md:text-3xl text-balance font-headers font-medium text-foreground">New City. Same Stakes. <span className="font-bold">$5 Million Prize Pool.</span></P>
+                                <TextProtect className="relative z-10 block space-y-3 lg:space-y-5">
+                                    <Subtitle className="text-lg lg:text-xl text-primary">Tickets available now</Subtitle>
+                                    <H1 className="font-proxima uppercase font-black text-3xl lg:text-6xl">Fort Lauderdale,<br />FLorida, USA</H1>
+                                    <P noSpace className="text-xl lg:text-3xl text-balance font-headers font-medium text-foreground">New City. Same Stakes. <span className="font-bold">$5 Million Prize Pool.</span></P>
                                 </TextProtect>
-                                <div className="mt-6 w-full md:mt-10 flex flex-col md:flex-row gap-3 md:gap-4">
+                                <div className="mt-6 w-full lg:mt-10 flex flex-col lg:flex-row gap-3 lg:gap-4">
                                     <Button asChild size="skew_lg"><Link href="/checkout"><span>Purchase Tickets</span></Link></Button>
                                     <Button asChild size="skew_lg" variant="secondary"><Link href="/tournament/fort-lauderdale/schedule"><span>Schedule</span></Link></Button>
                                 </div>
                             </HeroSliderSlideContent>
-                            <HeroSliderSlideContent className="w-full h-full pb-6 md:pb-12 pr-4 md:pr-36 flex flex-col items-start justify-end text-shadow-xl gap-2">
-                                <H3 className="uppercase text-base md:text-lg">Beyond Bancard Field</H3>
-                                <p className="text-2xl md:text-5xl font-black font-proxima uppercase">Dec 5-7, 2025</p>
+                            <HeroSliderSlideContent className="w-full h-full pb-6 lg:pb-12 pr-4 lg:pr-36 flex flex-col items-start justify-end text-shadow-xl gap-2">
+                                <H3 className="uppercase text-base lg:text-lg">Beyond Bancard Field</H3>
+                                <p className="text-3xl lg:text-5xl font-black font-proxima uppercase">Dec 5-7, 2025</p>
                             </HeroSliderSlideContent>
                         </HeroSliderSlide>
                     </HeroSlider>
@@ -250,6 +255,9 @@ export default async function HomePage() {
                     </FAQBannerLayout>
                 </Section>
             </Container>
-        </div>
+                </div>
+            </main>
+            <Footer />
+        </>
     );
 }

@@ -21,6 +21,15 @@ const nextConfig: NextConfig = {
     ],
     unoptimized: process.env.NODE_ENV === 'development',
   },
+  async redirects() {
+    return [
+      {
+        source: '/info/know-before-you-go',
+        destination: '/fort-lauderdale/know-before-you-go',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

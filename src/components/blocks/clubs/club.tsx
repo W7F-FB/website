@@ -2,8 +2,6 @@ import * as React from "react"
 import Image from "next/image"
 import ReactCountryFlag from "react-country-flag"
 import type { TeamDocument } from "../../../../prismicio-types"
-import { PrismicLink } from "@prismicio/react"
-import { isFilled } from "@prismicio/client"
 
 import { cn } from "@/lib/utils"
 import { getImageUrl, getImageAlt } from "@/cms/utils"
@@ -22,17 +20,6 @@ interface ClubBasicProps extends React.ComponentProps<"div"> {
 function ClubBasic({ team, comingSoon, placement, className, ...props }: ClubBasicProps) {
   const logoUrl = comingSoon ? null : getImageUrl(team.data.logo)
   const logoAlt = comingSoon ? null : getImageAlt(team.data.logo)
-
-  const hasOptaTournament = (() => {
-    if (!team.data.tournaments || comingSoon) return false
-    
-    return team.data.tournaments.some((item) => {
-      if (!isFilled.contentRelationship(item.tournament)) return false
-      
-      const tournamentData = item.tournament.data
-      return tournamentData?.opta_enabled === true
-    })
-  })()
 
   const containerClassName = cn(
     "relative -skew-x-[calc(var(--skew-btn)/5)] origin-center overflow-hidden border border-border/50 ",
@@ -99,14 +86,6 @@ function ClubBasic({ team, comingSoon, placement, className, ...props }: ClubBas
       )}
     </>
   )
-
-  if (hasOptaTournament) {
-    return (
-      <PrismicLink href={`/team/${team.uid}`} className={containerClassName}>
-        {content}
-      </PrismicLink>
-    )
-  }
 
   return (
     <div className={containerClassName}>
