@@ -25,6 +25,7 @@ import { PrismicLink } from "@prismicio/react";
 import { FAQBannerLayout } from "@/components/blocks/faq-banner-layout";
 import { mapBlogDocumentToMetadata } from "@/lib/utils";
 import { CaretRightIcon } from "@/components/website-base/icons";
+import { TextLink } from "@/components/ui/text-link";
 
 export const metadata: Metadata = {
     title: "World Sevens Football - The Future of 7v7 Soccer",
@@ -158,7 +159,8 @@ export default async function HomePage() {
                                         Featuring Elite Global Talent
                                     </SectionHeadingHeading>
                                     <SectionHeadingText variant="lg">
-                                        The global 7v7 series reimagining the game. Elite clubs, star players, high-stakes matches, and a $5M prize pool per tournament.
+                                        The global 7v7 series reimagining the game. Elite clubs, star players, high-stakes matches, and a $5M prize pool per tournament. <span className="font-bold text-foreground">Stream live and free</span> on <TextLink
+                                        className="text-foreground hover:text-foreground/90" href="https://www.dazn.com/en-US/competition/Competition:2ysblq9gh9ulnfw31299e659p?utm_source=web&utm_medium=organicpartner&utm_campaign=dazn_global_gl_display_soccer_acquisition_fs_2024&utm_term=allwomensfootballfreemium-worldsevensfootball_fixed" target="_blank" rel="noopener noreferrer">DAZN</TextLink> worldwide. Tune-in on TNT, TruTV and HBO Max in the U.S. Watch live in Spanish on Univision in the U.S. and Mexico.
                                     </SectionHeadingText>
                                 </SectionHeading>
                                 <ClubList tournament={tournament} />
