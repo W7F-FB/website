@@ -139,14 +139,14 @@ export default function MatchPageContent({
               </CardContent>
             </Card>
           )}
-          <FastBanner text="FAST." position="left" strokeWidth="1px" uppercase />
+          <FastBanner text="FAST." position="left" strokeWidth="1px" uppercase className="hidden md:block" />
         </div>
         <div className="col-span-2 space-y-8">
           <Card banner>
             <CardHeader>
               <CardTitle>Standouts</CardTitle>
             </CardHeader>
-            <CardContent className="grid grid-cols-3 gap-8">
+            <CardContent className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div>
                 <H3 className="text-xs text-muted-foreground mb-3 uppercase">Offensive</H3>
                 {standouts.scoringLeader && (
@@ -203,7 +203,7 @@ export default function MatchPageContent({
               ))}
             </CardContent>
           </Card>
-          <FastBanner text="FORWARD." position="right" strokeWidth="1.5px" />
+          <FastBanner text="FORWARD." position="right" strokeWidth="1.5px" className="hidden md:block" />
         </div>
       </Section>
     </PaddingGlobal>

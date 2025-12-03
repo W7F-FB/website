@@ -74,7 +74,7 @@ function SubpageHeroMediaBanner({
 }) {
   return (
     <Card
-      className={cn("relative z-10 p-4 pl-6 bg-extra-muted absolute bottom-8 right-8 max-w-sm overflow-hidden border-none", className)}
+      className={cn("relative z-10 p-4 pl-6 bg-extra-muted absolute bottom-8 left-4 right-4 md:left-auto md:right-8 max-w-sm overflow-hidden border-none", className)}
       {...props}
     >
       <div className="absolute w-3 h-full bg-gradient-to-r from-primary to-transparent -left-1 top-0 bottom-0 z-10"></div>

@@ -43,7 +43,7 @@ export default async function LeadershipPage() {
             <SubpageHero>
                 <SubpageHeroContent>
                     <Subtitle>World Sevens Football</Subtitle>
-                    <H1 className="uppercase text-6xl">Leadership</H1>
+                    <H1 className="uppercase text-4xl md:text-6xl">Leadership</H1>
                     <P>We are a team of experienced business professionals and players leading an organization with a mission to be an undeniable force in the game of football that ignites growth and equity, delivers electrifying experiences and connects global communities.</P>
                 </SubpageHeroContent>
                 <SubpageHeroMedia>
@@ -51,12 +51,12 @@ export default async function LeadershipPage() {
                 </SubpageHeroMedia>
             </SubpageHero>
         <div>
-        <Section padding="md" className="grid grid-cols-3 gap-16" id="player-advisory-council">
+        <Section padding="md" className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-16" id="player-advisory-council">
             <GradientBanner className="">
                 <H2>Player Advisory Council</H2>
                 <P>World Sevens Football is putting players at the heart of the game by developing a Player Advisory Council. This elite group will play a critical role in shaping player care and welfare, competition strategy, and the positive long-term impact on players and clubs.</P>
             </GradientBanner>
-            <div className="col-span-2 grid grid-cols-3 gap-8">
+            <div className="md:col-span-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                 {playerAdvisoryCouncil.length > 0 ? (
                     playerAdvisoryCouncil.map((member) => (
                         <LeadershipCard
@@ -72,20 +72,20 @@ export default async function LeadershipPage() {
                         />
                     ))
                 ) : (
-                    <EmptyMessage className="col-span-3 self-start">
+                    <EmptyMessage className="col-span-full md:col-span-2 lg:col-span-3 self-start">
                         <P>Our Player Advisory Council is being assembled. Check back soon to meet the elite players who will help shape the future of World Sevens Football.</P>
                     </EmptyMessage>
                 )}
-                <GridCellScrollLink href="#co-founders" />
+                <GridCellScrollLink href="#co-founders" className="col-span-full md:col-span-2 lg:col-span-3" />
             </div>
         </Section>
-        <Separator className="my-16"/>
-        <Section padding="md" className="grid grid-cols-3 gap-16" id="co-founders">
+        <Separator className="my-8 md:my-16"/>
+        <Section padding="md" className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-16" id="co-founders">
             <GradientBanner className="">
                 <H2>Co-Founders</H2>
                 <P>Meet the visionary co-founders who established World Sevens Football with a mission to revolutionize 7v7 soccer and create unparalleled tournament experiences for players worldwide.</P>
             </GradientBanner>
-            <div className="col-span-2 grid grid-cols-3 gap-8">
+            <div className="md:col-span-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                 {coFounders.length > 0 ? (
                     coFounders.map((member) => (
                         <LeadershipCard
@@ -101,20 +101,20 @@ export default async function LeadershipPage() {
                         />
                     ))
                 ) : (
-                    <EmptyMessage className="col-span-3 self-start">
+                    <EmptyMessage className="col-span-full md:col-span-2 lg:col-span-3 self-start">
                         <P>Meet the visionary minds behind World Sevens Football. Co-founder profiles coming soon.</P>
                     </EmptyMessage>
                 )}
-                <GridCellScrollLink href="#leadership-team" />
+                <GridCellScrollLink href="#leadership-team" className="col-span-full md:col-span-2 lg:col-span-3" />
             </div>
         </Section>
-        <Separator className="my-16" />
-        <Section padding="md" className="grid grid-cols-3 gap-16" id="leadership-team">
+        <Separator className="my-8 md:my-16" />
+        <Section padding="md" className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-16" id="leadership-team">
             <GradientBanner className="">
                 <H2>Leadership Team</H2>
                 <P>Our experienced leadership team brings together diverse expertise in sports management, business development, and tournament operations to drive World Sevens Football&apos;s strategic vision forward.</P>
             </GradientBanner>
-            <div className="col-span-2 grid grid-cols-3 gap-8">
+            <div className="md:col-span-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                 {leadershipTeam.length > 0 ? (
                     leadershipTeam.map((member) => (
                         <LeadershipCard
@@ -130,7 +130,7 @@ export default async function LeadershipPage() {
                         />
                     ))
                 ) : (
-                    <EmptyMessage className="col-span-3 self-start">
+                    <EmptyMessage className="col-span-full md:col-span-2 lg:col-span-3 self-start">
                         <P>Our experienced leadership team is driving World Sevens Football forward. Team member profiles will be available here soon.</P>
                     </EmptyMessage>
                 )}

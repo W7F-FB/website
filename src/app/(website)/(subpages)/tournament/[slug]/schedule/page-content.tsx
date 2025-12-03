@@ -128,7 +128,7 @@ export default function TournamentSchedulePageContent({ tournament, tournamentBl
                                 <SectionHeadingHeading>
                                     Group Stage
                                 </SectionHeadingHeading>
-                                <SectionHeadingText variant="lg" className="ml-auto mt-auto">
+                                <SectionHeadingText variant="lg" className="ml-0 md:ml-auto mt-auto">
                                     {totalMatches} {totalMatches === 1 ? 'Match' : 'Matches'}
                                 </SectionHeadingText>
                             </SectionHeading>
@@ -299,7 +299,7 @@ export default function TournamentSchedulePageContent({ tournament, tournamentBl
                                 <SectionHeadingHeading>
                                     Knockout Stage
                                 </SectionHeadingHeading>
-                                <SectionHeadingText variant="lg" className="ml-auto mt-auto">
+                                <SectionHeadingText variant="lg" className="ml-0 md:ml-auto mt-auto">
                                     {knockoutMatches} {knockoutMatches === 1 ? 'Match' : 'Matches'}
                                 </SectionHeadingText>
                             </SectionHeading>
@@ -382,7 +382,7 @@ export default function TournamentSchedulePageContent({ tournament, tournamentBl
                                         <SectionHeadingHeading>
                                             Tournament News
                                         </SectionHeadingHeading>
-                                        <Button asChild size="skew" variant="outline" className="ml-auto mt-auto">
+                                        <Button asChild size="skew" variant="outline" className="w-fit ml-0 md:ml-auto mt-auto">
                                             <PrismicLink href="/news"><span>All News</span></PrismicLink>
                                         </Button>
                                     </SectionHeading>

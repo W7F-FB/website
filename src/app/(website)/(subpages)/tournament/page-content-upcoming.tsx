@@ -78,7 +78,7 @@ export default function TournamentPageUpcoming({ tournament, tournamentBlogs }: 
                     {isFilled.number(tournament.data.prize_pool) && (
                         <P noSpace className="text-lg mt-1"><span className="font-semibold">{formatCurrencyInWords(tournament.data.prize_pool)}</span><span className="ml-3 font-light text-sm">Prize Pool</span></P>
                     )}
-                    <div className="mt-8 flex justify-start">
+                    <div className="mt-8 flex justify-center md:justify-start">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <Button asChild size="skew_lg">
                                 <Link href="/checkout"><span>Purchase Tickets</span></Link>

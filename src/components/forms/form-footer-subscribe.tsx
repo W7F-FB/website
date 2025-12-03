@@ -40,7 +40,7 @@ export function FormFooterSubscribe() {
 
   return (
     <div className="w-full">
-      <form onSubmit={form.handleSubmit(onSubmit)} className="flex w-full flex-col gap-2 sm:flex-row" noValidate>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="flex w-full flex-row gap-2" noValidate>
         <Controller
           control={form.control}
           name="email"
