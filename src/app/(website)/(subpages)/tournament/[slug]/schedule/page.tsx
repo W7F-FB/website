@@ -1,4 +1,4 @@
-import { notFound } from "next/navigation"
+import { notFound, redirect } from "next/navigation"
 import { getTournamentByUid } from "@/cms/queries/tournaments"
 import { getBlogsByTournament } from "@/cms/queries/blog"
 import { getTeamsByTournament } from "@/cms/queries/team"
@@ -14,6 +14,10 @@ export default async function TournamentSchedulePage({ params }: Props) {
   const tournament = await getTournamentByUid(slug)
 
   if (!tournament) return notFound()
+
+  if (tournament.data.status === "Complete") {
+    redirect(`/tournament/${slug}`)
+  }
 
   const [tournamentBlogs, prismicTeams] = await Promise.all([
     getBlogsByTournament(tournament.id),

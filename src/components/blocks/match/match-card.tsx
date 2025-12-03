@@ -16,15 +16,15 @@ import { Button } from "@/components/ui/button"
 const MATCH_CARD_VARIANTS = {
     default: {
         card: "rounded-sm bg-card/50 border-border/50",
-        bannerHeader: "px-6 py-3",
-        header: "px-6 py-3",
+        bannerHeader: "px-4 py-3",
+        header: "px-4 py-3",
         time: "text-sm font-light",
         status: "text-sm tracking-widest",
         vsText: "px-2 text-xs",
         content: "pb-4",
         score: "text-2xl",
-        teamLogos: "size-10 mr-3",
-        teams: "px-6 py-2",
+        teamLogos: "size-9 mr-3",
+        teams: "px-4 py-2",
         teamNames: "text-base",
         indicator: "size-2 -right-3.5",
         showFooter: true,
@@ -58,7 +58,7 @@ function MatchCardTeam({
     logoAlt,
     score,
     teamLabel,
-    teamShortName,
+    teamShortName: _teamShortName,
     compact,
     isLosing,
     isWinning,
@@ -69,7 +69,7 @@ function MatchCardTeam({
     teamNamesClassName,
     indicatorClassName,
 }: GameCardTeam) {
-    const displayName = compact && teamShortName ? teamShortName : (team?.data?.name || teamLabel)
+    const displayName = team?.data?.name || teamLabel //compact && teamShortName ? teamShortName : (team?.data?.name || teamLabel)
     
     const getIconSize = (logoSize: string) => {
         if (logoSize === "size-5") return "size-4"
@@ -216,12 +216,12 @@ function MatchCard(props: GameCardType) {
     const resolvedVariant: MatchCardVariant = variant ?? "default"
     const variantStyles = MATCH_CARD_VARIANTS[resolvedVariant] ?? MATCH_CARD_VARIANTS.default
     const isCompact = compact || resolvedVariant === "mini"
-    const interstitialPadding = resolvedVariant === "mini" ? "px-4 pl-6.5 py-0 hidden" : "px-6 py-2"
+    const interstitialPadding = resolvedVariant === "mini" ? "px-4 pl-6.5 py-0 hidden" : "px-4 py-2"
 
     const cardBody = (
         <Card
             className={cn(
-                "p-0 gap-0",
+                "p-0 gap-0 flex flex-col h-full",
                 variantStyles.card,
                 className
             )}
@@ -242,7 +242,7 @@ function MatchCard(props: GameCardType) {
                     </div>
                 </CardHeader>
             )}
-            <CardContent className={cn("px-0", variantStyles.content, !optaEnabled && "pt-4")}>
+            <CardContent className={cn("px-0 flex-grow", variantStyles.content, !optaEnabled && "pt-4")}>
                 <MatchCardTeam
                     team={homeTeam ?? null}
                     logoUrl={homeLogoUrl}
@@ -289,7 +289,7 @@ function MatchCard(props: GameCardType) {
                 />
             </CardContent>
             {variantStyles.showFooter && (
-                <CardFooter className="px-6 py-3 bg-muted/50 flex items-center justify-between">
+                <CardFooter className="md:px-4 px-4 py-3 bg-muted/50 flex items-center justify-between">
                     {optaEnabled ? (
                         <>
                             <div className="grid grid-cols-[auto_1fr] hidden">

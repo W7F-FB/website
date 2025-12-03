@@ -343,3 +343,12 @@ export const PrivacyChoicesIcon = createIcon(
   "0 0 30 14"
 )
 
+export const InfoShieldIcon = createIcon(
+  "InfoShieldIcon",
+  <path
+    fillRule="evenodd"
+    d="M2 1v17.5965l0.52485 0.2834 8.99995 4.86 0.4751 0.2566 0.4752 -0.2566 8.9999 -4.86 0.5248 -0.2834 0 -0.5965L22 1.00001 22 0H2v1Zm9.25 3.5v2h2v-2h-2Zm-2 4h4v6h2v2h-6v-2h2v-4h-2v-2Z"
+    clipRule="evenodd"
+  />
+)
+

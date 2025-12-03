@@ -315,4 +315,8 @@ select:-webkit-autofill:focus {
   transition: background-color 5000s ease-in-out 0s;
 };
 
+.ketch-flex:has(> a[aria-label="Learn more about Ketch for data privacy (opens in a new tab)"]) {
+  display: none !important;
+}
+
 

@@ -1530,6 +1530,17 @@ interface TournamentDocumentData {
   awards: prismic.GroupField<Simplify<TournamentDocumentDataAwardsItem>>;
 
   /**
+   * Know before you go  field in *Tournament*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: tournament.know_before_you_go
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  know_before_you_go: prismic.RichTextField;
+
+  /**
    * Slice Zone field in *Tournament*
    *
    * - **Field Type**: Slice Zone
@@ -1664,6 +1675,37 @@ export interface WebsiteDocumentDataFooterMenusItem {
 }
 
 /**
+ * Item in *Website → Where to watch partners*
+ */
+export interface WebsiteDocumentDataWhereToWatchPartnersItem {
+  /**
+   * Broadcast Partner field in *Website → Where to watch partners*
+   *
+   * - **Field Type**: Content Relationship
+   * - **Placeholder**: *None*
+   * - **API ID Path**: website.where_to_watch_partners[].broadcast_partner
+   * - **Documentation**: https://prismic.io/docs/fields/content-relationship
+   */
+  broadcast_partner: ContentRelationshipFieldWithData<
+    [
+      {
+        id: "broadcast_partners";
+        fields: [
+          "name",
+          "logo_white",
+          "logo",
+          "icon_logo",
+          "logo_on_primary",
+          "color_primary",
+          "color_secondary",
+          "streaming_link",
+        ];
+      },
+    ]
+  >;
+}
+
+/**
  * Content for Website documents
  */
 interface WebsiteDocumentData {
@@ -1678,6 +1720,28 @@ interface WebsiteDocumentData {
    */
   footer_menus: prismic.GroupField<
     Simplify<WebsiteDocumentDataFooterMenusItem>
+  > /**
+   * More Info Mode field in *Website*
+   *
+   * - **Field Type**: Select
+   * - **Placeholder**: *None*
+   * - **API ID Path**: website.more_info_mode
+   * - **Tab**: Navbar
+   * - **Documentation**: https://prismic.io/docs/fields/select
+   */;
+  more_info_mode: prismic.SelectField<"Recent News" | "Where to watch">;
+
+  /**
+   * Where to watch partners field in *Website*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: website.where_to_watch_partners[]
+   * - **Tab**: Navbar
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  where_to_watch_partners: prismic.GroupField<
+    Simplify<WebsiteDocumentDataWhereToWatchPartnersItem>
   >;
 }
 
@@ -1764,6 +1828,7 @@ declare module "@prismicio/client" {
       WebsiteDocumentData,
       WebsiteDocumentDataFooterMenusMenuLinksItem,
       WebsiteDocumentDataFooterMenusItem,
+      WebsiteDocumentDataWhereToWatchPartnersItem,
       AllDocumentTypes,
     };
   }

@@ -10,7 +10,7 @@ import { PrismicLink } from "@prismicio/react"
 import { isFilled } from "@prismicio/client"
 import { Separator } from "@/components/ui/separator"
 import { CategoryButton } from "@/components/blocks/category-button"
-import { SoccerIcon, TicketIcon, WhistleIcon } from "../icons"
+import { SoccerIcon, TicketIcon, WhistleIcon, InfoShieldIcon } from "../icons"
 import { PrismicNextImage } from "@prismicio/next"
 import { getTeamsByTournament } from "@/cms/queries/team"
 
@@ -125,8 +125,8 @@ export async function NavigationMenuTournamentFeatured({
     const statusText = getStatusText()
 
     return (
-        <div className="grid grid-cols-[auto_1fr] bg-gradient-to-txxx from-muted/50 to-muted/20 ">
-            <PrismicLink document={tournament} className="relative w-64 h-full group/tournament overflow-hidden border-muted border">
+        <div className="grid lg:grid-cols-[auto_1fr] bg-gradient-to-txxx from-muted/50 to-muted/20 ">
+            <PrismicLink document={tournament} className=" hidden lg:block relative w-full lg:w-64 h-full group/tournament overflow-hidden border-muted border">
                 <div className="relative h-full w-full">
                     <PrismicNextImage
                         field={tournament.data.nav_image}
@@ -141,8 +141,8 @@ export async function NavigationMenuTournamentFeatured({
                 data-slot="navigation-menu-link"
                 className={cn(
                     className,
-                    "min-w-80 h-full min-h-48 flex flex-col justify-between gap-12 p-3 lg:pr-0 relative rounded-none overflow-hidden",
-                    "[&_svg:not([class*='text-'])]:text-muted-foreground flex flex-col rounded-sm text-sm [&_svg:not([class*='size-'])]:size-4 font-headers rounded-none px-4"
+                    "min-w-80 h-full min-h-48 flex flex-col justify-between gap-6 lg:gap-12 lg:pr-0 relative rounded-none overflow-hidden",
+                    "[&_svg:not([class*='text-'])]:text-muted-foreground flex flex-col rounded-sm text-sm [&_svg:not([class*='size-'])]:size-4 font-headers rounded-none lg:px-4 lg:py-3 py-0 px-0"
                 )}
             >
                 <div className="relative origin-top-left">
@@ -222,7 +222,10 @@ export async function NavigationMenuTournamentFeatured({
                     </CategoryButton>
                     <Separator variant="gradient" gradientDirection="toRight" />
                     <CategoryButton href={`/tournament/${tournament.uid}/know-before-you-go`}>
-                        Know before you go
+                        <div className="flex items-center gap-3">
+                            <InfoShieldIcon className="size-4 text-foreground" />
+                            Know before you go
+                        </div>
                     </CategoryButton>
                 </div>
             </div>

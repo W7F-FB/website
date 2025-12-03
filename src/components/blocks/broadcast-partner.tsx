@@ -81,6 +81,7 @@ export function BroadcastPartnerLink({
   ...props
 }: BroadcastPartnerLinkProps) {
   const logo = branded ? partner.data.logo_on_primary : partner.data.logo_white
+  const isSmall = size === "sm"
 
   const _brandedStyles = branded && partner.data.color_primary
     ? {
@@ -95,14 +96,21 @@ export function BroadcastPartnerLink({
     <Button
       variant={variant}
       size={size}
-      className={cn("group gap-3 border-muted h-auto px-2 w-full flex items-center justify-between gap-3 py-2.5", className, brandedClass)}
+      className={cn(
+        "group/broadcast-partner gap-3 border-muted h-auto px-2 w-full flex items-center justify-between py-2.5",
+        className,
+        brandedClass
+      )}
       style={_brandedStyles}
       asChild
       {...props}
     >
       <Link href={partner.data.streaming_link || ""} target="_blank" rel="noopener noreferrer">
         {logo?.url && (
-          <div className="relative w-12 h-9  shrink-0 pointer-events-none">
+          <div className={cn(
+            "relative shrink-0 pointer-events-none",
+            isSmall ? "w-8 h-6" : "w-12 h-9"
+          )}>
             <PrismicNextImage
               field={logo}
               fill
@@ -112,8 +120,8 @@ export function BroadcastPartnerLink({
           </div>
         )}
         <div className="text-xs font-medium flex items-center gap-1">
-          <div className="group-hover:underline">Watch</div>
-          <CaretRightIcon className="size-2" />
+          {!isSmall && <div className="group-hover/broadcast-partner:underline">Watch</div>}
+          <CaretRightIcon className={cn(isSmall ? "size-3" : "size-2")} />
         </div>
       </Link>
     </Button>

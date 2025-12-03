@@ -5,7 +5,6 @@
   "repeatable": false,
   "status": true,
   "json": {
-    "Main": {},
     "Footer": {
       "footer_menus": {
         "type": "Group",
@@ -53,6 +52,48 @@
           },
           "label": "Footer Menus",
           "repeat": true
+        }
+      }
+    },
+    "Navbar": {
+      "more_info_mode": {
+        "type": "Select",
+        "config": {
+          "label": "More Info Mode",
+          "placeholder": "",
+          "options": ["Recent News", "Where to watch"]
+        }
+      },
+      "where_to_watch_partners": {
+        "type": "Group",
+        "config": {
+          "label": "Where to watch partners",
+          "repeat": true,
+          "fields": {
+            "broadcast_partner": {
+              "type": "Link",
+              "config": {
+                "label": "Broadcast Partner",
+                "select": "document",
+                "repeat": false,
+                "customtypes": [
+                  {
+                    "id": "broadcast_partners",
+                    "fields": [
+                      "name",
+                      "logo_white",
+                      "logo",
+                      "icon_logo",
+                      "logo_on_primary",
+                      "color_primary",
+                      "color_secondary",
+                      "streaming_link"
+                    ]
+                  }
+                ]
+              }
+            }
+          }
         }
       }
     }

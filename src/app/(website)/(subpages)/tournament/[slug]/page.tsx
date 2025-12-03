@@ -13,7 +13,6 @@ import type * as prismic from "@prismicio/client"
 import { dev } from "@/lib/dev"
 
 type AwardAwardsField = TournamentDocumentDataAwardsItem['awards']
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 type AwardData = AwardAwardsField extends prismic.ContentRelationshipField<infer _ID, infer _Lang, infer TData>
     ? TData
     : never

@@ -1,7 +1,7 @@
 import * as prismic from "@prismicio/client";
 
 import { createClient } from "../../prismicio";
-import type { WebsiteDocument } from "../../../prismicio-types";
+import type { WebsiteDocument, BroadcastPartnersDocument } from "../../../prismicio-types";
 
 /**
  * Type for footer column data
@@ -24,6 +24,11 @@ export type SiteSettings = {
   _id: string;
   _type: string;
   footerMenus?: FooterColumnData[];
+};
+
+export type NavigationSettings = {
+  moreInfoMode: "Recent News" | "Where to watch" | null;
+  broadcastPartners: BroadcastPartnersDocument[];
 };
 
 /**
@@ -87,4 +92,46 @@ function transformWebsiteData(website: WebsiteDocument): SiteSettings {
     _type: website.type,
     footerMenus: footerMenus.length > 0 ? footerMenus : undefined
   };
+}
+
+export async function getNavigationSettings(): Promise<NavigationSettings | null> {
+  try {
+    const client = createClient();
+    const website = await client.getSingle("website", {
+      fetchLinks: [
+        "broadcast_partners.name",
+        "broadcast_partners.logo_white",
+        "broadcast_partners.logo",
+        "broadcast_partners.logo_on_primary",
+        "broadcast_partners.icon_logo",
+        "broadcast_partners.color_primary",
+        "broadcast_partners.color_secondary",
+        "broadcast_partners.streaming_link"
+      ]
+    });
+    
+    const broadcastPartners: BroadcastPartnersDocument[] = [];
+    
+    if (prismic.isFilled.group(website.data.where_to_watch_partners)) {
+      website.data.where_to_watch_partners.forEach((partner) => {
+        if (prismic.isFilled.contentRelationship(partner.broadcast_partner)) {
+          const partnerDoc = partner.broadcast_partner as unknown as BroadcastPartnersDocument;
+          broadcastPartners.push(partnerDoc);
+        }
+      });
+    }
+    
+    return {
+      moreInfoMode: website.data.more_info_mode || null,
+      broadcastPartners
+    };
+  } catch (error) {
+    if (error instanceof Error && 
+        (('status' in error && (error as { status: number }).status === 404) ||
+        error.message.includes('No documents were returned'))
+    ) {
+      return null;
+    }
+    throw error;
+  }
 }
