@@ -5,9 +5,9 @@ import { SubpageHeroSecondary } from "@/components/blocks/subpage-hero"
 import { Button } from "@/components/ui/button"
 import { PalmtreeIcon, WhistleIcon, ChampionIcon } from "@/components/website-base/icons"
 import { SectionHeading, SectionHeadingHeading, SectionHeadingText, SectionHeadingSubtitle } from "@/components/sections/section-heading"
-import { Badge } from "@/components/ui/badge"
 import { MatchCard } from "@/components/blocks/match/match-card"
-import { formatMatchDayDate, getGroupStageMatchesPrismic, getSemiFinalMatchesPrismic, getThirdPlaceMatchPrismic, getFinalMatchPrismic, groupMatchesByDatePrismic, sortMatchesByNumber } from "../../utils"
+import { getGroupStageMatchesPrismic, getSemiFinalMatchesPrismic, getThirdPlaceMatchPrismic, getFinalMatchPrismic, groupMatchesByDatePrismic, sortMatchesByNumber } from "../../utils"
+import { MatchDayBadge } from "@/components/blocks/tournament/match-day-badge"
 import { formatDateRange, formatCurrencyInWords, mapBlogDocumentToMetadata } from "@/lib/utils"
 import { PostGrid } from "@/components/blocks/posts/post-grid"
 import { PrismicLink } from "@prismicio/react"
@@ -17,8 +17,6 @@ import { PostBanner } from "@/components/blocks/posts/post"
 import { isFilled } from "@prismicio/client"
 import { VideoBanner } from "@/components/blocks/video-banner/video-banner"
 import { cn } from "@/lib/utils"
-import { NavMain } from "@/components/website-base/nav/nav-main"
-import { Footer } from "@/components/website-base/footer/footer-main"
 import { FastBanner } from "@/components/blocks/fast-banners"
 import { Background } from "@/components/ui/background"
 import Link from "next/link"
@@ -68,14 +66,8 @@ export default function TournamentSchedulePageContent({ tournament, tournamentBl
     })() : null
 
     return (
-        <>
-            <NavMain showBreadcrumbs customBreadcrumbs={[
-                { label: "Home", href: "/" },
-                { label: tournament.data.title, href: `/tournament/${tournament.uid}` },
-                { label: "Schedule", href: `/tournament/${tournament.uid}/schedule` }
-            ]} />
-            <main className="flex-grow min-h-[30rem]">
-                <PaddingGlobal>
+        <div>
+            <PaddingGlobal>
                 <div>
                     <SubpageHeroSecondary className="max-w-none w-full">
                         <Background className="flex items-start justify-between">
@@ -126,7 +118,7 @@ export default function TournamentSchedulePageContent({ tournament, tournamentBl
                     </div>
 
                     <Container maxWidth="lg">
-                        <Section padding="md" id="results">
+                        <Section padding="md" id="results" >
                             <SectionHeading variant="split">
                                 <SectionHeadingHeading>
                                     Group Stage
@@ -135,7 +127,7 @@ export default function TournamentSchedulePageContent({ tournament, tournamentBl
                                     {totalMatches} {totalMatches === 1 ? 'Match' : 'Matches'}
                                 </SectionHeadingText>
                             </SectionHeading>
-                            <div className="grid grid-cols-1 md:grid-cols-7 gap-4 md:gap-12">
+                            <div className="grid grid-cols-1 md:grid-cols-7 gap-4 gap-12">
                                 {prismicTeams.length > 0 && (
                                     <Card banner className="col-span-1 md:col-span-2 self-start md:sticky md:top-32">
                                         <CardHeader>
@@ -207,16 +199,7 @@ export default function TournamentSchedulePageContent({ tournament, tournamentBl
                                                     const [date, matches] = matchDaysArray[0]
                                                     return (
                                                         <div key={date} id="match-day-1" className="space-y-8">
-                                                            <div className="flex justify-start gap-0.5 pr-3">
-                                                                <div className="flex-grow">
-                                                                    <Badge fast variant="muted" origin="bottom-left" size="lg" className="text-2xl">
-                                                                        Match day 1
-                                                                    </Badge>
-                                                                </div>
-                                                                <Badge variant="muted" origin="bottom-left" size="lg" className="text-sm md:text-base relative">
-                                                                    <span className="relative z-10">{formatMatchDayDate(date)}</span>
-                                                                </Badge>
-                                                            </div>
+                                                            <MatchDayBadge matchDay={1} date={date} />
                                                             {renderSession("Session 1", matches, matchDaysArray[1] ? "#match-day-2" : "#knockout", "Doors open at 3:30 PM EST")}
                                                         </div>
                                                     )
@@ -229,16 +212,7 @@ export default function TournamentSchedulePageContent({ tournament, tournamentBl
 
                                                     return (
                                                         <div key={date} id="match-day-2" className="space-y-8">
-                                                            <div className="flex justify-start gap-0.5 pr-3">
-                                                                <div className="flex-grow">
-                                                                    <Badge fast variant="muted" origin="bottom-left" size="lg" className="text-2xl">
-                                                                        Match day 2
-                                                                    </Badge>
-                                                                </div>
-                                                                <Badge variant="muted" origin="bottom-left" size="lg" className="text-sm md:text-base relative">
-                                                                    <span className="relative z-10">{formatMatchDayDate(date)}</span>
-                                                                </Badge>
-                                                            </div>
+                                                            <MatchDayBadge matchDay={2} date={date} />
                                                             {renderSession("Session 2", session2Matches, session3Matches.length > 0 ? "#session-3" : (matchDaysArray[2] ? "#match-day-3" : "#knockout"), "Doors open at 9:30 AM EST")}
                                                             {session3Matches.length > 0 && (
                                                                 <div id="session-3">
@@ -258,16 +232,7 @@ export default function TournamentSchedulePageContent({ tournament, tournamentBl
 
                                                     return (
                                                         <div key={date} id={`match-day-${matchDayNumber}`} className="space-y-8">
-                                                            <div className="flex justify-start gap-0.5 pr-3">
-                                                                <div className="flex-grow">
-                                                                    <Badge fast variant="muted" origin="bottom-left" size="lg" className="text-2xl">
-                                                                        Match day {matchDayNumber}
-                                                                    </Badge>
-                                                                </div>
-                                                                <Badge variant="muted" origin="bottom-left" size="lg" className="text-sm md:text-base relative">
-                                                                    <span className="relative z-10">{formatMatchDayDate(date)}</span>
-                                                                </Badge>
-                                                            </div>
+                                                            <MatchDayBadge matchDay={matchDayNumber} date={date} />
                                                             <div className={cn("grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6", compact && "md:grid-cols-3")}>
                                                                 {matches.map((match) => (
                                                                     <MatchCard
@@ -306,18 +271,7 @@ export default function TournamentSchedulePageContent({ tournament, tournamentBl
                                     {knockoutMatches} {knockoutMatches === 1 ? 'Match' : 'Matches'}
                                 </SectionHeadingText>
                             </SectionHeading>
-                            <div className="flex justify-start gap-0.5 pr-3 mb-8">
-                                <div className="flex-grow">
-                                    <Badge fast variant="muted" origin="bottom-left" size="lg" className="text-2xl">
-                                        Match day 3
-                                    </Badge>
-                                </div>
-                                {knockoutDate && (
-                                    <Badge variant="muted" origin="bottom-left" size="lg" className="text-base">
-                                        {formatMatchDayDate(knockoutDate.split(' ')[0])}
-                                    </Badge>
-                                )}
-                            </div>
+                            <MatchDayBadge matchDay={3} date={knockoutDate ? knockoutDate.split(' ')[0] : null} className="mb-8" />
                             <div className="mb-8">
                                 <div className="flex items-center justify-between gap-3">
                                     <div className="flex items-center gap-2 whitespace-nowrap">
@@ -406,9 +360,7 @@ export default function TournamentSchedulePageContent({ tournament, tournamentBl
                     </Container>
                 </div>
             </PaddingGlobal>
-            </main>
-            <Footer />
-        </>
+        </div>
     )
 }
 

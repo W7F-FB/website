@@ -92,7 +92,7 @@ export function TicketTypes() {
                             <span className="font-[450] font-headers uppercase text-accent-foreground block">
                                 {ticketsCard.subtitle}
                             </span>
-                            <Button asChild variant="outline" size="sm" className="text-foreground">
+                            <Button asChild variant="outline" size="sm" className="text-foreground text-xxs lg:text-sm">
                                 <Link href={`/tournament/fort-lauderdale/schedule`}>View Schedule</Link>
                             </Button>
                         </div>
@@ -103,7 +103,7 @@ export function TicketTypes() {
                     </CardTitle>
                     <Separator className="mt-4" />
                 </CardHeader>
-                <CardContent>
+                <CardContent >
                     <div>
                         <Accordion type="single" collapsible className="w-full ">
                             {ticketOptions.map((option) => (
@@ -132,16 +132,16 @@ export function TicketTypes() {
                             ))}
                         </Accordion>
                     </div>
-                    <div className="flex items-center justify-between gap-3 py-6">
+                    <div className="flex items-center justify-between gap-3 pt-6">
                         <div className="flex items-center gap-3">
                             <MapPinAreaIcon className="size-3.5 mb-0.75" />
-                            <span className="text-lg">{ticketsCard.venue}</span>
+                            <span className="text-base md:text-lg mt-1">{ticketsCard.venue}</span>
                         </div>
                         <Button
                             variant="outline"
                             size="sm"
                             onClick={() => setLightboxOpen(true)}
-                            className="text-foreground"
+                            className="text-foreground text-xxs lg:text-sm"
                         >
                             View Layout
                         </Button>

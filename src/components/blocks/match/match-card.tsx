@@ -22,10 +22,10 @@ const MATCH_CARD_VARIANTS = {
         status: "text-sm tracking-widest",
         vsText: "px-2 text-xs",
         content: "pb-4",
-        score: "text-2xl",
+        score: "text-2xl mr-2",
         teamLogos: "size-9 mr-3",
         teams: "px-4 py-2",
-        teamNames: "text-base",
+        teamNames: "lg:text-base text-base",
         indicator: "size-2 -right-3.5",
         showFooter: true,
         linkTeams: true,
@@ -34,7 +34,7 @@ const MATCH_CARD_VARIANTS = {
     mini: {
         card: "rounded-none bg-transparent border-0 cursor-pointer transition-colors duration-200 hover:bg-muted/20",
         bannerHeader: "px-4 py-2",
-        header: "px-4 pt-2 pb-1",
+        header: "px-4 lg:px-4 pt-2 pb-1",
         time: "text-[0.65rem] font-normal",
         status: "text-xxs tracking-widest font-medium",
         vsText: "px-1 text-[0.55rem] text-muted-foreground/70",
@@ -42,7 +42,7 @@ const MATCH_CARD_VARIANTS = {
         score: "text-base",
         teamLogos: "size-4 mr-2",
         teams: "px-4 py-0",
-        teamNames: "text-[0.7rem]",
+        teamNames: "lg:text-[0.7rem] text-[0.7rem]",
         indicator: "size-1.5 -right-3",
         showFooter: false,
         linkTeams: false,
@@ -209,7 +209,7 @@ function MatchCard(props: GameCardType) {
     const gameDate = formatGameDate(startTime)
     const resolvedVariant: MatchCardVariant = variant ?? "default"
     const variantStyles = MATCH_CARD_VARIANTS[resolvedVariant] ?? MATCH_CARD_VARIANTS.default
-    const isCompact = compact || resolvedVariant === "mini"
+    const isCompact = isPrismicMatch ? false : (compact || resolvedVariant === "mini")
     const interstitialPadding = resolvedVariant === "mini" ? "px-4 pl-6.5 py-0 hidden" : "px-4 py-2"
 
     const cardBody = (
@@ -236,7 +236,7 @@ function MatchCard(props: GameCardType) {
                     </div>
                 </CardHeader>
             )}
-            <CardContent className={cn("px-0 flex-grow", variantStyles.content, !optaEnabled && "pt-4")}>
+            <CardContent className={cn("px-0 lg:px-0 flex-grow", variantStyles.content, !optaEnabled && "pt-4")}>
                 <MatchCardTeam
                     team={homeTeam ?? null}
                     logoUrl={homeLogoUrl}
@@ -259,7 +259,7 @@ function MatchCard(props: GameCardType) {
                     <div className="relative">
                         <div className="relative flex items-center justify-start gap-4">
                             <span className={cn("text-muted-foreground/75", variantStyles.vsText)}>VS</span>
-                            <Separator variant="gradient" gradientDirection="toRight" className="w-auto flex-grow" />
+                            <Separator variant="gradient" gradientDirection="toRight" className="!w-auto flex-grow" />
                         </div>
                     </div>
                 </div>

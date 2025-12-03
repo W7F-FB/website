@@ -115,8 +115,8 @@ export default function PlayByPlay({ commentary, className }: PlayByPlayProps) {
     return (
         <Tabs className={cn("",className)}>
             <TabsList className="bg-card w-full">
-                <TabsTrigger value="all-plays">All Plays</TabsTrigger>
-                <TabsTrigger value="scoring-chances">Scoring Chances</TabsTrigger>
+                <TabsTrigger value="all-plays" className="text-xs lg:text-base">All Plays</TabsTrigger>
+                <TabsTrigger value="scoring-chances" className="text-xs lg:text-base">Scoring Chances</TabsTrigger>
             </TabsList>
             <TabsContents>
                 <TabsContent value="all-plays">

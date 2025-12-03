@@ -89,11 +89,12 @@ export default function SocialImpactPage() {
   return <>
     <NavMain showBreadcrumbs />
     <main className="flex-grow min-h-[30rem]">
-      <PaddingGlobal>
+      <div>
+          <PaddingGlobal>
       <SubpageHero>
         <SubpageHeroContent>
           <Subtitle>Global</Subtitle>
-          <H1 className="uppercase text-6xl">Social Impact</H1>
+          <H1 className="">Social Impact</H1>
           <P>World Sevens Football is committed to making a positive impact on the world through our community programs, youth development, and global football initiatives that extend beyond the pitch.</P>
         </SubpageHeroContent>
         <SubpageHeroMedia>
@@ -132,6 +133,7 @@ export default function SocialImpactPage() {
 
       </Container>
     </PaddingGlobal>
+      </div>
     </main>
     <Footer />
   </>

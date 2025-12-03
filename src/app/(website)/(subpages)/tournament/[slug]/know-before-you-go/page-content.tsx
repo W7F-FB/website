@@ -8,8 +8,6 @@ import { formatDateRange, formatCurrencyInWords } from "@/lib/utils"
 import { isFilled } from "@prismicio/client"
 import { Background } from "@/components/ui/background"
 import Link from "next/link"
-import { NavMain } from "@/components/website-base/nav/nav-main"
-import { Footer } from "@/components/website-base/footer/footer-main"
 import { PrismicRichText } from "@prismicio/react"
 
 type Props = {
@@ -18,14 +16,8 @@ type Props = {
 
 export default function TournamentKnowBeforeYouGoPageContent({ tournament }: Props) {
     return (
-        <>
-            <NavMain showBreadcrumbs customBreadcrumbs={[
-                { label: "Home", href: "/" },
-                { label: tournament.data.title, href: `/tournament/${tournament.uid}` },
-                { label: "Know Before You Go", href: `/tournament/${tournament.uid}/know-before-you-go` }
-            ]} />
-            <main className="flex-grow min-h-[30rem]">
-                <PaddingGlobal>
+        <div>
+            <PaddingGlobal>
                 <div>
                     <SubpageHeroSecondary className="max-w-none w-full">
                         <Background className="flex items-start justify-between">
@@ -81,7 +73,7 @@ export default function TournamentKnowBeforeYouGoPageContent({ tournament }: Pro
                                                 return (
                                                     <a
                                                         href={node.data.url || ""}
-                                                        className="underline underline-offset-2"
+                                                        className="underline underline-offset-2 text-primary"
                                                         {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                                                     >
                                                         {children}
@@ -96,9 +88,7 @@ export default function TournamentKnowBeforeYouGoPageContent({ tournament }: Pro
                     </Container>
                 </div>
             </PaddingGlobal>
-            </main>
-            <Footer />
-        </>
+        </div>
     )
 }
 

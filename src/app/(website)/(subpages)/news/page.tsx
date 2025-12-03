@@ -9,8 +9,6 @@ import { PostCardHoriz, PostCardVert } from "@/components/blocks/posts/post"
 import { getAllBlogs } from "@/cms/queries/blog"
 import { Separator } from "@/components/ui/separator";
 import { mapBlogDocumentToMetadata } from "@/lib/utils"
-import { Background } from "@/components/ui/background"
-import { PalmtreeIcon } from "@/components/website-base/icons"
 
 export const metadata: Metadata = {
   title: "News - World Sevens Football",
@@ -63,14 +61,11 @@ export default function NewsPage() {
     <>
       <NavMain showBreadcrumbs />
       <main className="flex-grow min-h-[30rem]">
-        <PaddingGlobal>
+        <div>
+            <PaddingGlobal>
         <SubpageHeroSecondary className="max-w-none w-full">
-          <Background className="flex items-start justify-between">
-            <PalmtreeIcon fill="currentColor" className="opacity-3 text-foreground w-auto h-100 mask-b-from-0% mask-b-to-85%" />
-            <PalmtreeIcon fill="currentColor" className="opacity-3 text-foreground w-auto h-100 rotate-y-180 mask-b-from-0% mask-b-to-85%" />
-          </Background>
           <div className="relative max-w-3xl mx-auto">
-            <Subtitle className="text-primary">Highlights</Subtitle>
+            <Subtitle className="text-primary">Stay Updated</Subtitle>
             <H1 className="uppercase">W7F NEWS</H1>
             <P className="text-lg">Stay updated with the latest news and updates from World Sevens Football.</P>
           </div>
@@ -81,6 +76,7 @@ export default function NewsPage() {
           </Section>
         </Container>
       </PaddingGlobal>
+        </div>
       </main>
       <Footer />
     </>

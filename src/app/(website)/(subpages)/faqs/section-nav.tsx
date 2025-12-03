@@ -42,7 +42,7 @@ export function SectionNav({ sections }: SectionNavProps) {
   }, [sections])
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-2">
       {sections.map((section) => {
         const isActive = activeSection === section.id
         return (

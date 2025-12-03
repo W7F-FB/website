@@ -19,7 +19,8 @@ export default async function PolicyPage(props: { params: Params }) {
     <>
       <NavMain showBreadcrumbs />
       <main className="flex-grow min-h-[30rem]">
-        <PaddingGlobal>
+        <div>
+            <PaddingGlobal>
       <Container maxWidth="md">
         <Section padding="lg">
           <H1>{policy.data.name}</H1>
@@ -34,6 +35,7 @@ export default async function PolicyPage(props: { params: Params }) {
         </Section>
       </Container>
     </PaddingGlobal>
+        </div>
       </main>
       <Footer />
     </>

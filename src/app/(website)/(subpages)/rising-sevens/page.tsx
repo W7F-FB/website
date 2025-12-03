@@ -13,6 +13,7 @@ import Image from "next/image";
 import { InfoCard } from "@/components/blocks/info-card";
 import { Metadata } from "next";
 import { Badge } from "@/components/ui/badge";
+import { CaretRightIcon } from "@/components/website-base/icons";
 
 export const metadata: Metadata = {
     title: "Rising Sevens Youth Tournament - World Sevens Football",
@@ -101,7 +102,8 @@ export default function RisingSevensPage() {
         <>
             <NavMain showBreadcrumbs />
             <main className="flex-grow min-h-[30rem]">
-                <PaddingGlobal>
+                <div>
+                    <PaddingGlobal>
                 <SubpageHero>
                     <SubpageHeroContent>
                         <Subtitle>Youth Tournament</Subtitle>
@@ -142,7 +144,7 @@ export default function RisingSevensPage() {
                         </div>
                         <div>
                             <div className="flex mb-8 mt-3">
-                                <Badge fast variant="backdrop_blur" className="uppercase">Tournament Info</Badge>
+                                <Badge fast variant="muted" className="uppercase">Tournament Info</Badge>
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 auto-cols-fr gap-4 md:gap-6">
                                 {infoData.map((info, index) => (
@@ -162,8 +164,8 @@ export default function RisingSevensPage() {
                     <Container maxWidth="md">
                         <Card>
                             <CardHeader>
-                                <CardTitle className="text-2xl md:text-4xl font-headers font-semibold">
-                                    FAQs
+                                <CardTitle>
+                                   <H2>FAQs</H2> 
                                 </CardTitle>
                                 <CardDescription className="text-base">Frequently asked questions about World Sevens Football</CardDescription>
                             </CardHeader>
@@ -180,9 +182,14 @@ export default function RisingSevensPage() {
                                         </AccordionItem>
                                     ))}
                                 </Accordion>
-                                <div className="mt-8 text-center">
-                                    <Button asChild size="skew">
-                                        <Link href="/faqs"><span>Read More</span></Link>
+                                <div className="mt-8 pl-2 w-full flex justify-end">
+                                    <Button asChild variant="link">
+                                        <Link href="/faqs">
+                                            <span>Read More</span>
+                                            <CaretRightIcon
+                                                className="size-3 mt-0.5"
+                                            />
+                                        </Link>
                                     </Button>
                                 </div>
                             </CardContent>
@@ -192,6 +199,7 @@ export default function RisingSevensPage() {
             </Container>
         </div>
         </PaddingGlobal>
+                </div>
             </main>
             <Footer />
         </>

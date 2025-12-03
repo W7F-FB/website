@@ -198,6 +198,10 @@
 #squadup-checkout {
     margin-top: -30px !important;
 }
+
+button {
+    font-weight: 600 !important;
+}
 .divider {
     height: 1px;
     background-color: var(--border);
@@ -399,6 +403,7 @@ p[dir="ltr"] {
     background-color: rgba(255, 255, 255, 0.05) !important;
     color: var(--text-primary, white) !important;
     border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    margin-bottom: 0.5rem !important;
 }
 
 #squadup-checkout input[type="text"]:focus,
@@ -416,9 +421,10 @@ p[dir="ltr"] {
     margin-bottom: 1.25rem !important;
 }
 
-#squadup-checkout .control-label {
-    margin-bottom: 0rem !important;
+#squadup-checkout .has-error .control-label  {
+    color: var(--destructive) !important;
 }
+
 
 .row>.col-md-12.col-sm-12[style="padding: 0px;"] {
     display: none !important;

@@ -28,6 +28,11 @@ const nextConfig: NextConfig = {
         destination: '/fort-lauderdale/know-before-you-go',
         permanent: true,
       },
+      {
+        source: '/tickets',
+        destination: '/tournament/fort-lauderdale',
+        permanent: true,
+      },
     ];
   },
 };

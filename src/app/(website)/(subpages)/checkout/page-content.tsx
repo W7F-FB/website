@@ -1,4 +1,6 @@
-import { PaddingGlobal, Container, Section } from "@/components/website-base/padding-containers";
+"use client"
+
+import { Section } from "@/components/website-base/padding-containers";
 import { H1, P, Subtitle, H3 } from "@/components/website-base/typography";
 import { CheckoutShow } from "@/components/blocks/checkout/checkout-show";
 import { SubpageHeroSecondary } from "@/components/blocks/subpage-hero";
@@ -10,8 +12,7 @@ import Link from "next/link";
 
 export default function CheckoutPageContent() {
     return (
-        <PaddingGlobal>
-            <div>
+        <div>
                 <SubpageHeroSecondary className="max-w-none w-full">
                     <Background className="flex items-start justify-between">
                         <PalmtreeIcon fill="currentColor" className="opacity-3 text-foreground w-auto h-100 mask-b-from-0% mask-b-to-85%" />
@@ -24,8 +25,7 @@ export default function CheckoutPageContent() {
                         <P className="max-w-4xl mx-auto mt-4">Experience a new brand of women&apos;s football as some of the world&apos;s best clubs clash in the fast-paced 7v7 format. Three days of nonstop action, December 5–7 at Beyond Bancard Stadium. Don&apos;t miss the second edition of this global showdown with $5 million up for grabs. Get your tickets now!</P>
                     </div>
                 </SubpageHeroSecondary>
-                <Container maxWidth="lg">
-                    <Section padding="md">
+                    <Section padding="md" className="max-w-[75rem] w-full mx-auto">
                         <Card className="overflow-hidden relative bg-card/30">
                             <div className="absolute w-1 left-0 top-0 bottom-0 bg-border"></div>
                             <CardHeader className="border-b">
@@ -54,15 +54,13 @@ export default function CheckoutPageContent() {
                                 </ul>
                             </CardContent>
                         </Card>
+                        <CheckoutShow />
                     </Section>
-                </Container>
-                <CheckoutShow />
                 <div className="flex flex-col md:flex-row gap-6 items-center text-center justify-center py-4 opacity-50">
                     <p>Powered by</p>
                     <Image src="/images/decorative/CTS_logo.webp" alt="CTS Logo" width={100} height={100} className="grayscale brightness-200"/>
                 </div>
             </div>
-        </PaddingGlobal>
     )
 }
 

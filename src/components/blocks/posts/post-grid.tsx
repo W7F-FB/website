@@ -28,7 +28,7 @@ export function PostGrid({ posts, className }: PostGridProps) {
     <div className={cn("grid grid-cols-1 md:grid-cols-2 gap-6", className)}>
       <div className="flex flex-col gap-6 w-full">
         <PostCardVert blog={featured} />
-        <LinePattern className="px-8 py-8 flex flex-grow items-end justify-start">
+        <LinePattern className="px-8 py-8 flex flex-grow items-end justify-start lg:block hidden">
           <KeepReadingButton />
         </LinePattern>
       </div>

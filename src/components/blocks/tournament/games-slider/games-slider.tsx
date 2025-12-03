@@ -91,7 +91,7 @@ export function GamesSlider({ gameCards = [], tournament, isLoading = false }: G
   return (
     <div className='overflow-hidden relative'>
       <div className='relative grid grid-cols-[auto_1fr] border-t border-border/50'>
-        <div className='relative px-6 py-2 flex items-center justify-center'>
+        <div className='relative lg:px-6 px-3 py-2 flex items-center justify-center'>
           <GamesSliderFilter 
             dates={uniqueDates} 
             tournament={tournament}

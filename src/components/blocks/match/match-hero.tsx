@@ -70,6 +70,12 @@ export default function MatchHero({ f9MatchData, homeTeamData, awayTeamData, hom
     return "";
   };
 
+  const homeTeamShortName = homeTeamPrismic?.data.key || null;
+  const awayTeamShortName = awayTeamPrismic?.data.key || null;
+  
+  const homeTeamFullName = homeTeamPrismic?.data.name || homeTeam?.Name || 'Home Team';
+  const awayTeamFullName = awayTeamPrismic?.data.name || awayTeam?.Name || 'Away Team';
+
   return (
     <Card className="p-0 gap-0 bg-card/50 border-border/50 overflow-hidden">
       <CardHeader className="px-4 md:px-6 py-3 !pb-3 flex flex-col md:flex-row items-start md:items-center justify-between gap-2 md:gap-0 bg-muted/30 border-b text-xs md:text-sm text-muted-foreground/75">
@@ -85,18 +91,18 @@ export default function MatchHero({ f9MatchData, homeTeamData, awayTeamData, hom
           {gameDate.time ? `${gameDate.month} ${gameDate.day}, ${gameDate.time} ET` : ""}
         </div>
       </CardHeader>
-      <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] items-center relative p-4 md:p-8 gap-6">
+      <div className="grid grid-cols-[1fr_auto_1fr] items-center relative p-4 px-3 md:p-8 md:px-8 gap-6">
         <div
-          className="hidden md:block absolute top-0 -left-48 w-80 -skew-x-[var(--skew-btn)] h-full pointer-events-none"
+          className="absolute top-0 lg:-left-48 lg:w-80 w-60 -left-42 -skew-x-[var(--skew-btn)] h-full pointer-events-none"
           style={homeTeamColor ? { backgroundImage: `linear-gradient(to right, ${homeTeamColor}, transparent)` } : undefined}
         />
         <div
-          className="hidden md:block absolute top-0 -right-48 w-80 skew-x-[var(--skew-btn)] h-full pointer-events-none"
+          className=" absolute top-0 lg:-right-48 lg:w-80 w-60 -right-42 skew-x-[var(--skew-btn)] h-full pointer-events-none"
           style={awayTeamColor ? { backgroundImage: `linear-gradient(to left, ${awayTeamColor}, transparent)` } : undefined}
         />
-        <div className="md:hidden grid grid-cols-[1fr_auto_1fr] gap-4 w-full items-start">
-          <div className="flex flex-col items-start md:items-center gap-3">
-            <div className="w-16 h-16 relative">
+        <div className="relative">
+          <div className="flex relative z-2 items-center lg:gap-4 gap-2.5">
+            <div className="size-8 lg:size-18 relative">
               {homeTeamPrismic?.data.logo && (
                 <PrismicNextImage
                   field={homeTeamPrismic.data.logo}
@@ -105,72 +111,30 @@ export default function MatchHero({ f9MatchData, homeTeamData, awayTeamData, hom
                 />
               )}
             </div>
-            <div className="font-headers text-sm md:text-lg font-medium text-center">
-              {homeTeamPrismic?.data.name || homeTeam?.Name || 'Home Team'}
-            </div>
-            <div className={`relative text-4xl font-semibold ${homeIsLosing ? "text-foreground/60" : "text-foreground"}`}>
-              <div className="max-h-[0.8em]">
-                {homeScore}
-              </div>
-            </div>
-          </div>
-          {getMatchStatus() && (
-            <div className="flex items-center justify-center self-end text-base font-normal text-muted-foreground pb-1">
-              {getMatchStatus()}
-            </div>
-          )}
-          <div className="flex flex-col items-end md:items-center gap-3">
-            <div className="w-16 h-16 relative">
-              {awayTeamPrismic?.data.logo && (
-                <PrismicNextImage
-                  field={awayTeamPrismic.data.logo}
-                  fill
-                  className="object-contain"
-                />
+            <div className="font-headers lg:text-xl text-sm font-medium">
+              {homeTeamShortName && (
+                <span className="md:hidden">{homeTeamShortName}</span>
               )}
-            </div>
-            <div className="font-headers text-sm md:text-lg font-medium text-center">
-              {awayTeamPrismic?.data.name || awayTeam?.Name || 'Away Team'}
-            </div>
-            <div className={`relative text-4xl font-semibold ${awayIsLosing ? "text-foreground/60" : "text-foreground"}`}>
-              <div className="max-h-[0.8em]">
-                {awayScore}
-              </div>
+              <span className={homeTeamShortName ? "hidden md:inline" : ""}>{homeTeamFullName}</span>
             </div>
           </div>
         </div>
-        <div className="hidden md:block relative">
-          <div className="flex relative z-2 items-center gap-4">
-            <div className="w-18 h-18 relative">
-              {homeTeamPrismic?.data.logo && (
-                <PrismicNextImage
-                  field={homeTeamPrismic.data.logo}
-                  fill
-                  className="object-contain"
-                />
-              )}
-            </div>
-            <div className="font-headers text-xl font-medium">
-              {homeTeamPrismic?.data.name || homeTeam?.Name || 'Home Team'}
-            </div>
-          </div>
-        </div>
-        <div className="hidden md:flex flex-1 gap-6 items-center">
-          <div className="flex-shrink text-6xl font-semibold flex items-center justify-center gap-10 leading-none">
+        <div className="flex flex-1 gap-6 items-center">
+          <div className="flex-shrink lg:text-6xl text-2xl font-semibold flex items-center justify-center lg:gap-10 gap-4 leading-none">
             <div className={`relative ${homeIsLosing ? "text-foreground/60" : "text-foreground"}`}>
               {homeIsWinning && (
-                <CaretFilledIcon className="size-3  absolute -left-6 top-1/2 -translate-y-1/2" />
+                <CaretFilledIcon className="size-1.5 lg:size-3  absolute lg:-left-6 -left-3 top-1/2 -translate-y-1/2" />
               )}
               <div className="max-h-[0.8em]">
                 {homeScore}
               </div>
             </div>
             {getMatchStatus() && (
-              <div className="text-lg font-normal text-muted-foreground max-h-[1em]">{getMatchStatus()}</div>
+              <div className="lg:text-lg text-sm font-normal text-muted-foreground max-h-[1em]">{getMatchStatus()}</div>
             )}
             <div className={`relative ${awayIsLosing ? "text-foreground/60" : "text-foreground"}`}>
               {awayIsWinning && (
-                <CaretFilledIcon className="size-3 -mt-0.5 absolute -right-6 top-1/2 -translate-y-1/2 scale-x-[-1]" />
+                <CaretFilledIcon className="size-1.5 lg:size-3 -mt-0.5 absolute lg:-right-6 -right-3 top-1/2 -translate-y-1/2 scale-x-[-1]" />
               )}
               <div className="max-h-[0.8em]">
                 {awayScore}
@@ -178,11 +142,14 @@ export default function MatchHero({ f9MatchData, homeTeamData, awayTeamData, hom
             </div>
           </div>
         </div>
-        <div className="hidden md:flex relative items-center gap-4 justify-end">
-          <div className="font-headers text-xl font-medium">
-            {awayTeamPrismic?.data.name || awayTeam?.Name || 'Away Team'}
+        <div className="flex relative items-center lg:gap-4 gap-2.5 justify-end">
+          <div className="font-headers lg:text-xl text-sm font-medium">
+            {awayTeamShortName && (
+              <span className="md:hidden">{awayTeamShortName}</span>
+            )}
+            <span className={awayTeamShortName ? "hidden md:inline" : ""}>{awayTeamFullName}</span>
           </div>
-          <div className="w-18 h-18 relative">
+          <div className="size-8 lg:size-18 relative">
             {awayTeamPrismic?.data.logo && (
               <PrismicNextImage
                 field={awayTeamPrismic.data.logo}

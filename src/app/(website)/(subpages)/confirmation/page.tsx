@@ -13,7 +13,8 @@ export default function ConfirmationPage() {
         <>
             <NavMain showBreadcrumbs />
             <main className="flex-grow min-h-[30rem]">
-                <PaddingGlobal>
+                <div>
+                    <PaddingGlobal>
             <Container maxWidth="lg">
             <Section padding="sm">
                 <div className="flex flex-col items-center justify-center text-center">
@@ -36,6 +37,7 @@ export default function ConfirmationPage() {
             </Section>
         </Container>
         </PaddingGlobal>
+                </div>
             </main>
             <Footer />
         </>

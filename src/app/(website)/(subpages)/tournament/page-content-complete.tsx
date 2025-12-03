@@ -19,9 +19,9 @@ import type { F30SeasonStatsResponse } from "@/types/opta-feeds/f30-season-stats
 import { getPlayerByName } from "@/types/opta-feeds/f30-season-stats"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { SectionHeading, SectionHeadingHeading, SectionHeadingText, SectionHeadingSubtitle } from "@/components/sections/section-heading"
-import { Badge } from "@/components/ui/badge"
 import { MatchCard } from "@/components/blocks/match/match-card"
-import { getGroupStageMatches, getSemiFinalMatches, getThirdPlaceMatch, getFinalMatch, groupMatchesByDate, formatMatchDayDate } from "./utils"
+import { getGroupStageMatches, getSemiFinalMatches, getThirdPlaceMatch, getFinalMatch, groupMatchesByDate } from "./utils"
+import { MatchDayBadge } from "@/components/blocks/tournament/match-day-badge"
 import { getMatchTeams } from "@/lib/opta/utils"
 import { formatDateRange, formatCurrencyInWords, mapBlogDocumentToMetadata } from "@/lib/utils"
 import { PostGrid } from "@/components/blocks/posts/post-grid"
@@ -32,8 +32,6 @@ import { PostBanner } from "@/components/blocks/posts/post"
 import { isFilled } from "@prismicio/client"
 import { VideoBanner } from "@/components/blocks/video-banner/video-banner"
 import { cn } from "@/lib/utils"
-import { NavMain } from "@/components/website-base/nav/nav-main";
-import { Footer } from "@/components/website-base/footer/footer-main";
 import { PlayerAwardCard } from "@/components/blocks/players/player-award-card"
 import { FastBanner } from "@/components/blocks/fast-banners"
 import { StatSheetTabs } from "@/components/blocks/tournament/stat-sheet/stat-sheet-tabs"
@@ -64,13 +62,8 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
         || finalMatches[0]?.MatchInfo?.Date
 
     return (
-        <>
-            <NavMain showBreadcrumbs customBreadcrumbs={[
-                { label: "Home", href: "/" },
-                { label: tournament.data.title, href: `/tournament/${tournament.uid}` }
-            ]} />
-            <main className="flex-grow min-h-[30rem]">
-                <PaddingGlobal>
+        <div>
+            <PaddingGlobal>
             <div>
             <SubpageHero>
                 <SubpageHeroContent>
@@ -214,16 +207,7 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
 
                                 return (
                                     <div key={date} id={`match-day-${index + 1}`} className="space-y-8">
-                                        <div className="flex justify-start gap-0.5 pr-3">
-                                            <div className="flex-grow">
-                                                <Badge fast variant="muted" origin="bottom-left" size="lg" className="text-2xl">
-                                                    Match day {index + 1}
-                                                </Badge>
-                                            </div>
-                                            <Badge variant="muted" origin="bottom-left" size="lg" className="text-sm md:text-base relative">                                             
-                                                <span className="relative z-10">{formatMatchDayDate(date)}</span>
-                                            </Badge>
-                                        </div>
+                                        <MatchDayBadge matchDay={index + 1} date={date} />
                                         <div className={cn("grid grid-cols-1 md:grid-cols-2 gap-6", compact && "md:grid-cols-3")}>
                                             {matches.map((match) => (
                                                 <MatchCard
@@ -260,18 +244,7 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                             {knockoutMatches} {knockoutMatches === 1 ? 'Match' : 'Matches'}
                         </SectionHeadingText>
                     </SectionHeading>
-                    <div className="flex justify-start gap-0.5 pr-3 mb-8">
-                        <div className="flex-grow">
-                            <Badge fast variant="muted" origin="bottom-left" size="lg" className="text-2xl">
-                                Match day 3
-                            </Badge>
-                        </div>
-                        {knockoutDate && (
-                            <Badge variant="muted" origin="bottom-left" size="lg" className="text-base">
-                                {formatMatchDayDate(knockoutDate.split(' ')[0])}
-                            </Badge>
-                        )}
-                    </div>
+                    <MatchDayBadge matchDay={3} date={knockoutDate ? knockoutDate.split(' ')[0] : null} className="mb-8" />
                     <div className="flex justify-center items-start gap-8">
                         <FastBanner text="FAST." position="left" strokeWidth="1px" uppercase className="hidden md:block" />
                         <div className="max-w-3xl w-full space-y-6">
@@ -358,9 +331,7 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
             </Container>
         </div>
         </PaddingGlobal>
-            </main>
-            <Footer />
-        </>
+        </div>
     )
 }
 

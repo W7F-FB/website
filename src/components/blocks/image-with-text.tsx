@@ -67,7 +67,23 @@ export function ImageWithText({
         )}
         <H3 className="mb-4 mt-4 uppercase">{content.title}</H3>
 
-        <PrismicRichText field={content.description} />
+        <PrismicRichText 
+          field={content.description}
+          components={{
+            hyperlink: ({ node, children }) => {
+              const isExternal = node.data.link_type === "Web"
+              return (
+                <a
+                  href={node.data.url || ""}
+                  className="underline underline-offset-2 text-primary"
+                  {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                >
+                  {children}
+                </a>
+              )
+            },
+          }}
+        />
       </div>
     </div>
   )

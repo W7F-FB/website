@@ -1,6 +1,6 @@
 'use client';
 import { Button } from "@/components/ui/button"
-import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 import type { F30SeasonStatsResponse } from "@/types/opta-feeds/f30-season-stats"
@@ -33,7 +33,7 @@ export function StatSheetPlayersTable({ prismicTeams, f30TeamStats, selectedTeam
     const leaderColumns = STAT_SHEET_LEADER_CONFIG[leaderView].columns
 
     return (
-        <div className="space-y-4">
+        <div>
             <div className="flex gap-0">
                 <div className="border-r border-border/40">
                     <Table>
@@ -69,12 +69,12 @@ export function StatSheetPlayersTable({ prismicTeams, f30TeamStats, selectedTeam
                                     onMouseLeave={() => setHoveredRow(null)}
                                     className={cn(hoveredRow === index && "bg-muted/30 hover:bg-muted/30")}
                                 >
-                                    <TableCell className="h-12 py-0 font-medium font-headers pr-10">
-                                        <div className="flex items-center gap-3">
-                                            <span className="text-muted-foreground/80 text-[0.7rem] w-6">{row.displayRank}</span>
+                                    <TableCell className="h-12 py-0 font-medium font-headers lg:pr-10 pr-3">
+                                        <div className="flex items-center lg:gap-3 gap-2">
+                                            <span className="text-muted-foreground/80 lg:text-[0.7rem] text-[0.6rem] lg:w-6 w-4">{row.displayRank}</span>
                                             <div className="grid grid-cols-[auto_1fr] gap-2.5">
                                                 {row.prismicTeam?.data.logo && (
-                                                    <div className="relative size-6 flex-shrink-0 self-center">
+                                                    <div className="relative lg:size-6 size-5 flex-shrink-0 self-center">
                                                         <PrismicNextImage
                                                             field={row.prismicTeam.data.logo}
                                                             fill
@@ -83,7 +83,7 @@ export function StatSheetPlayersTable({ prismicTeams, f30TeamStats, selectedTeam
                                                     </div>
                                                 )}
                                                 <div className="flex flex-col items-start">
-                                                    <span className="text-xs">{row.name}</span>
+                                                    <span className="overflow-hidden lg:max-w-none max-w-22 text-ellipsis text-xs">{row.name}</span>
                                                     <span className="text-muted-foreground/80 font-normal text-[0.65rem]">
                                                         #{row.shirtNumber} • {row.position}
                                                     </span>
@@ -94,13 +94,6 @@ export function StatSheetPlayersTable({ prismicTeams, f30TeamStats, selectedTeam
                                 </TableRow>
                             ))}
                         </TableBody>
-                        <TableFooter>
-                            <TableRow className="hover:bg-muted/30">
-                                <TableCell>
-                                    <div className="h-[38px]" />
-                                </TableCell>
-                            </TableRow>
-                        </TableFooter>
                     </Table>
                 </div>
                 <div className="overflow-x-auto flex-1">
@@ -146,36 +139,30 @@ export function StatSheetPlayersTable({ prismicTeams, f30TeamStats, selectedTeam
                                 </TableRow>
                             ))}
                         </TableBody>
-                        <TableFooter>
-                            <TableRow className="hover:bg-muted/30">
-                                <TableCell colSpan={leaderColumns.length}>
-                                    <div className="h-[38px] flex items-center justify-end gap-4">
-                                        <p className="text-sm text-muted-foreground">
-                                            Page {currentPage} of {totalPages}
-                                        </p>
-                                        <div className="flex items-center gap-2">
-                                            <Button
-                                                variant="outline"
-                                                size="sm"
-                                                onClick={() => setPageIndex(prev => Math.max(prev - 1, 0))}
-                                                disabled={!canPreviousPage}
-                                            >
-                                                <CaretRightIcon className="rotate-180" size={16} />
-                                            </Button>
-                                            <Button
-                                                variant="outline"
-                                                size="sm"
-                                                onClick={() => setPageIndex(prev => Math.min(prev + 1, pageCount - 1))}
-                                                disabled={!canNextPage}
-                                            >
-                                                <CaretRightIcon size={16} />
-                                            </Button>
-                                        </div>
-                                    </div>
-                                </TableCell>
-                            </TableRow>
-                        </TableFooter>
                     </Table>
+                </div>
+            </div>
+            <div className="bg-muted/50 border-t border-border font-medium h-[54px] flex items-center justify-end gap-4 px-4">
+                <p className="text-sm text-muted-foreground">
+                    Page {currentPage} of {totalPages}
+                </p>
+                <div className="flex items-center gap-2">
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setPageIndex(prev => Math.max(prev - 1, 0))}
+                        disabled={!canPreviousPage}
+                    >
+                        <CaretRightIcon className="rotate-180" size={16} />
+                    </Button>
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setPageIndex(prev => Math.min(prev + 1, pageCount - 1))}
+                        disabled={!canNextPage}
+                    >
+                        <CaretRightIcon size={16} />
+                    </Button>
                 </div>
             </div>
         </div>

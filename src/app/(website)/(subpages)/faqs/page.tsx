@@ -7,6 +7,7 @@ import type { FAQItem } from "@/types/basic";
 import { Section, Container, PaddingGlobal } from "@/components/website-base/padding-containers"
 import { H1, H2, P, List } from "@/components/website-base/typography"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { SubpageHeroSecondary } from "@/components/blocks/subpage-hero";
 import { SectionNav } from "./section-nav";
 
 export const metadata: Metadata = {
@@ -325,12 +326,12 @@ export default function FAQsPage() {
     return <>
         <NavMain showBreadcrumbs />
         <main className="flex-grow min-h-[30rem]">
-            <PaddingGlobal>
+            <div>
+                <PaddingGlobal>
+        <SubpageHeroSecondary>
+            <H1 className="">Faq</H1>
+        </SubpageHeroSecondary>
         <Container maxWidth="lg">
-        <Section padding="none">
-            <H1 className="uppercase text-2xl md:text-6xl text-left md:my-16">Faq</H1>
-        </Section>
-
         <Section padding="md" className="min-h-screen grid grid-cols-12 gap-4 md:gap-16 w-full">
             <div className="hidden md:block col-span-3 md:sticky md:top-24 md:self-start">
                 <SectionNav sections={faqSections} />
@@ -358,6 +359,7 @@ export default function FAQsPage() {
         </Section>
     </Container>
     </PaddingGlobal>
+            </div>
         </main>
         <Footer />
     </>

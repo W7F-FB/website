@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Section, PaddingGlobal } from "@/components/website-base/padding-containers";
+import { Section } from "@/components/website-base/padding-containers";
 import MatchHero from "@/components/blocks/match/match-hero";
 import PlayByPlay from "@/components/blocks/match/play-by-play";
 import type { F9MatchData, F9TeamData, F9Team } from "@/types/opta-feeds/f9-match";
@@ -92,7 +92,7 @@ export default function MatchPageContent({
   )
 
   return (
-    <PaddingGlobal>
+    <>
       <MatchHero
         f9MatchData={f9MatchData}
         homeTeamData={homeTeamData}
@@ -107,7 +107,7 @@ export default function MatchPageContent({
       />
       <Separator variant="gradient" className="my-8" />
       <Section padding="none" className="grid grid-cols-1 md:grid-cols-4 gap-8">
-        <div className="flex flex-col gap-8 relative">
+        <div className="md:col-span-1 flex flex-col gap-8 relative">
           <Card banner className="w-full">
             <CardHeader>
               <CardTitle>Rosters</CardTitle>
@@ -126,26 +126,26 @@ export default function MatchPageContent({
           </Card>
           <FastBanner text="FAST." position="left" strokeWidth="1px" uppercase className="hidden md:block" />
         </div>
-        <div className="col-span-2 space-y-8">
+        <div className="md:col-span-1 space-y-8">
           <Card banner>
             <CardHeader>
               <CardTitle>Standouts</CardTitle>
             </CardHeader>
             <CardContent className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div>
-                <H3 className="text-xs text-muted-foreground mb-3 uppercase">Offensive</H3>
+                <H3 className="text-xs lg:text-xs text-muted-foreground mb-3 uppercase">Offensive</H3>
                 {standouts.scoringLeader && (
                   <PlayerLeaderCard {...standouts.scoringLeader} />
                 )}
               </div>
               <div>
-                <H3 className="text-xs text-muted-foreground mb-3 uppercase">Defensive</H3>
+                <H3 className="text-xs lg:text-xs text-muted-foreground mb-3 uppercase">Defensive</H3>
                 {standouts.defensiveLeader && (
                   <PlayerLeaderCard {...standouts.defensiveLeader} />
                 )}
               </div>
               <div>
-                <H3 className="text-xs text-muted-foreground mb-3 uppercase">Goalkeeper</H3>
+                <H3 className="text-xs lg:text-xs text-muted-foreground mb-3 uppercase">Goalkeeper</H3>
                 {standouts.gkLeader && (
                   <PlayerLeaderCard {...standouts.gkLeader} />
                 )}
@@ -161,7 +161,7 @@ export default function MatchPageContent({
             </CardContent>
           </Card>
         </div>
-        <div className="flex flex-col gap-8 relative">
+        <div className="md:col-span-1 flex flex-col gap-8 relative">
           {prismicTeams.length > 0 && (
             <Card banner className="w-full">
               <CardHeader>
@@ -206,7 +206,7 @@ export default function MatchPageContent({
           <FastBanner text="FORWARD." position="right" strokeWidth="1.5px" className="hidden md:block" />
         </div>
       </Section>
-    </PaddingGlobal>
+    </>
   );
 }
 

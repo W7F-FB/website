@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Section, Container, PaddingGlobal } from "@/components/website-base/padding-containers";
+import { Section, Container } from "@/components/website-base/padding-containers";
 import { RosterCard } from "@/components/blocks/team/roster-card";
 import { HeroTeam } from "@/components/blocks/team/hero-team";
 import { TeamStatsCard } from "@/components/blocks/team/team-stats-card";
@@ -46,7 +46,7 @@ export default function TeamPageContent({
   const teamLeaders = getTeamLeaders(team, seasonStats);
 
   return (
-    <PaddingGlobal>
+    <>
       <HeroTeam
         team={team}
         homeTeamColor={team.data.color_primary || undefined}
@@ -116,6 +116,6 @@ export default function TeamPageContent({
           </Container>
         </>
       )}
-    </PaddingGlobal>
+    </>
   );
 }

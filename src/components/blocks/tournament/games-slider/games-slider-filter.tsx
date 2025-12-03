@@ -39,7 +39,7 @@ export function GamesSliderFilter({
 
     return (
         <Select value={value} onValueChange={onValueChange} clearable={clearable}>
-            <SelectTrigger className="min-w-48 pt-4 relative text-sm [&_.match-day-date]:hidden">
+            <SelectTrigger className="lg:min-w-48 min-w-32 pt-4 relative text-xxs lg:text-sm [&_.match-day-date]:hidden">
                 <Label className="absolute top-1.5 left-4 text-xxs text-muted-foreground/80 font-light">{tournament.data.title}</Label>
                 <SelectValue placeholder={placeholder} />
             </SelectTrigger>

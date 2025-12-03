@@ -313,6 +313,21 @@ select:-webkit-autofill:focus {
   -webkit-text-fill-color: var(--foreground);
   -webkit-box-shadow: 0 0 0px 1000px #1b1b1c00 inset;
   transition: background-color 5000s ease-in-out 0s;
+}
+
+#squadup-checkout input:-webkit-autofill,
+#squadup-checkout input:-webkit-autofill:hover,
+#squadup-checkout input:-webkit-autofill:focus,
+#squadup-checkout textarea:-webkit-autofill,
+#squadup-checkout textarea:-webkit-autofill:hover,
+#squadup-checkout textarea:-webkit-autofill:focus,
+#squadup-checkout select:-webkit-autofill,
+#squadup-checkout select:-webkit-autofill:hover,
+#squadup-checkout select:-webkit-autofill:focus {
+  border: revert;
+  -webkit-text-fill-color: revert;
+  -webkit-box-shadow: revert;
+  transition: revert;
 };
 
 .ketch-flex:has(> a[aria-label="Learn more about Ketch for data privacy (opens in a new tab)"]) {

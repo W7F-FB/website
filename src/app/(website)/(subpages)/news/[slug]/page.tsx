@@ -38,7 +38,8 @@ export default async function BlogPostPage({ params }: Props) {
     <>
         <NavMain showBreadcrumbs />
         <main className="flex-grow min-h-[30rem]">
-            <PaddingGlobal>
+            <div>
+                <PaddingGlobal>
         <Container maxWidth="lg">
         <Section padding="none" className="prose prose-invert prose-p:mb-2 mt-16">
             <Card className={cn("flex flex-col md:flex-row overflow-hidden group rounded-none p-0 bg-transparent border-0 gap-16")}>
@@ -142,6 +143,7 @@ export default async function BlogPostPage({ params }: Props) {
         )}
     </Container>
     </PaddingGlobal>
+            </div>
         </main>
         <Footer />
     </>

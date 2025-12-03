@@ -19,11 +19,11 @@ export function ClubRankCell({ placement, logo, name, shortName, useShortName = 
     const displayName = useShortName && shortName ? shortName : name
     
     return (
-        <TableCell className={cn("h-12 py-0 font-medium font-headers pr-10", className)}>
+        <TableCell className={cn("h-12 py-0 font-medium font-headers lg:pr-10 pr-3 text-xs lg:sm", className)}>
             <div className="flex items-center gap-3 justify-between">
                 <div className="flex items-center gap-3">
                     <div className={cn(
-                        "text-xs w-8",
+                        "text-xxs lg:text-xs lg:w-8 w-6",
                         isComplete && placement === '1st' && "font-semibold bg-gold-gradient bg-clip-text text-transparent",
                         isComplete && placement === '2nd' && "font-semibold bg-silver-gradient bg-clip-text text-transparent",
                         isComplete && placement === '3rd' && "font-semibold bg-bronze-gradient bg-clip-text text-transparent",
@@ -31,7 +31,7 @@ export function ClubRankCell({ placement, logo, name, shortName, useShortName = 
                         !['1st', '2nd', '3rd', 'E'].includes(placement) && "text-muted-foreground"
                     )}>{placement}</div>
                     {logo && (
-                        <div className="relative size-7 flex-shrink-0">
+                        <div className="relative lg:size-7 size-5 flex-shrink-0">
                             <PrismicNextImage
                                 field={logo}
                                 fill
@@ -39,7 +39,7 @@ export function ClubRankCell({ placement, logo, name, shortName, useShortName = 
                             />
                         </div>
                     )}
-                    <span>{displayName}</span>
+                    <span className="overflow-hidden lg:max-w-none max-w-22 text-ellipsis">{displayName}</span>
                 </div>
                 {record && (
                     <span className="min-w-10 text-right flex-grow">{record}</span>

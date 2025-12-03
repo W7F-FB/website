@@ -4,7 +4,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { FAQItem } from "@/types/basic"
-import { H1, P, Subtitle } from "@/components/website-base/typography"
+import { H1, H2, P, Subtitle } from "@/components/website-base/typography"
 import type { TournamentDocument, BlogDocument } from "../../../../../prismicio-types"
 import { SubpageHero, SubpageHeroMedia, SubpageHeroContent, SubpageHeroMediaBanner } from "@/components/blocks/subpage-hero"
 import { PrismicNextImage } from "@prismicio/next"
@@ -22,8 +22,6 @@ import Image from "next/image"
 import { formatDateRange, formatCurrencyInWords, mapBlogDocumentToMetadata } from "@/lib/utils"
 import { isFilled } from "@prismicio/client"
 import { Badge } from "@/components/ui/badge"
-import { NavMain } from "@/components/website-base/nav/nav-main";
-import { Footer } from "@/components/website-base/footer/footer-main";
 import { PostGrid } from "@/components/blocks/posts/post-grid"
 import { PrismicLink } from "@prismicio/react"
 
@@ -65,12 +63,8 @@ type Props = {
 export default function TournamentPageUpcoming({ tournament, tournamentBlogs }: Props) {
 
     return (
-        <>
-            <NavMain showBreadcrumbs customBreadcrumbs={[
-                { label: "Home", href: "/" }
-            ]} />
-            <main className="flex-grow min-h-[30rem]">
-                <PaddingGlobal>
+        <div>
+            <PaddingGlobal>
             <div>
             <SubpageHero>
                 <SubpageHeroContent>
@@ -194,9 +188,7 @@ export default function TournamentPageUpcoming({ tournament, tournamentBlogs }: 
                         <Card className="border-border/35">
                             <CardHeader>
                                 <CardTitle>
-                                    <SectionHeadingHeading>
-                                        FAQs
-                                    </SectionHeadingHeading>
+                                    <H2>FAQs</H2>
                                 </CardTitle>
                                 <CardDescription className="text-lg">Frequently asked questions about World Sevens Football</CardDescription>
                             </CardHeader>
@@ -230,9 +222,7 @@ export default function TournamentPageUpcoming({ tournament, tournamentBlogs }: 
             </Section>
         </div>
         </PaddingGlobal>
-            </main>
-            <Footer />
-        </>
+        </div>
     )
 }
 

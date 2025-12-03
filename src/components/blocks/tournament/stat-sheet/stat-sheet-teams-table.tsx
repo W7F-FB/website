@@ -1,7 +1,7 @@
 'use client';
 
 import { Fragment, useState } from "react"
-import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import type { TeamDocument } from "../../../../../prismicio-types"
 import type { F30SeasonStatsResponse } from "@/types/opta-feeds/f30-season-stats"
 import type { F1FixturesResponse } from "@/types/opta-feeds/f1-fixtures"
@@ -100,98 +100,87 @@ export function StatSheetTeamsTable({ prismicTeams, f30TeamStats, f1FixturesData
     })
 
     return (
-        <div className="flex gap-0">
-            <div className="border-r border-border/40">
-                <Table>
-                    <TableHeader>
-                        <TableRow>
-                            <TableHead>Placement</TableHead>
-                        </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                        {tableData.map((row, index) => (
-                            <Fragment key={row.team.id}>
-                                <TableRow 
-                                    onMouseEnter={() => setHoveredRow(index)}
-                                    onMouseLeave={() => setHoveredRow(null)}
-                                    className={cn(hoveredRow === index && "bg-muted/30 hover:bg-muted/30")}
-                                >
-                                    <ClubRankCell
-                                        placement={row.placement}
-                                        logo={row.team.data.logo}
-                                        name={row.name}
-                                        shortName={row.shortName}
-                                        useShortName={isTablet}
-                                        tournamentStatus={tournamentStatus}
-                                    />
-                                </TableRow>
-                                {row.placement === '4th' && (
-                                    <TableRow className="hover:bg-transparent">
-                                        <TableCell className="p-0 h-4">
-                                            <LinePattern className="h-full w-full" patternSize={5} />
-                                        </TableCell>
+        <div>
+            <div className="flex gap-0">
+                <div className="border-r border-border/40">
+                    <Table>
+                        <TableHeader>
+                            <TableRow>
+                                <TableHead>Placement</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            {tableData.map((row, index) => (
+                                <Fragment key={row.team.id}>
+                                    <TableRow 
+                                        onMouseEnter={() => setHoveredRow(index)}
+                                        onMouseLeave={() => setHoveredRow(null)}
+                                        className={cn(hoveredRow === index && "bg-muted/30 hover:bg-muted/30")}
+                                    >
+                                        <ClubRankCell
+                                            placement={row.placement}
+                                            logo={row.team.data.logo}
+                                            name={row.name}
+                                            shortName={row.shortName}
+                                            useShortName={isTablet}
+                                            tournamentStatus={tournamentStatus}
+                                        />
                                     </TableRow>
-                                )}
-                            </Fragment>
-                        ))}
-                    </TableBody>
-                    <TableFooter>
-                        <TableRow className="hover:bg-muted/30">
-                            <TableCell>
-                                <div className="h-4" />
-                            </TableCell>
-                        </TableRow>
-                    </TableFooter>
-                </Table>
-            </div>
-            <div className="overflow-x-auto flex-1">
-                <Table>
-                    <TableHeader>
-                        <TableRow>
-                            <TableHead className="pl-6">GP</TableHead>
-                            <TableHead>Record</TableHead>
-                            <TableHead>Goals/Allowed</TableHead>
-                            <TableHead>Shots</TableHead>
-                            <TableHead>Assists</TableHead>
-                            <TableHead>Fouls</TableHead>
-                            <TableHead>Cards</TableHead>
-                        </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                        {tableData.map((row, index) => (
-                            <Fragment key={row.team.id}>
-                                <TableRow 
-                                    onMouseEnter={() => setHoveredRow(index)}
-                                    onMouseLeave={() => setHoveredRow(null)}
-                                    className={cn("h-12 py-0 text-base hover:bg-transparent", hoveredRow === index && "bg-muted/30 hover:bg-muted/30")}
-                                >
-                                    <TableCell className="pl-6">{row.gamesPlayed}</TableCell>
-                                    <TableCell>{row.wins}-{row.losses}</TableCell>
-                                    <TableCell>{row.goals} / {row.goalsAllowed}</TableCell>
-                                    <TableCell>{row.shots}</TableCell>
-                                    <TableCell>{row.assists}</TableCell>
-                                    <TableCell>{row.fouls}</TableCell>
-                                    <TableCell>{row.cards}</TableCell>
-                                </TableRow>
-                                {row.placement === '4th' && (
-                                    <TableRow className="hover:bg-transparent">
-                                        <TableCell colSpan={7} className="p-0 h-4">
-                                            <LinePattern className="h-full w-full" patternSize={5} />
-                                        </TableCell>
+                                    {row.placement === '4th' && (
+                                        <TableRow className="hover:bg-transparent">
+                                            <TableCell className="p-0 h-4">
+                                                <LinePattern className="h-full w-full" patternSize={5} />
+                                            </TableCell>
+                                        </TableRow>
+                                    )}
+                                </Fragment>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </div>
+                <div className="overflow-x-auto flex-1">
+                    <Table>
+                        <TableHeader>
+                            <TableRow>
+                                <TableHead className="pl-6">GP</TableHead>
+                                <TableHead>Record</TableHead>
+                                <TableHead>Goals/Allowed</TableHead>
+                                <TableHead>Shots</TableHead>
+                                <TableHead>Assists</TableHead>
+                                <TableHead>Fouls</TableHead>
+                                <TableHead>Cards</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            {tableData.map((row, index) => (
+                                <Fragment key={row.team.id}>
+                                    <TableRow 
+                                        onMouseEnter={() => setHoveredRow(index)}
+                                        onMouseLeave={() => setHoveredRow(null)}
+                                        className={cn("h-12 py-0 text-base hover:bg-transparent", hoveredRow === index && "bg-muted/30 hover:bg-muted/30")}
+                                    >
+                                        <TableCell className="pl-6">{row.gamesPlayed}</TableCell>
+                                        <TableCell>{row.wins}-{row.losses}</TableCell>
+                                        <TableCell>{row.goals} / {row.goalsAllowed}</TableCell>
+                                        <TableCell>{row.shots}</TableCell>
+                                        <TableCell>{row.assists}</TableCell>
+                                        <TableCell>{row.fouls}</TableCell>
+                                        <TableCell>{row.cards}</TableCell>
                                     </TableRow>
-                                )}
-                            </Fragment>
-                        ))}
-                    </TableBody>
-                    <TableFooter>
-                        <TableRow className="hover:bg-muted/30">
-                            <TableCell colSpan={7}>
-                                <div className="h-4" />
-                            </TableCell>
-                        </TableRow>
-                    </TableFooter>
-                </Table>
+                                    {row.placement === '4th' && (
+                                        <TableRow className="hover:bg-transparent">
+                                            <TableCell colSpan={7} className="p-0 h-4">
+                                                <LinePattern className="h-full w-full" patternSize={5} />
+                                            </TableCell>
+                                        </TableRow>
+                                    )}
+                                </Fragment>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </div>
             </div>
+            <div className="bg-muted/50 border-t border-border font-medium h-[54px]" />
         </div>
     )
 }

@@ -23,7 +23,7 @@ const components: PrismicRichTextProps["components"] = {
     return (
       <a
         href={node.data.url || ""}
-        className="underline underline-offset-2"
+        className="underline underline-offset-2 text-primary"
         {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
       >
         {children}

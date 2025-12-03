@@ -99,7 +99,7 @@ function PostCompact({ blog, className }: PostProps) {
               )}
               {blog.date && <span className="text-muted-foreground whitespace-nowrap shrink-0">{formatDate(blog.date)}</span>}
             </div>
-            <H3 className="text-md font-semibold text-white md:text-lg !leading-[1.5]">
+            <H3 className="lg:text-lg !leading-[1.5]">
               {blog.title}
             </H3>
           </CardHeader>
@@ -139,7 +139,7 @@ function PostCardHoriz({ blog, className }: PostProps) {
               )}
               {blog.date && <span className="text-muted-foreground text-base whitespace-nowrap shrink-0">{formatDate(blog.date)}</span>}
             </div>
-            <H3 className="text-md font-semibold text-white md:text-3xl mb-2">{blog.title}</H3>
+            <H3 className=" text-white lg:text-3xl mb-2">{blog.title}</H3>
             {blog.excerpt && (
               <P noSpace className="text-lg text-muted-foreground line-clamp-3 mb-4">{blog.excerpt}</P>
             )}
@@ -180,7 +180,7 @@ function PostCardVert({ blog, className }: PostProps) {
               )}
               {blog.date && <span className="text-muted-foreground whitespace-nowrap shrink-0">{formatDate(blog.date)}</span>}
             </div>
-            <H3 className="text-md font-semibold text-white md:text-2xl mb-2">{blog.title}</H3>
+            <H3 className="text-md text-white md:text-2xl mb-2">{blog.title}</H3>
             {blog.excerpt && (
               <P noSpace className="text-muted-foreground line-clamp-3 mb-4">{blog.excerpt}</P>
             )}
@@ -210,7 +210,7 @@ function PostBanner({ blog, className }: PostProps) {
         )}
         <div className="flex flex-col justify-between flex-1 py-8 px-10 gap-6">
           <div className="flex flex-col gap-4">
-            <H3 className="text-xl font-semibold text-foreground !leading-[1.2]">
+            <H3 className="lg:text-xl text-lg font-semibold text-foreground !leading-[1.2]">
               {blog.title}
             </H3>
             {blog.excerpt && (
@@ -237,7 +237,7 @@ function PostMini({ blog, className }: PostProps) {
   return (
     <PrismicLink href={`/news/${blog.slug}`} className="group/post p-3 bg-gradient-to-r from-muted/30 to-muted/10 self-start">
       <div className={cn("flex flex-col", className)}>
-        <H3 className="text-xs font-semibold text-foreground line-clamp-2 mb-3">
+        <H3 className="lg:text-xs text-xs font-semibold text-foreground line-clamp-2 mb-3">
           {blog.title}
         </H3>
         <div className="flex items-center justify-between">

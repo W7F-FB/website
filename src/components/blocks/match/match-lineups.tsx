@@ -150,7 +150,7 @@ function LineupAccordion({ players }: { players: MatchLineupPlayer[] }) {
       <AccordionItem value="starters">
         <AccordionTrigger bgLines plusMinus iconClass="size-3" className="text-sm py-2.5 px-2 items-center">
           <div className="flex items-center gap-2">
-            <span className="font-headers">Starting Lineup</span>
+            <span className="font-headers text-sm">Starting Lineup</span>
             <span className="text-muted-foreground text-xxs mt-0.5 font-body">
               ({sortedStarters.length})
             </span>
@@ -182,7 +182,7 @@ function LineupAccordion({ players }: { players: MatchLineupPlayer[] }) {
       <AccordionItem value="substitutes">
           <AccordionTrigger bgLines plusMinus iconClass="size-3" className="text-sm py-2.5 px-2 items-center">
           <div className="flex items-center gap-2">
-            <span className="font-headers">Substitutes</span>
+            <span className="font-headers text-sm">Substitutes</span>
             <span className="text-muted-foreground text-xxs mt-0.5 font-body">
               ({sortedSubstitutes.length})
             </span>

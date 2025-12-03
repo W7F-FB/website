@@ -5,7 +5,7 @@ import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Controller } from "react-hook-form"
 import { useAppForm } from "@/hooks/use-app-form"
-import { Section, Container, PaddingGlobal } from "@/components/website-base/padding-containers"
+import { Section, Container } from "@/components/website-base/padding-containers"
 import { H1, H2, P } from "@/components/website-base/typography"
 import { TextLink } from "@/components/ui/text-link"
 import {
@@ -168,8 +168,7 @@ export default function ContactPageContent() {
     }
 
     return (
-        <PaddingGlobal>
-            <Container className="min-h-screen text-white py-auto" maxWidth="lg">
+        <Container className="min-h-screen text-white py-auto" maxWidth="lg">
                 <Section padding="lg" className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
                     <div>
                         <H1 className="uppercase md:text-7xl font-headers md:leading-[100px]">
@@ -336,7 +335,6 @@ export default function ContactPageContent() {
                 </Section>
 
             </Container>
-        </PaddingGlobal>
     );
 }
 

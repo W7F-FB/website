@@ -11,6 +11,8 @@ import { isFilled } from "@prismicio/client"
 import type { F30SeasonStatsResponse } from "@/types/opta-feeds/f30-season-stats"
 import type * as prismic from "@prismicio/client"
 import { dev } from "@/lib/dev"
+import { NavMain } from "@/components/website-base/nav/nav-main"
+import { Footer } from "@/components/website-base/footer/footer-main"
 
 type AwardAwardsField = TournamentDocumentDataAwardsItem['awards']
 type AwardData = AwardAwardsField extends prismic.ContentRelationshipField<infer _ID, infer _Lang, infer TData>
@@ -30,7 +32,17 @@ export default async function TournamentPage({ params }: Props) {
   const tournamentBlogs = await getBlogsByTournament(tournament.id)
 
   if (tournament.data.status === "Upcoming") {
-    return <TournamentPageUpcoming tournament={tournament} tournamentBlogs={tournamentBlogs} />
+    return (
+      <>
+        <NavMain showBreadcrumbs customBreadcrumbs={[
+          { label: "Home", href: "/" }
+        ]} />
+        <main className="flex-grow min-h-[30rem]">
+          <TournamentPageUpcoming tournament={tournament} tournamentBlogs={tournamentBlogs} />
+        </main>
+        <Footer />
+      </>
+    )
   }
 
   if (tournament.data.status === "Live") {
@@ -77,12 +89,18 @@ export default async function TournamentPage({ params }: Props) {
     }
 
     return (
-      <TournamentPageLive
-        tournament={tournament}
-        tournamentBlogs={tournamentBlogs}
-        f1FixturesData={f1FixturesData}
-        prismicTeams={prismicTeams}
-      />
+      <>
+        <NavMain showBreadcrumbs />
+        <main className="flex-grow min-h-[30rem]">
+          <TournamentPageLive
+            tournament={tournament}
+            tournamentBlogs={tournamentBlogs}
+            f1FixturesData={f1FixturesData}
+            prismicTeams={prismicTeams}
+          />
+        </main>
+        <Footer />
+      </>
     )
   }
 
@@ -140,16 +158,25 @@ export default async function TournamentPage({ params }: Props) {
       .filter((award): award is NonNullable<AwardData> => !!award) || []
 
     return (
-      <TournamentPagePast 
-        compact 
-        tournament={tournament}
-        tournamentBlogs={tournamentBlogs}
-        f3StandingsData={f3StandingsData}
-        f1FixturesData={f1FixturesData}
-        f30TeamStats={f30TeamStats}
-        prismicTeams={prismicTeams}
-        awards={awards}
-      />
+      <>
+        <NavMain showBreadcrumbs customBreadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: tournament.data.title, href: `/tournament/${tournament.uid}` }
+        ]} />
+        <main className="flex-grow min-h-[30rem]">
+          <TournamentPagePast 
+            compact 
+            tournament={tournament}
+            tournamentBlogs={tournamentBlogs}
+            f3StandingsData={f3StandingsData}
+            f1FixturesData={f1FixturesData}
+            f30TeamStats={f30TeamStats}
+            prismicTeams={prismicTeams}
+            awards={awards}
+          />
+        </main>
+        <Footer />
+      </>
     )
   }
 

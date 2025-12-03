@@ -41,7 +41,8 @@ export default async function LeadershipPage() {
     return <>
         <NavMain showBreadcrumbs />
         <main className="flex-grow min-h-[30rem]">
-            <PaddingGlobal>
+            <div>
+                <PaddingGlobal>
             <SubpageHero>
                 <SubpageHeroContent>
                     <Subtitle>World Sevens Football</Subtitle>
@@ -140,6 +141,7 @@ export default async function LeadershipPage() {
         </Section>
     </div>
     </PaddingGlobal>
+            </div>
         </main>
         <Footer />
     </>

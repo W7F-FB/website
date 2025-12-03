@@ -63,7 +63,7 @@ function ClubBasic({ team, comingSoon, placement, className, ...props }: ClubBas
             </div>
           ) : null}
 
-          <H3 className="font-bold text-center text-xs py-1">
+          <H3 className="font-bold text-center lg:text-xs text-xs py-1">
             {comingSoon ? `Team #${comingSoon}` : team.data?.name}
           </H3>
           <div className="flex-grow w-full flex flex-col items-center justify-end space-y-2">
