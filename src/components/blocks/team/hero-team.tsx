@@ -1,7 +1,6 @@
 "use client";
 
 import { PrismicNextImage } from "@prismicio/next";
-import Link from "next/link";
 import ReactCountryFlag from "react-country-flag";
 import type { TeamDocument } from "../../../../prismicio-types";
 import type { F3StandingsResponse } from "@/types/opta-feeds/f3-standings";
@@ -11,21 +10,9 @@ import { FastDash } from "@/components/ui/fast-dash";
 import { H1, P } from "@/components/website-base/typography";
 import { getCountryIsoCode, cn } from "@/lib/utils";
 import { isFilled } from "@prismicio/client";
-import { useState, useMemo } from "react";
-import { StadiumIcon, ChampionIcon, RunnerUpIcon } from "@/components/website-base/icons";
+import { useMemo } from "react";
+import { StadiumIcon } from "@/components/website-base/icons";
 import { getFinalMatch, getThirdPlaceMatch } from "@/app/(website)/(subpages)/tournament/utils";
-
-interface NavLink {
-  label: string;
-  href: string;
-}
-
-const navLinks: NavLink[] = [
-  { label: "Home", href: "#home" },
-  { label: "Stats", href: "#team-stats" },
-  { label: "Roster", href: "#roster" },
-  { label: "Blog", href: "#blog" },
-];
 
 interface HeroTeamProps {
   team: TeamDocument;
@@ -35,8 +22,6 @@ interface HeroTeamProps {
 }
 
 export function HeroTeam({ team, homeTeamColor, standings, fixtures }: HeroTeamProps) {
-  const [active, setActive] = useState("#home");
-
   const teamStanding = useMemo(() => {
     return standings?.SoccerFeed?.SoccerDocument?.Competition?.TeamStandings?.flatMap(
       (group) => group.TeamRecord || []
@@ -95,11 +80,12 @@ export function HeroTeam({ team, homeTeamColor, standings, fixtures }: HeroTeamP
 
   return (
     <Card className="p-0 gap-0 bg-card/50 border-border/50 overflow-hidden">
-      <CardHeader className="px-6 py-3 !pb-3 flex items-center justify-between bg-muted/30 border-b text-sm text-muted-foreground/75">
+      <CardHeader className="px-4 md:px-6 py-3 !pb-3 flex flex-wrap items-center gap-2 bg-muted/30 border-b text-xs md:text-sm text-muted-foreground/75">
         <div className="font-headers flex items-center gap-2">
           <StadiumIcon size={16} />
-          {tournaments && tournaments[0].title}
+          <span className="truncate">{tournaments && tournaments[0].title}</span>
         </div>
+        <FastDash className="hidden md:block" />
         <div className={cn(
           "flex items-center gap-2 font-headers font-medium uppercase",
           placement === '1st' && "font-semibold bg-gold-gradient bg-clip-text text-transparent",
@@ -107,62 +93,37 @@ export function HeroTeam({ team, homeTeamColor, standings, fixtures }: HeroTeamP
           placement === '3rd' && "font-semibold bg-bronze-gradient bg-clip-text text-transparent",
           placement === 'E' && "text-muted-foreground/80"
         )}>
-          {placement === '1st' && <ChampionIcon size={18} className="shrink-0" fill="url(#gold-gradient)" />}
-          {placement === '2nd' && <RunnerUpIcon size={18} className="shrink-0" fill="url(#silver-gradient)" />}
           {placement && placement !== 'E' && `${placement} Place`}
           {placement === 'E' && 'Eliminated'}
         </div>
       </CardHeader>
-      <div className="px-12 py-8 border-b border-border/20 relative overflow-hidden">
+      <div className="px-4 md:px-12 py-6 md:py-8 border-b border-border/20 relative overflow-hidden">
         <div
-          className="absolute top-0 -left-10 w-[500px] -skew-x-btn h-full pointer-events-none opacity-30"
+          className="absolute top-0 -left-10 w-full md:w-[500px] -skew-x-btn h-full pointer-events-none opacity-30"
           style={
             homeTeamColor
               ? { backgroundImage: `linear-gradient(to right, ${homeTeamColor}, transparent)` }
               : undefined
           }
         />
-        <div className="flex gap-8 items-center relative z-10">
-          <div>
-            <PrismicNextImage field={team.data.logo} width={100} height={100} />
+        <div className="flex flex-col md:flex-row gap-4 md:gap-8 items-start md:items-center relative z-10">
+          <div className="shrink-0 w-16 h-16 md:w-[100px] md:h-[100px]">
+            <PrismicNextImage field={team.data.logo} width={100} height={100} className="w-full h-full object-contain" />
           </div>
 
-          <div>
-            <H1>{team.data.name}</H1>
+          <div className="min-w-0 flex-1">
+            <H1 className="text-2xl md:text-4xl">{team.data.name}</H1>
 
-            <div className="flex items-center gap-4 mt-2">
+            <div className="flex flex-wrap items-center gap-2 md:gap-4 mt-2">
               <div className="flex items-center gap-2">
-                <P noSpace>{team.data.country}</P>
+                <P noSpace className="text-sm md:text-base">{team.data.country}</P>
                 <CountryFlag country={team.data.country || ""} />
               </div>
-              <FastDash />
-              <P noSpace>{record}</P>
+              <FastDash className="hidden md:block" />
+              <P noSpace className="text-sm md:text-base">{record}</P>
             </div>
           </div>
         </div>
-      </div>
-
-      <div className="flex gap-6 pt-3 px-12">
-        {navLinks.map((link) => {
-          const isActive = active === link.href;
-
-          return (
-            <Link
-              key={link.href}
-              href={link.href}
-              onClick={() => setActive(link.href)}
-              className={`
-                pb-3 text-sm font-medium transition-colors border-b-2 
-                ${isActive
-                  ? "text-foreground border-foreground"
-                  : "text-muted-foreground border-transparent hover:text-foreground hover:border-foreground"
-                }
-              `}
-            >
-              {link.label}
-            </Link>
-          );
-        })}
       </div>
     </Card>
   );

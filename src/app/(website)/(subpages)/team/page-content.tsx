@@ -19,7 +19,6 @@ import type { F40Team } from "@/types/opta-feeds/f40-squads-feed";
 import type { F3StandingsResponse } from "@/types/opta-feeds/f3-standings";
 import type { F1FixturesResponse } from "@/types/opta-feeds/f1-fixtures";
 import type { F30SeasonStatsResponse } from "@/types/opta-feeds/f30-season-stats";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 type Props = {
   team: TeamDocument;
@@ -30,6 +29,7 @@ type Props = {
   prismicTeams?: TeamDocument[];
   teamBlogs?: BlogDocument[];
   seasonStats?: F30SeasonStatsResponse | null;
+  tournamentDocuments?: TournamentDocument[];
 };
 
 export default function TeamPageContent({
@@ -41,6 +41,7 @@ export default function TeamPageContent({
   prismicTeams,
   teamBlogs = [],
   seasonStats,
+  tournamentDocuments = [],
 }: Props) {
   const teamLeaders = getTeamLeaders(team, seasonStats);
 
@@ -54,17 +55,18 @@ export default function TeamPageContent({
       />
       <Separator variant="gradient" className="my-8" />
       <Section padding="none" id="team-stats">
-        <div className="grid grid-cols-3 gap-8">
-          <div className="col-span-1 h-full">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="md:col-span-1 h-full">
             <TeamStatsCard
               team={team}
               standings={standings}
               fixtures={fixtures}
               currentTournament={currentTournament}
               prismicTeams={prismicTeams}
+              tournamentDocuments={tournamentDocuments}
             />
           </div>
-          <div className="flex flex-col gap-8 relative col-span-2 h-full">
+          <div className="flex flex-col gap-8 relative md:col-span-2 h-full">
             <div>
               <TeamHub
                 scorer={teamLeaders.scorer}
@@ -84,17 +86,16 @@ export default function TeamPageContent({
         </div>
       </Section>
       <Section padding="sm" id="roster">
-        <Card banner className="bg-card/50 border-muted/50">
-          <CardHeader>
-            <CardTitle>Roster</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <RosterCard
-              players={teamSquad?.Player || []}
-              seasonStats={seasonStats}
-            />
-          </CardContent>
-        </Card>
+        <SectionHeading className="pb-8">
+          <SectionHeadingHeading variant="h2">
+            Roster
+          </SectionHeadingHeading>
+        </SectionHeading>
+        <RosterCard
+          players={teamSquad?.Player || []}
+          seasonStats={seasonStats}
+          prismicTeam={team}
+        />
       </Section>
       {teamBlogs.length > 0 && (
         <>
@@ -102,8 +103,8 @@ export default function TeamPageContent({
             <Separator variant="gradient" className="my-16" />
             <Section padding="none" id="blog">
               <SectionHeading variant="split">
-                <SectionHeadingSubtitle>Latest Coverage</SectionHeadingSubtitle>
-                <SectionHeadingHeading>Tournament News</SectionHeadingHeading>
+                <SectionHeadingSubtitle>{team.data.name}</SectionHeadingSubtitle>
+                <SectionHeadingHeading>Latest Coverage</SectionHeadingHeading>
                 <Button asChild size="skew" variant="outline" className="ml-auto mt-auto">
                   <PrismicLink href="/news">
                     <span>All News</span>

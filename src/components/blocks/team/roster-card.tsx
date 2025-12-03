@@ -1,29 +1,32 @@
 "use client";
 
 import React from "react";
-import { Tabs, TabsContent, TabsList, TabsTrigger, TabsContents } from "@/components/ui/motion-tabs";
-import { Table, TableBody, TableCell, TableHead, TableRow } from "@/components/ui/table";
+import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { getPlayerFullName, getPlayerJerseyNumber, getPlayerNationality, getPlayerCountry } from "@/types/opta-feeds/f40-squads-feed";
-import { cn, getCountryIsoCode } from "@/lib/utils";
-import ReactCountryFlag from "react-country-flag";
+import { getPlayerFullName, getPlayerJerseyNumber } from "@/types/opta-feeds/f40-squads-feed";
+import { cn } from "@/lib/utils";
 import type { F40Player } from "@/types/opta-feeds/f40-squads-feed";
 import type { F30SeasonStatsResponse } from "@/types/opta-feeds/f30-season-stats";
 import { getPlayerById, getPlayerStat } from "@/types/opta-feeds/f30-season-stats";
-import { LinePattern } from "../line-pattern";
+import { PrismicNextImage } from "@prismicio/next";
+import type { TeamDocument } from "../../../../prismicio-types";
+import { Tabs, TabsList, TabsTrigger, TabsContents, TabsContent } from "@/components/ui/motion-tabs";
+import { Button } from "@/components/ui/button";
+import { CaretRightIcon } from "@/components/website-base/icons";
+
 
 interface RosterCardProps extends React.ComponentProps<"div"> {
   players: F40Player[];
   seasonStats?: F30SeasonStatsResponse | null;
+  prismicTeam?: TeamDocument;
 }
 
-export function RosterCard({ players, seasonStats, className }: RosterCardProps) {
-  const goalkeepers = players.filter((p) => p.Position === "Goalkeeper");
-  const defenders = players.filter((p) => p.Position === "Defender");
-  const midfielders = players.filter((p) => p.Position === "Midfielder");
-  const forwards = players.filter((p) => p.Position === "Forward");
+export function RosterCard({ players, seasonStats, prismicTeam, className }: RosterCardProps) {
+  const filteredPlayers = players.filter((p) => p.Position !== "Substitute");
+  const goalkeepers = filteredPlayers.filter((p) => p.Position === "Goalkeeper");
+  const outfieldPlayers = filteredPlayers.filter((p) => p.Position !== "Goalkeeper");
 
-  if (players.length === 0) {
+  if (filteredPlayers.length === 0) {
     return (
       <div className="text-center py-8 text-muted-foreground">
         No players available
@@ -31,161 +34,375 @@ export function RosterCard({ players, seasonStats, className }: RosterCardProps)
     );
   }
 
-  const totalPlayers = goalkeepers.length + defenders.length + midfielders.length + forwards.length;
-  if (totalPlayers === 0) {
-    return (
-      <div className="text-center py-8 text-muted-foreground">
-        No players available in any position
-      </div>
-    );
-  }
-
   return (
-    <div className="space-y-8">
-      <Tabs defaultValue="goalkeepers" className={cn("", className)}>
-        <TabsList className="bg-card w-full">
-          <TabsTrigger value="goalkeepers">Goalkeepers ({goalkeepers.length})</TabsTrigger>
-          <TabsTrigger value="defenders">Defenders ({defenders.length})</TabsTrigger>
-          <TabsTrigger value="midfielders">Midfielders ({midfielders.length})</TabsTrigger>
-          <TabsTrigger value="forwards">Forwards ({forwards.length})</TabsTrigger>
-        </TabsList>
-        <TabsContents>
+    <Tabs defaultValue={outfieldPlayers.length > 0 ? "outfield" : "goalkeepers"} className={cn("", className)}>
+      <TabsList variant="skew" className="mb-4">
+        {outfieldPlayers.length > 0 && (
+          <TabsTrigger value="outfield">
+            Outfield Players ({outfieldPlayers.length})
+          </TabsTrigger>
+        )}
+        {goalkeepers.length > 0 && (
+          <TabsTrigger value="goalkeepers">
+            Goalkeepers ({goalkeepers.length})
+          </TabsTrigger>
+        )}
+      </TabsList>
+      <TabsContents>
+        {outfieldPlayers.length > 0 && (
+          <TabsContent value="outfield">
+            <PlayersTable
+              players={outfieldPlayers}
+              seasonStats={seasonStats}
+              prismicTeam={prismicTeam}
+              isGoalkeeper={false}
+            />
+          </TabsContent>
+        )}
+        {goalkeepers.length > 0 && (
           <TabsContent value="goalkeepers">
-            <PlayersTable players={goalkeepers} seasonStats={seasonStats} />
+            <PlayersTable
+              players={goalkeepers}
+              seasonStats={seasonStats}
+              prismicTeam={prismicTeam}
+              isGoalkeeper={true}
+            />
           </TabsContent>
-          <TabsContent value="defenders">
-            <PlayersTable players={defenders} seasonStats={seasonStats} />
-          </TabsContent>
-          <TabsContent value="midfielders">
-            <PlayersTable players={midfielders} seasonStats={seasonStats} />
-          </TabsContent>
-          <TabsContent value="forwards">
-            <PlayersTable players={forwards} seasonStats={seasonStats} />
-          </TabsContent>
-        </TabsContents>
-      </Tabs>
-    </div>
+        )}
+      </TabsContents>
+    </Tabs>
   );
 }
 
 interface PlayersTableProps {
   players: F40Player[];
   seasonStats?: F30SeasonStatsResponse | null;
+  prismicTeam?: TeamDocument;
+  isGoalkeeper: boolean;
 }
 
-function PlayersTable({ players, seasonStats }: PlayersTableProps) {
+const PAGE_SIZE = 10;
+
+function PlayersTable({ players, seasonStats, prismicTeam, isGoalkeeper }: PlayersTableProps) {
+  const [hoveredRow, setHoveredRow] = React.useState<number | null>(null);
+  const [pageIndex, setPageIndex] = React.useState(0);
+
+  React.useEffect(() => {
+    setPageIndex(0);
+  }, [isGoalkeeper]);
+
   if (!players.length) {
     return (
       <div className="text-center py-8 text-muted-foreground">
-        No players in this position
+        No players in this category
       </div>
     );
   }
 
+  const totalPages = Math.ceil(players.length / PAGE_SIZE);
+  const currentPage = pageIndex + 1;
+  const canPreviousPage = pageIndex > 0;
+  const canNextPage = pageIndex < totalPages - 1;
+  const pageCount = totalPages;
+
+  const startIndex = pageIndex * PAGE_SIZE;
+  const endIndex = startIndex + PAGE_SIZE;
+  const paginatedPlayers = players.slice(startIndex, endIndex);
+
   return (
-    <Table>
-      <TableBody>
-        <TableRow className="bg-background font-headers font-semibold uppercase hover:bg-muted/10 relative overflow-hidden">
-          <TableHead className="w-20 relative z-10">#</TableHead>
-          <TableHead className="relative z-10">Name</TableHead>
-          <TableHead className="relative text-center z-10">Country</TableHead>
-          <TableHead className="relative text-center z-10">
-            <div className="flex items-center justify-center gap-1.5">
-              <span className="mt-0.5">GP</span>
-              <Tooltip>
-                <TooltipTrigger className="size-3" />
-                <TooltipContent header="Games Played">
-                  <p>Total number of games played</p>
-                </TooltipContent>
-              </Tooltip>
-            </div>
-          </TableHead>
-          <TableHead className="relative text-center z-10">Goals</TableHead>
-          <TableHead className="relative text-center z-10">Assists</TableHead>
-          <TableHead className="relative text-center z-10">Cards</TableHead>
-          <td className="absolute inset-0 pointer-events-none p-0 m-0 border-0">
-            <LinePattern patternSize={5} className="absolute inset-0" />
-          </td>
-        </TableRow>
-        {players.map((player) => (
-          <PlayerRow key={player.uID} player={player} seasonStats={seasonStats} />
-        ))}
-      </TableBody>
-    </Table>
+    <div className="flex gap-0">
+      <div className="border-r border-border/40">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead hasSelect className="pr-10">
+                <span className="font-headers font-semibold">Player</span>
+              </TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {paginatedPlayers.map((player, index) => {
+              const globalIndex = startIndex + index;
+              return (
+                <TableRow
+                  key={player.uID}
+                  onMouseEnter={() => setHoveredRow(globalIndex)}
+                  onMouseLeave={() => setHoveredRow(null)}
+                  className={cn(
+                    "h-12 py-0 hover:bg-transparent",
+                    hoveredRow === globalIndex && "bg-muted/30 hover:bg-muted/30"
+                  )}
+                >
+                  <TableCell className="h-12 py-0 font-medium font-headers pr-10">
+                    <div className="flex items-center gap-3">
+                      <div className="grid grid-cols-[auto_1fr] gap-2.5">
+                        {prismicTeam?.data.logo && (
+                          <div className="relative size-6 shrink-0 self-center">
+                            <PrismicNextImage
+                              field={prismicTeam.data.logo}
+                              fill
+                              className="object-contain"
+                            />
+                          </div>
+                        )}
+                        <div className="flex flex-col items-start">
+                          <span className="text-xs">{getPlayerFullName(player)}</span>
+                          <span className="text-muted-foreground/80 font-normal text-[0.65rem]">
+                            #{getPlayerJerseyNumber(player) !== "Unknown" && getPlayerJerseyNumber(player) !== "?" ? getPlayerJerseyNumber(player) : "-"} • {player.Position || ""}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </TableCell>
+                </TableRow>
+              );
+            })}
+          </TableBody>
+          <TableFooter>
+            <TableRow className="hover:bg-muted/30">
+              <TableCell>
+                <div className="h-[38px]" />
+              </TableCell>
+            </TableRow>
+          </TableFooter>
+        </Table>
+      </div>
+      <div className="overflow-x-auto flex-1">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              {isGoalkeeper ? (
+                <>
+                  <TableHead className="pl-6">
+                    <div className="flex items-center gap-1.5">
+                      <span className="mt-0.5">Saves</span>
+                    </div>
+                  </TableHead>
+                  <TableHead>
+                    <div className="flex items-center gap-1.5">
+                      <span className="mt-0.5">GP</span>
+                      <Tooltip>
+                        <TooltipTrigger className="size-3" />
+                        <TooltipContent header="Games Played">
+                          <p>Total number of games played</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </div>
+                  </TableHead>
+                  <TableHead>
+                    <div className="flex items-center gap-1.5">
+                      <span className="mt-0.5">Mins</span>
+                      <Tooltip>
+                        <TooltipTrigger className="size-3" />
+                        <TooltipContent header="Time Played">
+                          <p>Total minutes played</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </div>
+                  </TableHead>
+                  <TableHead>
+                    <div className="flex items-center gap-1.5">
+                      <span className="mt-0.5">Shots Faced</span>
+                      <Tooltip>
+                        <TooltipTrigger className="size-3" />
+                        <TooltipContent>
+                          <p>The total number of shots the team has allowed their opposition teams to take</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </div>
+                  </TableHead>
+                  <TableHead>
+                    <div className="flex items-center gap-1.5">
+                      <span className="mt-0.5">GA</span>
+                      <Tooltip>
+                        <TooltipTrigger className="size-3" />
+                        <TooltipContent header="Goals Conceded">
+                          <p>Total goals scored by the opposition</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </div>
+                  </TableHead>
+                  <TableHead>
+                    <div className="flex items-center gap-1.5">
+                      <span className="mt-0.5">CS</span>
+                      <Tooltip>
+                        <TooltipTrigger className="size-3" />
+                        <TooltipContent header="Clean Sheets">
+                          <p>No goals conceded in the game</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </div>
+                  </TableHead>
+                </>
+              ) : (
+                <>
+                  <TableHead className="pl-6">
+                    <div className="flex items-center gap-1.5">
+                      <span className="mt-0.5">Goals</span>
+                    </div>
+                  </TableHead>
+                  <TableHead>
+                    <div className="flex items-center gap-1.5">
+                      <span className="mt-0.5">GP</span>
+                      <Tooltip>
+                        <TooltipTrigger className="size-3" />
+                        <TooltipContent header="Games Played">
+                          <p>Total number of games played</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </div>
+                  </TableHead>
+                  <TableHead>
+                    <div className="flex items-center gap-1.5">
+                      <span className="mt-0.5">Mins</span>
+                      <Tooltip>
+                        <TooltipTrigger className="size-3" />
+                        <TooltipContent header="Time Played">
+                          <p>Total minutes played</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </div>
+                  </TableHead>
+                  <TableHead>
+                    <div className="flex items-center gap-1.5">
+                      <span className="mt-0.5">Shots/On Target</span>
+                      <Tooltip>
+                        <TooltipTrigger className="size-3" />
+                        <TooltipContent>
+                          <p>Total shots at goal (excluding own goals and blocked shots) / All shots which either force a goalkeeper save or score a goal</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </div>
+                  </TableHead>
+                  <TableHead>
+                    <div className="flex items-center gap-1.5">
+                      <span className="mt-0.5">Assists</span>
+                    </div>
+                  </TableHead>
+                  <TableHead>
+                    <div className="flex items-center gap-1.5">
+                      <span className="mt-0.5">Fouls</span>
+                    </div>
+                  </TableHead>
+                  <TableHead>
+                    <div className="flex items-center gap-1.5">
+                      <span className="mt-0.5">Cards</span>
+                    </div>
+                  </TableHead>
+                </>
+              )}
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {paginatedPlayers.map((player, index) => {
+              const globalIndex = startIndex + index;
+              return (
+                <TableRow
+                  key={player.uID}
+                  onMouseEnter={() => setHoveredRow(globalIndex)}
+                  onMouseLeave={() => setHoveredRow(null)}
+                  className={cn(
+                    "h-12 py-0 text-base hover:bg-transparent",
+                    hoveredRow === globalIndex && "bg-muted/30 hover:bg-muted/30"
+                  )}
+                >
+                  {isGoalkeeper ? (
+                    <GoalkeeperStatsCells player={player} seasonStats={seasonStats} />
+                  ) : (
+                    <OutfieldStatsCells player={player} seasonStats={seasonStats} />
+                  )}
+                </TableRow>
+              );
+            })}
+          </TableBody>
+          <TableFooter>
+            <TableRow className="hover:bg-muted/30">
+              <TableCell colSpan={isGoalkeeper ? 6 : 7}>
+                <div className="h-[38px] flex items-center justify-end gap-4">
+                  <p className="text-sm text-muted-foreground">
+                    Page {currentPage} of {totalPages}
+                  </p>
+                  <div className="flex items-center gap-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setPageIndex(prev => Math.max(prev - 1, 0))}
+                      disabled={!canPreviousPage}
+                    >
+                      <CaretRightIcon className="rotate-180" size={16} />
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setPageIndex(prev => Math.min(prev + 1, pageCount - 1))}
+                      disabled={!canNextPage}
+                    >
+                      <CaretRightIcon size={16} />
+                    </Button>
+                  </div>
+                </div>
+              </TableCell>
+            </TableRow>
+          </TableFooter>
+        </Table>
+      </div>
+    </div>
   );
 }
 
-interface PlayerRowProps {
+interface PlayerStatsCellsProps {
   player: F40Player;
   seasonStats?: F30SeasonStatsResponse | null;
 }
 
-function PlayerRow({ player, seasonStats }: PlayerRowProps) {
-  const jerseyNum = getPlayerJerseyNumber(player);
-  const fullName = getPlayerFullName(player);
-  const nationality = getPlayerNationality(player) || getPlayerCountry(player);
-  const countryInput = nationality;
-  const countryIso = countryInput ? getCountryIsoCode(countryInput) : null;
-
+function OutfieldStatsCells({ player, seasonStats }: PlayerStatsCellsProps) {
   const playerId = parseInt(player.uID.replace("p", ""), 10);
-
   const f30Player = seasonStats ? getPlayerById(seasonStats, playerId) : null;
 
-  const appearances = f30Player
-    ? Number(getPlayerStat(f30Player, "Appearances") ?? 0)
-    : 0;
-
-  const goals = f30Player
-    ? Number(getPlayerStat(f30Player, "Goals") ?? 0)
-    : 0;
-
-  const assists = f30Player
-    ? Number(getPlayerStat(f30Player, "Goal Assists") ?? 0)
-    : 0;
-
-  const yellowCards = f30Player
-    ? Number(getPlayerStat(f30Player, "Yellow Cards") ?? 0)
-    : 0;
-  const redCards = f30Player
-    ? Number(getPlayerStat(f30Player, "Total Red Cards") ?? 0)
-    : 0;
-    const cards = f30Player ? yellowCards + redCards : 0;
+  const goals = f30Player ? Number(getPlayerStat(f30Player, "Goals") ?? 0) : 0;
+  const gamesPlayed = f30Player ? Number(getPlayerStat(f30Player, "Games Played") ?? 0) : 0;
+  const timePlayed = f30Player ? Number(getPlayerStat(f30Player, "Time Played") ?? 0) : 0;
+  const shots = f30Player ? Number(getPlayerStat(f30Player, "Total Shots") ?? 0) : 0;
+  const shotsOnTarget = f30Player ? Number(getPlayerStat(f30Player, "Shots On Target ( inc goals )") ?? 0) : 0;
+  const assists = f30Player ? Number(getPlayerStat(f30Player, "Goal Assists") ?? 0) : 0;
+  const fouls = f30Player ? Number(getPlayerStat(f30Player, "Total Fouls Conceded") ?? 0) : 0;
+  const yellowCards = f30Player ? Number(getPlayerStat(f30Player, "Yellow Cards") ?? 0) : 0;
+  const redCards = f30Player ? Number(getPlayerStat(f30Player, "Total Red Cards") ?? 0) : 0;
+  const cards = yellowCards + redCards;
 
   return (
-    <TableRow className="hover:bg-accent/50 transition-colors">
-      <TableCell className="w-20">
-        <span className="font-medium text-accent-foreground">
-          # {jerseyNum !== "Unknown" && jerseyNum !== "?" ? jerseyNum : "-"}
-        </span>
-      </TableCell>
-      <TableCell>
-        <span className="font-medium text-base">{fullName}</span>
-      </TableCell>
-      <TableCell className="text-center">
-        {countryIso && (
-          <span className="flex items-center justify-center gap-1.5">
-            <ReactCountryFlag
-              countryCode={countryIso}
-              svg
-              className="w-4.5! h-4.5! rounded"
-            />
-          </span>
-        )}
-      </TableCell>
-      <TableCell className="text-center">
-        <span className="font-medium text-base">{appearances}</span>
-      </TableCell>
-      <TableCell className="text-center">
-        <span className="font-medium text-base">{goals}</span>
-      </TableCell>
-      <TableCell className="text-center">
-        <span className="font-medium text-base">{assists}</span>
-      </TableCell>
-      <TableCell className="text-center">
-        <span className="font-medium text-base">{cards}</span>
-      </TableCell>
-    </TableRow>
+    <>
+      <TableCell className="pl-6 font-semibold">{goals}</TableCell>
+      <TableCell>{gamesPlayed}</TableCell>
+      <TableCell>{timePlayed}</TableCell>
+      <TableCell>{shots} / {shotsOnTarget}</TableCell>
+      <TableCell>{assists}</TableCell>
+      <TableCell>{fouls}</TableCell>
+      <TableCell>{cards}</TableCell>
+    </>
   );
 }
 
+function GoalkeeperStatsCells({ player, seasonStats }: PlayerStatsCellsProps) {
+  const playerId = parseInt(player.uID.replace("p", ""), 10);
+  const f30Player = seasonStats ? getPlayerById(seasonStats, playerId) : null;
 
+  const saves = f30Player ? Number(getPlayerStat(f30Player, "Saves Made") ?? 0) : 0;
+  const gamesPlayed = f30Player ? Number(getPlayerStat(f30Player, "Games Played") ?? 0) : 0;
+  const timePlayed = f30Player ? Number(getPlayerStat(f30Player, "Time Played") ?? 0) : 0;
+  const totalShotsConceded = f30Player ? Number(getPlayerStat(f30Player, "Total Shots Conceded") ?? 0) : 0;
+  const goalsConceded = f30Player ? Number(getPlayerStat(f30Player, "Goals Conceded") ?? 0) : 0;
+  const shotsAgainst = totalShotsConceded > 0 ? totalShotsConceded : saves + goalsConceded;
+  const cleanSheets = f30Player ? Number(getPlayerStat(f30Player, "Clean Sheets") ?? 0) : 0;
+
+  return (
+    <>
+      <TableCell className="pl-6 font-semibold">{saves}</TableCell>
+      <TableCell>{gamesPlayed}</TableCell>
+      <TableCell>{timePlayed}</TableCell>
+      <TableCell>{shotsAgainst}</TableCell>
+      <TableCell>{goalsConceded}</TableCell>
+      <TableCell>{cleanSheets}</TableCell>
+    </>
+  );
+}

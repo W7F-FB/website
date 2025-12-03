@@ -12,7 +12,9 @@ import { Button } from "@/components/ui/button"
 import { Table, TableBody, TableRow, TableCell, TableHeader } from "@/components/ui/table"
 import { ReplayIcon } from "@/components/website-base/icons"
 import { normalizeOptaId } from "@/lib/opta/utils"
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
+import { NavigationMenuTournament } from "@/components/website-base/nav/nav-tournament-item"
+import { cn } from "@/lib/utils"
 
 const MAX_RECENT_RESULTS = 5
 const TOP_PLACEMENT_THRESHOLD = 3
@@ -20,11 +22,24 @@ const TOP_PLACEMENT_THRESHOLD = 3
 type SectionId = "team-stats" | "participation" | "recent-results"
 type SectionRenderer = () => React.ReactNode
 
-function formatResultDate(date: string): string {
-    return new Date(date).toLocaleDateString('en-US', {
+function formatResultDate(date: string, roundType?: string): string {
+    const formattedDate = new Date(date).toLocaleDateString('en-US', {
         month: 'short',
         day: 'numeric'
     })
+    
+    if (!roundType) return formattedDate
+    
+    let matchType = ""
+    if (roundType === "Semi-Finals") {
+        matchType = "Semifinals"
+    } else if (roundType === "3rd and 4th Place") {
+        matchType = "Third place match"
+    } else if (roundType === "Final") {
+        matchType = "Final"
+    }
+    
+    return matchType ? `${formattedDate}, ${matchType}` : formattedDate
 }
 
 type Props = {
@@ -33,9 +48,10 @@ type Props = {
     fixtures?: F1FixturesResponse | null
     currentTournament?: TournamentDocument | null
     prismicTeams?: TeamDocument[]
+    tournamentDocuments?: TournamentDocument[]
 }
 
-export function TeamStatsCard({ team, standings, fixtures, currentTournament, prismicTeams = [] }: Props) {
+export function TeamStatsCard({ team, standings, fixtures, currentTournament, prismicTeams = [], tournamentDocuments = [] }: Props) {
 
     const teamStanding = team.data.opta_id
         ? standings?.SoccerFeed?.SoccerDocument?.Competition?.TeamStandings
@@ -65,6 +81,17 @@ export function TeamStatsCard({ team, standings, fixtures, currentTournament, pr
     const placement = finalPosition && placementConfig[finalPosition as 1 | 2 | 3]
 
     const tournaments = useMemo(() => {
+        if (tournamentDocuments.length > 0) {
+            return tournamentDocuments
+                .map(tournament => ({
+                    tournament,
+                    year: tournament.data?.start_date
+                        ? new Date(tournament.data.start_date).getFullYear()
+                        : null
+                }))
+                .filter((t): t is NonNullable<typeof t> => t.tournament !== null)
+        }
+        
         return team.data.tournaments
             ?.filter(item => isFilled.contentRelationship(item.tournament))
             .map(item => {
@@ -78,7 +105,7 @@ export function TeamStatsCard({ team, standings, fixtures, currentTournament, pr
                 }
             })
             .filter((t): t is NonNullable<typeof t> => t !== null) || []
-    }, [team.data.tournaments])
+    }, [team.data.tournaments, tournamentDocuments])
 
     const recentResults = useMemo(() => {
         if (!team.data.opta_id) return []
@@ -110,9 +137,9 @@ export function TeamStatsCard({ team, standings, fixtures, currentTournament, pr
             const teamScore = teamData?.Score ?? 0
             const opponentScore = opponentData?.Score ?? 0
 
-            const isWin = teamScore > opponentScore
-            const isLoss = teamScore < opponentScore
-            const isDraw = teamScore === opponentScore
+            const gameWinner = match.MatchInfo.GameWinner || match.MatchInfo.MatchWinner
+            const isWin = gameWinner === teamOptaRef
+            const isLoss = gameWinner === opponentData?.TeamRef
 
             const opponentOptaId = opponentData?.TeamRef?.replace('t', '') || ""
             const opponentTeam = opponentOptaId ? teamsMap.get(opponentOptaId) : undefined
@@ -130,9 +157,10 @@ export function TeamStatsCard({ team, standings, fixtures, currentTournament, pr
                 result: isWin ? "W" : isLoss ? "L" : "D",
                 isWin,
                 isLoss,
-                isDraw,
+                isDraw: false,
                 resultVariant,
-                date: match.MatchInfo.Date
+                date: match.MatchInfo.Date,
+                roundType: match.MatchInfo.RoundType
             }
         })
     }, [team.data.opta_id, fixtures, prismicTeams])
@@ -165,12 +193,6 @@ export function TeamStatsCard({ team, standings, fixtures, currentTournament, pr
 
         return (
             <Table>
-                <TableHeader>
-                    <TableRow>
-                        <th className="sr-only">Statistic</th>
-                        <th className="sr-only">Value</th>
-                    </TableRow>
-                </TableHeader>
                 <TableBody>
                     {rows.map(row => (
                         <TableRow key={row.label}>
@@ -237,11 +259,6 @@ export function TeamStatsCard({ team, standings, fixtures, currentTournament, pr
         if (tournaments.length === 0) {
             return (
                 <Table>
-                    <TableHeader>
-                        <TableRow>
-                            <th className="sr-only">Tournament Participation</th>
-                        </TableRow>
-                    </TableHeader>
                     <TableBody>
                         <TableRow>
                             <TableCell className="text-center py-4 text-sm text-muted-foreground">
@@ -254,31 +271,36 @@ export function TeamStatsCard({ team, standings, fixtures, currentTournament, pr
         }
 
         return (
-            <Table>
-                <TableHeader>
-                    <TableRow>
-                        <th className="sr-only">Tournament</th>
-                        <th className="sr-only">Year</th>
-                    </TableRow>
-                </TableHeader>
-                <TableBody>
-                    {tournaments.map(t => (
-                        <TableRow key={t.uid}>
-                            <TableCell>
-                                <Link
-                                    href={`/tournament/${t.uid}`}
-                                    className="font-medium hover:underline"
-                                >
-                                    {t.title}
-                                </Link>
-                            </TableCell>
-                            <TableCell className="text-right text-sm text-muted-foreground w-24">
-                                {t.year ?? "—"}
-                            </TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
+            <div className="space-y-2">
+                {tournaments.map((t, index) => {
+                    const tournament = 'tournament' in t ? t.tournament : null
+                    if (tournament) {
+                        return (
+                            <NavigationMenuTournament
+                                key={tournament.id || index}
+                                tournament={tournament}
+                                className="min-h-24"
+                            />
+                        )
+                    }
+                    const fallbackTournament = t as { uid: string; title: string; year: number | null }
+                    return (
+                        <div key={fallbackTournament.uid || index} className="border border-border/50 p-3 rounded-none">
+                            <Link
+                                href={`/tournament/${fallbackTournament.uid}`}
+                                className="font-medium hover:underline"
+                            >
+                                {fallbackTournament.title}
+                            </Link>
+                            {fallbackTournament.year && (
+                                <div className="text-sm text-muted-foreground mt-1">
+                                    {fallbackTournament.year}
+                                </div>
+                            )}
+                        </div>
+                    )
+                })}
+            </div>
         )
     }
 
@@ -313,44 +335,48 @@ export function TeamStatsCard({ team, standings, fixtures, currentTournament, pr
                 </TableHeader>
                 <TableBody>
                     {recentResults.map((result) => (
-                        <TableRow key={result.matchId}>
-                            <TableCell className="w-12">
-                                <Badge 
-                                    variant={result.resultVariant as "default" | "destructive" | "secondary"} 
-                                    size="sm"
-                                    className="font-headers font-semibold"
-                                >
+                        <TableRow key={result.matchId} className="relative">
+                            <div className={cn(
+                                "absolute h-full top-0 bottom-0 left-0 w-1 bg-linear-to-r to-transparent",
+                                result.isWin && "from-primary/50",
+                                result.isLoss && "from-destructive/50",
+                                !result.isWin && !result.isLoss && "from-secondary/50"
+                            )} />
+                            <TableCell className="w-10 md:w-12 px-2 md:px-4">
+                                <span className="font-headers font-semibold text-xs md:text-sm pl-1 md:pl-2">
                                     {result.result}
-                                </Badge>
+                                </span>
                             </TableCell>
-                            <TableCell>
-                                <div className="flex items-center gap-2">
-                                    <span className="text-muted-foreground text-sm">vs</span>
-                                    <Link href={`/team/${result.opponentTeam?.uid}`} className="hover:underline">
-                                        <H4 className="text-sm">
+                            <TableCell className="min-w-0 px-2 md:px-4">
+                                <div className="flex items-center gap-1 md:gap-2">
+                                    <span className="text-muted-foreground text-xs md:text-sm shrink-0 hidden md:inline">vs</span>
+                                    <Link href={`/team/${result.opponentTeam?.uid}`} className="hover:underline min-w-0 flex-1 md:flex-none">
+                                        <H4 className="text-xs md:text-sm truncate">
                                             {result.opponentName}
                                         </H4>
                                     </Link>
                                     {result.opponentTeam?.data.logo && (
-                                        <div className="relative w-6 h-6 shrink-0">
+                                        <div className="relative w-4 h-4 md:w-6 md:h-6 shrink-0">
                                             <PrismicNextImage field={result.opponentTeam.data.logo} fill className="object-contain" />
                                         </div>
                                     )}
                                 </div>
-                                <div className="text-xs text-muted-foreground mt-0.5">
-                                    {formatResultDate(result.date)}
+                                <div className="text-xs text-muted-foreground mt-0.5 truncate md:truncate-none">
+                                    {formatResultDate(result.date, result.roundType)}
                                 </div>
                             </TableCell>
-                            <TableCell className="text-right flex items-center gap-2 justify-end">
-                                <div className="text-sm font-headers font-semibold">
-                                    {result.teamScore}-{result.opponentScore}
-                                </div>
-                                <div>
-                                    <Button size="sm" variant="outline" className="h-7 px-2 text-xs gap-1" asChild>
-                                        <Link href={`/match/${normalizeOptaId(result.matchId)}`}>
-                                            <ReplayIcon className="size-3" />
-                                        </Link>
-                                    </Button>
+                            <TableCell className="text-right align-middle px-2 md:px-4">
+                                <div className="flex items-center gap-1 md:gap-2 justify-end">
+                                    <div className="text-xs md:text-sm font-headers font-semibold whitespace-nowrap">
+                                        {result.teamScore}-{result.opponentScore}
+                                    </div>
+                                    <div className="shrink-0">
+                                        <Button size="sm" variant="outline" className="h-6 md:h-7 px-1 md:px-2 text-xs gap-1" asChild>
+                                            <Link href={`/match/${normalizeOptaId(result.matchId)}`}>
+                                                <ReplayIcon className="size-2.5 md:size-3" />
+                                            </Link>
+                                        </Button>
+                                    </div>
                                 </div>
                             </TableCell>
                         </TableRow>
@@ -368,7 +394,7 @@ export function TeamStatsCard({ team, standings, fixtures, currentTournament, pr
 
     const sidebarSections: Array<{ id: SectionId; title: string }> = [
         { id: "team-stats", title: "Team Statistics" },
-        { id: "participation", title: "Tournament Participation" },
+        { id: "participation", title: "Tournaments" },
         { id: "recent-results", title: "Recent Results" },
     ]
 
@@ -378,7 +404,7 @@ export function TeamStatsCard({ team, standings, fixtures, currentTournament, pr
             {sidebarSections.map((section) => (
                 <div key={section.id}>
                     <CardHeader>
-                        <CardTitle>{section.title}</CardTitle>
+                        <CardTitle className="leading-normal">{section.title}</CardTitle>
                     </CardHeader>
                     <CardContent>
                         {renderers[section.id]()}
