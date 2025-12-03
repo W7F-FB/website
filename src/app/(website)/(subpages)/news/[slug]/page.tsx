@@ -22,6 +22,55 @@ type Props = {
   params: Promise<{ slug: string }>
 }
 
+export async function generateMetadata({ params }: Props) {
+  const { slug } = await params
+  const blogDoc = await getBlogBySlug(slug)
+
+  if (!blogDoc) {
+    return {
+      title: "News - World Sevens Football",
+      description: "Latest news and updates from World Sevens Football.",
+    }
+  }
+
+  const blog = mapBlogDocumentToMetadata(blogDoc)
+  const title = `${blog.title} - World Sevens Football`
+  const description = blog.excerpt || "Latest news and updates from World Sevens Football."
+
+  const ogImage = blog.image
+    ? {
+        url: blog.image,
+        width: 1200,
+        height: 630,
+        alt: blog.title,
+      }
+    : {
+        url: "https://worldsevensfootball.com/images/static-media/Opengraph.jpg",
+        width: 1200,
+        height: 630,
+        alt: "World Sevens Football",
+      }
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url: `https://worldsevensfootball.com/news/${slug}`,
+      siteName: "World Sevens Football",
+      type: "article",
+      images: [ogImage],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      creator: "@worldsevens",
+    },
+  }
+}
+
 export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params
   const blogDoc = await getBlogBySlug(slug)

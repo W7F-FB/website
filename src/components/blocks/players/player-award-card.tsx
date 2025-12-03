@@ -43,7 +43,7 @@ export function PlayerAwardCard({ award, player, optaTeam }: PlayerAwardCardProp
 
     return (
         <Card className="p-0 gap-0">
-            <CardHeader className="px-3 h-14 bg-muted/50 font-headers text-base font-semibold gap-0 flex flex-col items-start justify-center">
+            <CardHeader className="lg:px-3 px-3 h-14 bg-muted/50 font-headers text-base font-semibold gap-0 flex flex-col items-start justify-center">
                 <span>
                     {award.award_title || ""}
                 </span>
@@ -51,7 +51,7 @@ export function PlayerAwardCard({ award, player, optaTeam }: PlayerAwardCardProp
                     {award.award_subtitle || ""}
                 </span>
             </CardHeader>
-            <CardContent className="grid grid-cols-[auto_1fr] gap-3 p-3">
+            <CardContent className="grid grid-cols-[auto_1fr] gap-3 lg:p-3 p-3">
                 <PlayerHeadshot 
                     logoUrl={teamLogo}
                     headshotUrl={award.player_headshot?.url ?? undefined}

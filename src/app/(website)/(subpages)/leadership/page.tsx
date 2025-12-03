@@ -24,6 +24,14 @@ export const metadata: Metadata = {
         url: "https://worldsevensfootball.com/leadership",
         siteName: "World Sevens Football",
         type: "website",
+        images: [
+            {
+                url: "https://worldsevensfootball.com/images/static-media/Opengraph.jpg",
+                width: 1200,
+                height: 630,
+                alt: "World Sevens Football",
+            }
+        ],
     },
     twitter: {
         card: "summary_large_image",

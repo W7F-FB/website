@@ -10,6 +10,47 @@ import { formatDate } from "@/lib/utils"
 
 type Params = Promise<{ slug: string }>
 
+export async function generateMetadata(props: { params: Params }) {
+  const { slug } = await props.params
+  const policy = await getPolicyBySlug(slug)
+
+  if (!policy) {
+    return {
+      title: "Resource - World Sevens Football",
+      description: "Important information and policies for World Sevens Football.",
+    }
+  }
+
+  const title = `${policy.data.name} - World Sevens Football`
+  const description = `Read our ${policy.data.name.toLowerCase()} for World Sevens Football. Important information about our policies and guidelines.`
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url: `https://worldsevensfootball.com/resources/${slug}`,
+      siteName: "World Sevens Football",
+      type: "website",
+      images: [
+        {
+          url: "https://worldsevensfootball.com/images/static-media/Opengraph.jpg",
+          width: 1200,
+          height: 630,
+          alt: "World Sevens Football",
+        }
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      creator: "@worldsevens",
+    },
+  }
+}
+
 export default async function PolicyPage(props: { params: Params }) {
   const { slug } = await props.params
   const policy = await getPolicyBySlug(slug)

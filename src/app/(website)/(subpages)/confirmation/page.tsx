@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { NavMain } from "@/components/website-base/nav/nav-main";
 import { Footer } from "@/components/website-base/footer/footer-main";
 import { Container, Section, PaddingGlobal } from "@/components/website-base/padding-containers";
@@ -6,6 +7,29 @@ import { H1, P } from "@/components/website-base/typography";
 import Link from "next/link";
 import Image from "next/image";
 
+export const metadata: Metadata = {
+    title: "Order Confirmation - World Sevens Football",
+    description: "Thank you for your purchase. Your World Sevens Football tickets have been confirmed.",
+    robots: {
+        index: false,
+        follow: false,
+    },
+    openGraph: {
+        title: "Order Confirmation - World Sevens Football",
+        description: "Thank you for your purchase. Your World Sevens Football tickets have been confirmed.",
+        url: "https://worldsevensfootball.com/confirmation",
+        siteName: "World Sevens Football",
+        type: "website",
+        images: [
+            {
+                url: "https://worldsevensfootball.com/images/static-media/Opengraph.jpg",
+                width: 1200,
+                height: 630,
+                alt: "World Sevens Football",
+            }
+        ],
+    },
+}
 
 export default function ConfirmationPage() {
 

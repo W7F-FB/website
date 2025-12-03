@@ -1,7 +1,17 @@
+import type { Metadata } from "next";
 import { NavMain } from "@/components/website-base/nav/nav-main";
 import { Footer } from "@/components/website-base/footer/footer-main";
 import { VideoBanner } from "@/components/blocks/video-banner/video-banner";
 import { PaddingGlobal } from "@/components/website-base/padding-containers";
+
+export const metadata: Metadata = {
+  title: "Video Banner Sandbox - World Sevens Football",
+  description: "Development sandbox for testing video banner components.",
+  robots: {
+    index: false,
+    follow: false,
+  },
+}
 
 export default function SandboxPage() {
     return (

@@ -106,8 +106,8 @@ export default function MatchPageContent({
         f1FixturesData={f1FixturesData}
       />
       <Separator variant="gradient" className="my-8" />
-      <Section padding="none" className="grid grid-cols-1 md:grid-cols-4 gap-8">
-        <div className="md:col-span-1 flex flex-col gap-8 relative">
+      <Section padding="none" className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        <div className="lg:col-span-1 flex flex-col gap-8 relative">
           <Card banner className="w-full">
             <CardHeader>
               <CardTitle>Rosters</CardTitle>
@@ -124,14 +124,14 @@ export default function MatchPageContent({
               />
             </CardContent>
           </Card>
-          <FastBanner text="FAST." position="left" strokeWidth="1px" uppercase className="hidden md:block" />
+          <FastBanner text="FAST." position="left" strokeWidth="1px" uppercase className="hidden lg:block" />
         </div>
-        <div className="md:col-span-1 space-y-8">
+        <div className="lg:col-span-2 space-y-8">
           <Card banner>
             <CardHeader>
               <CardTitle>Standouts</CardTitle>
             </CardHeader>
-            <CardContent className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <CardContent className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               <div>
                 <H3 className="text-xs lg:text-xs text-muted-foreground mb-3 uppercase">Offensive</H3>
                 {standouts.scoringLeader && (
@@ -161,7 +161,7 @@ export default function MatchPageContent({
             </CardContent>
           </Card>
         </div>
-        <div className="md:col-span-1 flex flex-col gap-8 relative">
+        <div className="lg:col-span-1 flex flex-col gap-8 relative">
           {prismicTeams.length > 0 && (
             <Card banner className="w-full">
               <CardHeader>
@@ -203,7 +203,7 @@ export default function MatchPageContent({
               ))}
             </CardContent>
           </Card>
-          <FastBanner text="FORWARD." position="right" strokeWidth="1.5px" className="hidden md:block" />
+          <FastBanner text="FORWARD." position="right" strokeWidth="1.5px" className="hidden lg:block" />
         </div>
       </Section>
     </>

@@ -13,6 +13,47 @@ type Props = {
   params: Promise<{ slug: string }>;
 };
 
+export async function generateMetadata({ params }: Props) {
+  const { slug } = await params;
+  const team = await getTeamByUid(slug);
+
+  if (!team) {
+    return {
+      title: "Team - World Sevens Football",
+      description: "Explore elite football clubs competing in World Sevens Football tournaments.",
+    };
+  }
+
+  const title = `${team.data.name} - World Sevens Football`;
+  const description = `Follow ${team.data.name}'s journey in World Sevens Football. View squad, match stats, fixtures, and tournament performance in the elite 7v7 competition.`;
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url: `https://worldsevensfootball.com/team/${slug}`,
+      siteName: "World Sevens Football",
+      type: "website",
+      images: [
+        {
+          url: "https://worldsevensfootball.com/images/static-media/Opengraph.jpg",
+          width: 1200,
+          height: 630,
+          alt: "World Sevens Football",
+        }
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      creator: "@worldsevens",
+    },
+  };
+}
+
 export default async function TeamPage({ params }: Props) {
   const { slug } = await params;
   const team = await getTeamByUid(slug);

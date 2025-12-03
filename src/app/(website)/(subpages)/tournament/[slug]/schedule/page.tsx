@@ -11,6 +11,47 @@ type Props = {
   params: Promise<{ slug: string }>
 }
 
+export async function generateMetadata({ params }: Props) {
+  const { slug } = await params
+  const tournament = await getTournamentByUid(slug)
+
+  if (!tournament) {
+    return {
+      title: "Schedule - World Sevens Football",
+      description: "View tournament schedules and match fixtures for World Sevens Football.",
+    }
+  }
+
+  const title = `Schedule - ${tournament.data.title} - World Sevens Football`
+  const description = `View the complete match schedule for ${tournament.data.title}. Check fixtures, match times, and track your favorite teams throughout the tournament.`
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url: `https://worldsevensfootball.com/tournament/${slug}/schedule`,
+      siteName: "World Sevens Football",
+      type: "website",
+      images: [
+        {
+          url: "https://worldsevensfootball.com/images/static-media/Opengraph.jpg",
+          width: 1200,
+          height: 630,
+          alt: "World Sevens Football",
+        }
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      creator: "@worldsevens",
+    },
+  }
+}
+
 export default async function TournamentSchedulePage({ params }: Props) {
   const { slug } = await params
   const tournament = await getTournamentByUid(slug)

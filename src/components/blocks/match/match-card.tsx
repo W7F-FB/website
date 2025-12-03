@@ -16,8 +16,8 @@ import { Button } from "@/components/ui/button"
 const MATCH_CARD_VARIANTS = {
     default: {
         card: "rounded-sm bg-card/50 border-border/50",
-        bannerHeader: "px-4 py-3",
-        header: "px-4 py-3",
+        bannerHeader: "lg:px-4 px-4 py-3",
+        header: "lg:px-4 px-4 py-3",
         time: "text-sm font-light",
         status: "text-sm tracking-widest",
         vsText: "px-2 text-xs",
@@ -33,7 +33,7 @@ const MATCH_CARD_VARIANTS = {
     },
     mini: {
         card: "rounded-none bg-transparent border-0 cursor-pointer transition-colors duration-200 hover:bg-muted/20",
-        bannerHeader: "px-4 py-2",
+        bannerHeader: "lg:px-4 px-4 py-2",
         header: "px-4 lg:px-4 pt-2 pb-1",
         time: "text-[0.65rem] font-normal",
         status: "text-xxs tracking-widest font-medium",

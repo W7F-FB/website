@@ -23,6 +23,55 @@ type Props = {
   params: Promise<{ slug: string }>
 }
 
+export async function generateMetadata({ params }: Props) {
+  const { slug } = await params
+  const tournament = await getTournamentByUid(slug)
+
+  if (!tournament) {
+    return {
+      title: "Tournament - World Sevens Football",
+      description: "Elite 7v7 football tournament featuring the world's best clubs competing for a $5M prize pool.",
+    }
+  }
+
+  const title = `${tournament.data.title} - World Sevens Football`
+  let description = `${tournament.data.title} tournament`
+
+  if (tournament.data.status === "Upcoming") {
+    description = `${tournament.data.title} is coming soon. Elite clubs compete in 7v7 format for a $5M prize pool. Get ready for high-stakes matches and world-class football action.`
+  } else if (tournament.data.status === "Live") {
+    description = `${tournament.data.title} is live now. Follow the action as elite clubs compete in 7v7 format for a $5M prize pool. View live standings, fixtures, and match results.`
+  } else if (tournament.data.status === "Complete") {
+    description = `${tournament.data.title} results and highlights. View final standings, match results, awards, and relive the excitement from this elite 7v7 tournament.`
+  }
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url: `https://worldsevensfootball.com/tournament/${slug}`,
+      siteName: "World Sevens Football",
+      type: "website",
+      images: [
+        {
+          url: "https://worldsevensfootball.com/images/static-media/Opengraph.jpg",
+          width: 1200,
+          height: 630,
+          alt: "World Sevens Football",
+        }
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      creator: "@worldsevens",
+    },
+  }
+}
+
 export default async function TournamentPage({ params }: Props) {
   const { slug } = await params
   const tournament = await getTournamentByUid(slug)

@@ -18,6 +18,27 @@ export async function generateMetadata({ params }: { params: Promise<{ optaId: s
   return {
     title: `World Sevens Football - Play-By-Play`,
     description: `Live stats, teams and play-by-play.`,
+    openGraph: {
+      title: `World Sevens Football - Play-By-Play`,
+      description: `Live stats, teams and play-by-play.`,
+      url: "https://worldsevensfootball.com",
+      siteName: "World Sevens Football",
+      type: "website",
+      images: [
+        {
+          url: "https://worldsevensfootball.com/images/static-media/Opengraph.jpg",
+          width: 1200,
+          height: 630,
+          alt: "World Sevens Football",
+        }
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `World Sevens Football - Play-By-Play`,
+      description: `Live stats, teams and play-by-play.`,
+      creator: "@worldsevens",
+    },
   };
 }
 
