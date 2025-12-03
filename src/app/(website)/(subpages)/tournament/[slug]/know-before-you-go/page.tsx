@@ -4,6 +4,8 @@ import TournamentKnowBeforeYouGoPageContent from "./page-content"
 import { NavMain } from "@/components/website-base/nav/nav-main"
 import { Footer } from "@/components/website-base/footer/footer-main"
 
+export const revalidate = 15
+
 type Props = {
   params: Promise<{ slug: string }>
 }
