@@ -21,8 +21,9 @@ export async function generateMetadata(props: { params: Params }) {
     }
   }
 
-  const title = `${policy.data.name} - World Sevens Football`
-  const description = `Read our ${policy.data.name.toLowerCase()} for World Sevens Football. Important information about our policies and guidelines.`
+  const policyName = policy.data.name || "Resource"
+  const title = `${policyName} - World Sevens Football`
+  const description = `Read our ${policyName.toLowerCase()} for World Sevens Football. Important information about our policies and guidelines.`
 
   return {
     title,
