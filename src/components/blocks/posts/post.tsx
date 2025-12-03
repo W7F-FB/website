@@ -16,6 +16,7 @@ export type BlogMetadata = {
   slug: string
   excerpt?: string | null
   image?: string
+  thumbnail?: string
   category?: string | null
   author?: string | null
   date?: string | null
@@ -35,10 +36,10 @@ function PostStandard({ blog, className }: PostProps) {
   return (
     <PrismicLink href={`/news/${blog.slug}`}>
       <Card className={cn("overflow-hidden group/post rounded-none pt-0", className)}>
-        {blog.image && (
+        {(blog.thumbnail || blog.image) && (
           <div className="relative w-full h-64">
             <Image
-              src={blog.image}
+              src={blog.thumbnail || blog.image || ""}
               alt={blog.title}
               fill
               className="object-cover"
@@ -75,10 +76,10 @@ function PostCompact({ blog, className }: PostProps) {
   return (
     <PrismicLink href={`/news/${blog.slug}`}>
       <Card className={cn("flex flex-col md:flex-row overflow-hidden group/post rounded-none p-0 gap-0 bg-card/35 border-border/40", className)}>
-        {blog.image && (
+        {(blog.thumbnail || blog.image) && (
           <div className="relative w-full md:w-[40%] aspect-square flex-shrink-0">
             <Image
-              src={blog.image}
+              src={blog.thumbnail || blog.image || ""}
               alt={blog.title}
               fill
               className="object-cover"
@@ -116,10 +117,10 @@ function PostCardHoriz({ blog, className }: PostProps) {
   return (
     <PrismicLink href={`/news/${blog.slug}`}>
       <Card className={cn("flex flex-col md:flex-row overflow-hidden group/post rounded-none p-0 gap-0 bg-card/35 border-border/40", className)}>
-        {blog.image && (
+        {(blog.thumbnail || blog.image) && (
           <div className="relative w-full md:w-1/2 aspect-[4/3] flex-shrink-0">
             <Image
-              src={blog.image}
+              src={blog.thumbnail || blog.image || ""}
               alt={blog.title}
               fill
               className="object-cover"
@@ -157,10 +158,10 @@ function PostCardVert({ blog, className }: PostProps) {
   return (
     <PrismicLink href={`/news/${blog.slug}`}>
       <Card className={cn("overflow-hidden group/post rounded-none pt-0 bg-card/35 border-border/40", className)}>
-        {blog.image && (
+        {(blog.thumbnail || blog.image) && (
           <div className="relative w-full aspect-[12/8]">
             <Image
-              src={blog.image}
+              src={blog.thumbnail || blog.image || ""}
               alt={blog.title}
               fill
               className="object-cover"
@@ -198,10 +199,10 @@ function PostBanner({ blog, className }: PostProps) {
   return (
     <PrismicLink href={`/news/${blog.slug}`}>
       <div className={cn("flex flex-col md:flex-row overflow-hidden group/post rounded-none bg-card/35 border border-border/40", className)}>
-        {blog.image && (
+        {(blog.thumbnail || blog.image) && (
           <div className="relative w-full md:w-48  flex-shrink-0">
             <Image
-              src={blog.image}
+              src={blog.thumbnail || blog.image || ""}
               alt={blog.title}
               fill
               className="object-cover"

@@ -153,6 +153,31 @@
           "choices": {}
         }
       }
+    },
+    "SEO": {
+      "seo": {
+        "type": "Group",
+        "config": {
+          "label": "SEO",
+          "repeat": true,
+          "fields": {
+            "meta_title": {
+              "type": "Text",
+              "config": {
+                "label": "Meta Title",
+                "placeholder": ""
+              }
+            },
+            "meta_description": {
+              "type": "Text",
+              "config": {
+                "label": "Meta Description",
+                "placeholder": ""
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
