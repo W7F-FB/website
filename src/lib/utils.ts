@@ -245,6 +245,7 @@ export function mapBlogDocumentToMetadata(blog: BlogDocument): BlogMetadata {
     title: blog.data.title ?? "Untitled",
     excerpt: blog.data.excerpt ?? null,
     image: blog.data.image?.url ?? undefined,
+    thumbnail: blog.data.thumbnail?.url ?? undefined,
     category: blog.data.category ?? null,
     author: blog.data.author ?? null,
     date: blog.data.date ?? null,

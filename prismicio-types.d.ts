@@ -206,6 +206,31 @@ export interface BlogDocumentDataTeamsItem {
 type BlogDocumentDataSlicesSlice = never;
 
 /**
+ * Item in *blog → SEO*
+ */
+export interface BlogDocumentDataSeoItem {
+  /**
+   * Meta Title field in *blog → SEO*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: blog.seo[].meta_title
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  meta_title: prismic.KeyTextField;
+
+  /**
+   * Meta Description field in *blog → SEO*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: blog.seo[].meta_description
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  meta_description: prismic.KeyTextField;
+}
+
+/**
  * Content for blog documents
  */
 interface BlogDocumentData {
@@ -230,6 +255,17 @@ interface BlogDocumentData {
    * - **Documentation**: https://prismic.io/docs/fields/image
    */
   image: prismic.ImageField<never>;
+
+  /**
+   * thumbnail field in *blog*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: blog.thumbnail
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  thumbnail: prismic.ImageField<never>;
 
   /**
    * category field in *blog*
@@ -334,7 +370,16 @@ interface BlogDocumentData {
    * - **Tab**: Main
    * - **Documentation**: https://prismic.io/docs/slices
    */
-  slices: prismic.SliceZone<BlogDocumentDataSlicesSlice>;
+  slices: prismic.SliceZone<BlogDocumentDataSlicesSlice> /**
+   * SEO field in *blog*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: blog.seo[]
+   * - **Tab**: SEO
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */;
+  seo: prismic.GroupField<Simplify<BlogDocumentDataSeoItem>>;
 }
 
 /**
@@ -568,6 +613,31 @@ export interface MatchDocumentDataBroadcastsItem {
 type MatchDocumentDataSlicesSlice = never;
 
 /**
+ * Item in *Match → SEO*
+ */
+export interface MatchDocumentDataSeoItem {
+  /**
+   * Meta Title field in *Match → SEO*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: match.seo[].meta_title
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  meta_title: prismic.KeyTextField;
+
+  /**
+   * Meta Description field in *Match → SEO*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: match.seo[].meta_description
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  meta_description: prismic.KeyTextField;
+}
+
+/**
  * Content for Match documents
  */
 interface MatchDocumentData {
@@ -724,7 +794,16 @@ interface MatchDocumentData {
    * - **Tab**: Main
    * - **Documentation**: https://prismic.io/docs/slices
    */
-  slices: prismic.SliceZone<MatchDocumentDataSlicesSlice>;
+  slices: prismic.SliceZone<MatchDocumentDataSlicesSlice> /**
+   * SEO field in *Match*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: match.seo[]
+   * - **Tab**: SEO
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */;
+  seo: prismic.GroupField<Simplify<MatchDocumentDataSeoItem>>;
 }
 
 /**
@@ -1248,6 +1327,21 @@ export interface TournamentDocumentDataMatchesItem {
                     ];
                   },
                 ];
+                fields: [
+                  {
+                    id: "broadcast_partners";
+                    fields: [
+                      "name",
+                      "logo",
+                      "logo_white",
+                      "icon_logo",
+                      "color_secondary",
+                      "logo_on_primary",
+                      "color_primary",
+                      "streaming_link",
+                    ];
+                  },
+                ];
               },
             ];
           },
@@ -1305,6 +1399,31 @@ export interface TournamentDocumentDataAwardsItem {
 }
 
 type TournamentDocumentDataSlicesSlice = never;
+
+/**
+ * Item in *Tournament → SEO*
+ */
+export interface TournamentDocumentDataSeoItem {
+  /**
+   * Meta Title field in *Tournament → SEO*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: tournament.seo[].meta_title
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  meta_title: prismic.KeyTextField;
+
+  /**
+   * Meta Description field in *Tournament → SEO*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: tournament.seo[].meta_description
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  meta_description: prismic.KeyTextField;
+}
 
 /**
  * Content for Tournament documents
@@ -1603,7 +1722,16 @@ interface TournamentDocumentData {
    * - **Tab**: Navigation
    * - **Documentation**: https://prismic.io/docs/fields/text
    */
-  navigation_description: prismic.KeyTextField;
+  navigation_description: prismic.KeyTextField /**
+   * SEO field in *Tournament*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: tournament.seo[]
+   * - **Tab**: SEO
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */;
+  seo: prismic.GroupField<Simplify<TournamentDocumentDataSeoItem>>;
 }
 
 /**
@@ -1813,6 +1941,7 @@ declare module "@prismicio/client" {
       BlogDocumentDataMatchesItem,
       BlogDocumentDataTeamsItem,
       BlogDocumentDataSlicesSlice,
+      BlogDocumentDataSeoItem,
       BroadcastPartnersDocument,
       BroadcastPartnersDocumentData,
       ImageWithTextDocument,
@@ -1821,6 +1950,7 @@ declare module "@prismicio/client" {
       MatchDocumentData,
       MatchDocumentDataBroadcastsItem,
       MatchDocumentDataSlicesSlice,
+      MatchDocumentDataSeoItem,
       PolicyDocument,
       PolicyDocumentData,
       SponsorDocument,
@@ -1835,6 +1965,7 @@ declare module "@prismicio/client" {
       TournamentDocumentDataMatchesItem,
       TournamentDocumentDataAwardsItem,
       TournamentDocumentDataSlicesSlice,
+      TournamentDocumentDataSeoItem,
       WebsiteDocument,
       WebsiteDocumentData,
       WebsiteDocumentDataFooterMenusMenuLinksItem,

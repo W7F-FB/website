@@ -27,6 +27,14 @@
           "thumbnails": []
         }
       },
+      "thumbnail": {
+        "type": "Image",
+        "config": {
+          "label": "thumbnail",
+          "constraint": {},
+          "thumbnails": []
+        }
+      },
       "category": {
         "type": "Select",
         "config": {
@@ -141,6 +149,31 @@
         "fieldset": "Slice Zone",
         "config": {
           "choices": {}
+        }
+      }
+    },
+    "SEO": {
+      "seo": {
+        "type": "Group",
+        "config": {
+          "label": "SEO",
+          "repeat": true,
+          "fields": {
+            "meta_title": {
+              "type": "Text",
+              "config": {
+                "label": "Meta Title",
+                "placeholder": ""
+              }
+            },
+            "meta_description": {
+              "type": "Text",
+              "config": {
+                "label": "Meta Description",
+                "placeholder": ""
+              }
+            }
+          }
         }
       }
     }

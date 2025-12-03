@@ -236,6 +236,21 @@
                                   "streaming_link"
                                 ]
                               }
+                            ],
+                            "fields": [
+                              {
+                                "id": "broadcast_partners",
+                                "fields": [
+                                  "name",
+                                  "logo",
+                                  "logo_white",
+                                  "icon_logo",
+                                  "color_secondary",
+                                  "logo_on_primary",
+                                  "color_primary",
+                                  "streaming_link"
+                                ]
+                              }
                             ]
                           }
                         ]
@@ -352,6 +367,31 @@
         "config": {
           "label": "Navigation Description",
           "placeholder": ""
+        }
+      }
+    },
+    "SEO": {
+      "seo": {
+        "type": "Group",
+        "config": {
+          "label": "SEO",
+          "repeat": true,
+          "fields": {
+            "meta_title": {
+              "type": "Text",
+              "config": {
+                "label": "Meta Title",
+                "placeholder": ""
+              }
+            },
+            "meta_description": {
+              "type": "Text",
+              "config": {
+                "label": "Meta Description",
+                "placeholder": ""
+              }
+            }
+          }
         }
       }
     }
