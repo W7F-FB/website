@@ -106,7 +106,7 @@ export async function getNavigationSettings(): Promise<NavigationSettings | null
       try {
         const partner = await client.getByUID("broadcast_partners", uid);
         broadcastPartners.push(partner);
-      } catch (error) {
+      } catch (_error) {
         continue;
       }
     }

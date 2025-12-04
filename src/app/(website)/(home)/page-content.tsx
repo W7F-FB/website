@@ -45,7 +45,7 @@ const faqData: FAQItem[] = [
         id: "item-3",
         question: "Who participates in W7F tournaments?",
         answer: (
-            <P>Established professional clubs from the best leagues across the globe have committed to participating in W7F's seven-a side tournaments. From that club pool, teams will be chosen to compete.</P>
+            <P>Established professional clubs from the best leagues across the globe have committed to participating in W7F&apos;s seven-a side tournaments. From that club pool, teams will be chosen to compete.</P>
         )
     }
 ];
