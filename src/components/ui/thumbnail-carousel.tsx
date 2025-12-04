@@ -160,7 +160,7 @@ function ThumbnailCarouselContent({
     <div ref={carouselRef} className="overflow-hidden">
       <div
         className={cn(
-          "flex justify-center",
+          "flex justify-start",
           orientation === "horizontal"
             ? "-ml-4 flex-row"
             : "-mt-4 flex-col",
@@ -226,8 +226,8 @@ function ThumbnailCarouselPrevious({
       className={cn(
         "absolute size-6 z-10",
         orientation === "horizontal"
-          ? "top-1/2 -left-8 -translate-y-1/2"
-          : "-top-8 left-1/2 -translate-x-1/2 rotate-90",
+          ? "top-1/2 left-2 -translate-y-1/2"
+          : "top-2 left-1/2 -translate-x-1/2 rotate-90",
         className
       )}
       disabled={!canScrollPrev}
@@ -258,8 +258,8 @@ function ThumbnailCarouselNext({
       className={cn(
         "absolute size-6 z-10",
         orientation === "horizontal"
-          ? "top-1/2 -right-8 -translate-y-1/2"
-          : "-bottom-8 left-1/2 -translate-x-1/2 rotate-90",
+          ? "top-1/2 right-2 -translate-y-1/2"
+          : "bottom-2 left-1/2 -translate-x-1/2 rotate-90",
         className
       )}
       disabled={!canScrollNext}
