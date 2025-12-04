@@ -65,163 +65,168 @@ export default function TournamentPageUpcoming({ tournament, tournamentBlogs }: 
     return (
         <div>
             <PaddingGlobal>
-            <div>
-            <SubpageHero>
-                <SubpageHeroContent>
-                    <Subtitle>{tournament.data.title}</Subtitle>
-                    <H1 className="uppercase">Tickets on sale now</H1>
-                    <P className="text-lg"><span className="font-semibold">{formatDateRange(tournament.data.start_date, tournament.data.end_date)}</span><span className="ml-3 font-light text-sm">{tournament.data.stadium_name}</span></P>
-                    {isFilled.number(tournament.data.prize_pool) && (
-                        <P noSpace className="text-lg mt-1"><span className="font-semibold">{formatCurrencyInWords(tournament.data.prize_pool)}</span><span className="ml-3 font-light text-sm">Prize Pool</span></P>
-                    )}
-                    <div className="mt-8 flex justify-center md:justify-start">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <Button asChild size="skew_lg">
-                                <Link href="/checkout"><span>Purchase Tickets</span></Link>
-                            </Button>
-                            <Button asChild size="skew_lg" variant="outline">
-                                <Link href={`/tournament/${tournament.uid}/schedule`}><span>View Schedule</span></Link>
-                            </Button>
-                        </div>
-                    </div>
-                </SubpageHeroContent>
-                {tournament.data.hero_image && (
-                    <SubpageHeroMedia>
-                        <PrismicNextImage
-                            field={tournament.data.hero_image}
-                            fill
-                            className="object-cover"
-                        />
-                        <SubpageHeroMediaBanner>
-                            <P noSpace>Interested in watching the action from a pitchside cabana? <span>
-                                <Button asChild variant="link" size="sm" className=" ml-1 p-0 h-auto !px-0">
-                                    <Link href="#vip-cabanas">
-                                        Contact Us
-                                        <CaretRightIcon className="size-3 mt-px" />
-                                    </Link>
-                                </Button>
-                            </span></P>
-                        </SubpageHeroMediaBanner>
-                    </SubpageHeroMedia>
-                )}
-            </SubpageHero>
-            <Container maxWidth="lg">
-                <Section padding="md">
-                    <SectionHeading className="pb-8">
-                        <SectionHeadingHeading variant="h2">Participating Clubs</SectionHeadingHeading>
-                    </SectionHeading>
-                    <ClubList tournament={tournament} />
-                </Section>
-                <Separator variant="gradient" />
-                <Section padding="md">
-                    <TicketOptionsGrid />
-                </Section>
-                <Section padding="md" id="schedule">
-                    <SectionHeading variant="split" className="pb-8">
-                        <SectionHeadingLeft>
-                            <SectionHeadingHeading variant="h2" className="pb-0">Schedule</SectionHeadingHeading>
-                            <P noSpace>All times are subject to change</P>
-                        </SectionHeadingLeft>
-                        <SectionHeadingRight>
-                            <Button asChild size="skew" className="mt-auto">
-                                <Link href={`/tournament/${tournament.uid}/schedule`}><span>View Match Schedule</span></Link>
-                            </Button>
-                        </SectionHeadingRight>
-                    </SectionHeading>
-                    <ScheduleTabs tournamentSlug={tournament.uid} />
-                </Section>
-                <Separator variant="gradient" />
-                <Section padding="lg" id="vip-cabanas" className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 items-start">
-                    <div className="relative h-80 md:h-full w-full">
-                        <div className="absolute top-4 left-4 z-10">
-                            <Badge fast size="lg" variant="secondary">VIP Cabanas</Badge>
-                        </div>
-                        <ImageSlider autoplay autoplayDelay={5000}>
-                            <ImageSliderSlide >
-                                <Image
-                                    src="/images/static-media/vip-cabanas.jpg"
-                                    alt="VIP Cabanas"
-                                    fill
-                                    className="w-full h-full object-cover"
-                                />
-                            </ImageSliderSlide>
-                            <ImageSliderSlide>
-                                <Image
-                                    src="/images/static-media/vip-cabanas-2.webp"
-                                    alt="VIP Cabanas View"
-                                    fill
-                                    className="w-full h-full object-cover"
-                                />
-                            </ImageSliderSlide>
-                        </ImageSlider>
-                    </div>
-                    <PrivateVipForm />
-                </Section>
-                {tournamentBlogs.length > 0 && (
-                    <>
-                        <Separator variant="gradient" />
-                        <Section padding="md">
-                            <SectionHeading variant="split">
-                                <SectionHeadingSubtitle>
-                                    Latest Coverage
-                                </SectionHeadingSubtitle>
-                                <SectionHeadingHeading>
-                                    Tournament News
-                                </SectionHeadingHeading>
-                                <Button asChild size="skew" variant="outline" className="w-fit ml-0 md:ml-auto mt-auto">
-                                    <PrismicLink href="/news"><span>All News</span></PrismicLink>
-                                </Button>
-                            </SectionHeading>
-                            <PostGrid posts={tournamentBlogs.slice(0, 4).map(mapBlogDocumentToMetadata)} />
-                        </Section>
-                    </>
-                )}
-            </Container>
-            <Section padding="md">
-                <Container maxWidth="lg">
-                    <FAQBannerLayout
-                        images={tournament.data.hero_image && getImageUrl(tournament.data.hero_image) ? [{
-                            url: getImageUrl(tournament.data.hero_image)!,
-                            altText: getImageAlt(tournament.data.hero_image)
-                        }] : undefined}
-                    >
-                        <Card className="border-border/35">
-                            <CardHeader>
-                                <CardTitle>
-                                    <H2>FAQs</H2>
-                                </CardTitle>
-                                <CardDescription className="text-lg">Frequently asked questions about World Sevens Football</CardDescription>
-                            </CardHeader>
-                            <CardContent>
-                                <Accordion type="single" collapsible className="w-full">
-                                    {faqData.map((faq) => (
-                                        <AccordionItem key={faq.id} value={faq.id}>
-                                            <AccordionTrigger>
-                                                <strong>{faq.question}</strong>
-                                            </AccordionTrigger>
-                                            <AccordionContent>
-                                                {faq.answer}
-                                            </AccordionContent>
-                                        </AccordionItem>
-                                    ))}
-                                </Accordion>
-                                <div className="mt-8 pl-2 w-full flex justify-end">
-                                    <Button asChild variant="link">
-                                        <Link href="/faqs">
-                                            <span>Read More</span>
-                                            <CaretRightIcon
-                                                className="size-3 mt-0.5"
-                                            />
-                                        </Link>
+                <div>
+                    <SubpageHero>
+                        <SubpageHeroContent>
+                            <Subtitle>{tournament.data.title}</Subtitle>
+                            <H1 className="uppercase">Tickets on sale now</H1>
+                            <P className="text-lg"><span className="font-semibold">{formatDateRange(tournament.data.start_date, tournament.data.end_date)}</span><span className="ml-3 font-light text-sm">{tournament.data.stadium_name}</span></P>
+                            {isFilled.number(tournament.data.prize_pool) && (
+                                <P noSpace className="text-lg mt-1"><span className="font-semibold">{formatCurrencyInWords(tournament.data.prize_pool)}</span><span className="ml-3 font-light text-sm">Prize Pool</span></P>
+                            )}
+                            <div className="mt-8 flex justify-center md:justify-start">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <Button asChild size="skew_lg">
+                                        <Link href="/checkout"><span>Purchase Tickets</span></Link>
+                                    </Button>
+                                    <Button asChild size="skew_lg" variant="outline">
+                                        <Link href={`/tournament/${tournament.uid}/schedule`}><span>View Schedule</span></Link>
                                     </Button>
                                 </div>
-                            </CardContent>
-                        </Card>
-                    </FAQBannerLayout>
-                </Container>
-            </Section>
-        </div>
-        </PaddingGlobal>
+                            </div>
+                        </SubpageHeroContent>
+                        {tournament.data.hero_image && (
+                            <SubpageHeroMedia>
+                                <PrismicNextImage
+                                    field={tournament.data.hero_image}
+                                    fill
+                                    className="object-cover"
+                                />
+                                <SubpageHeroMediaBanner>
+                                    <P noSpace>Interested in watching the action from a pitchside cabana? <span>
+                                        <Button asChild variant="link" size="sm" className=" ml-1 p-0 h-auto !px-0">
+                                            <Link href="#vip-cabanas">
+                                                Contact Us
+                                                <CaretRightIcon className="size-3 mt-px" />
+                                            </Link>
+                                        </Button>
+                                    </span></P>
+                                </SubpageHeroMediaBanner>
+                            </SubpageHeroMedia>
+                        )}
+                    </SubpageHero>
+                    <Container maxWidth="lg">
+                        <Section padding="md">
+                            <SectionHeading className="pb-8">
+                                <SectionHeadingHeading variant="h2">Participating Clubs</SectionHeadingHeading>
+                            </SectionHeading>
+                            <ClubList tournament={tournament} />
+                        </Section>
+                        <Separator variant="gradient" />
+                        <Section padding="md">
+                            <TicketOptionsGrid />
+                        </Section>
+                        <Section padding="md" id="schedule">
+                            <SectionHeading variant="split" className="pb-8">
+                                <SectionHeadingLeft>
+                                    <SectionHeadingHeading variant="h2" className="pb-0">Schedule</SectionHeadingHeading>
+                                    <P noSpace>All times are subject to change</P>
+                                </SectionHeadingLeft>
+                                <SectionHeadingRight className="hidden lg:flex">
+                                    <Button asChild  variant="secondary" size="skew" className="mt-auto">
+                                        <Link href={`/tournament/${tournament.uid}/schedule`}><span>View Match Schedule</span></Link>
+                                    </Button>
+                                </SectionHeadingRight>
+                            </SectionHeading>
+                            <ScheduleTabs tournamentSlug={tournament.uid} />
+                            <div className="flex justify-center mt-4 lg:hidden">
+                                <Button asChild variant="secondary" size="skew" className="mx-auto">
+                                    <Link href={`/tournament/${tournament.uid}/schedule`}><span>View Match Schedule</span></Link>
+                                </Button>
+                            </div>
+                        </Section>
+                        <Separator variant="gradient" />
+                        <Section padding="lg" id="vip-cabanas" className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 items-start">
+                            <div className="relative h-80 md:h-full w-full">
+                                <div className="absolute top-4 left-4 z-10">
+                                    <Badge fast size="lg" variant="secondary">VIP Cabanas</Badge>
+                                </div>
+                                <ImageSlider autoplay autoplayDelay={5000}>
+                                    <ImageSliderSlide >
+                                        <Image
+                                            src="/images/static-media/vip-cabanas.jpg"
+                                            alt="VIP Cabanas"
+                                            fill
+                                            className="w-full h-full object-cover"
+                                        />
+                                    </ImageSliderSlide>
+                                    <ImageSliderSlide>
+                                        <Image
+                                            src="/images/static-media/vip-cabanas-2.webp"
+                                            alt="VIP Cabanas View"
+                                            fill
+                                            className="w-full h-full object-cover"
+                                        />
+                                    </ImageSliderSlide>
+                                </ImageSlider>
+                            </div>
+                            <PrivateVipForm />
+                        </Section>
+                        {tournamentBlogs.length > 0 && (
+                            <>
+                                <Separator variant="gradient" />
+                                <Section padding="md">
+                                    <SectionHeading variant="split">
+                                        <SectionHeadingSubtitle>
+                                            Latest Coverage
+                                        </SectionHeadingSubtitle>
+                                        <SectionHeadingHeading>
+                                            Tournament News
+                                        </SectionHeadingHeading>
+                                        <Button asChild size="skew" variant="outline" className="w-fit ml-0 md:ml-auto mt-auto">
+                                            <PrismicLink href="/news"><span>All News</span></PrismicLink>
+                                        </Button>
+                                    </SectionHeading>
+                                    <PostGrid posts={tournamentBlogs.slice(0, 4).map(mapBlogDocumentToMetadata)} />
+                                </Section>
+                            </>
+                        )}
+                    </Container>
+                    <Section padding="md">
+                        <Container maxWidth="lg">
+                            <FAQBannerLayout
+                                images={tournament.data.hero_image && getImageUrl(tournament.data.hero_image) ? [{
+                                    url: getImageUrl(tournament.data.hero_image)!,
+                                    altText: getImageAlt(tournament.data.hero_image)
+                                }] : undefined}
+                            >
+                                <Card className="border-border/35">
+                                    <CardHeader>
+                                        <CardTitle>
+                                            <H2>FAQs</H2>
+                                        </CardTitle>
+                                        <CardDescription className="text-lg">Frequently asked questions about World Sevens Football</CardDescription>
+                                    </CardHeader>
+                                    <CardContent>
+                                        <Accordion type="single" collapsible className="w-full">
+                                            {faqData.map((faq) => (
+                                                <AccordionItem key={faq.id} value={faq.id}>
+                                                    <AccordionTrigger>
+                                                        <strong>{faq.question}</strong>
+                                                    </AccordionTrigger>
+                                                    <AccordionContent>
+                                                        {faq.answer}
+                                                    </AccordionContent>
+                                                </AccordionItem>
+                                            ))}
+                                        </Accordion>
+                                        <div className="mt-8 pl-2 w-full flex justify-end">
+                                            <Button asChild variant="link">
+                                                <Link href="/faqs">
+                                                    <span>Read More</span>
+                                                    <CaretRightIcon
+                                                        className="size-3 mt-0.5"
+                                                    />
+                                                </Link>
+                                            </Button>
+                                        </div>
+                                    </CardContent>
+                                </Card>
+                            </FAQBannerLayout>
+                        </Container>
+                    </Section>
+                </div>
+            </PaddingGlobal>
         </div>
     )
 }

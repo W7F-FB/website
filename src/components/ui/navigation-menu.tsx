@@ -392,6 +392,51 @@ function NavigationMenuIndicator({
   )
 }
 
+function NavSheetLink({
+  children,
+  href,
+}: {
+  children: React.ReactElement
+  href?: string
+}) {
+  const { isTablet, setIsSheetOpen } = useNavigationMenuContext()
+  const router = useRouter()
+
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (!isTablet) return
+
+    const targetHref = href || e.currentTarget.href
+    if (!targetHref) return
+
+    const url = new URL(targetHref, window.location.origin)
+    const isSamePage = url.pathname === window.location.pathname
+    const hasHash = url.hash.length > 0
+
+    e.preventDefault()
+
+    if (!isSamePage) {
+      router.prefetch(url.pathname)
+    }
+
+    setIsSheetOpen(false)
+
+    setTimeout(() => {
+      if (isSamePage && hasHash) {
+        const element = document.querySelector(url.hash)
+        element?.scrollIntoView({ behavior: "smooth" })
+      } else if (hasHash) {
+        router.push(url.pathname + url.hash)
+      } else {
+        router.push(url.pathname + url.search)
+      }
+    }, SHEET_ANIMATION_DURATION)
+  }
+
+  return React.cloneElement(children, {
+    onClick: handleClick,
+  } as React.HTMLAttributes<HTMLElement>)
+}
+
 export {
   NavigationMenu,
   NavigationMenuProvider,
@@ -405,6 +450,7 @@ export {
   navigationMenuTriggerStyle,
   MobileNavigationTrigger,
   useNavigationMenuContext,
+  NavSheetLink,
 }
 
 export { NavigationMenuContentAnimated } from "./navigation-menu-animated"

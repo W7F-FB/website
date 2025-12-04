@@ -13,6 +13,7 @@ import { CategoryButton } from "@/components/blocks/category-button"
 import { SoccerIcon, TicketIcon, WhistleIcon, InfoShieldIcon, VIPIcon } from "../icons"
 import { PrismicNextImage } from "@prismicio/next"
 import { getTeamsByTournament } from "@/cms/queries/team"
+import { NavSheetLink } from "@/components/ui/navigation-menu"
 
 interface NavigationMenuTournamentProps {
     tournament?: TournamentDocument
@@ -57,40 +58,41 @@ export function NavigationMenuTournament({
     const statusText = getStatusText()
 
     return (
-        <PrismicLink
-            document={tournament}
-            data-slot="navigation-menu-link"
-            className={cn(
-                className,
-                "flex justify-end hover:bg-transparent px-3 pr-8 h-full flex-grow min-w-full min-h-24 pb-3 relative rounded-none overflow-hidden border border-border/50 group/tournament",
-                // NavigationMenuLink default styles
-                "hover:bg-background hover:text-accent-foreground focus:bg-bg-background focus:text-accent-foreground focus-visible:ring-ring/50 [&_svg:not([class*='text-'])]:text-muted-foreground flex flex-col gap-1 rounded-sm text-sm transition-all outline-none focus-visible:ring-[3px] focus-visible:outline-1 [&_svg:not([class*='size-'])]:size-4 font-headers rounded-none"
-            )}
-        >
-            <Background className="-inset-4">
-                <PrismicNextImage
-                    field={tournament.data.nav_image}
-                    fill
-                    priority
-                    loading="eager"
-                    className="object-cover grayscale-20 opacity-100 group-hover/tournament:scale-102 group-hover/tournament:grayscale-0 group-hover/tournament:opacity-100 transition-all duration-300 mask-b-from-30%"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/50 from-20% to-background/20" />
-            </Background>
-            <div className="relative">
-                <div className="flex items-center gap-3">
-                    <TextProtect className="text-base font-[500]">{tournament.data.title}</TextProtect>
-                    {cleanCountryCode(tournament.data.country_code) && (
-                        <CountryFlag countryCode={cleanCountryCode(tournament.data.country_code)!} svg className="!w-4.5 !h-4.5 rounded-full border border-secondary/20 object-cover" />
+        <NavSheetLink>
+            <PrismicLink
+                document={tournament}
+                data-slot="navigation-menu-link"
+                className={cn(
+                    className,
+                    "flex justify-end hover:bg-transparent px-3 pr-8 h-full flex-grow min-w-full min-h-24 pb-3 relative rounded-none overflow-hidden border border-border/50 group/tournament",
+                    "hover:bg-background hover:text-accent-foreground focus:bg-bg-background focus:text-accent-foreground focus-visible:ring-ring/50 [&_svg:not([class*='text-'])]:text-muted-foreground flex flex-col gap-1 rounded-sm text-sm transition-all outline-none focus-visible:ring-[3px] focus-visible:outline-1 [&_svg:not([class*='size-'])]:size-4 font-headers rounded-none"
+                )}
+            >
+                <Background className="-inset-4">
+                    <PrismicNextImage
+                        field={tournament.data.nav_image}
+                        fill
+                        priority
+                        loading="eager"
+                        className="object-cover grayscale-20 opacity-100 group-hover/tournament:scale-102 group-hover/tournament:grayscale-0 group-hover/tournament:opacity-100 transition-all duration-300 mask-b-from-30%"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-background/50 from-20% to-background/20" />
+                </Background>
+                <div className="relative">
+                    <div className="flex items-center gap-3">
+                        <TextProtect className="text-base font-[500]">{tournament.data.title}</TextProtect>
+                        {cleanCountryCode(tournament.data.country_code) && (
+                            <CountryFlag countryCode={cleanCountryCode(tournament.data.country_code)!} svg className="!w-4.5 !h-4.5 rounded-full border border-secondary/20 object-cover" />
+                        )}
+                    </div>
+                    {statusText && (
+                        <span className="text-xs text-muted-foreground font-[500] mt-1.5">
+                            {statusText}
+                        </span>
                     )}
                 </div>
-                {statusText && (
-                    <span className="text-xs text-muted-foreground font-[500] mt-1.5">
-                        {statusText}
-                    </span>
-                )}
-            </div>
-        </PrismicLink>
+            </PrismicLink>
+        </NavSheetLink>
     )
 }
 
@@ -126,17 +128,19 @@ export async function NavigationMenuTournamentFeatured({
 
     return (
         <div className="grid lg:grid-cols-[auto_1fr] bg-gradient-to-txxx from-muted/50 to-muted/20 ">
-            <PrismicLink document={tournament} className=" hidden lg:block relative w-full lg:w-64 h-full group/tournament overflow-hidden border-muted border">
-                <div className="relative h-full w-full">
-                    <PrismicNextImage
-                        field={tournament.data.nav_image}
-                        fill
-                        priority
-                        loading="eager"
-                        className="object-bottom-right object-cover grayscale-20 opacity-100 group-hover/tournament:scale-102 group-hover/tournament:grayscale-0 group-hover/tournament:opacity-100 transition-all duration-300 mask-b-from-30% "
-                    />
-                </div>
-            </PrismicLink>
+            <NavSheetLink>
+                <PrismicLink document={tournament} className=" hidden lg:block relative w-full lg:w-64 h-full group/tournament overflow-hidden border-muted border">
+                    <div className="relative h-full w-full">
+                        <PrismicNextImage
+                            field={tournament.data.nav_image}
+                            fill
+                            priority
+                            loading="eager"
+                            className="object-bottom-right object-cover grayscale-20 opacity-100 group-hover/tournament:scale-102 group-hover/tournament:grayscale-0 group-hover/tournament:opacity-100 transition-all duration-300 mask-b-from-30% "
+                        />
+                    </div>
+                </PrismicLink>
+            </NavSheetLink>
             <div
                 data-slot="navigation-menu-link"
                 className={cn(
