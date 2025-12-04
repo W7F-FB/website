@@ -21,6 +21,22 @@ type AwardData = AwardAwardsField extends prismic.ContentRelationshipField<infer
 
 type Props = {
   params: Promise<{ slug: string }>
+  searchParams: Promise<{ state?: string }>
+}
+
+type TournamentStatus = "Upcoming" | "Live" | "Complete"
+
+function getStatusOverride(stateParam: string | undefined): TournamentStatus | null {
+  if (process.env.NEXT_PUBLIC_DEV_MODE !== 'true' || !stateParam) return null
+  
+  const normalizedState = stateParam.toLowerCase()
+  const statusMap: Record<string, TournamentStatus> = {
+    upcoming: "Upcoming",
+    live: "Live",
+    complete: "Complete",
+  }
+  
+  return statusMap[normalizedState] || null
 }
 
 export async function generateMetadata({ params }: Props) {
@@ -72,15 +88,23 @@ export async function generateMetadata({ params }: Props) {
   }
 }
 
-export default async function TournamentPage({ params }: Props) {
+export default async function TournamentPage({ params, searchParams }: Props) {
   const { slug } = await params
+  const { state } = await searchParams
   const tournament = await getTournamentByUid(slug)
 
   if (!tournament) return notFound()
 
   const tournamentBlogs = await getBlogsByTournament(tournament.id)
+  
+  const statusOverride = getStatusOverride(state)
+  const status = statusOverride ?? tournament.data.status
+  
+  const effectiveTournament = statusOverride 
+    ? { ...tournament, data: { ...tournament.data, status: statusOverride } }
+    : tournament
 
-  if (tournament.data.status === "Upcoming") {
+  if (status === "Upcoming") {
     return (
       <>
         <NavMain showBreadcrumbs customBreadcrumbs={[
@@ -88,29 +112,34 @@ export default async function TournamentPage({ params }: Props) {
           { label: tournament.data.title, href: `/tournament/${tournament.uid}` }
         ]} />
         <main className="flex-grow min-h-[30rem]">
-          <TournamentPageUpcoming tournament={tournament} tournamentBlogs={tournamentBlogs} />
+          <TournamentPageUpcoming tournament={effectiveTournament} tournamentBlogs={tournamentBlogs} />
         </main>
         <Footer />
       </>
     )
   }
 
-  if (tournament.data.status === "Live") {
+  if (status === "Live") {
     const competitionId = tournament.data.opta_competition_id
     const seasonId = tournament.data.opta_season_id
 
+    let f3StandingsData = null
     let f1FixturesData = null
     let prismicTeams: TeamDocument[] = []
     const f30TeamStats: Map<string, F30SeasonStatsResponse> = new Map()
 
     if (competitionId && seasonId && tournament.uid) {
       try {
-        const [fixtures, teams] = await Promise.all([
+        const [standings, fixtures, teams] = await Promise.all([
+          getF3Standings(competitionId, seasonId),
           getF1Fixtures(competitionId, seasonId),
           getTeamsByTournament(tournament.uid)
         ])
+        f3StandingsData = standings
         f1FixturesData = fixtures
         prismicTeams = teams
+
+        dev.log('f1FixturesData', f1FixturesData)
 
         const uniqueTeamIds = prismicTeams
           .map(team => team.data.opta_id)
@@ -143,9 +172,12 @@ export default async function TournamentPage({ params }: Props) {
         <NavMain showBreadcrumbs />
         <main className="flex-grow min-h-[30rem]">
           <TournamentPageLive
-            tournament={tournament}
+            compact
+            tournament={effectiveTournament}
             tournamentBlogs={tournamentBlogs}
+            f3StandingsData={f3StandingsData}
             f1FixturesData={f1FixturesData}
+            f30TeamStats={f30TeamStats}
             prismicTeams={prismicTeams}
           />
         </main>
@@ -154,7 +186,7 @@ export default async function TournamentPage({ params }: Props) {
     )
   }
 
-  if (tournament.data.status === "Complete") {
+  if (status === "Complete") {
     const competitionId = tournament.data.opta_competition_id
     const seasonId = tournament.data.opta_season_id
 
@@ -173,6 +205,8 @@ export default async function TournamentPage({ params }: Props) {
         f3StandingsData = standings
         f1FixturesData = fixtures
         prismicTeams = teams
+
+        dev.log('f1FixturesData', f1FixturesData)
 
 
         const uniqueTeamIds = prismicTeams
@@ -216,7 +250,7 @@ export default async function TournamentPage({ params }: Props) {
         <main className="flex-grow min-h-[30rem]">
           <TournamentPagePast 
             compact 
-            tournament={tournament}
+            tournament={effectiveTournament}
             tournamentBlogs={tournamentBlogs}
             f3StandingsData={f3StandingsData}
             f1FixturesData={f1FixturesData}

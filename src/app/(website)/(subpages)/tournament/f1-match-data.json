@@ -1,0 +1,888 @@
+{
+    "SoccerDocument": {
+        "MatchData": [
+            {
+                "MatchInfo": {
+                    "Date": "2025-12-05 23:00:00",
+                    "DateUtc": "2025-12-05 23:00:00",
+                    "TZ": "GMT",
+                    "GroupName": 2,
+                    "MatchDay": 1,
+                    "MatchType": "Cup 1ET PENS",
+                    "Period": "PreMatch",
+                    "RoundNumber": 1,
+                    "RoundType": "Round",
+                    "TimeFrameLengthId": 34,
+                    "Venue_id": 18060
+                },
+                "Stat": [
+                    {
+                        "value": "Beyond Bancard Field",
+                        "Type": "Venue"
+                    },
+                    {
+                        "value": "Davie, Florida",
+                        "Type": "City"
+                    },
+                    {
+                        "value": "True",
+                        "Type": "Neutral"
+                    }
+                ],
+                "TeamData": [
+                    {
+                        "Side": "Home",
+                        "TeamRef": "t23621"
+                    },
+                    {
+                        "Side": "Away",
+                        "TeamRef": "t23627"
+                    }
+                ],
+                "detail_id": 1,
+                "last_modified": "2025-11-26T13:06:11+00:00",
+                "timestamp_accuracy_id": 1,
+                "timing_id": 1,
+                "uID": "g2610441"
+            },
+            {
+                "MatchInfo": {
+                    "Date": "2025-12-05 22:00:00",
+                    "DateUtc": "2025-12-05 22:00:00",
+                    "TZ": "GMT",
+                    "GroupName": 1,
+                    "MatchDay": 1,
+                    "MatchType": "Cup 1ET PENS",
+                    "Period": "PreMatch",
+                    "RoundNumber": 1,
+                    "RoundType": "Round",
+                    "TimeFrameLengthId": 34,
+                    "Venue_id": 18060
+                },
+                "Stat": [
+                    {
+                        "value": "Beyond Bancard Field",
+                        "Type": "Venue"
+                    },
+                    {
+                        "value": "Davie, Florida",
+                        "Type": "City"
+                    },
+                    {
+                        "value": "True",
+                        "Type": "Neutral"
+                    }
+                ],
+                "TeamData": [
+                    {
+                        "Side": "Home",
+                        "TeamRef": "t23626"
+                    },
+                    {
+                        "Side": "Away",
+                        "TeamRef": "t23622"
+                    }
+                ],
+                "detail_id": 1,
+                "last_modified": "2025-11-26T13:06:04+00:00",
+                "timestamp_accuracy_id": 1,
+                "timing_id": 1,
+                "uID": "g2610440"
+            },
+            {
+                "MatchInfo": {
+                    "Date": "2025-12-06 01:00:00",
+                    "DateUtc": "2025-12-06 01:00:00",
+                    "TZ": "GMT",
+                    "GroupName": 2,
+                    "MatchDay": 1,
+                    "MatchType": "Cup 1ET PENS",
+                    "Period": "PreMatch",
+                    "RoundNumber": 1,
+                    "RoundType": "Round",
+                    "TimeFrameLengthId": 34,
+                    "Venue_id": 18060
+                },
+                "Stat": [
+                    {
+                        "value": "Beyond Bancard Field",
+                        "Type": "Venue"
+                    },
+                    {
+                        "value": "Davie, Florida",
+                        "Type": "City"
+                    },
+                    {
+                        "value": "True",
+                        "Type": "Neutral"
+                    }
+                ],
+                "TeamData": [
+                    {
+                        "Side": "Home",
+                        "TeamRef": "t23620"
+                    },
+                    {
+                        "Side": "Away",
+                        "TeamRef": "t23623"
+                    }
+                ],
+                "detail_id": 1,
+                "last_modified": "2025-11-26T13:06:28+00:00",
+                "timestamp_accuracy_id": 1,
+                "timing_id": 1,
+                "uID": "g2610444"
+            },
+            {
+                "MatchInfo": {
+                    "Date": "2025-12-06 16:30:00",
+                    "DateUtc": "2025-12-06 16:30:00",
+                    "TZ": "GMT",
+                    "GroupName": 1,
+                    "MatchDay": 2,
+                    "MatchType": "Cup 1ET PENS",
+                    "Period": "PreMatch",
+                    "RoundNumber": 1,
+                    "RoundType": "Round",
+                    "TimeFrameLengthId": 34,
+                    "Venue_id": 18060
+                },
+                "Stat": [
+                    {
+                        "value": "Beyond Bancard Field",
+                        "Type": "Venue"
+                    },
+                    {
+                        "value": "Davie, Florida",
+                        "Type": "City"
+                    },
+                    {
+                        "value": "True",
+                        "Type": "Neutral"
+                    }
+                ],
+                "TeamData": [
+                    {
+                        "Side": "Home",
+                        "TeamRef": "t23622"
+                    },
+                    {
+                        "Side": "Away",
+                        "TeamRef": "t23625"
+                    }
+                ],
+                "detail_id": 1,
+                "last_modified": "2025-11-26T13:06:36+00:00",
+                "timestamp_accuracy_id": 1,
+                "timing_id": 1,
+                "uID": "g2610446"
+            },
+            {
+                "MatchInfo": {
+                    "Date": "2025-12-06 22:30:00",
+                    "DateUtc": "2025-12-06 22:30:00",
+                    "TZ": "GMT",
+                    "GroupName": 1,
+                    "MatchDay": 3,
+                    "MatchType": "Cup 1ET PENS",
+                    "Period": "PreMatch",
+                    "RoundNumber": 1,
+                    "RoundType": "Round",
+                    "TimeFrameLengthId": 34,
+                    "Venue_id": 18060
+                },
+                "Stat": [
+                    {
+                        "value": "Beyond Bancard Field",
+                        "Type": "Venue"
+                    },
+                    {
+                        "value": "Davie, Florida",
+                        "Type": "City"
+                    },
+                    {
+                        "value": "True",
+                        "Type": "Neutral"
+                    }
+                ],
+                "TeamData": [
+                    {
+                        "Side": "Home",
+                        "TeamRef": "t23622"
+                    },
+                    {
+                        "Side": "Away",
+                        "TeamRef": "t23624"
+                    }
+                ],
+                "detail_id": 1,
+                "last_modified": "2025-11-26T13:12:52+00:00",
+                "timestamp_accuracy_id": 1,
+                "timing_id": 1,
+                "uID": "g2610451"
+            },
+            {
+                "MatchInfo": {
+                    "Date": "2025-12-06 17:30:00",
+                    "DateUtc": "2025-12-06 17:30:00",
+                    "TZ": "GMT",
+                    "GroupName": 1,
+                    "MatchDay": 2,
+                    "MatchType": "Cup 1ET PENS",
+                    "Period": "PreMatch",
+                    "RoundNumber": 1,
+                    "RoundType": "Round",
+                    "TimeFrameLengthId": 34,
+                    "Venue_id": 18060
+                },
+                "Stat": [
+                    {
+                        "value": "Beyond Bancard Field",
+                        "Type": "Venue"
+                    },
+                    {
+                        "value": "Davie, Florida",
+                        "Type": "City"
+                    },
+                    {
+                        "value": "True",
+                        "Type": "Neutral"
+                    }
+                ],
+                "TeamData": [
+                    {
+                        "Side": "Home",
+                        "TeamRef": "t23626"
+                    },
+                    {
+                        "Side": "Away",
+                        "TeamRef": "t23624"
+                    }
+                ],
+                "detail_id": 1,
+                "last_modified": "2025-11-26T13:06:45+00:00",
+                "timestamp_accuracy_id": 1,
+                "timing_id": 1,
+                "uID": "g2610447"
+            },
+            {
+                "MatchInfo": {
+                    "Date": "2025-12-06 21:30:00",
+                    "DateUtc": "2025-12-06 21:30:00",
+                    "TZ": "GMT",
+                    "GroupName": 1,
+                    "MatchDay": 3,
+                    "MatchType": "Cup 1ET PENS",
+                    "Period": "PreMatch",
+                    "RoundNumber": 1,
+                    "RoundType": "Round",
+                    "TimeFrameLengthId": 34,
+                    "Venue_id": 18060
+                },
+                "Stat": [
+                    {
+                        "value": "Beyond Bancard Field",
+                        "Type": "Venue"
+                    },
+                    {
+                        "value": "Davie, Florida",
+                        "Type": "City"
+                    },
+                    {
+                        "value": "True",
+                        "Type": "Neutral"
+                    }
+                ],
+                "TeamData": [
+                    {
+                        "Side": "Home",
+                        "TeamRef": "t23626"
+                    },
+                    {
+                        "Side": "Away",
+                        "TeamRef": "t23625"
+                    }
+                ],
+                "detail_id": 1,
+                "last_modified": "2025-11-26T13:08:21+00:00",
+                "timestamp_accuracy_id": 1,
+                "timing_id": 1,
+                "uID": "g2610450"
+            },
+            {
+                "MatchInfo": {
+                    "Date": "2025-12-06 18:30:00",
+                    "DateUtc": "2025-12-06 18:30:00",
+                    "TZ": "GMT",
+                    "GroupName": 2,
+                    "MatchDay": 2,
+                    "MatchType": "Cup 1ET PENS",
+                    "Period": "PreMatch",
+                    "RoundNumber": 1,
+                    "RoundType": "Round",
+                    "TimeFrameLengthId": 34,
+                    "Venue_id": 18060
+                },
+                "Stat": [
+                    {
+                        "value": "Beyond Bancard Field",
+                        "Type": "Venue"
+                    },
+                    {
+                        "value": "Davie, Florida",
+                        "Type": "City"
+                    },
+                    {
+                        "value": "True",
+                        "Type": "Neutral"
+                    }
+                ],
+                "TeamData": [
+                    {
+                        "Side": "Home",
+                        "TeamRef": "t23623"
+                    },
+                    {
+                        "Side": "Away",
+                        "TeamRef": "t23621"
+                    }
+                ],
+                "detail_id": 1,
+                "last_modified": "2025-11-26T13:06:52+00:00",
+                "timestamp_accuracy_id": 1,
+                "timing_id": 1,
+                "uID": "g2610448"
+            },
+            {
+                "MatchInfo": {
+                    "Date": "2025-12-06 19:30:00",
+                    "DateUtc": "2025-12-06 19:30:00",
+                    "TZ": "GMT",
+                    "GroupName": 2,
+                    "MatchDay": 2,
+                    "MatchType": "Cup 1ET PENS",
+                    "Period": "PreMatch",
+                    "RoundNumber": 1,
+                    "RoundType": "Round",
+                    "TimeFrameLengthId": 34,
+                    "Venue_id": 18060
+                },
+                "Stat": [
+                    {
+                        "value": "Beyond Bancard Field",
+                        "Type": "Venue"
+                    },
+                    {
+                        "value": "Davie, Florida",
+                        "Type": "City"
+                    },
+                    {
+                        "value": "True",
+                        "Type": "Neutral"
+                    }
+                ],
+                "TeamData": [
+                    {
+                        "Side": "Home",
+                        "TeamRef": "t23627"
+                    },
+                    {
+                        "Side": "Away",
+                        "TeamRef": "t23620"
+                    }
+                ],
+                "detail_id": 1,
+                "last_modified": "2025-11-26T13:06:59+00:00",
+                "timestamp_accuracy_id": 1,
+                "timing_id": 1,
+                "uID": "g2610449"
+            },
+            {
+                "MatchInfo": {
+                    "Date": "2025-12-06 23:30:00",
+                    "DateUtc": "2025-12-06 23:30:00",
+                    "TZ": "GMT",
+                    "GroupName": 2,
+                    "MatchDay": 3,
+                    "MatchType": "Cup 1ET PENS",
+                    "Period": "PreMatch",
+                    "RoundNumber": 1,
+                    "RoundType": "Round",
+                    "TimeFrameLengthId": 34,
+                    "Venue_id": 18060
+                },
+                "Stat": [
+                    {
+                        "value": "Beyond Bancard Field",
+                        "Type": "Venue"
+                    },
+                    {
+                        "value": "Davie, Florida",
+                        "Type": "City"
+                    },
+                    {
+                        "value": "True",
+                        "Type": "Neutral"
+                    }
+                ],
+                "TeamData": [
+                    {
+                        "Side": "Home",
+                        "TeamRef": "t23627"
+                    },
+                    {
+                        "Side": "Away",
+                        "TeamRef": "t23623"
+                    }
+                ],
+                "detail_id": 1,
+                "last_modified": "2025-11-26T13:14:55+00:00",
+                "timestamp_accuracy_id": 1,
+                "timing_id": 1,
+                "uID": "g2610452"
+            },
+            {
+                "MatchInfo": {
+                    "Date": "2025-12-06 00:00:00",
+                    "DateUtc": "2025-12-06 00:00:00",
+                    "TZ": "GMT",
+                    "GroupName": 1,
+                    "MatchDay": 1,
+                    "MatchType": "Cup 1ET PENS",
+                    "Period": "PreMatch",
+                    "RoundNumber": 1,
+                    "RoundType": "Round",
+                    "TimeFrameLengthId": 34,
+                    "Venue_id": 18060
+                },
+                "Stat": [
+                    {
+                        "value": "Beyond Bancard Field",
+                        "Type": "Venue"
+                    },
+                    {
+                        "value": "Davie, Florida",
+                        "Type": "City"
+                    },
+                    {
+                        "value": "True",
+                        "Type": "Neutral"
+                    }
+                ],
+                "TeamData": [
+                    {
+                        "Side": "Home",
+                        "TeamRef": "t23624"
+                    },
+                    {
+                        "Side": "Away",
+                        "TeamRef": "t23625"
+                    }
+                ],
+                "detail_id": 1,
+                "last_modified": "2025-11-26T13:06:20+00:00",
+                "timestamp_accuracy_id": 1,
+                "timing_id": 1,
+                "uID": "g2610442"
+            },
+            {
+                "MatchInfo": {
+                    "Date": "2025-12-07 00:30:00",
+                    "DateUtc": "2025-12-07 00:30:00",
+                    "TZ": "GMT",
+                    "GroupName": 2,
+                    "MatchDay": 3,
+                    "MatchType": "Cup 1ET PENS",
+                    "Period": "PreMatch",
+                    "RoundNumber": 1,
+                    "RoundType": "Round",
+                    "TimeFrameLengthId": 34,
+                    "Venue_id": 18060
+                },
+                "Stat": [
+                    {
+                        "value": "Beyond Bancard Field",
+                        "Type": "Venue"
+                    },
+                    {
+                        "value": "Davie, Florida",
+                        "Type": "City"
+                    },
+                    {
+                        "value": "True",
+                        "Type": "Neutral"
+                    }
+                ],
+                "TeamData": [
+                    {
+                        "Side": "Home",
+                        "TeamRef": "t23621"
+                    },
+                    {
+                        "Side": "Away",
+                        "TeamRef": "t23620"
+                    }
+                ],
+                "detail_id": 1,
+                "last_modified": "2025-11-26T13:16:49+00:00",
+                "timestamp_accuracy_id": 1,
+                "timing_id": 1,
+                "uID": "g2610453"
+            },
+            {
+                "MatchInfo": {
+                    "Date": "2025-12-07 16:30:00",
+                    "DateUtc": "2025-12-07 16:30:00",
+                    "TZ": "GMT",
+                    "MatchDay": 4,
+                    "MatchType": "Cup 1ET PENS",
+                    "NextMatch": "g2610497",
+                    "NextMatchLoser": "g2610496",
+                    "NextMatchPosition": "Home",
+                    "Period": "PreMatch",
+                    "RoundNumber": 2,
+                    "RoundType": "Semi-Finals",
+                    "TimeFrameLengthId": 34,
+                    "Venue_id": 18060
+                },
+                "Stat": [
+                    {
+                        "value": "Beyond Bancard Field",
+                        "Type": "Venue"
+                    },
+                    {
+                        "value": "Davie, Florida",
+                        "Type": "City"
+                    },
+                    {
+                        "value": "True",
+                        "Type": "Neutral"
+                    }
+                ],
+                "TeamData": [
+                    {
+                        "Side": "Home",
+                        "TeamRef": "t22751"
+                    },
+                    {
+                        "Side": "Away",
+                        "TeamRef": "t22754"
+                    }
+                ],
+                "detail_id": 1,
+                "last_modified": "2025-11-27T11:49:27+00:00",
+                "timestamp_accuracy_id": 1,
+                "timing_id": 1,
+                "uID": "g2610494"
+            },
+            {
+                "MatchInfo": {
+                    "Date": "2025-12-07 18:00:00",
+                    "DateUtc": "2025-12-07 18:00:00",
+                    "TZ": "GMT",
+                    "MatchDay": 4,
+                    "MatchType": "Cup 1ET PENS",
+                    "NextMatch": "g2610497",
+                    "NextMatchLoser": "g2610496",
+                    "NextMatchPosition": "Away",
+                    "Period": "PreMatch",
+                    "RoundNumber": 2,
+                    "RoundType": "Semi-Finals",
+                    "TimeFrameLengthId": 34,
+                    "Venue_id": 18060
+                },
+                "Stat": [
+                    {
+                        "value": "Beyond Bancard Field",
+                        "Type": "Venue"
+                    },
+                    {
+                        "value": "Davie, Florida",
+                        "Type": "City"
+                    },
+                    {
+                        "value": "True",
+                        "Type": "Neutral"
+                    }
+                ],
+                "TeamData": [
+                    {
+                        "Side": "Home",
+                        "TeamRef": "t22753"
+                    },
+                    {
+                        "Side": "Away",
+                        "TeamRef": "t22752"
+                    }
+                ],
+                "detail_id": 1,
+                "last_modified": "2025-11-27T11:49:35+00:00",
+                "timestamp_accuracy_id": 1,
+                "timing_id": 1,
+                "uID": "g2610495"
+            },
+            {
+                "MatchInfo": {
+                    "Date": "2025-12-07 20:00:00",
+                    "DateUtc": "2025-12-07 20:00:00",
+                    "TZ": "GMT",
+                    "MatchDay": 5,
+                    "MatchType": "Cup 1ET PENS",
+                    "Period": "PreMatch",
+                    "RoundNumber": 3,
+                    "RoundType": "3rd and 4th Place",
+                    "TimeFrameLengthId": 34,
+                    "Venue_id": 18060
+                },
+                "Stat": [
+                    {
+                        "value": "Beyond Bancard Field",
+                        "Type": "Venue"
+                    },
+                    {
+                        "value": "Davie, Florida",
+                        "Type": "City"
+                    },
+                    {
+                        "value": "True",
+                        "Type": "Neutral"
+                    }
+                ],
+                "TeamData": [
+                    {
+                        "Side": "Home",
+                        "TeamRef": "t1938"
+                    },
+                    {
+                        "Side": "Away",
+                        "TeamRef": "t1939"
+                    }
+                ],
+                "detail_id": 1,
+                "last_modified": "2025-11-27T09:53:20+00:00",
+                "timestamp_accuracy_id": 1,
+                "timing_id": 1,
+                "uID": "g2610496"
+            },
+            {
+                "MatchInfo": {
+                    "Date": "2025-12-07 21:30:00",
+                    "DateUtc": "2025-12-07 21:30:00",
+                    "TZ": "GMT",
+                    "MatchDay": 6,
+                    "MatchType": "Cup 1ET PENS",
+                    "Period": "PreMatch",
+                    "RoundNumber": 4,
+                    "RoundType": "Final",
+                    "TimeFrameLengthId": 34,
+                    "Venue_id": 18060
+                },
+                "Stat": [
+                    {
+                        "value": "Beyond Bancard Field",
+                        "Type": "Venue"
+                    },
+                    {
+                        "value": "Davie, Florida",
+                        "Type": "City"
+                    },
+                    {
+                        "value": "True",
+                        "Type": "Neutral"
+                    }
+                ],
+                "TeamData": [
+                    {
+                        "Side": "Home",
+                        "TeamRef": "t1936"
+                    },
+                    {
+                        "Side": "Away",
+                        "TeamRef": "t1937"
+                    }
+                ],
+                "detail_id": 1,
+                "last_modified": "2025-11-27T10:21:37+00:00",
+                "timestamp_accuracy_id": 1,
+                "timing_id": 1,
+                "uID": "g2610497"
+            }
+        ],
+        "TimingTypes": {
+            "DetailTypes": {
+                "DetailType": [
+                    {
+                        "detail_id": 0,
+                        "name": "Unknown"
+                    },
+                    {
+                        "detail_id": 1,
+                        "name": "All Events (with positions)"
+                    },
+                    {
+                        "detail_id": 2,
+                        "name": "All Events"
+                    },
+                    {
+                        "detail_id": 3,
+                        "name": "Key Events"
+                    },
+                    {
+                        "detail_id": 4,
+                        "name": "Lineups, Goals & Cards"
+                    },
+                    {
+                        "detail_id": 5,
+                        "name": "Goals"
+                    },
+                    {
+                        "detail_id": 6,
+                        "name": "Scores"
+                    }
+                ]
+            },
+            "TimestampAccuracyTypes": {
+                "TimestampAccuracyType": [
+                    {
+                        "name": "Unknown",
+                        "timestamp_accuracy_id": 0
+                    },
+                    {
+                        "name": "Fully Accurate Timestamps (24hr + Match Times)",
+                        "timestamp_accuracy_id": 1
+                    },
+                    {
+                        "name": "Accurate Match Times only",
+                        "timestamp_accuracy_id": 2
+                    },
+                    {
+                        "name": "To The Minute Accurate",
+                        "timestamp_accuracy_id": 3
+                    },
+                    {
+                        "name": "Low Level Accurate Match Times",
+                        "timestamp_accuracy_id": 4
+                    },
+                    {
+                        "name": "No Match Time Accuracy",
+                        "timestamp_accuracy_id": 5
+                    }
+                ]
+            },
+            "TimingType": {
+                "TimingType": [
+                    {
+                        "name": "Unknown",
+                        "timing_id": 0
+                    },
+                    {
+                        "name": "Live",
+                        "timing_id": 1
+                    },
+                    {
+                        "name": "Live Delayed",
+                        "timing_id": 2
+                    },
+                    {
+                        "name": "Post Match (less than 24 hours)",
+                        "timing_id": 3
+                    },
+                    {
+                        "name": "Post Match (24 hours+)",
+                        "timing_id": 4
+                    }
+                ]
+            }
+        },
+        "Team": [
+            {
+                "Name": "Deportivo Cali W7F",
+                "OfficialTeamName": "Asociación Deportivo Cali W7F",
+                "ShortTeamName": "Deportivo Cali",
+                "uID": "t23621"
+            },
+            {
+                "Name": "Group 2 Second Place",
+                "uID": "t22754"
+            },
+            {
+                "Name": "Kansas City Current W7F",
+                "OfficialTeamName": "Kansas City Current W7F",
+                "ShortTeamName": "KC Current",
+                "uID": "t23626"
+            },
+            {
+                "Name": "Semi-Final 1 Loser",
+                "uID": "t1938"
+            },
+            {
+                "Name": "Group 1 Second Place",
+                "uID": "t22752"
+            },
+            {
+                "Name": "Nacional W7F",
+                "OfficialTeamName": "Club Nacional de Football W7F",
+                "ShortTeamName": "Nacional",
+                "uID": "t23623"
+            },
+            {
+                "Name": "Semi-Final 1 Winner",
+                "uID": "t1936"
+            },
+            {
+                "Name": "Flamengo W7F",
+                "OfficialTeamName": "CR Flamengo W7F",
+                "ShortTeamName": "Flamengo",
+                "uID": "t23622"
+            },
+            {
+                "Name": "Group 2 Winner",
+                "uID": "t22753"
+            },
+            {
+                "Name": "AFC Toronto W7F",
+                "OfficialTeamName": "AFC Toronto W7F",
+                "ShortTeamName": "AFC Toronto",
+                "uID": "t23625"
+            },
+            {
+                "Name": "Semi-Final 2 Loser",
+                "uID": "t1939"
+            },
+            {
+                "Name": "Group 1 Winner",
+                "uID": "t22751"
+            },
+            {
+                "Name": "Club América W7F",
+                "OfficialTeamName": "CF América W7F",
+                "ShortTeamName": "Club América",
+                "uID": "t23620"
+            },
+            {
+                "Name": "San Diego Wave W7F",
+                "OfficialTeamName": "San Diego Wave FC W7F",
+                "ShortTeamName": "San Diego Wave",
+                "uID": "t23627"
+            },
+            {
+                "Name": "Tigres UANL W7F",
+                "OfficialTeamName": "Club Tigres UANL W7F",
+                "ShortTeamName": "Tigres",
+                "uID": "t23624"
+            },
+            {
+                "Name": "Semi-Final 2 Winner",
+                "uID": "t1937"
+            }
+        ],
+        "Type": "RESULTS Latest",
+        "competition_code": "WSA",
+        "competition_id": 1343,
+        "competition_name": "World Sevens Football Americas",
+        "game_system_id": 1,
+        "season_id": 2025,
+        "season_name": "Season 2025/2026",
+        "timestamp": "2025-12-03 09-00-14"
+    }
+}

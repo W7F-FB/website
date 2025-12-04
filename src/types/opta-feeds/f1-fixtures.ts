@@ -29,12 +29,13 @@ export interface F1MatchData {
 }
 
 export interface F1MatchInfo {
-  Date: string; // YYYY-MM-DD HH:MM:SS (includes timestamp, use .split(' ')[0] to get just the date)
-  TZ: string; // Timezone (e.g., "+00:00")
-  Time?: string; // hh:mm:ss (may not be present for all matches)
-  TimeStamp?: string; // YYYY-MM-DD hh:mm:ss
+  Date: string;
+  DateUtc: string;
+  TZ: string;
+  Time?: string;
+  TimeStamp?: string;
   MatchType: string; // e.g., "Regular Season", "Knockout", "Group Stage"
-  Period: "FullTime" | "FirstHalf" | "SecondHalf" | "PreMatch" | "PostMatch";
+  Period: "PreMatch" | "FullTime" | "Postponed" | "Abandoned" | "Live" | "Cancelled";
   MatchDay?: number;
   Week?: number;
   Round?: number;

@@ -10,6 +10,10 @@ export function normalizeOptaId(id: string): string {
 export function getStatusDisplay(matchInfo: F1MatchInfo): string {
   const status = matchInfo.Period === 'FullTime' ? 'Played' :
     matchInfo.Period === 'PreMatch' ? 'Scheduled' :
+    matchInfo.Period === 'Live' ? 'In Progress' :
+    matchInfo.Period === 'Postponed' ? 'Postponed' :
+    matchInfo.Period === 'Abandoned' ? 'Abandoned' :
+    matchInfo.Period === 'Cancelled' ? 'Cancelled' :
       'In Progress'
 
   if (status === "Scheduled") return ""

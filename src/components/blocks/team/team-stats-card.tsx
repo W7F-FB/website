@@ -120,7 +120,7 @@ export function TeamStatsCard({ team, standings, fixtures, currentTournament, pr
         const completedMatches = allMatches
             .filter(match => {
                 const isTeamInMatch = match.TeamData.some(team => team.TeamRef === teamOptaRef)
-                const isCompleted = match.MatchInfo.Period === "FullTime" || match.MatchInfo.Period === "PostMatch"
+                const isCompleted = match.MatchInfo.Period === "FullTime"
                 return isTeamInMatch && isCompleted
             })
             .sort((a, b) => {

@@ -275,35 +275,35 @@ export default function WCSIngestionTest() {
                 <h3 className="font-medium mb-3">Required Fields</h3>
                 <div className="space-y-3 text-sm">
                   <div className="flex gap-3">
-                    <span className="inline-block px-2 py-1 text-xs bg-secondary rounded h-fit">String</span>
+                    <span className="inline-block px-2 py-1 text-xs bg-secondary text-background rounded h-fit">String</span>
                     <div>
                       <code className="text-xs font-semibold">provider_clip_id</code>
                       <p className="text-muted-foreground text-xs mt-1">Unique identifier for the clip from your system</p>
                     </div>
                   </div>
                   <div className="flex gap-3">
-                    <span className="inline-block px-2 py-1 text-xs bg-secondary rounded h-fit">String</span>
+                    <span className="inline-block px-2 py-1 text-xs bg-secondary text-background rounded h-fit">String</span>
                     <div>
                       <code className="text-xs font-semibold">opta_match_id</code>
                       <p className="text-muted-foreground text-xs mt-1">Opta match identifier</p>
                     </div>
                   </div>
                   <div className="flex gap-3">
-                    <span className="inline-block px-2 py-1 text-xs bg-secondary rounded h-fit">String</span>
+                    <span className="inline-block px-2 py-1 text-xs bg-secondary text-background rounded h-fit">String</span>
                     <div>
                       <code className="text-xs font-semibold">opta_event_id</code>
                       <p className="text-muted-foreground text-xs mt-1">Opta event identifier</p>
                     </div>
                   </div>
                   <div className="flex gap-3">
-                    <span className="inline-block px-2 py-1 text-xs bg-secondary rounded h-fit">String</span>
+                    <span className="inline-block px-2 py-1 text-xs bg-secondary text-background rounded h-fit">String</span>
                     <div>
                       <code className="text-xs font-semibold">opta_competition_id</code>
                       <p className="text-muted-foreground text-xs mt-1">Opta competition identifier</p>
                     </div>
                   </div>
                   <div className="flex gap-3">
-                    <span className="inline-block px-2 py-1 text-xs bg-secondary rounded h-fit">URL</span>
+                    <span className="inline-block px-2 py-1 text-xs bg-secondary text-background rounded h-fit">URL</span>
                     <div>
                       <code className="text-xs font-semibold">video_source_url</code>
                       <p className="text-muted-foreground text-xs mt-1">Publicly accessible URL to download the video file</p>
@@ -316,7 +316,7 @@ export default function WCSIngestionTest() {
                 <h3 className="font-medium mb-3">Optional Fields</h3>
                 <div className="space-y-3 text-sm">
                   <div className="flex gap-3">
-                    <span className="inline-block px-2 py-1 text-xs bg-secondary rounded h-fit">URL</span>
+                    <span className="inline-block px-2 py-1 text-xs bg-secondary text-background rounded h-fit">URL</span>
                     <div>
                       <code className="text-xs font-semibold">thumbnail_source_url</code>
                       <p className="text-muted-foreground text-xs mt-1">Publicly accessible URL to download the thumbnail image</p>
@@ -406,7 +406,7 @@ export default function WCSIngestionTest() {
             </CardHeader>
             <CardContent>
               <p className="text-sm text-blue-800 dark:text-blue-200">
-                If you encounter any issues or have questions about the integration, please contact the WCS technical team for support.
+                If you need help, text 3392227451
               </p>
             </CardContent>
           </Card>

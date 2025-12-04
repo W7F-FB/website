@@ -120,7 +120,7 @@ function MatchCardTeam({
                                 <QuestionMarkIcon className="size-6 text-muted-foreground/20" />
                             </div>
                             <div>
-                                <H4 className={cn(teamNamesClassName, "font-semibold")}>
+                                <H4 className={cn(linkToTeam && "group-hover:underline", teamNamesClassName)}>
                                     {displayName}
                                 </H4>
                             </div>
@@ -157,14 +157,14 @@ function MatchCard(props: GameCardType) {
     let matchNumber: number | undefined
     
     if (isOptaMatch) {
-        const { fixture, prismicTeams, optaTeams, compact: c = false, banner: b, className: cn, variant: v = "default", optaEnabled: oe = true, ...rest } = props as GameCardOpta
+        const { fixture, prismicTeams, optaTeams, compact: c = false, banner: b, className: cn, variant: v = "default", optaEnabled: oe = true, allMatches, f3StandingsData, ...rest } = props as GameCardOpta
         compact = c
         banner = b
         className = cn
         variant = v
         optaEnabled = oe
         restProps = rest
-        gameCardData = getGameCardData(fixture, prismicTeams, optaTeams)
+        gameCardData = getGameCardData(fixture, prismicTeams, optaTeams, allMatches, f3StandingsData)
         matchHref = `/match/${normalizeOptaId(fixture.uID)}`
         fixtureStatus = getStatusDisplay(fixture.MatchInfo)
         homeTeamLabel = undefined
@@ -193,6 +193,8 @@ function MatchCard(props: GameCardType) {
         awayTeam,
         homeTeamShortName,
         awayTeamShortName,
+        homePlaceholderName,
+        awayPlaceholderName,
         homeScore,
         awayScore,
         homeIsLosing,
@@ -242,7 +244,7 @@ function MatchCard(props: GameCardType) {
                     logoUrl={homeLogoUrl}
                     logoAlt={homeLogoAlt}
                     score={homeScore}
-                    teamLabel={homeTeamLabel || "Home Team"}
+                    teamLabel={homeTeamLabel || homePlaceholderName || "Home Team"}
                     teamShortName={homeTeamShortName || ""}
                     compact={isCompact}
                     isLosing={homeIsLosing}
@@ -269,7 +271,7 @@ function MatchCard(props: GameCardType) {
                     logoUrl={awayLogoUrl}
                     logoAlt={awayLogoAlt}
                     score={awayScore}
-                    teamLabel={awayTeamLabel || "Away Team"}
+                    teamLabel={awayTeamLabel || awayPlaceholderName || "Away Team"}
                     teamShortName={awayTeamShortName || ""}
                     compact={isCompact}
                     isLosing={awayIsLosing}

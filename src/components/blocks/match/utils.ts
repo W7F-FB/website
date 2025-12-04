@@ -2,7 +2,9 @@ import { normalizeOptaId } from "@/lib/opta/utils"
 import { getImageUrl, getImageAlt } from "@/cms/utils"
 import type { TeamDocument, MatchDocument } from "../../../../prismicio-types"
 import type { F1MatchData, F1TeamData, F1TeamMatchData } from "@/types/opta-feeds/f1-fixtures"
+import type { F3StandingsResponse } from "@/types/opta-feeds/f3-standings"
 import { isFilled } from "@prismicio/client"
+import { resolvePlaceholderTeam } from "@/app/(website)/(subpages)/tournament/utils"
 
 export interface GameCardData {
     homeTeamData: F1TeamMatchData | undefined
@@ -15,6 +17,8 @@ export interface GameCardData {
     awayOptaTeam: F1TeamData | undefined
     homeTeamShortName: string | null
     awayTeamShortName: string | null
+    homePlaceholderName: string | null
+    awayPlaceholderName: string | null
     homeScore: number | null
     awayScore: number | null
     winnerRef: string | undefined
@@ -34,7 +38,9 @@ export interface GameCardData {
 export function getGameCardData(
     fixture: F1MatchData,
     prismicTeams: TeamDocument[],
-    optaTeams: F1TeamData[]
+    optaTeams: F1TeamData[],
+    allMatches?: F1MatchData[],
+    f3StandingsData?: F3StandingsResponse | null
 ): GameCardData
 export function getGameCardData(
     prismicMatch: MatchDocument
@@ -42,7 +48,9 @@ export function getGameCardData(
 export function getGameCardData(
     dataSource: F1MatchData | MatchDocument,
     prismicTeams?: TeamDocument[],
-    optaTeams?: F1TeamData[]
+    optaTeams?: F1TeamData[],
+    allMatches?: F1MatchData[],
+    f3StandingsData?: F3StandingsResponse | null
 ): GameCardData {
     if ('type' in dataSource && dataSource.type === 'match') {
         return getGameCardDataFromPrismic(dataSource as MatchDocument)
@@ -50,7 +58,9 @@ export function getGameCardData(
         return getGameCardDataFromOpta(
             dataSource as F1MatchData,
             prismicTeams || [],
-            optaTeams || []
+            optaTeams || [],
+            allMatches,
+            f3StandingsData || null
         )
     }
 }
@@ -85,6 +95,8 @@ function getGameCardDataFromPrismic(prismicMatch: MatchDocument): GameCardData {
         awayOptaTeam: undefined,
         homeTeamShortName,
         awayTeamShortName,
+        homePlaceholderName: null,
+        awayPlaceholderName: null,
         homeScore: null,
         awayScore: null,
         winnerRef: undefined,
@@ -105,22 +117,36 @@ function getGameCardDataFromPrismic(prismicMatch: MatchDocument): GameCardData {
 function getGameCardDataFromOpta(
     fixture: F1MatchData,
     prismicTeams: TeamDocument[],
-    optaTeams: F1TeamData[]
+    optaTeams: F1TeamData[],
+    allMatches?: F1MatchData[],
+    f3StandingsData?: F3StandingsResponse | null
 ): GameCardData {
     const homeTeamData = fixture.TeamData.find(t => t.Side === "Home")
     const awayTeamData = fixture.TeamData.find(t => t.Side === "Away")
 
-    const homeTeamRef = normalizeOptaId(homeTeamData?.TeamRef || "")
-    const awayTeamRef = normalizeOptaId(awayTeamData?.TeamRef || "")
+    let homeTeamRefRaw = homeTeamData?.TeamRef || ""
+    let awayTeamRefRaw = awayTeamData?.TeamRef || ""
+
+    const resolvedHomeRef = resolvePlaceholderTeam(homeTeamRefRaw, allMatches, f3StandingsData || null, optaTeams)
+    const resolvedAwayRef = resolvePlaceholderTeam(awayTeamRefRaw, allMatches, f3StandingsData || null, optaTeams)
+
+    const homeTeamRefToUse = resolvedHomeRef || homeTeamRefRaw
+    const awayTeamRefToUse = resolvedAwayRef || awayTeamRefRaw
+
+    const homeTeamRef = normalizeOptaId(homeTeamRefToUse)
+    const awayTeamRef = normalizeOptaId(awayTeamRefToUse)
 
     const homeTeam = prismicTeams.find(t => t.data.opta_id === homeTeamRef)
     const awayTeam = prismicTeams.find(t => t.data.opta_id === awayTeamRef)
 
-    const homeOptaTeam = optaTeams.find(t => normalizeOptaId(t.TeamRef || t.uID) === homeTeamRef)
-    const awayOptaTeam = optaTeams.find(t => normalizeOptaId(t.TeamRef || t.uID) === awayTeamRef)
+    const homeOptaTeam = optaTeams.find(t => normalizeOptaId(t.TeamRef || t.uID) === normalizeOptaId(homeTeamRefToUse))
+    const awayOptaTeam = optaTeams.find(t => normalizeOptaId(t.TeamRef || t.uID) === normalizeOptaId(awayTeamRefToUse))
 
     const homeTeamShortName = homeOptaTeam?.ShortTeamName || homeOptaTeam?.ShortName || null
     const awayTeamShortName = awayOptaTeam?.ShortTeamName || awayOptaTeam?.ShortName || null
+
+    const homePlaceholderName = !homeTeam && homeOptaTeam ? (homeOptaTeam.Name || homeOptaTeam.name || null) : null
+    const awayPlaceholderName = !awayTeam && awayOptaTeam ? (awayOptaTeam.Name || awayOptaTeam.name || null) : null
 
     const homeScore = homeTeamData?.Score ?? null
     const awayScore = awayTeamData?.Score ?? null
@@ -134,7 +160,7 @@ function getGameCardDataFromOpta(
     const homeIsLosing = isFinal && winnerRef !== undefined && !homeIsWinning
     const awayIsLosing = isFinal && winnerRef !== undefined && !awayIsWinning
 
-    const startTime = fixture.MatchInfo.Date
+    const startTime = fixture.MatchInfo.DateUtc ? fixture.MatchInfo.DateUtc.replace(' ', 'T') + 'Z' : fixture.MatchInfo.Date
 
     const homeLogoUrl = homeTeam ? getImageUrl(homeTeam.data.logo) : null
     const awayLogoUrl = awayTeam ? getImageUrl(awayTeam.data.logo) : null
@@ -152,6 +178,8 @@ function getGameCardDataFromOpta(
         awayOptaTeam,
         homeTeamShortName,
         awayTeamShortName,
+        homePlaceholderName,
+        awayPlaceholderName,
         homeScore,
         awayScore,
         winnerRef,

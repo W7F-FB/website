@@ -216,6 +216,8 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                                                     prismicTeams={prismicTeams}
                                                     optaTeams={getMatchTeams(match, f1FixturesData?.SoccerFeed?.SoccerDocument?.Team || [])}
                                                     compact={compact}
+                                                    allMatches={f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData}
+                                                    f3StandingsData={f3StandingsData}
                                                 />
                                             ))}
                                             {emptyCells > 0 && (
@@ -256,6 +258,8 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                                         optaTeams={getMatchTeams(semiFinalMatches[0], f1FixturesData?.SoccerFeed?.SoccerDocument?.Team || [])}
                                         compact={compact}
                                         banner="Semi Final 1"
+                                        allMatches={f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData}
+                                        f3StandingsData={f3StandingsData}
                                     />
                                 )}
                                 {semiFinalMatches[1] && (
@@ -265,6 +269,8 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                                         optaTeams={getMatchTeams(semiFinalMatches[1], f1FixturesData?.SoccerFeed?.SoccerDocument?.Team || [])}
                                         compact={compact}
                                         banner="Semi Final 2"
+                                        allMatches={f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData}
+                                        f3StandingsData={f3StandingsData}
                                     />
                                 )}
                             </div>
@@ -276,6 +282,8 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                                     optaTeams={getMatchTeams(match, f1FixturesData?.SoccerFeed?.SoccerDocument?.Team || [])}
                                     compact={compact}
                                     banner="Third Place Match"
+                                    allMatches={f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData}
+                                    f3StandingsData={f3StandingsData}
                                 />
                             ))}
                             <Separator variant="gradient" className="my-12" />
@@ -287,6 +295,8 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                                     optaTeams={getMatchTeams(match, f1FixturesData?.SoccerFeed?.SoccerDocument?.Team || [])}
                                     compact={compact}
                                     banner="The Final"
+                                    allMatches={f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData}
+                                    f3StandingsData={f3StandingsData}
                                 />
                             ))}
                             <ChampionsCard
