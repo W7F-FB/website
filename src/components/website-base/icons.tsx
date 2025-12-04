@@ -352,3 +352,12 @@ export const InfoShieldIcon = createIcon(
   />
 )
 
+export const VIPIcon = createIcon(
+  "VIPIcon",
+  <path
+    fillRule="evenodd"
+    d="m0 1.58594 1.70711 1.7071L6 7.58594l5.2929 -5.2929 0.7071 -0.7071 0.7071 0.7071L18 7.58594l4.2929 -4.2929L24 1.58594V22.0002H0V1.58594ZM14.4144 14.0002l-2.4142 -2.4143 -2.41426 2.4143 2.41426 2.4142 2.4142 -2.4142Z"
+    clipRule="evenodd"
+  />
+)
+

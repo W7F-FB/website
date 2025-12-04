@@ -10,7 +10,7 @@ import { PrismicLink } from "@prismicio/react"
 import { isFilled } from "@prismicio/client"
 import { Separator } from "@/components/ui/separator"
 import { CategoryButton } from "@/components/blocks/category-button"
-import { SoccerIcon, TicketIcon, WhistleIcon, InfoShieldIcon } from "../icons"
+import { SoccerIcon, TicketIcon, WhistleIcon, InfoShieldIcon, VIPIcon } from "../icons"
 import { PrismicNextImage } from "@prismicio/next"
 import { getTeamsByTournament } from "@/cms/queries/team"
 
@@ -203,6 +203,13 @@ export async function NavigationMenuTournamentFeatured({
                         <div className="flex items-center gap-3">
                             <TicketIcon className="size-4 text-foreground" />
                             Tickets
+                        </div>
+                    </CategoryButton>
+                    <Separator variant="gradient" gradientDirection="toRight" />
+                    <CategoryButton href={`/tournament/${tournament.uid}#vip-cabanas`}>
+                        <div className="flex items-center gap-3">
+                            <VIPIcon className="size-4 text-foreground" />
+                            VIP Cabanas
                         </div>
                     </CategoryButton>
                     <Separator variant="gradient" gradientDirection="toRight" />

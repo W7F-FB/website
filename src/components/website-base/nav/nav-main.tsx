@@ -119,7 +119,7 @@ async function NavMain({ showBreadcrumbs, pathname, customBreadcrumbs, gameCards
                             {navSettings?.moreInfoMode === "Where to watch" && navSettings.broadcastPartners.length > 0 ? (
                               <div className="flex flex-col lg:gap-3 gap-4 content-start">
                                 <div className="flex items-center gap-3 w-full">
-                                  <Subtitle className="mb-0 text-xs">Stream Live, <span className="text-primary whitespace-nowrap">for Free</span> Worldwide</Subtitle>
+                                  <Subtitle className="mb-0 text-sm">Stream Live, <span className="text-primary whitespace-nowrap">for Free</span> Worldwide</Subtitle>
                                 </div>
                                 <div className="flex flex-col w-full gap-3">
                                   {(() => {
