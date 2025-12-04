@@ -34,7 +34,7 @@ const TuneInBanner = React.forwardRef<
                 <PalmtreeIcon fill="currentColor" className="opacity-3 text-foreground w-auto h-100 mask-b-from-0% mask-b-to-85%" />
             </Background>
             <div className="pr-12 relative">
-                <Subtitle className="mb-2 text-muted-foreground whitespace-nowrap">Starting FRI Dec 5th, 5pm EST</Subtitle>
+                <Subtitle className="mb-2 text-muted-foreground lg:whitespace-nowrap">Starting FRI Dec 5th, 5pm EST</Subtitle>
                 <H2 variant="h1" className="lg:text-6xl text-5xl">Tune in <span className="text-destructive">LIVE</span></H2>
                 <P className="text-xl uppercase">To Electrifying 7v7 football.</P>
             </div>
