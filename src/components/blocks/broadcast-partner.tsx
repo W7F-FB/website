@@ -98,7 +98,7 @@ export function BroadcastPartnerLink({
 
   const brandedClass = branded ? "bg-[var(--brand-color)] hover:bg-[var(--brand-color)] hover:opacity-90 text-[var(--brand-text-color)] hover:text-[var(--brand-text-color)]" : ""
 
-  const logoSizeClass = isSmall ? "size-6" : isLarge ? "size-10" : "size-8"
+  const logoSizeClass = isSmall ? "lg:size-6 size-4.5" : isLarge ? "lg:size-10 size-8" : "lg:size-8 size-7"
   const paddingClass = isLarge ? "py-4 px-3" : "py-2.5 px-2"
   const textSizeClass = isSmall ? "text-xs" : isLarge ? "text-lg" : "text-sm"
 
