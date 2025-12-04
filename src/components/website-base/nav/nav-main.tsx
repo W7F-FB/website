@@ -158,8 +158,11 @@ async function NavMain({ showBreadcrumbs, pathname, customBreadcrumbs, gameCards
                                             })}
                                           </div>
                                         )}
-                                          <Button variant="secondary" size="sm" className="w-full gap-2.5" asChild>
-                                           <Link href="/#tune-in"><InformationCircleIcon className="size-3.5" /> Streaming Availability</Link></Button>
+                                          <NavigationMenuLink asChild href="/#tune-in">
+                                            <Button variant="secondary" size="sm" className="w-full gap-2.5" asChild>
+                                              <Link href="/#tune-in"><InformationCircleIcon className="size-3.5" /> Streaming Availability</Link>
+                                            </Button>
+                                          </NavigationMenuLink>
                                       </>
                                     )
                                   })()}

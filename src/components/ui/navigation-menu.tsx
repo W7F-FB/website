@@ -288,12 +288,29 @@ function NavigationMenuLink({
   href,
   children,
   asButton = false,
+  asChild = false,
   ...props
 }: React.ComponentProps<typeof Link> & {
   className?: string
   asButton?: boolean
+  asChild?: boolean
 }) {
   const { isTablet, setIsSheetOpen } = useNavigationMenuContext()
+
+  const handleClick = (e: React.MouseEvent) => {
+    if (isTablet) {
+      setIsSheetOpen(false)
+    }
+    if (props.onClick) {
+      (props.onClick as React.MouseEventHandler)(e)
+    }
+  }
+
+  if (asChild && React.isValidElement(children)) {
+    return React.cloneElement(children, {
+      onClick: handleClick,
+    } as React.HTMLAttributes<HTMLElement>)
+  }
 
   if (asButton && !isTablet) {
     return (
@@ -304,11 +321,7 @@ function NavigationMenuLink({
           className
         )}
         href={href}
-        onClick={() => {
-          if (isTablet) {
-            setIsSheetOpen(false)
-          }
-        }}
+        onClick={handleClick}
         {...props}
       >
         {children}
@@ -326,11 +339,7 @@ function NavigationMenuLink({
         className
       )}
       href={href}
-      onClick={() => {
-        if (isTablet) {
-          setIsSheetOpen(false)
-        }
-      }}
+      onClick={handleClick}
       {...props}
     >
       {children}
