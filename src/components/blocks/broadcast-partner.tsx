@@ -100,7 +100,7 @@ export function BroadcastPartnerLink({
 
   const logoSizeClass = isSmall ? "lg:size-6 size-4.5" : isLarge ? "lg:size-10 size-8" : "lg:size-8 size-7"
   const paddingClass = isLarge ? "py-4 px-3" : "py-2.5 px-2"
-  const textSizeClass = isSmall ? "text-xs" : isLarge ? "text-lg" : "text-sm"
+  const textSizeClass = isSmall ? "lg:text-xs text-xxs" : isLarge ? "text-lg" : "text-sm"
 
   const content = (
     <>
