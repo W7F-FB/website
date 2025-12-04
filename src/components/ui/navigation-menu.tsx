@@ -4,6 +4,7 @@ import * as React from "react"
 import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu"
 import { cva } from "class-variance-authority"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 
 import { cn } from "@/lib/utils"
 import { CaretRightIcon } from "@/components/website-base/icons"
@@ -283,6 +284,8 @@ function NavigationMenuViewport({
   )
 }
 
+const SHEET_ANIMATION_DURATION = 300
+
 function NavigationMenuLink({
   className,
   href,
@@ -296,14 +299,38 @@ function NavigationMenuLink({
   asChild?: boolean
 }) {
   const { isTablet, setIsSheetOpen } = useNavigationMenuContext()
+  const router = useRouter()
 
-  const handleClick = (e: React.MouseEvent) => {
-    if (isTablet) {
-      setIsSheetOpen(false)
-    }
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (props.onClick) {
       (props.onClick as React.MouseEventHandler)(e)
     }
+
+    if (!isTablet) return
+
+    const targetHref = e.currentTarget.href || (typeof href === "string" ? href : href?.toString() || "")
+    const url = new URL(targetHref, window.location.origin)
+    const isSamePage = url.pathname === window.location.pathname
+    const hasHash = url.hash.length > 0
+
+    e.preventDefault()
+    
+    if (!isSamePage) {
+      router.prefetch(url.pathname)
+    }
+
+    setIsSheetOpen(false)
+
+    setTimeout(() => {
+      if (isSamePage && hasHash) {
+        const element = document.querySelector(url.hash)
+        element?.scrollIntoView({ behavior: "smooth" })
+      } else if (hasHash) {
+        router.push(url.pathname + url.hash)
+      } else {
+        router.push(url.pathname + url.search)
+      }
+    }, SHEET_ANIMATION_DURATION)
   }
 
   if (asChild && React.isValidElement(children)) {
