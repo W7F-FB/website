@@ -84,7 +84,8 @@ export default async function TournamentPage({ params }: Props) {
     return (
       <>
         <NavMain showBreadcrumbs customBreadcrumbs={[
-          { label: "Home", href: "/" }
+          { label: "Home", href: "/" },
+          { label: tournament.data.title, href: `/tournament/${tournament.uid}` }
         ]} />
         <main className="flex-grow min-h-[30rem]">
           <TournamentPageUpcoming tournament={tournament} tournamentBlogs={tournamentBlogs} />
