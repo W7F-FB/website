@@ -252,7 +252,7 @@
   clip-path: url(#WatercolorMaskDown);
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .clip-watercolor-mask {
     clip-path: url(#WatercolorMask);
   }

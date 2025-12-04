@@ -69,6 +69,9 @@ interface BroadcastPartnerLinkProps
   partner: BroadcastPartnersDocument
   asChild?: boolean
   branded?: boolean
+  showName?: boolean
+  watch?: boolean
+  noLink?: boolean
 }
 
 export function BroadcastPartnerLink({
@@ -77,10 +80,14 @@ export function BroadcastPartnerLink({
   variant = "ghost",
   size,
   branded = false,
+  showName = false,
+  watch = false,
+  noLink = false,
   ...props
 }: BroadcastPartnerLinkProps) {
   const logo = branded ? partner.data.logo_on_primary : partner.data.logo_white
   const isSmall = size === "sm"
+  const isLarge = size === "lg"
 
   const _brandedStyles = branded && partner.data.color_primary
     ? {
@@ -91,24 +98,17 @@ export function BroadcastPartnerLink({
 
   const brandedClass = branded ? "bg-[var(--brand-color)] hover:bg-[var(--brand-color)] hover:opacity-90 text-[var(--brand-text-color)] hover:text-[var(--brand-text-color)]" : ""
 
-  return (
-    <Button
-      variant={variant}
-      size={size}
-      className={cn(
-        "group/broadcast-partner gap-3 border-muted h-auto px-2 w-full flex items-center justify-between py-2.5",
-        className,
-        brandedClass
-      )}
-      style={_brandedStyles}
-      asChild
-      {...props}
-    >
-      <Link href={partner.data.streaming_link || ""} target="_blank" rel="noopener noreferrer">
+  const logoSizeClass = isSmall ? "size-6" : isLarge ? "size-10" : "size-8"
+  const paddingClass = isLarge ? "py-4 px-3" : "py-2.5 px-2"
+  const textSizeClass = isSmall ? "text-xs" : isLarge ? "text-lg" : "text-sm"
+
+  const content = (
+    <>
+      <div className="flex items-center gap-3">
         {logo?.url && (
           <div className={cn(
             "relative shrink-0 pointer-events-none",
-            isSmall ? "w-8 h-6" : "w-12 h-9"
+            logoSizeClass
           )}>
             <PrismicNextImage
               field={logo?.alt ? logo : { ...logo, alt: partner.data.name || "Broadcast partner logo" }}
@@ -117,10 +117,52 @@ export function BroadcastPartnerLink({
             />
           </div>
         )}
+        {showName && partner.data.name && (
+          <span className={cn("font-medium font-headers whitespace-nowrap", textSizeClass)}>{partner.data.name}</span>
+        )}
+      </div>
+      {!noLink && (
         <div className="text-xs font-medium flex items-center gap-1">
-          {!isSmall && <div className="group-hover/broadcast-partner:underline">Watch</div>}
-          <CaretRightIcon className={cn(isSmall ? "size-3" : "size-2")} />
+          {watch && <div className="group-hover/broadcast-partner:underline">Watch</div>}
+          <CaretRightIcon className={cn(
+            isSmall ? "size-2.5" : isLarge ? "size-4" : "size-3"
+          )} />
         </div>
+      )}
+    </>
+  )
+
+  if (noLink) {
+    return (
+      <div
+        className={cn(
+          "gap-3 border-muted h-auto w-full flex items-center justify-between cursor-default",
+          paddingClass,
+          className
+        )}
+        style={_brandedStyles}
+      >
+        {content}
+      </div>
+    )
+  }
+
+  return (
+    <Button
+      variant={variant}
+      size={size}
+      className={cn(
+        "group/broadcast-partner gap-3 border-muted h-auto w-full flex items-center justify-between",
+        paddingClass,
+        className,
+        brandedClass
+      )}
+      style={_brandedStyles}
+      asChild
+      {...props}
+    >
+      <Link href={partner.data.streaming_link || ""} target="_blank" rel="noopener noreferrer">
+        {content}
       </Link>
     </Button>
   )

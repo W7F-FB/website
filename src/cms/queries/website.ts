@@ -97,28 +97,18 @@ function transformWebsiteData(website: WebsiteDocument): SiteSettings {
 export async function getNavigationSettings(): Promise<NavigationSettings | null> {
   try {
     const client = createClient();
-    const website = await client.getSingle("website", {
-      fetchLinks: [
-        "broadcast_partners.name",
-        "broadcast_partners.logo_white",
-        "broadcast_partners.logo",
-        "broadcast_partners.logo_on_primary",
-        "broadcast_partners.icon_logo",
-        "broadcast_partners.color_primary",
-        "broadcast_partners.color_secondary",
-        "broadcast_partners.streaming_link"
-      ]
-    });
+    const website = await client.getSingle("website");
     
+    const partnerUids = ["dazn", "tnt", "tru-tv", "hbo-max", "univision", "espn", "disney-plus"];
     const broadcastPartners: BroadcastPartnersDocument[] = [];
     
-    if (prismic.isFilled.group(website.data.where_to_watch_partners)) {
-      website.data.where_to_watch_partners.forEach((partner) => {
-        if (prismic.isFilled.contentRelationship(partner.broadcast_partner)) {
-          const partnerDoc = partner.broadcast_partner as unknown as BroadcastPartnersDocument;
-          broadcastPartners.push(partnerDoc);
-        }
-      });
+    for (const uid of partnerUids) {
+      try {
+        const partner = await client.getByUID("broadcast_partners", uid);
+        broadcastPartners.push(partner);
+      } catch (error) {
+        continue;
+      }
     }
     
     return {

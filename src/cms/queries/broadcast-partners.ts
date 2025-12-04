@@ -13,3 +13,14 @@ export async function getAllBroadcastPartners(): Promise<BroadcastPartnersDocume
   }
 }
 
+export async function getBroadcastPartnerByUid(uid: string): Promise<BroadcastPartnersDocument | null> {
+  try {
+    const client = createClient();
+    const partner = await client.getByUID("broadcast_partners", uid);
+    return partner;
+  } catch (error) {
+    dev.log(`Error fetching broadcast partner ${uid}:`, error);
+    return null;
+  }
+}
+

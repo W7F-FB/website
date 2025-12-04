@@ -28,6 +28,7 @@ import { PostMini } from "@/components/blocks/posts/post"
 import { isFilled } from "@prismicio/client"
 import { dev } from "@/lib/dev"
 import { BroadcastPartnerLink } from "@/components/blocks/broadcast-partner"
+import { InformationCircleIcon } from "../icons"
 
 const exploreNavItems = [
   { href: "/news", label: "News", key: "nav-news" },
@@ -69,6 +70,7 @@ async function NavMain({ showBreadcrumbs, pathname, customBreadcrumbs, gameCards
 
   try {
     navSettings = await getNavigationSettings()
+    if (navSettings) navSettings.moreInfoMode = "Where to watch"
   } catch (error) {
     dev.log("Failed to load navigation settings:", error)
   }
@@ -117,24 +119,50 @@ async function NavMain({ showBreadcrumbs, pathname, customBreadcrumbs, gameCards
                             {navSettings?.moreInfoMode === "Where to watch" && navSettings.broadcastPartners.length > 0 ? (
                               <div className="flex flex-col lg:gap-3 gap-4 content-start">
                                 <div className="flex items-center gap-3 w-full">
-                                  <Subtitle className="mb-0 text-xs whitespace-nowrap">Where to watch</Subtitle>
+                                  <Subtitle className="mb-0 text-xs">Stream Live, <span className="text-primary whitespace-nowrap">for Free</span> Worldwide</Subtitle>
                                 </div>
-                                <div className="grid grid-cols-2 w-full gap-x-1.5">
-                                  {navSettings.broadcastPartners.map((partner, index) => {
-                                    const totalPartners = navSettings.broadcastPartners.length
-                                    const itemsInLastRow = totalPartners % 2 || 2
-                                    const lastRowStartIndex = totalPartners - itemsInLastRow
-                                    const isNotOnLastRow = index < lastRowStartIndex
+                                <div className="flex flex-col w-full gap-3">
+                                  {(() => {
+                                    const daznPartner = navSettings.broadcastPartners.find(p => p.uid === "dazn")
+                                    const otherPartners = navSettings.broadcastPartners.filter(p => p.uid !== "dazn")
                                     
                                     return (
-                                      <BroadcastPartnerLink
-                                        size="sm" 
-                                        key={partner.id}
-                                        partner={partner}
-                                        className={isNotOnLastRow ? "border-b border-border/50" : undefined}
-                                      />
+                                      <>
+                                        {daznPartner && (
+                                          <BroadcastPartnerLink
+                                            
+                                            key={daznPartner.id}
+                                            partner={daznPartner}
+                                            showName
+                                            className="bg-muted/20 border-y border-muted/50"
+                                          />
+                                        )}
+                                        {otherPartners.length > 0 && (
+                                          <div className="grid grid-cols-3 w-full gap-x-1.5">
+                                            {otherPartners.map((partner, index) => {
+                                              const totalPartners = otherPartners.length
+                                              const itemsInLastRow = totalPartners % 3 || 3
+                                              const lastRowStartIndex = totalPartners - itemsInLastRow
+                                              const isNotOnLastRow = index < lastRowStartIndex
+                                              
+                                              return (
+                                                <BroadcastPartnerLink
+                                                  size="sm" 
+                                                  key={partner.id}
+                                                  partner={partner}
+                                                  showName
+                                                  noLink
+                                                  className={isNotOnLastRow ? "border-t border-border/50" : "border-y border-border/50"}
+                                                />
+                                              )
+                                            })}
+                                          </div>
+                                        )}
+                                          <Button variant="secondary" size="sm" className="w-full gap-2.5" asChild>
+                                           <Link href="/#tune-in"><InformationCircleIcon className="size-3.5" /> Streaming Availability</Link></Button>
+                                      </>
                                     )
-                                  })}
+                                  })()}
                                 </div>
                               </div>
                             ) : recentBlog && (
