@@ -124,8 +124,8 @@ function getGameCardDataFromOpta(
     const homeTeamData = fixture.TeamData.find(t => t.Side === "Home")
     const awayTeamData = fixture.TeamData.find(t => t.Side === "Away")
 
-    let homeTeamRefRaw = homeTeamData?.TeamRef || ""
-    let awayTeamRefRaw = awayTeamData?.TeamRef || ""
+    const homeTeamRefRaw = homeTeamData?.TeamRef || ""
+    const awayTeamRefRaw = awayTeamData?.TeamRef || ""
 
     const resolvedHomeRef = resolvePlaceholderTeam(homeTeamRefRaw, allMatches, f3StandingsData || null, optaTeams)
     const resolvedAwayRef = resolvePlaceholderTeam(awayTeamRefRaw, allMatches, f3StandingsData || null, optaTeams)
