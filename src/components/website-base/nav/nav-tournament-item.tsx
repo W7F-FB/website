@@ -12,8 +12,8 @@ import { Separator } from "@/components/ui/separator"
 import { CategoryButton } from "@/components/blocks/category-button"
 import { SoccerIcon, TicketIcon, WhistleIcon, InfoShieldIcon, VIPIcon } from "../icons"
 import { PrismicNextImage } from "@prismicio/next"
-import { getTeamsByTournament } from "@/cms/queries/team"
 import { NavSheetLink } from "@/components/ui/navigation-menu"
+import type { TeamDocument } from "../../../../prismicio-types"
 
 interface NavigationMenuTournamentProps {
     tournament?: TournamentDocument
@@ -23,6 +23,7 @@ interface NavigationMenuTournamentProps {
 
 interface NavigationMenuTournamentFeaturedProps {
     tournament?: TournamentDocument
+    teams?: TeamDocument[]
     className?: string
     children?: React.ReactNode
 }
@@ -96,9 +97,10 @@ export function NavigationMenuTournament({
     )
 }
 
-export async function NavigationMenuTournamentFeatured({
+export function NavigationMenuTournamentFeatured({
     className,
-    tournament
+    tournament,
+    teams = []
 }: NavigationMenuTournamentFeaturedProps) {
     if (!tournament?.data.show_in_navigation || !tournament?.data.nav_image?.url) {
         return null
@@ -106,8 +108,6 @@ export async function NavigationMenuTournamentFeatured({
 
     const status = relativeDateRange(tournament.data.start_date, tournament.data.end_date)
     const dateRange = formatDateRange(tournament.data.start_date, tournament.data.end_date)
-
-    const teams = tournament.uid ? await getTeamsByTournament(tournament.uid) : []
 
     const getStatusText = () => {
         if (!status || !dateRange) return null
