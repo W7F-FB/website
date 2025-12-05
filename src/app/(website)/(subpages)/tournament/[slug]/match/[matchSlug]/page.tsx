@@ -146,7 +146,11 @@ export default async function MatchPage({
   if (doc?.MatchData) {
     optaTeams = doc.Team || doc.TeamData || [];
 
-    const filteredMatches = doc.MatchData.filter(
+    const matchDataArray = Array.isArray(doc.MatchData) 
+      ? doc.MatchData 
+      : [doc.MatchData];
+    
+    const filteredMatches = matchDataArray.filter(
       (m: F1MatchData) => normalizeOptaId(m.uID) !== normalizedOptaId
     );
     groupedFixtures = groupMatchesByDate(filteredMatches);

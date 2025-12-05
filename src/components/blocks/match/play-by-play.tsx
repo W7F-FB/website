@@ -111,7 +111,9 @@ function ActionCell({ type }: ActionCellProps) {
 }
 
 export default function PlayByPlay({ commentary, className, isPreGame }: PlayByPlayProps) {
-    const messages = commentary?.Commentary?.message || [];
+    const messages = Array.isArray(commentary?.Commentary?.message) 
+        ? commentary.Commentary.message 
+        : [];
     const scoringMessages = messages.filter(msg => isScoringAttempt(msg));
 
     if (messages.length === 0) {

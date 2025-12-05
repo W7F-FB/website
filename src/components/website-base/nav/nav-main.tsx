@@ -84,9 +84,11 @@ async function NavMain({ showBreadcrumbs, pathname, customBreadcrumbs, groupedFi
 
   const hasGamesSlider = !!(groupedFixtures && groupedFixtures.size > 0 && prismicTeams && optaTeams && tournament)
 
+  const broadcastPartners = Array.isArray(navSettings?.broadcastPartners) ? navSettings.broadcastPartners : []
+
   const navImageUrls = [
     ...tournaments.filter(t => t.data.nav_image?.url).map(t => t.data.nav_image),
-    ...navSettings?.broadcastPartners?.filter(p => p.data.logo_white?.url).map(p => p.data.logo_white) || [],
+    ...broadcastPartners.filter(p => p.data.logo_white?.url).map(p => p.data.logo_white),
   ]
 
   const featuredTournament = tournaments.find(t => t.data.featured === true)
@@ -141,15 +143,15 @@ async function NavMain({ showBreadcrumbs, pathname, customBreadcrumbs, groupedFi
                           )}
                           <Separator orientation="vertical" className="hidden lg:block" />
                           <div className="flex flex-col gap-6 lg:py-3 lg:min-w-[320px]">
-                            {navSettings?.moreInfoMode === "Where to watch" && navSettings.broadcastPartners.length > 0 ? (
+                            {navSettings?.moreInfoMode === "Where to watch" && broadcastPartners.length > 0 ? (
                               <div className="flex flex-col lg:gap-3 gap-4 content-start">
                                 <div className="flex items-center gap-3 w-full">
                                   <Subtitle className="mb-0 text-sm">Stream Live, <span className="text-primary whitespace-nowrap">for Free</span> Worldwide</Subtitle>
                                 </div>
                                 <div className="flex flex-col w-full gap-3">
                                   {(() => {
-                                    const daznPartner = navSettings.broadcastPartners.find(p => p.uid === "dazn")
-                                    const otherPartners = navSettings.broadcastPartners.filter(p => p.uid !== "dazn")
+                                    const daznPartner = broadcastPartners.find(p => p.uid === "dazn")
+                                    const otherPartners = broadcastPartners.filter(p => p.uid !== "dazn")
                                     
                                     return (
                                       <>
@@ -184,17 +186,17 @@ async function NavMain({ showBreadcrumbs, pathname, customBreadcrumbs, groupedFi
                                             })}
                                           </div>
                                         )}
-                                          <StreamingAvailabilityDialog broadcastPartners={navSettings.broadcastPartners}>
+                                          <StreamingAvailabilityDialog broadcastPartners={broadcastPartners}>
                                             <Button variant="secondary" size="sm" className="w-full gap-2.5">
                                               <InformationCircleIcon className="size-3.5" /> Streaming Availability
                                             </Button>
                                           </StreamingAvailabilityDialog>
-                                      </>
+                                        </>
                                     )
                                   })()}
                                 </div>
                               </div>
-                            ) : recentBlog && (
+                            ) : recentBlog ? (
                               <div className="flex flex-col lg:gap-3 gap-4 content-start">
                                 <div className="flex items-center w-full">
                                   <Subtitle className="mb-0 text-xs whitespace-nowrap">Recent News</Subtitle>
@@ -212,7 +214,7 @@ async function NavMain({ showBreadcrumbs, pathname, customBreadcrumbs, groupedFi
                                   className="w-full lg:w-[320px]"
                                 />
                               </div>
-                            )}
+                            ) : null}
                             <div className="flex flex-col items-stretch lg:gap-3 gap-4 flex-grow items-start">
                               <div className="flex items-center gap-3 w-full">
                                 <Subtitle className="mb-0 text-xs whitespace-nowrap">Past Events</Subtitle>    

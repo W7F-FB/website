@@ -42,7 +42,7 @@ const MATCH_CARD_VARIANTS = {
     mini: {
         card: "rounded-none bg-transparent border-0 cursor-pointer transition-colors duration-200 hover:bg-muted/20",
         bannerHeader: "lg:px-4 px-4 py-2",
-        header: "px-4 lg:px-4 pt-2 pb-1",
+        header: "px-4 md:px-4 lg:px-4 pt-2 pb-1",
         time: "text-[0.65rem] font-normal",
         status: "text-xxs tracking-widest font-medium",
         liveStatus: "p-0 bg-transparent border-0",

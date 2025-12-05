@@ -88,7 +88,8 @@ export default function MatchPageContent({
   isKnockoutStage,
   matchBlogs = [],
 }: Props) {
-  const f1Matches = f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData || [];
+  const matchData = f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData;
+  const f1Matches = Array.isArray(matchData) ? matchData : (matchData ? [matchData] : []);
   const currentMatchFromF1 = f1Matches.find((m: F1MatchData) => normalizeOptaId(m.uID) === normalizeOptaId(matchId));
   const isMatchComplete = currentMatchFromF1?.MatchInfo?.Period === "FullTime";
   const isPreGame = !f9MatchData || f9MatchData.MatchInfo.Period === "PreMatch";
