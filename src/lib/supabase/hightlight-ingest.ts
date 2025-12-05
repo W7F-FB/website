@@ -19,26 +19,46 @@ const supabase = createClient(SUPABASE_URL, SERVICE_ROLE_KEY, {
   },
 });
 
-function getExtensionFromUrl(url: string, fallback: string): string {
-  try {
-    const u = new URL(url);
-    const pathname = u.pathname;
-    const idx = pathname.lastIndexOf(".");
-    if (idx !== -1 && idx < pathname.length - 1) {
-      const ext = pathname.substring(idx);
-      if (
-        /^\.(mp4|mov|mkv|webm|mpg|mpeg|m4v|jpg|jpeg|png|webp|gif)$/i.test(ext)
-      ) {
-        return ext.toLowerCase();
-      }
-    }
-  } catch {
-    return fallback;
+const VIDEO_EXTENSIONS = /\.(mp4|mov|mkv|webm|mpg|mpeg|m4v)/i;
+const IMAGE_EXTENSIONS = /\.(jpg|jpeg|png|webp|gif)/i;
+
+function extractMediaUrlAndMetadata(fullUrl: string, isVideo: boolean): { mediaUrl: string; metadata: string } {
+  const extensionRegex = isVideo ? VIDEO_EXTENSIONS : IMAGE_EXTENSIONS;
+  const match = fullUrl.match(extensionRegex);
+  
+  if (match && match.index !== undefined) {
+    const endOfExtension = match.index + match[0].length;
+    const mediaUrl = fullUrl.substring(0, endOfExtension);
+    const metadata = fullUrl.substring(endOfExtension);
+    return { mediaUrl, metadata };
   }
-  return fallback;
+  
+  return { mediaUrl: fullUrl, metadata: "" };
+}
+
+function parseMetadataFromPath(metadataPath: string): Record<string, string> {
+  const decoded = decodeURIComponent(metadataPath);
+  console.log("[WCS Ingest] Decoded metadata path:", decoded);
+  
+  const result: Record<string, string> = {};
+  
+  const paramMatch = decoded.match(/wsc_highlight_(.+)$/);
+  if (paramMatch) {
+    const paramString = paramMatch[1];
+    console.log("[WCS Ingest] Param string:", paramString);
+    
+    const params = new URLSearchParams(paramString);
+    params.forEach((value, key) => {
+      result[key] = value;
+    });
+  }
+  
+  console.log("[WCS Ingest] Parsed metadata:", result);
+  return result;
 }
 
 async function fetchAsBlob(url: string) {
+  console.log("[WCS Ingest] Fetching:", url);
   const res = await fetch(url);
   if (!res.ok) {
     throw new Error(
@@ -65,56 +85,13 @@ function inferExtFromContentType(ct: string | undefined, fallback = ".bin") {
   return map[ct.toLowerCase()] ?? fallback;
 }
 
-function toPathSafe(id: string): string {
-  return id.replace(/[^A-Za-z0-9._-]/g, "_");
+function generateClipId(): string {
+  return `clip_${Date.now()}_${Math.random().toString(36).substring(2, 8)}`;
 }
 
-interface ParsedMetadata {
-  provider_clip_id: string;
-  opta_match_id: string;
-  opta_event_id: string;
-  opta_competition_id: string;
-}
-
-function parseMetadataFromFilename(url: string): ParsedMetadata {
-  console.log("[WCS Ingest] Parsing metadata from URL:", url);
-  
-  const filename = url.split("/").pop()?.replace(/\.(mp4|mov|mkv|webm|mpg|mpeg|m4v|jpg|jpeg|png|webp|gif)$/i, "") ?? "";
-  console.log("[WCS Ingest] Extracted filename:", filename);
-  
-  const parts = filename.split("__");
-  console.log("[WCS Ingest] Split parts:", parts);
-  
-  if (parts.length >= 2) {
-    const metadataString = parts.slice(1).join("__");
-    console.log("[WCS Ingest] Metadata string:", metadataString);
-    
-    const params = new URLSearchParams(metadataString);
-    
-    const provider_clip_id = params.get("provider_clip_id");
-    const opta_match_id = params.get("opta_match_id");
-    const opta_event_id = params.get("opta_event_id");
-    const opta_competition_id = params.get("opta_competition_id");
-    
-    console.log("[WCS Ingest] Parsed params:", { provider_clip_id, opta_match_id, opta_event_id, opta_competition_id });
-    
-    if (provider_clip_id && opta_match_id && opta_event_id && opta_competition_id) {
-      return {
-        provider_clip_id,
-        opta_match_id,
-        opta_event_id,
-        opta_competition_id,
-      };
-    }
-  }
-  
-  console.log("[WCS Ingest] No metadata in filename, using filename as provider_clip_id");
-  return {
-    provider_clip_id: filename || `clip_${Date.now()}`,
-    opta_match_id: "",
-    opta_event_id: "",
-    opta_competition_id: "",
-  };
+function getExtensionFromUrl(url: string, fallback: string): string {
+  const match = url.match(/\.(mp4|mov|mkv|webm|mpg|mpeg|m4v|jpg|jpeg|png|webp|gif)$/i);
+  return match ? match[0].toLowerCase() : fallback;
 }
 
 export interface HighlightIngestPayload {
@@ -132,21 +109,26 @@ export async function ingestHighlight(payload: HighlightIngestPayload) {
     throw new Error("Missing field: thumbnail_source_url");
   }
 
-  const metadata = parseMetadataFromFilename(payload.video_source_url);
-  const providerClipId = toPathSafe(metadata.provider_clip_id);
-  console.log("[WCS Ingest] Provider clip ID:", providerClipId);
+  const { mediaUrl: videoUrl, metadata: videoMetadata } = extractMediaUrlAndMetadata(payload.video_source_url, true);
+  console.log("[WCS Ingest] Extracted video URL:", videoUrl);
+  console.log("[WCS Ingest] Extracted video metadata path:", videoMetadata);
 
-  console.log("[WCS Ingest] Downloading video from:", payload.video_source_url);
-  const videoDownload = await fetchAsBlob(payload.video_source_url);
+  const metadata = parseMetadataFromPath(videoMetadata);
+  
+  const clipId = generateClipId();
+  console.log("[WCS Ingest] Generated clip ID:", clipId);
+
+  console.log("[WCS Ingest] Downloading video from:", videoUrl);
+  const videoDownload = await fetchAsBlob(videoUrl);
   console.log("[WCS Ingest] Video downloaded:", videoDownload.blob.size, "bytes, content-type:", videoDownload.contentType);
   
-  let videoExt = getExtensionFromUrl(payload.video_source_url, ".mp4");
+  let videoExt = getExtensionFromUrl(videoUrl, ".mp4");
   if (videoExt === ".mp4" && videoDownload.contentType) {
     const hinted = inferExtFromContentType(videoDownload.contentType, videoExt);
     if (hinted) videoExt = hinted;
   }
 
-  const clipPath = `clips/${providerClipId}${videoExt}`;
+  const clipPath = `clips/${clipId}${videoExt}`;
   console.log("[WCS Ingest] Uploading video to Supabase:", clipPath, `(${(videoDownload.blob.size / 1024 / 1024).toFixed(2)} MB)`);
 
   const uploadStartTime = Date.now();
@@ -190,17 +172,19 @@ export async function ingestHighlight(payload: HighlightIngestPayload) {
   let thumbPublicUrl: string | null = null;
 
   try {
-    console.log("[WCS Ingest] Downloading thumbnail from:", payload.thumbnail_source_url);
-    const thumbDownload = await fetchAsBlob(payload.thumbnail_source_url);
+    const { mediaUrl: thumbnailUrl } = extractMediaUrlAndMetadata(payload.thumbnail_source_url, false);
+    console.log("[WCS Ingest] Downloading thumbnail from:", thumbnailUrl);
+    
+    const thumbDownload = await fetchAsBlob(thumbnailUrl);
     console.log("[WCS Ingest] Thumbnail downloaded:", thumbDownload.blob.size, "bytes, content-type:", thumbDownload.contentType);
     
-    let thumbExt = getExtensionFromUrl(payload.thumbnail_source_url, ".jpg");
+    let thumbExt = getExtensionFromUrl(thumbnailUrl, ".jpg");
     if (thumbDownload.contentType) {
       const hinted = inferExtFromContentType(thumbDownload.contentType, thumbExt);
       if (hinted) thumbExt = hinted;
     }
 
-    thumbPath = `thumbs/${providerClipId}${thumbExt}`;
+    thumbPath = `thumbs/${clipId}${thumbExt}`;
     console.log("[WCS Ingest] Uploading thumbnail to:", thumbPath);
 
     const { data: thumbSignedUrl, error: thumbSignedUrlError } = await supabase.storage
@@ -250,10 +234,10 @@ export async function ingestHighlight(payload: HighlightIngestPayload) {
 
   const insertPayload = {
     provider: "partner",
-    provider_id: providerClipId,
-    opta_match_id: metadata.opta_match_id,
-    opta_competition_id: metadata.opta_competition_id,
-    opta_event_id: metadata.opta_event_id,
+    provider_id: clipId,
+    opta_match_id: metadata.opta_match_id || "",
+    opta_competition_id: metadata.opta_competition_id || "",
+    opta_event_id: metadata.opta_event_id || "",
     video_url: vPub,
     thumbnail_url: thumbPublicUrl || "",
     status: "ready",

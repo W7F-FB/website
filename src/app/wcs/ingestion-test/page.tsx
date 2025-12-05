@@ -88,8 +88,8 @@ export default function WCSIngestionTest() {
   const exampleResponseCode = JSON.stringify({
     data: {
       id: 123,
-      provider: "partner",
-      provider_id: "BigBuckBunny",
+      provider: "wcs",
+      provider_id: "wcs",
       opta_match_id: "",
       opta_competition_id: "",
       opta_event_id: "",
