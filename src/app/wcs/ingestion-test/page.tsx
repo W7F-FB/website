@@ -14,8 +14,8 @@ import {
 import type { BundledLanguage } from "@/components/ui/code-block";
 
 const defaultPayload = {
-  video_source_url: "https://cdn.wcspartner.com/highlights/wcs_highlight__provider_clip_id=goal_martinez_73min&opta_match_id=2713631&opta_event_id=g2713631evt1847&opta_competition_id=2kxe4ya1n89b0iuvjpjte5o4p.mp4",
-  thumbnail_source_url: "https://cdn.wcspartner.com/highlights/wcs_highlight__provider_clip_id=goal_martinez_73min&opta_match_id=2713631&opta_event_id=g2713631evt1847&opta_competition_id=2kxe4ya1n89b0iuvjpjte5o4p.jpg"
+  video_source_url: "https://storage.googleapis.com/gtv-videos-bucket/sample/wcs_highlight__provider_clip_id=goal_martinez_73min&opta_match_id=2713631&opta_event_id=g2713631evt1847&opta_competition_id=2kxe4ya1n89b0iuvjpjte5o4p.mp4",
+  thumbnail_source_url: "https://storage.googleapis.com/gtv-videos-bucket/sample/images/wcs_highlight__provider_clip_id=goal_martinez_73min&opta_match_id=2713631&opta_event_id=g2713631evt1847&opta_competition_id=2kxe4ya1n89b0iuvjpjte5o4p.jpg"
 };
 
 const PARTNER_SECRET = "d4f3127fa0c977e2b52cf59a0fa8f962ee2d94a3e120f12aac5dbed6cf4b91e0";
