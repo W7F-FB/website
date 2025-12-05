@@ -87,18 +87,17 @@ const FooterMain = React.forwardRef<HTMLElement, React.ComponentProps<"footer">>
               <H3 className="mb-2">Keep up with us</H3>
               <p className="mb-4 text-muted-foreground">Stay updated on W7F news, tickets, giveaways, merchandise and more.</p>
               <FormFooterSubscribe />
-              {sponsors.length > 0 && (
-                <div className="flex flex-wrap items-center justify-center lg:justify-end gap-6 mt-12">
-                  {sponsors.map((sponsor) => (
-                    <SponsorLogo
-                      key={sponsor.id}
-                      sponsor={sponsor}
-                    />
-                  ))}
-                </div>
-              )}
             </div>
           </div>
+        </div>
+
+        <div className="flex flex-wrap items-center justify-around gap-10 border-y border-border/50 py-8 mt-14">
+          {sponsors.map((sponsor) => (
+            <SponsorLogo
+              key={sponsor.id}
+              sponsor={sponsor}
+            />
+          ))}
         </div>
 
         <FooterFast />

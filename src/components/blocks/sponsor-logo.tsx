@@ -28,7 +28,7 @@ export function SponsorLogo({
   const logoElement = (
     <PrismicNextImage
       field={logoField}
-      className="h-8 w-auto object-contain"
+      className="h-6 lg:h-8 w-auto object-contain"
     />
   )
 
@@ -37,7 +37,7 @@ export function SponsorLogo({
       <Link
         href={websiteUrl}
         className={cn(
-          "flex items-center justify-center opacity-70 hover:opacity-100 transition-opacity",
+          "flex items-center justify-center opacity-100 hover:opacity-90 transition-opacity",
           className
         )}
         target="_blank"
@@ -51,7 +51,7 @@ export function SponsorLogo({
   return (
     <div
       className={cn(
-        "flex items-center justify-center opacity-70",
+        "flex items-center justify-center opacity-100",
         className
       )}
     >
