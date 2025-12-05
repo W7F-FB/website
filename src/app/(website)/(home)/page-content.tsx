@@ -91,7 +91,7 @@ export default function HomePageContent({
                             </TextProtect>
                             <div className="mt-6 w-full lg:mt-10 flex flex-col lg:flex-row gap-3 lg:gap-4">
                                 <Button asChild size="skew_lg"><Link href="/checkout"><span>Purchase Tickets</span></Link></Button>
-                                <Button asChild size="skew_lg" variant="accent"><Link href="/tournament/fort-lauderdale/schedule"><span>Schedule</span></Link></Button>
+                                <Button asChild size="skew_lg" variant="accent"><Link href="/tournament/fort-lauderdale"><span>Matches</span></Link></Button>
                             </div>
                         </HeroSliderSlideContent>
                         <HeroSliderSlideContent className="max-w-none w-full h-full pb-6 lg:pb-12 pr-4 lg:pr-36 flex flex-col items-start justify-end text-shadow-xl gap-2">
