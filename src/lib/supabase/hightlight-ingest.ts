@@ -85,34 +85,35 @@ function parseMetadataFromFilename(url: string): ParsedMetadata {
   const parts = filename.split("__");
   console.log("[WCS Ingest] Split parts:", parts);
   
-  if (parts.length < 2) {
-    throw new Error("Invalid filename format. Expected: wcs_highlight__provider_clip_id=...&opta_match_id=...&opta_event_id=...&opta_competition_id=...");
+  if (parts.length >= 2) {
+    const metadataString = parts.slice(1).join("__");
+    console.log("[WCS Ingest] Metadata string:", metadataString);
+    
+    const params = new URLSearchParams(metadataString);
+    
+    const provider_clip_id = params.get("provider_clip_id");
+    const opta_match_id = params.get("opta_match_id");
+    const opta_event_id = params.get("opta_event_id");
+    const opta_competition_id = params.get("opta_competition_id");
+    
+    console.log("[WCS Ingest] Parsed params:", { provider_clip_id, opta_match_id, opta_event_id, opta_competition_id });
+    
+    if (provider_clip_id && opta_match_id && opta_event_id && opta_competition_id) {
+      return {
+        provider_clip_id,
+        opta_match_id,
+        opta_event_id,
+        opta_competition_id,
+      };
+    }
   }
   
-  const metadataString = parts.slice(1).join("__");
-  console.log("[WCS Ingest] Metadata string:", metadataString);
-  
-  const params = new URLSearchParams(metadataString);
-  
-  const provider_clip_id = params.get("provider_clip_id");
-  const opta_match_id = params.get("opta_match_id");
-  const opta_event_id = params.get("opta_event_id");
-  const opta_competition_id = params.get("opta_competition_id");
-  
-  console.log("[WCS Ingest] Parsed params:", { provider_clip_id, opta_match_id, opta_event_id, opta_competition_id });
-  
-  if (!provider_clip_id || !opta_match_id || !opta_event_id || !opta_competition_id) {
-    throw new Error(
-      `Missing required metadata in filename. Required params: provider_clip_id, opta_match_id, opta_event_id, opta_competition_id. ` +
-      `Found: provider_clip_id=${provider_clip_id}, opta_match_id=${opta_match_id}, opta_event_id=${opta_event_id}, opta_competition_id=${opta_competition_id}`
-    );
-  }
-  
+  console.log("[WCS Ingest] No metadata in filename, using filename as provider_clip_id");
   return {
-    provider_clip_id,
-    opta_match_id,
-    opta_event_id,
-    opta_competition_id,
+    provider_clip_id: filename || `clip_${Date.now()}`,
+    opta_match_id: "",
+    opta_event_id: "",
+    opta_competition_id: "",
   };
 }
 

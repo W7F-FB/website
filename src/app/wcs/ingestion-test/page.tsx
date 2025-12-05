@@ -14,8 +14,8 @@ import {
 import type { BundledLanguage } from "@/components/ui/code-block";
 
 const defaultPayload = {
-  video_source_url: "https://storage.googleapis.com/gtv-videos-bucket/sample/wcs_highlight__provider_clip_id=goal_martinez_73min&opta_match_id=2713631&opta_event_id=g2713631evt1847&opta_competition_id=2kxe4ya1n89b0iuvjpjte5o4p.mp4",
-  thumbnail_source_url: "https://storage.googleapis.com/gtv-videos-bucket/sample/images/wcs_highlight__provider_clip_id=goal_martinez_73min&opta_match_id=2713631&opta_event_id=g2713631evt1847&opta_competition_id=2kxe4ya1n89b0iuvjpjte5o4p.jpg"
+  video_source_url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+  thumbnail_source_url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/BigBuckBunny.jpg"
 };
 
 const PARTNER_SECRET = "d4f3127fa0c977e2b52cf59a0fa8f962ee2d94a3e120f12aac5dbed6cf4b91e0";
@@ -89,12 +89,12 @@ export default function WCSIngestionTest() {
     data: {
       id: 123,
       provider: "partner",
-      provider_id: "goal_martinez_73min",
-      opta_match_id: "2713631",
-      opta_competition_id: "2kxe4ya1n89b0iuvjpjte5o4p",
-      opta_event_id: "g2713631evt1847",
-      video_url: "https://aucusaxsdyrwmwpxhpgl.supabase.co/storage/v1/object/public/match-highlights/clips/goal_martinez_73min.mp4",
-      thumbnail_url: "https://aucusaxsdyrwmwpxhpgl.supabase.co/storage/v1/object/public/match-highlights/thumbs/goal_martinez_73min.jpg",
+      provider_id: "BigBuckBunny",
+      opta_match_id: "",
+      opta_competition_id: "",
+      opta_event_id: "",
+      video_url: "https://aucusaxsdyrwmwpxhpgl.supabase.co/storage/v1/object/public/match-highlights/clips/BigBuckBunny.mp4",
+      thumbnail_url: "https://aucusaxsdyrwmwpxhpgl.supabase.co/storage/v1/object/public/match-highlights/thumbs/BigBuckBunny.jpg",
       status: "ready",
       created_at: "2025-12-05T10:30:00.000Z",
       updated_at: "2025-12-05T10:30:00"
