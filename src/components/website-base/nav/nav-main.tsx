@@ -30,6 +30,7 @@ import { isFilled } from "@prismicio/client"
 import { dev } from "@/lib/dev"
 import { BroadcastPartnerLink } from "@/components/blocks/broadcast-partner"
 import { InformationCircleIcon } from "../icons"
+import { StreamingAvailabilityDialog } from "@/components/blocks/streaming-availability-dialog"
 
 const exploreNavItems = [
   { href: "/news", label: "News", key: "nav-news" },
@@ -166,11 +167,11 @@ async function NavMain({ showBreadcrumbs, pathname, customBreadcrumbs, groupedFi
                                             })}
                                           </div>
                                         )}
-                                          <NavigationMenuLink asChild href="/#tune-in">
-                                            <Button variant="secondary" size="sm" className="w-full gap-2.5" asChild>
-                                              <Link href="/#tune-in"><InformationCircleIcon className="size-3.5" /> Streaming Availability</Link>
+                                          <StreamingAvailabilityDialog broadcastPartners={navSettings.broadcastPartners}>
+                                            <Button variant="secondary" size="sm" className="w-full gap-2.5">
+                                              <InformationCircleIcon className="size-3.5" /> Streaming Availability
                                             </Button>
-                                          </NavigationMenuLink>
+                                          </StreamingAvailabilityDialog>
                                       </>
                                     )
                                   })()}
