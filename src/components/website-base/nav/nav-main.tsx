@@ -16,6 +16,7 @@ import { PaddingGlobal } from "@/components/website-base/padding-containers"
 import { getNavigationTournaments } from "@/cms/queries/tournaments"
 import { getMostRecentBlog } from "@/cms/queries/blog"
 import { getNavigationSettings } from "@/cms/queries/website"
+import { getTeamsByTournament } from "@/cms/queries/team"
 import { Button } from "@/components/ui/button"
 import { PageBreadcrumbs } from "@/components/blocks/page-breadcrumbs"
 import { GamesSlider } from "@/components/blocks/tournament/games-slider/games-slider"
@@ -88,6 +89,11 @@ async function NavMain({ showBreadcrumbs, pathname, customBreadcrumbs, groupedFi
     ...navSettings?.broadcastPartners?.filter(p => p.data.logo_white?.url).map(p => p.data.logo_white) || [],
   ]
 
+  const featuredTournament = tournaments.find(t => t.data.featured === true)
+  const featuredTournamentTeams = featuredTournament?.uid 
+    ? await getTeamsByTournament(featuredTournament.uid)
+    : []
+
   return (
     <GamesSliderCollapseProvider collapsable={hasGamesSlider}>
     <div className={cn("sticky top-0 z-50 w-full border-b border-border/50 bg-background backdrop-blur supports-[backdrop-filter]:bg-background/90", groupedFixtures && groupedFixtures.size > 0 && "bg-background supports-[backdrop-filter]:bg-background")}>
@@ -120,7 +126,6 @@ async function NavMain({ showBreadcrumbs, pathname, customBreadcrumbs, groupedFi
                   <NavigationMenuTrigger><span>Events & Tickets</span></NavigationMenuTrigger>
                   <NavigationMenuContent className="right-auto !w-max">
                     {(() => {
-                      const featuredTournament = tournaments.find(t => t.data.featured === true)
                       const otherTournaments = tournaments.filter(t => t.data.featured !== true)
 
                       return (
@@ -130,6 +135,7 @@ async function NavMain({ showBreadcrumbs, pathname, customBreadcrumbs, groupedFi
                               <NavigationMenuTournamentFeatured
                                 key={featuredTournament.id}
                                 tournament={featuredTournament}
+                                teams={featuredTournamentTeams}
                               />
                             </ul>
                           )}
