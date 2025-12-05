@@ -100,3 +100,43 @@ export async function getMostRecentBlog(): Promise<BlogDocument | null> {
     throw error;
   }
 }
+
+export async function getBlogsByTeam(teamId: string): Promise<BlogDocument[]> {
+  try {
+    const client = createClient();
+    return await client.getAllByType("blog", {
+      filters: [
+        prismic.filter.at("my.blog.teams.team", teamId)
+      ],
+      orderings: [
+        { field: "my.blog.date", direction: "desc" },
+        { field: "my.blog.title", direction: "asc" },
+      ],
+    });
+  } catch (error) {
+    if (error instanceof Error && error.message.includes("No documents were returned")) {
+      return [];
+    }
+    throw error;
+  }
+}
+
+export async function getBlogsByMatch(matchId: string): Promise<BlogDocument[]> {
+  try {
+    const client = createClient();
+    return await client.getAllByType("blog", {
+      filters: [
+        prismic.filter.at("my.blog.matches.match", matchId)
+      ],
+      orderings: [
+        { field: "my.blog.date", direction: "desc" },
+        { field: "my.blog.title", direction: "asc" },
+      ],
+    });
+  } catch (error) {
+    if (error instanceof Error && error.message.includes("No documents were returned")) {
+      return [];
+    }
+    throw error;
+  }
+}

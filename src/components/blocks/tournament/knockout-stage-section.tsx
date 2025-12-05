@@ -1,5 +1,5 @@
 import { Section } from "@/components/website-base/padding-containers"
-import type { TeamDocument } from "../../../../prismicio-types"
+import type { TeamDocument, BroadcastPartnersDocument } from "../../../../prismicio-types"
 import type { F3StandingsResponse } from "@/types/opta-feeds/f3-standings"
 import type { F1FixturesResponse, F1MatchData } from "@/types/opta-feeds/f1-fixtures"
 import { SectionHeading, SectionHeadingHeading, SectionHeadingText } from "@/components/sections/section-heading"
@@ -21,6 +21,7 @@ type KnockoutStageSectionProps = {
     matchSlugMap?: Map<string, string>
     compact?: boolean
     streamingLink?: string | null
+    broadcastPartners?: BroadcastPartnersDocument[]
 }
 
 export function KnockoutStageSection({ 
@@ -33,7 +34,8 @@ export function KnockoutStageSection({
     tournamentSlug,
     matchSlugMap,
     compact = false,
-    streamingLink
+    streamingLink,
+    broadcastPartners
 }: KnockoutStageSectionProps) {
     const knockoutMatches = semiFinalMatches.length + thirdPlaceMatches.length + finalMatches.length
     const knockoutDate = semiFinalMatches[0]?.MatchInfo?.Date
@@ -71,6 +73,7 @@ export function KnockoutStageSection({
                                 allMatches={f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData}
                                 f3StandingsData={f3StandingsData}
                                 streamingLink={streamingLink}
+                                broadcastPartners={broadcastPartners}
                             />
                         )}
                         {semiFinalMatches[1] && (
@@ -85,6 +88,7 @@ export function KnockoutStageSection({
                                 allMatches={f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData}
                                 f3StandingsData={f3StandingsData}
                                 streamingLink={streamingLink}
+                                broadcastPartners={broadcastPartners}
                             />
                         )}
                     </div>
@@ -101,6 +105,7 @@ export function KnockoutStageSection({
                             allMatches={f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData}
                             f3StandingsData={f3StandingsData}
                             streamingLink={streamingLink}
+                            broadcastPartners={broadcastPartners}
                         />
                     ))}
                     <Separator variant="gradient" className="my-12" />
@@ -117,6 +122,7 @@ export function KnockoutStageSection({
                             allMatches={f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData}
                             f3StandingsData={f3StandingsData}
                             streamingLink={streamingLink}
+                            broadcastPartners={broadcastPartners}
                         />
                     ))}
                     {allMatchesFullTime && (

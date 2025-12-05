@@ -4,6 +4,8 @@ import type { PlayerLeaderCard } from "@/types/components"
 import type { TeamDocument } from "../../../prismicio-types"
 import { F9Position } from "@/types/opta-feeds/f9-match"
 import type { F9MatchPlayer } from "@/types/opta-feeds/f9-match"
+import type { F40Team, F40Player } from "@/types/opta-feeds/f40-squads-feed"
+import { getPlayerFullName, getPlayerJerseyNumber } from "@/types/opta-feeds/f40-squads-feed"
 
 type TeamLeaders = {
   scorer: PlayerLeaderCard | null
@@ -37,18 +39,25 @@ const LEADER_CONFIGS: Record<keyof TeamLeaders, LeaderCriteria> = {
 
 export function getTeamLeaders(
   team: TeamDocument,
-  seasonStats: F30SeasonStatsResponse | null | undefined
+  seasonStats: F30SeasonStatsResponse | null | undefined,
+  teamSquad?: F40Team
 ): TeamLeaders {
-  if (!seasonStats) {
-    return { scorer: null, playmaker: null, keeper: null }
+  const players = seasonStats ? getPlayers(seasonStats) : []
+
+  const scorer = findLeader(players, team, LEADER_CONFIGS.scorer)
+  const playmaker = findLeader(players, team, LEADER_CONFIGS.playmaker)
+  const keeper = findLeader(players, team, LEADER_CONFIGS.keeper)
+
+  if (scorer && playmaker && keeper) {
+    return { scorer, playmaker, keeper }
   }
 
-  const players = getPlayers(seasonStats)
+  const fallbackPlayers = getFallbackPlayers(teamSquad, team)
 
   return {
-    scorer: findLeader(players, team, LEADER_CONFIGS.scorer),
-    playmaker: findLeader(players, team, LEADER_CONFIGS.playmaker),
-    keeper: findLeader(players, team, LEADER_CONFIGS.keeper),
+    scorer: scorer || fallbackPlayers.outfielders[0] || null,
+    playmaker: playmaker || fallbackPlayers.outfielders[1] || null,
+    keeper: keeper || fallbackPlayers.goalkeeper || null,
   }
 }
 
@@ -62,6 +71,61 @@ function findLeader(
     .sort((a, b) => comparePlayersByCriteria(a, b, criteria.sortStats))[0]
 
   return topPlayer ? buildPlayerLeaderCard(topPlayer, team, criteria.leaderType) : null
+}
+
+type FallbackPlayers = {
+  outfielders: PlayerLeaderCard[]
+  goalkeeper: PlayerLeaderCard | null
+}
+
+function getFallbackPlayers(teamSquad: F40Team | undefined, team: TeamDocument): FallbackPlayers {
+  if (!teamSquad?.Player) {
+    return { outfielders: [], goalkeeper: null }
+  }
+
+  const sortedPlayers = [...teamSquad.Player].sort((a, b) => {
+    const nameA = getPlayerFullName(a).toLowerCase()
+    const nameB = getPlayerFullName(b).toLowerCase()
+    return nameA.localeCompare(nameB)
+  })
+
+  const outfielders = sortedPlayers
+    .filter((p) => p.Position !== "Goalkeeper")
+    .slice(0, 2)
+    .map((p, index) => buildF40PlayerLeaderCard(p, team, index === 0 ? 'offensive' : 'offensive'))
+
+  const goalkeeper = sortedPlayers.find((p) => p.Position === "Goalkeeper")
+  const keeperCard = goalkeeper ? buildF40PlayerLeaderCard(goalkeeper, team, 'goalkeeper') : null
+
+  return { outfielders, goalkeeper: keeperCard }
+}
+
+function buildF40PlayerLeaderCard(
+  f40Player: F40Player,
+  team: TeamDocument,
+  leaderType: 'offensive' | 'defensive' | 'goalkeeper'
+): PlayerLeaderCard {
+  const zeroStats = leaderType === 'goalkeeper'
+    ? [{ Type: 'saves', value: 0 }]
+    : [{ Type: 'goals', value: 0 }, { Type: 'goal_assist', value: 0 }]
+
+  const jerseyNumber = getPlayerJerseyNumber(f40Player)
+
+  const f9Player: F9MatchPlayer & { name?: string } = {
+    PlayerRef: f40Player.uID,
+    Position: convertPosition(f40Player.Position),
+    ShirtNumber: typeof jerseyNumber === 'number' ? jerseyNumber : Number(jerseyNumber) || 0,
+    Status: 'Start',
+    Stat: zeroStats,
+    name: getPlayerFullName(f40Player),
+  }
+
+  return {
+    player: f9Player,
+    prismicTeam: team,
+    leaderType,
+    f40Position: f40Player.Position,
+  }
 }
 
 function comparePlayersByCriteria(

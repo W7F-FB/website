@@ -1,6 +1,6 @@
 'use client';
 
-import { Fragment, useMemo } from "react"
+import { Fragment, useMemo, useCallback } from "react"
 import { Table, TableBody, TableCell, TableHeader, TableRow } from "@/components/ui/table"
 import type { TeamDocument } from "../../../../prismicio-types"
 import type { F1FixturesResponse } from "@/types/opta-feeds/f1-fixtures"
@@ -10,6 +10,14 @@ import { getFinalMatch, getThirdPlaceMatch, calculateTeamRecordsFromMatches, get
 import { LinePattern } from "@/components/blocks/line-pattern"
 import { ClubRankCell } from "@/components/blocks/tournament/club-rank-cell"
 import { normalizeOptaId } from "@/lib/opta/utils"
+
+const placementOrder: Record<string, number> = {
+    '1st': 1,
+    '2nd': 2,
+    '3rd': 3,
+    '4th': 4,
+    'E': 5
+}
 
 type ClubStandingsTableProps = {
     prismicTeams: TeamDocument[]
@@ -29,9 +37,9 @@ export function ClubStandingsTable({ prismicTeams, f1FixturesData, f3StandingsDa
     
     const teamRecords = calculateTeamRecordsFromMatches(f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData)
     
-    const squadTeams = f40Squads?.SoccerFeed?.SoccerDocument?.Team || []
+    const squadTeams = useMemo(() => f40Squads?.SoccerFeed?.SoccerDocument?.Team || [], [f40Squads])
     
-    const getKnockoutPlacement = (teamOptaId: string | null | undefined): string => {
+    const getKnockoutPlacement = useCallback((teamOptaId: string | null | undefined): string => {
         if (!teamOptaId) return 'E'
         
         const teamId = `t${teamOptaId}`
@@ -47,7 +55,7 @@ export function ClubStandingsTable({ prismicTeams, f1FixturesData, f3StandingsDa
         }
         
         return 'E'
-    }
+    }, [finalMatch, thirdPlaceMatch])
 
     const getGroupPlacement = (teamOptaId: string | null | undefined, groupId: number): string => {
         if (!teamOptaId) return '-'
@@ -58,15 +66,7 @@ export function ClubStandingsTable({ prismicTeams, f1FixturesData, f3StandingsDa
         return rankings.get(normalizedTeamRef) ?? '-'
     }
 
-    const placementOrder: Record<string, number> = {
-        '1st': 1,
-        '2nd': 2,
-        '3rd': 3,
-        '4th': 4,
-        'E': 5
-    }
-
-    const getDisplayName = (team: TeamDocument): string => {
+    const getDisplayName = useCallback((team: TeamDocument): string => {
         const optaId = team.data.opta_id
         const teamIdWithPrefix = optaId?.toString().startsWith('t')
             ? optaId
@@ -74,7 +74,7 @@ export function ClubStandingsTable({ prismicTeams, f1FixturesData, f3StandingsDa
         
         const f40Team = squadTeams.find(t => normalizeOptaId(t.uID) === normalizeOptaId(teamIdWithPrefix))
         return f40Team?.short_club_name || team.data.name || ''
-    }
+    }, [squadTeams])
 
     const groupData = useMemo(() => {
         if (isKnockoutStage) return null
@@ -126,7 +126,7 @@ export function ClubStandingsTable({ prismicTeams, f1FixturesData, f3StandingsDa
         }).sort((a, b) => {
             return placementOrder[a.placement] - placementOrder[b.placement]
         })
-    }, [isKnockoutStage, prismicTeams, teamRecords, squadTeams])
+    }, [isKnockoutStage, prismicTeams, teamRecords, getDisplayName, getKnockoutPlacement])
 
     if (isKnockoutStage) {
         const firstEliminatedIndex = knockoutTableData.findIndex(row => row.placement === 'E')

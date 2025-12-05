@@ -1,27 +1,22 @@
 "use client";
 
-import React from "react";
-import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import React, { Fragment } from "react";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { getPlayerFullName, getPlayerJerseyNumber } from "@/types/opta-feeds/f40-squads-feed";
-import { cn } from "@/lib/utils";
+import { getPlayerFullName, getPlayerJerseyNumber, getPlayerNationality, getPlayerCountry } from "@/types/opta-feeds/f40-squads-feed";
+import { cn, getCountryIsoCode } from "@/lib/utils";
 import type { F40Player } from "@/types/opta-feeds/f40-squads-feed";
 import type { F30SeasonStatsResponse } from "@/types/opta-feeds/f30-season-stats";
 import { getPlayerById, getPlayerStat } from "@/types/opta-feeds/f30-season-stats";
-import { PrismicNextImage } from "@prismicio/next";
-import type { TeamDocument } from "../../../../prismicio-types";
-import { Tabs, TabsList, TabsTrigger, TabsContents, TabsContent } from "@/components/ui/motion-tabs";
-import { Button } from "@/components/ui/button";
-import { CaretRightIcon } from "@/components/website-base/icons";
-
+import { LinePattern } from "@/components/blocks/line-pattern";
+import ReactCountryFlag from "react-country-flag";
 
 interface RosterCardProps extends React.ComponentProps<"div"> {
   players: F40Player[];
   seasonStats?: F30SeasonStatsResponse | null;
-  prismicTeam?: TeamDocument;
 }
 
-export function RosterCard({ players, seasonStats, prismicTeam, className }: RosterCardProps) {
+export function RosterCard({ players, seasonStats, className }: RosterCardProps) {
   const filteredPlayers = players.filter((p) => p.Position !== "Substitute");
   const goalkeepers = filteredPlayers.filter((p) => p.Position === "Goalkeeper");
   const outfieldPlayers = filteredPlayers.filter((p) => p.Position !== "Goalkeeper");
@@ -35,79 +30,24 @@ export function RosterCard({ players, seasonStats, prismicTeam, className }: Ros
   }
 
   return (
-    <Tabs defaultValue={outfieldPlayers.length > 0 ? "outfield" : "goalkeepers"} className={cn("", className)}>
-      <TabsList variant="skew" className="mb-4">
-        {outfieldPlayers.length > 0 && (
-          <TabsTrigger value="outfield">
-            Outfield Players ({outfieldPlayers.length})
-          </TabsTrigger>
-        )}
-        {goalkeepers.length > 0 && (
-          <TabsTrigger value="goalkeepers">
-            Goalkeepers ({goalkeepers.length})
-          </TabsTrigger>
-        )}
-      </TabsList>
-      <TabsContents>
-        {outfieldPlayers.length > 0 && (
-          <TabsContent value="outfield">
-            <PlayersTable
-              players={outfieldPlayers}
-              seasonStats={seasonStats}
-              prismicTeam={prismicTeam}
-              isGoalkeeper={false}
-            />
-          </TabsContent>
-        )}
-        {goalkeepers.length > 0 && (
-          <TabsContent value="goalkeepers">
-            <PlayersTable
-              players={goalkeepers}
-              seasonStats={seasonStats}
-              prismicTeam={prismicTeam}
-              isGoalkeeper={true}
-            />
-          </TabsContent>
-        )}
-      </TabsContents>
-    </Tabs>
+    <div className={cn("", className)}>
+      <PlayersTable
+        outfieldPlayers={outfieldPlayers}
+        goalkeepers={goalkeepers}
+        seasonStats={seasonStats}
+      />
+    </div>
   );
 }
 
 interface PlayersTableProps {
-  players: F40Player[];
+  outfieldPlayers: F40Player[];
+  goalkeepers: F40Player[];
   seasonStats?: F30SeasonStatsResponse | null;
-  prismicTeam?: TeamDocument;
-  isGoalkeeper: boolean;
 }
 
-const PAGE_SIZE = 10;
-
-function PlayersTable({ players, seasonStats, prismicTeam, isGoalkeeper }: PlayersTableProps) {
-  const [hoveredRow, setHoveredRow] = React.useState<number | null>(null);
-  const [pageIndex, setPageIndex] = React.useState(0);
-
-  React.useEffect(() => {
-    setPageIndex(0);
-  }, [isGoalkeeper]);
-
-  if (!players.length) {
-    return (
-      <div className="text-center py-8 text-muted-foreground">
-        No players in this category
-      </div>
-    );
-  }
-
-  const totalPages = Math.ceil(players.length / PAGE_SIZE);
-  const currentPage = pageIndex + 1;
-  const canPreviousPage = pageIndex > 0;
-  const canNextPage = pageIndex < totalPages - 1;
-  const pageCount = totalPages;
-
-  const startIndex = pageIndex * PAGE_SIZE;
-  const endIndex = startIndex + PAGE_SIZE;
-  const paginatedPlayers = players.slice(startIndex, endIndex);
+function PlayersTable({ outfieldPlayers, goalkeepers, seasonStats }: PlayersTableProps) {
+  const [hoveredRow, setHoveredRow] = React.useState<string | null>(null);
 
   return (
     <div className="flex gap-0">
@@ -115,64 +55,168 @@ function PlayersTable({ players, seasonStats, prismicTeam, isGoalkeeper }: Playe
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead hasSelect className="pr-10">
-                <span className="font-headers font-semibold">Player</span>
+              <TableHead hasSelect className="md:pl-6 pl-3 md:pr-10 pr-3">
+                <span className="font-headers font-semibold text-xs md:text-base">Outfield ({outfieldPlayers.length})</span>
               </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {paginatedPlayers.map((player, index) => {
-              const globalIndex = startIndex + index;
-              return (
-                <TableRow
-                  key={player.uID}
-                  onMouseEnter={() => setHoveredRow(globalIndex)}
-                  onMouseLeave={() => setHoveredRow(null)}
-                  className={cn(
-                    "h-12 py-0 hover:bg-transparent",
-                    hoveredRow === globalIndex && "bg-muted/30 hover:bg-muted/30"
-                  )}
-                >
-                  <TableCell className="h-12 py-0 font-medium font-headers pr-10">
-                    <div className="flex items-center gap-3">
-                      <div className="grid grid-cols-[auto_1fr] gap-2.5">
-                        {prismicTeam?.data.logo && (
-                          <div className="relative size-6 shrink-0 self-center">
-                            <PrismicNextImage
-                              field={prismicTeam.data.logo}
-                              fill
-                              className="object-contain"
-                            />
+            {outfieldPlayers.length > 0 && (
+              <Fragment>
+                {outfieldPlayers.map((player) => (
+                  <TableRow
+                    key={player.uID}
+                    onMouseEnter={() => setHoveredRow(player.uID)}
+                    onMouseLeave={() => setHoveredRow(null)}
+                    className={cn(
+                      "h-12 py-0 hover:bg-transparent",
+                      hoveredRow === player.uID && "bg-muted/30 hover:bg-muted/30"
+                    )}
+                  >
+                    <TableCell className="h-12 py-0 md:pl-6 pl-3 font-medium font-headers md:pr-10 pr-3">
+                      <div className="flex items-center md:gap-3 gap-2">
+                        <div className="grid grid-cols-[auto_1fr] gap-2.5">
+                          <PlayerCountryFlag player={player} />
+                          <div className="flex flex-col items-start">
+                            <span className="text-xs overflow-hidden md:max-w-none max-w-24 text-ellipsis">{getPlayerFullName(player)}</span>
+                            <span className="text-muted-foreground/80 font-normal text-[0.65rem]">
+                              #{getPlayerJerseyNumber(player) !== "Unknown" && getPlayerJerseyNumber(player) !== "?" ? getPlayerJerseyNumber(player) : "-"} • {player.Position || ""}
+                            </span>
                           </div>
-                        )}
-                        <div className="flex flex-col items-start">
-                          <span className="text-xs">{getPlayerFullName(player)}</span>
-                          <span className="text-muted-foreground/80 font-normal text-[0.65rem]">
-                            #{getPlayerJerseyNumber(player) !== "Unknown" && getPlayerJerseyNumber(player) !== "?" ? getPlayerJerseyNumber(player) : "-"} • {player.Position || ""}
-                          </span>
                         </div>
                       </div>
-                    </div>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </Fragment>
+            )}
+            {goalkeepers.length > 0 && (
+              <Fragment>
+                <TableRow className="hover:bg-transparent">
+                  <TableCell colSpan={999} className="h-6 p-0">
+                    <LinePattern className="h-full w-full" patternSize={7} />
                   </TableCell>
                 </TableRow>
-              );
-            })}
+                <TableRow className="bg-muted/20">
+                  <TableHead hasSelect className="md:pl-6 pl-3 md:pr-10 pr-3">
+                    <span className="font-headers font-semibold text-xs md:text-base">Goalkeepers ({goalkeepers.length})</span>
+                  </TableHead>
+                </TableRow>
+                {goalkeepers.map((player) => (
+                  <TableRow
+                    key={player.uID}
+                    onMouseEnter={() => setHoveredRow(player.uID)}
+                    onMouseLeave={() => setHoveredRow(null)}
+                    className={cn(
+                      "h-12 py-0 hover:bg-transparent",
+                      hoveredRow === player.uID && "bg-muted/30 hover:bg-muted/30"
+                    )}
+                  >
+                    <TableCell className="h-12 py-0 md:pl-6 pl-3 font-medium font-headers md:pr-10 pr-3">
+                      <div className="flex items-center md:gap-3 gap-2">
+                        <div className="grid grid-cols-[auto_1fr] gap-2.5">
+                          <PlayerCountryFlag player={player} />
+                          <div className="flex flex-col items-start">
+                            <span className="text-xs overflow-hidden md:max-w-none max-w-24 text-ellipsis">{getPlayerFullName(player)}</span>
+                            <span className="text-muted-foreground/80 font-normal text-[0.65rem]">
+                              #{getPlayerJerseyNumber(player) !== "Unknown" && getPlayerJerseyNumber(player) !== "?" ? getPlayerJerseyNumber(player) : "-"} • {player.Position || ""}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </Fragment>
+            )}
           </TableBody>
-          <TableFooter>
-            <TableRow className="hover:bg-muted/30">
-              <TableCell>
-                <div className="h-[38px]" />
-              </TableCell>
-            </TableRow>
-          </TableFooter>
         </Table>
       </div>
       <div className="overflow-x-auto flex-1">
         <Table>
           <TableHeader>
             <TableRow>
-              {isGoalkeeper ? (
-                <>
+              <TableHead className="pl-6">
+                <div className="flex items-center gap-1.5">
+                  <span className="mt-0.5">Goals</span>
+                </div>
+              </TableHead>
+              <TableHead>
+                <div className="flex items-center gap-1.5">
+                  <span className="mt-0.5">GP</span>
+                  <Tooltip>
+                    <TooltipTrigger className="size-3" />
+                    <TooltipContent header="Games Played">
+                      <p>Total number of games played</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </div>
+              </TableHead>
+              <TableHead>
+                <div className="flex items-center gap-1.5">
+                  <span className="mt-0.5">Mins</span>
+                  <Tooltip>
+                    <TooltipTrigger className="size-3" />
+                    <TooltipContent header="Time Played">
+                      <p>Total minutes played</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </div>
+              </TableHead>
+              <TableHead>
+                <div className="flex items-center gap-1.5">
+                  <span className="mt-0.5">Shots/On Target</span>
+                  <Tooltip>
+                    <TooltipTrigger className="size-3" />
+                    <TooltipContent>
+                      <p>Total shots at goal (excluding own goals and blocked shots) / All shots which either force a goalkeeper save or score a goal</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </div>
+              </TableHead>
+              <TableHead>
+                <div className="flex items-center gap-1.5">
+                  <span className="mt-0.5">Assists</span>
+                </div>
+              </TableHead>
+              <TableHead>
+                <div className="flex items-center gap-1.5">
+                  <span className="mt-0.5">Fouls</span>
+                </div>
+              </TableHead>
+              <TableHead className="pr-6">
+                <div className="flex items-center gap-1.5">
+                  <span className="mt-0.5">Cards</span>
+                </div>
+              </TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {outfieldPlayers.length > 0 && (
+              <Fragment>
+                {outfieldPlayers.map((player) => (
+                  <TableRow
+                    key={player.uID}
+                    onMouseEnter={() => setHoveredRow(player.uID)}
+                    onMouseLeave={() => setHoveredRow(null)}
+                    className={cn(
+                      "h-12 py-0 text-base hover:bg-transparent",
+                      hoveredRow === player.uID && "bg-muted/30 hover:bg-muted/30"
+                    )}
+                  >
+                    <OutfieldStatsCells player={player} seasonStats={seasonStats} />
+                  </TableRow>
+                ))}
+              </Fragment>
+            )}
+            {goalkeepers.length > 0 && (
+              <Fragment>
+                <TableRow className="hover:bg-transparent">
+                  <TableCell colSpan={7} className="h-6 p-0">
+                    <LinePattern className="h-full w-full" patternSize={7} />
+                  </TableCell>
+                </TableRow>
+                <TableRow className="bg-muted/20">
                   <TableHead className="pl-6">
                     <div className="flex items-center gap-1.5">
                       <span className="mt-0.5">Saves</span>
@@ -233,117 +277,24 @@ function PlayersTable({ players, seasonStats, prismicTeam, isGoalkeeper }: Playe
                       </Tooltip>
                     </div>
                   </TableHead>
-                </>
-              ) : (
-                <>
-                  <TableHead className="pl-6">
-                    <div className="flex items-center gap-1.5">
-                      <span className="mt-0.5">Goals</span>
-                    </div>
-                  </TableHead>
-                  <TableHead>
-                    <div className="flex items-center gap-1.5">
-                      <span className="mt-0.5">GP</span>
-                      <Tooltip>
-                        <TooltipTrigger className="size-3" />
-                        <TooltipContent header="Games Played">
-                          <p>Total number of games played</p>
-                        </TooltipContent>
-                      </Tooltip>
-                    </div>
-                  </TableHead>
-                  <TableHead>
-                    <div className="flex items-center gap-1.5">
-                      <span className="mt-0.5">Mins</span>
-                      <Tooltip>
-                        <TooltipTrigger className="size-3" />
-                        <TooltipContent header="Time Played">
-                          <p>Total minutes played</p>
-                        </TooltipContent>
-                      </Tooltip>
-                    </div>
-                  </TableHead>
-                  <TableHead>
-                    <div className="flex items-center gap-1.5">
-                      <span className="mt-0.5">Shots/On Target</span>
-                      <Tooltip>
-                        <TooltipTrigger className="size-3" />
-                        <TooltipContent>
-                          <p>Total shots at goal (excluding own goals and blocked shots) / All shots which either force a goalkeeper save or score a goal</p>
-                        </TooltipContent>
-                      </Tooltip>
-                    </div>
-                  </TableHead>
-                  <TableHead>
-                    <div className="flex items-center gap-1.5">
-                      <span className="mt-0.5">Assists</span>
-                    </div>
-                  </TableHead>
-                  <TableHead>
-                    <div className="flex items-center gap-1.5">
-                      <span className="mt-0.5">Fouls</span>
-                    </div>
-                  </TableHead>
-                  <TableHead>
-                    <div className="flex items-center gap-1.5">
-                      <span className="mt-0.5">Cards</span>
-                    </div>
-                  </TableHead>
-                </>
-              )}
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {paginatedPlayers.map((player, index) => {
-              const globalIndex = startIndex + index;
-              return (
-                <TableRow
-                  key={player.uID}
-                  onMouseEnter={() => setHoveredRow(globalIndex)}
-                  onMouseLeave={() => setHoveredRow(null)}
-                  className={cn(
-                    "h-12 py-0 text-base hover:bg-transparent",
-                    hoveredRow === globalIndex && "bg-muted/30 hover:bg-muted/30"
-                  )}
-                >
-                  {isGoalkeeper ? (
-                    <GoalkeeperStatsCells player={player} seasonStats={seasonStats} />
-                  ) : (
-                    <OutfieldStatsCells player={player} seasonStats={seasonStats} />
-                  )}
+                  <TableHead className="pr-6" />
                 </TableRow>
-              );
-            })}
+                {goalkeepers.map((player) => (
+                  <TableRow
+                    key={player.uID}
+                    onMouseEnter={() => setHoveredRow(player.uID)}
+                    onMouseLeave={() => setHoveredRow(null)}
+                    className={cn(
+                      "h-12 py-0 text-base hover:bg-transparent",
+                      hoveredRow === player.uID && "bg-muted/30 hover:bg-muted/30"
+                    )}
+                  >
+                    <GoalkeeperStatsCells player={player} seasonStats={seasonStats} />
+                  </TableRow>
+                ))}
+              </Fragment>
+            )}
           </TableBody>
-          <TableFooter>
-            <TableRow className="hover:bg-muted/30">
-              <TableCell colSpan={isGoalkeeper ? 6 : 7}>
-                <div className="h-[38px] flex items-center justify-end gap-4">
-                  <p className="text-sm text-muted-foreground">
-                    Page {currentPage} of {totalPages}
-                  </p>
-                  <div className="flex items-center gap-2">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => setPageIndex(prev => Math.max(prev - 1, 0))}
-                      disabled={!canPreviousPage}
-                    >
-                      <CaretRightIcon className="rotate-180" size={16} />
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => setPageIndex(prev => Math.min(prev + 1, pageCount - 1))}
-                      disabled={!canNextPage}
-                    >
-                      <CaretRightIcon size={16} />
-                    </Button>
-                  </div>
-                </div>
-              </TableCell>
-            </TableRow>
-          </TableFooter>
         </Table>
       </div>
     </div>
@@ -378,7 +329,7 @@ function OutfieldStatsCells({ player, seasonStats }: PlayerStatsCellsProps) {
       <TableCell>{shots} / {shotsOnTarget}</TableCell>
       <TableCell>{assists}</TableCell>
       <TableCell>{fouls}</TableCell>
-      <TableCell>{cards}</TableCell>
+      <TableCell className="pr-6">{cards}</TableCell>
     </>
   );
 }
@@ -403,6 +354,22 @@ function GoalkeeperStatsCells({ player, seasonStats }: PlayerStatsCellsProps) {
       <TableCell>{shotsAgainst}</TableCell>
       <TableCell>{goalsConceded}</TableCell>
       <TableCell>{cleanSheets}</TableCell>
+      <TableCell className="pr-6" />
     </>
+  );
+}
+
+function PlayerCountryFlag({ player }: { player: F40Player }) {
+  const countryInput = getPlayerNationality(player) || getPlayerCountry(player);
+  const countryIso = countryInput ? getCountryIsoCode(countryInput) : null;
+
+  if (!countryIso) return null;
+
+  return (
+    <ReactCountryFlag
+      countryCode={countryIso}
+      svg
+      className="!w-4.5 !h-4.5 rounded self-center"
+    />
   );
 }

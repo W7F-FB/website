@@ -23,7 +23,6 @@ import {
     DrawerTitle,
     DrawerTrigger,
 } from "@/components/ui/drawer"
-import { ScrollArea } from "@/components/ui/scroll-area"
 
 const ResponsiveDialogContext = React.createContext<{ isMobile: boolean }>({
     isMobile: false,

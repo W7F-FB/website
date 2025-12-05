@@ -261,6 +261,17 @@ export function resolvePlaceholderTeam(
             const groupNumber = parseInt(groupMatch[1])
             const position = groupMatch[2] === "Winner" ? 1 : 2
 
+            const groupMatches = allMatches.filter(
+                match => match.MatchInfo.RoundType === "Round" && Number(match.MatchInfo.GroupName) === groupNumber
+            )
+            const allGroupMatchesComplete = groupMatches.length > 0 && groupMatches.every(
+                match => match.MatchInfo.Period === "FullTime"
+            )
+
+            if (!allGroupMatchesComplete) {
+                return null
+            }
+
             const groupStandings = f3StandingsData.SoccerFeed?.SoccerDocument?.Competition?.TeamStandings?.find(
                 standing => {
                     const groupId = standing.Round?.Name.id

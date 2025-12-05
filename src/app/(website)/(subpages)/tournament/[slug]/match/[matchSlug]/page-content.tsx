@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useMemo } from "react";
+import React from "react";
 import { Section } from "@/components/website-base/padding-containers";
 import MatchHero from "@/components/blocks/match/match-hero";
 import PlayByPlay from "@/components/blocks/match/play-by-play";
 import type { F9MatchData, F9TeamData, F9Team } from "@/types/opta-feeds/f9-match";
 import type { F40Team, F40SquadsResponse } from "@/types/opta-feeds/f40-squads-feed";
-import type { TeamDocument, TournamentDocument, BroadcastPartnersDocument } from "../../../../../../../../prismicio-types";
+import type { TeamDocument, TournamentDocument, BroadcastPartnersDocument, BlogDocument } from "../../../../../../../../prismicio-types";
 import type { F13CommentaryResponse } from "@/types/opta-feeds/f13-commentary";
 import type { F24EventDetailsFeed } from "@/types/opta-feeds/f24-match-events";
 import type { F1FixturesResponse, F1MatchData } from "@/types/opta-feeds/f1-fixtures";
@@ -25,10 +25,15 @@ import { VideoBanner } from "@/components/blocks/video-banner/video-banner";
 import { ClubStandingsTable } from "@/components/blocks/tournament/club-standings-table";
 import { FastBanner } from "@/components/blocks/fast-banners";
 import { TeamSnapshot } from "@/components/blocks/team/team-snapshot";
-import { calculateTeamRecordsFromMatches } from "@/app/(website)/(subpages)/tournament/utils";
 import { Button } from "@/components/ui/button";
 import { InformationCircleIcon } from "@/components/website-base/icons";
 import { StreamingAvailabilityDialog } from "@/components/blocks/streaming-availability-dialog";
+import { PostGrid } from "@/components/blocks/posts/post-grid";
+import { EmptyMessage } from "@/components/ui/empty-message";
+import { SectionHeading, SectionHeadingHeading, SectionHeadingSubtitle } from "@/components/sections/section-heading";
+import { Container } from "@/components/website-base/padding-containers";
+import { PrismicLink } from "@prismicio/react";
+import { mapBlogDocumentToMetadata } from "@/lib/utils";
 
 type Props = {
   f9MatchData?: F9MatchData | null;
@@ -54,6 +59,7 @@ type Props = {
   f3StandingsData: F3StandingsResponse | null;
   f40Squads?: F40SquadsResponse | null;
   isKnockoutStage: boolean;
+  matchBlogs?: BlogDocument[];
 };
 
 export default function MatchPageContent({
@@ -80,6 +86,7 @@ export default function MatchPageContent({
   f3StandingsData,
   f40Squads,
   isKnockoutStage,
+  matchBlogs = [],
 }: Props) {
   const f1Matches = f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData || [];
   const currentMatchFromF1 = f1Matches.find((m: F1MatchData) => normalizeOptaId(m.uID) === normalizeOptaId(matchId));
@@ -119,31 +126,6 @@ export default function MatchPageContent({
     defensiveLeader: null,
     gkLeader: null
   }
-
-  const teamRecords = useMemo(() => {
-    return calculateTeamRecordsFromMatches(f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData);
-  }, [f1FixturesData]);
-
-  const getTeamIdWithPrefix = (optaId: string | number | null | undefined) => {
-    if (!optaId) return null;
-    const idStr = optaId.toString();
-    return idStr.startsWith('t') ? idStr : `t${idStr}`;
-  };
-
-  const formatRecord = (record: { wins: number; losses: number } | null | undefined) => {
-    if (!record) return null;
-    return `${record.wins}-${record.losses}`;
-  };
-
-  const homeTeamId = getTeamIdWithPrefix(homeTeamPrismic?.data.opta_id);
-  const awayTeamId = getTeamIdWithPrefix(awayTeamPrismic?.data.opta_id);
-
-  const homeStanding = homeTeamId ? teamRecords.get(homeTeamId) : null;
-  const awayStanding = awayTeamId ? teamRecords.get(awayTeamId) : null;
-
-  const f3TeamStandings = f3StandingsData?.SoccerFeed?.SoccerDocument?.Competition?.TeamStandings?.[0]?.TeamRecord || [];
-  const homeF3Standing = homeTeamId ? f3TeamStandings.find(t => t.TeamRef === homeTeamId) : null;
-  const awayF3Standing = awayTeamId ? f3TeamStandings.find(t => t.TeamRef === awayTeamId) : null;
 
   return (
     <>
@@ -229,13 +211,11 @@ export default function MatchPageContent({
             <CardContent className="grid grid-cols-2 gap-4">
               <TeamSnapshot
                 prismicTeam={homeTeamPrismic}
-                f3Standing={homeF3Standing}
-                record={formatRecord(homeStanding)}
+                fixtures={f1FixturesData}
               />
               <TeamSnapshot
                 prismicTeam={awayTeamPrismic}
-                f3Standing={awayF3Standing}
-                record={formatRecord(awayStanding)}
+                fixtures={f1FixturesData}
               />
             </CardContent>
           </Card>
@@ -334,6 +314,27 @@ export default function MatchPageContent({
           {hasCommentary && <FastBanner text="FORWARD." position="right" strokeWidth="1.5px" className="hidden lg:block" />}
         </div>
       </Section>
+      <Container>
+        <Separator variant="gradient" className="my-16" />
+        <Section padding="none" id="coverage">
+          <SectionHeading variant="split">
+            <SectionHeadingSubtitle>Match</SectionHeadingSubtitle>
+            <SectionHeadingHeading>Coverage</SectionHeadingHeading>
+            <Button asChild size="skew" variant="outline" className="ml-auto mt-auto">
+              <PrismicLink href="/news">
+                <span>All News</span>
+              </PrismicLink>
+            </Button>
+          </SectionHeading>
+          {matchBlogs.length > 0 ? (
+            <PostGrid posts={matchBlogs.slice(0, 4).map(mapBlogDocumentToMetadata)} />
+          ) : (
+            <EmptyMessage className="py-16">
+              <span className="font-headers uppercase font-medium text-lg">No coverage available yet</span>
+            </EmptyMessage>
+          )}
+        </Section>
+      </Container>
     </>
   );
 }

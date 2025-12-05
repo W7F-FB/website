@@ -49,6 +49,8 @@ export default function TournamentPageLive({ tournament, tournamentBlogs, f3Stan
     const tournamentStatus = calculateTournamentStatus(allMatches)
     const earliestMatchDate = getEarliestMatchDate(allMatches)
     const knockoutStage = isInKnockoutStage(allMatches)
+    
+    const broadcastPartners = [dazn, tnt, truTV, hboMax, univision, espn, disneyPlus].filter((p): p is BroadcastPartnersDocument => p !== null && p !== undefined)
 
     return (
         <div>
@@ -108,6 +110,7 @@ export default function TournamentPageLive({ tournament, tournamentBlogs, f3Stan
                     matchSlugMap={matchSlugMap}
                     compact={compact}
                     streamingLink={dazn?.data.streaming_link}
+                    broadcastPartners={broadcastPartners}
                 />
                 <KnockoutStageSection
                     semiFinalMatches={semiFinalMatches}
@@ -120,6 +123,7 @@ export default function TournamentPageLive({ tournament, tournamentBlogs, f3Stan
                     matchSlugMap={matchSlugMap}
                     compact={compact}
                     streamingLink={dazn?.data.streaming_link}
+                    broadcastPartners={broadcastPartners}
                 />
                 <Section padding="md" id="stat-sheet">
                     <SectionHeading className="pb-8">

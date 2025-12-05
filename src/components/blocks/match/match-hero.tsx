@@ -9,12 +9,16 @@ import { removeW7F } from "@/lib/opta/utils";
 import { Card, CardHeader } from "@/components/ui/card";
 import { FastDash } from "@/components/ui/fast-dash";
 import { formatGameDate, normalizeDateString } from "@/lib/utils";
-import { CaretFilledIcon, StadiumIcon } from "@/components/website-base/icons";
+import { CaretFilledIcon, InformationCircleIcon, StadiumIcon, StreamIcon } from "@/components/website-base/icons";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 import { BroadcastPartnerButton } from "../broadcast-partner";
 import { useState, useEffect, useMemo } from "react";
 import { calculateTeamRecordsFromMatches } from "@/app/(website)/(subpages)/tournament/utils";
 import { Countdown } from "@/components/ui/countdown";
 import { parseISO } from "date-fns";
+import { Status, StatusIndicator } from "@/components/ui/status";
+import { StreamingAvailabilityDialog } from "../streaming-availability-dialog";
 
 interface MatchHeroProps {
   f9MatchData?: F9MatchData | null;
@@ -30,9 +34,10 @@ interface MatchHeroProps {
   tournament?: TournamentDocument | null;
   broadcastPartners?: BroadcastPartnersDocument[];
   f1FixturesData?: F1FixturesResponse | null;
+  streamingLink?: string | null;
 }
 
-export default function MatchHero({ f9MatchData, homeTeamData, awayTeamData, homeTeam, awayTeam, homeTeamPrismic, awayTeamPrismic, homeTeamFromF2, awayTeamFromF2, f2Preview, tournament, broadcastPartners, f1FixturesData }: MatchHeroProps) {
+export default function MatchHero({ f9MatchData, homeTeamData, awayTeamData, homeTeam, awayTeam, homeTeamPrismic, awayTeamPrismic, homeTeamFromF2, awayTeamFromF2, f2Preview, tournament, broadcastPartners, f1FixturesData, streamingLink }: MatchHeroProps) {
   const homeTeamColor = homeTeamPrismic?.data.color_primary || undefined;
   const awayTeamColor = awayTeamPrismic?.data.color_primary || undefined;
 
@@ -51,13 +56,13 @@ export default function MatchHero({ f9MatchData, homeTeamData, awayTeamData, hom
 
   const matchDay = useMemo(() => {
     if (!f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData || !matchDateString) return null;
-    
+
     const allMatches = f1FixturesData.SoccerFeed.SoccerDocument.MatchData;
     const groupStageMatches = allMatches.filter(match => match.MatchInfo.RoundType === "Round");
     const currentMatchDate = normalizeDateString(matchDateString);
     const sortedDates = [...new Set(groupStageMatches.map(m => normalizeDateString(m.MatchInfo.Date)))].sort();
     const matchDayIndex = sortedDates.indexOf(currentMatchDate);
-    
+
     return matchDayIndex !== -1 ? matchDayIndex + 1 : null;
   }, [f1FixturesData, matchDateString]);
   const gameDate = matchDateString ? formatGameDate(matchDateString) : { month: "", day: "", time: "" };
@@ -86,19 +91,19 @@ export default function MatchHero({ f9MatchData, homeTeamData, awayTeamData, hom
 
   const homeTeamShortName = homeTeamPrismic?.data.key || homeTeamFromF2?.ShortName || null;
   const awayTeamShortName = awayTeamPrismic?.data.key || awayTeamFromF2?.ShortName || null;
-  
+
   const homeTeamFullName = removeW7F(
-    homeTeamPrismic?.data.name || 
-    homeTeam?.Name || 
-    homeTeamFromF2?.ShortName || 
-    homeTeamFromF2?.value || 
+    homeTeamPrismic?.data.name ||
+    homeTeam?.Name ||
+    homeTeamFromF2?.ShortName ||
+    homeTeamFromF2?.value ||
     'Home Team'
   );
   const awayTeamFullName = removeW7F(
-    awayTeamPrismic?.data.name || 
-    awayTeam?.Name || 
-    awayTeamFromF2?.ShortName || 
-    awayTeamFromF2?.value || 
+    awayTeamPrismic?.data.name ||
+    awayTeam?.Name ||
+    awayTeamFromF2?.ShortName ||
+    awayTeamFromF2?.value ||
     'Away Team'
   );
 
@@ -114,10 +119,10 @@ export default function MatchHero({ f9MatchData, homeTeamData, awayTeamData, hom
 
   const homeTeamId = getTeamIdWithPrefix(homeTeamPrismic?.data.opta_id);
   const awayTeamId = getTeamIdWithPrefix(awayTeamPrismic?.data.opta_id);
-  
+
   const homeStanding = homeTeamId ? teamRecords.get(homeTeamId) : null;
   const awayStanding = awayTeamId ? teamRecords.get(awayTeamId) : null;
-  
+
   const formatRecord = (record: { wins: number; losses: number } | null | undefined) => {
     if (!record) return null;
     return `${record.wins}-${record.losses}`;
@@ -148,7 +153,10 @@ export default function MatchHero({ f9MatchData, homeTeamData, awayTeamData, hom
           style={awayTeamColor ? { backgroundImage: `linear-gradient(to left, ${awayTeamColor}, transparent)` } : undefined}
         />
         <div className="relative">
-          <div className="flex flex-col md:flex-row relative z-2 items-center lg:gap-4 gap-1 md:gap-2.5">
+          <Link
+            href={homeTeamPrismic?.uid ? `/club/${homeTeamPrismic.uid}` : "#"}
+            className="flex flex-col md:flex-row relative z-2 items-center lg:gap-4 gap-1 md:gap-2.5 hover:underline"
+          >
             <div className="size-8 lg:size-18 relative">
               {homeTeamPrismic?.data.logo && (
                 <PrismicNextImage
@@ -166,18 +174,24 @@ export default function MatchHero({ f9MatchData, homeTeamData, awayTeamData, hom
                 <span className={homeTeamShortName ? "hidden md:inline" : ""}>{homeTeamFullName}</span>
               </div>
               {formatRecord(homeStanding) && (
-                <div className="lg:text-base text-sm text-muted-foreground mt-0.5">{formatRecord(homeStanding)}</div>
+                <div className="lg:text-lg text-base text-muted-foreground mt-0.5">{formatRecord(homeStanding)}</div>
               )}
             </div>
-          </div>
+          </Link>
         </div>
-        <div className="flex flex-1 gap-6 items-center">
+        <div className="flex flex-1 flex-col items-center gap-5">
+          {getMatchStatus() === "LIVE" && (
+            <Status className="p-0 bg-transparent border-0 gap-3">
+              <StatusIndicator className="text-destructive size-3" />
+              <span className="tracking-widest lg:text-base text-xs">LIVE{f9MatchData?.Stat?.find(stat => stat.Type === "match_time")?.value ? <span className="text-muted-foreground font-medium ml-1"> &apos;{f9MatchData.Stat.find(stat => stat.Type === "match_time")?.value}</span> : ""}</span>
+            </Status>
+          )}
           {isPreGame ? (
             <div className="flex-shrink flex flex-col items-center justify-center leading-none gap-2.5">
               <div className="text-xs uppercase text-muted-foreground/70 font-headers">Starts In</div>
               {matchDate && (
-                <Countdown 
-                  targetDate={matchDate} 
+                <Countdown
+                  targetDate={matchDate}
                   className="lg:text-xl text-sm font-semibold font-headers"
                 />
               )}
@@ -186,7 +200,7 @@ export default function MatchHero({ f9MatchData, homeTeamData, awayTeamData, hom
               )}
             </div>
           ) : (
-            <div className="flex-shrink lg:text-6xl text-2xl font-semibold flex items-center justify-center lg:gap-10 gap-4 leading-none">
+            <div className="flex-shrink lg:text-6xl text-4xl font-semibold flex items-center justify-center lg:gap-10 gap-4 leading-none">
               <div className={`relative ${homeIsLosing ? "text-foreground/60" : "text-foreground"}`}>
                 {homeIsWinning && (
                   <CaretFilledIcon className="size-1.5 lg:size-3  absolute lg:-left-6 -left-3 top-1/2 -translate-y-1/2" />
@@ -208,8 +222,41 @@ export default function MatchHero({ f9MatchData, homeTeamData, awayTeamData, hom
               </div>
             </div>
           )}
+          {tournament?.data.status !== "Complete" && (
+            <div className="hidden lg:flex items-center gap-2 mt-2">
+              <Button asChild variant="outline" className="font-[500]">
+                <Link href={streamingLink || "#"} target="_blank" rel="noopener noreferrer">
+                  <StreamIcon className="size-3" />
+                  Stream
+                </Link>
+              </Button>
+              <StreamingAvailabilityDialog broadcastPartners={broadcastPartners || []}>
+                <Button variant="outline" size="icon">
+                  <InformationCircleIcon className="size-4" />
+                </Button>
+              </StreamingAvailabilityDialog>
+            </div>
+          )}
+          {tournament?.data.status !== "Complete" && (
+            <div className="flex lg:hidden items-center gap-2 mt-2">
+              <Button asChild variant="outline" size="sm" className="text-xs font-[500]">
+                <Link href={streamingLink || "#"} target="_blank" rel="noopener noreferrer">
+                  <StreamIcon className="size-3" />
+                  Stream
+                </Link>
+              </Button>
+              <StreamingAvailabilityDialog broadcastPartners={broadcastPartners || []}>
+                <Button variant="outline" size="sm" className="text-xs">
+                  <InformationCircleIcon className="size-4" />
+                </Button>
+              </StreamingAvailabilityDialog>
+            </div>
+          )}
         </div>
-        <div className="flex flex-col-reverse md:flex-row relative items-center lg:gap-4 gap-1 md:gap-2.5 justify-end">
+        <Link
+          href={awayTeamPrismic?.uid ? `/club/${awayTeamPrismic.uid}` : "#"}
+          className="flex flex-col-reverse md:flex-row relative items-center lg:gap-4 gap-1 md:gap-2.5 justify-end hover:underline"
+        >
           <div className="text-center md:text-right">
             <div className="font-headers lg:text-xl text-sm font-medium">
               {awayTeamShortName && (
@@ -218,7 +265,7 @@ export default function MatchHero({ f9MatchData, homeTeamData, awayTeamData, hom
               <span className={awayTeamShortName ? "hidden md:inline" : ""}>{awayTeamFullName}</span>
             </div>
             {formatRecord(awayStanding) && (
-              <div className="lg:text-base text-sm text-muted-foreground mt-0.5">{formatRecord(awayStanding)}</div>
+              <div className="lg:text-lg text-base text-muted-foreground mt-0.5">{formatRecord(awayStanding)}</div>
             )}
           </div>
           <div className="size-8 lg:size-18 relative">
@@ -230,7 +277,7 @@ export default function MatchHero({ f9MatchData, homeTeamData, awayTeamData, hom
               />
             )}
           </div>
-        </div>
+        </Link>
         {displayPartners.length < -1 && (
           <div className="col-span-full px-6 text-center text-xs flex flex-col gap-2 items-center pt-4 md:pt-0">
             <div className="font-headers text-xs uppercase font-medium text-muted-foreground">Stream Free</div>

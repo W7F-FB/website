@@ -1,5 +1,6 @@
 import * as React from "react"
 import Image from "next/image"
+import Link from "next/link"
 import ReactCountryFlag from "react-country-flag"
 import type { TeamDocument } from "../../../../prismicio-types"
 
@@ -87,10 +88,18 @@ function ClubBasic({ team, comingSoon, placement, className, ...props }: ClubBas
     </>
   )
 
+  if (comingSoon || !team.uid) {
+    return (
+      <div className={containerClassName}>
+        {content}
+      </div>
+    )
+  }
+
   return (
-    <div className={containerClassName}>
+    <Link href={`/club/${team.uid}`} className={containerClassName}>
       {content}
-    </div>
+    </Link>
   )
 }
 
@@ -104,22 +113,21 @@ function ClubHorizontal({ team, index, record, className, ...props }: ClubHorizo
   const logoUrl = getImageUrl(team.data.logo)
   const logoAlt = getImageAlt(team.data.logo)
 
-  return (
-    <div
-      className={cn(
-        "relative flex items-center py-2.5",
-        className
-      )}
-      {...props}
-    >
+  const containerClassName = cn(
+    "relative flex items-center py-2.5 group",
+    className
+  )
+
+  const content = (
+    <>
       {index !== undefined && record !== undefined && (
-        <div className="text-white/60 font-headers text-sm font-medium min-w-[1.5rem] mr-2">
+        <div className="text-muted-foreground font-headers text-xxs lg:text-xs font-medium lg:w-8 w-6">
           {index}
         </div>
       )}
 
       {logoUrl && (
-        <div className="relative w-8 h-8 flex-shrink-0 mr-3.5">
+        <div className="relative lg:size-7 size-5 flex-shrink-0 mr-3">
           <Image
             src={logoUrl}
             alt={logoAlt || team.data?.name || "Team logo"}
@@ -132,7 +140,7 @@ function ClubHorizontal({ team, index, record, className, ...props }: ClubHorizo
       <div className="flex items-center justify-between flex-grow flex-wrap gap-x-2">
         <div className="flex flex-col justify-center">
           <span>
-            <span className=" relative top-px font-semibold  ">
+            <span className="relative top-px text-xs lg:text-sm font-headers font-medium group-hover:underline">
               {team.data?.name}
             </span>
             {team.data?.country_code && (
@@ -158,12 +166,26 @@ function ClubHorizontal({ team, index, record, className, ...props }: ClubHorizo
         </div>
 
         {record !== undefined && (
-          <div className="text-foreground font-headers text-sm font-medium whitespace-nowrap">
-            {record.wins} - {record.losses}
+          <div className="text-foreground font-headers text-xs lg:text-sm font-medium whitespace-nowrap min-w-10 text-right">
+            {record.wins} - {record.losses}
           </div>
         )}
       </div>
-    </div>
+    </>
+  )
+
+  if (!team.uid) {
+    return (
+      <div className={containerClassName} {...props}>
+        {content}
+      </div>
+    )
+  }
+
+  return (
+    <Link href={`/club/${team.uid}`} className={containerClassName}>
+      {content}
+    </Link>
   )
 }
 

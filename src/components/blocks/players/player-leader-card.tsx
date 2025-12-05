@@ -1,3 +1,7 @@
+"use client"
+
+import { useState, useEffect } from "react"
+import { PrismicNextImage } from "@prismicio/next"
 import { PlayerHeadshot } from "./player"
 import { getPositionAbbr } from "@/lib/opta/dictionaries/position-dictionary"
 import { LEADER_OFFENSIVE, LEADER_DEFENSIVE, LEADER_GOALKEEPER, type LeaderType } from "@/types/game-leaders"
@@ -7,12 +11,23 @@ import { PlayerMiniStatTable } from "./player-mini-stat.table"
 import { STAT_TYPES } from "@/lib/opta/dictionaries/stat-dictionary"
 
 export function PlayerLeaderCard({ prismicTeam, playerHeadshotUrl, player, leaderType, f40Position }: PlayerLeaderCardProps) {
-    const teamLogo = prismicTeam?.data?.logo?.url || undefined;
+    const [fetchedHeadshotUrl, setFetchedHeadshotUrl] = useState<string | undefined>(playerHeadshotUrl)
+
+    useEffect(() => {
+        if (playerHeadshotUrl || !player?.PlayerRef) return
+
+        fetch(`/api/player/headshot?optaId=${encodeURIComponent(player.PlayerRef)}`)
+            .then(res => res.json())
+            .then(data => {
+                if (data.headshotUrl) {
+                    setFetchedHeadshotUrl(data.headshotUrl)
+                }
+            })
+            .catch(() => {})
+    }, [player?.PlayerRef, playerHeadshotUrl])
 
     const primaryColor = prismicTeam?.data?.color_primary || undefined;
-
     const playerName = (player && 'name' in player ? (player as F9MatchPlayer & { name?: string }).name : undefined) || player?.PlayerRef || "";
-
     const displayPosition = player?.Position === "Substitute" && f40Position ? f40Position : player?.Position;
     const position = displayPosition ? getPositionAbbr(displayPosition) : "";
     const jerseyNumber = player?.ShirtNumber;
@@ -28,8 +43,8 @@ export function PlayerLeaderCard({ prismicTeam, playerHeadshotUrl, player, leade
         <div className="grid grid-cols-[auto_1fr] gap-3">
             <div className="flex flex-col justify-center items-center gap-1.5">
                 <PlayerHeadshot
-                    logoUrl={teamLogo}
-                    headshotUrl={playerHeadshotUrl}
+                    logoField={prismicTeam?.data?.logo}
+                    headshotUrl={fetchedHeadshotUrl}
                     primaryColor={primaryColor}
                 />
                 {playerDetails && (
@@ -40,7 +55,15 @@ export function PlayerLeaderCard({ prismicTeam, playerHeadshotUrl, player, leade
             </div>
             <div className="flex flex-col justify-center">
                 <span className="flex flex-col justify-start">
-                    <span className="font-headers text-sm font-medium">
+                    <span className="font-headers text-sm font-medium flex items-center gap-1.5">
+                        {fetchedHeadshotUrl && prismicTeam?.data?.logo && (
+                            <PrismicNextImage
+                                field={prismicTeam.data.logo}
+                                width={20}
+                                height={20}
+                                className="size-5 object-contain"
+                            />
+                        )}
                         {playerName}
                     </span>
                     {statValues.length > 0 && (
@@ -84,5 +107,3 @@ function extractPlayerStats(player: F9MatchPlayer, statKeys: readonly string[]) 
         }
     })
 }
-
-

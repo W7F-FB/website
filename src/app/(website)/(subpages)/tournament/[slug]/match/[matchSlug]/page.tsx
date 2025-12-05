@@ -4,6 +4,7 @@ import { getTeamByOptaId, getTeamsByTournament } from "@/cms/queries/team";
 import { getTournamentByUid } from "@/cms/queries/tournaments";
 import { getMatchBySlug } from "@/cms/queries/match";
 import { getAllBroadcastPartners } from "@/cms/queries/broadcast-partners";
+import { getBlogsByMatch } from "@/cms/queries/blog";
 import { normalizeOptaId, removeW7F } from "@/lib/opta/utils";
 import { buildMatchUrl, buildMatchSlugMap } from "@/lib/match-url";
 import MatchPageContent from "./page-content";
@@ -13,7 +14,6 @@ import { PaddingGlobal } from "@/components/website-base/padding-containers";
 import type { F1MatchData, F1TeamData } from "@/types/opta-feeds/f1-fixtures";
 import type { F2EntityTeam } from "@/types/opta-feeds/f2-match-preview";
 import type { F9SoccerDocument } from "@/types/opta-feeds/f9-match";
-import type { TeamDocument } from "../../../../../../../../prismicio-types";
 import { groupMatchesByDate, isInKnockoutStage } from "../../../utils";
 import { dev } from "@/lib/dev";
 
@@ -130,11 +130,12 @@ export default async function MatchPage({
   const homeSquadTeam = homeTeamId ? squadTeams.find((t) => normalizeOptaId(t.uID) === normalizeOptaId(homeTeamId)) : undefined;
   const awaySquadTeam = awayTeamId ? squadTeams.find((t) => normalizeOptaId(t.uID) === normalizeOptaId(awayTeamId)) : undefined;
 
-  const [homeTeamPrismic, awayTeamPrismic, broadcastPartners, prismicTeams] = await Promise.all([
+  const [homeTeamPrismic, awayTeamPrismic, broadcastPartners, prismicTeams, matchBlogs] = await Promise.all([
     homeTeamId ? getTeamByOptaId(normalizeOptaId(homeTeamId)) : null,
     awayTeamId ? getTeamByOptaId(normalizeOptaId(awayTeamId)) : null,
     getAllBroadcastPartners(),
     getTeamsByTournament(tournament.uid),
+    getBlogsByMatch(match.id).catch(() => []),
   ]);
 
   const matchSlugMap = buildMatchSlugMap(tournament);
@@ -225,6 +226,7 @@ export default async function MatchPage({
               f3StandingsData={standings}
               f40Squads={squads}
               isKnockoutStage={isInKnockoutStage(fixtures?.SoccerFeed?.SoccerDocument?.MatchData)}
+              matchBlogs={matchBlogs}
             />
           </PaddingGlobal>
         </div>

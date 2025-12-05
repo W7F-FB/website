@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { NavMain } from "@/components/website-base/nav/nav-main";
 import { Footer } from "@/components/website-base/footer/footer-main";
 import { Section, Container, PaddingGlobal } from "@/components/website-base/padding-containers"
-import { H1, H2, P, Subtitle } from "@/components/website-base/typography"
+import { H1, H2, P } from "@/components/website-base/typography"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { SubpageHeroSecondary } from "@/components/blocks/subpage-hero";
 import { SectionNav } from "./section-nav";
@@ -69,7 +69,7 @@ export default function FAQsPage() {
                             {section.items.map((faq) => (
                                 <AccordionItem key={faq.id} value={faq.id}>
                                     <AccordionTrigger>
-                                        <span className="font-semibold">{faq.question}</span>
+                                        <span className="font-medium">{faq.question}</span>
                                     </AccordionTrigger>
                                     <AccordionContent>
                                         {faq.answer}

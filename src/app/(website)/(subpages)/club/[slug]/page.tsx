@@ -1,14 +1,15 @@
 import { getF40Squads, getF3Standings, getF1Fixtures, getF30SeasonStats } from "@/app/api/opta/feeds";
 import { getTeamByUid, getTeamsByOptaIds } from "@/cms/queries/team";
-import { getNavigationTournaments, getTournamentByUid } from "@/cms/queries/tournaments";
+import { getTournamentByUid } from "@/cms/queries/tournaments";
 import { buildMatchSlugMap } from "@/lib/match-url";
-import { getBlogsByTournament } from "@/cms/queries/blog";
+import { getBlogsByTeam } from "@/cms/queries/blog";
 import { notFound } from "next/navigation";
 import { isFilled } from "@prismicio/client";
 import TeamPageContent from "../page-content";
 import { NavMain } from "@/components/website-base/nav/nav-main";
 import { Footer } from "@/components/website-base/footer/footer-main";
 import { PaddingGlobal } from "@/components/website-base/padding-containers";
+import { dev } from "@/lib/dev";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -61,43 +62,6 @@ export default async function TeamPage({ params }: Props) {
 
   if (!team) return notFound();
 
-  const competitionId = "1303";
-  const seasonId = "2025";
-  const teamOptaId = team.data.opta_id;
-  const teamOptaIdNumeric = teamOptaId?.toString().replace("t", "") || "";
-
-  const [squadsData, f3StandingsData, f1FixturesData, tournaments, f30SeasonStats] = await Promise.all([
-    getF40Squads(competitionId, seasonId),
-    getF3Standings(competitionId, seasonId).catch(() => null),
-    getF1Fixtures(competitionId, seasonId).catch(() => null),
-    getNavigationTournaments().catch(() => []),
-    teamOptaIdNumeric ? getF30SeasonStats(competitionId, seasonId, teamOptaIdNumeric).catch(() => null) : Promise.resolve(null),
-  ]);
-
-  const allTeamRefs = f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData?.flatMap((match) =>
-    match.TeamData.map((teamData) => teamData.TeamRef)
-  ) || [];
-  const uniqueOptaIds = [...new Set(allTeamRefs.map((ref) => ref.replace("t", "")))];
-  const prismicTeams = await getTeamsByOptaIds(uniqueOptaIds).catch(() => []);
-
-  const currentTournament = tournaments.length > 0 ? tournaments[0] : null;
-  const matchSlugMap = currentTournament ? buildMatchSlugMap(currentTournament) : undefined;
-
-  const teamOptaIdWithPrefix = teamOptaId?.toString().startsWith("t") ? teamOptaId : `t${teamOptaId}`;
-
-  const teamSquad = squadsData.SoccerFeed.SoccerDocument.Team?.find((t) => t.uID === teamOptaIdWithPrefix);
-
-  const tournamentIds =
-    team.data.tournaments
-      ?.filter((item) => isFilled.contentRelationship(item.tournament))
-      .map((item) => {
-        if (isFilled.contentRelationship(item.tournament)) {
-          return item.tournament.id;
-        }
-        return null;
-      })
-      .filter((id): id is string => id !== null) || [];
-
   const tournamentUids =
     team.data.tournaments
       ?.filter((item) => isFilled.contentRelationship(item.tournament))
@@ -109,13 +73,51 @@ export default async function TeamPage({ params }: Props) {
       })
       .filter((uid): uid is string => uid !== null) || [];
 
-  const [blogsResults, tournamentDocumentsResults] = await Promise.all([
-    Promise.all(tournamentIds.map((tournamentId) => getBlogsByTournament(tournamentId).catch(() => []))),
-    Promise.all(tournamentUids.map((uid) => getTournamentByUid(uid).catch(() => null)))
+  const firstTournamentUid = tournamentUids[0];
+  const currentTournament = firstTournamentUid 
+    ? await getTournamentByUid(firstTournamentUid).catch(() => null)
+    : null;
+
+  const competitionId = currentTournament?.data.opta_competition_id;
+  const seasonId = currentTournament?.data.opta_season_id;
+  const teamOptaId = team.data.opta_id;
+  const teamOptaIdNumeric = teamOptaId?.toString().replace("t", "") || "";
+
+  const [squadsData, f3StandingsData, f1FixturesData, f30SeasonStats] = await Promise.all([
+    competitionId && seasonId ? getF40Squads(competitionId, seasonId) : Promise.resolve(null),
+    competitionId && seasonId ? getF3Standings(competitionId, seasonId).catch(() => null) : Promise.resolve(null),
+    competitionId && seasonId ? getF1Fixtures(competitionId, seasonId).catch(() => null) : Promise.resolve(null),
+    competitionId && seasonId && teamOptaIdNumeric ? getF30SeasonStats(competitionId, seasonId, teamOptaIdNumeric).catch(() => null) : Promise.resolve(null),
   ]);
 
-  const teamBlogs = blogsResults.flat();
-  const tournamentDocuments = tournamentDocumentsResults.filter((t): t is NonNullable<typeof t> => t !== null);
+  dev.log('f40Squads', squadsData);
+  dev.log('f3Standings', f3StandingsData);
+  dev.log('f1Fixtures', f1FixturesData);
+  dev.log('currentTournament', currentTournament);
+  dev.log('f30SeasonStats', f30SeasonStats);
+
+  const allTeamRefs = f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData?.flatMap((match) =>
+    match.TeamData.map((teamData) => teamData.TeamRef)
+  ) || [];
+  const uniqueOptaIds = [...new Set(allTeamRefs.map((ref) => ref.replace("t", "")))];
+  const prismicTeams = await getTeamsByOptaIds(uniqueOptaIds).catch(() => []);
+
+  const matchSlugMap = currentTournament ? buildMatchSlugMap(currentTournament) : undefined;
+
+  const teamOptaIdWithPrefix = teamOptaId?.toString().startsWith("t") ? teamOptaId : `t${teamOptaId}`;
+
+  const teamSquad = squadsData?.SoccerFeed?.SoccerDocument?.Team?.find((t) => t.uID === teamOptaIdWithPrefix);
+
+  const remainingTournamentUids = tournamentUids.slice(1);
+
+  const [teamBlogs, tournamentDocumentsResults] = await Promise.all([
+    getBlogsByTeam(team.id).catch(() => []),
+    Promise.all(remainingTournamentUids.map((uid) => getTournamentByUid(uid).catch(() => null)))
+  ]);
+  const tournamentDocuments = [
+    ...(currentTournament ? [currentTournament] : []),
+    ...tournamentDocumentsResults.filter((t): t is NonNullable<typeof t> => t !== null)
+  ];
 
   return (
     <>

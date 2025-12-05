@@ -1,0 +1,2755 @@
+[
+  {
+    "player": {
+      "firstName": "Sierra Deolinda",
+      "lastName": "Cota-Yarde",
+      "playerId": "634973",
+      "teamId": "23625"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Toronto/AFCToronto_Cota-Yarde_Sierra_Goalkeeper.jpg",
+    "extractedName": "Sierra Cota-Yarde",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Toronto/AFCToronto_Cota-Yarde_Sierra_Goalkeeper.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Danielle",
+      "lastName": "Krzyzaniak",
+      "playerId": "637377",
+      "teamId": "23625"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Toronto/AFCToronto_Krzyzaniak_Danielle.jpg .jpg",
+    "extractedName": "Danielle.jpg Krzyzaniak",
+    "confidence": 95,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Toronto/AFCToronto_Krzyzaniak_Danielle.jpg .jpg",
+        "score": 95
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Kaela",
+      "lastName": "Hansen",
+      "playerId": "632204",
+      "teamId": "23625"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Toronto/AFCToronto_Hansen_Kaela_Defender.jpg",
+    "extractedName": "Kaela Hansen",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Toronto/AFCToronto_Hansen_Kaela_Defender.jpg",
+        "score": 100
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Toronto/AFCToronto_Novak_Kaila_Midfielder.jpg .jpg",
+        "score": 25
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Sarah",
+      "lastName": "Rollins",
+      "playerId": "690324",
+      "teamId": "23625"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Toronto/AFCToronto_Rollins_Sarah_Defender.jpg",
+    "extractedName": "Sarah Rollins",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Toronto/AFCToronto_Rollins_Sarah_Defender.jpg",
+        "score": 100
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Toronto/AFCToronto_Stratigakis_Sarah_Midfielder.jpg",
+        "score": 60
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Ashley",
+      "lastName": "Cathro",
+      "playerId": "443721",
+      "teamId": "23625"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Toronto/AFCToronto_Cathro_Ashley_Defender.jpg",
+    "extractedName": "Ashley Cathro",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Toronto/AFCToronto_Cathro_Ashley_Defender.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "April",
+      "lastName": "Lantaigne",
+      "playerId": "690316",
+      "teamId": "23625"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Toronto/AFCToronto_Lantainge_April_Midfielder.jpg",
+    "extractedName": "April Lantainge",
+    "confidence": 85,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Toronto/AFCToronto_Lantainge_April_Midfielder.jpg",
+        "score": 85
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Nikayla",
+      "lastName": "Small",
+      "playerId": "556730",
+      "teamId": "23625"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Toronto/AFCToronto_Small_Nikayla_Midfielder.jpg",
+    "extractedName": "Nikayla Small",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Toronto/AFCToronto_Small_Nikayla_Midfielder.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Emma",
+      "lastName": "Regan",
+      "playerId": "443731",
+      "teamId": "23625"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Toronto/AFCToronto_Regan_Emma_Midfielder.jpg",
+    "extractedName": "Emma Regan",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Toronto/AFCToronto_Regan_Emma_Midfielder.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Zoe",
+      "lastName": "Burns",
+      "playerId": "571169",
+      "teamId": "23625"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Toronto/AFCToronto_Burns_Zoe_Midfielder.jpg",
+    "extractedName": "Zoe Burns",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Toronto/AFCToronto_Burns_Zoe_Midfielder.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Kaila",
+      "lastName": "Novak",
+      "playerId": "448643",
+      "teamId": "23625"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Toronto/AFCToronto_Novak_Kaila_Midfielder.jpg .jpg",
+    "extractedName": "Kaila Novak",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Toronto/AFCToronto_Novak_Kaila_Midfielder.jpg .jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Sarah",
+      "lastName": "Stratigakis",
+      "playerId": "249059",
+      "teamId": "23625"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Toronto/AFCToronto_Stratigakis_Sarah_Midfielder.jpg",
+    "extractedName": "Sarah Stratigakis",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Toronto/AFCToronto_Stratigakis_Sarah_Midfielder.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Cloey",
+      "lastName": "Uddenberg",
+      "playerId": "502141",
+      "teamId": "23625"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Toronto/AFCToronto_Uddenberg_Cloey_Midfielder.jpg",
+    "extractedName": "Cloey Uddenberg",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Toronto/AFCToronto_Uddenberg_Cloey_Midfielder.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Colby",
+      "lastName": "Barnett",
+      "playerId": "507121",
+      "teamId": "23625"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Toronto/AFCToronto_Barnett_Colby_Midfielder.jpg",
+    "extractedName": "Colby Barnett",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Toronto/AFCToronto_Barnett_Colby_Midfielder.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Victoria",
+      "lastName": "Pickett",
+      "playerId": "534208",
+      "teamId": "23625"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Toronto/AFCToronto_Pickett_Victoria_Midfielder.jpg",
+    "extractedName": "Victoria Pickett",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Toronto/AFCToronto_Pickett_Victoria_Midfielder.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Jade",
+      "lastName": "Kovacevic",
+      "playerId": "690321",
+      "teamId": "23625"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Toronto/AFCToronto_Kovacevic_Jade_Forward.jpg",
+    "extractedName": "Jade Kovacevic",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Toronto/AFCToronto_Kovacevic_Jade_Forward.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Kaylee",
+      "lastName": "Hunter",
+      "playerId": "647414",
+      "teamId": "23625"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Toronto/AFCToronto_Hunter_Kaylee_Forward.jpg",
+    "extractedName": "Kaylee Hunter",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Toronto/AFCToronto_Hunter_Kaylee_Forward.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Esther",
+      "lastName": "Okoronkwo",
+      "playerId": "540294",
+      "teamId": "23625"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Toronto/AFCToronto_Okoronkwo_Esther_Forward.jpg",
+    "extractedName": "Esther Okoronkwo",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Toronto/AFCToronto_Okoronkwo_Esther_Forward.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Lauren",
+      "lastName": "Rowe",
+      "playerId": "700525",
+      "teamId": "23625"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Toronto/AFCToronto_Rowe_Lauren_Forward.jpg",
+    "extractedName": "Lauren Rowe",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Toronto/AFCToronto_Rowe_Lauren_Forward.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Sandra",
+      "lastName": "Paños",
+      "playerId": "209834",
+      "teamId": "23620"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Paños_Sandra_Portera.jpg  /_E1I4872.jpg",
+    "extractedName": "Sandra Paños",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Paños_Sandra_Portera.jpg  /_E1I4872.jpg",
+        "score": 100
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Ramos_Sofia_Defensa.jpg/Copy of ELI09194.jpg",
+        "score": 25
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Itzel",
+      "lastName": "Velasco",
+      "playerId": "614390",
+      "teamId": "23620"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Velasco_Itzel_Portera.jpg  /_E1I4897.jpg",
+    "extractedName": "Itzel Velasco",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Velasco_Itzel_Portera.jpg  /_E1I4897.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Jordan",
+      "lastName": "Brewster",
+      "playerId": "436237",
+      "teamId": "23620"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Brewster_Jordan_Defensa.jpg  /_E1I5147 (1).jpg",
+    "extractedName": "Jordan Brewster",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Brewster_Jordan_Defensa.jpg  /_E1I5147 (1).jpg",
+        "score": 100
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Brewster_Jordan_Defensa.jpg  /_E1I5148.jpg",
+        "score": 100
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Brewster_Jordan_Defensa.jpg  /_E1I5151.jpg",
+        "score": 100
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Brewster_Jordan_Defensa.jpg  /_E1I5094.jpg",
+        "score": 100
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Brewster_Jordan_Defensa.jpg  /_E1I5097.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Karina",
+      "lastName": "Rodríguez",
+      "playerId": "223016",
+      "teamId": "23620"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Rodríguez_Karina_Defensa.jpg  /Copy of ELI08190.jpg",
+    "extractedName": "Karina Rodríguez",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Rodríguez_Karina_Defensa.jpg  /Copy of ELI08190.jpg",
+        "score": 100
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Rodríguez_Kimberly_Defensa.jpg  /ELI07888.jpg",
+        "score": 60
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Luna_Karen_Defensa.jpg  /ELI08934.jpg",
+        "score": 25
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Chidinma",
+      "lastName": "Okeke",
+      "playerId": "241262",
+      "teamId": "23620"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Okeke_Chidinma_Defensa.jpg  /Copy of ELI08555.jpg",
+    "extractedName": "Chidinma Okeke",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Okeke_Chidinma_Defensa.jpg  /Copy of ELI08555.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Kimberly",
+      "lastName": "Rodríguez",
+      "playerId": "226566",
+      "teamId": "23620"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Rodríguez_Kimberly_Defensa.jpg  /ELI07888.jpg",
+    "extractedName": "Kimberly Rodríguez",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Rodríguez_Kimberly_Defensa.jpg  /ELI07888.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Marissa",
+      "lastName": "García",
+      "playerId": "703566",
+      "teamId": "23620"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_García_Marissa_Defensa.jpg  /_E1I8186.jpg",
+    "extractedName": "Marissa García",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_García_Marissa_Defensa.jpg  /_E1I8186.jpg",
+        "score": 100
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_García_Allison_Defensa.jpg /_E1I5044.jpg",
+        "score": 60
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Annia",
+      "lastName": "Mejía",
+      "playerId": "200059",
+      "teamId": "23620"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Mejía_Annia_Defensa.jpg  /_E1I5147.jpg",
+    "extractedName": "Annia Mejía",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Mejía_Annia_Defensa.jpg  /_E1I5147.jpg",
+        "score": 100
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Pedredo_Ana_Pau_Media.jpg /_E1I4823.jpg",
+        "score": 25
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Karich_Annie_Media.jpg  /_E1I5206.jpg",
+        "score": 25
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Sofia",
+      "lastName": "Ramos",
+      "playerId": "697531",
+      "teamId": "23620"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Ramos_Sofia_Defensa.jpg/Copy of ELI09194.jpg",
+    "extractedName": "Sofia Ramos",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Ramos_Sofia_Defensa.jpg/Copy of ELI09194.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Irene",
+      "lastName": "Guerrero",
+      "playerId": "434446",
+      "teamId": "23620"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Guerrero_Irene_Media.jpg  /ELI07953.jpg",
+    "extractedName": "Irene Guerrero",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Guerrero_Irene_Media.jpg  /ELI07953.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Alexa",
+      "lastName": "Soto",
+      "playerId": "647301",
+      "teamId": "23620"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Soto_Alexa_Media.jpg  /_E1I4971.jpg",
+    "extractedName": "Alexa Soto",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Soto_Alexa_Media.jpg  /_E1I4971.jpg",
+        "score": 100
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Soto_Alexa_Media.jpg  /_E1I4998.jpg",
+        "score": 100
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Soto_Alexa_Media.jpg  /_E1I4993.jpg",
+        "score": 100
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Soto_Alexa_Media.jpg  /_E1I4969.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Annie",
+      "lastName": "Karich",
+      "playerId": "497381",
+      "teamId": "23620"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Karich_Annie_Media.jpg  /_E1I5206.jpg",
+    "extractedName": "Annie Karich",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Karich_Annie_Media.jpg  /_E1I5206.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Nancy",
+      "lastName": "Antonio",
+      "playerId": "184548",
+      "teamId": "23620"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Antonio_Nancy_Media.jpg  /ELI07800.jpg",
+    "extractedName": "Nancy Antonio",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Antonio_Nancy_Media.jpg  /ELI07800.jpg",
+        "score": 100
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Antonio_Nancy_Media.jpg  /ELI07797.jpg",
+        "score": 100
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Antonio_Nancy_Media.jpg  /Copy of ELI07800.jpg",
+        "score": 100
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Antonio_Nancy_Media.jpg  /ELI08164.jpg",
+        "score": 100
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Antonio_Nancy_Media.jpg  /ELI08162.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Montserrat",
+      "lastName": "Saldívar",
+      "playerId": "577375",
+      "teamId": "23620"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Saldivar_Montserrat_Media.jpg  /_E1I4942.jpg",
+    "extractedName": "Montserrat Saldivar",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Saldivar_Montserrat_Media.jpg  /_E1I4942.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Nicolette",
+      "lastName": "Hernández",
+      "playerId": "561310",
+      "teamId": "23620"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Hernández_Nicolette_Media.jpg  /ELI07641.jpg",
+    "extractedName": "Nicolette Hernández",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Hernández_Nicolette_Media.jpg  /ELI07641.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Jana",
+      "lastName": "Gutiérrez",
+      "playerId": "449180",
+      "teamId": "23620"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Gutiérrez_Jana_Media.jpg/Copy of ELI08261.jpg",
+    "extractedName": "Jana Gutiérrez",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Gutiérrez_Jana_Media.jpg/Copy of ELI08261.jpg",
+        "score": 100
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Pedredo_Ana_Pau_Media.jpg /_E1I4823.jpg",
+        "score": 35
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Palacios_Kiana_Delantera.jpg  /Copy of ELI08322.jpg",
+        "score": 25
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Bruna",
+      "lastName": "Vilamala",
+      "playerId": "248522",
+      "teamId": "23620"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Vilamala_Bruna_Delantera.jpg /_E1I5236.jpg",
+    "extractedName": "Bruna Vilamala",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Vilamala_Bruna_Delantera.jpg /_E1I5236.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Kiana",
+      "lastName": "Palacios",
+      "playerId": "429458",
+      "teamId": "23620"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Palacios_Kiana_Delantera.jpg  /Copy of ELI08322.jpg",
+    "extractedName": "Kiana Palacios",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Palacios_Kiana_Delantera.jpg  /Copy of ELI08322.jpg",
+        "score": 100
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Pedredo_Ana_Pau_Media.jpg /_E1I4823.jpg",
+        "score": 35
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Scarlett",
+      "lastName": "Camberos",
+      "playerId": "583751",
+      "teamId": "23620"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Camberos_Scarlett_Delantera.jpg  /ELI08120.jpg",
+    "extractedName": "Scarlett Camberos",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Camberos_Scarlett_Delantera.jpg  /ELI08120.jpg",
+        "score": 100
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Camberos_Scarlett_Delantera.jpg  /Copy of ELI07720.jpg",
+        "score": 100
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Camberos_Scarlett_Delantera.jpg  /ELI08114.jpg",
+        "score": 100
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Camberos_Scarlett_Delantera.jpg  /ELI07718.jpg",
+        "score": 100
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Camberos_Scarlett_Delantera.jpg  /ELI07720.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Sarah",
+      "lastName": "Luebbert",
+      "playerId": "508711",
+      "teamId": "23620"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Luebbert_Sarah_Media.jpg  /_E1I5575.jpg",
+    "extractedName": "Sarah Luebbert",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Luebbert_Sarah_Media.jpg  /_E1I5575.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Alondra",
+      "lastName": "Cabanillas",
+      "playerId": "662046",
+      "teamId": "23620"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Cabanillas_Alondra_Delantera.jpg/Copy of ELI09312.jpg",
+    "extractedName": "Alondra Cabanillas",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Cabanillas_Alondra_Delantera.jpg/Copy of ELI09312.jpg",
+        "score": 100
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Cabanillas_Alondra_Delantera.jpg/Copy of ELI09243.jpg",
+        "score": 100
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Cabanillas_Alondra_Delantera.jpg/ELI09245.jpg",
+        "score": 100
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Cabanillas_Alondra_Delantera.jpg/ELI09324.jpg",
+        "score": 100
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Cabanillas_Alondra_Delantera.jpg/ELI09243.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Luisa",
+      "lastName": "Agudelo",
+      "playerId": "575533",
+      "teamId": "23621"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Luisa Fernanda Agudelo Morelo /54824441934_2f903a8de7_o.jpg",
+    "extractedName": "Luisa Fernanda Agudelo Morelo",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Luisa Fernanda Agudelo Morelo /54824441934_2f903a8de7_o.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Andrea",
+      "lastName": "Vera",
+      "playerId": "210022",
+      "teamId": "23621"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Andrea Carolina Vera Coral /54824461808_06e66002f7_o.jpg",
+    "extractedName": "Andrea Carolina Vera Coral",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Andrea Carolina Vera Coral /54824461808_06e66002f7_o.jpg",
+        "score": 100
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Paula Andrea Medina Jiemenez/54823343212_c87c899383_o.jpg",
+        "score": 10
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Paula Andrea Medina Jiemenez/54824461988_484e0f7709_o.jpg",
+        "score": 10
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Paula Andrea Medina Jiemenez/54824441899_33379d28f2_o.jpg",
+        "score": 10
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Paula Andrea Medina Jiemenez/54824527940_7b7f3daf6f_o.jpg",
+        "score": 10
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Angie",
+      "lastName": "Salazar",
+      "playerId": "544583",
+      "teamId": "23621"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Angie Tatiana Salazar Salinas /54824462223_bd9d230801_o.jpg",
+    "extractedName": "Angie Tatiana Salazar Salinas",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Angie Tatiana Salazar Salinas /54824462223_bd9d230801_o.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Ana",
+      "lastName": "Fisgativa",
+      "playerId": "544492",
+      "teamId": "23621"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Ana María Fisgativa Pasos /54824528235_a8a4ed7662_o.jpg",
+    "extractedName": "Ana María Fisgativa Pasos",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Ana María Fisgativa Pasos /54824528235_a8a4ed7662_o.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Stefanía",
+      "lastName": "Perlaza",
+      "playerId": "575365",
+      "teamId": "23621"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Stefanía Perlaza Peralza /54823343382_3d052329e8_o.jpg",
+    "extractedName": "Stefanía Perlaza Peralza",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Stefanía Perlaza Peralza /54823343382_3d052329e8_o.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Kelly",
+      "lastName": "Caicedo",
+      "playerId": "467696",
+      "teamId": "23621"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Kelly Caicedo Alegría /54824461623_d588e0f784_o.jpg",
+    "extractedName": "Kelly Caicedo Alegría",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Kelly Caicedo Alegría /54824461623_d588e0f784_o.jpg",
+        "score": 100
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Kelly Andrea Ibarguen  /54823342702_843763a065_o.jpg",
+        "score": 60
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Yessica",
+      "lastName": "Bermeo",
+      "playerId": "544743",
+      "teamId": "23621"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Yessica Johana Bermeo Morales/54824461433_a13fb8b14d_o.jpg",
+    "extractedName": "Yessica Johana Bermeo Morales",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Yessica Johana Bermeo Morales/54824461433_a13fb8b14d_o.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Paula",
+      "lastName": "Medina",
+      "playerId": "544301",
+      "teamId": "23621"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Paula Andrea Medina Jiemenez/54823343212_c87c899383_o.jpg",
+    "extractedName": "Paula Andrea Medina Jiemenez",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Paula Andrea Medina Jiemenez/54823343212_c87c899383_o.jpg",
+        "score": 100
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Paula Andrea Medina Jiemenez/54824461988_484e0f7709_o.jpg",
+        "score": 100
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Paula Andrea Medina Jiemenez/54824441899_33379d28f2_o.jpg",
+        "score": 100
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Paula Andrea Medina Jiemenez/54824527940_7b7f3daf6f_o.jpg",
+        "score": 100
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Paula Andrea Medina Jiemenez/54823342487_f8424de82e_o.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Natalia",
+      "lastName": "Hernández",
+      "playerId": "598393",
+      "teamId": "23621"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Natalia Hernandez Sules /54824461908_21474e3e43_o.jpg",
+    "extractedName": "Natalia Hernandez Sules",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Natalia Hernandez Sules /54824461908_21474e3e43_o.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Loren",
+      "lastName": "Sánchez",
+      "playerId": "570169",
+      "teamId": "23621"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Loren Yanid Sanchez Plazas /54824442454_95559e1fe1_o.jpg",
+    "extractedName": "Loren Yanid Sanchez Plazas",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Loren Yanid Sanchez Plazas /54824442454_95559e1fe1_o.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Paola",
+      "lastName": "García",
+      "playerId": "570136",
+      "teamId": "23621"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Paola Andrea García Caceres /54824190936_3563f7e6c8_o.jpg",
+    "extractedName": "Paola Andrea García Caceres",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Paola Andrea García Caceres /54824190936_3563f7e6c8_o.jpg",
+        "score": 100
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Paula Andrea Medina Jiemenez/54824461988_484e0f7709_o.jpg",
+        "score": 25
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Paula Andrea Medina Jiemenez/54824441899_33379d28f2_o.jpg",
+        "score": 25
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Paula Andrea Medina Jiemenez/54824527940_7b7f3daf6f_o.jpg",
+        "score": 25
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Paula Andrea Medina Jiemenez/54823342487_f8424de82e_o.jpg",
+        "score": 25
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Zharick",
+      "lastName": "Montoya",
+      "playerId": "544478",
+      "teamId": "23621"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Zhrick Yuliana Montoya Camacho/54824442114_80247743bf_o.jpg",
+    "extractedName": "Zhrick Yuliana Montoya Camacho",
+    "confidence": 70,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Zhrick Yuliana Montoya Camacho/54824442114_80247743bf_o.jpg",
+        "score": 70
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "María",
+      "lastName": "Marquínez",
+      "playerId": "571073",
+      "teamId": "23621"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Maria Nisa Marquinez Jácome /54824191286_8aae76308e_o.jpg",
+    "extractedName": "Maria Nisa Marquinez Jácome",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Maria Nisa Marquinez Jácome /54824191286_8aae76308e_o.jpg",
+        "score": 100
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Maria Nisa Marquinez Jácome /54824191276_9376152e1a_o.jpg",
+        "score": 100
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Maria Nisa Marquinez Jácome /54824191291_3045a60363_o.jpg",
+        "score": 100
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Maria Nisa Marquinez Jácome /54824442494_cdaa066427_o.jpg",
+        "score": 100
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Maria Nisa Marquinez Jácome /54824461898_6e58418f37_o.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Michelle",
+      "lastName": "Vásquez",
+      "playerId": "577182",
+      "teamId": "23621"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Michelle Daniela Vasquez Fajardo /54823342422_f889d698a3_o.jpg",
+    "extractedName": "Michelle Daniela Vasquez Fajardo",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Michelle Daniela Vasquez Fajardo /54823342422_f889d698a3_o.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Ingrid",
+      "lastName": "Guerra",
+      "playerId": "524336",
+      "teamId": "23621"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Ingrid Jobana Guerra Meneses  /WIN05421 copia.jpg",
+    "extractedName": "Ingrid Jobana Guerra Meneses",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Ingrid Jobana Guerra Meneses  /WIN05421 copia.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Melanin",
+      "lastName": "Aponzá",
+      "playerId": "610720",
+      "teamId": "23621"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Melanin Taiana Aponza Gutierrez/54824190951_c5c71f8c9a_o.jpg",
+    "extractedName": "Melanin Taiana Aponza Gutierrez",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Melanin Taiana Aponza Gutierrez/54824190951_c5c71f8c9a_o.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Kelly",
+      "lastName": "Ibargüen",
+      "playerId": "524334",
+      "teamId": "23621"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Kelly Andrea Ibarguen  /54823342702_843763a065_o.jpg",
+    "extractedName": "Kelly Andrea Ibarguen",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Kelly Andrea Ibarguen  /54823342702_843763a065_o.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Leidy",
+      "lastName": "Cobos",
+      "playerId": "544731",
+      "teamId": "23621"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Leidy Lorena Cobos Garzón /54824527310_f0450df7c0_o.jpg",
+    "extractedName": "Leidy Lorena Cobos Garzón",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Leidy Lorena Cobos Garzón /54824527310_f0450df7c0_o.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Viviane",
+      "lastName": "Holzel Domingues",
+      "playerId": "428804",
+      "teamId": "23622"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/FLAMENGO/Photo_Vivi Holzel.jpg",
+    "extractedName": "Vivi Holzel",
+    "confidence": 80,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/FLAMENGO/Photo_Vivi Holzel.jpg",
+        "score": 80
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Karolainy Caline",
+      "lastName": "Alves",
+      "playerId": "722744",
+      "teamId": "23622"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/FLAMENGO/Photo_Karol Alves.jpg",
+    "extractedName": "Karol Alves",
+    "confidence": 95,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/FLAMENGO/Photo_Karol Alves.jpg",
+        "score": 95
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Monalisa",
+      "lastName": "Reis Carvalho Belem",
+      "playerId": "441500",
+      "teamId": "23622"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/FLAMENGO/Photo_Monalisa.jpg",
+    "extractedName": "Monalisa ",
+    "confidence": 60,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/FLAMENGO/Photo_Monalisa.jpg",
+        "score": 60
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Flávia Caroline",
+      "lastName": "da Mota Cardoso",
+      "playerId": "636972",
+      "teamId": "23622"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/FLAMENGO/Photo_Flávia Mota.jpg",
+    "extractedName": "Flávia Mota",
+    "confidence": 90,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/FLAMENGO/Photo_Flávia Mota.jpg",
+        "score": 90
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Jucinara Thaís",
+      "lastName": "Soares Paz",
+      "playerId": "424166",
+      "teamId": "23622"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/FLAMENGO/Photo_Jucinara.jpg",
+    "extractedName": "Jucinara ",
+    "confidence": 45,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/FLAMENGO/Photo_Jucinara.jpg",
+        "score": 45
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/FLAMENGO/Photo_Ju Ferreira.jpg",
+        "score": 35
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Thaisa",
+      "lastName": "de Moraes Rosa Moreno",
+      "playerId": "186296",
+      "teamId": "23622"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/FLAMENGO/Photo_Thaisa.jpg",
+    "extractedName": "Thaisa ",
+    "confidence": 60,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/FLAMENGO/Photo_Thaisa.jpg",
+        "score": 60
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Djenifer",
+      "lastName": "Becker",
+      "playerId": "426484",
+      "teamId": "23622"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/FLAMENGO/Photo_Djeni.jpg",
+    "extractedName": "Djeni (manual fix)",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/FLAMENGO/Photo_Djeni.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Glaucia Suelen",
+      "lastName": "Silva Cristiano",
+      "playerId": "722742",
+      "teamId": "23622"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/FLAMENGO/Photo_Gláucia.jpg",
+    "extractedName": "Gláucia ",
+    "confidence": 45,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/FLAMENGO/Photo_Gláucia.jpg",
+        "score": 45
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Leidiane",
+      "lastName": "Vila Real de Andrade",
+      "playerId": "632888",
+      "teamId": "23622"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/FLAMENGO/Photo_Leidiane.jpg",
+    "extractedName": "Leidiane ",
+    "confidence": 60,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/FLAMENGO/Photo_Leidiane.jpg",
+        "score": 60
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Juliana",
+      "lastName": "Ferreira",
+      "playerId": "456368",
+      "teamId": "23622"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/FLAMENGO/Photo_Ju Ferreira.jpg",
+    "extractedName": "Ju Ferreira",
+    "confidence": 95,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/FLAMENGO/Photo_Ju Ferreira.jpg",
+        "score": 95
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Cristiane",
+      "lastName": "Rozeira de Souza Silva",
+      "playerId": "97376",
+      "teamId": "23622"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/FLAMENGO/Photo_Cristiane.jpg",
+    "extractedName": "Cristiane ",
+    "confidence": 60,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/FLAMENGO/Photo_Cristiane.jpg",
+        "score": 60
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Laysa Crisula",
+      "lastName": "Ribeiro da Costa",
+      "playerId": "722741",
+      "teamId": "23622"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/FLAMENGO/Photo_Laysa Crisula.jpg",
+    "extractedName": "Laysa Crisula",
+    "confidence": 55,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/FLAMENGO/Photo_Laysa Crisula.jpg",
+        "score": 55
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Fernanda Caroline",
+      "lastName": "da Silva",
+      "playerId": "626991",
+      "teamId": "23622"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/FLAMENGO/Photo_Fernanda.jpg",
+    "extractedName": "Fernanda ",
+    "confidence": 45,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/FLAMENGO/Photo_Fernanda.jpg",
+        "score": 45
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Mariana",
+      "lastName": "Fernandes Moreira Emmanoel",
+      "playerId": "722743",
+      "teamId": "23622"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/FLAMENGO/Photo_Mariana Fernandes.jpg",
+    "extractedName": "Mariana Fernandes",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/FLAMENGO/Photo_Mariana Fernandes.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Tyler",
+      "lastName": "McCamey",
+      "playerId": "695227",
+      "teamId": "23626"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/KCCurrent/KCCurrent_McCamey_Tyler_Goalkeeper.png",
+    "extractedName": "Tyler McCamey",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/KCCurrent/KCCurrent_McCamey_Tyler_Goalkeeper.png",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Alexa",
+      "lastName": "Goldberg",
+      "playerId": "684927",
+      "teamId": "23626"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/KCCurrent/Goldberg.webp",
+    "extractedName": "Goldberg (manual fix)",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/KCCurrent/Goldberg.webp",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Regan",
+      "lastName": "Steigleder",
+      "playerId": "647614",
+      "teamId": "23626"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/KCCurrent/KCCurrent_Regan_Steigleder_Defender.png",
+    "extractedName": "Regan Steigleder (manual fix)",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/KCCurrent/KCCurrent_Regan_Steigleder_Defender.png",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Ellie",
+      "lastName": "Wheeler",
+      "playerId": "480044",
+      "teamId": "23626"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/KCCurrent/KCCurrent_Wheeler_Ellie_Defender.png",
+    "extractedName": "Ellie Wheeler",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/KCCurrent/KCCurrent_Wheeler_Ellie_Defender.png",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Elizabeth",
+      "lastName": "Ball",
+      "playerId": "447456",
+      "teamId": "23626"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/KCCurrent/KCCurrent_Ball_Elizabeth_Defender.png",
+    "extractedName": "Elizabeth Ball",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/KCCurrent/KCCurrent_Ball_Elizabeth_Defender.png",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Gabrielle",
+      "lastName": "Robinson",
+      "playerId": "615856",
+      "teamId": "23626"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/KCCurrent/KCCurrent_Robinson_Gabby_Defender.png",
+    "extractedName": "Gabby Robinson",
+    "confidence": 60,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/KCCurrent/KCCurrent_Robinson_Gabby_Defender.png",
+        "score": 60
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Katie",
+      "lastName": "Scott",
+      "playerId": "590950",
+      "teamId": "23626"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/KCCurrent/NO LONGER TRAVELING/KCCurrent_Scott_Katie_Midfielder.png",
+    "extractedName": "Katie Scott",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/KCCurrent/NO LONGER TRAVELING/KCCurrent_Scott_Katie_Midfielder.png",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Kayla",
+      "lastName": "Colbert",
+      "playerId": "480625",
+      "teamId": "23626"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/KCCurrent/KCCurrent_Colbert_Kayla_Defender.png",
+    "extractedName": "Kayla Colbert",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/KCCurrent/KCCurrent_Colbert_Kayla_Defender.png",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Sydney",
+      "lastName": "Jones",
+      "playerId": "505471",
+      "teamId": "23626"
+    },
+    "headshot": null,
+    "extractedName": null,
+    "confidence": 0,
+    "allCandidates": []
+  },
+  {
+    "player": {
+      "firstName": "Lo'eau",
+      "lastName": "LaBonta",
+      "playerId": "171711",
+      "teamId": "23626"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/KCCurrent/KCCurrent_LaBonta_Lo_eau_Midfielder.png",
+    "extractedName": "Lo LaBonta",
+    "confidence": 95,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/KCCurrent/KCCurrent_LaBonta_Lo_eau_Midfielder.png",
+        "score": 95
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Allyson",
+      "lastName": "Sentnor",
+      "playerId": "466866",
+      "teamId": "23626"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/KCCurrent/KCCurrent_Sentnor_Ally_Forward.png",
+    "extractedName": "Ally Sentnor",
+    "confidence": 95,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/KCCurrent/KCCurrent_Sentnor_Ally_Forward.png",
+        "score": 95
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Bayley",
+      "lastName": "Feist",
+      "playerId": "481786",
+      "teamId": "23626"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/KCCurrent/KCCurrent_Feist_Bayley_Midfielder.png",
+    "extractedName": "Bayley Feist",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/KCCurrent/KCCurrent_Feist_Bayley_Midfielder.png",
+        "score": 100
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/KCCurrent/KCCurrent_Hopkins_Haley_Forward.png",
+        "score": 25
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Haley",
+      "lastName": "Hopkins",
+      "playerId": "481977",
+      "teamId": "23626"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/KCCurrent/KCCurrent_Hopkins_Haley_Forward.png",
+    "extractedName": "Haley Hopkins",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/KCCurrent/KCCurrent_Hopkins_Haley_Forward.png",
+        "score": 100
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/KCCurrent/KCCurrent_Pfeiffer_Alex_Forward.png",
+        "score": 25
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Mary",
+      "lastName": "Long",
+      "playerId": "662392",
+      "teamId": "23626"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/KCCurrent/NO LONGER TRAVELING/KCCurrent_Long_Mary_Forward.png",
+    "extractedName": "Mary Long",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/KCCurrent/NO LONGER TRAVELING/KCCurrent_Long_Mary_Forward.png",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Kristen",
+      "lastName": "Hamilton",
+      "playerId": "248369",
+      "teamId": "23626"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/KCCurrent/KCCurrent_Hamilton_Kristen_Forward.png",
+    "extractedName": "Kristen Hamilton",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/KCCurrent/KCCurrent_Hamilton_Kristen_Forward.png",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Alex",
+      "lastName": "Pfeiffer",
+      "playerId": "590939",
+      "teamId": "23626"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/KCCurrent/KCCurrent_Pfeiffer_Alex_Forward.png",
+    "extractedName": "Alex Pfeiffer",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/KCCurrent/KCCurrent_Pfeiffer_Alex_Forward.png",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Josefina",
+      "lastName": "Villanueva",
+      "playerId": "459288",
+      "teamId": "23623"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/JOSEFINA VILLANUEVA/ad1a2672en.jpg",
+    "extractedName": "JOSEFINA VILLANUEVA",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/JOSEFINA VILLANUEVA/ad1a2672en.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Helena",
+      "lastName": "Reja",
+      "playerId": "654530",
+      "teamId": "23623"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/HELENA REJA/ad1a2778en.jpg",
+    "extractedName": "HELENA REJA",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/HELENA REJA/ad1a2778en.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Nasstasja",
+      "lastName": "Garcia",
+      "playerId": "722766",
+      "teamId": "23623"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/NASTASSJA GARCÍA/ad1a5228en.jpg",
+    "extractedName": "NASTASSJA GARCÍA",
+    "confidence": 85,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/NASTASSJA GARCÍA/ad1a5228en.jpg",
+        "score": 85
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Valentina",
+      "lastName": "Cousillas",
+      "playerId": "637103",
+      "teamId": "23623"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/VALENTINA COUSILLAS/ad1a0259en.jpg",
+    "extractedName": "VALENTINA COUSILLAS",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/VALENTINA COUSILLAS/ad1a0259en.jpg",
+        "score": 100
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/VALENTINA COUSILLAS/ad1a2403en.jpg",
+        "score": 100
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/VALENTINA COUSILLAS/AD1A5813EN.jpg",
+        "score": 100
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/VALENTINA COUSILLAS/ad1a2388en.jpg",
+        "score": 100
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/VALENTINA COUSILLAS/ad1a0267en.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Pierina",
+      "lastName": "González",
+      "playerId": "722763",
+      "teamId": "23623"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/PIERINA GONZÁLEZ/ad1a5132en.jpg",
+    "extractedName": "PIERINA GONZÁLEZ",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/PIERINA GONZÁLEZ/ad1a5132en.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Alison",
+      "lastName": "Latúa",
+      "playerId": "637094",
+      "teamId": "23623"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/ALISON LATUA/ad1a0235en.jpg",
+    "extractedName": "ALISON LATUA",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/ALISON LATUA/ad1a0235en.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Jimena",
+      "lastName": "Álvez",
+      "playerId": "722764",
+      "teamId": "23623"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/JIMENA ÁLVEZ/AD1A5851EN.jpg",
+    "extractedName": "JIMENA ÁLVEZ",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/JIMENA ÁLVEZ/AD1A5851EN.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Alejandra",
+      "lastName": "Apraez",
+      "playerId": "610428",
+      "teamId": "23623"
+    },
+    "headshot": null,
+    "extractedName": "No match (YAQUELINE APRAEZ is different person)",
+    "confidence": 0,
+    "allCandidates": []
+  },
+  {
+    "player": {
+      "firstName": "Maytel",
+      "lastName": "Costa",
+      "playerId": "445930",
+      "teamId": "23623"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/MAYTEL COSTA/ad1a2614en.jpg",
+    "extractedName": "MAYTEL COSTA",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/MAYTEL COSTA/ad1a2614en.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Joiceane",
+      "lastName": "Scatola",
+      "playerId": "712925",
+      "teamId": "23623"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/JOICEANE SCATOLA/ad1a0238en.jpg",
+    "extractedName": "JOICEANE SCATOLA",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/JOICEANE SCATOLA/ad1a0238en.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Cecilia",
+      "lastName": "Jourdan",
+      "playerId": "712913",
+      "teamId": "23623"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/CECILIA JOURDAN/ad1a2488en.jpg",
+    "extractedName": "CECILIA JOURDAN",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/CECILIA JOURDAN/ad1a2488en.jpg",
+        "score": 100
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/CECILIA GÓMEZ/ad1a1959en.jpg",
+        "score": 60
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Sofía",
+      "lastName": "Oxandabarat",
+      "playerId": "598495",
+      "teamId": "23623"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/SOFÍA OXANDABARAT/AD1A0530EN.jpg",
+    "extractedName": "SOFÍA OXANDABARAT",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/SOFÍA OXANDABARAT/AD1A0530EN.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Jenifer",
+      "lastName": "Clara",
+      "playerId": "722765",
+      "teamId": "23623"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/YENIFER CLARA/ad1a5679en.jpg",
+    "extractedName": "YENIFER CLARA",
+    "confidence": 85,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/YENIFER CLARA/ad1a5679en.jpg",
+        "score": 85
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Cecilia",
+      "lastName": "Gómez",
+      "playerId": "445938",
+      "teamId": "23623"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/CECILIA GÓMEZ/ad1a1959en.jpg",
+    "extractedName": "CECILIA GÓMEZ",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/CECILIA GÓMEZ/ad1a1959en.jpg",
+        "score": 100
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/HADRIELEN GOMES/ad1a0509en.png",
+        "score": 25
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Hadrielen Karen",
+      "lastName": "Gomes Mesquita",
+      "playerId": "712924",
+      "teamId": "23623"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/HADRIELEN GOMES/ad1a0509en.png",
+    "extractedName": "HADRIELEN GOMES",
+    "confidence": 90,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/HADRIELEN GOMES/ad1a0509en.png",
+        "score": 90
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Isabela",
+      "lastName": "Pérez",
+      "playerId": "654383",
+      "teamId": "23623"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/ISABELA PÉREZ/ad1a0358en.jpg",
+    "extractedName": "ISABELA PÉREZ",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/ISABELA PÉREZ/ad1a0358en.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Martha",
+      "lastName": "Figueredo",
+      "playerId": "637099",
+      "teamId": "23623"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/MARTHA FIGUEREDO/ad1a0963en.jpg",
+    "extractedName": "MARTHA FIGUEREDO",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/MARTHA FIGUEREDO/ad1a0963en.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Hillary",
+      "lastName": "Beall",
+      "playerId": "451967",
+      "teamId": "23627"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/San Diego Wave/SanDiegoWaveFC_Beall_Hillary_Goalkeeper.jpg",
+    "extractedName": "Hillary Beall",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/San Diego Wave/SanDiegoWaveFC_Beall_Hillary_Goalkeeper.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "DiDi",
+      "lastName": "Haracic",
+      "playerId": "248361",
+      "teamId": "23627"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/San Diego Wave/SanDiegoWaveFC_Haracic_Didi_Goalkeeper.jpg",
+    "extractedName": "Didi Haracic",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/San Diego Wave/SanDiegoWaveFC_Haracic_Didi_Goalkeeper.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Hanna",
+      "lastName": "Lundkvist",
+      "playerId": "505591",
+      "teamId": "23627"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/San Diego Wave/SanDiegoWaveFC_Lundkvist_Hanna_Defender.jpg",
+    "extractedName": "Hanna Lundkvist",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/San Diego Wave/SanDiegoWaveFC_Lundkvist_Hanna_Defender.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Kennedy",
+      "lastName": "Wesley",
+      "playerId": "223023",
+      "teamId": "23627"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/San Diego Wave/SanDiegoWaveFC_Wesley_Kennedy_Defender.jpg",
+    "extractedName": "Kennedy Wesley",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/San Diego Wave/SanDiegoWaveFC_Wesley_Kennedy_Defender.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Kristen",
+      "lastName": "McNabb",
+      "playerId": "227795",
+      "teamId": "23627"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/San Diego Wave/SanDiegoWaveFC_McNabb_Kristen_Defender.jpg",
+    "extractedName": "Kristen McNabb",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/San Diego Wave/SanDiegoWaveFC_McNabb_Kristen_Defender.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Nya",
+      "lastName": "Harrison",
+      "playerId": "505470",
+      "teamId": "23627"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/San Diego Wave/SanDiegoWaveFC_Harrison_Nya_Defender.jpg",
+    "extractedName": "Nya Harrison",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/San Diego Wave/SanDiegoWaveFC_Harrison_Nya_Defender.jpg",
+        "score": 100
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/San Diego Wave/SanDiegoWaveFC_Corley_Gia_Midfielder.jpg",
+        "score": 25
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Daniela",
+      "lastName": "Arias",
+      "playerId": "448435",
+      "teamId": "23627"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/San Diego Wave/SanDiegoWaveFC_Arias_Daniela_Defender.jpg",
+    "extractedName": "Daniela Arias",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/San Diego Wave/SanDiegoWaveFC_Arias_Daniela_Defender.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Quincy",
+      "lastName": "McMahon",
+      "playerId": "501058",
+      "teamId": "23627"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/San Diego Wave/SanDiegoWaveFC_McMahon_Quincy_Defender.jpg",
+    "extractedName": "Quincy McMahon",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/San Diego Wave/SanDiegoWaveFC_McMahon_Quincy_Defender.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Perle",
+      "lastName": "Morroni",
+      "playerId": "225132",
+      "teamId": "23627"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/San Diego Wave/SanDiegoWaveFC_Morroni_Perle_Defender.jpg",
+    "extractedName": "Perle Morroni",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/San Diego Wave/SanDiegoWaveFC_Morroni_Perle_Defender.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Kenza",
+      "lastName": "Dali",
+      "playerId": "175688",
+      "teamId": "23627"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/San Diego Wave/SanDiegoWaveFC_Dali_Kenza_Midfielder.jpg",
+    "extractedName": "Kenza Dali",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/San Diego Wave/SanDiegoWaveFC_Dali_Kenza_Midfielder.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Gia",
+      "lastName": "Corley",
+      "playerId": "223494",
+      "teamId": "23627"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/San Diego Wave/SanDiegoWaveFC_Corley_Gia_Midfielder.jpg",
+    "extractedName": "Gia Corley",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/San Diego Wave/SanDiegoWaveFC_Corley_Gia_Midfielder.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Kimmi",
+      "lastName": "Ascanio",
+      "playerId": "590936",
+      "teamId": "23627"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/San Diego Wave/SanDiegoWaveFC_Ascanio_Kimmi_Midfielder.jpg",
+    "extractedName": "Kimmi Ascanio",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/San Diego Wave/SanDiegoWaveFC_Ascanio_Kimmi_Midfielder.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Laurina",
+      "lastName": "Fazer",
+      "playerId": "512059",
+      "teamId": "23627"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/San Diego Wave/SanDiegoWaveFC_Fazer_Laurina_Midfielder.jpg",
+    "extractedName": "Laurina Fazer",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/San Diego Wave/SanDiegoWaveFC_Fazer_Laurina_Midfielder.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Jordan",
+      "lastName": "Fusco",
+      "playerId": "691011",
+      "teamId": "23627"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/San Diego Wave/SanDiegoWaveFC_Fusco_Jordan_Midfielder.jpg",
+    "extractedName": "Jordan Fusco",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/San Diego Wave/SanDiegoWaveFC_Fusco_Jordan_Midfielder.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Adriana",
+      "lastName": "Leon",
+      "playerId": "156938",
+      "teamId": "23627"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/San Diego Wave/SanDiegoWaveFC_Leon_Adriana_Forward.jpg",
+    "extractedName": "Adriana Leon",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/San Diego Wave/SanDiegoWaveFC_Leon_Adriana_Forward.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Makenzy",
+      "lastName": "Robbe",
+      "playerId": "134349",
+      "teamId": "23627"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/San Diego Wave/SanDiegoWaveFC_Robbe_Makenzy_Forward.jpg",
+    "extractedName": "Makenzy Robbe",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/San Diego Wave/SanDiegoWaveFC_Robbe_Makenzy_Forward.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Melanie",
+      "lastName": "Barcenas",
+      "playerId": "577270",
+      "teamId": "23627"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/San Diego Wave/SanDiegoWaveFC_Barcenas_Melanie_Forward.jpg",
+    "extractedName": "Melanie Barcenas",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/San Diego Wave/SanDiegoWaveFC_Barcenas_Melanie_Forward.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Delphine",
+      "lastName": "Cascarino",
+      "playerId": "210886",
+      "teamId": "23627"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/San Diego Wave/SanDiegoWaveFC_Cascarino_Delphine_Forward.jpg",
+    "extractedName": "Delphine Cascarino",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/San Diego Wave/SanDiegoWaveFC_Cascarino_Delphine_Forward.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Maria Eduarda",
+      "lastName": "Rodrigues Silva",
+      "playerId": "588831",
+      "teamId": "23627"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/San Diego Wave/SanDiegoWaveFC_Dudinha_Forward.jpg",
+    "extractedName": "Dudinha (manual fix - nickname)",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/San Diego Wave/SanDiegoWaveFC_Dudinha_Forward.jpg",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Cecilia",
+      "lastName": "Santiago",
+      "playerId": "97417",
+      "teamId": "23624"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Santiago_Cecilia_Portera.png",
+    "extractedName": "Cecilia Santiago",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Santiago_Cecilia_Portera.png",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Itzel",
+      "lastName": "González",
+      "playerId": "500135",
+      "teamId": "23624"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_González_Itzel_Portera.png",
+    "extractedName": "Itzel González",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_González_Itzel_Portera.png",
+        "score": 100
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_González_María_Defensa.png",
+        "score": 60
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_González_Alison_Delantera.png",
+        "score": 60
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Natalia",
+      "lastName": "Colín",
+      "playerId": "577382",
+      "teamId": "23624"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Colin_Natalia_Defensa.png",
+    "extractedName": "Natalia Colin",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Colin_Natalia_Defensa.png",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Greta",
+      "lastName": "Espinoza",
+      "playerId": "184537",
+      "teamId": "23624"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Espinoza_Greta_Defensa.png",
+    "extractedName": "Greta Espinoza",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Espinoza_Greta_Defensa.png",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Fernanda",
+      "lastName": "Elizondo",
+      "playerId": "661556",
+      "teamId": "23624"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Elizondo_Fernanda_Delantera.png",
+    "extractedName": "Fernanda Elizondo",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Elizondo_Fernanda_Delantera.png",
+        "score": 100
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Antonio_Fernanda_Mediocampista.png",
+        "score": 60
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Cristina",
+      "lastName": "Ferral",
+      "playerId": "429460",
+      "teamId": "23624"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Ferral_Cristina_Mediocampista.png",
+    "extractedName": "Cristina Ferral",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Ferral_Cristina_Mediocampista.png",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Anika",
+      "lastName": "Rodríguez",
+      "playerId": "508692",
+      "teamId": "23624"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Rodríguez_Anika_Defensa.png",
+    "extractedName": "Anika Rodríguez",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Rodríguez_Anika_Defensa.png",
+        "score": 100
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Salas_Ana_Mediocampista.png",
+        "score": 25
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Ève",
+      "lastName": "Périsset",
+      "playerId": "193633",
+      "teamId": "23624"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Perisset_ Ève_Defensa.png",
+    "extractedName": "Ève Perisset",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Perisset_ Ève_Defensa.png",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Mia",
+      "lastName": "Villalpando",
+      "playerId": "647310",
+      "teamId": "23624"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Villalpando_Mia_Defensa.png",
+    "extractedName": "Mia Villalpando",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Villalpando_Mia_Defensa.png",
+        "score": 100
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_González_María_Defensa.png",
+        "score": 25
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Sánchez_María_Mediocampista.png",
+        "score": 25
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Salas_Ana_Mediocampista.png",
+        "score": 25
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "María",
+      "lastName": "Sánchez",
+      "playerId": "209859",
+      "teamId": "23624"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Sánchez_María_Mediocampista.png",
+    "extractedName": "María Sánchez",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Sánchez_María_Mediocampista.png",
+        "score": 100
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_González_María_Defensa.png",
+        "score": 60
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Alexia",
+      "lastName": "Delgado",
+      "playerId": "226569",
+      "teamId": "23624"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Delgado_Alexia_Defensa.png",
+    "extractedName": "Alexia Delgado",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Delgado_Alexia_Defensa.png",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Thembi",
+      "lastName": "Kgatlana",
+      "playerId": "229585",
+      "teamId": "23624"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Kgatlana_Thembi_Mediocampista.png",
+    "extractedName": "Thembi Kgatlana",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Kgatlana_Thembi_Mediocampista.png",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Belén",
+      "lastName": "Cruz",
+      "playerId": "443716",
+      "teamId": "23624"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Cruz_Belén_Mediocampista.png",
+    "extractedName": "Belén Cruz",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Cruz_Belén_Mediocampista.png",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Barbara",
+      "lastName": "Olivieri",
+      "playerId": "443647",
+      "teamId": "23624"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Olivieri_Bárbara_Mediocampista.png",
+    "extractedName": "Bárbara Olivieri",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Olivieri_Bárbara_Mediocampista.png",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Andrea",
+      "lastName": "Hernández",
+      "playerId": "443717",
+      "teamId": "23624"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Hernández_Andrea_Mediocampista.png",
+    "extractedName": "Andrea Hernández",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Hernández_Andrea_Mediocampista.png",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Aaliyah",
+      "lastName": "Farmer",
+      "playerId": "687749",
+      "teamId": "23624"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Farmer_Aaliyah_Delantera.png",
+    "extractedName": "Aaliyah Farmer",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Farmer_Aaliyah_Delantera.png",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Fernanda",
+      "lastName": "Antonio",
+      "playerId": "665602",
+      "teamId": "23624"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Antonio_Fernanda_Mediocampista.png",
+    "extractedName": "Fernanda Antonio",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Antonio_Fernanda_Mediocampista.png",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Stephany",
+      "lastName": "Mayor",
+      "playerId": "97439",
+      "teamId": "23624"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Mayor_Stephany_Delantera.png",
+    "extractedName": "Stephany Mayor",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Mayor_Stephany_Delantera.png",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Jenni",
+      "lastName": "Hermoso",
+      "playerId": "165364",
+      "teamId": "23624"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Hermoso_Jennifer_Delantera.png",
+    "extractedName": "Jennifer Hermoso",
+    "confidence": 95,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Hermoso_Jennifer_Delantera.png",
+        "score": 95
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Jheniffer",
+      "lastName": "da Silva Cordinali Gouveia",
+      "playerId": "469662",
+      "teamId": "23624"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Cordinali_Jheniffer_Delantera.png",
+    "extractedName": "Jheniffer Cordinali",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Cordinali_Jheniffer_Delantera.png",
+        "score": 100
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Diana",
+      "lastName": "Ordóñez",
+      "playerId": "434739",
+      "teamId": "23624"
+    },
+    "headshot": null,
+    "extractedName": "Ana Salas",
+    "confidence": 35,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Salas_Ana_Mediocampista.png",
+        "score": 35
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Tatiana",
+      "lastName": "Flores",
+      "playerId": "571208",
+      "teamId": "23624"
+    },
+    "headshot": null,
+    "extractedName": "Ana Salas",
+    "confidence": 35,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Salas_Ana_Mediocampista.png",
+        "score": 35
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Dilary",
+      "lastName": "Heredia-Beltran",
+      "playerId": "470486",
+      "teamId": "23624"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Heredia_Dilary_Delantera.png",
+    "extractedName": "Dilary Heredia",
+    "confidence": 95,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Heredia_Dilary_Delantera.png",
+        "score": 95
+      }
+    ]
+  },
+  {
+    "player": {
+      "firstName": "Alison",
+      "lastName": "González",
+      "playerId": "438893",
+      "teamId": "23624"
+    },
+    "headshot": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_González_Alison_Delantera.png",
+    "extractedName": "Alison González",
+    "confidence": 100,
+    "allCandidates": [
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_González_Alison_Delantera.png",
+        "score": 100
+      },
+      {
+        "path": "/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_González_María_Defensa.png",
+        "score": 60
+      }
+    ]
+  }
+]

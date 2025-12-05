@@ -26,8 +26,8 @@ export function PlayerAwardCard({ award, player, optaTeam }: PlayerAwardCardProp
         ? award.player_team.data.name 
         : "");
     
-    const teamLogo = isFilled.contentRelationship(award.player_team) && award.player_team.data?.logo?.url
-        ? award.player_team.data.logo.url
+    const teamLogoField = isFilled.contentRelationship(award.player_team) && award.player_team.data?.logo
+        ? award.player_team.data.logo
         : undefined;
     
     const primaryColor = isFilled.contentRelationship(award.player_team) && award.player_team.data?.color_primary
@@ -53,7 +53,7 @@ export function PlayerAwardCard({ award, player, optaTeam }: PlayerAwardCardProp
             </CardHeader>
             <CardContent className="grid grid-cols-[auto_1fr] gap-3 lg:p-3 p-3">
                 <PlayerHeadshot 
-                    logoUrl={teamLogo}
+                    logoField={teamLogoField}
                     headshotUrl={award.player_headshot?.url ?? undefined}
                     primaryColor={primaryColor}
                 />

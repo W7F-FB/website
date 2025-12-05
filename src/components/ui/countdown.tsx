@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useCallback } from "react"
+import { useState, useEffect, useCallback, useMemo } from "react"
 import { cn } from "@/lib/utils"
 import { useInterval } from "@/hooks/use-interval"
 
@@ -65,7 +65,7 @@ function SecondsUnit({ value, label, className }: CountdownUnitProps) {
 }
 
 export function Countdown({ targetDate, className, onComplete }: CountdownProps) {
-  const target = typeof targetDate === "string" ? new Date(targetDate) : targetDate
+  const target = useMemo(() => typeof targetDate === "string" ? new Date(targetDate) : targetDate, [targetDate])
   const [timeRemaining, setTimeRemaining] = useState<TimeRemaining>(() => calculateTimeRemaining(target))
   const [hasCompleted, setHasCompleted] = useState(false)
 

@@ -15,7 +15,7 @@ import type * as prismic from "@prismicio/client"
 import { dev } from "@/lib/dev"
 import { NavMain } from "@/components/website-base/nav/nav-main"
 import { Footer } from "@/components/website-base/footer/footer-main"
-import type { F1MatchData, F1TeamData, F1FixturesResponse } from "@/types/opta-feeds/f1-fixtures"
+import type { F1MatchData, F1TeamData } from "@/types/opta-feeds/f1-fixtures"
 import { groupMatchesByDate } from "../utils"
 import { buildMatchSlugMap } from "@/lib/match-url"
 
@@ -30,59 +30,6 @@ type Props = {
 }
 
 type TournamentStatus = "Upcoming" | "Live" | "Complete"
-
-function testModifyFirstMatchToLive(f1FixturesData: F1FixturesResponse | null): F1FixturesResponse | null {
-  if (!f1FixturesData) return f1FixturesData
-  
-  const modifiedData = JSON.parse(JSON.stringify(f1FixturesData))
-  const doc = modifiedData.SoccerFeed.SoccerDocument
-  const matchData = doc.MatchData
-  
-  if (matchData && Array.isArray(matchData) && matchData.length > 0) {
-    const sortedMatches = [...matchData].sort((a, b) => {
-      const timeA = a.MatchInfo.TimeStamp || a.MatchInfo.DateUtc || a.MatchInfo.Date
-      const timeB = b.MatchInfo.TimeStamp || b.MatchInfo.DateUtc || b.MatchInfo.Date
-      return new Date(timeA).getTime() - new Date(timeB).getTime()
-    })
-    
-    const firstMatchByTime = sortedMatches[0]
-    const originalIndex = matchData.findIndex(m => m.uID === firstMatchByTime.uID)
-    
-    if (originalIndex >= 0) {
-      const matchToModify = matchData[originalIndex]
-      
-      matchToModify.MatchInfo.Period = "Live"
-      
-      if (matchToModify.TeamData && Array.isArray(matchToModify.TeamData)) {
-        matchToModify.TeamData.forEach((team: { Side: string; Score?: number }) => {
-          if (team.Side === "Home") {
-            team.Score = 2
-          } else if (team.Side === "Away") {
-            team.Score = 1
-          }
-        })
-      }
-      
-      if (!matchToModify.Stat) {
-        matchToModify.Stat = []
-      }
-      
-      const existingMatchTimeIndex = matchToModify.Stat.findIndex((stat: { Type: string }) => stat.Type === "match_time")
-      
-      if (existingMatchTimeIndex >= 0) {
-        matchToModify.Stat[existingMatchTimeIndex].value = 23
-      } else {
-        matchToModify.Stat.push({
-          Type: "match_time",
-          value: 23
-        })
-      }
-      
-    }
-  }
-  
-  return modifiedData
-}
 
 function getStatusOverride(stateParam: string | undefined): TournamentStatus | null {
   if (process.env.NEXT_PUBLIC_DEV_MODE !== 'true' || !stateParam) return null
@@ -183,8 +130,6 @@ export default async function TournamentPage({ params, searchParams }: Props) {
 
       dev.log('f1FixturesData', f1FixturesData)
       dev.log('f3StandingsData', f3StandingsData)
-      
-      f1FixturesData = testModifyFirstMatchToLive(f1FixturesData)
 
       const uniqueTeamIds = prismicTeams
         .map(team => team.data.opta_id)

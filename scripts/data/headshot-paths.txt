@@ -1,0 +1,199 @@
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/MARTHA FIGUEREDO/ad1a0963en.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/PIERINA GONZÁLEZ/ad1a5132en.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/ALISON LATUA/ad1a0235en.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/CECILIA GÓMEZ/ad1a1959en.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/JIMENA ÁLVEZ/AD1A5851EN.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/JOICEANE SCATOLA/ad1a0238en.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/JOSEFINA VILLANUEVA/ad1a2672en.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/VALENTINA COUSILLAS/ad1a0259en.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/VALENTINA COUSILLAS/ad1a2403en.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/VALENTINA COUSILLAS/AD1A5813EN.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/VALENTINA COUSILLAS/ad1a2388en.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/VALENTINA COUSILLAS/ad1a0267en.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/VALENTINA COUSILLAS/AD1A5809EN.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/VALENTINA COUSILLAS/AD1A5803EN.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/VALENTINA COUSILLAS/AD1A5795EN.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/VALENTINA COUSILLAS/ad1a2412en.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/ISABELA PÉREZ/ad1a0358en.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/SOFÍA OXANDABARAT/AD1A0530EN.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/MAYTEL COSTA/ad1a2614en.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/YAQUELINE APRAEZ/ad1a0165en.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/HADRIELEN GOMES/ad1a0509en.png
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/HELENA REJA/ad1a2778en.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/CECILIA JOURDAN/ad1a2488en.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/YENIFER CLARA/ad1a5679en.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Nacional/NASTASSJA GARCÍA/ad1a5228en.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/San Diego Wave/SanDiegoWaveFC_Haracic_Didi_Goalkeeper.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/San Diego Wave/SanDiegoWaveFC_Lundkvist_Hanna_Defender.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/San Diego Wave/SanDiegoWaveFC_Cascarino_Delphine_Forward.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/San Diego Wave/SanDiegoWaveFC_Beall_Hillary_Goalkeeper.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/San Diego Wave/SanDiegoWaveFC_Leon_Adriana_Forward.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/San Diego Wave/SanDiegoWaveFC_Morroni_Perle_Defender.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/San Diego Wave/SanDiegoWaveFC_Sheridan_Kailen_Goalkeeper.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/San Diego Wave/SanDiegoWaveFC_McMahon_Quincy_Defender.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/San Diego Wave/SanDiegoWaveFC_Fusco_Jordan_Midfielder.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/San Diego Wave/SanDiegoWaveFC_Fazer_Laurina_Midfielder.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/San Diego Wave/SanDiegoWaveFC_Barcenas_Melanie_Forward.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/San Diego Wave/SanDiegoWaveFC_McNabb_Kristen_Defender.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/San Diego Wave/SanDiegoWaveFC_Robbe_Makenzy_Forward.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/San Diego Wave/SanDiegoWaveFC_Arias_Daniela_Defender.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/San Diego Wave/SanDiegoWaveFC_Dudinha_Forward.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/San Diego Wave/SanDiegoWaveFC_Dali_Kenza_Midfielder.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/San Diego Wave/SanDiegoWaveFC_Wesley_Kennedy_Defender.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/San Diego Wave/SanDiegoWaveFC_Ascanio_Kimmi_Midfielder.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/San Diego Wave/SanDiegoWaveFC_Harrison_Nya_Defender.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/San Diego Wave/SanDiegoWaveFC_Corley_Gia_Midfielder.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_González_Itzel_Portera.png
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Olivieri_Bárbara_Mediocampista.png
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_González_María_Defensa.png
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Farmer_Aaliyah_Delantera.png
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Villalpando_Mia_Defensa.png
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_González_Alison_Delantera.png
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Espinoza_Greta_Defensa.png
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Mayor_Stephany_Delantera.png
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Cordinali_Jheniffer_Delantera.png
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Reyes_Maricarmen_Mediocampista.png
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Santiago_Cecilia_Portera.png
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Hernández_Andrea_Mediocampista.png
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Heredia_Dilary_Delantera.png
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Delgado_Alexia_Defensa.png
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Antonio_Fernanda_Mediocampista.png
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Colin_Natalia_Defensa.png
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Rodríguez_Anika_Defensa.png
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Ferral_Cristina_Mediocampista.png
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Sánchez_María_Mediocampista.png
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_López_Jimena_Defensa.png
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Salas_Ana_Mediocampista.png
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Cruz_Belén_Mediocampista.png
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Perisset_ Ève_Defensa.png
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Hermoso_Jennifer_Delantera.png
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Kgatlana_Thembi_Mediocampista.png
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Elizondo_Fernanda_Delantera.png
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Tigres/Tigres_Ramírez_Deiry_Delantera.png
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/FLAMENGO/Photo_Flávia Mota.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/FLAMENGO/Photo_Fernanda.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/FLAMENGO/Photo_Laysa Crisula.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/FLAMENGO/Photo_Leidiane.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/FLAMENGO/Photo_Gláucia.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/FLAMENGO/Photo_Ju Ferreira.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/FLAMENGO/Photo_Karol Alves.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/FLAMENGO/Photo_Djeni.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/FLAMENGO/Photo_Monalisa.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/FLAMENGO/Photo_Thaisa.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/FLAMENGO/Photo_Mariana Fernandes.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/FLAMENGO/Photo_Vivi Holzel.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/FLAMENGO/Photo_Cristiane.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/FLAMENGO/Photo_Jucinara.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Vilamala_Bruna_Delantera.jpg /_E1I5236.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Rodríguez_Karina_Defensa.jpg  /Copy of ELI08190.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Cabanillas_Alondra_Delantera.jpg/Copy of ELI09312.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Cabanillas_Alondra_Delantera.jpg/Copy of ELI09243.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Cabanillas_Alondra_Delantera.jpg/ELI09245.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Cabanillas_Alondra_Delantera.jpg/ELI09324.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Cabanillas_Alondra_Delantera.jpg/ELI09243.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Cabanillas_Alondra_Delantera.jpg/ELI09323.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Palacios_Kiana_Delantera.jpg  /Copy of ELI08322.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_García_Marissa_Defensa.jpg  /_E1I8186.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Soto_Alexa_Media.jpg  /_E1I4971.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Soto_Alexa_Media.jpg  /_E1I4998.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Soto_Alexa_Media.jpg  /_E1I4993.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Soto_Alexa_Media.jpg  /_E1I4969.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Paños_Sandra_Portera.jpg  /_E1I4872.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Luebbert_Sarah_Media.jpg  /_E1I5575.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Guerrero_Irene_Media.jpg  /ELI07953.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Rodríguez_Kimberly_Defensa.jpg  /ELI07888.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Mejía_Annia_Defensa.jpg  /_E1I5147.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Gutiérrez_Jana_Media.jpg/Copy of ELI08261.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_García_Allison_Defensa.jpg /_E1I5044.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Hernández_Nicolette_Media.jpg  /ELI07641.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Flor_Dasilva_Priscila_Delantera.jpg/ELI08602.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Espinosa_Daniela_Delantera.jpg  /Copy of ELI08779.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Pedredo_Ana_Pau_Media.jpg /_E1I4823.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Karich_Annie_Media.jpg  /_E1I5206.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Luna_Karen_Defensa.jpg  /ELI08934.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_DelReal_Bárbara_Portera.jpg/_E1I9076.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Aviléz_Aylin_Delantera.jpg  /Copy of ELI08859.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Aviléz_Aylin_Delantera.jpg  /ELI08681.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Aviléz_Aylin_Delantera.jpg  /ELI08859.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Aviléz_Aylin_Delantera.jpg  /ELI08860.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Antonio_Nancy_Media.jpg  /ELI07800.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Antonio_Nancy_Media.jpg  /ELI07797.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Antonio_Nancy_Media.jpg  /Copy of ELI07800.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Antonio_Nancy_Media.jpg  /ELI08164.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Antonio_Nancy_Media.jpg  /ELI08162.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Brewster_Jordan_Defensa.jpg  /_E1I5147 (1).jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Brewster_Jordan_Defensa.jpg  /_E1I5148.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Brewster_Jordan_Defensa.jpg  /_E1I5151.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Brewster_Jordan_Defensa.jpg  /_E1I5094.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Brewster_Jordan_Defensa.jpg  /_E1I5097.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Okeke_Chidinma_Defensa.jpg  /Copy of ELI08555.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Segura_Arantza_Defensa.jpg /_E1I4846.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Ramos_Sofia_Defensa.jpg/Copy of ELI09194.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Camberos_Scarlett_Delantera.jpg  /ELI08120.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Camberos_Scarlett_Delantera.jpg  /Copy of ELI07720.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Camberos_Scarlett_Delantera.jpg  /ELI08114.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Camberos_Scarlett_Delantera.jpg  /ELI07718.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Camberos_Scarlett_Delantera.jpg  /ELI07720.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Saldivar_Montserrat_Media.jpg  /_E1I4942.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Club America/ClubAmérica_Velasco_Itzel_Portera.jpg  /_E1I4897.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Leidy Lorena Cobos Garzón /54824527310_f0450df7c0_o.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Loren Yanid Sanchez Plazas /54824442454_95559e1fe1_o.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Paula Andrea Medina Jiemenez/54823343212_c87c899383_o.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Paula Andrea Medina Jiemenez/54824461988_484e0f7709_o.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Paula Andrea Medina Jiemenez/54824441899_33379d28f2_o.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Paula Andrea Medina Jiemenez/54824527940_7b7f3daf6f_o.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Paula Andrea Medina Jiemenez/54823342487_f8424de82e_o.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Maria Nisa Marquinez Jácome /54824191286_8aae76308e_o.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Maria Nisa Marquinez Jácome /54824191276_9376152e1a_o.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Maria Nisa Marquinez Jácome /54824191291_3045a60363_o.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Maria Nisa Marquinez Jácome /54824442494_cdaa066427_o.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Maria Nisa Marquinez Jácome /54824461898_6e58418f37_o.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Kelly Caicedo Alegría /54824461623_d588e0f784_o.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Ingrid Jobana Guerra Meneses  /WIN05421 copia.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Andrea Carolina Vera Coral /54824461808_06e66002f7_o.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Ana María Fisgativa Pasos /54824528235_a8a4ed7662_o.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Kelly Andrea Ibarguen  /54823342702_843763a065_o.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Natalia Hernandez Sules /54824461908_21474e3e43_o.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Yessica Johana Bermeo Morales/54824461433_a13fb8b14d_o.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Paola Andrea García Caceres /54824190936_3563f7e6c8_o.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Stefanía Perlaza Peralza /54823343382_3d052329e8_o.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Zhrick Yuliana Montoya Camacho/54824442114_80247743bf_o.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Michelle Daniela Vasquez Fajardo /54823342422_f889d698a3_o.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Melanin Taiana Aponza Gutierrez/54824190951_c5c71f8c9a_o.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Luisa Fernanda Agudelo Morelo /54824441934_2f903a8de7_o.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/DeportivoCali/Angie Tatiana Salazar Salinas /54824462223_bd9d230801_o.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Toronto/AFCToronto_Pickett_Victoria_Midfielder.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Toronto/AFCToronto_Barnett_Colby_Midfielder.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Toronto/AFCToronto_Okoronkwo_Esther_Forward.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Toronto/AFCToronto_Hunter_Kaylee_Forward.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Toronto/AFCToronto_Rowe_Lauren_Forward.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Toronto/AFCToronto_Cota-Yarde_Sierra_Goalkeeper.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Toronto/AFCToronto_Rollins_Sarah_Defender.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Toronto/AFCToronto_Regan_Emma_Midfielder.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Toronto/AFCToronto_Burns_Zoe_Midfielder.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Toronto/AFCToronto_Cathro_Ashley_Defender.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Toronto/AFCToronto_Small_Nikayla_Midfielder.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Toronto/AFCToronto_Hansen_Kaela_Defender.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Toronto/AFCToronto_Lantainge_April_Midfielder.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Toronto/AFCToronto_Stratigakis_Sarah_Midfielder.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Toronto/AFCToronto_Kovacevic_Jade_Forward.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Toronto/AFCToronto_Uddenberg_Cloey_Midfielder.jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Toronto/AFCToronto_Krzyzaniak_Danielle.jpg .jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/Toronto/AFCToronto_Novak_Kaila_Midfielder.jpg .jpg
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/KCCurrent/KCCurrent_Feist_Bayley_Midfielder.png
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/KCCurrent/KCCurrent_Regan_Steigleder_Defender.png
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/KCCurrent/KCCurrent_McCamey_Tyler_Goalkeeper.png
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/KCCurrent/KCCurrent_Robinson_Gabby_Defender.png
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/KCCurrent/KCCurrent_Pfeiffer_Alex_Forward.png
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/KCCurrent/KCCurrent_Hamilton_Kristen_Forward.png
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/KCCurrent/KCCurrent_LaBonta_Lo_eau_Midfielder.png
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/KCCurrent/Kershner.webp
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/KCCurrent/KCCurrent_Jones_Alexa_Midfielder.png
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/KCCurrent/KCCurrent_Colbert_Kayla_Defender.png
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/KCCurrent/KCCurrent_Hopkins_Haley_Forward.png
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/KCCurrent/NO LONGER TRAVELING/KCCurrent_Long_Mary_Forward.png
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/KCCurrent/NO LONGER TRAVELING/KCCurrent_Scott_Katie_Midfielder.png
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/KCCurrent/KCCurrent_Sentnor_Ally_Forward.png
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/KCCurrent/KCCurrent_Wheeler_Ellie_Defender.png
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/KCCurrent/KCCurrent_Ball_Elizabeth_Defender.png
+/Users/benchurchill/Client Repos/w7f-website/public/images/PlayerProfileHeadshots/KCCurrent/Goldberg.webp

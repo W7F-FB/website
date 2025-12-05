@@ -5,8 +5,9 @@ import Image from "next/image"
 import { cn, formatGameDate } from "@/lib/utils"
 import { Card, CardContent, CardHeader, CardFooter } from "@/components/ui/card"
 import { H4 } from "@/components/website-base/typography"
-import { QuestionMarkIcon, CaretFilledIcon, CaretRightIcon, StreamStackIcon, StreamStackHollowIcon, StreamIcon, CirclePlayIcon } from "@/components/website-base/icons"
+import { QuestionMarkIcon, CaretFilledIcon, CaretRightIcon, StreamIcon, InformationCircleIcon } from "@/components/website-base/icons"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import type { GameCardTeam, GameCardOpta } from "@/types/components"
 import { getStatusDisplay, normalizeOptaId } from "@/lib/opta/utils"
 import { buildMatchUrl } from "@/lib/match-url"
@@ -15,6 +16,7 @@ import { Separator } from "@/components/ui/separator"
 import { Button } from "@/components/ui/button"
 import { Status, StatusIndicator } from "@/components/ui/status"
 import { MiniPlaceholders } from "@/lib/data/mini-placeholders"
+import { StreamingAvailabilityDialog } from "../streaming-availability-dialog"
 
 const MATCH_CARD_VARIANTS = {
     default: {
@@ -54,7 +56,7 @@ const MATCH_CARD_VARIANTS = {
         teamNames: "lg:text-[0.7rem] text-[0.7rem]",
         indicator: "size-1.5 -right-2.5",
         showFooter: false,
-        linkTeams: false,
+        linkTeams: true,
         wrapper: "rounded-none no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60",
     },
 } as const
@@ -79,7 +81,8 @@ function MatchCardTeam({
     indicatorClassName,
     showResponsiveNameSwap,
     optaDisplayName,
-}: GameCardTeam & { showResponsiveNameSwap?: boolean; optaDisplayName?: string }) {
+    preventLinkPropagation,
+}: GameCardTeam & { showResponsiveNameSwap?: boolean; optaDisplayName?: string; preventLinkPropagation?: boolean }) {
     const baseDisplayName = optaDisplayName || teamShortName || team?.data?.name || teamLabel
     const shortDisplayName = compact && teamShortName ? teamShortName : null
     const nameNode = showResponsiveNameSwap && compact ? (
@@ -116,32 +119,61 @@ function MatchCardTeam({
         </div>
     )
 
+    const router = useRouter()
+
     const teamIdentity = (
         <>
             {logoNode}
             <div>
-                <H4 className={cn(linkToTeam && "group-hover:underline", teamNamesClassName)}>
+                <H4 className={cn(linkToTeam && team?.uid && "group-hover:underline", teamNamesClassName)}>
                     {nameNode}
                 </H4>
             </div>
         </>
     )
 
+    const handleButtonClick = (e: React.MouseEvent) => {
+        e.preventDefault()
+        e.stopPropagation()
+        if (team?.uid) {
+            router.push(`/club/${team.uid}`)
+        }
+    }
+
     return (
         <div className={teamsClassName}>
             <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
                     {team ? (
-                        <div className="flex items-center">
-                            {teamIdentity}
-                        </div>
+                        linkToTeam && team.uid ? (
+                            preventLinkPropagation ? (
+                                <button
+                                    type="button"
+                                    className="flex items-center group cursor-pointer"
+                                    onClick={handleButtonClick}
+                                >
+                                    {teamIdentity}
+                                </button>
+                            ) : (
+                                <Link
+                                    href={`/club/${team.uid}`}
+                                    className="flex items-center group"
+                                >
+                                    {teamIdentity}
+                                </Link>
+                            )
+                        ) : (
+                            <div className="flex items-center">
+                                {teamIdentity}
+                            </div>
+                        )
                     ) : (
                         <>
                             <div className={cn("bg-muted/30 flex items-center justify-center", logoSize)}>
                                 <QuestionMarkIcon className={cn("text-muted-foreground/50", iconSize)} />
                             </div>
                             <div>
-                                <H4 className={cn(linkToTeam && "group-hover:underline", teamNamesClassName)}>
+                                <H4 className={teamNamesClassName}>
                                     {nameNode}
                                 </H4>
                             </div>
@@ -173,6 +205,7 @@ function MatchCard({
     allMatches,
     f3StandingsData,
     streamingLink,
+    broadcastPartners,
     ...restProps
 }: GameCardOpta) {
     const gameCardData = getOptaGameCardData(fixture, prismicTeams, optaTeams, allMatches, f3StandingsData)
@@ -269,6 +302,7 @@ function MatchCard({
                     indicatorClassName={cn("-mt-0.5 scale-x-[-1] absolute top-1/2 -translate-y-1/2", variantStyles.indicator)}
                     showResponsiveNameSwap={isMini}
                     optaDisplayName={homeOptaDisplayName}
+                    preventLinkPropagation={isMini}
                 />
 
                 <div className={interstitialPadding}>
@@ -298,6 +332,7 @@ function MatchCard({
                     indicatorClassName={cn("-mt-0.5 scale-x-[-1] absolute top-1/2 -translate-y-1/2", variantStyles.indicator)}
                     showResponsiveNameSwap={isMini}
                     optaDisplayName={awayOptaDisplayName}
+                    preventLinkPropagation={isMini}
                 />
             </CardContent>
             {variantStyles.showFooter && (
@@ -311,12 +346,19 @@ function MatchCard({
                         </Link>
                     </Button>
                     {fixtureStatus === "Live" && streamingLink && (
-                        <Button asChild variant="outline" size="sm" className="text-xs">
-                            <Link href={streamingLink} target="_blank" rel="noopener noreferrer">
-                                <StreamIcon className="size-3" />
-                                Stream
-                            </Link>
-                        </Button>
+                        <div className="flex items-center gap-1">
+                            <Button asChild variant="outline" size="sm" className="text-xs">
+                                <Link href={streamingLink} target="_blank" rel="noopener noreferrer">
+                                    <StreamIcon className="size-3" />
+                                    Stream
+                                </Link>
+                            </Button>
+                            <StreamingAvailabilityDialog broadcastPartners={broadcastPartners || []}>
+                                <Button variant="outline" size="icon" className="size-8">
+                                    <InformationCircleIcon className="size-4" />
+                                </Button>
+                            </StreamingAvailabilityDialog>
+                        </div>
                     )}
                 </CardFooter>
             )}

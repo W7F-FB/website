@@ -2,6 +2,7 @@ import { TableCell } from "@/components/ui/table"
 import { PrismicNextImage } from "@prismicio/next"
 import { cn } from "@/lib/utils"
 import type { ImageField } from "@prismicio/client"
+import Link from "next/link"
 
 type ClubRankCellProps = {
     placement: string
@@ -12,11 +13,20 @@ type ClubRankCellProps = {
     record?: string
     className?: string
     tournamentStatus?: string
+    href?: string
 }
 
-export function ClubRankCell({ placement, logo, name, shortName, useShortName = false, record, className, tournamentStatus }: ClubRankCellProps) {
+export function ClubRankCell({ placement, logo, name, shortName, useShortName = false, record, className, tournamentStatus, href }: ClubRankCellProps) {
     const isComplete = tournamentStatus === 'Complete'
     const displayName = useShortName && shortName ? shortName : name
+    
+    const nameElement = href ? (
+        <Link href={href} className="overflow-hidden lg:max-w-none max-w-22 text-ellipsis hover:underline">
+            {displayName}
+        </Link>
+    ) : (
+        <span className="overflow-hidden lg:max-w-none max-w-22 text-ellipsis">{displayName}</span>
+    )
     
     return (
         <TableCell className={cn("h-12 py-0 font-medium font-headers lg:pr-10 pr-3 text-xs lg:sm", className)}>
@@ -39,7 +49,7 @@ export function ClubRankCell({ placement, logo, name, shortName, useShortName = 
                             />
                         </div>
                     )}
-                    <span className="overflow-hidden lg:max-w-none max-w-22 text-ellipsis">{displayName}</span>
+                    {nameElement}
                 </div>
                 {record && (
                     <span className="min-w-10 text-right flex-grow">{record}</span>

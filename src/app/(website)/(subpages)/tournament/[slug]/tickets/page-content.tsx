@@ -94,7 +94,7 @@ export default function TicketsPageContent({ tournament }: Props) {
                     {ticketingFaqs.map((faq) => (
                       <AccordionItem key={faq.id} value={faq.id}>
                         <AccordionTrigger>
-                          <strong>{faq.question}</strong>
+                          <span className="font-medium">{faq.question}</span>
                         </AccordionTrigger>
                         <AccordionContent>
                           {faq.answer}

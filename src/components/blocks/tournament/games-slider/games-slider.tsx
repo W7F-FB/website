@@ -6,7 +6,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { CaretRightIcon } from '@/components/website-base/icons'
 import { cn } from '@/lib/utils'
 import { MatchCard } from '@/components/blocks/match/match-card'
-import { normalizeOptaId } from '@/lib/opta/utils'
+import { normalizeOptaId, getStatusDisplay } from '@/lib/opta/utils'
 import { GamesSliderFilter } from './games-slider-filter'
 import { useGamesSliderCollapse } from './games-slider-collapse-context'
 import type { TournamentDocument, TeamDocument } from '../../../../../prismicio-types'
@@ -52,6 +52,10 @@ export function GamesSlider({ groupedFixtures, prismicTeams, optaTeams, tourname
     return groupedFixtures.get(selectedDate) || []
   }, [groupedFixtures, selectedDate])
 
+  const liveMatchIndex = useMemo(() => {
+    return filteredFixtures.findIndex(fixture => getStatusDisplay(fixture.MatchInfo) === "Live")
+  }, [filteredFixtures])
+
   useEffect(() => {
     if (!api) return
 
@@ -70,6 +74,11 @@ export function GamesSlider({ groupedFixtures, prismicTeams, optaTeams, tourname
       api.off("reInit", onSelect)
     }
   }, [api])
+
+  useEffect(() => {
+    if (!api || liveMatchIndex === -1) return
+    api.scrollTo(liveMatchIndex)
+  }, [api, liveMatchIndex])
 
   return (
     <motion.div 

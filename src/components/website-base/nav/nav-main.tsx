@@ -7,7 +7,7 @@ import {
   NavigationMenuList,
   NavigationMenuItem,
   NavigationMenuTrigger,
-  NavigationMenuContentAnimated,
+  NavigationMenuContent,
   NavigationMenuLink,
   MobileNavigationTrigger,
 } from "@/components/ui/navigation-menu"
@@ -31,6 +31,7 @@ import { dev } from "@/lib/dev"
 import { BroadcastPartnerLink } from "@/components/blocks/broadcast-partner"
 import { InformationCircleIcon } from "../icons"
 import { StreamingAvailabilityDialog } from "@/components/blocks/streaming-availability-dialog"
+import { PrismicNextImage } from "@prismicio/next"
 
 const exploreNavItems = [
   { href: "/news", label: "News", key: "nav-news" },
@@ -82,9 +83,19 @@ async function NavMain({ showBreadcrumbs, pathname, customBreadcrumbs, groupedFi
 
   const hasGamesSlider = !!(groupedFixtures && groupedFixtures.size > 0 && prismicTeams && optaTeams && tournament)
 
+  const navImageUrls = [
+    ...tournaments.filter(t => t.data.nav_image?.url).map(t => t.data.nav_image),
+    ...navSettings?.broadcastPartners?.filter(p => p.data.logo_white?.url).map(p => p.data.logo_white) || [],
+  ]
+
   return (
     <GamesSliderCollapseProvider collapsable={hasGamesSlider}>
     <div className={cn("sticky top-0 z-50 w-full border-b border-border/50 bg-background backdrop-blur supports-[backdrop-filter]:bg-background/90", groupedFixtures && groupedFixtures.size > 0 && "bg-background supports-[backdrop-filter]:bg-background")}>
+      <div className="sr-only" aria-hidden="true">
+        {navImageUrls.map((image, i) => (
+          <PrismicNextImage key={i} field={image} priority loading="eager" width={1} height={1} fallbackAlt="" />
+        ))}
+      </div>
       <nav>
         <PaddingGlobal>
           <div className="mx-auto flex w-full items-center gap-4 lg:gap-12 h-18">
@@ -107,7 +118,7 @@ async function NavMain({ showBreadcrumbs, pathname, customBreadcrumbs, groupedFi
               <NavigationMenuList className="lg:gap-2">
                 <NavigationMenuItem>
                   <NavigationMenuTrigger><span>Events & Tickets</span></NavigationMenuTrigger>
-                  <NavigationMenuContentAnimated className="right-auto !w-max">
+                  <NavigationMenuContent className="right-auto !w-max">
                     {(() => {
                       const featuredTournament = tournaments.find(t => t.data.featured === true)
                       const otherTournaments = tournaments.filter(t => t.data.featured !== true)
@@ -213,11 +224,11 @@ async function NavMain({ showBreadcrumbs, pathname, customBreadcrumbs, groupedFi
                         </div>
                       )
                     })()}
-                  </NavigationMenuContentAnimated>
+                  </NavigationMenuContent>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
                   <NavigationMenuTrigger><span>Explore</span></NavigationMenuTrigger>
-                  <NavigationMenuContentAnimated className="!w-max lg:w-[320px]">
+                  <NavigationMenuContent className="!w-max lg:w-[320px]">
                     <ul className="grid gap-1">
                       {exploreNavItems.map((item) => (
                         <li key={item.key}>
@@ -228,7 +239,7 @@ async function NavMain({ showBreadcrumbs, pathname, customBreadcrumbs, groupedFi
                         </li>
                       ))}
                     </ul>
-                  </NavigationMenuContentAnimated>
+                  </NavigationMenuContent>
                 </NavigationMenuItem>
 
                 <NavigationMenuItem className="hidden lg:block">

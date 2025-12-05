@@ -1,5 +1,5 @@
 import { Section } from "@/components/website-base/padding-containers"
-import type { TeamDocument } from "../../../../prismicio-types"
+import type { TeamDocument, BroadcastPartnersDocument } from "../../../../prismicio-types"
 import { GroupList, GroupListPrismic } from "@/components/blocks/tournament/group-list"
 import type { F3StandingsResponse } from "@/types/opta-feeds/f3-standings"
 import type { F1FixturesResponse } from "@/types/opta-feeds/f1-fixtures"
@@ -20,6 +20,7 @@ type GroupStageSectionProps = {
     matchSlugMap?: Map<string, string>
     compact?: boolean
     streamingLink?: string | null
+    broadcastPartners?: BroadcastPartnersDocument[]
 }
 
 export function GroupStageSection({ 
@@ -29,14 +30,15 @@ export function GroupStageSection({
     tournamentSlug,
     matchSlugMap,
     compact = false,
-    streamingLink
+    streamingLink,
+    broadcastPartners
 }: GroupStageSectionProps) {
     const groupStageMatches = getGroupStageMatches(f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData)
     const matchesByDay = groupMatchesByDate(groupStageMatches)
     const totalMatches = groupStageMatches.length
 
     return (
-        <Section padding="md" id="results">
+        <Section padding="md" id="group-stage">
             <SectionHeading variant="split">
                 <SectionHeadingHeading>
                     Group Stage
@@ -103,6 +105,7 @@ export function GroupStageSection({
                                             allMatches={f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData}
                                             f3StandingsData={f3StandingsData}
                                             streamingLink={streamingLink}
+                                            broadcastPartners={broadcastPartners}
                                         />
                                     ))}
                                     {emptyCells > 0 && (

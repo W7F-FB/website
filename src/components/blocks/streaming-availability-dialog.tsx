@@ -6,6 +6,7 @@ import {
     ResponsiveDialogContent,
     ResponsiveDialogHeader,
     ResponsiveDialogTitle,
+    ResponsiveDialogDescription,
     ResponsiveDialogBody,
 } from "@/components/ui/responsive-dialog"
 import { BroadcastPartnerLink } from "./broadcast-partner"
@@ -41,6 +42,7 @@ export function StreamingAvailabilityDialog({
             <ResponsiveDialogContent className="sm:max-w-[600px]">
                 <ResponsiveDialogHeader>
                     <ResponsiveDialogTitle className="text-2xl">Streaming Availability</ResponsiveDialogTitle>
+                    <ResponsiveDialogDescription className="sr-only">View streaming options by region</ResponsiveDialogDescription>
                 </ResponsiveDialogHeader>
                 <ResponsiveDialogBody className="flex flex-col gap-6">
                     {dazn && (

@@ -1,6 +1,6 @@
 'use client';
 
-import { Fragment, useState, useMemo } from "react"
+import { Fragment, useState, useMemo, useCallback } from "react"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import type { TeamDocument } from "../../../../../prismicio-types"
 import type { F30SeasonStatsResponse } from "@/types/opta-feeds/f30-season-stats"
@@ -13,6 +13,14 @@ import { LinePattern } from "@/components/blocks/line-pattern"
 import { ClubRankCell } from "@/components/blocks/tournament/club-rank-cell"
 import { useIsTablet } from "@/hooks/use-tablet"
 import { normalizeOptaId } from "@/lib/opta/utils"
+
+const placementOrder: Record<string, number> = {
+    '1st': 1,
+    '2nd': 2,
+    '3rd': 3,
+    '4th': 4,
+    'E': 5
+}
 
 type StatSheetTeamsTableProps = {
     prismicTeams: TeamDocument[]
@@ -39,6 +47,7 @@ type TeamRowData = {
     cards: number
     groupId?: number
     groupName?: string
+    href: string
 }
 
 export function StatSheetTeamsTable({ prismicTeams, f30TeamStats, f1FixturesData, f3StandingsData, tournamentStatus, isKnockoutStage }: StatSheetTeamsTableProps) {
@@ -53,9 +62,9 @@ export function StatSheetTeamsTable({ prismicTeams, f30TeamStats, f1FixturesData
     
     const teamRecords = calculateTeamRecordsFromMatches(f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData)
     
-    const optaTeams = f1FixturesData?.SoccerFeed?.SoccerDocument?.Team || []
+    const optaTeams = useMemo(() => f1FixturesData?.SoccerFeed?.SoccerDocument?.Team || [], [f1FixturesData])
     
-    const getKnockoutPlacement = (teamOptaId: string | null | undefined): string => {
+    const getKnockoutPlacement = useCallback((teamOptaId: string | null | undefined): string => {
         if (!teamOptaId) return 'E'
         
         const teamId = `t${teamOptaId}`
@@ -71,24 +80,16 @@ export function StatSheetTeamsTable({ prismicTeams, f30TeamStats, f1FixturesData
         }
         
         return 'E'
-    }
+    }, [finalMatch, thirdPlaceMatch])
 
-    const getGroupPlacement = (teamOptaId: string | null | undefined, groupId: number): string => {
+    const getGroupPlacement = useCallback((teamOptaId: string | null | undefined, groupId: number): string => {
         if (!teamOptaId) return '-'
         
         const rankings = getTeamRankings(f3StandingsData, groupId)
         const normalizedTeamRef = normalizeOptaId(`t${teamOptaId}`)
         
         return rankings.get(normalizedTeamRef) ?? '-'
-    }
-
-    const placementOrder: Record<string, number> = {
-        '1st': 1,
-        '2nd': 2,
-        '3rd': 3,
-        '4th': 4,
-        'E': 5
-    }
+    }, [f3StandingsData])
 
     const groupData = useMemo(() => {
         if (isKnockoutStage) return null
@@ -121,7 +122,7 @@ export function StatSheetTeamsTable({ prismicTeams, f30TeamStats, f1FixturesData
         return groups.sort((a, b) => a.groupId - b.groupId)
     }, [isKnockoutStage, prismicTeams, f3StandingsData])
 
-    const buildTeamRowData = (team: TeamDocument, groupId?: number, groupName?: string): TeamRowData => {
+    const buildTeamRowData = useCallback((team: TeamDocument, groupId?: number, groupName?: string): TeamRowData => {
         const optaId = team.data.opta_id
         const stats = optaId ? f30TeamStats.get(optaId) : null
         const teamId = optaId ? `t${optaId}` : null
@@ -163,9 +164,10 @@ export function StatSheetTeamsTable({ prismicTeams, f30TeamStats, f1FixturesData
             fouls,
             cards: totalCards,
             groupId,
-            groupName
+            groupName,
+            href: `/club/${team.uid}`
         }
-    }
+    }, [f30TeamStats, teamRecords, optaTeams, isKnockoutStage, getKnockoutPlacement, getGroupPlacement])
 
     const knockoutTableData = useMemo(() => {
         if (!isKnockoutStage) return []
@@ -173,7 +175,7 @@ export function StatSheetTeamsTable({ prismicTeams, f30TeamStats, f1FixturesData
         return prismicTeams.map(team => buildTeamRowData(team)).sort((a, b) => {
             return placementOrder[a.placement] - placementOrder[b.placement]
         })
-    }, [isKnockoutStage, prismicTeams, f30TeamStats, f1FixturesData, teamRecords, optaTeams])
+    }, [isKnockoutStage, prismicTeams, buildTeamRowData])
 
     if (isKnockoutStage) {
         return (
@@ -201,6 +203,7 @@ export function StatSheetTeamsTable({ prismicTeams, f30TeamStats, f1FixturesData
                                                 shortName={row.shortName}
                                                 useShortName={isTablet}
                                                 tournamentStatus={tournamentStatus}
+                                                href={row.href}
                                             />
                                         </TableRow>
                                         {row.placement === '4th' && (
@@ -301,6 +304,7 @@ export function StatSheetTeamsTable({ prismicTeams, f30TeamStats, f1FixturesData
                                                     name={row.name}
                                                     shortName={row.shortName}
                                                     useShortName={isTablet}
+                                                    href={row.href}
                                                 />
                                             </TableRow>
                                         )
