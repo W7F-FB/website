@@ -4,7 +4,7 @@ import { FaFacebookF, FaInstagram, FaXTwitter, FaTiktok } from "react-icons/fa6"
 import { Logo } from "@/components/website-base/logo"
 import { getPoliciesForNav } from "@/cms/queries/policies"
 import { getFooterData } from "@/cms/queries/website"
-import { getAllSponsors } from "@/cms/queries/sponsors"
+import { getVisibleSponsors } from "@/cms/queries/sponsors"
 import FormFooterSubscribe from "@/components/forms/form-footer-subscribe"
 import { SponsorLogo } from "@/components/blocks/sponsor-logo"
 
@@ -42,7 +42,7 @@ async function PolicyLinks() {
 
 const FooterMain = React.forwardRef<HTMLElement, React.ComponentProps<"footer">>(async ({ className, ...props }, ref) => {
   const footerData = await getFooterData()
-  const sponsors = await getAllSponsors()
+  const sponsors = await getVisibleSponsors()
 
   return (
     <div className="mt-24">
