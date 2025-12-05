@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button"
 import { Table, TableBody, TableRow, TableCell, TableHeader } from "@/components/ui/table"
 import { ReplayIcon } from "@/components/website-base/icons"
 import { normalizeOptaId } from "@/lib/opta/utils"
+import { buildMatchUrl } from "@/lib/match-url"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 import { NavigationMenuTournament } from "@/components/website-base/nav/nav-tournament-item"
 import { cn } from "@/lib/utils"
@@ -49,9 +50,10 @@ type Props = {
     currentTournament?: TournamentDocument | null
     prismicTeams?: TeamDocument[]
     tournamentDocuments?: TournamentDocument[]
+    matchSlugMap?: Map<string, string>
 }
 
-export function TeamStatsCard({ team, standings, fixtures, currentTournament, prismicTeams = [], tournamentDocuments = [] }: Props) {
+export function TeamStatsCard({ team, standings, fixtures, currentTournament, prismicTeams = [], tournamentDocuments = [], matchSlugMap }: Props) {
 
     const teamStanding = team.data.opta_id
         ? standings?.SoccerFeed?.SoccerDocument?.Competition?.TeamStandings
@@ -370,13 +372,17 @@ export function TeamStatsCard({ team, standings, fixtures, currentTournament, pr
                                     <div className="text-xs md:text-sm font-headers font-semibold whitespace-nowrap">
                                         {result.teamScore}-{result.opponentScore}
                                     </div>
-                                    <div className="shrink-0">
-                                        <Button size="sm" variant="outline" className="h-6 md:h-7 px-1 md:px-2 text-xs gap-1" asChild>
-                                            <Link href={`/match/${normalizeOptaId(result.matchId)}`}>
-                                                <ReplayIcon className="size-2.5 md:size-3" />
-                                            </Link>
-                                        </Button>
-                                    </div>
+                                    {currentTournament && (
+                                        <div className="shrink-0">
+                                            <Button size="sm" variant="outline" className="h-6 md:h-7 px-1 md:px-2 text-xs gap-1" asChild>
+                                                <Link href={matchSlugMap?.get(normalizeOptaId(result.matchId)) 
+                                                    ? buildMatchUrl(currentTournament.uid, matchSlugMap.get(normalizeOptaId(result.matchId))!) 
+                                                    : `/tournament/${currentTournament.uid}`}>
+                                                    <ReplayIcon className="size-2.5 md:size-3" />
+                                                </Link>
+                                            </Button>
+                                        </div>
+                                    )}
                                 </div>
                             </TableCell>
                         </TableRow>

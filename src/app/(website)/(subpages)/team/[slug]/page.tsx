@@ -1,6 +1,7 @@
 import { getF40Squads, getF3Standings, getF1Fixtures, getF30SeasonStats } from "@/app/api/opta/feeds";
 import { getTeamByUid, getTeamsByOptaIds } from "@/cms/queries/team";
 import { getNavigationTournaments, getTournamentByUid } from "@/cms/queries/tournaments";
+import { buildMatchSlugMap } from "@/lib/match-url";
 import { getBlogsByTournament } from "@/cms/queries/blog";
 import { notFound } from "next/navigation";
 import { isFilled } from "@prismicio/client";
@@ -80,6 +81,7 @@ export default async function TeamPage({ params }: Props) {
   const prismicTeams = await getTeamsByOptaIds(uniqueOptaIds).catch(() => []);
 
   const currentTournament = tournaments.length > 0 ? tournaments[0] : null;
+  const matchSlugMap = currentTournament ? buildMatchSlugMap(currentTournament) : undefined;
 
   const teamOptaIdWithPrefix = teamOptaId?.toString().startsWith("t") ? teamOptaId : `t${teamOptaId}`;
 
@@ -134,6 +136,7 @@ export default async function TeamPage({ params }: Props) {
               teamBlogs={teamBlogs}
               seasonStats={f30SeasonStats}
               tournamentDocuments={tournamentDocuments}
+              matchSlugMap={matchSlugMap}
             />
           </PaddingGlobal>
         </div>

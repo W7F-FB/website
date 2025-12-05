@@ -10,9 +10,11 @@ interface UpcomingMatchProps {
   fixtures?: F1FixturesResponse | null;
   prismicTeams?: TeamDocument[];
   optaTeams?: F40Team[];
+  tournamentSlug: string;
+  matchSlugMap?: Map<string, string>;
 }
 
-export function UpcomingMatch({ team, fixtures, prismicTeams = [], optaTeams = [] }: UpcomingMatchProps) {
+export function UpcomingMatch({ team, fixtures, prismicTeams = [], optaTeams = [], tournamentSlug, matchSlugMap }: UpcomingMatchProps) {
   const teamOptaRef = `t${team.data.opta_id}`;
   const allMatches = fixtures?.SoccerFeed?.SoccerDocument?.MatchData || [];
 
@@ -40,6 +42,8 @@ export function UpcomingMatch({ team, fixtures, prismicTeams = [], optaTeams = [
             fixture={nextMatch}
             prismicTeams={prismicTeams}
             optaTeams={optaTeams}
+            tournamentSlug={tournamentSlug}
+            matchSlugMap={matchSlugMap}
             className="bg-transparent border-0"
           />
         ) : (

@@ -68,6 +68,7 @@ export function ScheduleTabs({ tournamentSlug }: ScheduleTabsProps) {
                                 { title: "Semi-Finals", gatesOpen: "9:30 AM", matches: "2 Matches", time: "11:30 - 3:30 PM", icon: SoccerIcon },
                                 { title: "3rd Place Match", time: "3:00 - 4:00 PM", icon: SoccerIcon },
                                 { title: "Championship Match", time: "4:30 - 5:30 PM", icon: ChampionIcon },
+                                { title: "Awards Ceremony", time: "5:30 PM" },
                             ]}
                         />
                     </div>

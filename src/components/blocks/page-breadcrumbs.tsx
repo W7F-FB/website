@@ -14,6 +14,9 @@ import {
 import { generateBreadcrumbs } from "@/lib/utils";
 import { PaddingGlobal } from "../website-base/padding-containers";
 import { LinePattern } from "./line-pattern";
+import { CollapseIcon, CollapseReverseIcon } from "../website-base/icons";
+import { Button } from "../ui/button";
+import { useGamesSliderCollapse } from "./tournament/games-slider/games-slider-collapse-context";
 
 type BreadcrumbItem = {
   label: string | React.ReactNode;
@@ -29,9 +32,10 @@ export function PageBreadcrumbs({ pathname, customBreadcrumbs }: PageBreadcrumbs
   const clientPathname = usePathname();
   const currentPathname = pathname ?? clientPathname;
   const breadcrumbs = customBreadcrumbs ?? generateBreadcrumbs(currentPathname);
+  const { isCollapsed, toggleCollapse, collapsable } = useGamesSliderCollapse();
 
   return (
-    <Breadcrumb className="relative overflow-hidden">
+    <Breadcrumb className="relative overflow-hidden pr-8">
       <div className="absolute -z-10 mt-px">
         <LinePattern patternSize={5} className="absolute w-[200vw] h-[100vh] top-0left-0 " />
       </div>
@@ -51,7 +55,13 @@ export function PageBreadcrumbs({ pathname, customBreadcrumbs }: PageBreadcrumbs
           ])}
         </BreadcrumbList>
       </PaddingGlobal>
+      {collapsable && (
+        <div className="absolute right-0 top-0 h-full">
+          <Button variant="outline" size="icon" className="h-full border-border/50 border-y-0 border-r-0" onClick={toggleCollapse}>
+            {isCollapsed ? <CollapseReverseIcon className="size-3" /> : <CollapseIcon className="size-3" />}
+          </Button>
+        </div>
+      )}
     </Breadcrumb>
   );
 }
-

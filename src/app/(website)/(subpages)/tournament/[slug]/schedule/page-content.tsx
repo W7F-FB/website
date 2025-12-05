@@ -5,7 +5,7 @@ import { SubpageHeroSecondary } from "@/components/blocks/subpage-hero"
 import { Button } from "@/components/ui/button"
 import { PalmtreeIcon, WhistleIcon, ChampionIcon } from "@/components/website-base/icons"
 import { SectionHeading, SectionHeadingHeading, SectionHeadingText, SectionHeadingSubtitle } from "@/components/sections/section-heading"
-import { MatchCard } from "@/components/blocks/match/match-card"
+import { PrismicMatchCard } from "@/components/blocks/match/prismic-match-card"
 import { getGroupStageMatchesPrismic, getSemiFinalMatchesPrismic, getThirdPlaceMatchPrismic, getFinalMatchPrismic, groupMatchesByDatePrismic, sortMatchesByNumber } from "../../utils"
 import { MatchDayBadge } from "@/components/blocks/tournament/match-day-badge"
 import { formatDateRange, formatCurrencyInWords, mapBlogDocumentToMetadata } from "@/lib/utils"
@@ -171,11 +171,9 @@ export default function TournamentSchedulePageContent({ tournament, tournamentBl
                                                     </div>
                                                     <div className={cn("grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6", compact && "md:grid-cols-3")}>
                                                         {matches.map((match) => (
-                                                            <MatchCard
+                                                            <PrismicMatchCard
                                                                 key={match.id}
                                                                 prismicMatch={match}
-                                                                compact={compact}
-                                                                optaEnabled={false}
                                                             />
                                                         ))}
                                                         {emptyCells > 0 && (
@@ -235,11 +233,9 @@ export default function TournamentSchedulePageContent({ tournament, tournamentBl
                                                             <MatchDayBadge matchDay={matchDayNumber} date={date} />
                                                             <div className={cn("grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6", compact && "md:grid-cols-3")}>
                                                                 {matches.map((match) => (
-                                                                    <MatchCard
+                                                                    <PrismicMatchCard
                                                                         key={match.id}
                                                                         prismicMatch={match}
-                                                                        compact={compact}
-                                                                        optaEnabled={false}
                                                                     />
                                                                 ))}
                                                                 {emptyCells > 0 && (
@@ -287,39 +283,31 @@ export default function TournamentSchedulePageContent({ tournament, tournamentBl
                                 <div className="max-w-3xl w-full space-y-4 md:space-y-6">
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                                         {semiFinalMatches[0] && (
-                                            <MatchCard
+                                            <PrismicMatchCard
                                                 prismicMatch={semiFinalMatches[0]}
-                                                compact={compact}
                                                 banner="Semi Final 1"
-                                                optaEnabled={false}
                                             />
                                         )}
                                         {semiFinalMatches[1] && (
-                                            <MatchCard
+                                            <PrismicMatchCard
                                                 prismicMatch={semiFinalMatches[1]}
-                                                compact={compact}
                                                 banner="Semi Final 2"
-                                                optaEnabled={false}
                                             />
                                         )}
                                     </div>
                                     {thirdPlaceMatches.map((match) => (
-                                        <MatchCard
+                                        <PrismicMatchCard
                                             key={match.id}
                                             prismicMatch={match}
-                                            compact={compact}
                                             banner="Third Place Match"
-                                            optaEnabled={false}
                                         />
                                     ))}
                                     <Separator variant="gradient" className="my-12" />
                                     {finalMatches.map((match) => (
-                                        <MatchCard
+                                        <PrismicMatchCard
                                             key={match.id}
                                             prismicMatch={match}
-                                            compact={compact}
                                             banner="The Final"
-                                            optaEnabled={false}
                                         />
                                     ))}
                                     <Card className={cn("py-12 px-8 text-center bg-card/50 border-border/50 gap-0 relative flex flex-col items-center justify-center overflow-hidden w-full mt-6")}>

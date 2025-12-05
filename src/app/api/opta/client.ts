@@ -3,6 +3,7 @@
 
 import { XMLParser } from 'fast-xml-parser';
 import { F1FixturesResponse } from '@/types/opta-feeds/f1-fixtures';
+import { F2MatchPreviewsResponse } from '@/types/opta-feeds/f2-match-preview';
 import { F3StandingsResponse } from '@/types/opta-feeds/f3-standings';
 import { F9MatchResponse } from '@/types/opta-feeds/f9-match';
 import { F13CommentaryResponse, F13LanguageCode } from '@/types/opta-feeds/f13-commentary';
@@ -113,7 +114,39 @@ export class OptaClient {
     return parsed as F1FixturesResponse;
   }
 
+  async getF2MatchPreview(matchId: string | number): Promise<F2MatchPreviewsResponse> {
+    const params = {
+      feed_type: 'F2',
+      game_id: matchId,
+    };
+
+    const queryParams = new URLSearchParams({
+      user: this.username,
+      psw: this.password,
+      ...Object.fromEntries(
+        Object.entries(params).map(([key, value]) => [key, String(value)])
+      )
+    });
+
+    const url = `${this.baseUrl}/?${queryParams.toString()}`;
+    dev.log('F2 Feed Request URL:', url);
+
+    const response = await this.makeDirectRequest(params);
+
+    const xmlText = await response.text();
+    const parsed = this.xmlParser.parse(xmlText);
+    return parsed as F2MatchPreviewsResponse;
+  }
+
   async getF3Standings(competitionId: string | number, seasonId: string | number): Promise<F3StandingsResponse> {
+    const url = `${this.baseUrl}/competition.php?${new URLSearchParams({
+      user: this.username,
+      psw: this.password,
+      feed_type: 'f3',
+      competition: String(competitionId),
+      season_id: String(seasonId),
+    }).toString()}`
+    dev.log('F3 Feed Request URL:', url)
     const response = await this.makeRequest({
       feed_type: 'f3',
       competition: competitionId,

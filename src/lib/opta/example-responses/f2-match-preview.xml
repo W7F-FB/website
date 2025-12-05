@@ -1,0 +1,1464 @@
+This XML file does not appear to have any style information associated with it. The document tree is shown below.
+<!--  Copyright 2001-2023 Opta Sportsdata Ltd. All rights reserved.  -->
+<!--  PRODUCTION HEADER
+     produced on:        gslopta-djobq06.nexus.opta.net
+     production time:    20230101T060019,463Z
+     production module:  Opta::Feed::XML::Soccer::F2
+ -->
+<MatchPreviews>
+<Match MatchdayId="d19" AwayId="t43" HomeId="t8" Id="f2292993">
+<Rankings>
+<Team uID="t43">
+<Home>
+<Stat Type="last_goal_scored">
+<Rank Level="1" Total="3">
+<Player>p223094</Player>
+</Rank>
+<Rank Total="1" Level="2">
+<Player>p461358</Player>
+<Player>p61366</Player>
+</Rank>
+</Stat>
+<Stat Type="goals_scored">
+<Rank Total="14" Level="1">
+<Player>p223094</Player>
+</Rank>
+<Rank Level="2" Total="6">
+<Player>p209244</Player>
+</Rank>
+<Rank Level="3" Total="3">
+<Player>p461358</Player>
+</Rank>
+</Stat>
+<Stat Type="first_goal_scored">
+<Rank Level="1" Total="3">
+<Player>p223094</Player>
+</Rank>
+<Rank Total="1" Level="2">
+<Player>p461358</Player>
+<Player>p121145</Player>
+<Player>p59859</Player>
+<Player>p209244</Player>
+</Rank>
+</Stat>
+</Home>
+<Overall>
+<Stat Type="last_goal_scored">
+<Rank Level="1" Total="4">
+<Player>p223094</Player>
+</Rank>
+<Rank Total="2" Level="2">
+<Player>p61366</Player>
+</Rank>
+<Rank Total="1" Level="3">
+<Player>p461358</Player>
+</Rank>
+</Stat>
+<Stat Type="first_goal_scored">
+<Rank Level="1" Total="5">
+<Player>p223094</Player>
+</Rank>
+<Rank Total="2" Level="2">
+<Player>p59859</Player>
+</Rank>
+<Rank Level="3" Total="1">
+<Player>p220566</Player>
+</Rank>
+</Stat>
+<Stat Type="goals_scored">
+<Rank Level="1" Total="21">
+<Player>p223094</Player>
+</Rank>
+<Rank Total="7" Level="2">
+<Player>p209244</Player>
+</Rank>
+<Rank Total="3" Level="3">
+<Player>p61366</Player>
+</Rank>
+</Stat>
+</Overall>
+<Away>
+<Stat Type="first_goal_scored">
+<Rank Level="1" Total="2">
+<Player>p223094</Player>
+</Rank>
+<Rank Total="1" Level="2">
+<Player>p61366</Player>
+<Player>p220566</Player>
+<Player>p59859</Player>
+<Player>p114283</Player>
+</Rank>
+</Stat>
+<Stat Type="goals_scored">
+<Rank Level="1" Total="7">
+<Player>p223094</Player>
+</Rank>
+<Rank Total="1" Level="2">
+<Player>p209244</Player>
+<Player>p114283</Player>
+<Player>p59859</Player>
+<Player>p165809</Player>
+<Player>p220566</Player>
+<Player>p61366</Player>
+</Rank>
+</Stat>
+<Stat Type="last_goal_scored">
+<Rank Level="1" Total="1">
+<Player>p61366</Player>
+<Player>p223094</Player>
+<Player>p165809</Player>
+<Player>p209244</Player>
+</Rank>
+</Stat>
+</Away>
+</Team>
+<Team uID="t8">
+<Home>
+<Stat Type="last_goal_scored">
+<Rank Level="1" Total="1">
+<Player>p184341</Player>
+<Player>p219847</Player>
+<Player>p440323</Player>
+</Rank>
+</Stat>
+<Stat Type="first_goal_scored">
+<Rank Total="2" Level="1">
+<Player>p219847</Player>
+</Rank>
+<Rank Total="1" Level="2">
+<Player>p86129</Player>
+<Player>p103955</Player>
+<Player>p85955</Player>
+</Rank>
+</Stat>
+<Stat Type="goals_scored">
+<Rank Total="3" Level="1">
+<Player>p219847</Player>
+</Rank>
+<Rank Total="2" Level="2">
+<Player>p103955</Player>
+</Rank>
+<Rank Total="1" Level="3">
+<Player>p176413</Player>
+</Rank>
+</Stat>
+</Home>
+<Overall>
+<Stat Type="last_goal_scored">
+<Rank Level="1" Total="2">
+<Player>p184341</Player>
+</Rank>
+<Rank Total="1" Level="2">
+<Player>p219847</Player>
+<Player>p440323</Player>
+<Player>p232787</Player>
+<Player>p85955</Player>
+</Rank>
+</Stat>
+<Stat Type="first_goal_scored">
+<Rank Total="2" Level="1">
+<Player>p85955</Player>
+<Player>p219847</Player>
+<Player>p103955</Player>
+</Rank>
+<Rank Total="1" Level="2">
+<Player>p86129</Player>
+<Player>p184341</Player>
+</Rank>
+</Stat>
+<Stat Type="goals_scored">
+<Rank Level="1" Total="4">
+<Player>p219847</Player>
+</Rank>
+<Rank Total="3" Level="2">
+<Player>p184341</Player>
+<Player>p103955</Player>
+</Rank>
+<Rank Level="3" Total="2">
+<Player>p85955</Player>
+</Rank>
+</Stat>
+</Overall>
+<Away>
+<Stat Type="goals_scored">
+<Rank Level="1" Total="2">
+<Player>p184341</Player>
+</Rank>
+<Rank Level="2" Total="1">
+<Player>p103955</Player>
+<Player>p219847</Player>
+<Player>p54694</Player>
+<Player>p232787</Player>
+<Player>p85955</Player>
+</Rank>
+</Stat>
+<Stat Type="first_goal_scored">
+<Rank Total="1" Level="1">
+<Player>p85955</Player>
+<Player>p184341</Player>
+<Player>p103955</Player>
+</Rank>
+</Stat>
+<Stat Type="last_goal_scored">
+<Rank Total="1" Level="1">
+<Player>p85955</Player>
+<Player>p184341</Player>
+<Player>p232787</Player>
+</Rank>
+</Stat>
+</Away>
+</Team>
+</Rankings>
+<MatchData SeasonId="s2022" CompetitionId="c8">
+<MatchInfo>
+<Venue uID="v35">Stamford Bridge</Venue>
+<Date>2023-01-05 20:00:00</Date>
+</MatchInfo>
+</MatchData>
+<PreviousMeetingsOtherComps>
+<MatchData SeasonId="s2022" Id="f2326236" CompetitionId="c2">
+<MatchInfo>
+<Date>2022-11-09 20:00:00</Date>
+<Venue uID="v2691">Etihad Stadium</Venue>
+</MatchInfo>
+<TeamData Score="2" TeamRef="t43" Side="Home">
+<Goal PlayerRef="p103025" Minute="53" Type="Goal"/>
+<Goal Type="Goal" Minute="58" PlayerRef="p461358"/>
+</TeamData>
+<TeamData Side="Away" Score="0" TeamRef="t8"/>
+</MatchData>
+<MatchData CompetitionId="c5" Id="f2197699" SeasonId="s2020">
+<TeamData Score="0" TeamRef="t43" Side="Home"/>
+<TeamData Side="Away" TeamRef="t8" Score="1">
+<Goal Type="Goal" Minute="42" PlayerRef="p219847"/>
+</TeamData>
+<MatchInfo>
+<Venue uID="v2710" Neutral="true">Estádio do Dragão</Venue>
+<Date>2021-05-29 20:00:00</Date>
+</MatchInfo>
+</MatchData>
+<MatchData SeasonId="s2020" Id="f2198574" CompetitionId="c1">
+<MatchInfo>
+<Date>2021-04-17 17:30:00</Date>
+<Venue uID="v5" Neutral="true">Wembley Stadium</Venue>
+</MatchInfo>
+<TeamData Side="Home" Score="1" TeamRef="t8">
+<Goal Minute="55" Type="Goal" PlayerRef="p124183"/>
+</TeamData>
+<TeamData TeamRef="t43" Score="0" Side="Away"/>
+</MatchData>
+<MatchData SeasonId="s2018" Id="f1045272" CompetitionId="c2">
+<MatchInfo>
+<Date>2019-02-24 16:30:00</Date>
+<Venue uID="v5" Neutral="true">Wembley Stadium</Venue>
+</MatchInfo>
+<TeamData Score="0" TeamRef="t8" Side="Home">
+<Goal Minute="122" Type="Penalty" PlayerRef="p41328"/>
+<Goal Minute="124" Type="Penalty" PlayerRef="p109533"/>
+<Goal PlayerRef="p42786" Type="Penalty" Minute="127"/>
+</TeamData>
+<TeamData Side="Away" Score="0" TeamRef="t43">
+<Goal PlayerRef="p59859" Minute="122" Type="Penalty"/>
+<Goal PlayerRef="p37572" Type="Penalty" Minute="123"/>
+<Goal Type="Penalty" Minute="126" PlayerRef="p165809"/>
+<Goal Type="Penalty" Minute="127" PlayerRef="p103955"/>
+</TeamData>
+</MatchData>
+<MatchData SeasonId="s2018" Id="f984022" CompetitionId="c38">
+<MatchInfo>
+<Venue uID="v5" Neutral="true">Wembley Stadium</Venue>
+<Date>2018-08-05 15:00:00</Date>
+</MatchInfo>
+<TeamData Side="Home" Score="0" TeamRef="t8"/>
+<TeamData Side="Away" Score="2" TeamRef="t43">
+<Goal Type="Goal" Minute="13" PlayerRef="p37572"/>
+<Goal Minute="58" Type="Goal" PlayerRef="p37572"/>
+</TeamData>
+</MatchData>
+<MatchData Id="f846277" SeasonId="s2015" CompetitionId="c1">
+<MatchInfo>
+<Date>2016-02-21 16:00:00</Date>
+<Venue uID="v35">Stamford Bridge</Venue>
+</MatchInfo>
+<TeamData Score="5" TeamRef="t8" Side="Home">
+<Goal Minute="35" Type="Goal" PlayerRef="p18507"/>
+<Goal PlayerRef="p47431" Minute="48" Type="Goal"/>
+<Goal Type="Goal" Minute="53" PlayerRef="p19419"/>
+<Goal Minute="67" Type="Goal" PlayerRef="p42786"/>
+<Goal PlayerRef="p110504" Minute="89" Type="Goal"/>
+</TeamData>
+<TeamData Side="Away" Score="1" TeamRef="t43">
+<Goal Type="Goal" Minute="37" PlayerRef="p213221"/>
+</TeamData>
+</MatchData>
+<MatchData SeasonId="s2013" Id="f743102" CompetitionId="c1">
+<MatchInfo>
+<Venue uID="v2691">Etihad Stadium</Venue>
+<Date>2014-02-15 17:15:00</Date>
+</MatchInfo>
+<TeamData TeamRef="t43" Score="2" Side="Home">
+<Goal Type="Goal" Minute="16" PlayerRef="p50442"/>
+<Goal PlayerRef="p28554" Type="Goal" Minute="67"/>
+</TeamData>
+<TeamData TeamRef="t8" Score="0" Side="Away"/>
+</MatchData>
+<MatchData SeasonId="s2013" Id="f691749" CompetitionId="c34">
+<MatchInfo>
+<Venue Neutral="true" uID="v8046">Yankee Stadium</Venue>
+<Date>2013-05-25 23:06:00</Date>
+</MatchInfo>
+<TeamData Score="3" TeamRef="t8" Side="Home">
+<Goal PlayerRef="p53392" Minute="46" Type="Goal"/>
+<Goal PlayerRef="p53392" Minute="69" Type="Goal"/>
+<Goal PlayerRef="p43670" Minute="82" Type="Goal"/>
+</TeamData>
+<TeamData Score="5" TeamRef="t43" Side="Away">
+<Goal Minute="3" Type="Goal" PlayerRef="p1632"/>
+<Goal PlayerRef="p28554" Minute="29" Type="Goal"/>
+<Goal PlayerRef="p15157" Type="Goal" Minute="55"/>
+<Goal Minute="74" Type="Goal" PlayerRef="p28554"/>
+<Goal PlayerRef="p42544" Minute="84" Type="Goal"/>
+</TeamData>
+</MatchData>
+</PreviousMeetingsOtherComps>
+<PreviousMeetings>
+<MatchData CompetitionId="c8" Id="f2210485" SeasonId="s2021">
+<TeamData TeamRef="t43" Score="1" Side="Home">
+<Goal PlayerRef="p61366" Minute="70" Type="Goal"/>
+</TeamData>
+<TeamData Score="0" TeamRef="t8" Side="Away"/>
+<MatchInfo>
+<Date>2022-01-15 12:30:00</Date>
+<Venue uID="v2691">Etihad Stadium</Venue>
+</MatchInfo>
+</MatchData>
+<MatchData CompetitionId="c8" Id="f2210323" SeasonId="s2021">
+<TeamData Side="Home" TeamRef="t8" Score="0"/>
+<TeamData TeamRef="t43" Score="1" Side="Away">
+<Goal PlayerRef="p205651" Minute="53" Type="Goal"/>
+</TeamData>
+<MatchInfo>
+<Venue uID="v35">Stamford Bridge</Venue>
+<Date>2021-09-25 12:30:00</Date>
+</MatchInfo>
+</MatchData>
+<MatchData SeasonId="s2020" Id="f2128632" CompetitionId="c8">
+<MatchInfo>
+<Date>2021-05-08 17:30:00</Date>
+<Venue uID="v2691">Etihad Stadium</Venue>
+</MatchInfo>
+<TeamData Side="Home" TeamRef="t43" Score="1">
+<Goal PlayerRef="p103955" Minute="44" Type="Goal"/>
+</TeamData>
+<TeamData Side="Away" TeamRef="t8" Score="2">
+<Goal PlayerRef="p124183" Minute="63" Type="Goal"/>
+<Goal PlayerRef="p82263" Minute="92" Type="Goal"/>
+</TeamData>
+</MatchData>
+<MatchData SeasonId="s2020" Id="f2128448" CompetitionId="c8">
+<MatchInfo>
+<Date>2021-01-03 16:30:00</Date>
+<Venue uID="v35">Stamford Bridge</Venue>
+</MatchInfo>
+<TeamData Side="Home" TeamRef="t8" Score="1">
+<Goal Minute="92" Type="Goal" PlayerRef="p209046"/>
+</TeamData>
+<TeamData Side="Away" TeamRef="t43" Score="3">
+<Goal Minute="18" Type="Goal" PlayerRef="p59859"/>
+<Goal PlayerRef="p209244" Type="Goal" Minute="21"/>
+<Goal PlayerRef="p61366" Type="Goal" Minute="34"/>
+</TeamData>
+</MatchData>
+<MatchData SeasonId="s2019" Id="f1060003" CompetitionId="c8">
+<MatchInfo>
+<Date>2020-06-25 20:15:00</Date>
+<Venue uID="v35">Stamford Bridge</Venue>
+</MatchInfo>
+<TeamData TeamRef="t8" Score="2" Side="Home">
+<Goal Minute="36" Type="Goal" PlayerRef="p176413"/>
+<Goal PlayerRef="p47431" Type="Penalty" Minute="78"/>
+</TeamData>
+<TeamData Score="1" TeamRef="t43" Side="Away">
+<Goal Type="Goal" Minute="55" PlayerRef="p61366"/>
+</TeamData>
+</MatchData>
+<MatchData SeasonId="s2019" Id="f1059828" CompetitionId="c8">
+<MatchInfo>
+<Venue uID="v2691">Etihad Stadium</Venue>
+<Date>2019-11-23 17:30:00</Date>
+</MatchInfo>
+<TeamData Score="2" TeamRef="t43" Side="Home">
+<Goal Type="Goal" Minute="29" PlayerRef="p61366"/>
+<Goal Type="Goal" Minute="37" PlayerRef="p103025"/>
+</TeamData>
+<TeamData Score="1" TeamRef="t8" Side="Away">
+<Goal PlayerRef="p116594" Type="Goal" Minute="21"/>
+</TeamData>
+</MatchData>
+<MatchData CompetitionId="c8" Id="f987847" SeasonId="s2018">
+<TeamData Side="Home" TeamRef="t43" Score="6">
+<Goal Minute="4" Type="Goal" PlayerRef="p103955"/>
+<Goal Type="Goal" Minute="13" PlayerRef="p37572"/>
+<Goal PlayerRef="p37572" Type="Goal" Minute="19"/>
+<Goal Type="Goal" Minute="25" PlayerRef="p59859"/>
+<Goal Minute="56" Type="Penalty" PlayerRef="p37572"/>
+<Goal PlayerRef="p103955" Type="Goal" Minute="80"/>
+</TeamData>
+<TeamData Side="Away" Score="0" TeamRef="t8"/>
+<MatchInfo>
+<Date>2019-02-10 16:00:00</Date>
+<Venue uID="v2691">Etihad Stadium</Venue>
+</MatchInfo>
+</MatchData>
+<MatchData CompetitionId="c8" Id="f987746" SeasonId="s2018">
+<TeamData TeamRef="t8" Score="2" Side="Home">
+<Goal PlayerRef="p116594" Minute="45" Type="Goal"/>
+<Goal PlayerRef="p41270" Type="Goal" Minute="78"/>
+</TeamData>
+<TeamData TeamRef="t43" Score="0" Side="Away"/>
+<MatchInfo>
+<Date>2018-12-08 17:30:00</Date>
+<Venue uID="v35">Stamford Bridge</Venue>
+</MatchInfo>
+</MatchData>
+<MatchData CompetitionId="c8" Id="f919178" SeasonId="s2017">
+<TeamData Score="1" TeamRef="t43" Side="Home">
+<Goal Type="Goal" Minute="46" PlayerRef="p165809"/>
+</TeamData>
+<TeamData Score="0" TeamRef="t8" Side="Away"/>
+<MatchInfo>
+<Venue uID="v2691">Etihad Stadium</Venue>
+<Date>2018-03-04 16:00:00</Date>
+</MatchInfo>
+</MatchData>
+<MatchData Id="f918955" SeasonId="s2017" CompetitionId="c8">
+<MatchInfo>
+<Venue uID="v35">Stamford Bridge</Venue>
+<Date>2017-09-30 17:30:00</Date>
+</MatchInfo>
+<TeamData Side="Home" Score="0" TeamRef="t8"/>
+<TeamData Side="Away" TeamRef="t43" Score="1">
+<Goal Minute="67" Type="Goal" PlayerRef="p61366"/>
+</TeamData>
+</MatchData>
+<MatchData CompetitionId="c8" Id="f855479" SeasonId="s2016">
+<TeamData Side="Home" TeamRef="t8" Score="2">
+<Goal Type="Goal" Minute="10" PlayerRef="p42786"/>
+<Goal Minute="35" Type="Goal" PlayerRef="p42786"/>
+</TeamData>
+<TeamData Side="Away" TeamRef="t43" Score="1">
+<Goal PlayerRef="p37572" Minute="26" Type="Goal"/>
+</TeamData>
+<MatchInfo>
+<Date>2017-04-05 20:00:00</Date>
+<Venue uID="v35">Stamford Bridge</Venue>
+</MatchInfo>
+</MatchData>
+<MatchData Id="f855305" SeasonId="s2016" CompetitionId="c8">
+<MatchInfo>
+<Date>2016-12-03 12:30:00</Date>
+<Venue uID="v2691">Etihad Stadium</Venue>
+</MatchInfo>
+<TeamData TeamRef="t43" Score="1" Side="Home"/>
+<TeamData TeamRef="t8" Score="3" Side="Away">
+<Goal Minute="45" Type="Own" PlayerRef="p19419"/>
+<Goal Type="Goal" Minute="60" PlayerRef="p18507"/>
+<Goal PlayerRef="p47431" Type="Goal" Minute="70"/>
+<Goal Type="Goal" Minute="90" PlayerRef="p42786"/>
+</TeamData>
+</MatchData>
+<MatchData CompetitionId="c8" Id="f803495" SeasonId="s2015">
+<TeamData Side="Home" TeamRef="t8" Score="0"/>
+<TeamData TeamRef="t43" Score="3" Side="Away">
+<Goal PlayerRef="p37572" Type="Goal" Minute="33"/>
+<Goal Type="Goal" Minute="54" PlayerRef="p37572"/>
+<Goal PlayerRef="p37572" Minute="80" Type="Penalty"/>
+</TeamData>
+<MatchInfo>
+<Date>2016-04-16 17:30:00</Date>
+<Venue uID="v35">Stamford Bridge</Venue>
+</MatchInfo>
+</MatchData>
+<MatchData CompetitionId="c8" SeasonId="s2015" Id="f803174">
+<TeamData Side="Home" TeamRef="t43" Score="3">
+<Goal Minute="32" Type="Goal" PlayerRef="p37572"/>
+<Goal PlayerRef="p17476" Minute="79" Type="Goal"/>
+<Goal PlayerRef="p27789" Minute="85" Type="Goal"/>
+</TeamData>
+<TeamData Side="Away" Score="0" TeamRef="t8"/>
+<MatchInfo>
+<Venue uID="v2691">Etihad Stadium</Venue>
+<Date>2015-08-16 16:00:00</Date>
+</MatchInfo>
+</MatchData>
+<MatchData CompetitionId="c8" SeasonId="s2014" Id="f755524">
+<TeamData Score="1" TeamRef="t8" Side="Home">
+<Goal PlayerRef="p38419" Minute="41" Type="Goal"/>
+</TeamData>
+<TeamData TeamRef="t43" Score="1" Side="Away">
+<Goal PlayerRef="p20664" Type="Goal" Minute="45"/>
+</TeamData>
+<MatchInfo>
+<Date>2015-01-31 17:30:00</Date>
+<Venue uID="v35">Stamford Bridge</Venue>
+</MatchInfo>
+</MatchData>
+<MatchData CompetitionId="c8" SeasonId="s2014" Id="f755347">
+<TeamData Score="1" TeamRef="t43" Side="Home">
+<Goal PlayerRef="p2051" Minute="85" Type="Goal"/>
+</TeamData>
+<TeamData Side="Away" TeamRef="t8" Score="1">
+<Goal PlayerRef="p66842" Type="Goal" Minute="71"/>
+</TeamData>
+<MatchInfo>
+<Date>2014-09-21 16:00:00</Date>
+<Venue uID="v2691">Etihad Stadium</Venue>
+</MatchInfo>
+</MatchData>
+<MatchData CompetitionId="c8" Id="f695136" SeasonId="s2013">
+<TeamData TeamRef="t43" Score="0" Side="Home"/>
+<TeamData Score="1" TeamRef="t8" Side="Away">
+<Goal Minute="32" Type="Goal" PlayerRef="p41135"/>
+</TeamData>
+<MatchInfo>
+<Venue uID="v2691">Etihad Stadium</Venue>
+<Date>2014-02-03 20:00:00</Date>
+</MatchInfo>
+</MatchData>
+<MatchData CompetitionId="c8" Id="f694982" SeasonId="s2013">
+<TeamData TeamRef="t8" Score="2" Side="Home">
+<Goal Minute="33" Type="Goal" PlayerRef="p66842"/>
+<Goal PlayerRef="p14402" Minute="90" Type="Goal"/>
+</TeamData>
+<TeamData Side="Away" TeamRef="t43" Score="1">
+<Goal PlayerRef="p37572" Minute="49" Type="Goal"/>
+</TeamData>
+<MatchInfo>
+<Date>2013-10-27 16:00:00</Date>
+<Venue uID="v35">Stamford Bridge</Venue>
+</MatchInfo>
+</MatchData>
+<MatchData Id="f442262" SeasonId="s2012" CompetitionId="c8">
+<MatchInfo>
+<Date>2013-02-24 13:30:00</Date>
+<Venue uID="v2691">Etihad Stadium</Venue>
+</MatchInfo>
+<TeamData TeamRef="t43" Score="2" Side="Home">
+<Goal Type="Goal" Minute="63" PlayerRef="p14664"/>
+<Goal Minute="85" Type="Goal" PlayerRef="p20312"/>
+</TeamData>
+<TeamData Side="Away" TeamRef="t8" Score="0"/>
+</MatchData>
+<MatchData Id="f442120" SeasonId="s2012" CompetitionId="c8">
+<MatchInfo>
+<Date>2012-11-25 16:00:00</Date>
+<Venue uID="v35">Stamford Bridge</Venue>
+</MatchInfo>
+<TeamData TeamRef="t8" Score="0" Side="Home"/>
+<TeamData Side="Away" Score="0" TeamRef="t43"/>
+</MatchData>
+<MatchData Id="f360753" SeasonId="s2011" CompetitionId="c8">
+<MatchInfo>
+<Date>2012-03-21 19:45:00</Date>
+<Venue uID="v2691">Etihad Stadium</Venue>
+</MatchInfo>
+<TeamData Side="Home" Score="2" TeamRef="t43">
+<Goal PlayerRef="p37572" Type="Penalty" Minute="78"/>
+<Goal PlayerRef="p28554" Minute="85" Type="Goal"/>
+</TeamData>
+<TeamData Score="1" TeamRef="t8" Side="Away">
+<Goal Minute="60" Type="Goal" PlayerRef="p19419"/>
+</TeamData>
+</MatchData>
+<MatchData CompetitionId="c8" Id="f360611" SeasonId="s2011">
+<TeamData Score="2" TeamRef="t8" Side="Home">
+<Goal Minute="34" Type="Goal" PlayerRef="p19921"/>
+<Goal PlayerRef="p2051" Type="Penalty" Minute="82"/>
+</TeamData>
+<TeamData Side="Away" Score="1" TeamRef="t43">
+<Goal Type="Goal" Minute="2" PlayerRef="p42493"/>
+</TeamData>
+<MatchInfo>
+<Venue uID="v35">Stamford Bridge</Venue>
+<Date>2011-12-12 20:00:00</Date>
+</MatchInfo>
+</MatchData>
+<MatchData CompetitionId="c8" Id="f321949" SeasonId="s2010">
+<TeamData Side="Home" Score="2" TeamRef="t8">
+<Goal Minute="78" Type="Goal" PlayerRef="p41270"/>
+<Goal PlayerRef="p53392" Type="Goal" Minute="92"/>
+</TeamData>
+<TeamData Side="Away" TeamRef="t43" Score="0"/>
+<MatchInfo>
+<Date>2011-03-20 16:00:00</Date>
+<Venue uID="v35">Stamford Bridge</Venue>
+</MatchInfo>
+</MatchData>
+<MatchData CompetitionId="c8" SeasonId="s2010" Id="f321713">
+<TeamData TeamRef="t43" Score="1" Side="Home">
+<Goal Type="Goal" Minute="59" PlayerRef="p20312"/>
+</TeamData>
+<TeamData Score="0" TeamRef="t8" Side="Away"/>
+<MatchInfo>
+<Date>2010-09-25 12:45:00</Date>
+<Venue uID="v2691">Etihad Stadium</Venue>
+</MatchInfo>
+</MatchData>
+<MatchData Id="f284273" SeasonId="s2009" CompetitionId="c8">
+<MatchInfo>
+<Date>2010-02-27 12:45:00</Date>
+<Venue uID="v35">Stamford Bridge</Venue>
+</MatchInfo>
+<TeamData Side="Home" Score="2" TeamRef="t8">
+<Goal PlayerRef="p2051" Minute="42" Type="Goal"/>
+<Goal PlayerRef="p2051" Minute="91" Type="Penalty"/>
+</TeamData>
+<TeamData Side="Away" TeamRef="t43" Score="4">
+<Goal Type="Goal" Minute="46" PlayerRef="p20312"/>
+<Goal PlayerRef="p1231" Minute="51" Type="Goal"/>
+<Goal Minute="76" Type="Penalty" PlayerRef="p20312"/>
+<Goal Type="Goal" Minute="87" PlayerRef="p1231"/>
+</TeamData>
+</MatchData>
+<MatchData CompetitionId="c8" SeasonId="s2009" Id="f284145">
+<TeamData TeamRef="t43" Score="2" Side="Home">
+<Goal Minute="8" Type="Own" PlayerRef="p17500"/>
+<Goal Minute="37" Type="Goal" PlayerRef="p17500"/>
+<Goal PlayerRef="p20312" Minute="56" Type="Goal"/>
+</TeamData>
+<TeamData Side="Away" TeamRef="t8" Score="1"/>
+<MatchInfo>
+<Date>2009-12-05 17:30:00</Date>
+<Venue uID="v2691">Etihad Stadium</Venue>
+</MatchInfo>
+</MatchData>
+<MatchData Id="f266527" SeasonId="s2008" CompetitionId="c8">
+<MatchInfo>
+<Date>2009-03-15 13:30:00</Date>
+<Venue uID="v35">Stamford Bridge</Venue>
+</MatchInfo>
+<TeamData TeamRef="t8" Score="1" Side="Home">
+<Goal PlayerRef="p8442" Minute="18" Type="Goal"/>
+</TeamData>
+<TeamData Side="Away" TeamRef="t43" Score="0"/>
+</MatchData>
+<MatchData CompetitionId="c8" SeasonId="s2008" Id="f266277">
+<TeamData Side="Home" TeamRef="t43" Score="1">
+<Goal PlayerRef="p15107" Minute="13" Type="Goal"/>
+</TeamData>
+<TeamData TeamRef="t8" Score="3" Side="Away">
+<Goal PlayerRef="p10917" Minute="16" Type="Goal"/>
+<Goal Minute="53" Type="Goal" PlayerRef="p2051"/>
+<Goal PlayerRef="p3897" Minute="70" Type="Goal"/>
+</TeamData>
+<MatchInfo>
+<Date>2008-09-13 17:30:00</Date>
+<Venue uID="v2691">Etihad Stadium</Venue>
+</MatchInfo>
+</MatchData>
+<MatchData CompetitionId="c8" Id="f128761" SeasonId="s8">
+<TeamData TeamRef="t43" Score="0" Side="Home">
+<Goal PlayerRef="p1764" Type="Own" Minute="6"/>
+</TeamData>
+<TeamData Score="2" TeamRef="t8" Side="Away">
+<Goal PlayerRef="p37352" Minute="53" Type="Goal"/>
+</TeamData>
+<MatchInfo>
+<Venue uID="v2691">Etihad Stadium</Venue>
+<Date>2008-04-05 15:00:00</Date>
+</MatchInfo>
+</MatchData>
+<MatchData CompetitionId="c8" Id="f128538" SeasonId="s8">
+<TeamData Side="Home" TeamRef="t8" Score="6">
+<Goal PlayerRef="p8442" Type="Goal" Minute="16"/>
+<Goal Type="Goal" Minute="31" PlayerRef="p12303"/>
+<Goal Minute="55" Type="Goal" PlayerRef="p12303"/>
+<Goal Minute="60" Type="Goal" PlayerRef="p2060"/>
+<Goal Minute="75" Type="Goal" PlayerRef="p37352"/>
+<Goal PlayerRef="p6618" Minute="90" Type="Goal"/>
+</TeamData>
+<TeamData Side="Away" TeamRef="t43" Score="0"/>
+<MatchInfo>
+<Date>2007-10-27 15:00:00</Date>
+<Venue uID="v35">Stamford Bridge</Venue>
+</MatchInfo>
+</MatchData>
+<MatchData SeasonId="s7" Id="f44382" CompetitionId="c8">
+<MatchInfo>
+<Date>2007-03-14 20:00:00</Date>
+<Venue uID="v2691">Etihad Stadium</Venue>
+</MatchInfo>
+<TeamData TeamRef="t43" Score="0" Side="Home"/>
+<TeamData Score="1" TeamRef="t8" Side="Away">
+<Goal Type="Penalty" Minute="28" PlayerRef="p2051"/>
+</TeamData>
+</MatchData>
+<MatchData CompetitionId="c8" SeasonId="s7" Id="f44109">
+<TeamData Score="3" TeamRef="t8" Side="Home">
+<Goal Minute="11" Type="Goal" PlayerRef="p1718"/>
+<Goal Minute="26" Type="Goal" PlayerRef="p2051"/>
+<Goal PlayerRef="p12303" Minute="78" Type="Goal"/>
+</TeamData>
+<TeamData Score="0" TeamRef="t43" Side="Away"/>
+<MatchInfo>
+<Venue uID="v35">Stamford Bridge</Venue>
+<Date>2006-08-20 16:00:00</Date>
+</MatchInfo>
+</MatchData>
+<MatchData CompetitionId="c8" SeasonId="s6" Id="f42745">
+<TeamData Side="Home" TeamRef="t8" Score="2">
+<Goal Type="Goal" Minute="30" PlayerRef="p12303"/>
+<Goal PlayerRef="p12303" Minute="33" Type="Goal"/>
+</TeamData>
+<TeamData Score="0" TeamRef="t43" Side="Away"/>
+<MatchInfo>
+<Venue uID="v35">Stamford Bridge</Venue>
+<Date>2006-03-25 15:00:00</Date>
+</MatchInfo>
+</MatchData>
+<MatchData CompetitionId="c8" SeasonId="s6" Id="f40972">
+<TeamData TeamRef="t43" Score="0" Side="Home"/>
+<TeamData Score="1" TeamRef="t8" Side="Away">
+<Goal PlayerRef="p2060" Minute="79" Type="Goal"/>
+</TeamData>
+<MatchInfo>
+<Date>2005-12-28 19:45:00</Date>
+<Venue uID="v2691">Etihad Stadium</Venue>
+</MatchInfo>
+</MatchData>
+<MatchData Id="f6219" SeasonId="s5" CompetitionId="c8">
+<MatchInfo>
+<Venue uID="v35">Stamford Bridge</Venue>
+<Date>2005-02-06 16:05:00</Date>
+</MatchInfo>
+<TeamData TeamRef="t8" Score="0" Side="Home"/>
+<TeamData TeamRef="t43" Score="0" Side="Away"/>
+</MatchData>
+<MatchData SeasonId="s5" Id="f3927" CompetitionId="c8">
+<MatchInfo>
+<Date>2004-10-16 17:15:00</Date>
+<Venue uID="v2691">Etihad Stadium</Venue>
+</MatchInfo>
+<TeamData Side="Home" TeamRef="t43" Score="1">
+<Goal PlayerRef="p3897" Minute="11" Type="Penalty"/>
+</TeamData>
+<TeamData Side="Away" TeamRef="t8" Score="0"/>
+</MatchData>
+<MatchData CompetitionId="c8" SeasonId="s4" Id="f3895">
+<TeamData Side="Home" TeamRef="t43" Score="0"/>
+<TeamData Score="1" TeamRef="t8" Side="Away">
+<Goal Type="Goal" Minute="81" PlayerRef="p1310"/>
+</TeamData>
+<MatchInfo>
+<Date>2004-02-28 15:00:00</Date>
+<Venue uID="v2691">Etihad Stadium</Venue>
+</MatchInfo>
+</MatchData>
+<MatchData SeasonId="s4" Id="f6061" CompetitionId="c8">
+<MatchInfo>
+<Date>2003-10-25 15:00:00</Date>
+<Venue uID="v35">Stamford Bridge</Venue>
+</MatchInfo>
+<TeamData TeamRef="t8" Score="1" Side="Home">
+<Goal Minute="33" Type="Goal" PlayerRef="p4074"/>
+</TeamData>
+<TeamData TeamRef="t43" Score="0" Side="Away"/>
+</MatchData>
+<MatchData SeasonId="s3" Id="f15195" CompetitionId="c8">
+<MatchInfo>
+<Venue uID="v35">Stamford Bridge</Venue>
+<Date>2003-03-22 15:00:00</Date>
+</MatchInfo>
+<TeamData TeamRef="t8" Score="5" Side="Home">
+<Goal PlayerRef="p4074" Type="Goal" Minute="37"/>
+<Goal PlayerRef="p1718" Minute="42" Type="Goal"/>
+<Goal Minute="58" Type="Goal" PlayerRef="p4256"/>
+<Goal Type="Goal" Minute="69" PlayerRef="p2051"/>
+<Goal Minute="79" Type="Goal" PlayerRef="p6254"/>
+</TeamData>
+<TeamData Side="Away" TeamRef="t43" Score="0"/>
+</MatchData>
+<MatchData Id="f15181" SeasonId="s3" CompetitionId="c8">
+<MatchInfo>
+<Date>2002-10-19 15:00:00</Date>
+<Venue uID="v59">Maine Road</Venue>
+</MatchInfo>
+<TeamData Side="Home" TeamRef="t43" Score="0"/>
+<TeamData Side="Away" Score="3" TeamRef="t8">
+<Goal Type="Goal" Minute="69" PlayerRef="p1715"/>
+<Goal PlayerRef="p1715" Minute="84" Type="Goal"/>
+<Goal Minute="85" Type="Goal" PlayerRef="p4074"/>
+</TeamData>
+</MatchData>
+<MatchData SeasonId="s1" Id="f15146" CompetitionId="c8">
+<MatchInfo>
+<Venue uID="v59">Maine Road</Venue>
+<Date>2001-05-19 15:00:00</Date>
+</MatchInfo>
+<TeamData Side="Home" TeamRef="t43" Score="1">
+<Goal PlayerRef="p1838" Minute="39" Type="Goal"/>
+</TeamData>
+<TeamData Side="Away" Score="2" TeamRef="t8">
+<Goal PlayerRef="p1681" Type="Goal" Minute="19"/>
+<Goal PlayerRef="p4074" Type="Goal" Minute="62"/>
+</TeamData>
+</MatchData>
+<MatchData CompetitionId="c8" Id="f15128" SeasonId="s1">
+<TeamData Side="Home" TeamRef="t8" Score="2">
+<Goal PlayerRef="p1715" Type="Goal" Minute="28"/>
+<Goal Type="Goal" Minute="45" PlayerRef="p4074"/>
+</TeamData>
+<TeamData TeamRef="t43" Score="1" Side="Away">
+<Goal PlayerRef="p1190" Type="Goal" Minute="82"/>
+</TeamData>
+<MatchInfo>
+<Date>2000-12-03 16:00:00</Date>
+<Venue uID="v35">Stamford Bridge</Venue>
+</MatchInfo>
+</MatchData>
+<MatchData SeasonId="s14" Id="f14989" CompetitionId="c8">
+<MatchInfo>
+<Venue uID="v35">Stamford Bridge</Venue>
+<Date>1996-03-12 19:45:00</Date>
+</MatchInfo>
+<TeamData TeamRef="t8" Score="1" Side="Home">
+<Goal PlayerRef="p15015" Minute="23" Type="Goal"/>
+</TeamData>
+<TeamData Score="1" TeamRef="t43" Side="Away">
+<Goal PlayerRef="p8003" Minute="42" Type="Goal"/>
+</TeamData>
+</MatchData>
+<MatchData SeasonId="s14" Id="f14978" CompetitionId="c8">
+<MatchInfo>
+<Date>1995-12-23 15:00:00</Date>
+<Venue uID="v59">Maine Road</Venue>
+</MatchInfo>
+<TeamData Score="0" TeamRef="t43" Side="Home"/>
+<TeamData Side="Away" Score="1" TeamRef="t8">
+<Goal Type="Goal" Minute="76" PlayerRef="p1501"/>
+</TeamData>
+</MatchData>
+<MatchData CompetitionId="c8" SeasonId="s13" Id="f14955">
+<TeamData Score="1" TeamRef="t43" Side="Home">
+<Goal Type="Goal" Minute="4" PlayerRef="p16948"/>
+</TeamData>
+<TeamData Side="Away" Score="2" TeamRef="t8">
+<Goal Minute="5" Type="Goal" PlayerRef="p3063"/>
+<Goal PlayerRef="p3063" Type="Goal" Minute="81"/>
+</TeamData>
+<MatchInfo>
+<Venue uID="v59">Maine Road</Venue>
+<Date>1995-03-08 19:45:00</Date>
+</MatchInfo>
+</MatchData>
+<MatchData SeasonId="s13" Id="f14931" CompetitionId="c8">
+<MatchInfo>
+<Venue uID="v35">Stamford Bridge</Venue>
+<Date>1994-08-31 19:45:00</Date>
+</MatchInfo>
+<TeamData TeamRef="t8" Score="3" Side="Home">
+<Goal Type="Goal" Minute="4" PlayerRef="p1501"/>
+<Goal Type="Goal" Minute="73" PlayerRef="p1681"/>
+</TeamData>
+<TeamData Side="Away" Score="0" TeamRef="t43">
+<Goal Minute="83" Type="Own" PlayerRef="p17088"/>
+</TeamData>
+</MatchData>
+<MatchData CompetitionId="c8" Id="f14926" SeasonId="s12">
+<TeamData Side="Home" Score="2" TeamRef="t43">
+<Goal PlayerRef="p22488" Type="Goal" Minute="22"/>
+<Goal Minute="37" Type="Goal" PlayerRef="p8887"/>
+</TeamData>
+<TeamData Score="2" TeamRef="t8" Side="Away">
+<Goal Type="Goal" Minute="15" PlayerRef="p16943"/>
+<Goal PlayerRef="p16919" Type="Goal" Minute="19"/>
+</TeamData>
+<MatchInfo>
+<Date>1994-04-30 15:00:00</Date>
+<Venue uID="v59">Maine Road</Venue>
+</MatchInfo>
+</MatchData>
+<MatchData SeasonId="s12" Id="f14905" CompetitionId="c8">
+<MatchInfo>
+<Venue uID="v35">Stamford Bridge</Venue>
+<Date>1993-11-22 20:00:00</Date>
+</MatchInfo>
+<TeamData TeamRef="t8" Score="0" Side="Home"/>
+<TeamData TeamRef="t43" Score="0" Side="Away"/>
+</MatchData>
+<MatchData SeasonId="s11" Id="f14876" CompetitionId="c8">
+<MatchInfo>
+<Venue uID="v35">Stamford Bridge</Venue>
+<Date>1993-01-09 15:00:00</Date>
+</MatchInfo>
+<TeamData TeamRef="t8" Score="2" Side="Home">
+<Goal PlayerRef="p1757" Type="Own" Minute="54"/>
+<Goal Type="Goal" Minute="77" PlayerRef="p1379"/>
+<Goal Minute="83" Type="Goal" PlayerRef="p2230"/>
+</TeamData>
+<TeamData TeamRef="t43" Score="4" Side="Away">
+<Goal Minute="26" Type="Goal" PlayerRef="p16192"/>
+<Goal PlayerRef="p1071" Type="Goal" Minute="29"/>
+<Goal Minute="87" Type="Goal" PlayerRef="p1071"/>
+</TeamData>
+</MatchData>
+<MatchData CompetitionId="c8" Id="f14863" SeasonId="s11">
+<TeamData Score="0" TeamRef="t43" Side="Home"/>
+<TeamData TeamRef="t8" Score="1" Side="Away">
+<Goal PlayerRef="p11014" Minute="40" Type="Goal"/>
+</TeamData>
+<MatchInfo>
+<Venue uID="v59">Maine Road</Venue>
+<Date>1992-09-20 16:00:00</Date>
+</MatchInfo>
+</MatchData>
+</PreviousMeetings>
+<Averages>
+<Team uID="t8">
+<Home>
+<Stat Type="total_yel_card">2.3</Stat>
+<Stat Type="accurate_fwd_zone_pass">232.6</Stat>
+<Stat Type="duel_won">49.1</Stat>
+<Stat Type="total_red_card">0.1</Stat>
+<Stat Type="draw">0.3</Stat>
+<Stat Type="lost_corners">5.6</Stat>
+<Stat Type="total_pass">518.9</Stat>
+<Stat Type="accurate_cross">3.7</Stat>
+<Stat Type="last_goal_conceded_time">75:41</Stat>
+<Stat Type="total_tackle">20.1</Stat>
+<Stat Type="won_tackle">12.1</Stat>
+<Stat Type="goals">1.7</Stat>
+<Stat Type="fk_foul_lost">9.7</Stat>
+<Stat Type="last_goal_scored_time">70:48</Stat>
+<Stat Type="ontarget_scoring_att">3.6</Stat>
+<Stat Type="total_cross">17.9</Stat>
+<Stat Type="first_goal_scored_time">48:8</Stat>
+<Stat Type="total_scoring_att">7.9</Stat>
+<Stat Type="fk_foul_won">9.6</Stat>
+<Stat Type="total_offside">2.4</Stat>
+<Stat Type="total_fwd_zone_pass">305.7</Stat>
+<Stat Type="first_goal_conceded_time">70:11</Stat>
+<Stat Type="possession_percentage">55.3</Stat>
+<Stat Type="duel_lost">48.0</Stat>
+<Stat Type="accurate_pass">437.4</Stat>
+<Stat Type="goals_conceded">0.9</Stat>
+<Stat Type="win">0.6</Stat>
+<Stat Type="blocked_scoring_att">5.9</Stat>
+<Stat Type="second_yellow">0.1</Stat>
+<Stat Type="lose">0.1</Stat>
+<Stat Type="won_corners">5.9</Stat>
+</Home>
+<Overall>
+<Stat Type="fk_foul_lost">10.1</Stat>
+<Stat Type="last_goal_scored_time">63:52</Stat>
+<Stat Type="goals">1.3</Stat>
+<Stat Type="won_tackle">10.6</Stat>
+<Stat Type="total_scoring_att">7.9</Stat>
+<Stat Type="ontarget_scoring_att">3.9</Stat>
+<Stat Type="first_goal_scored_time">41:26</Stat>
+<Stat Type="total_cross">16.8</Stat>
+<Stat Type="accurate_cross">3.9</Stat>
+<Stat Type="lost_corners">5.5</Stat>
+<Stat Type="total_pass">538.4</Stat>
+<Stat Type="draw">0.2</Stat>
+<Stat Type="total_tackle">18.7</Stat>
+<Stat Type="last_goal_conceded_time">65:44</Stat>
+<Stat Type="total_red_card">0.1</Stat>
+<Stat Type="duel_won">49.7</Stat>
+<Stat Type="accurate_fwd_zone_pass">241.2</Stat>
+<Stat Type="total_yel_card">2.0</Stat>
+<Stat Type="won_corners">5.4</Stat>
+<Stat Type="second_yellow">0.1</Stat>
+<Stat Type="lose">0.3</Stat>
+<Stat Type="blocked_scoring_att">6.9</Stat>
+<Stat Type="accurate_pass">456.0</Stat>
+<Stat Type="goals_conceded">1.1</Stat>
+<Stat Type="duel_lost">48.5</Stat>
+<Stat Type="win">0.5</Stat>
+<Stat Type="possession_percentage">58.5</Stat>
+<Stat Type="total_fwd_zone_pass">312.5</Stat>
+<Stat Type="total_offside">2.0</Stat>
+<Stat Type="fk_foul_won">11.3</Stat>
+<Stat Type="first_goal_conceded_time">48:51</Stat>
+</Overall>
+<Away>
+<Stat Type="total_scoring_att">7.9</Stat>
+<Stat Type="ontarget_scoring_att">4.2</Stat>
+<Stat Type="total_cross">15.9</Stat>
+<Stat Type="first_goal_scored_time">33:23</Stat>
+<Stat Type="fk_foul_lost">10.5</Stat>
+<Stat Type="last_goal_scored_time">55:32</Stat>
+<Stat Type="won_tackle">9.2</Stat>
+<Stat Type="goals">0.9</Stat>
+<Stat Type="total_tackle">17.5</Stat>
+<Stat Type="last_goal_conceded_time">55:47</Stat>
+<Stat Type="total_pass">555.5</Stat>
+<Stat Type="lost_corners">5.5</Stat>
+<Stat Type="accurate_cross">4.1</Stat>
+<Stat Type="draw">0.1</Stat>
+<Stat Type="total_red_card">0.1</Stat>
+<Stat Type="accurate_fwd_zone_pass">248.8</Stat>
+<Stat Type="duel_won">50.1</Stat>
+<Stat Type="total_yel_card">1.8</Stat>
+<Stat Type="lose">0.5</Stat>
+<Stat Type="second_yellow">0.1</Stat>
+<Stat Type="won_corners">5.0</Stat>
+<Stat Type="blocked_scoring_att">7.8</Stat>
+<Stat Type="win">0.4</Stat>
+<Stat Type="accurate_pass">472.2</Stat>
+<Stat Type="goals_conceded">1.4</Stat>
+<Stat Type="duel_lost">48.9</Stat>
+<Stat Type="possession_percentage">61.3</Stat>
+<Stat Type="first_goal_conceded_time">27:31</Stat>
+<Stat Type="total_fwd_zone_pass">318.4</Stat>
+<Stat Type="fk_foul_won">12.9</Stat>
+<Stat Type="total_offside">1.6</Stat>
+</Away>
+</Team>
+<Team uID="t43">
+<Home>
+<Stat Type="accurate_cross">7.1</Stat>
+<Stat Type="lost_corners">1.2</Stat>
+<Stat Type="total_pass">665.9</Stat>
+<Stat Type="draw">0.1</Stat>
+<Stat Type="total_tackle">12.7</Stat>
+<Stat Type="last_goal_conceded_time">58:35</Stat>
+<Stat Type="last_goal_scored_time">68:56</Stat>
+<Stat Type="fk_foul_lost">8.7</Stat>
+<Stat Type="goals">3.4</Stat>
+<Stat Type="won_tackle">7.3</Stat>
+<Stat Type="total_scoring_att">12.9</Stat>
+<Stat Type="first_goal_scored_time">23:52</Stat>
+<Stat Type="ontarget_scoring_att">6.3</Stat>
+<Stat Type="total_cross">24.4</Stat>
+<Stat Type="duel_won">40.2</Stat>
+<Stat Type="accurate_fwd_zone_pass">345.2</Stat>
+<Stat Type="total_yel_card">1.0</Stat>
+<Stat Type="total_red_card">0.1</Stat>
+<Stat Type="goals_conceded">1.1</Stat>
+<Stat Type="accurate_pass">596.7</Stat>
+<Stat Type="duel_lost">35.0</Stat>
+<Stat Type="win">0.8</Stat>
+<Stat Type="won_corners">8.2</Stat>
+<Stat Type="second_yellow">0.0</Stat>
+<Stat Type="lose">0.1</Stat>
+<Stat Type="blocked_scoring_att">11.6</Stat>
+<Stat Type="total_fwd_zone_pass">416.0</Stat>
+<Stat Type="total_offside">1.8</Stat>
+<Stat Type="fk_foul_won">9.0</Stat>
+<Stat Type="first_goal_conceded_time">36:16</Stat>
+<Stat Type="possession_percentage">66.9</Stat>
+</Home>
+<Away>
+<Stat Type="total_fwd_zone_pass">382.6</Stat>
+<Stat Type="total_offside">1.3</Stat>
+<Stat Type="fk_foul_won">8.4</Stat>
+<Stat Type="first_goal_conceded_time">62:6</Stat>
+<Stat Type="possession_percentage">67.4</Stat>
+<Stat Type="goals_conceded">0.9</Stat>
+<Stat Type="accurate_pass">625.7</Stat>
+<Stat Type="duel_lost">37.9</Stat>
+<Stat Type="win">0.6</Stat>
+<Stat Type="won_corners">5.9</Stat>
+<Stat Type="second_yellow">0.0</Stat>
+<Stat Type="lose">0.1</Stat>
+<Stat Type="blocked_scoring_att">8.9</Stat>
+<Stat Type="duel_won">43.6</Stat>
+<Stat Type="accurate_fwd_zone_pass">314.3</Stat>
+<Stat Type="total_yel_card">1.1</Stat>
+<Stat Type="total_red_card">0.0</Stat>
+<Stat Type="accurate_cross">5.1</Stat>
+<Stat Type="lost_corners">3.3</Stat>
+<Stat Type="total_pass">702.4</Stat>
+<Stat Type="draw">0.3</Stat>
+<Stat Type="total_tackle">12.4</Stat>
+<Stat Type="last_goal_conceded_time">68:32</Stat>
+<Stat Type="last_goal_scored_time">59:35</Stat>
+<Stat Type="fk_foul_lost">8.1</Stat>
+<Stat Type="goals">1.9</Stat>
+<Stat Type="won_tackle">7.1</Stat>
+<Stat Type="total_scoring_att">12.4</Stat>
+<Stat Type="first_goal_scored_time">30:44</Stat>
+<Stat Type="ontarget_scoring_att">6.1</Stat>
+<Stat Type="total_cross">18.7</Stat>
+</Away>
+<Overall>
+<Stat Type="draw">0.2</Stat>
+<Stat Type="lost_corners">2.1</Stat>
+<Stat Type="total_pass">681.9</Stat>
+<Stat Type="accurate_cross">6.2</Stat>
+<Stat Type="last_goal_conceded_time">62:34</Stat>
+<Stat Type="total_tackle">12.6</Stat>
+<Stat Type="won_tackle">7.2</Stat>
+<Stat Type="goals">2.8</Stat>
+<Stat Type="fk_foul_lost">8.4</Stat>
+<Stat Type="last_goal_scored_time">65:11</Stat>
+<Stat Type="total_cross">21.9</Stat>
+<Stat Type="ontarget_scoring_att">6.2</Stat>
+<Stat Type="first_goal_scored_time">26:37</Stat>
+<Stat Type="total_scoring_att">12.7</Stat>
+<Stat Type="total_yel_card">1.1</Stat>
+<Stat Type="accurate_fwd_zone_pass">331.7</Stat>
+<Stat Type="duel_won">41.7</Stat>
+<Stat Type="total_red_card">0.1</Stat>
+<Stat Type="duel_lost">36.2</Stat>
+<Stat Type="accurate_pass">609.4</Stat>
+<Stat Type="goals_conceded">1.0</Stat>
+<Stat Type="win">0.7</Stat>
+<Stat Type="blocked_scoring_att">10.4</Stat>
+<Stat Type="second_yellow">0.0</Stat>
+<Stat Type="lose">0.1</Stat>
+<Stat Type="won_corners">7.2</Stat>
+<Stat Type="fk_foul_won">8.8</Stat>
+<Stat Type="total_offside">1.6</Stat>
+<Stat Type="total_fwd_zone_pass">401.4</Stat>
+<Stat Type="first_goal_conceded_time">46:36</Stat>
+<Stat Type="possession_percentage">67.2</Stat>
+</Overall>
+</Team>
+</Averages>
+<Form>
+<Team uID="t8">
+<FormText>DDLLLW</FormText>
+<MatchData Id="f2292922" SeasonId="s2022" CompetitionId="c8">
+<MatchInfo>
+<Date>2022-10-19</Date>
+<Venue uID="v14923">Gtech Community Stadium</Venue>
+</MatchInfo>
+<TeamData Side="Home" TeamRef="t94" Score="0"/>
+<TeamData Side="Away" Score="0" TeamRef="t8"/>
+</MatchData>
+<MatchData Id="f2292931" SeasonId="s2022" CompetitionId="c8">
+<MatchInfo>
+<Venue uID="v35">Stamford Bridge</Venue>
+<Date>2022-10-22</Date>
+</MatchInfo>
+<TeamData Score="1" TeamRef="t8" Side="Home">
+<Goal Type="Penalty" Minute="87" PlayerRef="p85955"/>
+</TeamData>
+<TeamData Score="1" TeamRef="t1" Side="Away">
+<Goal PlayerRef="p61256" Type="Goal" Minute="94"/>
+</TeamData>
+</MatchData>
+<MatchData CompetitionId="c8" SeasonId="s2022" Id="f2292943">
+<TeamData Side="Home" Score="4" TeamRef="t36">
+<Goal PlayerRef="p116216" Type="Goal" Minute="5"/>
+<Goal PlayerRef="p60307" Type="Goal" Minute="92"/>
+</TeamData>
+<TeamData Score="1" TeamRef="t8" Side="Away">
+<Goal Type="Own" Minute="14" PlayerRef="p126187"/>
+<Goal Minute="42" Type="Own" PlayerRef="p180736"/>
+<Goal PlayerRef="p219847" Minute="48" Type="Goal"/>
+</TeamData>
+<MatchInfo>
+<Venue uID="v7403">Amex Stadium</Venue>
+<Date>2022-10-29</Date>
+</MatchInfo>
+</MatchData>
+<MatchData CompetitionId="c8" Id="f2292951" SeasonId="s2022">
+<TeamData Side="Home" TeamRef="t8" Score="0"/>
+<TeamData Side="Away" Score="1" TeamRef="t3">
+<Goal PlayerRef="p226597" Type="Goal" Minute="63"/>
+</TeamData>
+<MatchInfo>
+<Venue uID="v35">Stamford Bridge</Venue>
+<Date>2022-11-06</Date>
+</MatchInfo>
+</MatchData>
+<MatchData Id="f2292965" SeasonId="s2022" CompetitionId="c8">
+<MatchInfo>
+<Venue uID="v31">St. James' Park</Venue>
+<Date>2022-11-12</Date>
+</MatchInfo>
+<TeamData Side="Home" Score="1" TeamRef="t4">
+<Goal PlayerRef="p200089" Type="Goal" Minute="67"/>
+</TeamData>
+<TeamData Side="Away" TeamRef="t8" Score="0"/>
+</MatchData>
+<MatchData CompetitionId="c8" SeasonId="s2022" Id="f2292973">
+<TeamData TeamRef="t8" Score="2" Side="Home">
+<Goal Type="Goal" Minute="16" PlayerRef="p219847"/>
+<Goal Minute="24" Type="Goal" PlayerRef="p184341"/>
+</TeamData>
+<TeamData Side="Away" TeamRef="t91" Score="0"/>
+<MatchInfo>
+<Venue uID="v35">Stamford Bridge</Venue>
+<Date>2022-12-27</Date>
+</MatchInfo>
+</MatchData>
+</Team>
+<Team uID="t43">
+<MatchData Id="f2292934" SeasonId="s2022" CompetitionId="c8">
+<MatchInfo>
+<Date>2022-10-22</Date>
+<Venue uID="v2691">Etihad Stadium</Venue>
+</MatchInfo>
+<TeamData TeamRef="t43" Score="3" Side="Home">
+<Goal PlayerRef="p223094" Minute="22" Type="Goal"/>
+<Goal PlayerRef="p223094" Minute="43" Type="Penalty"/>
+<Goal Type="Goal" Minute="75" PlayerRef="p61366"/>
+</TeamData>
+<TeamData Side="Away" TeamRef="t36" Score="1">
+<Goal PlayerRef="p116216" Minute="53" Type="Goal"/>
+</TeamData>
+</MatchData>
+<MatchData SeasonId="s2022" Id="f2292946" CompetitionId="c8">
+<MatchInfo>
+<Venue uID="v2516">King Power Stadium</Venue>
+<Date>2022-10-29</Date>
+</MatchInfo>
+<TeamData Side="Home" TeamRef="t13" Score="0"/>
+<TeamData Side="Away" Score="1" TeamRef="t43">
+<Goal PlayerRef="p61366" Type="Goal" Minute="49"/>
+</TeamData>
+</MatchData>
+<MatchData SeasonId="s2022" Id="f2292954" CompetitionId="c8">
+<MatchInfo>
+<Date>2022-11-05</Date>
+<Venue uID="v2691">Etihad Stadium</Venue>
+</MatchInfo>
+<TeamData Side="Home" TeamRef="t43" Score="2">
+<Goal Type="Goal" Minute="16" PlayerRef="p461358"/>
+<Goal Minute="95" Type="Penalty" PlayerRef="p223094"/>
+</TeamData>
+<TeamData Side="Away" TeamRef="t54" Score="1">
+<Goal PlayerRef="p156689" Type="Penalty" Minute="28"/>
+</TeamData>
+</MatchData>
+<MatchData SeasonId="s2022" Id="f2292964" CompetitionId="c8">
+<MatchInfo>
+<Date>2022-11-12</Date>
+<Venue uID="v2691">Etihad Stadium</Venue>
+</MatchInfo>
+<TeamData Side="Home" Score="1" TeamRef="t43">
+<Goal PlayerRef="p209244" Minute="46" Type="Goal"/>
+</TeamData>
+<TeamData Side="Away" TeamRef="t94" Score="2">
+<Goal Minute="16" Type="Goal" PlayerRef="p144485"/>
+<Goal PlayerRef="p144485" Minute="98" Type="Goal"/>
+</TeamData>
+</MatchData>
+<MatchData Id="f2292976" SeasonId="s2022" CompetitionId="c8">
+<MatchInfo>
+<Venue uID="v29">Elland Road</Venue>
+<Date>2022-12-28</Date>
+</MatchInfo>
+<TeamData TeamRef="t2" Score="1" Side="Home">
+<Goal PlayerRef="p222694" Type="Goal" Minute="73"/>
+</TeamData>
+<TeamData Side="Away" TeamRef="t43" Score="3">
+<Goal PlayerRef="p220566" Minute="46" Type="Goal"/>
+<Goal Type="Goal" Minute="51" PlayerRef="p223094"/>
+<Goal PlayerRef="p223094" Type="Goal" Minute="64"/>
+</TeamData>
+</MatchData>
+<MatchData CompetitionId="c8" Id="f2292984" SeasonId="s2022">
+<TeamData Score="1" TeamRef="t43" Side="Home">
+<Goal Minute="24" Type="Goal" PlayerRef="p223094"/>
+</TeamData>
+<TeamData TeamRef="t11" Score="1" Side="Away">
+<Goal PlayerRef="p172632" Type="Goal" Minute="64"/>
+</TeamData>
+<MatchInfo>
+<Venue uID="v2691">Etihad Stadium</Venue>
+<Date>2022-12-31</Date>
+</MatchInfo>
+</MatchData>
+<FormText>WWWLWD</FormText>
+</Team>
+</Form>
+<Totals>
+<Team uID="t8">
+<Stat Type="games_played">15</Stat>
+<Stat Type="duel_won">745</Stat>
+<Stat Type="accurate_fwd_zone_pass">3618</Stat>
+<Stat Type="tackle_success">56.6</Stat>
+<Stat Type="total_yel_card">30</Stat>
+<Stat Type="total_red_card">2</Stat>
+<Stat Type="goals_conceded_per_game">1.1</Stat>
+<Stat Type="total_tackle">281</Stat>
+<Stat Type="accurate_cross">59</Stat>
+<Stat Type="lost_corners">83</Stat>
+<Stat Type="total_pass">8076</Stat>
+<Stat Type="draw">3</Stat>
+<Stat Type="total_scoring_att">118</Stat>
+<Stat Type="passing_accuracy">84.7</Stat>
+<Stat Type="ontarget_scoring_att">59</Stat>
+<Stat Type="total_cross">252</Stat>
+<Stat Type="fk_foul_lost">152</Stat>
+<Stat Type="goals">19</Stat>
+<Stat Type="won_tackle">159</Stat>
+<Stat Type="goal_conversion">16.1</Stat>
+<Stat Type="total_fwd_zone_pass">4687</Stat>
+<Stat Type="total_offside">30</Stat>
+<Stat Type="fk_foul_won">170</Stat>
+<Stat Type="possession_percentage">58.5</Stat>
+<Stat Type="win">7</Stat>
+<Stat Type="accurate_pass">6840</Stat>
+<Stat Type="goals_conceded">17</Stat>
+<Stat Type="duel_lost">727</Stat>
+<Stat Type="shot_accuracy">50.0</Stat>
+<Stat Type="won_corners">81</Stat>
+<Stat Type="second_yellow">2</Stat>
+<Stat Type="lose">5</Stat>
+<Stat Type="blocked_scoring_att">53</Stat>
+</Team>
+<Team uID="t43">
+<Stat Type="total_offside">25</Stat>
+<Stat Type="fk_foul_won">140</Stat>
+<Stat Type="goal_conversion">21.7</Stat>
+<Stat Type="total_fwd_zone_pass">6422</Stat>
+<Stat Type="possession_percentage">67.2</Stat>
+<Stat Type="win">11</Stat>
+<Stat Type="duel_lost">580</Stat>
+<Stat Type="accurate_pass">9750</Stat>
+<Stat Type="goals_conceded">16</Stat>
+<Stat Type="shot_accuracy">49.3</Stat>
+<Stat Type="blocked_scoring_att">86</Stat>
+<Stat Type="won_corners">115</Stat>
+<Stat Type="lose">2</Stat>
+<Stat Type="second_yellow">0</Stat>
+<Stat Type="games_played">16</Stat>
+<Stat Type="total_yel_card">17</Stat>
+<Stat Type="duel_won">667</Stat>
+<Stat Type="tackle_success">57.7</Stat>
+<Stat Type="accurate_fwd_zone_pass">5307</Stat>
+<Stat Type="goals_conceded_per_game">1.0</Stat>
+<Stat Type="total_red_card">1</Stat>
+<Stat Type="total_tackle">201</Stat>
+<Stat Type="draw">3</Stat>
+<Stat Type="accurate_cross">100</Stat>
+<Stat Type="lost_corners">34</Stat>
+<Stat Type="total_pass">10910</Stat>
+<Stat Type="total_cross">351</Stat>
+<Stat Type="ontarget_scoring_att">100</Stat>
+<Stat Type="total_scoring_att">203</Stat>
+<Stat Type="passing_accuracy">89.4</Stat>
+<Stat Type="goals">44</Stat>
+<Stat Type="won_tackle">116</Stat>
+<Stat Type="fk_foul_lost">135</Stat>
+</Team>
+</Totals>
+</Match>
+<Entities>
+<Teams>
+<Team uID="t36">Brighton and Hove Albion</Team>
+<Team uID="t2">Leeds United</Team>
+<Team uID="t4">Newcastle United</Team>
+<Team uID="t13">Leicester City</Team>
+<Team uID="t11">Everton</Team>
+<Team uID="t3">Arsenal</Team>
+<Team uID="t43">Manchester City</Team>
+<Team uID="t8">Chelsea</Team>
+<Team uID="t91">Bournemouth</Team>
+<Team uID="t54">Fulham</Team>
+<Team uID="t1">Manchester United</Team>
+<Team uID="t94">Brentford</Team>
+</Teams>
+<Competitions>
+<Competition uID="c8">English Premier League</Competition>
+</Competitions>
+<Players>
+<Player uID="p22488">Uwe Rösler</Player>
+<Player uID="p27789">Fernandinho</Player>
+<Player uID="p6618">Andriy Shevchenko</Player>
+<Player uID="p59859">Ilkay Gündogan</Player>
+<Player uID="p16919">Tony Cascarino</Player>
+<Player uID="p205651">Gabriel Jesus</Player>
+<Player uID="p16943">Robert Fleck</Player>
+<Player uID="p103955">Raheem Sterling</Player>
+<Player uID="p3063">Mark Stein</Player>
+<Player uID="p41270">David Luiz</Player>
+<Player uID="p42786">Eden Hazard</Player>
+<Player uID="p11014">Mick Harford</Player>
+<Player uID="p86129">Kalidou Koulibaly</Player>
+<Player uID="p1071">Mike Sheron</Player>
+<Player uID="p156689">Andreas Pereira</Player>
+<Player uID="p42493">Mario Balotelli</Player>
+<Player uID="p14664">Yaya Touré</Player>
+<Player uID="p54694">Pierre-Emerick Aubameyang</Player>
+<Player uID="p4256">Mario Stanic</Player>
+<Player uID="p440323">Armando Broja</Player>
+<Player uID="p1715">Gianfranco Zola</Player>
+<Player uID="p47431">Willian</Player>
+<Player uID="p41328">César Azpilicueta</Player>
+<Player uID="p1681">Dennis Wise</Player>
+<Player uID="p200089">Joe Willock</Player>
+<Player uID="p172632">Demarai Gray</Player>
+<Player uID="p60307">Pascal Groß</Player>
+<Player uID="p180736">Trevoh Chalobah</Player>
+<Player uID="p82263">Marcos Alonso</Player>
+<Player uID="p8003">Nigel Clough</Player>
+<Player uID="p226597">Gabriel Magalhães</Player>
+<Player uID="p165809">Bernardo Silva</Player>
+<Player uID="p16948">Maurizio Gaudino</Player>
+<Player uID="p41135">Branislav Ivanovic</Player>
+<Player uID="p219847">Kai Havertz</Player>
+<Player uID="p4074">Jimmy Floyd Hasselbaink</Player>
+<Player uID="p37352">Salomon Kalou</Player>
+<Player uID="p37572">Sergio Agüero</Player>
+<Player uID="p232787">Conor Gallagher</Player>
+<Player uID="p1764">Richard Dunne</Player>
+<Player uID="p61366">Kevin De Bruyne</Player>
+<Player uID="p144485">Ivan Toney</Player>
+<Player uID="p38419">Loïc Rémy</Player>
+<Player uID="p116216">Leandro Trossard</Player>
+<Player uID="p209244">Phil Foden</Player>
+<Player uID="p1838">Steve Howey</Player>
+<Player uID="p20312">Carlos Tevez</Player>
+<Player uID="p61256">Casemiro</Player>
+<Player uID="p220566">Rodri</Player>
+<Player uID="p223094">Erling Haaland</Player>
+<Player uID="p209046">Callum Hudson-Odoi</Player>
+<Player uID="p10917">Ricardo Carvalho</Player>
+<Player uID="p17500">Emmanuel Adebayor</Player>
+<Player uID="p116594">N'Golo Kanté</Player>
+<Player uID="p222694">Pascal Struijk</Player>
+<Player uID="p2060">Joe Cole</Player>
+<Player uID="p2230">John Spencer</Player>
+<Player uID="p8442">Michael Essien</Player>
+<Player uID="p3897">Nicolas Anelka</Player>
+<Player uID="p8887">Paul Walsh</Player>
+<Player uID="p17088">Michel Vonk</Player>
+<Player uID="p19921">Raul Meireles</Player>
+<Player uID="p1231">Craig Bellamy</Player>
+<Player uID="p12303">Didier Drogba</Player>
+<Player uID="p14402">Fernando Torres</Player>
+<Player uID="p126187">Ruben Loftus-Cheek</Player>
+<Player uID="p110504">Bertrand Traoré</Player>
+<Player uID="p1501">Gavin Peacock</Player>
+<Player uID="p6254">William Gallas</Player>
+<Player uID="p18507">Diego Costa</Player>
+<Player uID="p1757">Frank Sinclair</Player>
+<Player uID="p461358">Julián Álvarez</Player>
+<Player uID="p28554">Samir Nasri</Player>
+<Player uID="p50442">Stevan Jovetic</Player>
+<Player uID="p15015">Ruud Gullit</Player>
+<Player uID="p213221">David Faupala</Player>
+<Player uID="p2051">Frank Lampard</Player>
+<Player uID="p184341">Mason Mount</Player>
+<Player uID="p17476">Vincent Kompany</Player>
+<Player uID="p53392">Ramires</Player>
+<Player uID="p42544">Edin Dzeko</Player>
+<Player uID="p1718">John Terry</Player>
+<Player uID="p124183">Hakim Ziyech</Player>
+<Player uID="p20664">David Silva</Player>
+<Player uID="p109533">Emerson</Player>
+<Player uID="p121145">João Cancelo</Player>
+<Player uID="p85955">Jorginho</Player>
+<Player uID="p1379">Graham Stuart</Player>
+<Player uID="p176413">Christian Pulisic</Player>
+<Player uID="p16192">David White</Player>
+<Player uID="p114283">Jack Grealish</Player>
+<Player uID="p15107">Robinho</Player>
+<Player uID="p43670">Juan Mata</Player>
+<Player uID="p66842">André Schürrle</Player>
+<Player uID="p103025">Riyad Mahrez</Player>
+<Player uID="p19419">Gary Cahill</Player>
+<Player uID="p1310">Eidur Gudjohnsen</Player>
+<Player uID="p1190">Paul Dickov</Player>
+<Player uID="p1632">Gareth Barry</Player>
+<Player uID="p15157">James Milner</Player>
+</Players>
+</Entities>
+</MatchPreviews>

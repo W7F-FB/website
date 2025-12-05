@@ -139,7 +139,7 @@ function SelectTrigger({
           {size === "tableHeader" ? (
             <CaretFilledIcon className="size-3 rotate-90" />
           ) : (
-            <CaretRightIcon className="size-3.5 opacity-50 rotate-90 absolute right-3 top-1/2 -translate-y-1/2" />
+            <CaretRightIcon className="caret-icon size-3.5 opacity-50 rotate-90 absolute right-3 top-1/2 -translate-y-1/2" />
           )}
         </SelectPrimitive.Icon>
       )}

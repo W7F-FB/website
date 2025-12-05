@@ -1,8 +1,14 @@
-import { notFound } from "next/navigation"
+import { notFound, redirect } from "next/navigation"
 import { getTournamentByUid } from "@/cms/queries/tournaments"
+import { getTeamsByTournament } from "@/cms/queries/team"
+import { getF1Fixtures } from "@/app/api/opta/feeds"
 import TournamentKnowBeforeYouGoPageContent from "./page-content"
 import { NavMain } from "@/components/website-base/nav/nav-main"
 import { Footer } from "@/components/website-base/footer/footer-main"
+import type { F1MatchData, F1TeamData } from "@/types/opta-feeds/f1-fixtures"
+import type { TeamDocument } from "../../../../../../../prismicio-types"
+import { groupMatchesByDate } from "../../utils"
+import { dev } from "@/lib/dev"
 
 export const revalidate = 15
 
@@ -57,13 +63,52 @@ export default async function TournamentKnowBeforeYouGoPage({ params }: Props) {
 
   if (!tournament) return notFound()
 
+  if (tournament.data.status === "Complete") {
+    redirect(`/tournament/${slug}`)
+  }
+
+  const competitionId = tournament.data.opta_competition_id
+  const seasonId = tournament.data.opta_season_id
+
+  let groupedFixtures: Map<string, F1MatchData[]> = new Map()
+  let prismicTeams: TeamDocument[] = []
+  let optaTeams: F1TeamData[] = []
+  if (competitionId && seasonId && tournament.uid) {
+    try {
+      const [fixtures, teams] = await Promise.all([
+        getF1Fixtures(competitionId, seasonId),
+        getTeamsByTournament(tournament.uid)
+      ])
+      prismicTeams = teams
+
+      if (fixtures && prismicTeams.length > 0) {
+        const doc = fixtures.SoccerFeed.SoccerDocument
+        optaTeams = doc.Team || doc.TeamData || []
+        const matchData = doc.MatchData
+        
+        if (matchData && Array.isArray(matchData)) {
+          groupedFixtures = groupMatchesByDate(matchData)
+        }
+      }
+    } catch (error) {
+      dev.log('Error fetching fixtures for game slider:', error)
+    }
+  }
+
   return (
     <>
-      <NavMain showBreadcrumbs customBreadcrumbs={[
-        { label: "Home", href: "/" },
-        { label: tournament.data.title, href: `/tournament/${tournament.uid}` },
-        { label: "Know Before You Go", href: `/tournament/${tournament.uid}/know-before-you-go` }
-      ]} />
+      <NavMain 
+        showBreadcrumbs 
+        customBreadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: tournament.data.title, href: `/tournament/${tournament.uid}` },
+          { label: "Know Before You Go", href: `/tournament/${tournament.uid}/know-before-you-go` }
+        ]}
+        groupedFixtures={groupedFixtures.size > 0 ? groupedFixtures : undefined}
+        prismicTeams={prismicTeams.length > 0 ? prismicTeams : undefined}
+        optaTeams={optaTeams.length > 0 ? optaTeams : undefined}
+        tournament={tournament}
+      />
       <main className="flex-grow min-h-[30rem]">
         <TournamentKnowBeforeYouGoPageContent tournament={tournament} />
       </main>

@@ -53,7 +53,7 @@ export async function getTournamentByUid(uid: string): Promise<TournamentDocumen
     const client = createClient();
     return await client.getByUID("tournament", uid);
   } catch (error) {
-    if (error instanceof Error && 'status' in error && (error as { status: number }).status === 404) {
+    if (error instanceof Error && error.message.includes('No documents were returned')) {
       return null;
     }
     throw error;

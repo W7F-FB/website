@@ -71,21 +71,17 @@ export interface GameCardOpta extends React.HTMLAttributes<HTMLDivElement> {
   fixture: F1MatchData
   prismicTeams: TeamDocument[]
   optaTeams: F1TeamData[]
+  tournamentSlug: string
+  matchSlugMap?: Map<string, string>
   compact?: boolean
   banner?: React.ReactNode
   variant?: "default" | "mini"
-  optaEnabled?: boolean
   allMatches?: F1MatchData[]
   f3StandingsData?: F3StandingsResponse | null
+  streamingLink?: string | null
 }
 
 export interface GameCardPrismic extends React.HTMLAttributes<HTMLDivElement> {
   prismicMatch: MatchDocument
-  compact?: boolean
   banner?: React.ReactNode
-  variant?: "default" | "mini"
-  optaEnabled?: boolean
 }
-
-export type GameCard = GameCardOpta | GameCardPrismic
-

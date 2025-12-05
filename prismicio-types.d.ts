@@ -583,6 +583,35 @@ interface MatchDocumentData {
   opta_id: prismic.KeyTextField;
 
   /**
+   * Tournament field in *Match*
+   *
+   * - **Field Type**: Content Relationship
+   * - **Placeholder**: *None*
+   * - **API ID Path**: match.tournament
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/content-relationship
+   */
+  tournament: ContentRelationshipFieldWithData<
+    [
+      {
+        id: "tournament";
+        fields: [
+          "status",
+          "prize_pool",
+          "country_code",
+          "stadium_name",
+          "start_date",
+          "end_date",
+          "number_of_teams",
+          "opta_season_id",
+          "opta_enabled",
+          "opta_competition_id",
+        ];
+      },
+    ]
+  >;
+
+  /**
    * Broadcasts field in *Match*
    *
    * - **Field Type**: Group

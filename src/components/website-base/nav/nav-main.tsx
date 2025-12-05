@@ -18,9 +18,10 @@ import { getMostRecentBlog } from "@/cms/queries/blog"
 import { getNavigationSettings } from "@/cms/queries/website"
 import { Button } from "@/components/ui/button"
 import { PageBreadcrumbs } from "@/components/blocks/page-breadcrumbs"
-import type { GameCard } from "@/types/components"
 import { GamesSlider } from "@/components/blocks/tournament/games-slider/games-slider"
-import type { TournamentDocument } from "../../../../prismicio-types"
+import { GamesSliderCollapseProvider } from "@/components/blocks/tournament/games-slider/games-slider-collapse-context"
+import type { TournamentDocument, TeamDocument } from "../../../../prismicio-types"
+import type { F1MatchData, F1TeamData } from "@/types/opta-feeds/f1-fixtures"
 import { cn } from "@/lib/utils"
 import { Subtitle } from "../typography"
 import { Separator } from "@/components/ui/separator"
@@ -47,11 +48,14 @@ type NavMainProps = {
   showBreadcrumbs?: boolean;
   pathname?: string;
   customBreadcrumbs?: BreadcrumbItem[];
-  gameCards?: GameCard[];
+  groupedFixtures?: Map<string, F1MatchData[]>;
+  prismicTeams?: TeamDocument[];
+  optaTeams?: F1TeamData[];
   tournament?: TournamentDocument;
+  matchSlugMap?: Map<string, string>;
 }
 
-async function NavMain({ showBreadcrumbs, pathname, customBreadcrumbs, gameCards, tournament }: NavMainProps = {} as NavMainProps) {
+async function NavMain({ showBreadcrumbs, pathname, customBreadcrumbs, groupedFixtures, prismicTeams, optaTeams, tournament, matchSlugMap }: NavMainProps = {} as NavMainProps) {
   let tournaments: Awaited<ReturnType<typeof getNavigationTournaments>> = []
   let recentBlog: Awaited<ReturnType<typeof getMostRecentBlog>> = null
   let navSettings: Awaited<ReturnType<typeof getNavigationSettings>> = null
@@ -75,8 +79,11 @@ async function NavMain({ showBreadcrumbs, pathname, customBreadcrumbs, gameCards
     dev.log("Failed to load navigation settings:", error)
   }
 
+  const hasGamesSlider = !!(groupedFixtures && groupedFixtures.size > 0 && prismicTeams && optaTeams && tournament)
+
   return (
-    <div className={cn("sticky top-0 z-50 w-full border-b border-border/50 bg-background backdrop-blur supports-[backdrop-filter]:bg-background/90", gameCards && gameCards.length > 0 && "bg-background supports-[backdrop-filter]:bg-background")}>
+    <GamesSliderCollapseProvider collapsable={hasGamesSlider}>
+    <div className={cn("sticky top-0 z-50 w-full border-b border-border/50 bg-background backdrop-blur supports-[backdrop-filter]:bg-background/90", groupedFixtures && groupedFixtures.size > 0 && "bg-background supports-[backdrop-filter]:bg-background")}>
       <nav>
         <PaddingGlobal>
           <div className="mx-auto flex w-full items-center gap-4 lg:gap-12 h-18">
@@ -147,12 +154,13 @@ async function NavMain({ showBreadcrumbs, pathname, customBreadcrumbs, gameCards
                                               
                                               return (
                                                 <BroadcastPartnerLink
-                                                  size="sm" 
+                                                  size="sm"
+                                                  logoSize="lg:size-6 size-4.5"
                                                   key={partner.id}
                                                   partner={partner}
                                                   showName
                                                   noLink
-                                                  className={isNotOnLastRow ? "border-t border-border/50" : "border-y border-border/50"}
+                                                  className={cn("lg:text-xs text-xxs", isNotOnLastRow ? "border-t border-border/50" : "border-y border-border/50")}
                                                 />
                                               )
                                             })}
@@ -245,8 +253,17 @@ async function NavMain({ showBreadcrumbs, pathname, customBreadcrumbs, gameCards
         </PaddingGlobal>
         {showBreadcrumbs && <PageBreadcrumbs pathname={pathname} customBreadcrumbs={customBreadcrumbs} />}
       </nav>
-      {gameCards && gameCards.length > 0 && tournament && <GamesSlider gameCards={gameCards} tournament={tournament} />}
+      {hasGamesSlider && (
+        <GamesSlider 
+          groupedFixtures={groupedFixtures!} 
+          prismicTeams={prismicTeams!}
+          optaTeams={optaTeams!}
+          tournament={tournament!}
+          matchSlugMap={matchSlugMap}
+        />
+      )}
     </div>
+    </GamesSliderCollapseProvider>
   )
 }
 

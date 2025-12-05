@@ -3,6 +3,7 @@ import { F13CommentaryResponse, F13MessageType, isScoringAttempt } from "@/types
 import { Tabs, TabsContent, TabsList, TabsTrigger, TabsContents } from "@/components/ui/motion-tabs"
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
+import { EmptyMessage } from "@/components/ui/empty-message";
 import React from "react";
 import { cn } from "@/lib/utils";
 import { removeW7F } from "@/lib/opta/utils";
@@ -10,6 +11,7 @@ import { SoccerIcon, SubstituteIcon, WhistleIcon, BlockedIcon, SavedIcon, Bounce
 
 interface PlayByPlayProps extends React.ComponentProps<"div"> {
     commentary: F13CommentaryResponse | null;
+    isPreGame?: boolean;
 }
 
 interface TimestampCellProps {
@@ -108,9 +110,20 @@ function ActionCell({ type }: ActionCellProps) {
     );
 }
 
-export default function PlayByPlay({ commentary, className }: PlayByPlayProps) {
+export default function PlayByPlay({ commentary, className, isPreGame }: PlayByPlayProps) {
     const messages = commentary?.Commentary?.message || [];
     const scoringMessages = messages.filter(msg => isScoringAttempt(msg));
+
+    if (messages.length === 0) {
+        return (
+            <EmptyMessage className="py-20">
+                {isPreGame 
+                    ? "Play by play commentary will be available once the match begins."
+                    : "No commentary available"
+                }
+            </EmptyMessage>
+        );
+    }
 
     return (
         <Tabs className={cn("",className)}>
@@ -120,28 +133,24 @@ export default function PlayByPlay({ commentary, className }: PlayByPlayProps) {
             </TabsList>
             <TabsContents>
                 <TabsContent value="all-plays">
-                    {messages.length > 0 ? (
-                        <Table className={cn()}>
-                            <TableBody>
-                                {messages.map((message, index) => (
-                                    <TableRow key={message.id} className={cn(
-                                        message.type === 'goal' ? 'bg-muted/50 hover:bg-muted/50' :
-                                        index % 2 === 1 ? 'bg-muted/20 hover:bg-muted/20' : 'hover:bg-transparent'
-                                    )}>
-                                        <TimestampCell 
-                                            time={message.time}
-                                            isGoal={message.type === 'goal'}
-                                        />
-                                        <EventTypeCell type={message.type} />
-                                        <CommentCell comment={message.comment} type={message.type} />
-                                        <ActionCell type={message.type} />
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                    ) : (
-                        <div className="text-center py-8 text-muted-foreground">No commentary available</div>
-                    )}
+                    <Table className={cn()}>
+                        <TableBody>
+                            {messages.map((message, index) => (
+                                <TableRow key={message.id} className={cn(
+                                    message.type === 'goal' ? 'bg-muted/50 hover:bg-muted/50' :
+                                    index % 2 === 1 ? 'bg-muted/20 hover:bg-muted/20' : 'hover:bg-transparent'
+                                )}>
+                                    <TimestampCell 
+                                        time={message.time}
+                                        isGoal={message.type === 'goal'}
+                                    />
+                                    <EventTypeCell type={message.type} />
+                                    <CommentCell comment={message.comment} type={message.type} />
+                                    <ActionCell type={message.type} />
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
                 </TabsContent>
                 <TabsContent value="scoring-chances">
                     {scoringMessages.length > 0 ? (
@@ -164,7 +173,7 @@ export default function PlayByPlay({ commentary, className }: PlayByPlayProps) {
                             </TableBody>
                         </Table>
                     ) : (
-                        <div className="text-center py-8 text-muted-foreground">No scoring plays</div>
+                        <EmptyMessage className="py-20">No scoring plays</EmptyMessage>
                     )}
                 </TabsContent>
             </TabsContents>

@@ -96,7 +96,7 @@ function ClubBasic({ team, comingSoon, placement, className, ...props }: ClubBas
 
 interface ClubHorizontalProps extends React.ComponentProps<"div"> {
   team: TeamDocument
-  index?: number
+  index?: number | string
   record?: Record
 }
 
@@ -113,7 +113,7 @@ function ClubHorizontal({ team, index, record, className, ...props }: ClubHorizo
       {...props}
     >
       {index !== undefined && record !== undefined && (
-        <div className="text-white/60 font-headers text-base font-medium min-w-[1.5rem] mr-2">
+        <div className="text-white/60 font-headers text-sm font-medium min-w-[1.5rem] mr-2">
           {index}
         </div>
       )}

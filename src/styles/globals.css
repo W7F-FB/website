@@ -56,6 +56,8 @@
   --skew-nav: 0deg;
   --skew-btn:18.5deg;
   --skew-22-5: 0.9375rem;
+  --default-sticky-distance: 8rem;
+  --inset-default-sticky-distance: var(--default-sticky-distance);
 }
 
 :root {

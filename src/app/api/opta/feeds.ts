@@ -3,6 +3,7 @@
 
 import { OptaClient } from './client';
 import { F1FixturesResponse } from '@/types/opta-feeds/f1-fixtures';
+import { F2MatchPreviewsResponse } from '@/types/opta-feeds/f2-match-preview';
 import { F3StandingsResponse } from '@/types/opta-feeds/f3-standings';
 import { F9MatchResponse } from '@/types/opta-feeds/f9-match';
 import { F13CommentaryResponse, F13LanguageCode } from '@/types/opta-feeds/f13-commentary';
@@ -22,6 +23,16 @@ export async function getF1Fixtures(
   seasonId: string | number
 ): Promise<F1FixturesResponse> {
   return await optaClient.getF1Fixtures(competitionId, seasonId);
+}
+
+/**
+ * F2 - Match Preview Feed
+ * Returns match preview data including previous meetings, form, averages, and team info
+ */
+export async function getF2MatchPreview(
+  matchId: string | number
+): Promise<F2MatchPreviewsResponse> {
+  return await optaClient.getF2MatchPreview(matchId);
 }
 
 /**

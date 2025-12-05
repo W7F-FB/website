@@ -32,7 +32,7 @@ export default function TournamentKnowBeforeYouGoPageContent({ tournament }: Pro
                                 <P noSpace className="text-lg mt-1"><span className="font-semibold">{formatCurrencyInWords(tournament.data.prize_pool)}</span><span className="ml-3 font-light text-sm">Prize Pool</span></P>
                             )}
                             {(tournament.data.tickets_available || (isFilled.link(tournament.data.know_before_you_go_pdf) && tournament.data.know_before_you_go_pdf.link_type === "Media")) && (
-                                <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-4">
+                                <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-4 w-auto">
                                     {tournament.data.tickets_available && (
                                         <Button asChild size="skew_lg">
                                             <Link href="/checkout"><span>Purchase Tickets</span></Link>

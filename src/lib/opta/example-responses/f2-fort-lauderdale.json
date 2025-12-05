@@ -1,0 +1,252 @@
+{
+    "Entities": {
+        "Teams": {
+            "Team": [
+                {
+                    "value": "Flamengo W7F",
+                    "ShortName": "Flamengo",
+                    "uID": "t23622",
+                    "OfficialName": "CR Flamengo W7F"
+                },
+                {
+                    "value": "Kansas City Current W7F",
+                    "uID": "t23626",
+                    "OfficialName": "Kansas City Current W7F",
+                    "ShortName": "KC Current"
+                }
+            ]
+        }
+    },
+    "Match": {
+        "MatchData": {
+            "MatchInfo": {
+                "Date": "2025-12-05 22:00:00",
+                "Venue": {
+                    "value": "Beyond Bancard Field",
+                    "uID": "v18060"
+                }
+            },
+            "CompetitionId": "c1343",
+            "SeasonId": "s2025"
+        },
+        "Rankings": "",
+        "PreviousMeetingsOtherComps": "",
+        "Totals": {
+            "Team": [
+                {
+                    "Stat": [
+                        {
+                            "value": 0,
+                            "Type": "games_played"
+                        },
+                        {
+                            "value": "N/A",
+                            "Type": "tackle_success"
+                        },
+                        {
+                            "value": "N/A",
+                            "Type": "passing_accuracy"
+                        },
+                        {
+                            "value": 0,
+                            "Type": "shot_accuracy"
+                        },
+                        {
+                            "value": 0,
+                            "Type": "goals_conceded_per_game"
+                        },
+                        {
+                            "value": 0,
+                            "Type": "possession_percentage"
+                        },
+                        {
+                            "value": 0,
+                            "Type": "goal_conversion"
+                        }
+                    ],
+                    "uID": "t23626"
+                },
+                {
+                    "Stat": [
+                        {
+                            "value": 0,
+                            "Type": "goals_conceded_per_game"
+                        },
+                        {
+                            "value": 0,
+                            "Type": "games_played"
+                        },
+                        {
+                            "value": "N/A",
+                            "Type": "tackle_success"
+                        },
+                        {
+                            "value": "N/A",
+                            "Type": "passing_accuracy"
+                        },
+                        {
+                            "value": 0,
+                            "Type": "shot_accuracy"
+                        },
+                        {
+                            "value": 0,
+                            "Type": "possession_percentage"
+                        },
+                        {
+                            "value": 0,
+                            "Type": "goal_conversion"
+                        }
+                    ],
+                    "uID": "t23622"
+                }
+            ]
+        },
+        "Form": {
+            "Team": [
+                {
+                    "FormText": "",
+                    "uID": "t23626"
+                },
+                {
+                    "FormText": "",
+                    "uID": "t23622"
+                }
+            ]
+        },
+        "Averages": {
+            "Team": [
+                {
+                    "Overall": {
+                        "Stat": [
+                            {
+                                "value": "00:00",
+                                "Type": "first_goal_conceded_time"
+                            },
+                            {
+                                "value": "00:00",
+                                "Type": "first_goal_scored_time"
+                            },
+                            {
+                                "value": "00:00",
+                                "Type": "last_goal_scored_time"
+                            },
+                            {
+                                "value": "00:00",
+                                "Type": "last_goal_conceded_time"
+                            }
+                        ]
+                    },
+                    "Home": {
+                        "Stat": [
+                            {
+                                "value": "00:00",
+                                "Type": "first_goal_conceded_time"
+                            },
+                            {
+                                "value": "00:00",
+                                "Type": "last_goal_scored_time"
+                            },
+                            {
+                                "value": "00:00",
+                                "Type": "first_goal_scored_time"
+                            },
+                            {
+                                "value": "00:00",
+                                "Type": "last_goal_conceded_time"
+                            }
+                        ]
+                    },
+                    "Away": {
+                        "Stat": [
+                            {
+                                "value": "00:00",
+                                "Type": "first_goal_conceded_time"
+                            },
+                            {
+                                "value": "00:00",
+                                "Type": "first_goal_scored_time"
+                            },
+                            {
+                                "value": "00:00",
+                                "Type": "last_goal_scored_time"
+                            },
+                            {
+                                "value": "00:00",
+                                "Type": "last_goal_conceded_time"
+                            }
+                        ]
+                    },
+                    "uID": "t23626"
+                },
+                {
+                    "Home": {
+                        "Stat": [
+                            {
+                                "value": "00:00",
+                                "Type": "first_goal_conceded_time"
+                            },
+                            {
+                                "value": "00:00",
+                                "Type": "last_goal_scored_time"
+                            },
+                            {
+                                "value": "00:00",
+                                "Type": "first_goal_scored_time"
+                            },
+                            {
+                                "value": "00:00",
+                                "Type": "last_goal_conceded_time"
+                            }
+                        ]
+                    },
+                    "Overall": {
+                        "Stat": [
+                            {
+                                "value": "00:00",
+                                "Type": "first_goal_conceded_time"
+                            },
+                            {
+                                "value": "00:00",
+                                "Type": "first_goal_scored_time"
+                            },
+                            {
+                                "value": "00:00",
+                                "Type": "last_goal_scored_time"
+                            },
+                            {
+                                "value": "00:00",
+                                "Type": "last_goal_conceded_time"
+                            }
+                        ]
+                    },
+                    "Away": {
+                        "Stat": [
+                            {
+                                "value": "00:00",
+                                "Type": "last_goal_conceded_time"
+                            },
+                            {
+                                "value": "00:00",
+                                "Type": "first_goal_scored_time"
+                            },
+                            {
+                                "value": "00:00",
+                                "Type": "last_goal_scored_time"
+                            },
+                            {
+                                "value": "00:00",
+                                "Type": "first_goal_conceded_time"
+                            }
+                        ]
+                    },
+                    "uID": "t23622"
+                }
+            ]
+        },
+        "PreviousMeetings": "",
+        "MatchdayId": "d1",
+        "Id": "f2610440",
+        "HomeId": "t23626",
+        "AwayId": "t23622"
+    }
+}

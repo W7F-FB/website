@@ -19,6 +19,31 @@
           "placeholder": ""
         }
       },
+      "tournament": {
+        "type": "Link",
+        "config": {
+          "label": "Tournament",
+          "select": "document",
+          "repeat": false,
+          "customtypes": [
+            {
+              "id": "tournament",
+              "fields": [
+                "status",
+                "prize_pool",
+                "country_code",
+                "stadium_name",
+                "start_date",
+                "end_date",
+                "number_of_teams",
+                "opta_season_id",
+                "opta_enabled",
+                "opta_competition_id"
+              ]
+            }
+          ]
+        }
+      },
       "broadcasts": {
         "type": "Group",
         "config": {

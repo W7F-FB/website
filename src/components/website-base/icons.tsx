@@ -361,3 +361,57 @@ export const VIPIcon = createIcon(
   />
 )
 
+export const CollapseIcon = createIcon(
+  "CollapseIcon",
+  <path
+    fillRule="evenodd"
+    d="M0.75 10.25V0.75h22.5v9.5H0.75ZM2 13.75H0.75v9.5h22.5v-9.5H2Zm1.25 7v-4.5h17.5v4.5H3.25Z"
+    clipRule="evenodd"
+  />
+)
+
+export const CollapseReverseIcon = createIcon(
+  "CollapseReverseIcon",
+  <path
+    fillRule="evenodd"
+    d="M23 1H1v9h22V1Zm0 13H1v9h22v-9Z"
+    clipRule="evenodd"
+  />
+)
+
+export const StreamStackIcon = createIcon(
+  "StreamStackIcon",
+  <path
+    fillRule="evenodd"
+    d="M2 19H1V1h18v18H2Zm19 2H5v2h18V5h-2v16ZM6.5 5.23381l1.5145 0.9087 5 3L14.4437 10l-1.4292 0.8575 -5 3 -1.5145 0.9087V5.23381Z"
+    clipRule="evenodd"
+  />
+)
+
+export const StreamStackHollowIcon = createIcon(
+  "StreamStackHollowIcon",
+  <path
+    fillRule="evenodd"
+    d="M2 19.25H0.75V0.75h18.5V5H23v18H5v-3.75H2Zm1.25 -16v13.5h13.5V3.25H3.25ZM7 6l7 4 -7 4V6Z"
+    clipRule="evenodd"
+  />
+)
+
+export const StreamIcon = createIcon(
+  "StreamIcon",
+  <path
+    fillRule="evenodd"
+    d="M0 2h24v20H0V2Zm8.49414 5.0394 0.75194 0.43863 7.01172 4.09017 0.7404 0.4319 -0.7404 0.4319 -7.01172 4.0901 -0.75194 0.4387V7.0394Z"
+    clipRule="evenodd"
+  />
+)
+
+export const CirclePlayIcon = createIcon(
+  "CirclePlayIcon",
+  <path
+    fillRule="evenodd"
+    d="M2.5 12c0 -5.24671 4.25329 -9.5 9.5 -9.5 5.2467 0 9.5 4.25329 9.5 9.5 0 5.2467 -4.2533 9.5 -9.5 9.5 -5.24671 0 -9.5 -4.2533 -9.5 -9.5ZM12 0C5.37258 0 0 5.37258 0 12c0 6.6274 5.37258 12 12 12 6.6274 0 12 -5.3726 12 -12 0 -6.62742 -5.3726 -12 -12 -12Zm6 11.9997L9 6.8418v10.3158l9 -5.1579Z"
+    clipRule="evenodd"
+  />
+)
+

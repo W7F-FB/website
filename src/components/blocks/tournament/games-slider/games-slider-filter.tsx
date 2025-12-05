@@ -5,7 +5,6 @@ import {
     SelectContent,
     SelectItem,
     SelectTrigger,
-    SelectValue,
 } from "@/components/ui/select"
 import type { TournamentDocument } from "../../../../../prismicio-types"
 import { Label } from "@/components/ui/label"
@@ -37,11 +36,34 @@ export function GamesSliderFilter({
         }).format(date)
     }
 
+    const getDateParts = (dateString?: string) => {
+        if (!dateString) return { day: "--", month: "---" }
+        const date = new Date(dateString + 'T00:00:00Z')
+        return {
+            day: date.getUTCDate().toString(),
+            month: new Intl.DateTimeFormat("en-US", { month: "short", timeZone: "UTC" }).format(date).toUpperCase(),
+        }
+    }
+
+    const { day, month } = getDateParts(value)
+    const matchDayIndex = value ? dates.indexOf(value) : -1
+    const matchDayLabel = matchDayIndex >= 0 ? `Match Day ${matchDayIndex + 1}` : placeholder
+
     return (
         <Select value={value} onValueChange={onValueChange} clearable={clearable}>
-            <SelectTrigger className="lg:min-w-48 min-w-32 pt-4 relative text-xxs lg:text-sm [&_.match-day-date]:hidden">
-                <Label className="absolute top-1.5 left-4 text-xxs text-muted-foreground/80 font-light">{tournament.data.title}</Label>
-                <SelectValue placeholder={placeholder} />
+            <SelectTrigger className="lg:min-w-48 lg:pr-12 pr-9 [&_.caret-icon]:size-2.5 lg:[&_.caret-icon]:size-3.5  relative text-xxs lg:text-sm [&_.match-day-date]:hidden pl-0">
+                <div className="h-full flex flex-col border-r border-border">
+                    <div className="w-full flex-grow text-sm flex items-center justify-center px-1 pt-0.5 font-headers font-[400]">
+                        {day}
+                    </div>
+                    <div className="w-full flex-shrink-0 text-[0.55rem] pt-0.5 flex items-center justify-center pb-0.5 font-headers px-1.5 border-t border-border">
+                        {month}
+                    </div>
+                </div>
+                <div className="relative pt-4 h-full flex items-center flex-grow ">
+                    <Label className="absolute top-1.5 text-xxs text-muted-foreground/80 font-light">{tournament.data.title}</Label>
+                    <span className="font-headers uppercase font-medium">{matchDayLabel}</span>
+                </div>
             </SelectTrigger>
             <SelectContent>
                 {dates.map((dateString, index) => (

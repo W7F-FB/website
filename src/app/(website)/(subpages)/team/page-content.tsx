@@ -30,6 +30,7 @@ type Props = {
   teamBlogs?: BlogDocument[];
   seasonStats?: F30SeasonStatsResponse | null;
   tournamentDocuments?: TournamentDocument[];
+  matchSlugMap?: Map<string, string>;
 };
 
 export default function TeamPageContent({
@@ -42,6 +43,7 @@ export default function TeamPageContent({
   teamBlogs = [],
   seasonStats,
   tournamentDocuments = [],
+  matchSlugMap,
 }: Props) {
   const teamLeaders = getTeamLeaders(team, seasonStats);
 
@@ -64,6 +66,7 @@ export default function TeamPageContent({
               currentTournament={currentTournament}
               prismicTeams={prismicTeams}
               tournamentDocuments={tournamentDocuments}
+              matchSlugMap={matchSlugMap}
             />
           </div>
           <div className="flex flex-col gap-8 relative md:col-span-2 h-full">
@@ -80,6 +83,8 @@ export default function TeamPageContent({
                 fixtures={fixtures}
                 prismicTeams={prismicTeams}
                 optaTeams={teamSquad ? [teamSquad] : []}
+                tournamentSlug={currentTournament?.uid || ""}
+                matchSlugMap={matchSlugMap}
               />
             </div>
           </div>

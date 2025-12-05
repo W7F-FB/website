@@ -13,6 +13,7 @@ import type { TeamDocument } from "../../../../../prismicio-types"
 import type { F30SeasonStatsResponse } from "@/types/opta-feeds/f30-season-stats"
 import { getTeamShortName } from "@/types/opta-feeds/f30-season-stats"
 import type { F1FixturesResponse } from "@/types/opta-feeds/f1-fixtures"
+import type { F3StandingsResponse } from "@/types/opta-feeds/f3-standings"
 import { StatSheetTeamsTable } from "./stat-sheet-teams-table"
 import { StatSheetPlayersTable } from "./stat-sheet-players-table"
 import {
@@ -30,10 +31,12 @@ type StatSheetTabsProps = {
     prismicTeams: TeamDocument[]
     f30TeamStats: Map<string, F30SeasonStatsResponse>
     f1FixturesData: F1FixturesResponse | null
+    f3StandingsData: F3StandingsResponse | null
     tournamentStatus?: string
+    isKnockoutStage: boolean
 }
 
-export function StatSheetTabs({ prismicTeams, f30TeamStats, f1FixturesData, tournamentStatus }: StatSheetTabsProps) {
+export function StatSheetTabs({ prismicTeams, f30TeamStats, f1FixturesData, f3StandingsData, tournamentStatus, isKnockoutStage }: StatSheetTabsProps) {
     const [selectedTeamId, setSelectedTeamId] = useState<string>("")
     const [leaderView, setLeaderView] = useState<StatSheetLeaderValue>("goals")
 
@@ -43,11 +46,13 @@ export function StatSheetTabs({ prismicTeams, f30TeamStats, f1FixturesData, tour
                 prismicTeams={prismicTeams}
                 f30TeamStats={f30TeamStats}
                 f1FixturesData={f1FixturesData}
+                f3StandingsData={f3StandingsData}
                 selectedTeamId={selectedTeamId}
                 onTeamSelect={setSelectedTeamId}
                 leaderView={leaderView}
                 onLeaderViewChange={setLeaderView}
                 tournamentStatus={tournamentStatus}
+                isKnockoutStage={isKnockoutStage}
             />
         </Tabs>
     )
@@ -57,22 +62,26 @@ type StatSheetTabsContentProps = {
     prismicTeams: TeamDocument[]
     f30TeamStats: Map<string, F30SeasonStatsResponse>
     f1FixturesData: F1FixturesResponse | null
+    f3StandingsData: F3StandingsResponse | null
     selectedTeamId: string
     onTeamSelect: (teamId: string) => void
     leaderView: StatSheetLeaderValue
     onLeaderViewChange: (value: StatSheetLeaderValue) => void
     tournamentStatus?: string
+    isKnockoutStage: boolean
 }
 
 function StatSheetTabsContent({ 
     prismicTeams, 
     f30TeamStats, 
     f1FixturesData,
+    f3StandingsData,
     selectedTeamId,
     onTeamSelect,
     leaderView,
     onLeaderViewChange,
-    tournamentStatus
+    tournamentStatus,
+    isKnockoutStage
 }: StatSheetTabsContentProps) {
     const { activeValue } = useTabs()
 
@@ -96,7 +105,7 @@ function StatSheetTabsContent({
 
             <TabsContents>
                 <TabsContent value="teams" className="pt-4">
-                    <StatSheetTeamsTable prismicTeams={prismicTeams} f30TeamStats={f30TeamStats} f1FixturesData={f1FixturesData} tournamentStatus={tournamentStatus} />
+                    <StatSheetTeamsTable prismicTeams={prismicTeams} f30TeamStats={f30TeamStats} f1FixturesData={f1FixturesData} f3StandingsData={f3StandingsData} tournamentStatus={tournamentStatus} isKnockoutStage={isKnockoutStage} />
                 </TabsContent>
 
                 <TabsContent value="players" className="pt-4">
