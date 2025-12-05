@@ -14,12 +14,8 @@ import {
 import type { BundledLanguage } from "@/components/ui/code-block";
 
 const defaultPayload = {
-  provider_clip_id: "prod_test_large_001",
-  opta_match_id: "match_12345",
-  opta_event_id: "event_67890",
-  opta_competition_id: "comp_54321",
-  video_source_url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-  thumbnail_source_url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/BigBuckBunny.jpg"
+  video_source_url: "https://cdn.wcspartner.com/highlights/wcs_highlight__provider_clip_id=goal_martinez_73min&opta_match_id=2713631&opta_event_id=g2713631evt1847&opta_competition_id=2kxe4ya1n89b0iuvjpjte5o4p.mp4",
+  thumbnail_source_url: "https://cdn.wcspartner.com/highlights/wcs_highlight__provider_clip_id=goal_martinez_73min&opta_match_id=2713631&opta_event_id=g2713631evt1847&opta_competition_id=2kxe4ya1n89b0iuvjpjte5o4p.jpg"
 };
 
 const PARTNER_SECRET = "d4f3127fa0c977e2b52cf59a0fa8f962ee2d94a3e120f12aac5dbed6cf4b91e0";
@@ -93,15 +89,15 @@ export default function WCSIngestionTest() {
     data: {
       id: 123,
       provider: "partner",
-      provider_id: "test_clip_001",
-      opta_match_id: "match_12345",
-      opta_competition_id: "comp_54321",
-      opta_event_id: "event_67890",
-      video_url: "https://aucusaxsdyrwmwpxhpgl.supabase.co/storage/v1/object/public/match-highlights/clips/test_clip_001.mp4",
-      thumbnail_url: "https://aucusaxsdyrwmwpxhpgl.supabase.co/storage/v1/object/public/match-highlights/thumbs/test_clip_001.jpg",
+      provider_id: "goal_martinez_73min",
+      opta_match_id: "2713631",
+      opta_competition_id: "2kxe4ya1n89b0iuvjpjte5o4p",
+      opta_event_id: "g2713631evt1847",
+      video_url: "https://aucusaxsdyrwmwpxhpgl.supabase.co/storage/v1/object/public/match-highlights/clips/goal_martinez_73min.mp4",
+      thumbnail_url: "https://aucusaxsdyrwmwpxhpgl.supabase.co/storage/v1/object/public/match-highlights/thumbs/goal_martinez_73min.jpg",
       status: "ready",
-      created_at: "2025-11-26T10:30:00.000Z",
-      updated_at: "2025-11-26T10:30:00"
+      created_at: "2025-12-05T10:30:00.000Z",
+      updated_at: "2025-12-05T10:30:00"
     }
   }, null, 2);
 
@@ -110,6 +106,21 @@ export default function WCSIngestionTest() {
       language: 'json',
       filename: 'response.json',
       code: exampleResponseCode,
+    },
+  ];
+
+  const filenameExamples = [
+    {
+      type: "Goal",
+      filename: "wcs_highlight__provider_clip_id=goal_santos_12min&opta_match_id=2713631&opta_event_id=g2713631evt0412&opta_competition_id=2kxe4ya1n89b0iuvjpjte5o4p.mp4"
+    },
+    {
+      type: "Red Card",
+      filename: "wcs_highlight__provider_clip_id=redcard_johnson_45min&opta_match_id=2713631&opta_event_id=g2713631evt0891&opta_competition_id=2kxe4ya1n89b0iuvjpjte5o4p.mp4"
+    },
+    {
+      type: "Save",
+      filename: "wcs_highlight__provider_clip_id=save_keeper_88min&opta_match_id=2713631&opta_event_id=g2713631evt1203&opta_competition_id=2kxe4ya1n89b0iuvjpjte5o4p.mp4"
     },
   ];
 
@@ -275,6 +286,43 @@ export default function WCSIngestionTest() {
                 <h3 className="font-medium mb-3">Required Fields</h3>
                 <div className="space-y-3 text-sm">
                   <div className="flex gap-3">
+                    <span className="inline-block px-2 py-1 text-xs bg-secondary text-background rounded h-fit">URL</span>
+                    <div>
+                      <code className="text-xs font-semibold">video_source_url</code>
+                      <p className="text-muted-foreground text-xs mt-1">Publicly accessible URL to download the video file. Metadata is encoded in the filename.</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-3">
+                    <span className="inline-block px-2 py-1 text-xs bg-secondary text-background rounded h-fit">URL</span>
+                    <div>
+                      <code className="text-xs font-semibold">thumbnail_source_url</code>
+                      <p className="text-muted-foreground text-xs mt-1">Publicly accessible URL to download the thumbnail image</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Filename Convention</CardTitle>
+              <CardDescription>
+                Metadata is encoded directly in the video filename using URL parameter style
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div>
+                <h3 className="font-medium mb-3">Format</h3>
+                <div className="bg-slate-50 dark:bg-slate-900 p-4 rounded-md font-mono text-xs break-all">
+                  wcs_highlight__provider_clip_id=&#123;clip_id&#125;&opta_match_id=&#123;match_id&#125;&opta_event_id=&#123;event_id&#125;&opta_competition_id=&#123;competition_id&#125;.mp4
+                </div>
+              </div>
+
+              <div>
+                <h3 className="font-medium mb-3">Required Metadata Parameters</h3>
+                <div className="space-y-3 text-sm">
+                  <div className="flex gap-3">
                     <span className="inline-block px-2 py-1 text-xs bg-secondary text-background rounded h-fit">String</span>
                     <div>
                       <code className="text-xs font-semibold">provider_clip_id</code>
@@ -302,26 +350,18 @@ export default function WCSIngestionTest() {
                       <p className="text-muted-foreground text-xs mt-1">Opta competition identifier</p>
                     </div>
                   </div>
-                  <div className="flex gap-3">
-                    <span className="inline-block px-2 py-1 text-xs bg-secondary text-background rounded h-fit">URL</span>
-                    <div>
-                      <code className="text-xs font-semibold">video_source_url</code>
-                      <p className="text-muted-foreground text-xs mt-1">Publicly accessible URL to download the video file</p>
-                    </div>
-                  </div>
                 </div>
               </div>
 
               <div>
-                <h3 className="font-medium mb-3">Optional Fields</h3>
-                <div className="space-y-3 text-sm">
-                  <div className="flex gap-3">
-                    <span className="inline-block px-2 py-1 text-xs bg-secondary text-background rounded h-fit">URL</span>
-                    <div>
-                      <code className="text-xs font-semibold">thumbnail_source_url</code>
-                      <p className="text-muted-foreground text-xs mt-1">Publicly accessible URL to download the thumbnail image</p>
+                <h3 className="font-medium mb-3">Example Filenames</h3>
+                <div className="space-y-2">
+                  {filenameExamples.map((example) => (
+                    <div key={example.type} className="bg-slate-50 dark:bg-slate-900 p-3 rounded-md">
+                      <p className="text-xs font-medium mb-1">{example.type}</p>
+                      <code className="text-xs text-muted-foreground break-all">{example.filename}</code>
                     </div>
-                  </div>
+                  ))}
                 </div>
               </div>
             </CardContent>
@@ -415,4 +455,3 @@ export default function WCSIngestionTest() {
     </div>
   );
 }
-

@@ -71,39 +71,70 @@ function toPathSafe(id: string): string {
   return id.replace(/[^A-Za-z0-9._-]/g, "_");
 }
 
-export interface HighlightIngestPayload {
+interface ParsedMetadata {
   provider_clip_id: string;
   opta_match_id: string;
   opta_event_id: string;
   opta_competition_id: string;
+}
+
+function parseMetadataFromFilename(url: string): ParsedMetadata {
+  const filename = url.split("/").pop()?.replace(/\.(mp4|mov|mkv|webm|mpg|mpeg|m4v|jpg|jpeg|png|webp|gif)$/i, "") ?? "";
+  const parts = filename.split("__");
+  
+  if (parts.length < 2) {
+    throw new Error("Invalid filename format. Expected: wcs_highlight__provider_clip_id=...&opta_match_id=...&opta_event_id=...&opta_competition_id=...");
+  }
+  
+  const metadataString = parts.slice(1).join("__");
+  const params = new URLSearchParams(metadataString);
+  
+  const provider_clip_id = params.get("provider_clip_id");
+  const opta_match_id = params.get("opta_match_id");
+  const opta_event_id = params.get("opta_event_id");
+  const opta_competition_id = params.get("opta_competition_id");
+  
+  if (!provider_clip_id || !opta_match_id || !opta_event_id || !opta_competition_id) {
+    throw new Error(
+      `Missing required metadata in filename. Required params: provider_clip_id, opta_match_id, opta_event_id, opta_competition_id. ` +
+      `Found: provider_clip_id=${provider_clip_id}, opta_match_id=${opta_match_id}, opta_event_id=${opta_event_id}, opta_competition_id=${opta_competition_id}`
+    );
+  }
+  
+  return {
+    provider_clip_id,
+    opta_match_id,
+    opta_event_id,
+    opta_competition_id,
+  };
+}
+
+export interface HighlightIngestPayload {
   video_source_url: string;
-  thumbnail_source_url?: string;
+  thumbnail_source_url: string;
 }
 
 export async function ingestHighlight(payload: HighlightIngestPayload) {
-  const required: (keyof HighlightIngestPayload)[] = [
-    "provider_clip_id",
-    "opta_match_id",
-    "opta_event_id",
-    "opta_competition_id",
-    "video_source_url",
-  ];
-
-  for (const k of required) {
-    if (!payload[k]) {
-      throw new Error(`Missing field: ${k}`);
-    }
+  if (!payload.video_source_url) {
+    throw new Error("Missing field: video_source_url");
+  }
+  if (!payload.thumbnail_source_url) {
+    throw new Error("Missing field: thumbnail_source_url");
   }
 
-  const providerClipId = toPathSafe(payload.provider_clip_id);
+  const metadata = parseMetadataFromFilename(payload.video_source_url);
+  const providerClipId = toPathSafe(metadata.provider_clip_id);
 
+  if (IS_DEV) dev.log(`Parsed metadata from filename:`, metadata);
   if (IS_DEV) dev.log(`Downloading video from: ${payload.video_source_url}`);
+  
   const videoDownload = await fetchAsBlob(payload.video_source_url);
   if (IS_DEV) {
     dev.log(
       `Video downloaded: ${videoDownload.blob.size} bytes, content-type: ${videoDownload.contentType}`
     );
   }
+  
   let videoExt = getExtensionFromUrl(payload.video_source_url, ".mp4");
   if (videoExt === ".mp4" && videoDownload.contentType) {
     const hinted = inferExtFromContentType(
@@ -164,60 +195,52 @@ export async function ingestHighlight(payload: HighlightIngestPayload) {
   let thumbPath: string | null = null;
   let thumbPublicUrl: string | null = null;
 
-  if (payload.thumbnail_source_url) {
-    try {
-      if (IS_DEV) dev.log(`Downloading thumbnail from: ${payload.thumbnail_source_url}`);
-      const thumbDownload = await fetchAsBlob(
-        payload.thumbnail_source_url
+  try {
+    if (IS_DEV) dev.log(`Downloading thumbnail from: ${payload.thumbnail_source_url}`);
+    const thumbDownload = await fetchAsBlob(payload.thumbnail_source_url);
+    if (IS_DEV) {
+      dev.log(
+        `Thumbnail downloaded: ${thumbDownload.blob.size} bytes, content-type: ${thumbDownload.contentType}`
       );
-      if (IS_DEV) {
-        dev.log(
-          `Thumbnail downloaded: ${thumbDownload.blob.size} bytes, content-type: ${thumbDownload.contentType}`
-        );
-      }
-      
-      let thumbExt = getExtensionFromUrl(payload.thumbnail_source_url, ".jpg");
-      if (thumbDownload.contentType) {
-        const hinted = inferExtFromContentType(
-          thumbDownload.contentType,
-          thumbExt
-        );
-        if (hinted) thumbExt = hinted;
-      }
-
-      thumbPath = `thumbs/${providerClipId}${thumbExt}`;
-
-      const { data: thumbSignedUrl, error: thumbSignedUrlError } = await supabase.storage
-        .from(HIGHLIGHT_BUCKET)
-        .createSignedUploadUrl(thumbPath);
-
-      if (thumbSignedUrlError || !thumbSignedUrl) {
-        if (IS_DEV) dev.log("Failed to get signed upload URL for thumbnail, skipping");
-        thumbPath = null;
-      } else {
-        const thumbUploadResponse = await fetch(thumbSignedUrl.signedUrl, {
-          method: 'PUT',
-          body: thumbDownload.blob,
-          headers: {
-            'Content-Type': thumbDownload.contentType ?? 'image/jpeg',
-            'x-upsert': 'true',
-          },
-        });
-
-        if (!thumbUploadResponse.ok) {
-          if (IS_DEV) dev.log(`Thumbnail upload failed: ${thumbUploadResponse.status}, continuing without thumbnail`);
-          thumbPath = null;
-        } else {
-          if (IS_DEV) dev.log("Thumbnail uploaded successfully");
-        }
-      }
-    } catch (e) {
-      if (IS_DEV) {
-        dev.log("Thumbnail processing error:", e);
-        dev.log("Thumbnail processing failed, continuing without thumbnail");
-      }
-      thumbPath = null;
     }
+    
+    let thumbExt = getExtensionFromUrl(payload.thumbnail_source_url, ".jpg");
+    if (thumbDownload.contentType) {
+      const hinted = inferExtFromContentType(
+        thumbDownload.contentType,
+        thumbExt
+      );
+      if (hinted) thumbExt = hinted;
+    }
+
+    thumbPath = `thumbs/${providerClipId}${thumbExt}`;
+
+    const { data: thumbSignedUrl, error: thumbSignedUrlError } = await supabase.storage
+      .from(HIGHLIGHT_BUCKET)
+      .createSignedUploadUrl(thumbPath);
+
+    if (thumbSignedUrlError || !thumbSignedUrl) {
+      throw new Error(`Failed to get signed upload URL for thumbnail: ${thumbSignedUrlError?.message}`);
+    }
+
+    const thumbUploadResponse = await fetch(thumbSignedUrl.signedUrl, {
+      method: 'PUT',
+      body: thumbDownload.blob,
+      headers: {
+        'Content-Type': thumbDownload.contentType ?? 'image/jpeg',
+        'x-upsert': 'true',
+      },
+    });
+
+    if (!thumbUploadResponse.ok) {
+      throw new Error(`Thumbnail upload failed: ${thumbUploadResponse.status}`);
+    }
+    
+    if (IS_DEV) dev.log("Thumbnail uploaded successfully");
+  } catch (e) {
+    throw new Error(
+      `Failed to upload thumbnail: ${e instanceof Error ? e.message : String(e)}`
+    );
   }
 
   const vPub = supabase.storage
@@ -238,9 +261,9 @@ export async function ingestHighlight(payload: HighlightIngestPayload) {
   const insertPayload = {
     provider: "partner",
     provider_id: providerClipId,
-    opta_match_id: payload.opta_match_id,
-    opta_competition_id: payload.opta_competition_id,
-    opta_event_id: payload.opta_event_id,
+    opta_match_id: metadata.opta_match_id,
+    opta_competition_id: metadata.opta_competition_id,
+    opta_event_id: metadata.opta_event_id,
     video_url: vPub,
     thumbnail_url: thumbPublicUrl || "",
     status: "ready",
@@ -259,4 +282,3 @@ export async function ingestHighlight(payload: HighlightIngestPayload) {
 
   return inserted;
 }
-

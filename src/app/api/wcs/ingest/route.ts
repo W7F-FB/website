@@ -3,7 +3,6 @@ import {
   ingestHighlight,
   HighlightIngestPayload,
 } from "@/lib/supabase/hightlight-ingest";
-import { dev } from "@/lib/dev";
 
 export const runtime = "edge";
 export const maxDuration = 300;
@@ -34,11 +33,13 @@ export async function POST(request: NextRequest) {
 
     const body = (await request.json()) as HighlightIngestPayload;
 
+    console.log("WCS Ingest request received:", JSON.stringify(body, null, 2));
+
     const inserted = await ingestHighlight(body);
 
     return NextResponse.json({ data: inserted }, { status: 201 });
   } catch (e) {
-    dev.log("Highlight ingest error:", e);
+    console.error("WCS Ingest error:", e);
 
     if (e instanceof Error) {
       return NextResponse.json(
