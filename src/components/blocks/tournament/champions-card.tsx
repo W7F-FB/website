@@ -4,7 +4,7 @@ import type { TeamDocument } from "../../../../prismicio-types"
 import type { F1FixturesResponse } from "@/types/opta-feeds/f1-fixtures"
 import type { F1MatchData } from "@/types/opta-feeds/f1-fixtures"
 import Image from "next/image"
-import { getGameCardData } from "@/components/blocks/match/utils"
+import { getOptaGameCardData } from "@/components/blocks/match/utils"
 import { cn } from "@/lib/utils"
 import { ChampionIcon } from "@/components/website-base/icons"
 import { GradientBg } from "@/components/ui/gradient-bg"
@@ -32,7 +32,7 @@ export function ChampionsCard({ finalMatches, f1FixturesData, prismicTeams, over
             {finalMatches[0] && (() => {
                 const finalMatch = finalMatches[0]
                 const optaTeams = f1FixturesData?.SoccerFeed?.SoccerDocument?.Team || []
-                const gameData = getGameCardData(finalMatch, prismicTeams, optaTeams)
+                const gameData = getOptaGameCardData(finalMatch, prismicTeams, optaTeams)
                 
                 const champion = gameData.homeIsWinning ? gameData.homeTeam : gameData.awayTeam
                 const championLogo = gameData.homeIsWinning ? gameData.homeLogoUrl : gameData.awayLogoUrl

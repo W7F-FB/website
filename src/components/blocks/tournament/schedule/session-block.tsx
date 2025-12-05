@@ -24,7 +24,7 @@ export function SessionBlock({ title, gatesOpen, matches, time, icon: Icon }: Se
                             <Icon size={28} />
                         </div>
                     )}
-                    <div className="flex flex-col gap-1 items-start md:flex-row md:items-center">
+                    <div className="flex flex-col gap-2.5 items-start md:flex-row md:items-center">
                         <span className="text-base md:text-xl text-nowrap font-bold font-headers leading-none">{title}</span>
                         {matches && <span className="text-muted-foreground text-sm md:text-md md:mt-1.5">{matches}</span>}
                     </div>

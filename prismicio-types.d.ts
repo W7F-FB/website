@@ -583,6 +583,35 @@ interface MatchDocumentData {
   opta_id: prismic.KeyTextField;
 
   /**
+   * Tournament field in *Match*
+   *
+   * - **Field Type**: Content Relationship
+   * - **Placeholder**: *None*
+   * - **API ID Path**: match.tournament
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/content-relationship
+   */
+  tournament: ContentRelationshipFieldWithData<
+    [
+      {
+        id: "tournament";
+        fields: [
+          "status",
+          "prize_pool",
+          "country_code",
+          "stadium_name",
+          "start_date",
+          "end_date",
+          "number_of_teams",
+          "opta_season_id",
+          "opta_enabled",
+          "opta_competition_id",
+        ];
+      },
+    ]
+  >;
+
+  /**
    * Broadcasts field in *Match*
    *
    * - **Field Type**: Group
@@ -738,6 +767,95 @@ interface MatchDocumentData {
  */
 export type MatchDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithUID<Simplify<MatchDocumentData>, "match", Lang>;
+
+/**
+ * Content for Player documents
+ */
+interface PlayerDocumentData {
+  /**
+   * Opta ID field in *Player*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: player.opta_id
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  opta_id: prismic.KeyTextField;
+
+  /**
+   * First Name field in *Player*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: player.first_name
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  first_name: prismic.KeyTextField;
+
+  /**
+   * Last Name field in *Player*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: player.last_name
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  last_name: prismic.KeyTextField;
+
+  /**
+   * Headshot field in *Player*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: player.headshot
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  headshot: prismic.ImageField<never>;
+
+  /**
+   * Team field in *Player*
+   *
+   * - **Field Type**: Content Relationship
+   * - **Placeholder**: *None*
+   * - **API ID Path**: player.team
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/content-relationship
+   */
+  team: ContentRelationshipFieldWithData<
+    [
+      {
+        id: "team";
+        fields: [
+          "opta_id",
+          "name",
+          "key",
+          "country",
+          "country_code",
+          "logo",
+          "color_primary",
+          "color_secondary",
+          "alphabetical_sort_string",
+        ];
+      },
+    ]
+  >;
+}
+
+/**
+ * Player document from Prismic
+ *
+ * - **API ID**: `player`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/content-modeling
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type PlayerDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<Simplify<PlayerDocumentData>, "player", Lang>;
 
 /**
  * Content for Policy documents
@@ -1778,6 +1896,7 @@ export type AllDocumentTypes =
   | BroadcastPartnersDocument
   | ImageWithTextDocument
   | MatchDocument
+  | PlayerDocument
   | PolicyDocument
   | SponsorDocument
   | TeamDocument
@@ -1821,6 +1940,8 @@ declare module "@prismicio/client" {
       MatchDocumentData,
       MatchDocumentDataBroadcastsItem,
       MatchDocumentDataSlicesSlice,
+      PlayerDocument,
+      PlayerDocumentData,
       PolicyDocument,
       PolicyDocumentData,
       SponsorDocument,

@@ -1,6 +1,6 @@
 import { Section, Container, PaddingGlobal } from "@/components/website-base/padding-containers"
 import { H1, P, Subtitle } from "@/components/website-base/typography"
-import type { TournamentDocument, TeamDocument, BlogDocument, TournamentDocumentDataAwardsItem } from "../../../../../prismicio-types"
+import type { TournamentDocument, TeamDocument, BlogDocument, TournamentDocumentDataAwardsItem, BroadcastPartnersDocument } from "../../../../../prismicio-types"
 import type * as prismic from "@prismicio/client"
 import { SubpageHero, SubpageHeroMedia, SubpageHeroContent, SubpageHeroMediaBanner } from "@/components/blocks/subpage-hero"
 
@@ -12,30 +12,23 @@ import { PrismicNextImage } from "@prismicio/next"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { CaretRightIcon } from "@/components/website-base/icons"
-import { GroupList } from "@/components/blocks/tournament/group-list"
 import type { F3StandingsResponse } from "@/types/opta-feeds/f3-standings"
 import type { F1FixturesResponse } from "@/types/opta-feeds/f1-fixtures"
 import type { F30SeasonStatsResponse } from "@/types/opta-feeds/f30-season-stats"
 import { getPlayerByName } from "@/types/opta-feeds/f30-season-stats"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { SectionHeading, SectionHeadingHeading, SectionHeadingText, SectionHeadingSubtitle } from "@/components/sections/section-heading"
-import { MatchCard } from "@/components/blocks/match/match-card"
-import { getGroupStageMatches, getSemiFinalMatches, getThirdPlaceMatch, getFinalMatch, groupMatchesByDate } from "./utils"
-import { MatchDayBadge } from "@/components/blocks/tournament/match-day-badge"
-import { getMatchTeams } from "@/lib/opta/utils"
+import { SectionHeading, SectionHeadingHeading, SectionHeadingSubtitle } from "@/components/sections/section-heading"
+import { getSemiFinalMatches, getThirdPlaceMatch, getFinalMatch } from "./utils"
 import { formatDateRange, formatCurrencyInWords, mapBlogDocumentToMetadata } from "@/lib/utils"
 import { PostGrid } from "@/components/blocks/posts/post-grid"
 import { PrismicLink } from "@prismicio/react"
 import { Separator } from "@/components/ui/separator"
-import { GridCellScrollLink } from "@/components/blocks/grid-cell-scroll-link"
 import { PostBanner } from "@/components/blocks/posts/post"
 import { isFilled } from "@prismicio/client"
 import { VideoBanner } from "@/components/blocks/video-banner/video-banner"
-import { cn } from "@/lib/utils"
 import { PlayerAwardCard } from "@/components/blocks/players/player-award-card"
-import { FastBanner } from "@/components/blocks/fast-banners"
 import { StatSheetTabs } from "@/components/blocks/tournament/stat-sheet/stat-sheet-tabs"
-import { ChampionsCard } from "@/components/blocks/tournament/champions-card"
+import { GroupStageSection } from "@/components/blocks/tournament/group-stage-section"
+import { KnockoutStageSection } from "@/components/blocks/tournament/knockout-stage-section"
 
 type Props = {
     tournament: TournamentDocument
@@ -44,22 +37,16 @@ type Props = {
     f1FixturesData: F1FixturesResponse | null
     f30TeamStats: Map<string, F30SeasonStatsResponse>
     prismicTeams: TeamDocument[]
+    matchSlugMap?: Map<string, string>
     awards: NonNullable<AwardData>[]
     compact?: boolean
+    dazn?: BroadcastPartnersDocument | null
 }
 
-export default function TournamentPagePast({ tournament, tournamentBlogs, f3StandingsData, f1FixturesData, f30TeamStats, prismicTeams, awards, compact = false }: Props) {
-    const groupStageMatches = getGroupStageMatches(f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData)
-    const matchesByDay = groupMatchesByDate(groupStageMatches)
-    const totalMatches = groupStageMatches.length
+export default function TournamentPagePast({ tournament, tournamentBlogs, f3StandingsData, f1FixturesData, f30TeamStats, prismicTeams, matchSlugMap, awards, compact = false, dazn }: Props) {
     const semiFinalMatches = getSemiFinalMatches(f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData)
     const thirdPlaceMatches = getThirdPlaceMatch(f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData)
     const finalMatches = getFinalMatch(f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData)
-    const knockoutMatches = semiFinalMatches.length + thirdPlaceMatches.length + finalMatches.length
-
-    const knockoutDate = semiFinalMatches[0]?.MatchInfo?.Date
-        || thirdPlaceMatches[0]?.MatchInfo?.Date
-        || finalMatches[0]?.MatchInfo?.Date
 
     return (
         <div>
@@ -166,148 +153,27 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                         </div>
                     </Section>
                 )}
-                <Section padding="md" id="results">
-                    <SectionHeading variant="split">
-                        <SectionHeadingHeading>
-                            Group Stage
-                        </SectionHeadingHeading>
-                        <SectionHeadingText variant="lg" className="ml-0 md:ml-auto mt-auto">
-                            {totalMatches} {totalMatches === 1 ? 'Match' : 'Matches'}
-                        </SectionHeadingText>
-                    </SectionHeading>
-                    <div className="grid grid-cols-1 md:grid-cols-7 gap-6 md:gap-12">
-                        <Card banner className="col-span-1 md:col-span-2 self-start md:sticky md:top-32">
-                            {f3StandingsData?.SoccerFeed?.SoccerDocument?.Competition?.TeamStandings?.map((groupStandings) => {
-                                const groupName = groupStandings.Round?.Name.value || 'Unknown Group'
-                                return (
-                                    <div key={groupStandings.Round?.Name.id || Math.random()}>
-                                        <CardHeader>
-                                            <CardTitle>{groupName}</CardTitle>
-                                        </CardHeader>
-                                        <CardContent>
-                                            <GroupList
-                                                groupStandings={groupStandings}
-                                                teams={f3StandingsData?.SoccerFeed?.SoccerDocument?.Team || []}
-                                                prismicTeams={prismicTeams}
-                                                matches={f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData || []}
-                                            />
-                                        </CardContent>
-                                    </div>
-
-                                )
-                            })}
-                        </Card>
-                        <div className="col-span-1 md:col-span-5 space-y-18">
-                            {Array.from(matchesByDay.entries()).map(([date, matches], index) => {
-                                const columns = compact ? 3 : 2
-                                const filledCellsInLastRow = matches.length % columns
-                                const emptyCells = filledCellsInLastRow === 0 ? 0 : columns - filledCellsInLastRow
-                                const isLastMatchDay = index === matchesByDay.size - 1
-                                const nextMatchDayHref = isLastMatchDay ? "#knockout" : `#match-day-${index + 2}`
-
-                                return (
-                                    <div key={date} id={`match-day-${index + 1}`} className="space-y-8">
-                                        <MatchDayBadge matchDay={index + 1} date={date} />
-                                        <div className={cn("grid grid-cols-1 md:grid-cols-2 gap-6", compact && "md:grid-cols-3")}>
-                                            {matches.map((match) => (
-                                                <MatchCard
-                                                    key={match.uID}
-                                                    fixture={match}
-                                                    prismicTeams={prismicTeams}
-                                                    optaTeams={getMatchTeams(match, f1FixturesData?.SoccerFeed?.SoccerDocument?.Team || [])}
-                                                    compact={compact}
-                                                    allMatches={f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData}
-                                                    f3StandingsData={f3StandingsData}
-                                                />
-                                            ))}
-                                            {emptyCells > 0 && (
-                                                <GridCellScrollLink
-                                                    href={nextMatchDayHref}
-                                                    className={cn(
-                                                        "col-span-1",
-                                                        emptyCells === 2 && "md:col-span-2 md:col-start-auto",
-                                                        emptyCells === 3 && "md:col-span-3 md:col-start-auto"
-                                                    )}
-                                                />
-                                            )}
-                                        </div>
-                                    </div>
-                                )
-                            })}
-                        </div>
-                    </div>
-                </Section>
-                <Section padding="md" id="knockout">
-                    <SectionHeading variant="split">
-                        <SectionHeadingHeading>
-                            Knockout Stage
-                        </SectionHeadingHeading>
-                        <SectionHeadingText variant="lg" className="ml-0 md:ml-auto mt-auto">
-                            {knockoutMatches} {knockoutMatches === 1 ? 'Match' : 'Matches'}
-                        </SectionHeadingText>
-                    </SectionHeading>
-                    <MatchDayBadge matchDay={3} date={knockoutDate ? knockoutDate.split(' ')[0] : null} className="mb-8" />
-                    <div className="flex justify-center items-start gap-8">
-                        <FastBanner text="FAST." position="left" strokeWidth="1px" uppercase className="hidden md:block" />
-                        <div className="max-w-3xl w-full space-y-6">
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                {semiFinalMatches[0] && (
-                                    <MatchCard
-                                        fixture={semiFinalMatches[0]}
-                                        prismicTeams={prismicTeams}
-                                        optaTeams={getMatchTeams(semiFinalMatches[0], f1FixturesData?.SoccerFeed?.SoccerDocument?.Team || [])}
-                                        compact={compact}
-                                        banner="Semi Final 1"
-                                        allMatches={f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData}
-                                        f3StandingsData={f3StandingsData}
-                                    />
-                                )}
-                                {semiFinalMatches[1] && (
-                                    <MatchCard
-                                        fixture={semiFinalMatches[1]}
-                                        prismicTeams={prismicTeams}
-                                        optaTeams={getMatchTeams(semiFinalMatches[1], f1FixturesData?.SoccerFeed?.SoccerDocument?.Team || [])}
-                                        compact={compact}
-                                        banner="Semi Final 2"
-                                        allMatches={f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData}
-                                        f3StandingsData={f3StandingsData}
-                                    />
-                                )}
-                            </div>
-                            {thirdPlaceMatches.map((match) => (
-                                <MatchCard
-                                    key={match.uID}
-                                    fixture={match}
-                                    prismicTeams={prismicTeams}
-                                    optaTeams={getMatchTeams(match, f1FixturesData?.SoccerFeed?.SoccerDocument?.Team || [])}
-                                    compact={compact}
-                                    banner="Third Place Match"
-                                    allMatches={f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData}
-                                    f3StandingsData={f3StandingsData}
-                                />
-                            ))}
-                            <Separator variant="gradient" className="my-12" />
-                            {finalMatches.map((match) => (
-                                <MatchCard
-                                    key={match.uID}
-                                    fixture={match}
-                                    prismicTeams={prismicTeams}
-                                    optaTeams={getMatchTeams(match, f1FixturesData?.SoccerFeed?.SoccerDocument?.Team || [])}
-                                    compact={compact}
-                                    banner="The Final"
-                                    allMatches={f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData}
-                                    f3StandingsData={f3StandingsData}
-                                />
-                            ))}
-                            <ChampionsCard
-                                finalMatches={finalMatches}
-                                f1FixturesData={f1FixturesData}
-                                prismicTeams={prismicTeams}
-                            />
-                        </div>
-                        <FastBanner text="FORWARD." position="right" strokeWidth="1.5px" className="hidden md:block" />
-                    </div>
-                </Section>
+                <GroupStageSection
+                    f3StandingsData={f3StandingsData}
+                    f1FixturesData={f1FixturesData}
+                    prismicTeams={prismicTeams}
+                    tournamentSlug={tournament.uid}
+                    matchSlugMap={matchSlugMap}
+                    compact={compact}
+                    streamingLink={dazn?.data.streaming_link}
+                />
+                <KnockoutStageSection
+                    semiFinalMatches={semiFinalMatches}
+                    thirdPlaceMatches={thirdPlaceMatches}
+                    finalMatches={finalMatches}
+                    f1FixturesData={f1FixturesData}
+                    f3StandingsData={f3StandingsData}
+                    prismicTeams={prismicTeams}
+                    tournamentSlug={tournament.uid}
+                    matchSlugMap={matchSlugMap}
+                    compact={compact}
+                    streamingLink={dazn?.data.streaming_link}
+                />
                 <Section padding="md" id="stat-sheet">
                     <SectionHeading className="pb-8">
                         <SectionHeadingHeading variant="h2">
@@ -315,7 +181,7 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                         </SectionHeadingHeading>
                     </SectionHeading>
                     
-                    <StatSheetTabs prismicTeams={prismicTeams} f30TeamStats={f30TeamStats} f1FixturesData={f1FixturesData} tournamentStatus={tournament.data.status ?? undefined} />
+                    <StatSheetTabs prismicTeams={prismicTeams} f30TeamStats={f30TeamStats} f1FixturesData={f1FixturesData} f3StandingsData={f3StandingsData} tournamentStatus={tournament.data.status ?? undefined} isKnockoutStage={true} />
                 </Section>
                 {tournamentBlogs.length > 0 && (
                     <>
@@ -344,4 +210,3 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
         </div>
     )
 }
-

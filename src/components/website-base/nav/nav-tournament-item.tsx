@@ -166,27 +166,23 @@ export async function NavigationMenuTournamentFeatured({
                             {teams.slice(0, 8).map((team) => {
                                 if (!isFilled.image(team.data.logo)) return null
 
-                                const optaEnabled = tournament.data.opta_enabled
-                                const logoContent = (
-                                    <div
-                                        key={team.id}
-                                        className={cn(
-                                            "relative size-6.5 flex-shrink-0",
-                                            optaEnabled && "opacity-100 hover:opacity-90 transition-opacity"
-                                        )}
-                                    >
-                                        <PrismicNextImage
-                                            field={team.data.logo}
-                                            fill
-                                            className="object-contain"
-                                            sizes="32px"
-                                            priority
-                                            loading="eager"
-                                        />
-                                    </div>
+                                return (
+                                    <NavSheetLink key={team.id}>
+                                        <PrismicLink
+                                            document={team}
+                                            className="relative size-6.5 flex-shrink-0 opacity-100 hover:opacity-80 transition-opacity"
+                                        >
+                                            <PrismicNextImage
+                                                field={team.data.logo}
+                                                fill
+                                                className="object-contain"
+                                                sizes="32px"
+                                                priority
+                                                loading="eager"
+                                            />
+                                        </PrismicLink>
+                                    </NavSheetLink>
                                 )
-
-                                return logoContent
                             })}
                             {teams.length > 8 && (
                                 <span className="text-xs text-muted-foreground">+{teams.length - 8}</span>
@@ -203,21 +199,21 @@ export async function NavigationMenuTournamentFeatured({
                         </div>
                     </CategoryButton>
                     <Separator variant="gradient" gradientDirection="toRight" />
-                    <CategoryButton href="/checkout">
+                    <CategoryButton href={`/tournament/${tournament.uid}/tickets`}>
                         <div className="flex items-center gap-3">
                             <TicketIcon className="size-4 text-foreground" />
                             Tickets
                         </div>
                     </CategoryButton>
                     <Separator variant="gradient" gradientDirection="toRight" />
-                    <CategoryButton href={`/tournament/${tournament.uid}#vip-cabanas`}>
+                    <CategoryButton href={`/tournament/${tournament.uid}/vip-cabanas`}>
                         <div className="flex items-center gap-3">
                             <VIPIcon className="size-4 text-foreground" />
                             VIP Cabanas
                         </div>
                     </CategoryButton>
                     <Separator variant="gradient" gradientDirection="toRight" />
-                    <CategoryButton href={`/tournament/${tournament.uid}/schedule`}>
+                    <CategoryButton href={`/tournament/${tournament.uid}/tickets#schedule`}>
                         <div className="flex items-center gap-3">
                             <WhistleIcon className="size-4 text-foreground" />
                             Schedule

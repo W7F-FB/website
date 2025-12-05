@@ -1,19 +1,20 @@
 import Image from "next/image"
+import { PrismicNextImage } from "@prismicio/next"
 import { PlayerUnknown } from "@/components/website-base/icons"
+import type { ImageField } from "@prismicio/client"
 
 type PlayerHeadshotProps = {
-    logoUrl?: string
+    logoField?: ImageField
     headshotUrl?: string
     primaryColor?: string
 }
 
-export function PlayerHeadshot({ logoUrl, headshotUrl, primaryColor }: PlayerHeadshotProps) {
+export function PlayerHeadshot({ logoField, headshotUrl, primaryColor }: PlayerHeadshotProps) {
     return (
         <div className="w-16 h-16 bg-muted/10 rounded-full overflow-hidden flex items-center justify-center relative border border-muted/50">
-            {logoUrl && (
-                <Image
-                    src={logoUrl}
-                    alt="Team logo"
+            {logoField?.url && (
+                <PrismicNextImage
+                    field={logoField}
                     fill
                     className="object-cover opacity-60 mask-b-from-20% mask-r-from-50%  mask-radial-from-1%"
                 />
@@ -31,11 +32,10 @@ export function PlayerHeadshot({ logoUrl, headshotUrl, primaryColor }: PlayerHea
                         className="relative z-10 w-[110%] h-[110%] "
                         style={{ color: primaryColor || undefined }}
                     />
-                    {logoUrl && (
+                    {logoField?.url && (
                         <div className="absolute size-4 z-[20] -bottom-1 opacity-50 rounded-full">
-                            <Image
-                                src={logoUrl}
-                                alt="Team logo"
+                            <PrismicNextImage
+                                field={logoField}
                                 fill
                                 className="w-full h-full "
                             />

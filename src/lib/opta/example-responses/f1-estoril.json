@@ -1,0 +1,1428 @@
+{
+    "SoccerDocument": {
+        "MatchData": [
+            {
+                "MatchInfo": {
+                    "Date": "2025-05-21 19:00:00",
+                    "DateUtc": "2025-05-21 18:00:00",
+                    "TZ": "BST",
+                    "GroupName": 1,
+                    "MatchDay": 1,
+                    "MatchType": "Cup 1ET PENS",
+                    "MatchWinner": "t22742",
+                    "Period": "FullTime",
+                    "RoundNumber": 1,
+                    "RoundType": "Round",
+                    "TimeFrameLengthId": 34,
+                    "Venue_id": 4211
+                },
+                "Stat": [
+                    {
+                        "value": "Estádio António Coimbra da Mota",
+                        "Type": "Venue"
+                    },
+                    {
+                        "value": "Estoril",
+                        "Type": "City"
+                    },
+                    {
+                        "value": "True",
+                        "Type": "Neutral"
+                    }
+                ],
+                "TeamData": [
+                    {
+                        "Goal": [
+                            {
+                                "Period": "FirstHalf",
+                                "PlayerRef": "p577746",
+                                "Type": "Goal"
+                            },
+                            {
+                                "Period": "SecondHalf",
+                                "PlayerRef": "p631901",
+                                "Type": "Goal"
+                            }
+                        ],
+                        "HalfScore": 1,
+                        "Score": 2,
+                        "Side": "Home",
+                        "TeamRef": "t22740"
+                    },
+                    {
+                        "Goal": [
+                            {
+                                "Period": "FirstHalf",
+                                "PlayerRef": "p505475",
+                                "Type": "Own"
+                            },
+                            {
+                                "Period": "FirstHalf",
+                                "PlayerRef": "p164916",
+                                "Type": "Goal"
+                            },
+                            {
+                                "Period": "SecondHalf",
+                                "PlayerRef": "p178604",
+                                "Type": "Goal"
+                            },
+                            {
+                                "Period": "SecondHalf",
+                                "PlayerRef": "p203350",
+                                "Type": "Goal"
+                            }
+                        ],
+                        "HalfScore": 2,
+                        "Score": 4,
+                        "Side": "Away",
+                        "TeamRef": "t22742"
+                    }
+                ],
+                "detail_id": 1,
+                "last_modified": "2025-10-16T11:29:50+00:00",
+                "timestamp_accuracy_id": 1,
+                "timing_id": 1,
+                "uID": "g2554780"
+            },
+            {
+                "MatchInfo": {
+                    "Date": "2025-05-21 17:00:00",
+                    "DateUtc": "2025-05-21 16:00:00",
+                    "TZ": "BST",
+                    "GroupName": 1,
+                    "MatchDay": 1,
+                    "MatchType": "Cup 1ET PENS",
+                    "MatchWinner": "t22744",
+                    "Period": "FullTime",
+                    "RoundNumber": 1,
+                    "RoundType": "Round",
+                    "TimeFrameLengthId": 34,
+                    "Venue_id": 4211
+                },
+                "Stat": [
+                    {
+                        "value": "Estádio António Coimbra da Mota",
+                        "Type": "Venue"
+                    },
+                    {
+                        "value": "Estoril",
+                        "Type": "City"
+                    },
+                    {
+                        "value": "True",
+                        "Type": "Neutral"
+                    }
+                ],
+                "TeamData": [
+                    {
+                        "Goal": [
+                            {
+                                "Period": "FirstHalf",
+                                "PlayerRef": "p241555",
+                                "Type": "Goal"
+                            },
+                            {
+                                "Period": "FirstHalf",
+                                "PlayerRef": "p492410",
+                                "Type": "Goal"
+                            },
+                            {
+                                "Period": "SecondHalf",
+                                "PlayerRef": "p492406",
+                                "Type": "Goal"
+                            },
+                            {
+                                "Period": "SecondHalf",
+                                "PlayerRef": "p241555",
+                                "Type": "Goal"
+                            }
+                        ],
+                        "HalfScore": 2,
+                        "Score": 4,
+                        "Side": "Home",
+                        "TeamRef": "t22744"
+                    },
+                    {
+                        "HalfScore": 0,
+                        "Score": 0,
+                        "Side": "Away",
+                        "TeamRef": "t22748"
+                    }
+                ],
+                "detail_id": 1,
+                "last_modified": "2025-10-16T11:29:50+00:00",
+                "timestamp_accuracy_id": 1,
+                "timing_id": 1,
+                "uID": "g2554778"
+            },
+            {
+                "MatchInfo": {
+                    "Date": "2025-05-21 20:00:00",
+                    "DateUtc": "2025-05-21 19:00:00",
+                    "TZ": "BST",
+                    "GroupName": 2,
+                    "MatchDay": 1,
+                    "MatchType": "Cup 1ET PENS",
+                    "MatchWinner": "t22746",
+                    "Period": "FullTime",
+                    "RoundNumber": 1,
+                    "RoundType": "Round",
+                    "TimeFrameLengthId": 34,
+                    "Venue_id": 4211
+                },
+                "Stat": [
+                    {
+                        "value": "Estádio António Coimbra da Mota",
+                        "Type": "Venue"
+                    },
+                    {
+                        "value": "Estoril",
+                        "Type": "City"
+                    },
+                    {
+                        "value": "True",
+                        "Type": "Neutral"
+                    }
+                ],
+                "TeamData": [
+                    {
+                        "Goal": [
+                            {
+                                "Period": "FirstHalf",
+                                "PlayerRef": "p560445",
+                                "Type": "Goal"
+                            },
+                            {
+                                "Period": "SecondHalf",
+                                "PlayerRef": "p596277",
+                                "Type": "Goal"
+                            }
+                        ],
+                        "HalfScore": 1,
+                        "Score": 2,
+                        "Side": "Home",
+                        "TeamRef": "t22746"
+                    },
+                    {
+                        "Goal": {
+                            "Period": "FirstHalf",
+                            "PlayerRef": "p560274",
+                            "Type": "Goal"
+                        },
+                        "HalfScore": 1,
+                        "Score": 1,
+                        "Side": "Away",
+                        "TeamRef": "t22743"
+                    }
+                ],
+                "detail_id": 1,
+                "last_modified": "2025-10-16T11:29:50+00:00",
+                "timestamp_accuracy_id": 1,
+                "timing_id": 1,
+                "uID": "g2554781"
+            },
+            {
+                "MatchInfo": {
+                    "Date": "2025-05-21 18:00:00",
+                    "DateUtc": "2025-05-21 17:00:00",
+                    "TZ": "BST",
+                    "GroupName": 2,
+                    "MatchDay": 1,
+                    "MatchType": "Cup 1ET PENS",
+                    "MatchWinner": "t22745",
+                    "Period": "FullTime",
+                    "RoundNumber": 1,
+                    "RoundType": "Round",
+                    "TimeFrameLengthId": 34,
+                    "Venue_id": 4211
+                },
+                "Stat": [
+                    {
+                        "value": "Estádio António Coimbra da Mota",
+                        "Type": "Venue"
+                    },
+                    {
+                        "value": "Estoril",
+                        "Type": "City"
+                    },
+                    {
+                        "value": "True",
+                        "Type": "Neutral"
+                    }
+                ],
+                "TeamData": [
+                    {
+                        "Goal": [
+                            {
+                                "Period": "FirstHalf",
+                                "PlayerRef": "p175754",
+                                "Type": "Goal"
+                            },
+                            {
+                                "Period": "SecondHalf",
+                                "PlayerRef": "p175754",
+                                "Type": "Goal"
+                            }
+                        ],
+                        "HalfScore": 1,
+                        "Score": 2,
+                        "Side": "Home",
+                        "TeamRef": "t22741"
+                    },
+                    {
+                        "Goal": [
+                            {
+                                "Period": "FirstHalf",
+                                "PlayerRef": "p212795",
+                                "Type": "Goal"
+                            },
+                            {
+                                "Period": "FirstHalf",
+                                "PlayerRef": "p475116",
+                                "Type": "Goal"
+                            },
+                            {
+                                "Period": "SecondHalf",
+                                "PlayerRef": "p504613",
+                                "Type": "Goal"
+                            }
+                        ],
+                        "HalfScore": 2,
+                        "Score": 3,
+                        "Side": "Away",
+                        "TeamRef": "t22745"
+                    }
+                ],
+                "detail_id": 1,
+                "last_modified": "2025-10-16T11:29:50+00:00",
+                "timestamp_accuracy_id": 1,
+                "timing_id": 1,
+                "uID": "g2554779"
+            },
+            {
+                "MatchInfo": {
+                    "Date": "2025-05-22 18:30:00",
+                    "DateUtc": "2025-05-22 17:30:00",
+                    "TZ": "BST",
+                    "GroupName": 1,
+                    "MatchDay": 3,
+                    "MatchType": "Cup 1ET PENS",
+                    "MatchWinner": "t22742",
+                    "Period": "FullTime",
+                    "RoundNumber": 1,
+                    "RoundType": "Round",
+                    "TimeFrameLengthId": 34,
+                    "Venue_id": 4211
+                },
+                "Stat": [
+                    {
+                        "value": "Estádio António Coimbra da Mota",
+                        "Type": "Venue"
+                    },
+                    {
+                        "value": "Estoril",
+                        "Type": "City"
+                    },
+                    {
+                        "value": "True",
+                        "Type": "Neutral"
+                    }
+                ],
+                "TeamData": [
+                    {
+                        "Goal": [
+                            {
+                                "Period": "FirstHalf",
+                                "PlayerRef": "p178604",
+                                "Type": "Goal"
+                            },
+                            {
+                                "Period": "SecondHalf",
+                                "PlayerRef": "p191729",
+                                "Type": "Goal"
+                            },
+                            {
+                                "Period": "SecondHalf",
+                                "PlayerRef": "p512659",
+                                "Type": "Goal"
+                            }
+                        ],
+                        "HalfScore": 1,
+                        "Score": 3,
+                        "Side": "Home",
+                        "TeamRef": "t22742"
+                    },
+                    {
+                        "Goal": {
+                            "Period": "FirstHalf",
+                            "PlayerRef": "p492410",
+                            "Type": "Goal"
+                        },
+                        "HalfScore": 1,
+                        "Score": 1,
+                        "Side": "Away",
+                        "TeamRef": "t22744"
+                    }
+                ],
+                "detail_id": 1,
+                "last_modified": "2025-10-16T11:29:50+00:00",
+                "timestamp_accuracy_id": 1,
+                "timing_id": 1,
+                "uID": "g2554786"
+            },
+            {
+                "MatchInfo": {
+                    "Date": "2025-05-22 20:30:00",
+                    "DateUtc": "2025-05-22 19:30:00",
+                    "TZ": "BST",
+                    "GameWinner": "t22741",
+                    "GameWinnerType": "ShootOut",
+                    "GroupName": 2,
+                    "MatchDay": 3,
+                    "MatchType": "Cup 1ET PENS",
+                    "Period": "FullTime",
+                    "RoundNumber": 1,
+                    "RoundType": "Round",
+                    "TimeFrameLengthId": 34,
+                    "Venue_id": 4211
+                },
+                "Stat": [
+                    {
+                        "value": "Estádio António Coimbra da Mota",
+                        "Type": "Venue"
+                    },
+                    {
+                        "value": "Estoril",
+                        "Type": "City"
+                    },
+                    {
+                        "value": "True",
+                        "Type": "Neutral"
+                    }
+                ],
+                "TeamData": [
+                    {
+                        "Goal": [
+                            {
+                                "Period": "FirstHalf",
+                                "PlayerRef": "p520632",
+                                "Type": "Goal"
+                            },
+                            {
+                                "Period": "SecondHalf",
+                                "PlayerRef": "p443976",
+                                "Type": "Goal"
+                            }
+                        ],
+                        "ExtraScore": 0,
+                        "HalfScore": 1,
+                        "NinetyScore": 2,
+                        "PenaltyScore": 0,
+                        "Score": 2,
+                        "Side": "Home",
+                        "TeamRef": "t22743"
+                    },
+                    {
+                        "Goal": [
+                            {
+                                "Period": "SecondHalf",
+                                "PlayerRef": "p502001",
+                                "Type": "Goal"
+                            },
+                            {
+                                "Period": "SecondHalf",
+                                "PlayerRef": "p557006",
+                                "Type": "Penalty"
+                            },
+                            {
+                                "Period": "ShootOut",
+                                "PlayerRef": "p97115",
+                                "Type": "Penalty"
+                            }
+                        ],
+                        "ExtraScore": 0,
+                        "HalfScore": 0,
+                        "NinetyScore": 2,
+                        "PenaltyScore": 1,
+                        "Score": 2,
+                        "Side": "Away",
+                        "TeamRef": "t22741"
+                    }
+                ],
+                "detail_id": 1,
+                "last_modified": "2025-10-16T11:29:50+00:00",
+                "timestamp_accuracy_id": 1,
+                "timing_id": 1,
+                "uID": "g2554788"
+            },
+            {
+                "MatchInfo": {
+                    "Date": "2025-05-22 13:30:00",
+                    "DateUtc": "2025-05-22 12:30:00",
+                    "TZ": "BST",
+                    "GameWinner": "t22744",
+                    "GameWinnerType": "ShootOut",
+                    "GroupName": 1,
+                    "MatchDay": 2,
+                    "MatchType": "Cup 1ET PENS",
+                    "Period": "FullTime",
+                    "RoundNumber": 1,
+                    "RoundType": "Round",
+                    "TimeFrameLengthId": 34,
+                    "Venue_id": 4211
+                },
+                "Stat": [
+                    {
+                        "value": "Estádio António Coimbra da Mota",
+                        "Type": "Venue"
+                    },
+                    {
+                        "value": "Estoril",
+                        "Type": "City"
+                    },
+                    {
+                        "value": "True",
+                        "Type": "Neutral"
+                    }
+                ],
+                "TeamData": [
+                    {
+                        "Goal": [
+                            {
+                                "Period": "FirstHalf",
+                                "PlayerRef": "p241555",
+                                "Type": "Goal"
+                            },
+                            {
+                                "Period": "SecondHalf",
+                                "PlayerRef": "p223528",
+                                "Type": "Goal"
+                            },
+                            {
+                                "Period": "ShootOut",
+                                "PlayerRef": "p96385",
+                                "Type": "Penalty"
+                            },
+                            {
+                                "Period": "ShootOut",
+                                "PlayerRef": "p241555",
+                                "Type": "Penalty"
+                            },
+                            {
+                                "Period": "ShootOut",
+                                "PlayerRef": "p241555",
+                                "Type": "Penalty"
+                            },
+                            {
+                                "Period": "ShootOut",
+                                "PlayerRef": "p223528",
+                                "Type": "Penalty"
+                            },
+                            {
+                                "Period": "ShootOut",
+                                "PlayerRef": "p96385",
+                                "Type": "Penalty"
+                            },
+                            {
+                                "Period": "ShootOut",
+                                "PlayerRef": "p492410",
+                                "Type": "Penalty"
+                            }
+                        ],
+                        "ExtraScore": 0,
+                        "HalfScore": 1,
+                        "NinetyScore": 2,
+                        "PenaltyScore": 6,
+                        "Score": 2,
+                        "Side": "Home",
+                        "TeamRef": "t22744"
+                    },
+                    {
+                        "Goal": [
+                            {
+                                "Period": "SecondHalf",
+                                "PlayerRef": "p486688",
+                                "Type": "Goal"
+                            },
+                            {
+                                "Period": "SecondHalf",
+                                "PlayerRef": "p631901",
+                                "Type": "Penalty"
+                            },
+                            {
+                                "Period": "ShootOut",
+                                "PlayerRef": "p486688",
+                                "Type": "Penalty"
+                            },
+                            {
+                                "Period": "ShootOut",
+                                "PlayerRef": "p631901",
+                                "Type": "Penalty"
+                            },
+                            {
+                                "Period": "ShootOut",
+                                "PlayerRef": "p604778",
+                                "Type": "Penalty"
+                            },
+                            {
+                                "Period": "ShootOut",
+                                "PlayerRef": "p631901",
+                                "Type": "Penalty"
+                            },
+                            {
+                                "Period": "ShootOut",
+                                "PlayerRef": "p493594",
+                                "Type": "Penalty"
+                            }
+                        ],
+                        "ExtraScore": 0,
+                        "HalfScore": 0,
+                        "NinetyScore": 2,
+                        "PenaltyScore": 5,
+                        "Score": 2,
+                        "Side": "Away",
+                        "TeamRef": "t22740"
+                    }
+                ],
+                "detail_id": 1,
+                "last_modified": "2025-10-16T11:29:50+00:00",
+                "timestamp_accuracy_id": 1,
+                "timing_id": 1,
+                "uID": "g2554782"
+            },
+            {
+                "MatchInfo": {
+                    "Date": "2025-05-22 21:30:00",
+                    "DateUtc": "2025-05-22 20:30:00",
+                    "TZ": "BST",
+                    "GameWinner": "t22745",
+                    "GameWinnerType": "ShootOut",
+                    "GroupName": 2,
+                    "MatchDay": 3,
+                    "MatchType": "Cup 1ET PENS",
+                    "Period": "FullTime",
+                    "RoundNumber": 1,
+                    "RoundType": "Round",
+                    "TimeFrameLengthId": 34,
+                    "Venue_id": 4211
+                },
+                "Stat": [
+                    {
+                        "value": "Estádio António Coimbra da Mota",
+                        "Type": "Venue"
+                    },
+                    {
+                        "value": "Estoril",
+                        "Type": "City"
+                    },
+                    {
+                        "value": "True",
+                        "Type": "Neutral"
+                    }
+                ],
+                "TeamData": [
+                    {
+                        "Goal": [
+                            {
+                                "Period": "FirstHalf",
+                                "PlayerRef": "p466178",
+                                "Type": "Goal"
+                            },
+                            {
+                                "Period": "SecondHalf",
+                                "PlayerRef": "p554324",
+                                "Type": "Goal"
+                            },
+                            {
+                                "Period": "ShootOut",
+                                "PlayerRef": "p466178",
+                                "Type": "Penalty"
+                            },
+                            {
+                                "Period": "ShootOut",
+                                "PlayerRef": "p466178",
+                                "Type": "Penalty"
+                            },
+                            {
+                                "Period": "ShootOut",
+                                "PlayerRef": "p226551",
+                                "Type": "Penalty"
+                            },
+                            {
+                                "Period": "ShootOut",
+                                "PlayerRef": "p174327",
+                                "Type": "Penalty"
+                            },
+                            {
+                                "Period": "ShootOut",
+                                "PlayerRef": "p571165",
+                                "Type": "Penalty"
+                            },
+                            {
+                                "Period": "ShootOut",
+                                "PlayerRef": "p174327",
+                                "Type": "Penalty"
+                            },
+                            {
+                                "Period": "ShootOut",
+                                "PlayerRef": "p439018",
+                                "Type": "Penalty"
+                            }
+                        ],
+                        "ExtraScore": 0,
+                        "HalfScore": 1,
+                        "NinetyScore": 2,
+                        "PenaltyScore": 7,
+                        "Score": 2,
+                        "Side": "Home",
+                        "TeamRef": "t22745"
+                    },
+                    {
+                        "Goal": [
+                            {
+                                "Period": "FirstHalf",
+                                "PlayerRef": "p210888",
+                                "Type": "Goal"
+                            },
+                            {
+                                "Period": "SecondHalf",
+                                "PlayerRef": "p576313",
+                                "Type": "Goal"
+                            },
+                            {
+                                "Period": "ShootOut",
+                                "PlayerRef": "p576313",
+                                "Type": "Penalty"
+                            },
+                            {
+                                "Period": "ShootOut",
+                                "PlayerRef": "p174959",
+                                "Type": "Penalty"
+                            },
+                            {
+                                "Period": "ShootOut",
+                                "PlayerRef": "p210892",
+                                "Type": "Penalty"
+                            },
+                            {
+                                "Period": "ShootOut",
+                                "PlayerRef": "p174959",
+                                "Type": "Penalty"
+                            },
+                            {
+                                "Period": "ShootOut",
+                                "PlayerRef": "p210888",
+                                "Type": "Penalty"
+                            },
+                            {
+                                "Period": "ShootOut",
+                                "PlayerRef": "p106795",
+                                "Type": "Penalty"
+                            }
+                        ],
+                        "ExtraScore": 0,
+                        "HalfScore": 1,
+                        "NinetyScore": 2,
+                        "PenaltyScore": 6,
+                        "Score": 2,
+                        "Side": "Away",
+                        "TeamRef": "t22746"
+                    }
+                ],
+                "detail_id": 1,
+                "last_modified": "2025-10-16T11:29:50+00:00",
+                "timestamp_accuracy_id": 1,
+                "timing_id": 1,
+                "uID": "g2554789"
+            },
+            {
+                "MatchInfo": {
+                    "Date": "2025-05-22 16:30:00",
+                    "DateUtc": "2025-05-22 15:30:00",
+                    "TZ": "BST",
+                    "GroupName": 2,
+                    "MatchDay": 2,
+                    "MatchType": "Cup 1ET PENS",
+                    "MatchWinner": "t22745",
+                    "Period": "FullTime",
+                    "RoundNumber": 1,
+                    "RoundType": "Round",
+                    "TimeFrameLengthId": 34,
+                    "Venue_id": 4211
+                },
+                "Stat": [
+                    {
+                        "value": "Estádio António Coimbra da Mota",
+                        "Type": "Venue"
+                    },
+                    {
+                        "value": "Estoril",
+                        "Type": "City"
+                    },
+                    {
+                        "value": "True",
+                        "Type": "Neutral"
+                    }
+                ],
+                "TeamData": [
+                    {
+                        "Goal": [
+                            {
+                                "Period": "FirstHalf",
+                                "PlayerRef": "p475116",
+                                "Type": "Goal"
+                            },
+                            {
+                                "Period": "FirstHalf",
+                                "PlayerRef": "p571165",
+                                "Type": "Goal"
+                            },
+                            {
+                                "Period": "SecondHalf",
+                                "PlayerRef": "p571165",
+                                "Type": "Goal"
+                            }
+                        ],
+                        "HalfScore": 2,
+                        "Score": 3,
+                        "Side": "Home",
+                        "TeamRef": "t22745"
+                    },
+                    {
+                        "Goal": {
+                            "Period": "SecondHalf",
+                            "PlayerRef": "p225127",
+                            "Type": "Goal"
+                        },
+                        "HalfScore": 0,
+                        "Score": 1,
+                        "Side": "Away",
+                        "TeamRef": "t22743"
+                    }
+                ],
+                "detail_id": 1,
+                "last_modified": "2025-10-16T11:29:50+00:00",
+                "timestamp_accuracy_id": 1,
+                "timing_id": 1,
+                "uID": "g2554785"
+            },
+            {
+                "MatchInfo": {
+                    "Date": "2025-05-22 15:30:00",
+                    "DateUtc": "2025-05-22 14:30:00",
+                    "TZ": "BST",
+                    "GameWinner": "t22746",
+                    "GameWinnerType": "AfterExtraTime",
+                    "GroupName": 2,
+                    "MatchDay": 2,
+                    "MatchType": "Cup 1ET PENS",
+                    "Period": "FullTime",
+                    "RoundNumber": 1,
+                    "RoundType": "Round",
+                    "TimeFrameLengthId": 34,
+                    "Venue_id": 4211
+                },
+                "Stat": [
+                    {
+                        "value": "Estádio António Coimbra da Mota",
+                        "Type": "Venue"
+                    },
+                    {
+                        "value": "Estoril",
+                        "Type": "City"
+                    },
+                    {
+                        "value": "True",
+                        "Type": "Neutral"
+                    }
+                ],
+                "TeamData": [
+                    {
+                        "Goal": {
+                            "Period": "FirstHalf",
+                            "PlayerRef": "p477942",
+                            "Type": "Goal"
+                        },
+                        "ExtraScore": 0,
+                        "HalfScore": 1,
+                        "NinetyScore": 1,
+                        "Score": 1,
+                        "Side": "Home",
+                        "TeamRef": "t22741"
+                    },
+                    {
+                        "Goal": [
+                            {
+                                "Period": "SecondHalf",
+                                "PlayerRef": "p576313",
+                                "Type": "Goal"
+                            },
+                            {
+                                "Period": "ExtraFirstHalf",
+                                "PlayerRef": "p470484",
+                                "Type": "Goal"
+                            }
+                        ],
+                        "ExtraScore": 1,
+                        "HalfScore": 0,
+                        "NinetyScore": 1,
+                        "Score": 2,
+                        "Side": "Away",
+                        "TeamRef": "t22746"
+                    }
+                ],
+                "detail_id": 1,
+                "last_modified": "2025-10-16T11:29:50+00:00",
+                "timestamp_accuracy_id": 1,
+                "timing_id": 1,
+                "uID": "g2554784"
+            },
+            {
+                "MatchInfo": {
+                    "Date": "2025-05-22 14:30:00",
+                    "DateUtc": "2025-05-22 13:30:00",
+                    "TZ": "BST",
+                    "GroupName": 1,
+                    "MatchDay": 2,
+                    "MatchType": "Cup 1ET PENS",
+                    "MatchWinner": "t22742",
+                    "Period": "FullTime",
+                    "RoundNumber": 1,
+                    "RoundType": "Round",
+                    "TimeFrameLengthId": 34,
+                    "Venue_id": 4211
+                },
+                "Stat": [
+                    {
+                        "value": "Estádio António Coimbra da Mota",
+                        "Type": "Venue"
+                    },
+                    {
+                        "value": "Estoril",
+                        "Type": "City"
+                    },
+                    {
+                        "value": "True",
+                        "Type": "Neutral"
+                    }
+                ],
+                "TeamData": [
+                    {
+                        "HalfScore": 0,
+                        "Score": 0,
+                        "Side": "Home",
+                        "TeamRef": "t22748"
+                    },
+                    {
+                        "Goal": [
+                            {
+                                "Period": "FirstHalf",
+                                "PlayerRef": "p597729",
+                                "Type": "Goal"
+                            },
+                            {
+                                "Period": "SecondHalf",
+                                "PlayerRef": "p480838",
+                                "Type": "Goal"
+                            },
+                            {
+                                "Period": "SecondHalf",
+                                "PlayerRef": "p164792",
+                                "Type": "Goal"
+                            },
+                            {
+                                "Period": "SecondHalf",
+                                "PlayerRef": "p191729",
+                                "Type": "Goal"
+                            }
+                        ],
+                        "HalfScore": 1,
+                        "Score": 4,
+                        "Side": "Away",
+                        "TeamRef": "t22742"
+                    }
+                ],
+                "detail_id": 1,
+                "last_modified": "2025-10-16T11:29:50+00:00",
+                "timestamp_accuracy_id": 1,
+                "timing_id": 1,
+                "uID": "g2554783"
+            },
+            {
+                "MatchInfo": {
+                    "Date": "2025-05-22 19:30:00",
+                    "DateUtc": "2025-05-22 18:30:00",
+                    "TZ": "BST",
+                    "GroupName": 1,
+                    "MatchDay": 3,
+                    "MatchType": "Cup 1ET PENS",
+                    "MatchWinner": "t22740",
+                    "Period": "FullTime",
+                    "RoundNumber": 1,
+                    "RoundType": "Round",
+                    "TimeFrameLengthId": 34,
+                    "Venue_id": 4211
+                },
+                "Stat": [
+                    {
+                        "value": "Estádio António Coimbra da Mota",
+                        "Type": "Venue"
+                    },
+                    {
+                        "value": "Estoril",
+                        "Type": "City"
+                    },
+                    {
+                        "value": "True",
+                        "Type": "Neutral"
+                    }
+                ],
+                "TeamData": [
+                    {
+                        "HalfScore": 0,
+                        "Score": 0,
+                        "Side": "Home",
+                        "TeamRef": "t22748"
+                    },
+                    {
+                        "Goal": [
+                            {
+                                "Period": "FirstHalf",
+                                "PlayerRef": "p631901",
+                                "Type": "Goal"
+                            },
+                            {
+                                "Period": "SecondHalf",
+                                "PlayerRef": "p186017",
+                                "Type": "Goal"
+                            }
+                        ],
+                        "HalfScore": 1,
+                        "Score": 2,
+                        "Side": "Away",
+                        "TeamRef": "t22740"
+                    }
+                ],
+                "detail_id": 1,
+                "last_modified": "2025-10-16T11:29:50+00:00",
+                "timestamp_accuracy_id": 1,
+                "timing_id": 1,
+                "uID": "g2554787"
+            },
+            {
+                "MatchInfo": {
+                    "Date": "2025-05-23 15:00:00",
+                    "DateUtc": "2025-05-23 14:00:00",
+                    "TZ": "BST",
+                    "MatchDay": 4,
+                    "MatchType": "Cup 1ET PENS",
+                    "MatchWinner": "t22742",
+                    "Period": "FullTime",
+                    "RoundNumber": 2,
+                    "RoundType": "Semi-Finals",
+                    "TimeFrameLengthId": 34,
+                    "Venue_id": 4211
+                },
+                "Stat": [
+                    {
+                        "value": "Estádio António Coimbra da Mota",
+                        "Type": "Venue"
+                    },
+                    {
+                        "value": "Estoril",
+                        "Type": "City"
+                    },
+                    {
+                        "value": "True",
+                        "Type": "Neutral"
+                    }
+                ],
+                "TeamData": [
+                    {
+                        "Goal": [
+                            {
+                                "Period": "FirstHalf",
+                                "PlayerRef": "p480838",
+                                "Type": "Goal"
+                            },
+                            {
+                                "Period": "FirstHalf",
+                                "PlayerRef": "p512659",
+                                "Type": "Goal"
+                            },
+                            {
+                                "Period": "SecondHalf",
+                                "PlayerRef": "p174559",
+                                "Type": "Goal"
+                            },
+                            {
+                                "Period": "SecondHalf",
+                                "PlayerRef": "p597729",
+                                "Type": "Goal"
+                            },
+                            {
+                                "Period": "SecondHalf",
+                                "PlayerRef": "p597729",
+                                "Type": "Goal"
+                            }
+                        ],
+                        "HalfScore": 2,
+                        "Score": 5,
+                        "Side": "Home",
+                        "TeamRef": "t22742"
+                    },
+                    {
+                        "HalfScore": 0,
+                        "Score": 0,
+                        "Side": "Away",
+                        "TeamRef": "t22746"
+                    }
+                ],
+                "detail_id": 1,
+                "last_modified": "2025-10-16T11:29:50+00:00",
+                "timestamp_accuracy_id": 1,
+                "timing_id": 1,
+                "uID": "g2554828"
+            },
+            {
+                "MatchInfo": {
+                    "Date": "2025-05-23 20:00:00",
+                    "DateUtc": "2025-05-23 19:00:00",
+                    "TZ": "BST",
+                    "MatchDay": 6,
+                    "MatchType": "Cup 1ET PENS",
+                    "MatchWinner": "t22742",
+                    "Period": "FullTime",
+                    "RoundNumber": 4,
+                    "RoundType": "Final",
+                    "TimeFrameLengthId": 34,
+                    "Venue_id": 4211
+                },
+                "Stat": [
+                    {
+                        "value": "Estádio António Coimbra da Mota",
+                        "Type": "Venue"
+                    },
+                    {
+                        "value": "Estoril",
+                        "Type": "City"
+                    },
+                    {
+                        "value": "True",
+                        "Type": "Neutral"
+                    }
+                ],
+                "TeamData": [
+                    {
+                        "Goal": [
+                            {
+                                "Period": "SecondHalf",
+                                "PlayerRef": "p597729",
+                                "Type": "Goal"
+                            },
+                            {
+                                "Period": "SecondHalf",
+                                "PlayerRef": "p174559",
+                                "Type": "Goal"
+                            }
+                        ],
+                        "HalfScore": 0,
+                        "Score": 2,
+                        "Side": "Home",
+                        "TeamRef": "t22742"
+                    },
+                    {
+                        "Goal": {
+                            "Period": "FirstHalf",
+                            "PlayerRef": "p571165",
+                            "Type": "Goal"
+                        },
+                        "HalfScore": 1,
+                        "Score": 1,
+                        "Side": "Away",
+                        "TeamRef": "t22745"
+                    }
+                ],
+                "detail_id": 1,
+                "last_modified": "2025-10-16T11:29:50+00:00",
+                "timestamp_accuracy_id": 1,
+                "timing_id": 1,
+                "uID": "g2554831"
+            },
+            {
+                "MatchInfo": {
+                    "Date": "2025-05-23 16:30:00",
+                    "DateUtc": "2025-05-23 15:30:00",
+                    "TZ": "BST",
+                    "MatchDay": 4,
+                    "MatchType": "Cup 1ET PENS",
+                    "MatchWinner": "t22745",
+                    "Period": "FullTime",
+                    "RoundNumber": 2,
+                    "RoundType": "Semi-Finals",
+                    "TimeFrameLengthId": 34,
+                    "Venue_id": 4211
+                },
+                "Stat": [
+                    {
+                        "value": "Estádio António Coimbra da Mota",
+                        "Type": "Venue"
+                    },
+                    {
+                        "value": "Estoril",
+                        "Type": "City"
+                    },
+                    {
+                        "value": "True",
+                        "Type": "Neutral"
+                    }
+                ],
+                "TeamData": [
+                    {
+                        "HalfScore": 0,
+                        "Score": 0,
+                        "Side": "Home",
+                        "TeamRef": "t22744"
+                    },
+                    {
+                        "Goal": [
+                            {
+                                "Period": "FirstHalf",
+                                "PlayerRef": "p226551",
+                                "Type": "Goal"
+                            },
+                            {
+                                "Period": "SecondHalf",
+                                "PlayerRef": "p174346",
+                                "Type": "Goal"
+                            }
+                        ],
+                        "HalfScore": 1,
+                        "Score": 2,
+                        "Side": "Away",
+                        "TeamRef": "t22745"
+                    }
+                ],
+                "detail_id": 1,
+                "last_modified": "2025-10-16T11:29:50+00:00",
+                "timestamp_accuracy_id": 1,
+                "timing_id": 1,
+                "uID": "g2554829"
+            },
+            {
+                "MatchInfo": {
+                    "Date": "2025-05-23 18:30:00",
+                    "DateUtc": "2025-05-23 17:30:00",
+                    "TZ": "BST",
+                    "MatchDay": 5,
+                    "MatchType": "Cup 1ET PENS",
+                    "MatchWinner": "t22746",
+                    "Period": "FullTime",
+                    "RoundNumber": 3,
+                    "RoundType": "3rd and 4th Place",
+                    "TimeFrameLengthId": 34,
+                    "Venue_id": 4211
+                },
+                "Stat": [
+                    {
+                        "value": "Estádio António Coimbra da Mota",
+                        "Type": "Venue"
+                    },
+                    {
+                        "value": "Estoril",
+                        "Type": "City"
+                    },
+                    {
+                        "value": "True",
+                        "Type": "Neutral"
+                    }
+                ],
+                "TeamData": [
+                    {
+                        "Goal": [
+                            {
+                                "Period": "FirstHalf",
+                                "PlayerRef": "p560446",
+                                "Type": "Goal"
+                            },
+                            {
+                                "Period": "SecondHalf",
+                                "PlayerRef": "p530138",
+                                "Type": "Goal"
+                            },
+                            {
+                                "Period": "SecondHalf",
+                                "PlayerRef": "p210892",
+                                "Type": "Goal"
+                            }
+                        ],
+                        "HalfScore": 1,
+                        "Score": 3,
+                        "Side": "Home",
+                        "TeamRef": "t22746"
+                    },
+                    {
+                        "Goal": {
+                            "Period": "FirstHalf",
+                            "PlayerRef": "p223528",
+                            "Type": "Goal"
+                        },
+                        "HalfScore": 1,
+                        "Score": 1,
+                        "Side": "Away",
+                        "TeamRef": "t22744"
+                    }
+                ],
+                "detail_id": 1,
+                "last_modified": "2025-10-16T11:29:50+00:00",
+                "timestamp_accuracy_id": 1,
+                "timing_id": 1,
+                "uID": "g2554830"
+            }
+        ],
+        "TimingTypes": {
+            "DetailTypes": {
+                "DetailType": [
+                    {
+                        "detail_id": 0,
+                        "name": "Unknown"
+                    },
+                    {
+                        "detail_id": 1,
+                        "name": "All Events (with positions)"
+                    },
+                    {
+                        "detail_id": 2,
+                        "name": "All Events"
+                    },
+                    {
+                        "detail_id": 3,
+                        "name": "Key Events"
+                    },
+                    {
+                        "detail_id": 4,
+                        "name": "Lineups, Goals & Cards"
+                    },
+                    {
+                        "detail_id": 5,
+                        "name": "Goals"
+                    },
+                    {
+                        "detail_id": 6,
+                        "name": "Scores"
+                    }
+                ]
+            },
+            "TimestampAccuracyTypes": {
+                "TimestampAccuracyType": [
+                    {
+                        "name": "Unknown",
+                        "timestamp_accuracy_id": 0
+                    },
+                    {
+                        "name": "Fully Accurate Timestamps (24hr + Match Times)",
+                        "timestamp_accuracy_id": 1
+                    },
+                    {
+                        "name": "Accurate Match Times only",
+                        "timestamp_accuracy_id": 2
+                    },
+                    {
+                        "name": "To The Minute Accurate",
+                        "timestamp_accuracy_id": 3
+                    },
+                    {
+                        "name": "Low Level Accurate Match Times",
+                        "timestamp_accuracy_id": 4
+                    },
+                    {
+                        "name": "No Match Time Accuracy",
+                        "timestamp_accuracy_id": 5
+                    }
+                ]
+            },
+            "TimingType": {
+                "TimingType": [
+                    {
+                        "name": "Unknown",
+                        "timing_id": 0
+                    },
+                    {
+                        "name": "Live",
+                        "timing_id": 1
+                    },
+                    {
+                        "name": "Live Delayed",
+                        "timing_id": 2
+                    },
+                    {
+                        "name": "Post Match (less than 24 hours)",
+                        "timing_id": 3
+                    },
+                    {
+                        "name": "Post Match (24 hours+)",
+                        "timing_id": 4
+                    }
+                ]
+            }
+        },
+        "Team": [
+            {
+                "Name": "Paris Saint-Germain W7F",
+                "OfficialTeamName": "Paris Saint-Germain FC W7F",
+                "ShortTeamName": "Paris SG",
+                "uID": "t22746"
+            },
+            {
+                "Name": "Rosengård W7F",
+                "OfficialTeamName": "Rosengård W7F",
+                "ShortTeamName": "Rosengård",
+                "uID": "t22748"
+            },
+            {
+                "Name": "Benfica W7F",
+                "OfficialTeamName": "SL Benfica W7F",
+                "ShortTeamName": "Benfica",
+                "uID": "t22743"
+            },
+            {
+                "Name": "Manchester City W7F",
+                "OfficialTeamName": "Manchester City FC W7F",
+                "ShortTeamName": "Man City",
+                "uID": "t22744"
+            },
+            {
+                "Name": "Manchester United W7F",
+                "OfficialTeamName": "Manchester United FC W7F",
+                "ShortTeamName": "Man Utd",
+                "uID": "t22745"
+            },
+            {
+                "Name": "Bayern München W7F",
+                "OfficialTeamName": "FC Bayern München W7F",
+                "ShortTeamName": "FC Bayern",
+                "uID": "t22742"
+            },
+            {
+                "Name": "Ajax W7F",
+                "OfficialTeamName": "AFC Ajax W7F",
+                "ShortTeamName": "Ajax",
+                "uID": "t22740"
+            },
+            {
+                "Name": "Roma W7F",
+                "OfficialTeamName": "AS Roma W7F",
+                "ShortTeamName": "Roma",
+                "uID": "t22741"
+            }
+        ],
+        "Type": "RESULTS Latest",
+        "competition_code": "WSE",
+        "competition_id": 1303,
+        "competition_name": "World Sevens Football Europe",
+        "game_system_id": 1,
+        "season_id": 2025,
+        "season_name": "Season 2025/2026",
+        "timestamp": "2025-12-04 09-00-15"
+    }
+}

@@ -52,7 +52,7 @@ function SubpageHeroContent({
         accentColor={accentColor}
         shadowColor={shadowColor}
       />
-      <div className="relative">
+      <div className="relative text-center md:text-left flex flex-col items-center md:items-start">
         {children}
       </div>
     </div>
@@ -85,7 +85,7 @@ function SubpageHeroMediaBanner({
         shadowColor={shadowColor}
       />
 
-      <div className="relative">
+      <div className="relative text-center md:text-left">
         {children}
       </div>
     </Card>

@@ -3,9 +3,15 @@ import type { Metadata } from "next";
 
 import { NavMain } from "@/components/website-base/nav/nav-main";
 import { Footer } from "@/components/website-base/footer/footer-main";
-import { getTournamentByUid } from "@/cms/queries/tournaments";
+import { getTournamentByUid, getLiveTournament } from "@/cms/queries/tournaments";
 import { getSocialBlogsByCategory } from "@/cms/queries/blog";
 import { getBroadcastPartnerByUid } from "@/cms/queries/broadcast-partners";
+import { getTeamsByTournament } from "@/cms/queries/team";
+import { getF1Fixtures } from "@/app/api/opta/feeds";
+import { groupMatchesByDate } from "@/app/(website)/(subpages)/tournament/utils";
+import { buildMatchSlugMap } from "@/lib/match-url";
+import type { F1MatchData, F1TeamData } from "@/types/opta-feeds/f1-fixtures";
+import { dev } from "@/lib/dev";
 import HomePageContent from "./page-content";
 
 export const metadata: Metadata = {
@@ -58,6 +64,7 @@ export const metadata: Metadata = {
 export default async function HomePage() {
     const tournament = await getTournamentByUid("fort-lauderdale");
     const estorilTournament = await getTournamentByUid("estoril-portugal");
+    const liveTournament = await getLiveTournament();
 
     const tournamentRecapBlogs = await getSocialBlogsByCategory("Tournament Recap");
     const featuredRecapBlog = tournamentRecapBlogs.length > 0 ? tournamentRecapBlogs[0] : null;
@@ -72,6 +79,40 @@ export default async function HomePage() {
         getBroadcastPartnerByUid("disney-plus"),
     ]);
 
+    let groupedFixtures: Map<string, F1MatchData[]> = new Map();
+    let prismicTeams: Awaited<ReturnType<typeof getTeamsByTournament>> = [];
+    let optaTeams: F1TeamData[] = [];
+    let matchSlugMap: Map<string, string> | undefined;
+
+    if (liveTournament) {
+        const competitionId = liveTournament.data.opta_competition_id;
+        const seasonId = liveTournament.data.opta_season_id;
+
+        if (competitionId && seasonId && liveTournament.uid) {
+            try {
+                const [fixtures, teams] = await Promise.all([
+                    getF1Fixtures(competitionId, seasonId),
+                    getTeamsByTournament(liveTournament.uid)
+                ]);
+                prismicTeams = teams;
+
+                if (fixtures && prismicTeams.length > 0) {
+                    const doc = fixtures.SoccerFeed.SoccerDocument;
+                    optaTeams = doc.Team || doc.TeamData || [];
+                    const matchData = doc.MatchData;
+
+                    if (matchData && Array.isArray(matchData)) {
+                        groupedFixtures = groupMatchesByDate(matchData);
+                    }
+                }
+
+                matchSlugMap = buildMatchSlugMap(liveTournament);
+            } catch (error) {
+                dev.log('Error fetching fixtures for game slider:', error);
+            }
+        }
+    }
+
     if (!tournament) {
         return (
             <main className="flex-grow min-h-[30rem]">
@@ -84,7 +125,13 @@ export default async function HomePage() {
 
     return (
         <>
-            <NavMain />
+            <NavMain
+                groupedFixtures={groupedFixtures.size > 0 ? groupedFixtures : undefined}
+                prismicTeams={prismicTeams.length > 0 ? prismicTeams : undefined}
+                optaTeams={optaTeams.length > 0 ? optaTeams : undefined}
+                tournament={liveTournament || undefined}
+                matchSlugMap={matchSlugMap}
+            />
             <main className="flex-grow min-h-[30rem]">
                 <div>
                     <HomePageContent

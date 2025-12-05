@@ -72,6 +72,7 @@ interface BroadcastPartnerLinkProps
   showName?: boolean
   watch?: boolean
   noLink?: boolean
+  logoSize?: string
 }
 
 export function BroadcastPartnerLink({
@@ -83,6 +84,7 @@ export function BroadcastPartnerLink({
   showName = false,
   watch = false,
   noLink = false,
+  logoSize,
   ...props
 }: BroadcastPartnerLinkProps) {
   const logo = branded ? partner.data.logo_on_primary : partner.data.logo_white
@@ -98,9 +100,9 @@ export function BroadcastPartnerLink({
 
   const brandedClass = branded ? "bg-[var(--brand-color)] hover:bg-[var(--brand-color)] hover:opacity-90 text-[var(--brand-text-color)] hover:text-[var(--brand-text-color)]" : ""
 
-  const logoSizeClass = isSmall ? "lg:size-6 size-4.5" : isLarge ? "lg:size-10 size-8" : "lg:size-8 size-7"
+  const defaultLogoSize = isSmall ? "size-6" : isLarge ? "lg:size-10 size-8" : "lg:size-8 size-7"
   const paddingClass = isLarge ? "py-4 px-3" : "py-2.5 px-2"
-  const textSizeClass = isSmall ? "lg:text-xs text-xxs" : isLarge ? "text-lg" : "text-sm"
+  const textSizeClass = isSmall ? "text-xs" : isLarge ? "text-lg" : "text-sm"
 
   const content = (
     <>
@@ -108,7 +110,7 @@ export function BroadcastPartnerLink({
         {logo?.url && (
           <div className={cn(
             "relative shrink-0 pointer-events-none",
-            logoSizeClass
+            logoSize ?? defaultLogoSize
           )}>
             <PrismicNextImage
               field={logo?.alt ? logo : { ...logo, alt: partner.data.name || "Broadcast partner logo" }}
@@ -118,7 +120,7 @@ export function BroadcastPartnerLink({
           </div>
         )}
         {showName && partner.data.name && (
-          <span className={cn("font-medium font-headers whitespace-nowrap", textSizeClass)}>{partner.data.name}</span>
+          <span className="font-medium font-headers whitespace-nowrap">{partner.data.name}</span>
         )}
       </div>
       {!noLink && (
@@ -138,6 +140,7 @@ export function BroadcastPartnerLink({
         className={cn(
           "gap-3 border-muted h-auto w-full flex items-center justify-between cursor-default",
           paddingClass,
+          textSizeClass,
           className
         )}
         style={_brandedStyles}
@@ -154,6 +157,7 @@ export function BroadcastPartnerLink({
       className={cn(
         "group/broadcast-partner gap-3 border-muted h-auto w-full flex items-center justify-between",
         paddingClass,
+        textSizeClass,
         className,
         brandedClass
       )}

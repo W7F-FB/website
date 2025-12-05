@@ -1,4 +1,5 @@
 import { createClient } from "../../prismicio";
+import * as prismic from "@prismicio/client";
 import type { TournamentDocument } from "../../../prismicio-types";
 
 /**
@@ -53,7 +54,7 @@ export async function getTournamentByUid(uid: string): Promise<TournamentDocumen
     const client = createClient();
     return await client.getByUID("tournament", uid);
   } catch (error) {
-    if (error instanceof Error && 'status' in error && (error as { status: number }).status === 404) {
+    if (error instanceof Error && error.message.includes('No documents were returned')) {
       return null;
     }
     throw error;
@@ -80,6 +81,30 @@ export async function getTournamentByOptaCompetitionId(
     });
     
     return tournament || null;
+  } catch (error) {
+    if (error instanceof Error && error.message.includes('No documents were returned')) {
+      return null;
+    }
+    throw error;
+  }
+}
+
+/**
+ * Get the tournament with Live status
+ */
+export async function getLiveTournament(): Promise<TournamentDocument | null> {
+  try {
+    const client = createClient();
+    const tournaments = await client.getAllByType("tournament", {
+      filters: [
+        prismic.filter.at("my.tournament.status", "Live")
+      ],
+      orderings: [
+        { field: "my.tournament.start_date", direction: "desc" }
+      ]
+    });
+    
+    return tournaments.length > 0 ? tournaments[0] : null;
   } catch (error) {
     if (error instanceof Error && error.message.includes('No documents were returned')) {
       return null;

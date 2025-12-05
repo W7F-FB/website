@@ -1,5 +1,5 @@
 import type { F1MatchData, F1TeamData } from "@/types/opta-feeds/f1-fixtures"
-import type { MatchDocument } from "../../../../../prismicio-types"
+import type { MatchDocument, TeamDocument } from "../../../../../prismicio-types"
 import type { F3StandingsResponse } from "@/types/opta-feeds/f3-standings"
 import { isFilled } from "@prismicio/client"
 import { normalizeOptaId } from "@/lib/opta/utils"
@@ -24,7 +24,7 @@ export function getFinalMatch(matches: F1MatchData[] | undefined) {
     return matches.filter(match => match.MatchInfo.RoundType === "Final")
 }
 
-function getEstDateKey(match: F1MatchData): string {
+export function getEstDateKey(match: F1MatchData): string {
     const utcDateStr = match.MatchInfo.DateUtc || match.MatchInfo.Date
     const utcDate = new Date(utcDateStr.replace(' ', 'T') + 'Z')
     const formatter = new Intl.DateTimeFormat('en-CA', {
@@ -63,6 +63,17 @@ export function groupMatchesByDate(matches: F1MatchData[] | undefined) {
     }
     
     return new Map([...sorted.entries()].sort((a, b) => a[0].localeCompare(b[0])))
+}
+
+export function getEstTodayDateKey(): string {
+    const now = new Date()
+    const formatter = new Intl.DateTimeFormat('en-CA', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        timeZone: 'America/New_York'
+    })
+    return formatter.format(now)
 }
 
 export function formatMatchDayDate(date: string) {
@@ -250,6 +261,17 @@ export function resolvePlaceholderTeam(
             const groupNumber = parseInt(groupMatch[1])
             const position = groupMatch[2] === "Winner" ? 1 : 2
 
+            const groupMatches = allMatches.filter(
+                match => match.MatchInfo.RoundType === "Round" && Number(match.MatchInfo.GroupName) === groupNumber
+            )
+            const allGroupMatchesComplete = groupMatches.length > 0 && groupMatches.every(
+                match => match.MatchInfo.Period === "FullTime"
+            )
+
+            if (!allGroupMatchesComplete) {
+                return null
+            }
+
             const groupStandings = f3StandingsData.SoccerFeed?.SoccerDocument?.Competition?.TeamStandings?.find(
                 standing => {
                     const groupId = standing.Round?.Name.id
@@ -309,4 +331,141 @@ export function resolvePlaceholderTeam(
     }
 
     return null
+}
+
+export type TournamentStatus = "Upcoming" | "Live" | "Complete"
+
+const COMPLETED_PERIODS = ["FullTime", "Abandoned", "Cancelled", "Postponed"]
+
+export function calculateTournamentStatus(matches: F1MatchData[] | undefined): TournamentStatus {
+    if (!matches || matches.length === 0) return "Upcoming"
+
+    const allPrematch = matches.every(match => match.MatchInfo.Period === "PreMatch")
+    if (allPrematch) return "Upcoming"
+
+    const allComplete = matches.every(match => COMPLETED_PERIODS.includes(match.MatchInfo.Period))
+    if (allComplete) return "Complete"
+
+    return "Live"
+}
+
+export function getEarliestMatchDate(matches: F1MatchData[] | undefined): Date | null {
+    if (!matches || matches.length === 0) return null
+
+    const sorted = [...matches].sort((a, b) => {
+        const dateA = new Date((a.MatchInfo.DateUtc || a.MatchInfo.Date).replace(' ', 'T') + 'Z')
+        const dateB = new Date((b.MatchInfo.DateUtc || b.MatchInfo.Date).replace(' ', 'T') + 'Z')
+        return dateA.getTime() - dateB.getTime()
+    })
+
+    const earliest = sorted[0]
+    const dateStr = earliest.MatchInfo.DateUtc || earliest.MatchInfo.Date
+    return new Date(dateStr.replace(' ', 'T') + 'Z')
+}
+
+export interface PrismicGroupData {
+    groupId: number
+    groupName: string
+    teams: TeamDocument[]
+}
+
+export function buildGroupsFromPrismic(prismicTeams: TeamDocument[]): PrismicGroupData[] {
+    const groupMap = new Map<string, TeamDocument[]>()
+    
+    prismicTeams.forEach(team => {
+        const group = team.data.group
+        if (!group) return
+        
+        if (!groupMap.has(group)) {
+            groupMap.set(group, [])
+        }
+        groupMap.get(group)?.push(team)
+    })
+    
+    const groups: PrismicGroupData[] = []
+    
+    for (const [groupName, teams] of groupMap.entries()) {
+        const sortedTeams = [...teams].sort((a, b) => {
+            const sortA = a.data.alphabetical_sort_string || a.data.name || ''
+            const sortB = b.data.alphabetical_sort_string || b.data.name || ''
+            return sortA.localeCompare(sortB)
+        })
+        
+        const groupId = groupName === "Group 1" ? 1 : groupName === "Group 2" ? 2 : 0
+        
+        groups.push({
+            groupId,
+            groupName,
+            teams: sortedTeams
+        })
+    }
+    
+    return groups.sort((a, b) => a.groupId - b.groupId)
+}
+
+export function isInKnockoutStage(matches: F1MatchData[] | undefined): boolean {
+    if (!matches || matches.length === 0) return false
+    
+    const groupMatches = getGroupStageMatches(matches)
+    if (groupMatches.length === 0) return false
+    
+    return groupMatches.every(match => COMPLETED_PERIODS.includes(match.MatchInfo.Period))
+}
+
+export function getTeamRankingsFromStandings(
+    teamRecords: { TeamRef: string; Standing: { Position: number } }[]
+): Map<string, string> {
+    const rankings = new Map<string, string>()
+    
+    if (!teamRecords || teamRecords.length === 0) return rankings
+    
+    teamRecords.forEach(record => {
+        rankings.set(normalizeOptaId(record.TeamRef), String(record.Standing.Position))
+    })
+    
+    return rankings
+}
+
+export function getTeamRankings(
+    f3StandingsData: F3StandingsResponse | null,
+    groupId: number
+): Map<string, string> {
+    if (!f3StandingsData) return new Map()
+    
+    const groupStandings = f3StandingsData.SoccerFeed?.SoccerDocument?.Competition?.TeamStandings?.find(
+        standing => standing.Round?.Name.id === groupId
+    )
+    
+    if (!groupStandings?.TeamRecord) return new Map()
+    
+    return getTeamRankingsFromStandings(groupStandings.TeamRecord)
+}
+
+export function sortTeamsByRanking(
+    teams: TeamDocument[],
+    f3StandingsData: F3StandingsResponse | null,
+    groupId: number
+): TeamDocument[] {
+    const groupStandings = f3StandingsData?.SoccerFeed?.SoccerDocument?.Competition?.TeamStandings?.find(
+        standing => standing.Round?.Name.id === groupId
+    )
+    
+    return [...teams].sort((a, b) => {
+        const aRef = normalizeOptaId(`t${a.data.opta_id || ''}`)
+        const bRef = normalizeOptaId(`t${b.data.opta_id || ''}`)
+        
+        const aRecord = groupStandings?.TeamRecord?.find(r => normalizeOptaId(r.TeamRef) === aRef)
+        const bRecord = groupStandings?.TeamRecord?.find(r => normalizeOptaId(r.TeamRef) === bRef)
+        
+        const aPosition = aRecord?.Standing.Position ?? 999
+        const bPosition = bRecord?.Standing.Position ?? 999
+        
+        return aPosition - bPosition
+    })
+}
+
+export function sortTeamsByRankingFromStandings<T extends { TeamRef: string; Standing: { Position: number } }>(
+    teamRecords: T[]
+): T[] {
+    return [...teamRecords].sort((a, b) => a.Standing.Position - b.Standing.Position)
 }

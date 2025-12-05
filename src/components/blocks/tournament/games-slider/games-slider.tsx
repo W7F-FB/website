@@ -1,55 +1,42 @@
 'use client'
 
 import { useState, useEffect, useMemo } from 'react'
+import { motion } from 'motion/react'
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from '@/components/ui/carousel'
 import { CaretRightIcon } from '@/components/website-base/icons'
 import { cn } from '@/lib/utils'
-import type { GameCard } from '@/types/components'
-import { MatchCard as GameCardComponent } from '@/components/blocks/match/match-card'
-import { normalizeOptaId } from '@/lib/opta/utils'
+import { MatchCard } from '@/components/blocks/match/match-card'
+import { normalizeOptaId, getStatusDisplay } from '@/lib/opta/utils'
 import { GamesSliderFilter } from './games-slider-filter'
-import type { TournamentDocument } from '../../../../../prismicio-types'
+import { useGamesSliderCollapse } from './games-slider-collapse-context'
+import type { TournamentDocument, TeamDocument } from '../../../../../prismicio-types'
 import { LinePattern } from '../../line-pattern'
+import { getEstTodayDateKey } from '@/app/(website)/(subpages)/tournament/utils'
+import type { F1MatchData, F1TeamData } from '@/types/opta-feeds/f1-fixtures'
 
 interface GamesSliderProps {
-  gameCards?: GameCard[]
+  groupedFixtures: Map<string, F1MatchData[]>
+  prismicTeams: TeamDocument[]
+  optaTeams: F1TeamData[]
   tournament: TournamentDocument
+  matchSlugMap?: Map<string, string>
   isLoading?: boolean
 }
 
-function getCardDate(card: GameCard): string {
-  if ('fixture' in card) {
-    return card.fixture.MatchInfo.Date.split(' ')[0]
-  } else {
-    const date = new Date(card.prismicMatch.data.start_time || new Date())
-    return date.toISOString().split('T')[0]
-  }
-}
-
-function getCardId(card: GameCard): string {
-  if ('fixture' in card) {
-    return normalizeOptaId(card.fixture.uID) || ''
-  } else {
-    return card.prismicMatch.uid
-  }
-}
-
-export function GamesSlider({ gameCards = [], tournament, isLoading = false }: GamesSliderProps) {
+export function GamesSlider({ groupedFixtures, prismicTeams, optaTeams, tournament, matchSlugMap, isLoading = false }: GamesSliderProps) {
   const [api, setApi] = useState<CarouselApi | null>(null)
   const [canScrollPrev, setCanScrollPrev] = useState(false)
   const [canScrollNext, setCanScrollNext] = useState(false)
+  const { isCollapsed } = useGamesSliderCollapse()
 
   const uniqueDates = useMemo(() => {
-    const dates = gameCards.map(card => getCardDate(card))
-    return Array.from(new Set(dates)).sort()
-  }, [gameCards])
+    return Array.from(groupedFixtures.keys()).sort()
+  }, [groupedFixtures])
 
   const defaultDate = useMemo(() => {
     if (uniqueDates.length === 0) return undefined
     
-    const now = new Date()
-    const todayString = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()))
-      .toISOString().split('T')[0]
+    const todayString = getEstTodayDateKey()
     
     return uniqueDates.includes(todayString) ? todayString : uniqueDates[0]
   }, [uniqueDates])
@@ -60,14 +47,14 @@ export function GamesSlider({ gameCards = [], tournament, isLoading = false }: G
     setSelectedDate(defaultDate)
   }, [defaultDate])
 
-  const filteredGameCards = useMemo(() => {
-    if (!selectedDate) return gameCards
-    
-    return gameCards.filter(card => {
-      const cardDate = getCardDate(card)
-      return cardDate === selectedDate
-    })
-  }, [gameCards, selectedDate])
+  const filteredFixtures = useMemo(() => {
+    if (!selectedDate) return Array.from(groupedFixtures.values()).flat()
+    return groupedFixtures.get(selectedDate) || []
+  }, [groupedFixtures, selectedDate])
+
+  const liveMatchIndex = useMemo(() => {
+    return filteredFixtures.findIndex(fixture => getStatusDisplay(fixture.MatchInfo) === "Live")
+  }, [filteredFixtures])
 
   useEffect(() => {
     if (!api) return
@@ -88,9 +75,20 @@ export function GamesSlider({ gameCards = [], tournament, isLoading = false }: G
     }
   }, [api])
 
+  useEffect(() => {
+    if (!api || liveMatchIndex === -1) return
+    api.scrollTo(liveMatchIndex)
+  }, [api, liveMatchIndex])
+
   return (
-    <div className='overflow-hidden relative'>
-      <div className='relative grid grid-cols-[auto_1fr] border-t border-border/50'>
+    <motion.div 
+      className='overflow-hidden relative'
+      initial={false}
+      animate={{ height: isCollapsed ? 0 : "auto" }}
+      transition={{ type: "spring", stiffness: 700, damping: 50, mass: 0.5 }}
+    >
+      <div className='border-t border-border/50' />
+      <div className='relative grid grid-cols-[auto_1fr]'>
         <div className='relative lg:px-6 px-3 py-2 flex items-center justify-center'>
           <GamesSliderFilter 
             dates={uniqueDates} 
@@ -114,17 +112,22 @@ export function GamesSlider({ gameCards = [], tournament, isLoading = false }: G
               {isLoading ? (
                 Array.from({ length: 6 }).map((_, index) => (
                   <CarouselItem key={`skeleton-${index}`} className='lg:basis-1/6 md:basis-1/4 basis-full pl-0'>
-                    {/* Skeleton component goes here */}
                   </CarouselItem>
                 ))
-              ) : filteredGameCards.length > 0 ? (
-                filteredGameCards.map((gameCard, index) => (
-                  <CarouselItem key={getCardId(gameCard) || index} className='lg:basis-1/6 md:basis-1/4 basis-full pl-0'>
+              ) : filteredFixtures.length > 0 ? (
+                filteredFixtures.map((fixture, index) => (
+                  <CarouselItem key={normalizeOptaId(fixture.uID) || index} className='lg:basis-1/6 md:basis-1/4 basis-full pl-0'>
                     <div className='border-r border-border/50'>
-                      <GameCardComponent variant="mini" {...gameCard} />
+                      <MatchCard 
+                        variant="mini" 
+                        fixture={fixture}
+                        prismicTeams={prismicTeams}
+                        optaTeams={optaTeams}
+                        tournamentSlug={tournament.uid}
+                        matchSlugMap={matchSlugMap}
+                      />
                     </div>
                   </CarouselItem>
-                  
                 ))
               ) : (
                 <div className='w-full h-[83.59px] flex items-center justify-center text-sm text-muted-foreground'>
@@ -143,6 +146,6 @@ export function GamesSlider({ gameCards = [], tournament, isLoading = false }: G
           </Carousel>
         </div>
       </div>
-    </div>
+    </motion.div>
   )
 }

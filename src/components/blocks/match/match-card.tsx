@@ -5,13 +5,18 @@ import Image from "next/image"
 import { cn, formatGameDate } from "@/lib/utils"
 import { Card, CardContent, CardHeader, CardFooter } from "@/components/ui/card"
 import { H4 } from "@/components/website-base/typography"
-import { QuestionMarkIcon, CaretFilledIcon, CaretRightIcon } from "@/components/website-base/icons"
+import { QuestionMarkIcon, CaretFilledIcon, CaretRightIcon, StreamIcon, InformationCircleIcon } from "@/components/website-base/icons"
 import Link from "next/link"
-import type { GameCardTeam, GameCard as GameCardType, GameCardOpta, GameCardPrismic } from "@/types/components"
+import { useRouter } from "next/navigation"
+import type { GameCardTeam, GameCardOpta } from "@/types/components"
 import { getStatusDisplay, normalizeOptaId } from "@/lib/opta/utils"
-import { getGameCardData } from "./utils"
+import { buildMatchUrl } from "@/lib/match-url"
+import { getOptaGameCardData } from "./utils"
 import { Separator } from "@/components/ui/separator"
 import { Button } from "@/components/ui/button"
+import { Status, StatusIndicator } from "@/components/ui/status"
+import { MiniPlaceholders } from "@/lib/data/mini-placeholders"
+import { StreamingAvailabilityDialog } from "../streaming-availability-dialog"
 
 const MATCH_CARD_VARIANTS = {
     default: {
@@ -20,6 +25,9 @@ const MATCH_CARD_VARIANTS = {
         header: "lg:px-4 px-4 py-3",
         time: "text-sm font-light",
         status: "text-sm tracking-widest",
+        liveStatus: "p-0 bg-transparent border-0",
+        liveStatusIndicator: "size-2.5",
+        liveStatusText: "",
         vsText: "px-2 text-xs",
         content: "pb-4",
         score: "text-2xl mr-2",
@@ -37,15 +45,18 @@ const MATCH_CARD_VARIANTS = {
         header: "px-4 lg:px-4 pt-2 pb-1",
         time: "text-[0.65rem] font-normal",
         status: "text-xxs tracking-widest font-medium",
+        liveStatus: "p-0 bg-transparent border-0",
+        liveStatusIndicator: "size-2",
+        liveStatusText: "text-xxs",
         vsText: "px-1 text-[0.55rem] text-muted-foreground/70",
         content: "pb-2",
         score: "text-base",
         teamLogos: "size-4 mr-2",
         teams: "px-4 py-0",
         teamNames: "lg:text-[0.7rem] text-[0.7rem]",
-        indicator: "size-1.5 -right-3",
+        indicator: "size-1.5 -right-2.5",
         showFooter: false,
-        linkTeams: false,
+        linkTeams: true,
         wrapper: "rounded-none no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60",
     },
 } as const
@@ -68,23 +79,36 @@ function MatchCardTeam({
     teamsClassName,
     teamNamesClassName,
     indicatorClassName,
-}: GameCardTeam) {
-    const displayName = compact && teamShortName ? teamShortName : (team?.data?.name || teamLabel)
-    
+    showResponsiveNameSwap,
+    optaDisplayName,
+    preventLinkPropagation,
+}: GameCardTeam & { showResponsiveNameSwap?: boolean; optaDisplayName?: string; preventLinkPropagation?: boolean }) {
+    const baseDisplayName = optaDisplayName || teamShortName || team?.data?.name || teamLabel
+    const shortDisplayName = compact && teamShortName ? teamShortName : null
+    const nameNode = showResponsiveNameSwap && compact ? (
+        <>
+            <span className="block lg:hidden">{shortDisplayName || baseDisplayName}</span>
+            <span className="hidden lg:block">{baseDisplayName}</span>
+        </>
+    ) : (
+        shortDisplayName || baseDisplayName
+    )
+
     const getIconSize = (logoSize: string) => {
-        if (logoSize === "size-5") return "size-4"
-        if (logoSize === "size-8") return "size-5"
+        if (logoSize.includes("size-4")) return "size-2.5"
+        if (logoSize.includes("size-5")) return "size-4"
+        if (logoSize.includes("size-8")) return "size-5"
         return "size-6"
     }
-    
+
     const logoSize = cn(logoClassName, !logoClassName && compact && "size-8", !logoClassName && !compact && "size-10")
     const iconSize = getIconSize(logoSize || cn(compact && "size-8", !compact && "size-10"))
-    
+
     const logoNode = logoUrl ? (
         <div className={cn("relative", logoSize)}>
             <Image
                 src={logoUrl}
-                alt={logoAlt || displayName}
+                alt={logoAlt || baseDisplayName}
                 fill
                 className="object-contain"
             />
@@ -94,34 +118,63 @@ function MatchCardTeam({
             <QuestionMarkIcon className={cn("text-muted-foreground/20", iconSize)} />
         </div>
     )
-    
+
+    const router = useRouter()
+
     const teamIdentity = (
         <>
             {logoNode}
             <div>
-                <H4 className={cn(linkToTeam && "group-hover:underline", teamNamesClassName)}>
-                    {displayName}
+                <H4 className={cn(linkToTeam && team?.uid && "group-hover:underline", teamNamesClassName)}>
+                    {nameNode}
                 </H4>
             </div>
         </>
     )
+
+    const handleButtonClick = (e: React.MouseEvent) => {
+        e.preventDefault()
+        e.stopPropagation()
+        if (team?.uid) {
+            router.push(`/club/${team.uid}`)
+        }
+    }
 
     return (
         <div className={teamsClassName}>
             <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
                     {team ? (
-                        <div className="flex items-center">
-                            {teamIdentity}
-                        </div>
+                        linkToTeam && team.uid ? (
+                            preventLinkPropagation ? (
+                                <button
+                                    type="button"
+                                    className="flex items-center group cursor-pointer"
+                                    onClick={handleButtonClick}
+                                >
+                                    {teamIdentity}
+                                </button>
+                            ) : (
+                                <Link
+                                    href={`/club/${team.uid}`}
+                                    className="flex items-center group"
+                                >
+                                    {teamIdentity}
+                                </Link>
+                            )
+                        ) : (
+                            <div className="flex items-center">
+                                {teamIdentity}
+                            </div>
+                        )
                     ) : (
                         <>
-                            <div className="size-12 bg-muted/10 rounded flex items-center justify-center">
-                                <QuestionMarkIcon className="size-6 text-muted-foreground/20" />
+                            <div className={cn("bg-muted/30 flex items-center justify-center", logoSize)}>
+                                <QuestionMarkIcon className={cn("text-muted-foreground/50", iconSize)} />
                             </div>
                             <div>
-                                <H4 className={cn(linkToTeam && "group-hover:underline", teamNamesClassName)}>
-                                    {displayName}
+                                <H4 className={teamNamesClassName}>
+                                    {nameNode}
                                 </H4>
                             </div>
                         </>
@@ -139,55 +192,28 @@ function MatchCardTeam({
     )
 }
 
-function MatchCard(props: GameCardType) {
-    const isOptaMatch = 'fixture' in props
-    const isPrismicMatch = 'prismicMatch' in props
-    
-    let gameCardData
-    let matchHref: string
-    let fixtureStatus: string | undefined
-    let compact: boolean
-    let banner: React.ReactNode
-    let className: string | undefined
-    let variant: "default" | "mini"
-    let restProps: React.HTMLAttributes<HTMLDivElement>
-    let homeTeamLabel: string | undefined
-    let awayTeamLabel: string | undefined
-    let optaEnabled: boolean
-    let matchNumber: number | undefined
-    
-    if (isOptaMatch) {
-        const { fixture, prismicTeams, optaTeams, compact: c = false, banner: b, className: cn, variant: v = "default", optaEnabled: oe = true, allMatches, f3StandingsData, ...rest } = props as GameCardOpta
-        compact = c
-        banner = b
-        className = cn
-        variant = v
-        optaEnabled = oe
-        restProps = rest
-        gameCardData = getGameCardData(fixture, prismicTeams, optaTeams, allMatches, f3StandingsData)
-        matchHref = `/match/${normalizeOptaId(fixture.uID)}`
-        fixtureStatus = getStatusDisplay(fixture.MatchInfo)
-        homeTeamLabel = undefined
-        awayTeamLabel = undefined
-        matchNumber = undefined
-    } else if (isPrismicMatch) {
-        const { prismicMatch, compact: c = false, banner: b, className: cn, variant: v = "default", optaEnabled: oe = false, ...rest } = props as GameCardPrismic
-        compact = c
-        banner = b
-        className = cn
-        variant = v
-        optaEnabled = oe
-        restProps = rest
-        gameCardData = getGameCardData(prismicMatch)
-        matchHref = prismicMatch.data.opta_id ? `/match/${normalizeOptaId(prismicMatch.data.opta_id)}` : `/match/${prismicMatch.uid}`
-        matchNumber = prismicMatch.data.match_number || undefined
-        fixtureStatus = matchNumber ? `Match #${matchNumber}` : "SCHEDULED"
-        homeTeamLabel = prismicMatch.data.home_team_name_override || undefined
-        awayTeamLabel = prismicMatch.data.away_team_name_override || undefined
-    } else {
-        throw new Error("MatchCard requires either fixture or prismicMatch prop")
-    }
-    
+function MatchCard({
+    fixture,
+    prismicTeams,
+    optaTeams,
+    tournamentSlug,
+    matchSlugMap,
+    compact = false,
+    banner,
+    className,
+    variant = "default",
+    allMatches,
+    f3StandingsData,
+    streamingLink,
+    broadcastPartners,
+    ...restProps
+}: GameCardOpta) {
+    const gameCardData = getOptaGameCardData(fixture, prismicTeams, optaTeams, allMatches, f3StandingsData)
+    const normalizedOptaId = normalizeOptaId(fixture.uID)
+    const matchSlug = matchSlugMap?.get(normalizedOptaId)
+    const matchHref = matchSlug ? buildMatchUrl(tournamentSlug, matchSlug) : `/tournament/${tournamentSlug}`
+    const fixtureStatus = getStatusDisplay(fixture.MatchInfo)
+
     const {
         homeTeam,
         awayTeam,
@@ -206,13 +232,27 @@ function MatchCard(props: GameCardType) {
         awayLogoUrl,
         homeLogoAlt,
         awayLogoAlt,
+        homeOptaTeam,
+        awayOptaTeam,
     } = gameCardData
 
     const gameDate = formatGameDate(startTime)
+
+    const matchTimeStat = fixture.Stat?.find(stat => stat.Type === "match_time")
+    const currentMinute = matchTimeStat?.value ? String(matchTimeStat.value) : null
     const resolvedVariant: MatchCardVariant = variant ?? "default"
     const variantStyles = MATCH_CARD_VARIANTS[resolvedVariant] ?? MATCH_CARD_VARIANTS.default
-    const isCompact = isPrismicMatch ? false : (compact || resolvedVariant === "mini")
-    const interstitialPadding = resolvedVariant === "mini" ? "px-4 pl-6.5 py-0 hidden" : "px-4 py-2"
+    const isCompact = compact || resolvedVariant === "mini"
+    const isMini = resolvedVariant === "mini"
+    const interstitialPadding = isMini ? "px-4 pl-6.5 py-0 hidden" : "px-4 py-2"
+    const getMiniPlaceholder = (placeholder: string | null | undefined) => {
+        if (!placeholder) return undefined
+        return MiniPlaceholders[placeholder] || placeholder
+    }
+    const homeShortName = isMini ? (homeTeam?.data?.key || getMiniPlaceholder(homePlaceholderName) || homeTeam?.data?.name || "Home Team") : (homeTeamShortName || "")
+    const awayShortName = isMini ? (awayTeam?.data?.key || getMiniPlaceholder(awayPlaceholderName) || awayTeam?.data?.name || "Away Team") : (awayTeamShortName || "")
+    const homeOptaDisplayName = homeTeamShortName || homeOptaTeam?.ShortTeamName || homeOptaTeam?.ShortName || homeOptaTeam?.Name || homeOptaTeam?.name || homePlaceholderName || "Home Team"
+    const awayOptaDisplayName = awayTeamShortName || awayOptaTeam?.ShortTeamName || awayOptaTeam?.ShortName || awayOptaTeam?.Name || awayOptaTeam?.name || awayPlaceholderName || "Away Team"
 
     const cardBody = (
         <Card
@@ -228,33 +268,41 @@ function MatchCard(props: GameCardType) {
                     {banner}
                 </CardHeader>
             )}
-            {optaEnabled && (
-                <CardHeader className={cn("flex items-center justify-between", variantStyles.header)}>
+            <CardHeader className={cn("flex items-center justify-between", variantStyles.header)}>
+                {fixtureStatus === "Live" ? (
+                    <Status className={variantStyles.liveStatus}>
+                        <StatusIndicator className={cn("text-destructive", variantStyles.liveStatusIndicator)} />
+                        <span className={cn("tracking-widest", variantStyles.liveStatusText)}>LIVE</span>
+                    </Status>
+                ) : (
                     <div className={cn("text-muted-foreground/75", variantStyles.time)}>
                         {gameDate.time} ET
                     </div>
-                    <div className={cn("font-headers font-medium", variantStyles.status)}>
-                        {fixtureStatus}
-                    </div>
-                </CardHeader>
-            )}
-            <CardContent className={cn("px-0 lg:px-0 flex-grow", variantStyles.content, !optaEnabled && "pt-4")}>
+                )}
+                <div className={cn("font-headers font-medium", variantStyles.status)}>
+                    {fixtureStatus === "Live" ? `'${currentMinute}` : fixtureStatus}
+                </div>
+            </CardHeader>
+            <CardContent className={cn("px-0 lg:px-0 flex-grow", variantStyles.content)}>
                 <MatchCardTeam
                     team={homeTeam ?? null}
                     logoUrl={homeLogoUrl}
                     logoAlt={homeLogoAlt}
                     score={homeScore}
-                    teamLabel={homeTeamLabel || homePlaceholderName || "Home Team"}
-                    teamShortName={homeTeamShortName || ""}
+                    teamLabel={homePlaceholderName || "Home Team"}
+                    teamShortName={homeShortName}
                     compact={isCompact}
                     isLosing={homeIsLosing}
                     isWinning={homeIsWinning}
-                    linkToTeam={variantStyles.linkTeams && optaEnabled}
+                    linkToTeam={variantStyles.linkTeams}
                     scoreClassName={cn("font-bold relative inline-block", variantStyles.score)}
                     logoClassName={variantStyles.teamLogos}
                     teamsClassName={variantStyles.teams}
                     teamNamesClassName={cn("font-medium text-foreground", variantStyles.teamNames)}
                     indicatorClassName={cn("-mt-0.5 scale-x-[-1] absolute top-1/2 -translate-y-1/2", variantStyles.indicator)}
+                    showResponsiveNameSwap={isMini}
+                    optaDisplayName={homeOptaDisplayName}
+                    preventLinkPropagation={isMini}
                 />
 
                 <div className={interstitialPadding}>
@@ -271,48 +319,46 @@ function MatchCard(props: GameCardType) {
                     logoUrl={awayLogoUrl}
                     logoAlt={awayLogoAlt}
                     score={awayScore}
-                    teamLabel={awayTeamLabel || awayPlaceholderName || "Away Team"}
-                    teamShortName={awayTeamShortName || ""}
+                    teamLabel={awayPlaceholderName || "Away Team"}
+                    teamShortName={awayShortName}
                     compact={isCompact}
                     isLosing={awayIsLosing}
                     isWinning={awayIsWinning}
-                    linkToTeam={variantStyles.linkTeams && optaEnabled}
+                    linkToTeam={variantStyles.linkTeams}
                     scoreClassName={cn("font-bold relative inline-block", variantStyles.score)}
                     logoClassName={variantStyles.teamLogos}
                     teamsClassName={variantStyles.teams}
                     teamNamesClassName={cn("font-medium text-foreground", variantStyles.teamNames)}
                     indicatorClassName={cn("-mt-0.5 scale-x-[-1] absolute top-1/2 -translate-y-1/2", variantStyles.indicator)}
+                    showResponsiveNameSwap={isMini}
+                    optaDisplayName={awayOptaDisplayName}
+                    preventLinkPropagation={isMini}
                 />
             </CardContent>
             {variantStyles.showFooter && (
-                <CardFooter className="md:px-4 px-4 py-3 bg-muted/50 flex items-center justify-between">
-                    {optaEnabled ? (
-                        <>
-                            <div className="grid grid-cols-[auto_1fr] hidden">
-                                <div className="flex flex-col items-center font-headers text-muted-foreground/75 bg-background/20 rounded-l-xs p-1 px-2  border border-border/50">
-                                    <span className="text-xs font-medium text-muted-foreground">{gameDate.day}</span>
-                                    <span className="text-[0.5rem]">{gameDate.month}</span>
-                                </div>
-                                <div className="bg-border/50 h-full rounded-r-xs p-1 px-2 flex items-center text-xs font-medium text-muted-foreground/90 pb-0.5">{gameDate.time} ET</div>
-                            </div>
-                            <Button asChild variant="link" size="sm" className="!p-0 px-0 h-auto font-medium">
-                                <Link href={matchHref}>
-                                    Gamecast
-                                    <CaretRightIcon
-                                        className="size-2.5 mt-0.5"
-                                    />
+                <CardFooter className="md:px-4 px-4 py-0 h-12 bg-muted/50 flex items-center justify-between">
+                    <Button asChild variant="link" size="sm" className="!p-0 px-0 h-auto font-medium">
+                        <Link href={matchHref}>
+                            Gamecast
+                            <CaretRightIcon
+                                className="size-2.5 mt-0.5"
+                            />
+                        </Link>
+                    </Button>
+                    {fixtureStatus === "Live" && streamingLink && (
+                        <div className="flex items-center gap-1">
+                            <Button asChild variant="outline" size="sm" className="text-xs">
+                                <Link href={streamingLink} target="_blank" rel="noopener noreferrer">
+                                    <StreamIcon className="size-3" />
+                                    Stream
                                 </Link>
                             </Button>
-                        </>
-                    ) : (
-                        <>
-                            <div className="text-sm font-medium text-muted-foreground uppercase">
-                                {gameDate.weekday}, {gameDate.month} {gameDate.day}
-                            </div>
-                            <div className="text-sm font-medium text-muted-foreground">
-                                {gameDate.time} ET
-                            </div>
-                        </>
+                            <StreamingAvailabilityDialog broadcastPartners={broadcastPartners || []}>
+                                <Button variant="outline" size="icon" className="size-8">
+                                    <InformationCircleIcon className="size-4" />
+                                </Button>
+                            </StreamingAvailabilityDialog>
+                        </div>
                     )}
                 </CardFooter>
             )}
@@ -331,6 +377,3 @@ function MatchCard(props: GameCardType) {
 }
 
 export { MatchCard }
-
-
-
