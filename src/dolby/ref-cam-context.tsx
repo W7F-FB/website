@@ -2,6 +2,8 @@
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { dolbyRefCamIpList } from './dolby-ref-cam-ip-list';
+import { useSafeAsync } from '@/hooks/use-safe-async';
+import { dev } from '@/lib/dev';
 
 interface RefCamContextType {
   userIp: string | null;
@@ -24,43 +26,52 @@ export function RefCamProvider({ children }: { children: ReactNode }) {
     setIsMounted(true);
   }, []);
 
-  useEffect(() => {
-    if (!isMounted) return;
-    const fetchUserIp = async () => {
-      try {
-        const response = await fetch('/api/user-ip');
-        const data = await response.json();
-        
-        console.log('Ref Cam - IP Response:', data);
-        
-        if (data.ip) {
-          setUserIp(data.ip);
-          const isWhitelist = dolbyRefCamIpList.includes(data.ip);
-          console.log('Ref Cam - IP Check:', { 
-            userIp: data.ip, 
-            isWhitelisted: isWhitelist,
-            whitelist: dolbyRefCamIpList 
-          });
-          setIsWhitelisted(isWhitelist);
+  useSafeAsync(
+    async () => {
+      const response = await fetch('/api/user-ip');
+      if (!response.ok) {
+        throw new Error(`Failed to fetch IP: ${response.status} ${response.statusText}`);
+      }
+      const data = await response.json();
+      
+      dev.log('Ref Cam - IP Response:', data);
+      
+      if (data.ip) {
+        setUserIp(data.ip);
+        const isWhitelist = dolbyRefCamIpList.includes(data.ip);
+        dev.log('Ref Cam - IP Check:', { 
+          userIp: data.ip, 
+          isWhitelisted: isWhitelist,
+          whitelist: dolbyRefCamIpList 
+        });
+        setIsWhitelisted(isWhitelist);
 
-          if (isWhitelist) {
+        if (isWhitelist) {
+          try {
             const shown = sessionStorage.getItem('ref-cam-shown');
-            console.log('Ref Cam - Session Check:', { shown, willOpen: !shown });
+            dev.log('Ref Cam - Session Check:', { shown, willOpen: !shown });
             if (!shown) {
               setOpenState(true);
               sessionStorage.setItem('ref-cam-shown', 'true');
             } else {
               setHasSeenDialog(true);
             }
+          } catch (storageError) {
+            dev.error(storageError instanceof Error ? storageError : new Error(String(storageError)), {
+              source: 'ref-cam-session-storage',
+            });
           }
         }
-      } catch (error) {
-        console.error('Failed to fetch user IP:', error);
       }
-    };
-
-    fetchUserIp();
-  }, [isMounted]);
+    },
+    [isMounted],
+    {
+      enabled: isMounted,
+      onError: (error) => {
+        dev.error(error, { source: 'ref-cam-fetch-ip' });
+      },
+    }
+  );
 
   const setOpen = (newOpen: boolean) => {
     setOpenState(newOpen);

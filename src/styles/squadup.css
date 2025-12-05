@@ -150,7 +150,7 @@
     color: oklch(var(--foreground));
 }
 
-#squadup-checkout>div>div>div>div>div.col-sm-12.squadup-embed-view>div:nth-child(2)>div:nth-child(2)>div>div>div:nth-child {
+#squadup-checkout>div>div>div>div>div.col-sm-12.squadup-embed-view>div:nth-child(2)>div:nth-child(2)>div>div>div:nth-child(1) {
     color: oklch(var(--foreground));
 }
 

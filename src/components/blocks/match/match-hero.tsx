@@ -128,6 +128,9 @@ export default function MatchHero({ f9MatchData, homeTeamData, awayTeamData, hom
     return `${record.wins}-${record.losses}`;
   };
 
+  const daznPartner = broadcastPartners?.find(p => p.uid === "dazn");
+  const daznStreamLink = daznPartner?.data.streaming_link || streamingLink || "#";
+
   return (
     <Card className="p-0 gap-0 bg-card/50 border-border/50 overflow-hidden">
       <CardHeader className="px-4 md:px-6 py-3 !pb-3 flex flex-col md:flex-row items-start md:items-center justify-between gap-2 md:gap-0 bg-muted/30 border-b text-xs md:text-sm text-muted-foreground/75">
@@ -225,7 +228,7 @@ export default function MatchHero({ f9MatchData, homeTeamData, awayTeamData, hom
           {tournament?.data.status !== "Complete" && (
             <div className="hidden lg:flex items-center gap-2 mt-2">
               <Button asChild variant="outline" className="font-[500]">
-                <Link href={streamingLink || "#"} target="_blank" rel="noopener noreferrer">
+                <Link href={daznStreamLink} target="_blank" rel="noopener noreferrer">
                   <StreamIcon className="size-3" />
                   Stream
                 </Link>
@@ -240,7 +243,7 @@ export default function MatchHero({ f9MatchData, homeTeamData, awayTeamData, hom
           {tournament?.data.status !== "Complete" && (
             <div className="flex lg:hidden items-center gap-2 mt-2">
               <Button asChild variant="outline" size="sm" className="text-xs font-[500]">
-                <Link href={streamingLink || "#"} target="_blank" rel="noopener noreferrer">
+                <Link href={daznStreamLink} target="_blank" rel="noopener noreferrer">
                   <StreamIcon className="size-3" />
                   Stream
                 </Link>

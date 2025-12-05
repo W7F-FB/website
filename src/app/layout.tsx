@@ -8,6 +8,7 @@ import Script from "next/script";
 import { ClipPaths } from "@/components/ui/clip-paths";
 import { MetallicGradients } from "@/components/website-base/icons";
 import { RefCamWrapper } from "@/dolby/ref-cam-wrapper";
+import { ErrorHandler } from "@/components/website-base/error-handler";
 
 
 export const metadata: Metadata = {
@@ -27,6 +28,7 @@ export default async function RootLayout({
       <GoogleTagManager gtmId="GTM-PM4L7D3W" />
       <GoogleAnalytics gaId="G-MLFVZ11CHH" />
       <body className="w7f-v2 bg-background font-body min-h-dvh" suppressHydrationWarning>
+        <ErrorHandler />
         <Script
           async
           defer
