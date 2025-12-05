@@ -156,6 +156,7 @@ export function ClubStandingsTable({ prismicTeams, f1FixturesData, f3StandingsDa
                                     record={row.record}
                                     className="pr-2"
                                     tournamentStatus={tournamentStatus}
+                                    href={row.team.uid ? `/club/${row.team.uid}` : undefined}
                                 />
                             </TableRow>
                         </Fragment>
@@ -200,6 +201,7 @@ export function ClubStandingsTable({ prismicTeams, f1FixturesData, f3StandingsDa
                                         name={getDisplayName(team)}
                                         record={`${wins}-${losses}`}
                                         className="pr-2"
+                                        href={team.uid ? `/club/${team.uid}` : undefined}
                                     />
                                 </TableRow>
                             )

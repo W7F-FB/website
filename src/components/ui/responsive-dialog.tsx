@@ -75,7 +75,7 @@ function ResponsiveDialogContent({
 
     if (isMobile) {
         return (
-            <DrawerContent className={className} {...props}>
+            <DrawerContent className={className} {...props} suppressHydrationWarning>
                 {children}
             </DrawerContent>
         )
@@ -86,6 +86,7 @@ function ResponsiveDialogContent({
             className={cn("sm:max-w-[425px]", className)}
             showCloseButton={showCloseButton}
             {...props}
+            suppressHydrationWarning
         >
             {children}
         </DialogContent>

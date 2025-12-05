@@ -415,3 +415,12 @@ export const CirclePlayIcon = createIcon(
   />
 )
 
+export const VideoRecordIcon = createIcon(
+  "VideoRecordIcon",
+  <path
+    fillRule="evenodd"
+    d="M21 8c0 -2.76142 -2.2386 -5 -5 -5V1c3.866 0 7 3.13401 7 7h-2Zm-3.5405 0c0 -0.80604 -0.6535 -1.45947 -1.4595 -1.45947v-2c1.9106 0 3.4595 1.54886 3.4595 3.45947h-2ZM1 9h15v3.4612l3.0939 -1.375 1.4061 -0.625v11.0776l-1.4061 -0.625L16 19.5388V23H1V9Z"
+    clipRule="evenodd"
+  />
+)
+

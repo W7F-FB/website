@@ -7,6 +7,7 @@ import Script from "next/script";
 
 import { ClipPaths } from "@/components/ui/clip-paths";
 import { MetallicGradients } from "@/components/website-base/icons";
+import { ClientLayout } from "./layout-client";
 
 
 export const metadata: Metadata = {
@@ -33,7 +34,7 @@ export default async function RootLayout({
         />
         <ClipPaths />
         <MetallicGradients />
-        {children}
+        <ClientLayout>{children}</ClientLayout>
         <PrismicPreview repositoryName="world-sevens-football" />
       </body>
     </html>
