@@ -24,3 +24,21 @@ export async function getVisibleSponsors(): Promise<SponsorDocument[]> {
     return [];
   }
 }
+
+/**
+ * Get all sponsors ordered by sort_order (ignores visibility)
+ */
+export async function getAllSponsors(): Promise<SponsorDocument[]> {
+  try {
+    const client = createClient();
+    const sponsors = await client.getAllByType("sponsor", {
+      orderings: [
+        { field: "my.sponsor.sort_order", direction: "asc" }
+      ]
+    });
+    return sponsors;
+  } catch (error) {
+    dev.log("Error fetching sponsors:", error);
+    return [];
+  }
+}

@@ -4,7 +4,7 @@ import { FaFacebookF, FaInstagram, FaXTwitter, FaTiktok } from "react-icons/fa6"
 import { Logo } from "@/components/website-base/logo"
 import { getPoliciesForNav } from "@/cms/queries/policies"
 import { getFooterData } from "@/cms/queries/website"
-import { getVisibleSponsors } from "@/cms/queries/sponsors"
+import { getAllSponsors } from "@/cms/queries/sponsors"
 import FormFooterSubscribe from "@/components/forms/form-footer-subscribe"
 import { SponsorLogo } from "@/components/blocks/sponsor-logo"
 
@@ -42,7 +42,7 @@ async function PolicyLinks() {
 
 const FooterMain = React.forwardRef<HTMLElement, React.ComponentProps<"footer">>(async ({ className, ...props }, ref) => {
   const footerData = await getFooterData()
-  const sponsors = await getVisibleSponsors()
+  const sponsors = await getAllSponsors()
 
   return (
     <div className="mt-24">
@@ -87,18 +87,17 @@ const FooterMain = React.forwardRef<HTMLElement, React.ComponentProps<"footer">>
               <H3 className="mb-2">Keep up with us</H3>
               <p className="mb-4 text-muted-foreground">Stay updated on W7F news, tickets, giveaways, merchandise and more.</p>
               <FormFooterSubscribe />
-              {sponsors.length > 0 && (
-                <div className="flex flex-wrap items-center justify-center lg:justify-end gap-6 mt-12">
-                  {sponsors.map((sponsor) => (
-                    <SponsorLogo
-                      key={sponsor.id}
-                      sponsor={sponsor}
-                    />
-                  ))}
-                </div>
-              )}
             </div>
           </div>
+        </div>
+
+        <div className="flex flex-wrap items-center justify-around gap-10 border-y border-border/50 py-8 mt-14">
+          {sponsors.map((sponsor) => (
+            <SponsorLogo
+              key={sponsor.id}
+              sponsor={sponsor}
+            />
+          ))}
         </div>
 
         <FooterFast />
