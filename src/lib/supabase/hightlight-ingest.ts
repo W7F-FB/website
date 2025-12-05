@@ -1,10 +1,8 @@
 import { createClient } from "@supabase/supabase-js";
-import { dev } from "@/lib/dev";
 
 const SUPABASE_URL = process.env.SUPABASE_URL!;
 const SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY!;
 const HIGHLIGHT_BUCKET = process.env.HIGHLIGHT_BUCKET ?? "match-highlights";
-const IS_DEV = process.env.NODE_ENV === "development";
 
 if (!SUPABASE_URL || !SERVICE_ROLE_KEY) {
   throw new Error("Missing SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY env vars");
@@ -79,20 +77,29 @@ interface ParsedMetadata {
 }
 
 function parseMetadataFromFilename(url: string): ParsedMetadata {
+  console.log("[WCS Ingest] Parsing metadata from URL:", url);
+  
   const filename = url.split("/").pop()?.replace(/\.(mp4|mov|mkv|webm|mpg|mpeg|m4v|jpg|jpeg|png|webp|gif)$/i, "") ?? "";
+  console.log("[WCS Ingest] Extracted filename:", filename);
+  
   const parts = filename.split("__");
+  console.log("[WCS Ingest] Split parts:", parts);
   
   if (parts.length < 2) {
     throw new Error("Invalid filename format. Expected: wcs_highlight__provider_clip_id=...&opta_match_id=...&opta_event_id=...&opta_competition_id=...");
   }
   
   const metadataString = parts.slice(1).join("__");
+  console.log("[WCS Ingest] Metadata string:", metadataString);
+  
   const params = new URLSearchParams(metadataString);
   
   const provider_clip_id = params.get("provider_clip_id");
   const opta_match_id = params.get("opta_match_id");
   const opta_event_id = params.get("opta_event_id");
   const opta_competition_id = params.get("opta_competition_id");
+  
+  console.log("[WCS Ingest] Parsed params:", { provider_clip_id, opta_match_id, opta_event_id, opta_competition_id });
   
   if (!provider_clip_id || !opta_match_id || !opta_event_id || !opta_competition_id) {
     throw new Error(
@@ -115,6 +122,8 @@ export interface HighlightIngestPayload {
 }
 
 export async function ingestHighlight(payload: HighlightIngestPayload) {
+  console.log("[WCS Ingest] Starting ingest with payload:", JSON.stringify(payload, null, 2));
+  
   if (!payload.video_source_url) {
     throw new Error("Missing field: video_source_url");
   }
@@ -124,31 +133,21 @@ export async function ingestHighlight(payload: HighlightIngestPayload) {
 
   const metadata = parseMetadataFromFilename(payload.video_source_url);
   const providerClipId = toPathSafe(metadata.provider_clip_id);
+  console.log("[WCS Ingest] Provider clip ID:", providerClipId);
 
-  if (IS_DEV) dev.log(`Parsed metadata from filename:`, metadata);
-  if (IS_DEV) dev.log(`Downloading video from: ${payload.video_source_url}`);
-  
+  console.log("[WCS Ingest] Downloading video from:", payload.video_source_url);
   const videoDownload = await fetchAsBlob(payload.video_source_url);
-  if (IS_DEV) {
-    dev.log(
-      `Video downloaded: ${videoDownload.blob.size} bytes, content-type: ${videoDownload.contentType}`
-    );
-  }
+  console.log("[WCS Ingest] Video downloaded:", videoDownload.blob.size, "bytes, content-type:", videoDownload.contentType);
   
   let videoExt = getExtensionFromUrl(payload.video_source_url, ".mp4");
   if (videoExt === ".mp4" && videoDownload.contentType) {
-    const hinted = inferExtFromContentType(
-      videoDownload.contentType,
-      videoExt
-    );
+    const hinted = inferExtFromContentType(videoDownload.contentType, videoExt);
     if (hinted) videoExt = hinted;
   }
 
   const clipPath = `clips/${providerClipId}${videoExt}`;
+  console.log("[WCS Ingest] Uploading video to Supabase:", clipPath, `(${(videoDownload.blob.size / 1024 / 1024).toFixed(2)} MB)`);
 
-  if (IS_DEV) {
-    dev.log(`Uploading video to Supabase: ${clipPath} (${(videoDownload.blob.size / 1024 / 1024).toFixed(2)} MB)...`);
-  }
   const uploadStartTime = Date.now();
   
   try {
@@ -157,10 +156,11 @@ export async function ingestHighlight(payload: HighlightIngestPayload) {
       .createSignedUploadUrl(clipPath);
 
     if (signedUrlError || !signedUrl) {
+      console.error("[WCS Ingest] Failed to get signed URL:", signedUrlError);
       throw new Error(`Failed to get signed upload URL: ${signedUrlError?.message}`);
     }
 
-    if (IS_DEV) dev.log(`Got signed upload URL, uploading directly...`);
+    console.log("[WCS Ingest] Got signed upload URL, uploading...");
 
     const uploadResponse = await fetch(signedUrl.signedUrl, {
       method: 'PUT',
@@ -173,53 +173,41 @@ export async function ingestHighlight(payload: HighlightIngestPayload) {
 
     if (!uploadResponse.ok) {
       const errorText = await uploadResponse.text();
-      throw new Error(
-        `Upload failed: ${uploadResponse.status} ${uploadResponse.statusText} - ${errorText}`
-      );
+      console.error("[WCS Ingest] Upload failed:", uploadResponse.status, errorText);
+      throw new Error(`Upload failed: ${uploadResponse.status} ${uploadResponse.statusText} - ${errorText}`);
     }
 
-    if (IS_DEV) {
-      const uploadDuration = ((Date.now() - uploadStartTime) / 1000).toFixed(2);
-      dev.log(`Video upload completed successfully in ${uploadDuration}s`);
-    }
+    const uploadDuration = ((Date.now() - uploadStartTime) / 1000).toFixed(2);
+    console.log("[WCS Ingest] Video upload completed in", uploadDuration, "s");
   } catch (err) {
-    if (IS_DEV) {
-      const uploadDuration = ((Date.now() - uploadStartTime) / 1000).toFixed(2);
-      dev.log(`Upload failed after ${uploadDuration}s:`, err);
-    }
-    throw new Error(
-      `Failed to upload video: ${err instanceof Error ? err.message : String(err)}`
-    );
+    const uploadDuration = ((Date.now() - uploadStartTime) / 1000).toFixed(2);
+    console.error("[WCS Ingest] Video upload failed after", uploadDuration, "s:", err);
+    throw new Error(`Failed to upload video: ${err instanceof Error ? err.message : String(err)}`);
   }
 
   let thumbPath: string | null = null;
   let thumbPublicUrl: string | null = null;
 
   try {
-    if (IS_DEV) dev.log(`Downloading thumbnail from: ${payload.thumbnail_source_url}`);
+    console.log("[WCS Ingest] Downloading thumbnail from:", payload.thumbnail_source_url);
     const thumbDownload = await fetchAsBlob(payload.thumbnail_source_url);
-    if (IS_DEV) {
-      dev.log(
-        `Thumbnail downloaded: ${thumbDownload.blob.size} bytes, content-type: ${thumbDownload.contentType}`
-      );
-    }
+    console.log("[WCS Ingest] Thumbnail downloaded:", thumbDownload.blob.size, "bytes, content-type:", thumbDownload.contentType);
     
     let thumbExt = getExtensionFromUrl(payload.thumbnail_source_url, ".jpg");
     if (thumbDownload.contentType) {
-      const hinted = inferExtFromContentType(
-        thumbDownload.contentType,
-        thumbExt
-      );
+      const hinted = inferExtFromContentType(thumbDownload.contentType, thumbExt);
       if (hinted) thumbExt = hinted;
     }
 
     thumbPath = `thumbs/${providerClipId}${thumbExt}`;
+    console.log("[WCS Ingest] Uploading thumbnail to:", thumbPath);
 
     const { data: thumbSignedUrl, error: thumbSignedUrlError } = await supabase.storage
       .from(HIGHLIGHT_BUCKET)
       .createSignedUploadUrl(thumbPath);
 
     if (thumbSignedUrlError || !thumbSignedUrl) {
+      console.error("[WCS Ingest] Failed to get thumbnail signed URL:", thumbSignedUrlError);
       throw new Error(`Failed to get signed upload URL for thumbnail: ${thumbSignedUrlError?.message}`);
     }
 
@@ -233,14 +221,15 @@ export async function ingestHighlight(payload: HighlightIngestPayload) {
     });
 
     if (!thumbUploadResponse.ok) {
-      throw new Error(`Thumbnail upload failed: ${thumbUploadResponse.status}`);
+      const errorText = await thumbUploadResponse.text();
+      console.error("[WCS Ingest] Thumbnail upload failed:", thumbUploadResponse.status, errorText);
+      throw new Error(`Thumbnail upload failed: ${thumbUploadResponse.status} - ${errorText}`);
     }
     
-    if (IS_DEV) dev.log("Thumbnail uploaded successfully");
+    console.log("[WCS Ingest] Thumbnail uploaded successfully");
   } catch (e) {
-    throw new Error(
-      `Failed to upload thumbnail: ${e instanceof Error ? e.message : String(e)}`
-    );
+    console.error("[WCS Ingest] Thumbnail processing error:", e);
+    throw new Error(`Failed to upload thumbnail: ${e instanceof Error ? e.message : String(e)}`);
   }
 
   const vPub = supabase.storage
@@ -270,6 +259,8 @@ export async function ingestHighlight(payload: HighlightIngestPayload) {
     updated_at: new Date().toISOString().replace("Z", ""),
   };
 
+  console.log("[WCS Ingest] Inserting record:", JSON.stringify(insertPayload, null, 2));
+
   const { data: inserted, error: insErr } = await supabase
     .from("Match Highlights")
     .insert(insertPayload)
@@ -277,8 +268,10 @@ export async function ingestHighlight(payload: HighlightIngestPayload) {
     .single();
 
   if (insErr) {
+    console.error("[WCS Ingest] Database insert failed:", insErr);
     throw new Error(`Failed to insert record: ${insErr.message}`);
   }
 
+  console.log("[WCS Ingest] Successfully inserted record:", inserted);
   return inserted;
 }
