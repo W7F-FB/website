@@ -112,6 +112,7 @@ export default async function TeamPage({ params }: Props) {
   let groupedFixtures: Map<string, F1MatchData[]> = new Map();
   let optaTeams: F1TeamData[] = [];
   let f9FeedsMap: Map<string, F9MatchResponse> = new Map();
+  let liveMinutesMap: Map<string, string> = new Map();
   
   const doc = f1FixturesData?.SoccerFeed?.SoccerDocument;
   if (doc?.MatchData) {
@@ -121,7 +122,9 @@ export default async function TeamPage({ params }: Props) {
     
     // Fetch F9 data for all matches
     const matchIds = extractMatchIdsFromFixtures(matchData);
-    f9FeedsMap = await fetchF9FeedsForMatches(matchIds);
+    const fetchedResult = await fetchF9FeedsForMatches(matchIds);
+    f9FeedsMap = fetchedResult.f9FeedsMap;
+    liveMinutesMap = fetchedResult.liveMinutesMap;
   }
 
   const matchSlugMap = currentTournament ? buildMatchSlugMap(currentTournament) : undefined;
@@ -159,6 +162,7 @@ export default async function TeamPage({ params }: Props) {
         tournament={currentTournament || undefined}
         matchSlugMap={matchSlugMap}
         f9FeedsMap={f9FeedsMap.size > 0 ? f9FeedsMap : undefined}
+        liveMinutesMap={liveMinutesMap.size > 0 ? liveMinutesMap : undefined}
       />
       <main className="flex-grow min-h-[30rem]">
         <div>

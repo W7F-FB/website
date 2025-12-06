@@ -1,4 +1,5 @@
 import type { F9MatchResponse, F9SoccerDocument, F9TeamData } from "@/types/opta-feeds/f9-match"
+import { getWinnerTeamRef } from "@/components/blocks/match/utils"
 
 export type TeamRecord = {
   optaNormalizedTeamId: string
@@ -32,11 +33,22 @@ export function getRecordsFromF9(feeds: F9MatchResponse[]): TeamRecord[] {
 
     if (!matchInfo || teamData.length < 2) continue
     if (matchInfo.Period !== "FullTime") continue
-    if (!matchInfo.Result?.Winner) continue
 
-    const winnerRef = matchInfo.Result.Winner
+    const homeTeamData = teamData.find((t) => t.Side === "Home")
+    const awayTeamData = teamData.find((t) => t.Side === "Away")
+    if (!homeTeamData || !awayTeamData) continue
+
+    const winnerRef = getWinnerTeamRef(
+      homeTeamData.Score ?? null,
+      awayTeamData.Score ?? null,
+      homeTeamData.TeamRef,
+      awayTeamData.TeamRef,
+      matchInfo.Result?.Winner
+    )
+
+    if (!winnerRef) continue
+
     const loserRef = teamData.find((t) => t.TeamRef !== winnerRef)?.TeamRef
-
     if (!loserRef) continue
 
     const winnerId = normalizeTeamId(winnerRef)

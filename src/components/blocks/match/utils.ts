@@ -5,6 +5,73 @@ import type { F1MatchData, F1TeamData } from "@/types/opta-feeds/f1-fixtures"
 import type { F9MatchResponse, F9TeamData } from "@/types/opta-feeds/f9-match"
 import { isFilled } from "@prismicio/client"
 
+export const LIVE_PERIODS = [
+    "FirstHalf", "SecondHalf", "HalfTime",
+    "ExtraFirstHalf", "ExtraSecondHalf", "ExtraHalfTime",
+    "ShootOut", "FullTime90", "FullTimePens"
+] as const
+
+export interface WinnerResult {
+    homeIsWinning: boolean
+    awayIsWinning: boolean
+    homeIsLosing: boolean
+    awayIsLosing: boolean
+}
+
+export function determineWinner(
+    isFinal: boolean,
+    homeScore: number | null,
+    awayScore: number | null,
+    winnerRef?: string | null,
+    homeTeamRef?: string,
+    awayTeamRef?: string,
+    isPenalties?: boolean,
+    homeShootOutScore?: number | null,
+    awayShootOutScore?: number | null
+): WinnerResult {
+    if (!isFinal) {
+        return { homeIsWinning: false, awayIsWinning: false, homeIsLosing: false, awayIsLosing: false }
+    }
+
+    const hasWinnerRef = winnerRef !== undefined && winnerRef !== null
+    const homeWinsByRef = hasWinnerRef && (winnerRef === homeTeamRef || winnerRef === "Home")
+    const awayWinsByRef = hasWinnerRef && (winnerRef === awayTeamRef || winnerRef === "Away")
+    
+    let homeWinsByScore = false
+    let awayWinsByScore = false
+    
+    if (!hasWinnerRef) {
+        if (isPenalties && homeShootOutScore !== undefined && awayShootOutScore !== undefined && homeShootOutScore !== null && awayShootOutScore !== null) {
+            homeWinsByScore = homeShootOutScore > awayShootOutScore
+            awayWinsByScore = awayShootOutScore > homeShootOutScore
+        } else if (homeScore !== null && awayScore !== null) {
+            homeWinsByScore = homeScore > awayScore
+            awayWinsByScore = awayScore > homeScore
+        }
+    }
+
+    const homeIsWinning = homeWinsByRef || homeWinsByScore
+    const awayIsWinning = awayWinsByRef || awayWinsByScore
+    const homeIsLosing = awayIsWinning
+    const awayIsLosing = homeIsWinning
+
+    return { homeIsWinning, awayIsWinning, homeIsLosing, awayIsLosing }
+}
+
+export function getWinnerTeamRef(
+    homeScore: number | null,
+    awayScore: number | null,
+    homeTeamRef?: string,
+    awayTeamRef?: string,
+    winnerRef?: string | null
+): string | null {
+    if (winnerRef) return winnerRef
+    if (homeScore === null || awayScore === null) return null
+    if (homeScore > awayScore && homeTeamRef) return homeTeamRef
+    if (awayScore > homeScore && awayTeamRef) return awayTeamRef
+    return null
+}
+
 export interface GameCardData {
     homeTeam: TeamDocument | undefined
     awayTeam: TeamDocument | undefined
@@ -24,6 +91,7 @@ export interface GameCardData {
     isExtraTime: boolean
     period: string | null
     matchTime: number | null
+    liveMinute: string | null
     startTime: string
     homeLogoUrl: string | null
     awayLogoUrl: string | null
@@ -34,7 +102,8 @@ export interface GameCardData {
 export function getF9GameCardData(
     f9Feed: F9MatchResponse,
     prismicTeams: TeamDocument[],
-    optaTeams: F1TeamData[]
+    optaTeams: F1TeamData[],
+    liveMinute: string | null = null
 ): GameCardData | null {
     const soccerDoc = f9Feed?.SoccerFeed?.SoccerDocument
     if (!soccerDoc) return null
@@ -67,11 +136,15 @@ export function getF9GameCardData(
     const awayScore = awayTeamData.Score ?? null
 
     const period = matchData.MatchInfo?.Period || null
-    const isFinal = period === "FullTime" || period === "FullTime90" || period === "FullTimePens"
-    const isLive = !isFinal && period !== "PreMatch" && period !== null
+    const isFinal = period === "FullTime"
+    const isLive = period !== null && LIVE_PERIODS.includes(period as typeof LIVE_PERIODS[number])
     
     const resultType = matchData.MatchInfo?.Result?.Type
-    const isPenalties = resultType === "PenaltyShootout" || period === "FullTimePens"
+    const hasShootOutScores = (homeTeamData.ShootOutScore !== undefined && homeTeamData.ShootOutScore !== null) || 
+                              (awayTeamData.ShootOutScore !== undefined && awayTeamData.ShootOutScore !== null)
+    const isPenalties = resultType === "PenaltyShootout" || 
+                       period === "FullTimePens" || 
+                       hasShootOutScores
     const isExtraTime = resultType === "AfterExtraTime"
     
     const matchStats = Array.isArray(matchData.Stat) ? matchData.Stat : []
@@ -79,18 +152,11 @@ export function getF9GameCardData(
     const matchTime = matchTimeStat?.value ? Number(matchTimeStat.value) : null
     
     const winnerRef = matchData.MatchInfo?.Result?.MatchWinner || matchData.MatchInfo?.Result?.Winner
-    
-    // Determine winner - use winnerRef if available, otherwise fall back to score comparison
-    const hasWinnerRef = winnerRef !== undefined && winnerRef !== null
-    const homeWinsByRef = hasWinnerRef && winnerRef === homeTeamData.TeamRef
-    const awayWinsByRef = hasWinnerRef && winnerRef === awayTeamData.TeamRef
-    const homeWinsByScore = !hasWinnerRef && homeScore !== null && awayScore !== null && homeScore > awayScore
-    const awayWinsByScore = !hasWinnerRef && homeScore !== null && awayScore !== null && awayScore > homeScore
-
-    const homeIsWinning = isFinal && (homeWinsByRef || homeWinsByScore)
-    const awayIsWinning = isFinal && (awayWinsByRef || awayWinsByScore)
-    const homeIsLosing = isFinal && awayIsWinning
-    const awayIsLosing = isFinal && homeIsWinning
+    const homeShootOutScore = homeTeamData.ShootOutScore ?? null
+    const awayShootOutScore = awayTeamData.ShootOutScore ?? null
+    const { homeIsWinning, awayIsWinning, homeIsLosing, awayIsLosing } = determineWinner(
+        isFinal, homeScore, awayScore, winnerRef, homeTeamData.TeamRef, awayTeamData.TeamRef, isPenalties, homeShootOutScore, awayShootOutScore
+    )
 
     const dateUtc = matchData.MatchInfo?.DateUtc
     const startTime = dateUtc 
@@ -121,6 +187,7 @@ export function getF9GameCardData(
         isExtraTime,
         period,
         matchTime,
+        liveMinute,
         startTime,
         homeLogoUrl,
         awayLogoUrl,
@@ -132,7 +199,8 @@ export function getF9GameCardData(
 export function getF1GameCardData(
     fixture: F1MatchData,
     prismicTeams: TeamDocument[],
-    optaTeams: F1TeamData[]
+    optaTeams: F1TeamData[],
+    liveMinute: string | null = null
 ): GameCardData {
     const homeTeamData = fixture.TeamData.find(t => t.Side === "Home")
     const awayTeamData = fixture.TeamData.find(t => t.Side === "Away")
@@ -159,7 +227,7 @@ export function getF1GameCardData(
     const winnerType = fixture.MatchInfo.GameWinnerType
     const period = fixture.MatchInfo.Period || null
     const isFinal = period === "FullTime"
-    const isLive = !isFinal && period !== "PreMatch" && period !== null
+    const isLive = period !== null && LIVE_PERIODS.includes(period as typeof LIVE_PERIODS[number])
     const isPenalties = winnerType === "ShootOut"
     const isExtraTime = winnerType === "AfterExtraTime"
 
@@ -167,17 +235,11 @@ export function getF1GameCardData(
     const matchTimeStat = f1Stats.find(s => s.Type === "match_time")
     const matchTime = matchTimeStat?.value ? Number(matchTimeStat.value) : null
 
-    // Determine winner - use winnerRef if available, otherwise fall back to score comparison
-    const hasWinnerRef = winnerRef !== undefined && winnerRef !== null
-    const homeWinsByRef = hasWinnerRef && winnerRef === homeTeamData?.TeamRef
-    const awayWinsByRef = hasWinnerRef && winnerRef === awayTeamData?.TeamRef
-    const homeWinsByScore = !hasWinnerRef && homeScore !== null && awayScore !== null && homeScore > awayScore
-    const awayWinsByScore = !hasWinnerRef && homeScore !== null && awayScore !== null && awayScore > homeScore
-
-    const homeIsWinning = isFinal && (homeWinsByRef || homeWinsByScore)
-    const awayIsWinning = isFinal && (awayWinsByRef || awayWinsByScore)
-    const homeIsLosing = isFinal && awayIsWinning
-    const awayIsLosing = isFinal && homeIsWinning
+    const homeShootOutScore = (homeTeamData as any)?.PenaltyScore ?? null
+    const awayShootOutScore = (awayTeamData as any)?.PenaltyScore ?? null
+    const { homeIsWinning, awayIsWinning, homeIsLosing, awayIsLosing } = determineWinner(
+        isFinal, homeScore, awayScore, winnerRef, homeTeamData?.TeamRef, awayTeamData?.TeamRef, isPenalties, homeShootOutScore, awayShootOutScore
+    )
 
     const startTime = fixture.MatchInfo.DateUtc 
         ? fixture.MatchInfo.DateUtc.replace(' ', 'T') + 'Z' 
@@ -207,6 +269,7 @@ export function getF1GameCardData(
         isExtraTime,
         period,
         matchTime,
+        liveMinute,
         startTime,
         homeLogoUrl,
         awayLogoUrl,

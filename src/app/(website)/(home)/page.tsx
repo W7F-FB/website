@@ -86,6 +86,7 @@ export default async function HomePage() {
     let optaTeams: F1TeamData[] = [];
     let matchSlugMap: Map<string, string> | undefined;
     let f9FeedsMap: Map<string, F9MatchResponse> = new Map();
+    let liveMinutesMap: Map<string, string> = new Map();
 
     if (liveTournament) {
         const competitionId = liveTournament.data.opta_competition_id;
@@ -109,7 +110,9 @@ export default async function HomePage() {
                         
                         // Fetch F9 data for all matches
                         const matchIds = extractMatchIdsFromFixtures(matchData);
-                        f9FeedsMap = await fetchF9FeedsForMatches(matchIds);
+                        const fetchedResult = await fetchF9FeedsForMatches(matchIds);
+                        f9FeedsMap = fetchedResult.f9FeedsMap;
+                        liveMinutesMap = fetchedResult.liveMinutesMap;
                     }
                 }
 
@@ -139,6 +142,7 @@ export default async function HomePage() {
                 tournament={liveTournament || undefined}
                 matchSlugMap={matchSlugMap}
                 f9FeedsMap={f9FeedsMap.size > 0 ? f9FeedsMap : undefined}
+                liveMinutesMap={liveMinutesMap.size > 0 ? liveMinutesMap : undefined}
             />
             <main className="flex-grow min-h-[30rem]">
                 <div>

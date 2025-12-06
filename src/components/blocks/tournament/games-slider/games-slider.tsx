@@ -22,10 +22,11 @@ interface GamesSliderProps {
   tournament: TournamentDocument
   matchSlugMap?: Map<string, string>
   f9FeedsMap?: Map<string, F9MatchResponse>
+  liveMinutesMap?: Map<string, string>
   isLoading?: boolean
 }
 
-export function GamesSlider({ groupedFixtures, prismicTeams, optaTeams, tournament, matchSlugMap, f9FeedsMap, isLoading = false }: GamesSliderProps) {
+export function GamesSlider({ groupedFixtures, prismicTeams, optaTeams, tournament, matchSlugMap, f9FeedsMap, liveMinutesMap, isLoading = false }: GamesSliderProps) {
   const [api, setApi] = useState<CarouselApi | null>(null)
   const [canScrollPrev, setCanScrollPrev] = useState(false)
   const [canScrollNext, setCanScrollNext] = useState(false)
@@ -123,6 +124,7 @@ export function GamesSlider({ groupedFixtures, prismicTeams, optaTeams, tourname
                         tournamentSlug={tournament.uid}
                         matchSlugMap={matchSlugMap}
                         f9Feed={f9FeedsMap?.get(normalizeOptaId(fixture.uID))}
+                        liveMinute={liveMinutesMap?.get(normalizeOptaId(fixture.uID))}
                       />
                     </div>
                   </CarouselItem>

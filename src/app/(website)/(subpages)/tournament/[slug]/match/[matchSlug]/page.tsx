@@ -17,9 +17,9 @@ import type { F1MatchData, F1TeamData } from "@/types/opta-feeds/f1-fixtures";
 import type { F2EntityTeam } from "@/types/opta-feeds/f2-match-preview";
 import type { F9SoccerDocument } from "@/types/opta-feeds/f9-match";
 import { groupMatchesByDate, isInKnockoutStage } from "../../../utils";
-import { dev } from "@/lib/dev";
 import { getRecordsFromF9 } from "@/lib/v2-utils/records-from-f9";
 import { getTeamStatsFromF9 } from "@/lib/v2-utils/team-stats-from-f9";
+import { dev } from "@/lib/dev";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string; matchSlug: string }> }) {
   await params;
@@ -74,7 +74,7 @@ export default async function MatchPage({
 
   const normalizedOptaId = normalizeOptaId(optaId);
 
-  const [fixtures, standings, squads, commentary, f9Feed, f24Events, f2Preview] = await Promise.all([
+  const [fixtures, standings, squads, commentary, f9FeedResult, f24Events, f2Preview] = await Promise.all([
     getF1Fixtures(competitionId, seasonId),
     getF3Standings(competitionId, seasonId),
     getF40Squads(competitionId, seasonId),
@@ -84,11 +84,8 @@ export default async function MatchPage({
     getF2MatchPreview(normalizedOptaId).catch(() => null),
   ]);
 
-  dev.log('F1Fixtures', fixtures);
-  dev.log('F2MatchPreview', f2Preview);
-  dev.log('F3Standings', standings);
-  dev.log('F40Squads', squads);
-  dev.log('F13Commentary', commentary);
+  const f9Feed = f9FeedResult.f9;
+  const matchLiveMinute = f9FeedResult.liveMinute;
 
   const f9Doc: F9SoccerDocument | null = f9Feed?.SoccerFeed?.SoccerDocument
     ? (Array.isArray(f9Feed.SoccerFeed.SoccerDocument) 
@@ -97,8 +94,7 @@ export default async function MatchPage({
     : null;
 
   const f9MatchData = f9Doc?.MatchData;
-  
-  dev.log('F24Events', f24Events);
+  dev.log('Current f9 match:', f9MatchData);
   const f9TeamDataArray = f9MatchData?.TeamData
     ? (Array.isArray(f9MatchData.TeamData) ? f9MatchData.TeamData : [f9MatchData.TeamData])
     : [];
@@ -148,6 +144,7 @@ export default async function MatchPage({
   let groupedFixtures: Map<string, F1MatchData[]> = new Map();
   let optaTeams: F1TeamData[] = [];
   let f9FeedsMap: Map<string, F9MatchResponse> = new Map();
+  let liveMinutesMap: Map<string, string> = new Map();
   
   if (doc?.MatchData) {
     optaTeams = doc.Team || doc.TeamData || [];
@@ -162,7 +159,9 @@ export default async function MatchPage({
     groupedFixtures = groupMatchesByDate(filteredMatches);
     
     const matchIds = extractMatchIdsFromFixtures(matchDataArray);
-    f9FeedsMap = await fetchF9FeedsForMatches(matchIds);
+    const fetchedResult = await fetchF9FeedsForMatches(matchIds);
+    f9FeedsMap = fetchedResult.f9FeedsMap;
+    liveMinutesMap = fetchedResult.liveMinutesMap;
   }
 
   const f9FeedsArray = f9FeedsMap.size > 0 ? Array.from(f9FeedsMap.values()) : []
@@ -216,6 +215,7 @@ export default async function MatchPage({
         tournament={tournament}
         matchSlugMap={matchSlugMap}
         f9FeedsMap={f9FeedsMap.size > 0 ? f9FeedsMap : undefined}
+        liveMinutesMap={liveMinutesMap.size > 0 ? liveMinutesMap : undefined}
       />
       <main className="flex-grow min-h-[30rem]">
         <div>
@@ -247,6 +247,7 @@ export default async function MatchPage({
               matchBlogs={matchBlogs}
               teamRecords={teamRecords}
               teamStats={teamStats}
+              liveMinute={matchLiveMinute}
             />
           </PaddingGlobal>
         </div>

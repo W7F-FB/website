@@ -19,6 +19,7 @@ import { Countdown } from "@/components/ui/countdown";
 import { parseISO } from "date-fns";
 import { Status, StatusIndicator } from "@/components/ui/status";
 import { StreamingAvailabilityDialog } from "../streaming-availability-dialog";
+import { determineWinner } from "./utils";
 
 interface MatchHeroProps {
   f9MatchData?: F9MatchData | null;
@@ -36,9 +37,10 @@ interface MatchHeroProps {
   f1FixturesData?: F1FixturesResponse | null;
   streamingLink?: string | null;
   teamRecords?: TeamRecord[];
+  liveMinute?: string | null;
 }
 
-export default function MatchHero({ f9MatchData, homeTeamData, awayTeamData, homeTeam, awayTeam, homeTeamPrismic, awayTeamPrismic, homeTeamFromF2, awayTeamFromF2, f2Preview, tournament, broadcastPartners, f1FixturesData, streamingLink, teamRecords = [] }: MatchHeroProps) {
+export default function MatchHero({ f9MatchData, homeTeamData, awayTeamData, homeTeam, awayTeam, homeTeamPrismic, awayTeamPrismic, homeTeamFromF2, awayTeamFromF2, f2Preview, tournament, broadcastPartners, f1FixturesData, streamingLink, teamRecords = [], liveMinute }: MatchHeroProps) {
   const homeTeamColor = homeTeamPrismic?.data.color_primary || undefined;
   const awayTeamColor = awayTeamPrismic?.data.color_primary || undefined;
 
@@ -74,19 +76,36 @@ export default function MatchHero({ f9MatchData, homeTeamData, awayTeamData, hom
   const homeScore = homeTeamData?.Score ?? 0;
   const awayScore = awayTeamData?.Score ?? 0;
 
-  const isFinal = f9MatchData?.MatchInfo.Period === "FullTime" || f9MatchData?.MatchInfo.Period === "FullTime90" || f9MatchData?.MatchInfo.PostMatch === "1";
+  const period = f9MatchData?.MatchInfo.Period;
+  const resultType = f9MatchData?.MatchInfo.Result?.Type;
+  const isFinal = period === "FullTime" || f9MatchData?.MatchInfo.PostMatch === "1";
+  const hasShootOutScores = (homeTeamData?.ShootOutScore !== undefined && homeTeamData?.ShootOutScore !== null) || 
+                            (awayTeamData?.ShootOutScore !== undefined && awayTeamData?.ShootOutScore !== null);
+  const isPenalties = resultType === "PenaltyShootout" || 
+                     period === "FullTimePens" || 
+                     hasShootOutScores;
   const winnerRef = f9MatchData?.MatchInfo.Result?.Winner || f9MatchData?.MatchInfo.Result?.MatchWinner;
-  const homeIsWinning = isFinal && (winnerRef === homeTeamData?.TeamRef || winnerRef === "Home");
-  const awayIsWinning = isFinal && (winnerRef === awayTeamData?.TeamRef || winnerRef === "Away");
-  const homeIsLosing = isFinal && winnerRef !== undefined && winnerRef !== "Draw" && !homeIsWinning;
-  const awayIsLosing = isFinal && winnerRef !== undefined && winnerRef !== "Draw" && !awayIsWinning;
+  const homeShootOutScore = homeTeamData?.ShootOutScore ?? null;
+  const awayShootOutScore = awayTeamData?.ShootOutScore ?? null;
+  const { homeIsWinning, awayIsWinning, homeIsLosing, awayIsLosing } = determineWinner(
+    isFinal, homeScore, awayScore, winnerRef, homeTeamData?.TeamRef, awayTeamData?.TeamRef, isPenalties, homeShootOutScore, awayShootOutScore
+  );
 
   const getMatchStatus = () => {
     if (!f9MatchData) return "";
-    const period = f9MatchData.MatchInfo.Period;
-    if (period === "FullTime" || period === "FullTime90" || f9MatchData.MatchInfo.PostMatch === "1") return "FT";
+    const isPenalties = resultType === "PenaltyShootout";
+    const isExtraTime = resultType === "AfterExtraTime";
+    if (isFinal) {
+      if (isPenalties) return "FT/PKs";
+      if (isExtraTime) return "F/OT";
+      return "FT";
+    }
     if (period === "HalfTime") return "HT";
-    if (period === "FirstHalf" || period === "SecondHalf") return "LIVE";
+    if (period === "FullTime90") return "OT";
+    if (period === "FullTimePens") return "PKs";
+    if (period === "ExtraHalfTime") return "ET HT";
+    if (period === "ShootOut") return "PKs";
+    if (period === "FirstHalf" || period === "SecondHalf" || period === "ExtraFirstHalf" || period === "ExtraSecondHalf") return "LIVE";
     return "";
   };
 
@@ -182,10 +201,10 @@ export default function MatchHero({ f9MatchData, homeTeamData, awayTeamData, hom
           </Link>
         </div>
         <div className="flex flex-1 flex-col items-center gap-5">
-          {(getMatchStatus() === "LIVE" || getMatchStatus() === "HT") && (
+          {(getMatchStatus() === "LIVE" || getMatchStatus() === "HT" || getMatchStatus() === "OT" || getMatchStatus() === "PKs" || getMatchStatus() === "ET HT") && (
             <Status className="p-0 bg-transparent border-0 gap-3">
               <StatusIndicator className="text-destructive size-3" />
-              <span className="tracking-widest lg:text-base text-xs">LIVE{f9MatchData?.Stat?.find(stat => stat.Type === "match_time")?.value ? <span className="hidden text-muted-foreground font-medium ml-1"> &apos;{f9MatchData.Stat.find(stat => stat.Type === "match_time")?.value}</span> : ""}</span>
+              <span className="tracking-widest lg:text-base text-xs">LIVE</span>
             </Status>
           )}
           {isPreGame ? (
@@ -211,8 +230,10 @@ export default function MatchHero({ f9MatchData, homeTeamData, awayTeamData, hom
                   {homeScore}
                 </div>
               </div>
-              {getMatchStatus() && (
-                <div className="lg:text-lg text-sm font-normal text-muted-foreground max-h-[1em]">{getMatchStatus()}</div>
+              {(getMatchStatus() || liveMinute) && (
+                <div className="lg:text-lg text-sm font-normal text-muted-foreground max-h-[1em]">
+                  {getMatchStatus() === "LIVE" ? (liveMinute ? `'${liveMinute}` : "–") : getMatchStatus()}
+                </div>
               )}
               <div className={`relative ${awayIsLosing ? "text-foreground/60" : "text-foreground"}`}>
                 {awayIsWinning && (
