@@ -29,9 +29,10 @@ type ClubStandingsTableProps = {
     tournamentStatus?: string
     isKnockoutStage: boolean
     teamRecords?: TeamRecord[]
+    button?: React.ReactNode
 }
 
-export function ClubStandingsTable({ prismicTeams, f1FixturesData, f3StandingsData, f40Squads, tournamentStatus, isKnockoutStage, teamRecords }: ClubStandingsTableProps) {
+export function ClubStandingsTable({ prismicTeams, f1FixturesData, f3StandingsData, f40Squads, tournamentStatus, isKnockoutStage, teamRecords, button }: ClubStandingsTableProps) {
     const finalMatches = getFinalMatch(f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData)
     const thirdPlaceMatches = getThirdPlaceMatch(f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData)
     
@@ -156,7 +157,10 @@ export function ClubStandingsTable({ prismicTeams, f1FixturesData, f3StandingsDa
         return (
             <Card banner className="w-full">
                 <CardHeader>
-                    <CardTitle>Standings</CardTitle>
+                    <div className="flex items-center justify-between">
+                        <CardTitle>Standings</CardTitle>
+                        {button}
+                    </div>
                 </CardHeader>
                 <CardContent className="!p-0 lg:!p-0">
                     <Table>
@@ -199,7 +203,10 @@ export function ClubStandingsTable({ prismicTeams, f1FixturesData, f3StandingsDa
     return (
         <Card banner className="w-full">
             <CardHeader>
-                <CardTitle>Standings</CardTitle>
+                <div className="flex items-center justify-between">
+                    <CardTitle>Standings</CardTitle>
+                    {button}
+                </div>
             </CardHeader>
             <CardContent className="!p-0 lg:!p-0">
                 <Table>

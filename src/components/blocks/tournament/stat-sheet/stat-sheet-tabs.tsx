@@ -16,6 +16,7 @@ import type { F1FixturesResponse } from "@/types/opta-feeds/f1-fixtures"
 import type { F3StandingsResponse } from "@/types/opta-feeds/f3-standings"
 import { StatSheetTeamsTable } from "./stat-sheet-teams-table"
 import { StatSheetPlayersTable } from "./stat-sheet-players-table"
+import type { TeamStatSheet } from "@/lib/v2-utils/team-stat-sheet-from-f9"
 import {
     Select,
     SelectTrigger,
@@ -45,6 +46,7 @@ function hasEligiblePlayers(f30TeamStats: Map<string, F30SeasonStatsResponse>): 
 
 type StatSheetTabsProps = {
     prismicTeams: TeamDocument[]
+    teamStatSheets: Map<string, TeamStatSheet>
     f30TeamStats: Map<string, F30SeasonStatsResponse>
     f1FixturesData: F1FixturesResponse | null
     f3StandingsData: F3StandingsResponse | null
@@ -52,7 +54,7 @@ type StatSheetTabsProps = {
     isKnockoutStage: boolean
 }
 
-export function StatSheetTabs({ prismicTeams, f30TeamStats, f1FixturesData, f3StandingsData, tournamentStatus, isKnockoutStage }: StatSheetTabsProps) {
+export function StatSheetTabs({ prismicTeams, teamStatSheets, f30TeamStats, f1FixturesData, f3StandingsData, tournamentStatus, isKnockoutStage }: StatSheetTabsProps) {
     const [selectedTeamId, setSelectedTeamId] = useState<string>("")
     const [leaderView, setLeaderView] = useState<StatSheetLeaderValue>("goals")
     const showPlayersTab = useMemo(() => hasEligiblePlayers(f30TeamStats), [f30TeamStats])
@@ -61,6 +63,7 @@ export function StatSheetTabs({ prismicTeams, f30TeamStats, f1FixturesData, f3St
         <Tabs defaultValue="teams">
             <StatSheetTabsContent
                 prismicTeams={prismicTeams}
+                teamStatSheets={teamStatSheets}
                 f30TeamStats={f30TeamStats}
                 f1FixturesData={f1FixturesData}
                 f3StandingsData={f3StandingsData}
@@ -78,6 +81,7 @@ export function StatSheetTabs({ prismicTeams, f30TeamStats, f1FixturesData, f3St
 
 type StatSheetTabsContentProps = {
     prismicTeams: TeamDocument[]
+    teamStatSheets: Map<string, TeamStatSheet>
     f30TeamStats: Map<string, F30SeasonStatsResponse>
     f1FixturesData: F1FixturesResponse | null
     f3StandingsData: F3StandingsResponse | null
@@ -92,6 +96,7 @@ type StatSheetTabsContentProps = {
 
 function StatSheetTabsContent({ 
     prismicTeams, 
+    teamStatSheets,
     f30TeamStats, 
     f1FixturesData,
     f3StandingsData,
@@ -126,7 +131,7 @@ function StatSheetTabsContent({
 
             <TabsContents>
                 <TabsContent value="teams" className="pt-4">
-                    <StatSheetTeamsTable prismicTeams={prismicTeams} f30TeamStats={f30TeamStats} f1FixturesData={f1FixturesData} f3StandingsData={f3StandingsData} tournamentStatus={tournamentStatus} isKnockoutStage={isKnockoutStage} />
+                    <StatSheetTeamsTable prismicTeams={prismicTeams} teamStatSheets={teamStatSheets} f1FixturesData={f1FixturesData} f3StandingsData={f3StandingsData} tournamentStatus={tournamentStatus} isKnockoutStage={isKnockoutStage} />
                 </TabsContent>
 
                 {showPlayersTab && (

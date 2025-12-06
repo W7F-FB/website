@@ -3,16 +3,15 @@
 import { Fragment, useState, useMemo, useCallback } from "react"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import type { TeamDocument } from "../../../../../prismicio-types"
-import type { F30SeasonStatsResponse } from "@/types/opta-feeds/f30-season-stats"
 import type { F1FixturesResponse } from "@/types/opta-feeds/f1-fixtures"
 import type { F3StandingsResponse } from "@/types/opta-feeds/f3-standings"
-import { getTeamStat } from "@/types/opta-feeds/f30-season-stats"
 import { cn } from "@/lib/utils"
-import { getFinalMatch, getThirdPlaceMatch, calculateTeamRecordsFromMatches, getTeamRankings, sortTeamsByRanking } from "@/app/(website)/(subpages)/tournament/utils"
+import { getFinalMatch, getThirdPlaceMatch, getTeamRankings, sortTeamsByRanking } from "@/app/(website)/(subpages)/tournament/utils"
 import { LinePattern } from "@/components/blocks/line-pattern"
 import { ClubRankRow } from "@/components/blocks/tournament/club-rank-row"
 import { useIsTablet } from "@/hooks/use-tablet"
 import { normalizeOptaId } from "@/lib/opta/utils"
+import type { TeamStatSheet } from "@/lib/v2-utils/team-stat-sheet-from-f9"
 
 const placementOrder: Record<string, number> = {
     '1st': 1,
@@ -24,7 +23,7 @@ const placementOrder: Record<string, number> = {
 
 type StatSheetTeamsTableProps = {
     prismicTeams: TeamDocument[]
-    f30TeamStats: Map<string, F30SeasonStatsResponse>
+    teamStatSheets: Map<string, TeamStatSheet>
     f1FixturesData: F1FixturesResponse | null
     f3StandingsData: F3StandingsResponse | null
     tournamentStatus?: string
@@ -50,7 +49,7 @@ type TeamRowData = {
     href: string
 }
 
-export function StatSheetTeamsTable({ prismicTeams, f30TeamStats, f1FixturesData, f3StandingsData, tournamentStatus, isKnockoutStage }: StatSheetTeamsTableProps) {
+export function StatSheetTeamsTable({ prismicTeams, teamStatSheets, f1FixturesData, f3StandingsData, tournamentStatus, isKnockoutStage }: StatSheetTeamsTableProps) {
     const [hoveredRow, setHoveredRow] = useState<number | null>(null)
     const isTablet = useIsTablet()
 
@@ -59,8 +58,6 @@ export function StatSheetTeamsTable({ prismicTeams, f30TeamStats, f1FixturesData
     
     const finalMatch = finalMatches[0]
     const thirdPlaceMatch = thirdPlaceMatches[0]
-    
-    const teamRecords = calculateTeamRecordsFromMatches(f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData)
     
     const optaTeams = useMemo(() => f1FixturesData?.SoccerFeed?.SoccerDocument?.Team || [], [f1FixturesData])
     
@@ -124,26 +121,25 @@ export function StatSheetTeamsTable({ prismicTeams, f30TeamStats, f1FixturesData
 
     const buildTeamRowData = useCallback((team: TeamDocument, groupId?: number, groupName?: string): TeamRowData => {
         const optaId = team.data.opta_id
-        const stats = optaId ? f30TeamStats.get(optaId) : null
+        const stats = optaId ? teamStatSheets.get(optaId) : null
         const teamId = optaId ? `t${optaId}` : null
-        const record = teamId ? teamRecords.get(teamId) : null
 
         const optaTeam = optaTeams.find(t => t.uID === teamId)
         const optaShortName = optaTeam?.ShortTeamName || optaTeam?.ShortName
         const displayName = optaShortName || optaTeam?.Name || team.data.name || ''
         const shortName = optaShortName || team.data.key || ''
 
-        const gamesPlayed = stats ? getTeamStat(stats, "Games Played") ?? 0 : 0
-        const wins = record?.wins ?? 0
-        const losses = record?.losses ?? 0
-        const shots = stats ? getTeamStat(stats, "Total Shots") ?? 0 : 0
-        const goals = stats ? getTeamStat(stats, "Goals") ?? 0 : 0
-        const goalsAllowed = stats ? getTeamStat(stats, "Goals Conceded") ?? 0 : 0
-        const assists = stats ? getTeamStat(stats, "Goal Assists") ?? 0 : 0
-        const fouls = stats ? getTeamStat(stats, "Total Fouls Conceded") ?? 0 : 0
-        const yellowCards = stats ? getTeamStat(stats, "Yellow Cards") ?? 0 : 0
-        const redCards = stats ? getTeamStat(stats, "Total Red Cards") ?? 0 : 0
-        const totalCards = Number(yellowCards) + Number(redCards)
+        const gamesPlayed = stats?.gamesPlayed ?? 0
+        const wins = stats?.wins ?? 0
+        const losses = stats?.losses ?? 0
+        const shots = stats?.shots ?? 0
+        const goals = stats?.goals ?? 0
+        const goalsAllowed = stats?.goalsAllowed ?? 0
+        const assists = stats?.assists ?? 0
+        const fouls = stats?.fouls ?? 0
+        const yellowCards = stats?.yellowCards ?? 0
+        const redCards = stats?.redCards ?? 0
+        const totalCards = yellowCards + redCards
 
         const placement = isKnockoutStage 
             ? getKnockoutPlacement(optaId) 
@@ -167,7 +163,7 @@ export function StatSheetTeamsTable({ prismicTeams, f30TeamStats, f1FixturesData
             groupName,
             href: `/club/${team.uid}`
         }
-    }, [f30TeamStats, teamRecords, optaTeams, isKnockoutStage, getKnockoutPlacement, getGroupPlacement])
+    }, [teamStatSheets, optaTeams, isKnockoutStage, getKnockoutPlacement, getGroupPlacement])
 
     const knockoutTableData = useMemo(() => {
         if (!isKnockoutStage) return []
@@ -185,8 +181,7 @@ export function StatSheetTeamsTable({ prismicTeams, f30TeamStats, f1FixturesData
                         <Table>
                             <TableHeader>
                                 <TableRow>
-                                    <TableHead className="w-fit"></TableHead>
-                                    <TableHead></TableHead>
+                                    <TableHead colSpan={2} className="pl-3">Club</TableHead>
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
@@ -276,8 +271,7 @@ export function StatSheetTeamsTable({ prismicTeams, f30TeamStats, f1FixturesData
                     <Table>
                         <TableHeader>
                             <TableRow>
-                                <TableHead className="w-fit"></TableHead>
-                                <TableHead></TableHead>
+                            <TableHead colSpan={2} className="pl-3">Club</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
