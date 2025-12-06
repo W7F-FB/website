@@ -44,9 +44,13 @@ export function MatchLineups({ homeTeamData, awayTeamData, homeSquadTeam, awaySq
         ? f24Events.Games.Game[0] 
         : f24Events?.Games?.Game
       
-      const playerEvents = game?.Event?.filter(
+      const events = game?.Event 
+        ? (Array.isArray(game.Event) ? game.Event : [game.Event])
+        : []
+      
+      const playerEvents = events.filter(
         event => event.player_id?.toString() === normalizeOptaId(f9Player.PlayerRef)
-      ) || []
+      )
       
       if (!f40Player) {
         return {

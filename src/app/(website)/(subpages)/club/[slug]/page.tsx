@@ -10,8 +10,12 @@ import TeamPageContent from "../page-content";
 import { NavMain } from "@/components/website-base/nav/nav-main";
 import { Footer } from "@/components/website-base/footer/footer-main";
 import { PaddingGlobal } from "@/components/website-base/padding-containers";
+import { groupMatchesByDate } from "@/app/(website)/(subpages)/tournament/utils";
 import { dev } from "@/lib/dev";
+import type { F1MatchData, F1TeamData } from "@/types/opta-feeds/f1-fixtures";
 import type { F9MatchResponse } from "@/types/opta-feeds/f9-match";
+import { getRecordsFromF9 } from "@/lib/v2-utils/records-from-f9";
+import { getTeamStatsFromF9 } from "@/lib/v2-utils/team-stats-from-f9";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -104,15 +108,27 @@ export default async function TeamPage({ params }: Props) {
   const uniqueOptaIds = [...new Set(allTeamRefs.map((ref) => ref.replace("t", "")))];
   const prismicTeams = await getTeamsByOptaIds(uniqueOptaIds).catch(() => []);
 
-  // Fetch F9 data for all matches
+  // Process fixtures for games slider
+  let groupedFixtures: Map<string, F1MatchData[]> = new Map();
+  let optaTeams: F1TeamData[] = [];
   let f9FeedsMap: Map<string, F9MatchResponse> = new Map();
-  const matchData = f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData;
-  if (matchData && Array.isArray(matchData)) {
+  
+  const doc = f1FixturesData?.SoccerFeed?.SoccerDocument;
+  if (doc?.MatchData) {
+    optaTeams = doc.Team || doc.TeamData || [];
+    const matchData = Array.isArray(doc.MatchData) ? doc.MatchData : [doc.MatchData];
+    groupedFixtures = groupMatchesByDate(matchData);
+    
+    // Fetch F9 data for all matches
     const matchIds = extractMatchIdsFromFixtures(matchData);
     f9FeedsMap = await fetchF9FeedsForMatches(matchIds);
   }
 
   const matchSlugMap = currentTournament ? buildMatchSlugMap(currentTournament) : undefined;
+
+  const f9FeedsArray = Array.from(f9FeedsMap.values());
+  const teamRecords = getRecordsFromF9(f9FeedsArray);
+  const teamStats = getTeamStatsFromF9(f9FeedsArray);
 
   const teamOptaIdWithPrefix = teamOptaId?.toString().startsWith("t") ? teamOptaId : `t${teamOptaId}`;
 
@@ -131,10 +147,19 @@ export default async function TeamPage({ params }: Props) {
 
   return (
     <>
-      <NavMain showBreadcrumbs customBreadcrumbs={[
-        { label: "Home", href: "/" },
-        { label: team.data.name, href: `/team/${team.uid}` }
-      ]} />
+      <NavMain 
+        showBreadcrumbs 
+        customBreadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: team.data.name, href: `/club/${team.uid}` }
+        ]}
+        groupedFixtures={groupedFixtures.size > 0 ? groupedFixtures : undefined}
+        prismicTeams={prismicTeams.length > 0 ? prismicTeams : undefined}
+        optaTeams={optaTeams.length > 0 ? optaTeams : undefined}
+        tournament={currentTournament || undefined}
+        matchSlugMap={matchSlugMap}
+        f9FeedsMap={f9FeedsMap.size > 0 ? f9FeedsMap : undefined}
+      />
       <main className="flex-grow min-h-[30rem]">
         <div>
           <PaddingGlobal>
@@ -145,11 +170,14 @@ export default async function TeamPage({ params }: Props) {
               fixtures={f1FixturesData}
               currentTournament={currentTournament}
               prismicTeams={prismicTeams}
+              optaTeams={optaTeams}
               teamBlogs={teamBlogs}
               seasonStats={f30SeasonStats}
               tournamentDocuments={tournamentDocuments}
               matchSlugMap={matchSlugMap}
               f9FeedsMap={f9FeedsMap}
+              teamRecords={teamRecords}
+              teamStats={teamStats}
             />
           </PaddingGlobal>
         </div>

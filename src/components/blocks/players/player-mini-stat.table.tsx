@@ -74,18 +74,18 @@ export function PlayerMiniStatTable(props: PlayerMiniStatTableProps) {
   }
 
   return (
-    <Table className={cn("rounded-xs", className)}>
+    <Table className={cn("rounded-xs table-fixed w-full", className)}>
       <TableHeader className={cn("bg-muted/30")}>
         <TableRow>
           {statDisplays.map((stat, idx) => (
-            <TableHead key={idx} className={cn("text-center h-5 text-xxs font-normal text-muted-foreground/90 font-headers border-b border-muted/60")}>{stat.label}</TableHead>
+            <TableHead key={idx} className={cn("text-center h-5 text-xxs font-normal text-muted-foreground/90 font-headers border-b border-muted/60 w-[1%]")}>{stat.label}</TableHead>
           ))}
         </TableRow>
       </TableHeader>
       <TableBody className={cn("text-sm bg-muted/10")}>
         <TableRow className="">
           {statDisplays.map((stat, idx) => (
-            <TableCell key={idx} className={cn("text-center py-0 h-6 text-base text-foreground pt-0.5 font-medium ")}>
+            <TableCell key={idx} className={cn("text-center py-0 h-6 text-base text-foreground pt-0.5 font-medium w-[1%]")}>
               {stat.value}
             </TableCell>
           ))}

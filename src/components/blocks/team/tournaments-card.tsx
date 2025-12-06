@@ -2,26 +2,33 @@ import { useMemo } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { isFilled } from "@prismicio/client"
 import type { TeamDocument, TournamentDocument } from "../../../../prismicio-types"
-import type { F1FixturesResponse } from "@/types/opta-feeds/f1-fixtures"
+import type { F1FixturesResponse, F1TeamData } from "@/types/opta-feeds/f1-fixtures"
+import type { F9MatchResponse } from "@/types/opta-feeds/f9-match"
 import { Table, TableBody, TableRow, TableCell, TableHeader } from "@/components/ui/table"
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion"
 import { Separator } from "@/components/ui/separator"
 import { MatchResultItem } from "./match-result-item"
+import { normalizeOptaId } from "@/lib/opta/utils"
 
 type Props = {
     team: TeamDocument
     tournamentDocuments?: TournamentDocument[]
     fixtures?: F1FixturesResponse | null
     prismicTeams?: TeamDocument[]
+    optaTeams?: F1TeamData[]
     matchSlugMap?: Map<string, string>
+    f9FeedsMap?: Map<string, F9MatchResponse>
 }
 
-export function TournamentsCard({ team, tournamentDocuments = [], fixtures, prismicTeams = [], matchSlugMap }: Props) {
-    const teamsMap = useMemo(() => 
-        new Map(prismicTeams.map(t => [t.data.opta_id, t])),
-        [prismicTeams]
-    )
-
+export function TournamentsCard({ 
+    team, 
+    tournamentDocuments = [], 
+    fixtures, 
+    prismicTeams = [], 
+    optaTeams = [],
+    matchSlugMap,
+    f9FeedsMap 
+}: Props) {
     const tournaments = useMemo(() => {
         if (tournamentDocuments.length > 0) {
             return tournamentDocuments.map(tournament => ({
@@ -84,7 +91,7 @@ export function TournamentsCard({ team, tournamentDocuments = [], fixtures, pris
         )
     }
 
-    const teamOptaRef = team.data.opta_id ? `t${team.data.opta_id}` : ""
+    const currentTeamOptaId = team.data.opta_id || ""
 
     return (
         <Card banner className="w-full">
@@ -120,24 +127,18 @@ export function TournamentsCard({ team, tournamentDocuments = [], fixtures, pris
                                             </TableRow>
                                         </TableHeader>
                                         <TableBody>
-                                            {teamMatches.map(match => {
-                                                const opponentData = match.TeamData.find(t => t.TeamRef !== teamOptaRef)
-                                                const opponentOptaId = opponentData?.TeamRef?.replace('t', '') || ""
-                                                const opponentTeam = opponentOptaId ? teamsMap.get(opponentOptaId) : undefined
-                                                const opponentName = opponentTeam?.data.name || opponentData?.TeamRef?.replace('t', 'Team ') || "Unknown"
-
-                                                    return (
-                                                        <MatchResultItem
-                                                            key={match.uID}
-                                                            match={match}
-                                                            teamOptaRef={teamOptaRef}
-                                                            opponentTeam={opponentTeam}
-                                                            opponentName={opponentName}
-                                                            currentTournament={t.tournament}
-                                                            matchSlugMap={matchSlugMap}
-                                                        />
-                                                    )
-                                            })}
+                                            {teamMatches.map(match => (
+                                                <MatchResultItem
+                                                    key={match.uID}
+                                                    fixture={match}
+                                                    prismicTeams={prismicTeams}
+                                                    optaTeams={optaTeams}
+                                                    f9Feed={f9FeedsMap?.get(normalizeOptaId(match.uID))}
+                                                    tournamentSlug={t.tournament?.uid}
+                                                    matchSlugMap={matchSlugMap}
+                                                    currentTeamOptaId={currentTeamOptaId}
+                                                />
+                                            ))}
                                         </TableBody>
                                     </Table>
                                 ) : (

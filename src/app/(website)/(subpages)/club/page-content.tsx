@@ -22,9 +22,11 @@ import { FastBannerTeam } from "@/components/blocks/fast-banner-team";
 import type { TeamDocument, TournamentDocument, BlogDocument } from "../../../../../prismicio-types";
 import type { F40Team } from "@/types/opta-feeds/f40-squads-feed";
 import type { F3StandingsResponse } from "@/types/opta-feeds/f3-standings";
-import type { F1FixturesResponse } from "@/types/opta-feeds/f1-fixtures";
+import type { F1FixturesResponse, F1TeamData } from "@/types/opta-feeds/f1-fixtures";
 import type { F30SeasonStatsResponse } from "@/types/opta-feeds/f30-season-stats";
 import type { F9MatchResponse } from "@/types/opta-feeds/f9-match";
+import type { TeamRecord } from "@/lib/v2-utils/records-from-f9";
+import type { TeamStats } from "@/lib/v2-utils/team-stats-from-f9";
 
 type Props = {
   team: TeamDocument;
@@ -33,11 +35,14 @@ type Props = {
   fixtures?: F1FixturesResponse | null;
   currentTournament?: TournamentDocument | null;
   prismicTeams?: TeamDocument[];
+  optaTeams?: F1TeamData[];
   teamBlogs?: BlogDocument[];
   seasonStats?: F30SeasonStatsResponse | null;
   tournamentDocuments?: TournamentDocument[];
   matchSlugMap?: Map<string, string>;
   f9FeedsMap?: Map<string, F9MatchResponse>;
+  teamRecords?: TeamRecord[];
+  teamStats?: TeamStats[];
 };
 
 export default function TeamPageContent({
@@ -47,11 +52,14 @@ export default function TeamPageContent({
   fixtures,
   currentTournament,
   prismicTeams,
+  optaTeams = [],
   teamBlogs = [],
   seasonStats,
   tournamentDocuments = [],
   matchSlugMap,
-  f9FeedsMap: _f9FeedsMap,
+  f9FeedsMap,
+  teamRecords = [],
+  teamStats = [],
 }: Props) {
   const teamLeaders = getTeamLeaders(team, seasonStats, teamSquad);
 
@@ -67,7 +75,8 @@ export default function TeamPageContent({
           <div className="md:col-span-1 flex flex-col gap-8">
             <TeamSnapshot
               prismicTeam={team}
-              fixtures={fixtures}
+              teamRecords={teamRecords}
+              teamStats={teamStats}
               recordBased
             />
             <TournamentsCard
@@ -75,7 +84,9 @@ export default function TeamPageContent({
               tournamentDocuments={tournamentDocuments}
               fixtures={fixtures}
               prismicTeams={prismicTeams}
+              optaTeams={optaTeams}
               matchSlugMap={matchSlugMap}
+              f9FeedsMap={f9FeedsMap}
             />
             <FastBannerTeam name={teamSquad?.short_club_name || team.data.name || ""} color={team.data.color_primary || ""} className="hidden md:block" />
           </div>

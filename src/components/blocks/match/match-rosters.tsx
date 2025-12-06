@@ -70,7 +70,10 @@ export function MatchRosters({ homeSquadTeam, awaySquadTeam, homeLogo, awayLogo 
 }
 
 function RosterAccordion({ squadTeam }: { squadTeam: F40Team }) {
-  const players = squadTeam.Player || []
+  const players = (squadTeam.Player || []).filter(p => {
+    const jerseyNum = parseInt(String(getPlayerJerseyNumber(p) ?? ''), 10)
+    return isNaN(jerseyNum) || jerseyNum <= 500
+  })
   const teamCountry = squadTeam.country || squadTeam.Country
 
   const goalkeepers = players.filter(p => p.Position === "Goalkeeper")

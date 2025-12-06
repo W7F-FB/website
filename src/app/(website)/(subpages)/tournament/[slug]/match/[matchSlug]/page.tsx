@@ -19,6 +19,7 @@ import type { F9SoccerDocument } from "@/types/opta-feeds/f9-match";
 import { groupMatchesByDate, isInKnockoutStage } from "../../../utils";
 import { dev } from "@/lib/dev";
 import { getRecordsFromF9 } from "@/lib/v2-utils/records-from-f9";
+import { getTeamStatsFromF9 } from "@/lib/v2-utils/team-stats-from-f9";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string; matchSlug: string }> }) {
   await params;
@@ -164,7 +165,9 @@ export default async function MatchPage({
     f9FeedsMap = await fetchF9FeedsForMatches(matchIds);
   }
 
-  const teamRecords = f9FeedsMap.size > 0 ? getRecordsFromF9(Array.from(f9FeedsMap.values())) : []
+  const f9FeedsArray = f9FeedsMap.size > 0 ? Array.from(f9FeedsMap.values()) : []
+  const teamRecords = getRecordsFromF9(f9FeedsArray)
+  const teamStats = getTeamStatsFromF9(f9FeedsArray)
 
   const homeTeamShortName = homeSquadTeam?.short_club_name || null;
   const awayTeamShortName = awaySquadTeam?.short_club_name || null;
@@ -243,6 +246,7 @@ export default async function MatchPage({
               isKnockoutStage={isInKnockoutStage(fixtures?.SoccerFeed?.SoccerDocument?.MatchData)}
               matchBlogs={matchBlogs}
               teamRecords={teamRecords}
+              teamStats={teamStats}
             />
           </PaddingGlobal>
         </div>

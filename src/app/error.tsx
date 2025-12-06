@@ -49,7 +49,7 @@ export default function Error({ error, reset }: ErrorProps) {
         <p className="mb-4 text-muted-foreground">
           An error occurred while rendering this page. The error has been logged.
         </p>
-        {process.env.NODE_ENV === "development" && (
+        {process.env.NEXT_PUBLIC_DEV_MODE === 'true' && process.env.NODE_ENV !== 'production' && (
           <details className="mb-4 rounded-md bg-muted p-4 text-left">
             <summary className="cursor-pointer font-semibold">Error Details</summary>
             <pre className="mt-2 overflow-auto text-xs">
