@@ -1,4 +1,5 @@
 'use client';
+import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
@@ -19,6 +20,12 @@ type StatSheetPlayersTableProps = {
 }
 
 export function StatSheetPlayersTable({ prismicTeams, f30TeamStats, selectedTeamId, leaderView, onLeaderViewChange }: StatSheetPlayersTableProps) {
+    const [hasMounted, setHasMounted] = useState(false)
+
+    useEffect(() => {
+        setHasMounted(true)
+    }, [])
+
     const {
         paginatedRows,
         hoveredRow,
@@ -40,24 +47,33 @@ export function StatSheetPlayersTable({ prismicTeams, f30TeamStats, selectedTeam
                         <TableHeader>
                             <TableRow>
                                 <TableHead hasSelect>
-                                    <Select
-                                        value={leaderView}
-                                        onValueChange={value => onLeaderViewChange(value as StatSheetLeaderValue)}
-                                    >
-                                        <SelectTrigger
-                                            size="tableHeader"
+                                    {hasMounted ? (
+                                        <Select
+                                            value={leaderView}
+                                            onValueChange={value => onLeaderViewChange(value as StatSheetLeaderValue)}
+                                        >
+                                            <SelectTrigger
+                                                size="tableHeader"
+                                                className="px-0 text-left font-headers text-base font-semibold"
+                                            >
+                                                <SelectValue placeholder="Goals Leaders" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                {STAT_SHEET_LEADER_OPTIONS.map(option => (
+                                                    <SelectItem key={option.value} value={option.value}>
+                                                        {option.label}
+                                                    </SelectItem>
+                                                ))}
+                                            </SelectContent>
+                                        </Select>
+                                    ) : (
+                                        <button
+                                            type="button"
                                             className="px-0 text-left font-headers text-base font-semibold"
                                         >
-                                            <SelectValue placeholder="Goals Leaders" />
-                                        </SelectTrigger>
-                                        <SelectContent>
-                                            {STAT_SHEET_LEADER_OPTIONS.map(option => (
-                                                <SelectItem key={option.value} value={option.value}>
-                                                    {option.label}
-                                                </SelectItem>
-                                            ))}
-                                        </SelectContent>
-                                    </Select>
+                                            {STAT_SHEET_LEADER_OPTIONS.find(o => o.value === leaderView)?.label || "Goals Leaders"}
+                                        </button>
+                                    )}
                                 </TableHead>
                             </TableRow>
                         </TableHeader>

@@ -1,5 +1,6 @@
 "use client"
 
+import { useState, useEffect } from "react"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
 import { Table, TableBody, TableRow, TableCell } from "@/components/ui/table"
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion"
@@ -24,6 +25,12 @@ type MatchLineupsProps = {
 }
 
 export function MatchLineups({ homeTeamData, awayTeamData, homeSquadTeam, awaySquadTeam, homeLogo, awayLogo, f24Events }: MatchLineupsProps) {
+  const [hasMounted, setHasMounted] = useState(false)
+
+  useEffect(() => {
+    setHasMounted(true)
+  }, [])
+
   const enrichPlayers = (teamData: F9TeamData, squadTeam?: F40Team): MatchLineupPlayer[] => {
     if (!teamData.PlayerLineUp) return []
     const matchPlayers = Array.isArray(teamData.PlayerLineUp.MatchPlayer) 
@@ -67,36 +74,62 @@ export function MatchLineups({ homeTeamData, awayTeamData, homeSquadTeam, awaySq
   const homePlayers = enrichPlayers(homeTeamData, homeSquadTeam)
   const awayPlayers = enrichPlayers(awayTeamData, awaySquadTeam)
 
+  const homeTabContent = (
+    <div className="flex items-center gap-2">
+      {homeLogo && (
+        <Image
+          src={homeLogo}
+          alt="Home Team"
+          width={100}
+          height={100}
+          className="object-contain size-6"
+        />
+      )}
+      <span className="font-headers">Home</span>
+    </div>
+  )
+
+  const awayTabContent = (
+    <div className="flex items-center gap-2">
+      {awayLogo && (
+        <Image
+          src={awayLogo}
+          alt="Away Team"
+          width={100}
+          height={100}
+          className="object-contain size-6"
+        />
+      )}
+      <span className="font-headers">Away</span>
+    </div>
+  )
+
+  if (!hasMounted) {
+    return (
+      <div className="w-full flex flex-col">
+        <div className="w-full flex">
+          <button type="button" className="flex-1 inline-flex items-center justify-center gap-1.5 px-2 py-1.5 text-sm font-medium">
+            {homeTabContent}
+          </button>
+          <button type="button" className="flex-1 inline-flex items-center justify-center gap-1.5 px-2 py-1.5 text-sm font-medium opacity-50">
+            {awayTabContent}
+          </button>
+        </div>
+        <div className="py-3">
+          <LineupAccordionPlaceholder players={homePlayers} />
+        </div>
+      </div>
+    )
+  }
+
   return (
     <Tabs defaultValue="home" className="w-full">
       <TabsList className="w-full">
         <TabsTrigger variant="underline" value="home" className="flex-1">
-          <div className="flex items-center gap-2">
-            {homeLogo && (
-              <Image
-                src={homeLogo}
-                alt="Home Team"
-                width={100}
-                height={100}
-                className="object-contain size-6"
-              />
-            )}
-            <span className="font-headers">Home</span>
-          </div>
+          {homeTabContent}
         </TabsTrigger>
         <TabsTrigger variant="underline" value="away" className="flex-1">
-          <div className="flex items-center gap-2">
-            {awayLogo && (
-              <Image
-                src={awayLogo}
-                alt="Away Team"
-                width={100}
-                height={100}
-                className="object-contain size-6"
-              />
-            )}
-            <span className="font-headers">Away</span>
-          </div>
+          {awayTabContent}
         </TabsTrigger>
       </TabsList>
       <TabsContent value="home" className="py-3">
@@ -211,6 +244,46 @@ function LineupAccordion({ players }: { players: MatchLineupPlayer[] }) {
         </AccordionContent>
       </AccordionItem>
     </Accordion>
+  )
+}
+
+function LineupAccordionPlaceholder({ players }: { players: MatchLineupPlayer[] }) {
+  const filteredPlayers = players.filter(player => {
+    if (!player.ShirtNumber) return true
+    const num = Number(player.ShirtNumber)
+    return isNaN(num) || num <= 500
+  })
+
+  const starters = filteredPlayers.filter(p => p.Status === "Start")
+  const substitutes = filteredPlayers.filter(p => p.Status === "Sub")
+
+  return (
+    <div className="w-full">
+      <Separator variant="gradient" gradientDirection="toRight" />
+      <div className="text-sm py-2.5 px-2">
+        <div className="flex items-center gap-2">
+          <span className="font-headers text-sm">Starting Lineup</span>
+          <span className="text-muted-foreground text-xxs mt-0.5 font-body">
+            ({starters.length})
+          </span>
+        </div>
+      </div>
+      <Table>
+        <TableBody>
+          {starters.map(player => (
+            <MatchLineupPlayerComponent key={player.PlayerRef} player={player} />
+          ))}
+        </TableBody>
+      </Table>
+      <div className="text-sm py-2.5 px-2">
+        <div className="flex items-center gap-2">
+          <span className="font-headers text-sm">Substitutes</span>
+          <span className="text-muted-foreground text-xxs mt-0.5 font-body">
+            ({substitutes.length})
+          </span>
+        </div>
+      </div>
+    </div>
   )
 }
 

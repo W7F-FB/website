@@ -10,7 +10,7 @@ import { getTeamStat } from "@/types/opta-feeds/f30-season-stats"
 import { cn } from "@/lib/utils"
 import { getFinalMatch, getThirdPlaceMatch, calculateTeamRecordsFromMatches, getTeamRankings, sortTeamsByRanking } from "@/app/(website)/(subpages)/tournament/utils"
 import { LinePattern } from "@/components/blocks/line-pattern"
-import { ClubRankCell } from "@/components/blocks/tournament/club-rank-cell"
+import { ClubRankRow } from "@/components/blocks/tournament/club-rank-row"
 import { useIsTablet } from "@/hooks/use-tablet"
 import { normalizeOptaId } from "@/lib/opta/utils"
 
@@ -196,7 +196,7 @@ export function StatSheetTeamsTable({ prismicTeams, f30TeamStats, f1FixturesData
                                             onMouseLeave={() => setHoveredRow(null)}
                                             className={cn(hoveredRow === index && "bg-muted/30 hover:bg-muted/30")}
                                         >
-                                            <ClubRankCell
+                                            <ClubRankRow
                                                 placement={row.placement}
                                                 logo={row.team.data.logo}
                                                 name={row.name}
@@ -298,7 +298,7 @@ export function StatSheetTeamsTable({ prismicTeams, f30TeamStats, f1FixturesData
                                                 onMouseLeave={() => setHoveredRow(null)}
                                                 className={cn(hoveredRow === globalIndex && "bg-muted/30 hover:bg-muted/30")}
                                             >
-                                                <ClubRankCell
+                                                <ClubRankRow
                                                     placement={row.placement}
                                                     logo={row.team.data.logo}
                                                     name={row.name}

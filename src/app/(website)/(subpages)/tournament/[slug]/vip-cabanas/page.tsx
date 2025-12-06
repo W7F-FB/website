@@ -2,6 +2,7 @@ import { notFound, redirect } from "next/navigation"
 import { getTournamentByUid } from "@/cms/queries/tournaments"
 import { getTeamsByTournament } from "@/cms/queries/team"
 import { getF1Fixtures } from "@/app/api/opta/feeds"
+import { fetchF9FeedsForMatches, extractMatchIdsFromFixtures } from "@/lib/opta/match-data"
 import { Section, Container, PaddingGlobal } from "@/components/website-base/padding-containers"
 import { H1, P, Subtitle } from "@/components/website-base/typography"
 import { SubpageHeroSecondary } from "@/components/blocks/subpage-hero"
@@ -11,6 +12,7 @@ import { PrivateVipForm } from "@/components/blocks/forms/vip-cabanas/private-vi
 import { NavMain } from "@/components/website-base/nav/nav-main"
 import { Footer } from "@/components/website-base/footer/footer-main"
 import type { F1MatchData, F1TeamData } from "@/types/opta-feeds/f1-fixtures"
+import type { F9MatchResponse } from "@/types/opta-feeds/f9-match"
 import type { TeamDocument } from "../../../../../../../prismicio-types"
 import { groupMatchesByDate } from "../../utils"
 import { dev } from "@/lib/dev"
@@ -76,6 +78,8 @@ export default async function VipCabanasPage({ params }: Props) {
   let groupedFixtures: Map<string, F1MatchData[]> = new Map()
   let prismicTeams: TeamDocument[] = []
   let optaTeams: F1TeamData[] = []
+  let f9FeedsMap: Map<string, F9MatchResponse> = new Map()
+  
   if (competitionId && seasonId && tournament.uid) {
     try {
       const [fixtures, teams] = await Promise.all([
@@ -91,6 +95,10 @@ export default async function VipCabanasPage({ params }: Props) {
         
         if (matchData && Array.isArray(matchData)) {
           groupedFixtures = groupMatchesByDate(matchData)
+          
+          // Fetch F9 data for all matches
+          const matchIds = extractMatchIdsFromFixtures(matchData)
+          f9FeedsMap = await fetchF9FeedsForMatches(matchIds)
         }
       }
     } catch (error) {
@@ -111,6 +119,7 @@ export default async function VipCabanasPage({ params }: Props) {
         prismicTeams={prismicTeams.length > 0 ? prismicTeams : undefined}
         optaTeams={optaTeams.length > 0 ? optaTeams : undefined}
         tournament={tournament}
+        f9FeedsMap={f9FeedsMap.size > 0 ? f9FeedsMap : undefined}
       />
       <main className="flex-grow min-h-[30rem]">
         <PaddingGlobal>

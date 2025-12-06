@@ -2,6 +2,7 @@ import { getF40Squads, getF3Standings, getF1Fixtures, getF30SeasonStats } from "
 import { getTeamByUid, getTeamsByOptaIds } from "@/cms/queries/team";
 import { getTournamentByUid } from "@/cms/queries/tournaments";
 import { buildMatchSlugMap } from "@/lib/match-url";
+import { fetchF9FeedsForMatches, extractMatchIdsFromFixtures } from "@/lib/opta/match-data";
 import { getBlogsByTeam } from "@/cms/queries/blog";
 import { notFound } from "next/navigation";
 import { isFilled } from "@prismicio/client";
@@ -10,6 +11,7 @@ import { NavMain } from "@/components/website-base/nav/nav-main";
 import { Footer } from "@/components/website-base/footer/footer-main";
 import { PaddingGlobal } from "@/components/website-base/padding-containers";
 import { dev } from "@/lib/dev";
+import type { F9MatchResponse } from "@/types/opta-feeds/f9-match";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -102,6 +104,14 @@ export default async function TeamPage({ params }: Props) {
   const uniqueOptaIds = [...new Set(allTeamRefs.map((ref) => ref.replace("t", "")))];
   const prismicTeams = await getTeamsByOptaIds(uniqueOptaIds).catch(() => []);
 
+  // Fetch F9 data for all matches
+  let f9FeedsMap: Map<string, F9MatchResponse> = new Map();
+  const matchData = f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData;
+  if (matchData && Array.isArray(matchData)) {
+    const matchIds = extractMatchIdsFromFixtures(matchData);
+    f9FeedsMap = await fetchF9FeedsForMatches(matchIds);
+  }
+
   const matchSlugMap = currentTournament ? buildMatchSlugMap(currentTournament) : undefined;
 
   const teamOptaIdWithPrefix = teamOptaId?.toString().startsWith("t") ? teamOptaId : `t${teamOptaId}`;
@@ -139,6 +149,7 @@ export default async function TeamPage({ params }: Props) {
               seasonStats={f30SeasonStats}
               tournamentDocuments={tournamentDocuments}
               matchSlugMap={matchSlugMap}
+              f9FeedsMap={f9FeedsMap}
             />
           </PaddingGlobal>
         </div>

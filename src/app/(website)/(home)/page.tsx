@@ -10,7 +10,9 @@ import { getTeamsByTournament } from "@/cms/queries/team";
 import { getF1Fixtures } from "@/app/api/opta/feeds";
 import { groupMatchesByDate } from "@/app/(website)/(subpages)/tournament/utils";
 import { buildMatchSlugMap } from "@/lib/match-url";
+import { fetchF9FeedsForMatches, extractMatchIdsFromFixtures } from "@/lib/opta/match-data";
 import type { F1MatchData, F1TeamData } from "@/types/opta-feeds/f1-fixtures";
+import type { F9MatchResponse } from "@/types/opta-feeds/f9-match";
 import { dev } from "@/lib/dev";
 import HomePageContent from "./page-content";
 
@@ -83,6 +85,7 @@ export default async function HomePage() {
     let prismicTeams: Awaited<ReturnType<typeof getTeamsByTournament>> = [];
     let optaTeams: F1TeamData[] = [];
     let matchSlugMap: Map<string, string> | undefined;
+    let f9FeedsMap: Map<string, F9MatchResponse> = new Map();
 
     if (liveTournament) {
         const competitionId = liveTournament.data.opta_competition_id;
@@ -103,6 +106,10 @@ export default async function HomePage() {
 
                     if (matchData && Array.isArray(matchData)) {
                         groupedFixtures = groupMatchesByDate(matchData);
+                        
+                        // Fetch F9 data for all matches
+                        const matchIds = extractMatchIdsFromFixtures(matchData);
+                        f9FeedsMap = await fetchF9FeedsForMatches(matchIds);
                     }
                 }
 
@@ -131,6 +138,7 @@ export default async function HomePage() {
                 optaTeams={optaTeams.length > 0 ? optaTeams : undefined}
                 tournament={liveTournament || undefined}
                 matchSlugMap={matchSlugMap}
+                f9FeedsMap={f9FeedsMap.size > 0 ? f9FeedsMap : undefined}
             />
             <main className="flex-grow min-h-[30rem]">
                 <div>

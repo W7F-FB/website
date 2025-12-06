@@ -13,6 +13,7 @@ import type { TournamentDocument, TeamDocument } from '../../../../../prismicio-
 import { LinePattern } from '../../line-pattern'
 import { getEstTodayDateKey } from '@/app/(website)/(subpages)/tournament/utils'
 import type { F1MatchData, F1TeamData } from '@/types/opta-feeds/f1-fixtures'
+import type { F9MatchResponse } from '@/types/opta-feeds/f9-match'
 
 interface GamesSliderProps {
   groupedFixtures: Map<string, F1MatchData[]>
@@ -20,10 +21,11 @@ interface GamesSliderProps {
   optaTeams: F1TeamData[]
   tournament: TournamentDocument
   matchSlugMap?: Map<string, string>
+  f9FeedsMap?: Map<string, F9MatchResponse>
   isLoading?: boolean
 }
 
-export function GamesSlider({ groupedFixtures, prismicTeams, optaTeams, tournament, matchSlugMap, isLoading = false }: GamesSliderProps) {
+export function GamesSlider({ groupedFixtures, prismicTeams, optaTeams, tournament, matchSlugMap, f9FeedsMap, isLoading = false }: GamesSliderProps) {
   const [api, setApi] = useState<CarouselApi | null>(null)
   const [canScrollPrev, setCanScrollPrev] = useState(false)
   const [canScrollNext, setCanScrollNext] = useState(false)
@@ -33,19 +35,14 @@ export function GamesSlider({ groupedFixtures, prismicTeams, optaTeams, tourname
     return Array.from(groupedFixtures.keys()).sort()
   }, [groupedFixtures])
 
-  const defaultDate = useMemo(() => {
-    if (uniqueDates.length === 0) return undefined
-    
-    const todayString = getEstTodayDateKey()
-    
-    return uniqueDates.includes(todayString) ? todayString : uniqueDates[0]
-  }, [uniqueDates])
-
-  const [selectedDate, setSelectedDate] = useState<string | undefined>(defaultDate)
+  const [selectedDate, setSelectedDate] = useState<string | undefined>(uniqueDates[0])
 
   useEffect(() => {
-    setSelectedDate(defaultDate)
-  }, [defaultDate])
+    if (uniqueDates.length === 0) return
+    const todayString = getEstTodayDateKey()
+    const newDate = uniqueDates.includes(todayString) ? todayString : uniqueDates[0]
+    setSelectedDate(newDate)
+  }, [uniqueDates])
 
   const filteredFixtures = useMemo(() => {
     if (!selectedDate) return Array.from(groupedFixtures.values()).flat()
@@ -125,6 +122,7 @@ export function GamesSlider({ groupedFixtures, prismicTeams, optaTeams, tourname
                         optaTeams={optaTeams}
                         tournamentSlug={tournament.uid}
                         matchSlugMap={matchSlugMap}
+                        f9Feed={f9FeedsMap?.get(normalizeOptaId(fixture.uID))}
                       />
                     </div>
                   </CarouselItem>

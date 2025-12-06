@@ -15,6 +15,7 @@ import { CaretRightIcon } from "@/components/website-base/icons"
 import type { F3StandingsResponse } from "@/types/opta-feeds/f3-standings"
 import type { F1FixturesResponse } from "@/types/opta-feeds/f1-fixtures"
 import type { F30SeasonStatsResponse } from "@/types/opta-feeds/f30-season-stats"
+import type { F9MatchResponse } from "@/types/opta-feeds/f9-match"
 import { getPlayerByName } from "@/types/opta-feeds/f30-season-stats"
 import { SectionHeading, SectionHeadingHeading, SectionHeadingSubtitle } from "@/components/sections/section-heading"
 import { getSemiFinalMatches, getThirdPlaceMatch, getFinalMatch } from "./utils"
@@ -29,6 +30,7 @@ import { PlayerAwardCard } from "@/components/blocks/players/player-award-card"
 import { StatSheetTabs } from "@/components/blocks/tournament/stat-sheet/stat-sheet-tabs"
 import { GroupStageSection } from "@/components/blocks/tournament/group-stage-section"
 import { KnockoutStageSection } from "@/components/blocks/tournament/knockout-stage-section"
+import type { TeamRecord } from "@/lib/v2-utils/records-from-f9"
 
 type Props = {
     tournament: TournamentDocument
@@ -41,9 +43,11 @@ type Props = {
     awards: NonNullable<AwardData>[]
     compact?: boolean
     dazn?: BroadcastPartnersDocument | null
+    f9FeedsMap?: Map<string, F9MatchResponse>
+    teamRecords?: TeamRecord[]
 }
 
-export default function TournamentPagePast({ tournament, tournamentBlogs, f3StandingsData, f1FixturesData, f30TeamStats, prismicTeams, matchSlugMap, awards, compact = false, dazn }: Props) {
+export default function TournamentPagePast({ tournament, tournamentBlogs, f3StandingsData, f1FixturesData, f30TeamStats, prismicTeams, matchSlugMap, awards, compact = false, dazn, f9FeedsMap, teamRecords }: Props) {
     const semiFinalMatches = getSemiFinalMatches(f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData)
     const thirdPlaceMatches = getThirdPlaceMatch(f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData)
     const finalMatches = getFinalMatch(f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData)
@@ -161,6 +165,9 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                     matchSlugMap={matchSlugMap}
                     compact={compact}
                     streamingLink={dazn?.data.streaming_link}
+                    f9FeedsMap={f9FeedsMap}
+                    tournamentStatus={tournament.data.status ?? undefined}
+                    teamRecords={teamRecords}
                 />
                 <KnockoutStageSection
                     semiFinalMatches={semiFinalMatches}
@@ -173,6 +180,7 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                     matchSlugMap={matchSlugMap}
                     compact={compact}
                     streamingLink={dazn?.data.streaming_link}
+                    f9FeedsMap={f9FeedsMap}
                 />
                 <Section padding="md" id="stat-sheet">
                     <SectionHeading className="pb-8">

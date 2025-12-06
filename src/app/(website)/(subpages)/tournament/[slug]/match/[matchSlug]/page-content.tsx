@@ -34,6 +34,7 @@ import { SectionHeading, SectionHeadingHeading, SectionHeadingSubtitle } from "@
 import { Container } from "@/components/website-base/padding-containers";
 import { PrismicLink } from "@prismicio/react";
 import { mapBlogDocumentToMetadata } from "@/lib/utils";
+import type { TeamRecord } from "@/lib/v2-utils/records-from-f9";
 
 type Props = {
   f9MatchData?: F9MatchData | null;
@@ -60,6 +61,7 @@ type Props = {
   f40Squads?: F40SquadsResponse | null;
   isKnockoutStage: boolean;
   matchBlogs?: BlogDocument[];
+  teamRecords?: TeamRecord[];
 };
 
 export default function MatchPageContent({
@@ -87,6 +89,7 @@ export default function MatchPageContent({
   f40Squads,
   isKnockoutStage,
   matchBlogs = [],
+  teamRecords,
 }: Props) {
   const matchData = f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData;
   const f1Matches = Array.isArray(matchData) ? matchData : (matchData ? [matchData] : []);
@@ -98,7 +101,7 @@ export default function MatchPageContent({
   const standouts = f9MatchData && homeTeamData && awayTeamData ? calculateMatchStandouts(
     {
       SoccerFeed: {
-        TimeStamp: new Date().toISOString(),
+        TimeStamp: "2025-01-01T00:00:00Z",
         SoccerDocument: {
           Type: "Result",
           uID: matchId,
@@ -283,21 +286,15 @@ export default function MatchPageContent({
             </Card>
           )}
           {prismicTeams.length > 0 && (
-            <Card banner className="w-full">
-              <CardHeader>
-                <CardTitle>Standings</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ClubStandingsTable
-                  prismicTeams={prismicTeams}
-                  f1FixturesData={f1FixturesData}
-                  f3StandingsData={f3StandingsData}
-                  f40Squads={f40Squads}
-                  tournamentStatus={tournament?.data.status ?? undefined}
-                  isKnockoutStage={isKnockoutStage}
-                />
-              </CardContent>
-            </Card>
+            <ClubStandingsTable
+              prismicTeams={prismicTeams}
+              f1FixturesData={f1FixturesData}
+              f3StandingsData={f3StandingsData}
+              f40Squads={f40Squads}
+              tournamentStatus={tournament?.data.status ?? undefined}
+              isKnockoutStage={isKnockoutStage}
+              teamRecords={teamRecords}
+            />
           )}
           <Card banner className="w-full hidden">
             <CardHeader>

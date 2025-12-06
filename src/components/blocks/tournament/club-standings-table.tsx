@@ -2,14 +2,16 @@
 
 import { Fragment, useMemo, useCallback } from "react"
 import { Table, TableBody, TableCell, TableHeader, TableRow } from "@/components/ui/table"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import type { TeamDocument } from "../../../../prismicio-types"
 import type { F1FixturesResponse } from "@/types/opta-feeds/f1-fixtures"
 import type { F3StandingsResponse } from "@/types/opta-feeds/f3-standings"
 import type { F40SquadsResponse } from "@/types/opta-feeds/f40-squads-feed"
-import { getFinalMatch, getThirdPlaceMatch, calculateTeamRecordsFromMatches, getTeamRankings, sortTeamsByRanking } from "@/app/(website)/(subpages)/tournament/utils"
+import { getFinalMatch, getThirdPlaceMatch, getTeamRankings, sortTeamsByRanking } from "@/app/(website)/(subpages)/tournament/utils"
 import { LinePattern } from "@/components/blocks/line-pattern"
-import { ClubRankCell } from "@/components/blocks/tournament/club-rank-cell"
+import { ClubRankRow } from "@/components/blocks/tournament/club-rank-row"
 import { normalizeOptaId } from "@/lib/opta/utils"
+import type { TeamRecord } from "@/lib/v2-utils/records-from-f9"
 
 const placementOrder: Record<string, number> = {
     '1st': 1,
@@ -26,16 +28,25 @@ type ClubStandingsTableProps = {
     f40Squads?: F40SquadsResponse | null
     tournamentStatus?: string
     isKnockoutStage: boolean
+    teamRecords?: TeamRecord[]
 }
 
-export function ClubStandingsTable({ prismicTeams, f1FixturesData, f3StandingsData, f40Squads, tournamentStatus, isKnockoutStage }: ClubStandingsTableProps) {
+export function ClubStandingsTable({ prismicTeams, f1FixturesData, f3StandingsData, f40Squads, tournamentStatus, isKnockoutStage, teamRecords }: ClubStandingsTableProps) {
     const finalMatches = getFinalMatch(f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData)
     const thirdPlaceMatches = getThirdPlaceMatch(f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData)
     
     const finalMatch = finalMatches[0]
     const thirdPlaceMatch = thirdPlaceMatches[0]
     
-    const teamRecords = calculateTeamRecordsFromMatches(f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData)
+    const recordsMap = useMemo(() => {
+        const map = new Map<string, { wins: number; losses: number }>()
+        if (teamRecords) {
+            for (const record of teamRecords) {
+                map.set(record.optaNormalizedTeamId, { wins: record.wins, losses: record.losses })
+            }
+        }
+        return map
+    }, [teamRecords])
     
     const squadTeams = useMemo(() => f40Squads?.SoccerFeed?.SoccerDocument?.Team || [], [f40Squads])
     
@@ -112,8 +123,8 @@ export function ClubStandingsTable({ prismicTeams, f1FixturesData, f3StandingsDa
         
         return prismicTeams.map(team => {
             const optaId = team.data.opta_id
-            const teamId = optaId ? `t${optaId}` : null
-            const record = teamId ? teamRecords.get(teamId) : null
+            const normalizedId = optaId ? normalizeOptaId(`t${optaId}`) : null
+            const record = normalizedId ? recordsMap.get(normalizedId) : null
             const wins = record?.wins ?? 0
             const losses = record?.losses ?? 0
 
@@ -126,90 +137,104 @@ export function ClubStandingsTable({ prismicTeams, f1FixturesData, f3StandingsDa
         }).sort((a, b) => {
             return placementOrder[a.placement] - placementOrder[b.placement]
         })
-    }, [isKnockoutStage, prismicTeams, teamRecords, getDisplayName, getKnockoutPlacement])
+    }, [isKnockoutStage, prismicTeams, recordsMap, getDisplayName, getKnockoutPlacement])
 
     if (isKnockoutStage) {
         const firstEliminatedIndex = knockoutTableData.findIndex(row => row.placement === 'E')
         
         return (
-            <Table>
-                <TableHeader>
-                    <TableRow>
-                        <th className="sr-only">Standings</th>
-                    </TableRow>
-                </TableHeader>
-                <TableBody>
-                    {knockoutTableData.map((row, index) => (
-                        <Fragment key={row.team.id}>
-                            {index === firstEliminatedIndex && (
-                                <TableRow className="hover:bg-transparent">
-                                    <TableCell className="p-0 h-4">
-                                        <LinePattern className="h-full w-full" patternSize={7} />
-                                    </TableCell>
-                                </TableRow>
-                            )}
+            <Card banner className="w-full">
+                <CardHeader>
+                    <CardTitle>Standings</CardTitle>
+                </CardHeader>
+                <CardContent className="!p-0 lg:!p-0">
+                    <Table>
+                        <TableHeader>
                             <TableRow>
-                                <ClubRankCell
-                                    placement={row.placement}
-                                    logo={row.team.data.logo}
-                                    name={row.name}
-                                    record={row.record}
-                                    className="pr-2"
-                                    tournamentStatus={tournamentStatus}
-                                    href={row.team.uid ? `/club/${row.team.uid}` : undefined}
-                                />
+                                <th className="sr-only">Standings</th>
                             </TableRow>
-                        </Fragment>
-                    ))}
-                </TableBody>
-            </Table>
+                        </TableHeader>
+                        <TableBody>
+                            {knockoutTableData.map((row, index) => (
+                                <Fragment key={row.team.id}>
+                                    {index === firstEliminatedIndex && (
+                                        <TableRow className="hover:bg-transparent">
+                                            <TableCell colSpan={3} className="p-0 h-4">
+                                                <LinePattern className="h-full w-full" patternSize={7} />
+                                            </TableCell>
+                                        </TableRow>
+                                    )}
+                                    <TableRow>
+                                        <ClubRankRow
+                                            placement={row.placement}
+                                            logo={row.team.data.logo}
+                                            name={row.name}
+                                            record={row.record}
+                                            className="pr-2"
+                                            tournamentStatus={tournamentStatus}
+                                            href={row.team.uid ? `/club/${row.team.uid}` : undefined}
+                                        />
+                                    </TableRow>
+                                </Fragment>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </CardContent>
+            </Card>
         )
     }
 
     return (
-        <Table>
-            <TableHeader>
-                <TableRow>
-                    <th className="sr-only">Standings</th>
-                </TableRow>
-            </TableHeader>
-            <TableBody>
-                {groupData?.map((group) => (
-                    <Fragment key={group.groupId}>
-                        <TableRow className="hover:bg-transparent">
-                            <TableCell className="p-0 h-8">
-                                <div className="relative h-full w-full">
-                                    <LinePattern className="h-full w-full" patternSize={7} />
-                                    <div className="absolute inset-0 flex items-center justify-start pl-3">
-                                        <span className="font-headers font-semibold text-xs uppercase text-muted-foreground">{group.groupName}</span>
-                                    </div>
-                                </div>
-                            </TableCell>
+        <Card banner className="w-full">
+            <CardHeader>
+                <CardTitle>Standings</CardTitle>
+            </CardHeader>
+            <CardContent className="!p-0 lg:!p-0">
+                <Table>
+                    <TableHeader>
+                        <TableRow>
+                            <th className="sr-only">Standings</th>
                         </TableRow>
-                        {group.teams.map((team) => {
-                            const optaId = team.data.opta_id
-                            const teamId = optaId ? `t${optaId}` : null
-                            const record = teamId ? teamRecords.get(teamId) : null
-                            const wins = record?.wins ?? 0
-                            const losses = record?.losses ?? 0
-                            
-                            return (
-                                <TableRow key={team.id}>
-                                    <ClubRankCell
-                                        placement={getGroupPlacement(optaId, group.groupId)}
-                                        logo={team.data.logo}
-                                        name={getDisplayName(team)}
-                                        record={`${wins}-${losses}`}
-                                        className="pr-2"
-                                        href={team.uid ? `/club/${team.uid}` : undefined}
-                                    />
+                    </TableHeader>
+                    <TableBody>
+                        {groupData?.map((group) => (
+                            <Fragment key={group.groupId}>
+                                <TableRow className="hover:bg-transparent">
+                                    <TableCell className="p-0 px-4 h-8">
+                                        <div className="relative h-full w-full">
+                                            <LinePattern className="h-full w-full" patternSize={7} />
+                                            <div className="absolute inset-0 flex items-center justify-start">
+                                                <span className="font-headers font-medium text-sm uppercase ">{group.groupName}</span>
+                                            </div>
+                                        </div>
+                                    </TableCell>
                                 </TableRow>
-                            )
-                        })}
-                    </Fragment>
-                ))}
-            </TableBody>
-        </Table>
+                                {group.teams.map((team) => {
+                                    const optaId = team.data.opta_id
+                                    const normalizedId = optaId ? normalizeOptaId(`t${optaId}`) : null
+                                    const record = normalizedId ? recordsMap.get(normalizedId) : null
+                                    const wins = record?.wins ?? 0
+                                    const losses = record?.losses ?? 0
+                                    
+                                    return (
+                                        <TableRow key={team.id}>
+                                            <ClubRankRow
+                                                placement={getGroupPlacement(optaId, group.groupId)}
+                                                logo={team.data.logo}
+                                                name={getDisplayName(team)}
+                                                record={`${wins}-${losses}`}
+
+                                                href={team.uid ? `/club/${team.uid}` : undefined}
+                                            />
+                                        </TableRow>
+                                    )
+                                })}
+                            </Fragment>
+                        ))}
+                    </TableBody>
+                </Table>
+            </CardContent>
+        </Card>
     )
 }
 

@@ -1,6 +1,9 @@
 export const dev = {
     log: (...args: unknown[]) => {
-      if (process.env.NEXT_PUBLIC_DEV_MODE === 'true') {
+      if (
+        process.env.NEXT_PUBLIC_DEV_MODE === 'true' &&
+        process.env.NODE_ENV !== 'production'
+      ) {
         console.log('⚠️ This log will only display while in dev mode →', ...args);
       }
     },

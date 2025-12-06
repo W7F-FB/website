@@ -11,13 +11,16 @@ import TournamentPagePast from "../page-content-complete"
 import type { TeamDocument, TournamentDocumentDataAwardsItem } from "../../../../../../prismicio-types"
 import { isFilled } from "@prismicio/client"
 import type { F30SeasonStatsResponse } from "@/types/opta-feeds/f30-season-stats"
+import type { F9MatchResponse } from "@/types/opta-feeds/f9-match"
 import type * as prismic from "@prismicio/client"
 import { dev } from "@/lib/dev"
+import { fetchF9FeedsForMatches, extractMatchIdsFromFixtures } from "@/lib/opta/match-data"
 import { NavMain } from "@/components/website-base/nav/nav-main"
 import { Footer } from "@/components/website-base/footer/footer-main"
 import type { F1MatchData, F1TeamData } from "@/types/opta-feeds/f1-fixtures"
 import { groupMatchesByDate } from "../utils"
 import { buildMatchSlugMap } from "@/lib/match-url"
+import { getRecordsFromF9 } from "@/lib/v2-utils/records-from-f9"
 
 type AwardAwardsField = TournamentDocumentDataAwardsItem['awards']
 type AwardData = AwardAwardsField extends prismic.ContentRelationshipField<infer _ID, infer _Lang, infer TData>
@@ -116,6 +119,7 @@ export default async function TournamentPage({ params, searchParams }: Props) {
   let f1FixturesData = null
   let prismicTeams: TeamDocument[] = []
   const f30TeamStats: Map<string, F30SeasonStatsResponse> = new Map()
+  const f9FeedsMap: Map<string, F9MatchResponse> = new Map()
 
   if (competitionId && seasonId && tournament.uid && (status === "Live" || status === "Complete")) {
     try {
@@ -151,11 +155,22 @@ export default async function TournamentPage({ params, searchParams }: Props) {
           f30TeamStats.set(result.teamId, result.stats)
         }
       })
+
+      const allMatches = f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData
+      if (allMatches && Array.isArray(allMatches)) {
+        const matchIds = extractMatchIdsFromFixtures(allMatches)
+        const fetchedF9Feeds = await fetchF9FeedsForMatches(matchIds)
+        fetchedF9Feeds.forEach((f9Data, matchId) => {
+          f9FeedsMap.set(matchId, f9Data)
+        })
+      }
       
     } catch (error) {
       dev.log('Error fetching tournament data:', error)
     }
   }
+
+  const teamRecords = f9FeedsMap.size > 0 ? getRecordsFromF9(Array.from(f9FeedsMap.values())) : []
 
   const awards = tournament.data.awards
     ?.map(item => item.awards)
@@ -209,6 +224,8 @@ export default async function TournamentPage({ params, searchParams }: Props) {
         univision={univision}
         espn={espn}
         disneyPlus={disneyPlus}
+        f9FeedsMap={f9FeedsMap}
+        teamRecords={teamRecords}
       />
     )
   } else if (status === "Complete") {
@@ -224,6 +241,8 @@ export default async function TournamentPage({ params, searchParams }: Props) {
         matchSlugMap={matchSlugMap}
         awards={awards}
         dazn={dazn}
+        f9FeedsMap={f9FeedsMap}
+        teamRecords={teamRecords}
       />
     )
   } else {
@@ -243,6 +262,7 @@ export default async function TournamentPage({ params, searchParams }: Props) {
         optaTeams={optaTeams.length > 0 ? optaTeams : undefined}
         tournament={tournament}
         matchSlugMap={matchSlugMap}
+        f9FeedsMap={f9FeedsMap.size > 0 ? f9FeedsMap : undefined}
       />
       <main className="flex-grow min-h-[30rem]">
         {mainContent}

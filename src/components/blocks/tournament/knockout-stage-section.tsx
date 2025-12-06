@@ -1,11 +1,12 @@
 import { Section } from "@/components/website-base/padding-containers"
 import type { TeamDocument, BroadcastPartnersDocument } from "../../../../prismicio-types"
-import type { F3StandingsResponse } from "@/types/opta-feeds/f3-standings"
 import type { F1FixturesResponse, F1MatchData } from "@/types/opta-feeds/f1-fixtures"
+import type { F3StandingsResponse } from "@/types/opta-feeds/f3-standings"
+import type { F9MatchResponse } from "@/types/opta-feeds/f9-match"
 import { SectionHeading, SectionHeadingHeading, SectionHeadingText } from "@/components/sections/section-heading"
 import { MatchCard } from "@/components/blocks/match/match-card"
 import { MatchDayBadge } from "@/components/blocks/tournament/match-day-badge"
-import { getMatchTeams } from "@/lib/opta/utils"
+import { getMatchTeams, normalizeOptaId } from "@/lib/opta/utils"
 import { Separator } from "@/components/ui/separator"
 import { FastBanner } from "@/components/blocks/fast-banners"
 import { ChampionsCard } from "@/components/blocks/tournament/champions-card"
@@ -22,20 +23,22 @@ type KnockoutStageSectionProps = {
     compact?: boolean
     streamingLink?: string | null
     broadcastPartners?: BroadcastPartnersDocument[]
+    f9FeedsMap?: Map<string, F9MatchResponse>
 }
 
 export function KnockoutStageSection({ 
     semiFinalMatches,
     thirdPlaceMatches,
     finalMatches,
-    f1FixturesData, 
+    f1FixturesData,
     f3StandingsData,
     prismicTeams,
     tournamentSlug,
     matchSlugMap,
     compact = false,
     streamingLink,
-    broadcastPartners
+    broadcastPartners,
+    f9FeedsMap
 }: KnockoutStageSectionProps) {
     const knockoutMatches = semiFinalMatches.length + thirdPlaceMatches.length + finalMatches.length
     const knockoutDate = semiFinalMatches[0]?.MatchInfo?.Date
@@ -70,8 +73,7 @@ export function KnockoutStageSection({
                                 matchSlugMap={matchSlugMap}
                                 compact={compact}
                                 banner="Semi Final 1"
-                                allMatches={f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData}
-                                f3StandingsData={f3StandingsData}
+                                f9Feed={f9FeedsMap?.get(normalizeOptaId(semiFinalMatches[0].uID))}
                                 streamingLink={streamingLink}
                                 broadcastPartners={broadcastPartners}
                             />
@@ -85,8 +87,7 @@ export function KnockoutStageSection({
                                 matchSlugMap={matchSlugMap}
                                 compact={compact}
                                 banner="Semi Final 2"
-                                allMatches={f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData}
-                                f3StandingsData={f3StandingsData}
+                                f9Feed={f9FeedsMap?.get(normalizeOptaId(semiFinalMatches[1].uID))}
                                 streamingLink={streamingLink}
                                 broadcastPartners={broadcastPartners}
                             />
@@ -102,8 +103,7 @@ export function KnockoutStageSection({
                             matchSlugMap={matchSlugMap}
                             compact={compact}
                             banner="Third Place Match"
-                            allMatches={f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData}
-                            f3StandingsData={f3StandingsData}
+                            f9Feed={f9FeedsMap?.get(normalizeOptaId(match.uID))}
                             streamingLink={streamingLink}
                             broadcastPartners={broadcastPartners}
                         />
@@ -119,16 +119,14 @@ export function KnockoutStageSection({
                             matchSlugMap={matchSlugMap}
                             compact={compact}
                             banner="The Final"
-                            allMatches={f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData}
-                            f3StandingsData={f3StandingsData}
+                            f9Feed={f9FeedsMap?.get(normalizeOptaId(match.uID))}
                             streamingLink={streamingLink}
                             broadcastPartners={broadcastPartners}
                         />
                     ))}
                     {allMatchesFullTime && (
                         <ChampionsCard
-                            finalMatches={finalMatches}
-                            f1FixturesData={f1FixturesData}
+                            f3StandingsData={f3StandingsData}
                             prismicTeams={prismicTeams}
                         />
                     )}
