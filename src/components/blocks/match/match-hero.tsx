@@ -182,10 +182,10 @@ export default function MatchHero({ f9MatchData, homeTeamData, awayTeamData, hom
           </Link>
         </div>
         <div className="flex flex-1 flex-col items-center gap-5">
-          {getMatchStatus() === "LIVE" && (
+          {(getMatchStatus() === "LIVE" || getMatchStatus() === "HT") && (
             <Status className="p-0 bg-transparent border-0 gap-3">
               <StatusIndicator className="text-destructive size-3" />
-              <span className="tracking-widest lg:text-base text-xs">LIVE{f9MatchData?.Stat?.find(stat => stat.Type === "match_time")?.value ? <span className="text-muted-foreground font-medium ml-1"> &apos;{f9MatchData.Stat.find(stat => stat.Type === "match_time")?.value}</span> : ""}</span>
+              <span className="tracking-widest lg:text-base text-xs">LIVE{f9MatchData?.Stat?.find(stat => stat.Type === "match_time")?.value ? <span className="hidden text-muted-foreground font-medium ml-1"> &apos;{f9MatchData.Stat.find(stat => stat.Type === "match_time")?.value}</span> : ""}</span>
             </Status>
           )}
           {isPreGame ? (

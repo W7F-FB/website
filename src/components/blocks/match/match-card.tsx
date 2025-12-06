@@ -302,7 +302,7 @@ function MatchCard({
                     </div>
                 )}
                 <div className={cn("font-headers font-medium", variantStyles.status)}>
-                    {isLive ? `'${currentMinute}` : fixtureStatus}
+                    {isLive ? (currentMinute ? <span className="hidden">{`'${currentMinute}`}</span> : "") : fixtureStatus}
                 </div>
             </CardHeader>
             <CardContent className={cn("px-0 lg:px-0 flex-grow", variantStyles.content)}>
