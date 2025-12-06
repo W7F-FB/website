@@ -13,6 +13,8 @@ import { GridCellScrollLink } from "@/components/blocks/grid-cell-scroll-link"
 import { cn } from "@/lib/utils"
 import { ClubStandingsTable } from "@/components/blocks/tournament/club-standings-table"
 import type { TeamRecord } from "@/lib/v2-utils/records-from-f9"
+import { Button } from "@/components/ui/button"
+import Link from "next/link"
 
 type GroupStageSectionProps = {
     f3StandingsData: F3StandingsResponse | null
@@ -27,6 +29,7 @@ type GroupStageSectionProps = {
     f40Squads?: F40SquadsResponse | null
     tournamentStatus?: string
     teamRecords?: TeamRecord[]
+    isKnockoutStage?: boolean
 }
 
 export function GroupStageSection({ 
@@ -41,11 +44,16 @@ export function GroupStageSection({
     f9FeedsMap,
     f40Squads,
     tournamentStatus,
-    teamRecords
+    teamRecords,
+    isKnockoutStage = false
 }: GroupStageSectionProps) {
     const groupStageMatches = getGroupStageMatches(f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData)
     const matchesByDay = groupMatchesByDate(groupStageMatches)
     const totalMatches = groupStageMatches.length
+
+    if (totalMatches === 0) {
+        return null
+    }
 
     return (
         <Section padding="md" id="group-stage">
@@ -65,8 +73,13 @@ export function GroupStageSection({
                         f3StandingsData={f3StandingsData}
                         f40Squads={f40Squads}
                         tournamentStatus={tournamentStatus}
-                        isKnockoutStage={false}
+                        isKnockoutStage={isKnockoutStage}
                         teamRecords={teamRecords}
+                        button={
+                            <Button asChild variant="outline" size="sm" className="text-foreground text-xxs lg:text-sm">
+                                <Link href="#stat-sheet">Stat Sheet</Link>
+                            </Button>
+                        }
                     />
                 </div>
                 <div className="col-span-1 md:col-span-5 space-y-18">

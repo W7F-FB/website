@@ -10,8 +10,8 @@ import TournamentPageLive from "../page-content-live"
 import TournamentPagePast from "../page-content-complete"
 import type { TeamDocument, TournamentDocumentDataAwardsItem } from "../../../../../../prismicio-types"
 import { isFilled } from "@prismicio/client"
-import type { F30SeasonStatsResponse } from "@/types/opta-feeds/f30-season-stats"
 import type { F9MatchResponse } from "@/types/opta-feeds/f9-match"
+import type { F30SeasonStatsResponse } from "@/types/opta-feeds/f30-season-stats"
 import type * as prismic from "@prismicio/client"
 import { dev } from "@/lib/dev"
 import { fetchF9FeedsForMatches, extractMatchIdsFromFixtures } from "@/lib/opta/match-data"
@@ -22,6 +22,7 @@ import type { F1MatchData, F1TeamData } from "@/types/opta-feeds/f1-fixtures"
 import { groupMatchesByDate } from "../utils"
 import { buildMatchSlugMap } from "@/lib/match-url"
 import { getRecordsFromF9 } from "@/lib/v2-utils/records-from-f9"
+import { getTeamStatSheetFromF9, type TeamStatSheet } from "@/lib/v2-utils/team-stat-sheet-from-f9"
 
 type AwardAwardsField = TournamentDocumentDataAwardsItem['awards']
 type AwardData = AwardAwardsField extends prismic.ContentRelationshipField<infer _ID, infer _Lang, infer TData>
@@ -119,6 +120,7 @@ export default async function TournamentPage({ params, searchParams }: Props) {
   let f3StandingsData = null
   let f1FixturesData = null
   let prismicTeams: TeamDocument[] = []
+  let teamStatSheets: Map<string, TeamStatSheet> = new Map()
   const f30TeamStats: Map<string, F30SeasonStatsResponse> = new Map()
   let f9FeedsMap: Map<string, F9MatchResponse> = new Map()
   let liveMinutesMap: Map<string, string> = new Map()
@@ -164,6 +166,11 @@ export default async function TournamentPage({ params, searchParams }: Props) {
         const fetchedResult = await fetchF9FeedsForMatches(matchIds)
         f9FeedsMap = fetchedResult.f9FeedsMap
         liveMinutesMap = fetchedResult.liveMinutesMap
+
+        const teamStatSheetArray = getTeamStatSheetFromF9(Array.from(f9FeedsMap.values()))
+        teamStatSheetArray.forEach(stat => {
+          teamStatSheets.set(stat.optaNormalizedTeamId, stat)
+        })
       }
 
       if (allMatches && Array.isArray(allMatches)) {
@@ -265,6 +272,7 @@ export default async function TournamentPage({ params, searchParams }: Props) {
         tournamentBlogs={tournamentBlogs}
         f3StandingsData={f3StandingsData}
         f1FixturesData={f1FixturesData}
+        teamStatSheets={teamStatSheets}
         f30TeamStats={f30TeamStats}
         prismicTeams={prismicTeams}
         matchSlugMap={matchSlugMap}
@@ -287,6 +295,7 @@ export default async function TournamentPage({ params, searchParams }: Props) {
         tournamentBlogs={tournamentBlogs}
         f3StandingsData={f3StandingsData}
         f1FixturesData={f1FixturesData}
+        teamStatSheets={teamStatSheets}
         f30TeamStats={f30TeamStats}
         prismicTeams={prismicTeams}
         matchSlugMap={matchSlugMap}

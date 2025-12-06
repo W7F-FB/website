@@ -14,11 +14,11 @@ import Link from "next/link"
 import { CaretRightIcon } from "@/components/website-base/icons"
 import type { F3StandingsResponse } from "@/types/opta-feeds/f3-standings"
 import type { F1FixturesResponse } from "@/types/opta-feeds/f1-fixtures"
-import type { F30SeasonStatsResponse } from "@/types/opta-feeds/f30-season-stats"
 import type { F9MatchResponse } from "@/types/opta-feeds/f9-match"
+import type { F30SeasonStatsResponse } from "@/types/opta-feeds/f30-season-stats"
 import { getPlayerByName } from "@/types/opta-feeds/f30-season-stats"
 import { SectionHeading, SectionHeadingHeading, SectionHeadingSubtitle } from "@/components/sections/section-heading"
-import { getSemiFinalMatches, getThirdPlaceMatch, getFinalMatch } from "./utils"
+import { getSemiFinalMatches, getThirdPlaceMatch, getFinalMatch, isInKnockoutStage } from "./utils"
 import { formatDateRange, formatCurrencyInWords, mapBlogDocumentToMetadata } from "@/lib/utils"
 import { PostGrid } from "@/components/blocks/posts/post-grid"
 import { PrismicLink } from "@prismicio/react"
@@ -31,12 +31,14 @@ import { StatSheetTabs } from "@/components/blocks/tournament/stat-sheet/stat-sh
 import { GroupStageSection } from "@/components/blocks/tournament/group-stage-section"
 import { KnockoutStageSection } from "@/components/blocks/tournament/knockout-stage-section"
 import type { TeamRecord } from "@/lib/v2-utils/records-from-f9"
+import type { TeamStatSheet } from "@/lib/v2-utils/team-stat-sheet-from-f9"
 
 type Props = {
     tournament: TournamentDocument
     tournamentBlogs: BlogDocument[]
     f3StandingsData: F3StandingsResponse | null
     f1FixturesData: F1FixturesResponse | null
+    teamStatSheets: Map<string, TeamStatSheet>
     f30TeamStats: Map<string, F30SeasonStatsResponse>
     prismicTeams: TeamDocument[]
     matchSlugMap?: Map<string, string>
@@ -47,10 +49,12 @@ type Props = {
     teamRecords?: TeamRecord[]
 }
 
-export default function TournamentPagePast({ tournament, tournamentBlogs, f3StandingsData, f1FixturesData, f30TeamStats, prismicTeams, matchSlugMap, awards, compact = false, dazn, f9FeedsMap, teamRecords }: Props) {
+export default function TournamentPagePast({ tournament, tournamentBlogs, f3StandingsData, f1FixturesData, teamStatSheets, f30TeamStats, prismicTeams, matchSlugMap, awards, compact = false, dazn, f9FeedsMap, teamRecords }: Props) {
     const semiFinalMatches = getSemiFinalMatches(f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData)
     const thirdPlaceMatches = getThirdPlaceMatch(f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData)
     const finalMatches = getFinalMatch(f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData)
+    const allMatches = f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData
+    const knockoutStage = isInKnockoutStage(allMatches)
 
     return (
         <div>
@@ -168,6 +172,7 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                     f9FeedsMap={f9FeedsMap}
                     tournamentStatus={tournament.data.status ?? undefined}
                     teamRecords={teamRecords}
+                    isKnockoutStage={knockoutStage}
                 />
                 <KnockoutStageSection
                     semiFinalMatches={semiFinalMatches}
@@ -189,7 +194,7 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                         </SectionHeadingHeading>
                     </SectionHeading>
                     
-                    <StatSheetTabs prismicTeams={prismicTeams} f30TeamStats={f30TeamStats} f1FixturesData={f1FixturesData} f3StandingsData={f3StandingsData} tournamentStatus={tournament.data.status ?? undefined} isKnockoutStage={true} />
+                    <StatSheetTabs prismicTeams={prismicTeams} teamStatSheets={teamStatSheets} f30TeamStats={f30TeamStats} f1FixturesData={f1FixturesData} f3StandingsData={f3StandingsData} tournamentStatus={tournament.data.status ?? undefined} isKnockoutStage={knockoutStage} />
                 </Section>
                 {tournamentBlogs.length > 0 && (
                     <>
