@@ -15,6 +15,7 @@ import { ClubStandingsTable } from "@/components/blocks/tournament/club-standing
 import type { TeamRecord } from "@/lib/v2-utils/records-from-f9"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
+import type { MatchHighlight } from "@/lib/supabase/queries/highlights"
 
 type GroupStageSectionProps = {
     f3StandingsData: F3StandingsResponse | null
@@ -30,6 +31,7 @@ type GroupStageSectionProps = {
     tournamentStatus?: string
     teamRecords?: TeamRecord[]
     isKnockoutStage?: boolean
+    recapVideosMap?: Map<string, MatchHighlight>
 }
 
 export function GroupStageSection({ 
@@ -45,7 +47,8 @@ export function GroupStageSection({
     f40Squads,
     tournamentStatus,
     teamRecords,
-    isKnockoutStage = false
+    isKnockoutStage = false,
+    recapVideosMap
 }: GroupStageSectionProps) {
     const groupStageMatches = getGroupStageMatches(f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData)
     const matchesByDay = groupMatchesByDate(groupStageMatches)
@@ -106,6 +109,7 @@ export function GroupStageSection({
                                             f9Feed={f9FeedsMap?.get(normalizeOptaId(match.uID))}
                                             streamingLink={streamingLink}
                                             broadcastPartners={broadcastPartners}
+                                            recapVideo={recapVideosMap?.get(normalizeOptaId(match.uID))}
                                         />
                                     ))}
                                     {emptyCells > 0 && (

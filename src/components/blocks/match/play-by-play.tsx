@@ -22,7 +22,7 @@ interface TimestampCellProps {
 function TimestampCell({ time, isGoal }: TimestampCellProps) {
     const isValidTimestamp = time && /^\d+'$/.test(time);
     const displayTime = isValidTimestamp ? time : null;
-    
+
     return (
         <TableCell className="align-middle text-sm text-muted-foreground w-10 font-headers text-xxs font-medium relative pl-3">
             {isGoal && (
@@ -80,7 +80,7 @@ interface CommentCellProps {
 
 function CommentCell({ comment, type }: CommentCellProps) {
     const cleanedComment = removeW7F(comment);
-    
+
     return (
         <TableCell className="align-center whitespace-normal">
             <div className={cn(
@@ -111,15 +111,15 @@ function ActionCell({ type }: ActionCellProps) {
 }
 
 export default function PlayByPlay({ commentary, className, isPreGame }: PlayByPlayProps) {
-    const messages = Array.isArray(commentary?.Commentary?.message) 
-        ? commentary.Commentary.message 
+    const messages = Array.isArray(commentary?.Commentary?.message)
+        ? commentary.Commentary.message
         : [];
     const scoringMessages = messages.filter(msg => isScoringAttempt(msg));
 
     if (messages.length === 0) {
         return (
             <EmptyMessage className="py-20">
-                {isPreGame 
+                {isPreGame
                     ? "Play by play commentary will be available once the match begins."
                     : "No commentary available"
                 }
@@ -128,11 +128,13 @@ export default function PlayByPlay({ commentary, className, isPreGame }: PlayByP
     }
 
     return (
-        <Tabs className={cn("",className)}>
-            <TabsList className="bg-card w-full">
-                <TabsTrigger value="all-plays" className="text-xs lg:text-base">All Plays</TabsTrigger>
-                <TabsTrigger value="scoring-chances" className="text-xs lg:text-base">Scoring Chances</TabsTrigger>
-            </TabsList>
+        <Tabs className={cn("", className)}>
+            <div className="px-4 lg:px-0">
+                <TabsList className="bg-card w-full">
+                    <TabsTrigger value="all-plays" className="text-xs lg:text-base">All Plays</TabsTrigger>
+                    <TabsTrigger value="scoring-chances" className="text-xs lg:text-base">Scoring Chances</TabsTrigger>
+                </TabsList>
+            </div>
             <TabsContents>
                 <TabsContent value="all-plays">
                     <Table className={cn()}>
@@ -140,9 +142,9 @@ export default function PlayByPlay({ commentary, className, isPreGame }: PlayByP
                             {messages.map((message, index) => (
                                 <TableRow key={message.id} className={cn(
                                     message.type === 'goal' ? 'bg-muted/50 hover:bg-muted/50' :
-                                    index % 2 === 1 ? 'bg-muted/20 hover:bg-muted/20' : 'hover:bg-transparent'
+                                        index % 2 === 1 ? 'bg-muted/20 hover:bg-muted/20' : 'hover:bg-transparent'
                                 )}>
-                                    <TimestampCell 
+                                    <TimestampCell
                                         time={message.time}
                                         isGoal={message.type === 'goal'}
                                     />
@@ -161,9 +163,9 @@ export default function PlayByPlay({ commentary, className, isPreGame }: PlayByP
                                 {scoringMessages.map((message, index) => (
                                     <TableRow key={message.id} className={cn(
                                         message.type === 'goal' ? 'bg-muted/80 hover:bg-muted/80' :
-                                        index % 2 === 1 ? 'bg-muted/20 hover:bg-muted/20' : 'hover:bg-transparent'
+                                            index % 2 === 1 ? 'bg-muted/20 hover:bg-muted/20' : 'hover:bg-transparent'
                                     )}>
-                                        <TimestampCell 
+                                        <TimestampCell
                                             time={message.time}
                                             isGoal={message.type === 'goal'}
                                         />

@@ -26,7 +26,7 @@ import { ClubStandingsTable } from "@/components/blocks/tournament/club-standing
 import { FastBanner } from "@/components/blocks/fast-banners";
 import { TeamSnapshot } from "@/components/blocks/team/team-snapshot";
 import { Button } from "@/components/ui/button";
-import { InformationCircleIcon } from "@/components/website-base/icons";
+import { CaretRightIcon, InformationCircleIcon, PlayIcon } from "@/components/website-base/icons";
 import { StreamingAvailabilityDialog } from "@/components/blocks/streaming-availability-dialog";
 import { PostGrid } from "@/components/blocks/posts/post-grid";
 import { EmptyMessage } from "@/components/ui/empty-message";
@@ -36,6 +36,112 @@ import { PrismicLink } from "@prismicio/react";
 import { mapBlogDocumentToMetadata } from "@/lib/utils";
 import type { TeamRecord } from "@/lib/v2-utils/records-from-f9";
 import type { TeamStats } from "@/lib/v2-utils/team-stats-from-f9";
+import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/components/ui/carousel";
+import {
+  ThumbnailCarousel,
+  ThumbnailCarouselContent,
+  ThumbnailCarouselItem,
+  ThumbnailCarouselPrevious,
+  ThumbnailCarouselNext,
+} from "@/components/ui/thumbnail-carousel";
+import Image from "next/image";
+import type { MatchHighlight } from "@/lib/supabase/queries/highlights";
+import ReactPlayer from "react-player";
+
+function MatchHighlightsCarousel({ highlights }: { highlights: MatchHighlight[] }) {
+  const [mainApi, setMainApi] = React.useState<CarouselApi>();
+  const [playingIndex, setPlayingIndex] = React.useState<number | null>(null);
+
+  React.useEffect(() => {
+    if (!mainApi) return;
+    const onSelect = () => {
+      setPlayingIndex(null);
+    };
+    mainApi.on("select", onSelect);
+    return () => {
+      mainApi.off("select", onSelect);
+    };
+  }, [mainApi]);
+
+  return (
+    <div className="">
+      <Carousel setApi={setMainApi} className="w-full">
+        <CarouselContent>
+          {highlights.map((highlight, index) => (
+            <CarouselItem key={highlight.id}>
+              <div className="relative aspect-video w-full overflow-hidden bg-muted">
+                {playingIndex === index ? (
+                  <ReactPlayer
+                    src={highlight.video_url}
+                    playing
+                    controls
+                    width="100%"
+                    height="100%"
+                    style={{ position: "absolute", top: 0, left: 0 }}
+                  />
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => setPlayingIndex(index)}
+                    className="w-full h-full cursor-pointer group"
+                  >
+                    <Image
+                      src={highlight.thumbnail_url}
+                      alt={highlight.title || "Match Highlight"}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 80vw"
+                    />
+                    <div className="absolute inset-0 w-full h-full bg-black/30 transition-all ease-linear group-hover:bg-black/45" />
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="z-10 bg-background/30 backdrop-blur-sm group-hover:backdrop-blur-lg transition-all flex items-center justify-center border border-secondary/5 w-14 h-14">
+                        <PlayIcon className="size-4" />
+                      </div>
+                    </div>
+                  </button>
+                )}
+              </div>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+      </Carousel>
+
+      <ThumbnailCarousel mainApi={mainApi}>
+        <div className="w-full">
+          <ThumbnailCarouselContent className="p-3">
+            {highlights.map((highlight, index) => (
+              <ThumbnailCarouselItem
+                key={highlight.id}
+                index={index}
+              >
+                <Image
+                  src={highlight.thumbnail_url}
+                  alt={highlight.title || "Match Highlight"}
+                  fill
+                  className="object-cover"
+                  sizes="128px"
+                />
+              </ThumbnailCarouselItem>
+            ))}
+          </ThumbnailCarouselContent>
+          <div className="grid grid-cols-[1fr_auto_1fr] gap-0 border-t border-border">
+            <ThumbnailCarouselPrevious asChild>
+              <Button variant="outline" className="w-full h-12 border-0">
+                <CaretRightIcon className="size-4 rotate-180" />
+              </Button>
+            </ThumbnailCarouselPrevious>
+            <div className="w-px h-full bg-border"></div>
+            <ThumbnailCarouselNext asChild>
+              <Button variant="outline" className="w-full h-12 border-0">
+                <CaretRightIcon className="size-4" />
+              </Button>
+            </ThumbnailCarouselNext>
+          </div>
+        </div>
+      </ThumbnailCarousel>
+    </div>
+  );
+}
 
 type Props = {
   f9MatchData?: F9MatchData | null;
@@ -65,6 +171,7 @@ type Props = {
   teamRecords?: TeamRecord[];
   teamStats?: TeamStats[];
   liveMinute?: string | null;
+  highlights?: MatchHighlight[];
 };
 
 export default function MatchPageContent({
@@ -95,6 +202,7 @@ export default function MatchPageContent({
   teamRecords,
   teamStats,
   liveMinute,
+  highlights = [],
 }: Props) {
   const matchData = f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData;
   const f1Matches = Array.isArray(matchData) ? matchData : (matchData ? [matchData] : []);
@@ -158,6 +266,16 @@ export default function MatchPageContent({
       <Separator variant="gradient" className="my-8" />
       <Section padding="none" className="grid grid-cols-1 lg:grid-cols-4 gap-8">
         <div className="lg:col-span-1 flex flex-col gap-8 relative">
+          {highlights.length > 0 && (
+            <Card banner className="w-full gap-0">
+              <CardHeader>
+                <CardTitle>Match Highlights</CardTitle>
+              </CardHeader>
+              <CardContent className="!p-0 lg:!p-0 gap-0">
+                <MatchHighlightsCarousel highlights={highlights} />
+              </CardContent>
+            </Card>
+          )}
           <Card banner className="w-full">
             <CardHeader>
               <CardTitle>{homeTeamData && awayTeamData ? "Lineups" : "Rosters"}</CardTitle>
@@ -236,7 +354,7 @@ export default function MatchPageContent({
             <CardHeader>
               <CardTitle>Play-By-Play</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="!px-0 lg:!px-4">
               <PlayByPlay commentary={commentary} isPreGame={isPreGame} />
             </CardContent>
           </Card>
@@ -305,19 +423,6 @@ export default function MatchPageContent({
               teamRecords={teamRecords}
             />
           )}
-          <Card banner className="w-full hidden">
-            <CardHeader>
-              <CardTitle>Match Highlights</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <VideoBanner
-                thumbnail="/images/static-media/video-banner.avif"
-                videoUrl="https://r2.vidzflow.com/source/a4c227f3-6918-4e29-8c72-b509a9cf3d5c.mp4"
-                size="sm"
-                className="h-auto aspect-video"
-              />
-            </CardContent>
-          </Card>
           {hasCommentary && <FastBanner text="FORWARD." position="right" strokeWidth="1.5px" className="hidden lg:block" />}
         </div>
       </Section>

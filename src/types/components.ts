@@ -4,6 +4,7 @@ import type { F1MatchData, F1TeamData } from "./opta-feeds/f1-fixtures"
 import type { F9MatchPlayer, F9Team, F9MatchResponse } from "./opta-feeds/f9-match"
 import type { F24Event } from "./opta-feeds/f24-match-events"
 import type { LeaderType } from "./game-leaders"
+import type { MatchHighlight } from "@/lib/supabase/queries/highlights"
 
 export type PlayerPosition = "Goalkeeper" | "Defender" | "Midfielder" | "Forward" | "Substitute"
 
@@ -79,6 +80,7 @@ export interface GameCardOpta extends React.HTMLAttributes<HTMLDivElement> {
   liveMinute?: string | null
   streamingLink?: string | null
   broadcastPartners?: BroadcastPartnersDocument[]
+  recapVideo?: MatchHighlight | null
 }
 
 export interface GameCardPrismic extends React.HTMLAttributes<HTMLDivElement> {

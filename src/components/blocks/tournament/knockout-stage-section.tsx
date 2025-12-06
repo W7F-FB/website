@@ -10,6 +10,7 @@ import { getMatchTeams, normalizeOptaId } from "@/lib/opta/utils"
 import { Separator } from "@/components/ui/separator"
 import { FastBanner } from "@/components/blocks/fast-banners"
 import { ChampionsCard } from "@/components/blocks/tournament/champions-card"
+import type { MatchHighlight } from "@/lib/supabase/queries/highlights"
 
 type KnockoutStageSectionProps = {
     semiFinalMatches: F1MatchData[]
@@ -24,6 +25,7 @@ type KnockoutStageSectionProps = {
     streamingLink?: string | null
     broadcastPartners?: BroadcastPartnersDocument[]
     f9FeedsMap?: Map<string, F9MatchResponse>
+    recapVideosMap?: Map<string, MatchHighlight>
 }
 
 export function KnockoutStageSection({ 
@@ -38,7 +40,8 @@ export function KnockoutStageSection({
     compact = false,
     streamingLink,
     broadcastPartners,
-    f9FeedsMap
+    f9FeedsMap,
+    recapVideosMap
 }: KnockoutStageSectionProps) {
     const knockoutMatches = semiFinalMatches.length + thirdPlaceMatches.length + finalMatches.length
     const knockoutDate = semiFinalMatches[0]?.MatchInfo?.Date
@@ -76,6 +79,7 @@ export function KnockoutStageSection({
                                 f9Feed={f9FeedsMap?.get(normalizeOptaId(semiFinalMatches[0].uID))}
                                 streamingLink={streamingLink}
                                 broadcastPartners={broadcastPartners}
+                                recapVideo={recapVideosMap?.get(normalizeOptaId(semiFinalMatches[0].uID))}
                             />
                         )}
                         {semiFinalMatches[1] && (
@@ -90,6 +94,7 @@ export function KnockoutStageSection({
                                 f9Feed={f9FeedsMap?.get(normalizeOptaId(semiFinalMatches[1].uID))}
                                 streamingLink={streamingLink}
                                 broadcastPartners={broadcastPartners}
+                                recapVideo={recapVideosMap?.get(normalizeOptaId(semiFinalMatches[1].uID))}
                             />
                         )}
                     </div>
@@ -106,6 +111,7 @@ export function KnockoutStageSection({
                             f9Feed={f9FeedsMap?.get(normalizeOptaId(match.uID))}
                             streamingLink={streamingLink}
                             broadcastPartners={broadcastPartners}
+                            recapVideo={recapVideosMap?.get(normalizeOptaId(match.uID))}
                         />
                     ))}
                     <Separator variant="gradient" className="my-12" />
@@ -122,6 +128,7 @@ export function KnockoutStageSection({
                             f9Feed={f9FeedsMap?.get(normalizeOptaId(match.uID))}
                             streamingLink={streamingLink}
                             broadcastPartners={broadcastPartners}
+                            recapVideo={recapVideosMap?.get(normalizeOptaId(match.uID))}
                         />
                     ))}
                     {allMatchesFullTime && (

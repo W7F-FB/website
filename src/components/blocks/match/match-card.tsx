@@ -5,7 +5,8 @@ import Image from "next/image"
 import { cn, formatGameDate } from "@/lib/utils"
 import { Card, CardContent, CardHeader, CardFooter } from "@/components/ui/card"
 import { H4 } from "@/components/website-base/typography"
-import { QuestionMarkIcon, CaretFilledIcon, CaretRightIcon, StreamIcon, InformationCircleIcon } from "@/components/website-base/icons"
+import { QuestionMarkIcon, CaretFilledIcon, CaretRightIcon, StreamIcon, InformationCircleIcon, ReplayIcon } from "@/components/website-base/icons"
+import { VideoModal } from "@/components/blocks/video-banner/video-modal"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import type { GameCardTeam, GameCardOpta } from "@/types/components"
@@ -206,8 +207,11 @@ function MatchCard({
     liveMinute: propLiveMinute,
     streamingLink,
     broadcastPartners,
+    recapVideo,
     ...restProps
 }: GameCardOpta) {
+    const [isVideoModalOpen, setIsVideoModalOpen] = React.useState(false)
+    
     const gameCardData = f9Feed 
         ? getF9GameCardData(f9Feed, prismicTeams, optaTeams, propLiveMinute ?? null) 
         : null
@@ -377,22 +381,41 @@ function MatchCard({
                             />
                         </Link>
                     </Button>
-                    {isLive && streamingLink && (
-                        <div className="flex items-center gap-1">
-                            <Button asChild variant="outline" size="sm" className="text-xs">
-                                <Link href={streamingLink} target="_blank" rel="noopener noreferrer">
-                                    <StreamIcon className="size-3" />
-                                    Stream
-                                </Link>
-                            </Button>
-                            <StreamingAvailabilityDialog broadcastPartners={broadcastPartners || []}>
-                                <Button variant="outline" size="icon" className="size-8">
-                                    <InformationCircleIcon className="size-4" />
+                    <div className="flex items-center gap-1">
+                        {isLive && streamingLink && (
+                            <>
+                                <Button asChild variant="outline" size="sm" className="text-xs">
+                                    <Link href={streamingLink} target="_blank" rel="noopener noreferrer">
+                                        <StreamIcon className="size-3" />
+                                        Stream
+                                    </Link>
                                 </Button>
-                            </StreamingAvailabilityDialog>
-                        </div>
-                    )}
+                                <StreamingAvailabilityDialog broadcastPartners={broadcastPartners || []}>
+                                    <Button variant="outline" size="icon" className="size-8">
+                                        <InformationCircleIcon className="size-4" />
+                                    </Button>
+                                </StreamingAvailabilityDialog>
+                            </>
+                        )}
+                        {recapVideo && (
+                            <Button 
+                                variant="outline" 
+                                size="sm" 
+                                className="h-7 px-2 text-xs gap-1"
+                                onClick={() => setIsVideoModalOpen(true)}
+                            >
+                                <ReplayIcon className="size-3" />
+                                Highlights
+                            </Button>
+                        )}
+                    </div>
                 </CardFooter>
+            )}
+            {isVideoModalOpen && recapVideo && (
+                <VideoModal 
+                    videoUrl={recapVideo.video_url} 
+                    onClose={() => setIsVideoModalOpen(false)} 
+                />
             )}
         </Card>
     )

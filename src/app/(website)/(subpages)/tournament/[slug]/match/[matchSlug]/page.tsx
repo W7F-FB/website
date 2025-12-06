@@ -20,6 +20,7 @@ import { groupMatchesByDate, isInKnockoutStage } from "../../../utils";
 import { getRecordsFromF9 } from "@/lib/v2-utils/records-from-f9";
 import { getTeamStatsFromF9 } from "@/lib/v2-utils/team-stats-from-f9";
 import { dev } from "@/lib/dev";
+import { getHighlightsByMatchId } from "@/lib/supabase/queries/highlights";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string; matchSlug: string }> }) {
   await params;
@@ -74,7 +75,7 @@ export default async function MatchPage({
 
   const normalizedOptaId = normalizeOptaId(optaId);
 
-  const [fixtures, standings, squads, commentary, f9FeedResult, f24Events, f2Preview] = await Promise.all([
+  const [fixtures, standings, squads, commentary, f9FeedResult, f24Events, f2Preview, highlights] = await Promise.all([
     getF1Fixtures(competitionId, seasonId),
     getF3Standings(competitionId, seasonId),
     getF40Squads(competitionId, seasonId),
@@ -82,6 +83,7 @@ export default async function MatchPage({
     fetchF9ForMatch(normalizedOptaId),
     getF24Events(normalizedOptaId).catch(() => null),
     getF2MatchPreview(normalizedOptaId).catch(() => null),
+    getHighlightsByMatchId(optaId),
   ]);
 
   const f9Feed = f9FeedResult.f9;
@@ -94,7 +96,6 @@ export default async function MatchPage({
     : null;
 
   const f9MatchData = f9Doc?.MatchData;
-  dev.log('Current f9 match:', f9MatchData);
   const f9TeamDataArray = f9MatchData?.TeamData
     ? (Array.isArray(f9MatchData.TeamData) ? f9MatchData.TeamData : [f9MatchData.TeamData])
     : [];
@@ -248,6 +249,7 @@ export default async function MatchPage({
               teamRecords={teamRecords}
               teamStats={teamStats}
               liveMinute={matchLiveMinute}
+              highlights={highlights}
             />
           </PaddingGlobal>
         </div>

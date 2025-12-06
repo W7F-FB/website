@@ -94,6 +94,54 @@ function getExtensionFromUrl(url: string, fallback: string): string {
   return match ? match[0].toLowerCase() : fallback;
 }
 
+function extractMp4Duration(bytes: Uint8Array): number | null {
+  let offset = 0;
+  while (offset < bytes.length - 8) {
+    const size = (bytes[offset] << 24) | (bytes[offset + 1] << 16) | (bytes[offset + 2] << 8) | bytes[offset + 3];
+    const type = String.fromCharCode(bytes[offset + 4], bytes[offset + 5], bytes[offset + 6], bytes[offset + 7]);
+    if (size === 0 || size > bytes.length - offset) break;
+    if (type === "moov") return parseMoovAtom(bytes, offset + 8, size - 8);
+    offset += size;
+  }
+  return null;
+}
+
+function parseMoovAtom(bytes: Uint8Array, start: number, length: number): number | null {
+  let offset = start;
+  const end = start + length;
+  while (offset < end - 8 && offset < bytes.length - 8) {
+    const size = (bytes[offset] << 24) | (bytes[offset + 1] << 16) | (bytes[offset + 2] << 8) | bytes[offset + 3];
+    const type = String.fromCharCode(bytes[offset + 4], bytes[offset + 5], bytes[offset + 6], bytes[offset + 7]);
+    if (size === 0 || size > end - offset) break;
+    if (type === "mvhd") return parseMvhdAtom(bytes, offset + 8);
+    offset += size;
+  }
+  return null;
+}
+
+function parseMvhdAtom(bytes: Uint8Array, start: number): number | null {
+  const version = bytes[start];
+  let timescale: number, duration: number;
+  if (version === 0) {
+    timescale = (bytes[start + 12] << 24) | (bytes[start + 13] << 16) | (bytes[start + 14] << 8) | bytes[start + 15];
+    duration = (bytes[start + 16] << 24) | (bytes[start + 17] << 16) | (bytes[start + 18] << 8) | bytes[start + 19];
+  } else {
+    timescale = (bytes[start + 20] << 24) | (bytes[start + 21] << 16) | (bytes[start + 22] << 8) | bytes[start + 23];
+    duration = (bytes[start + 24] << 24) | (bytes[start + 25] << 16) | (bytes[start + 26] << 8) | bytes[start + 27];
+  }
+  if (timescale === 0) return null;
+  return duration / timescale;
+}
+
+async function getVideoDurationFromBlob(blob: Blob): Promise<number | null> {
+  try {
+    const buffer = await blob.arrayBuffer();
+    return extractMp4Duration(new Uint8Array(buffer));
+  } catch {
+    return null;
+  }
+}
+
 export interface HighlightIngestPayload {
   video_source_url: string;
   thumbnail_source_url: string;
@@ -121,6 +169,9 @@ export async function ingestHighlight(payload: HighlightIngestPayload) {
   console.log("[WCS Ingest] Downloading video from:", videoUrl);
   const videoDownload = await fetchAsBlob(videoUrl);
   console.log("[WCS Ingest] Video downloaded:", videoDownload.blob.size, "bytes, content-type:", videoDownload.contentType);
+
+  const videoDuration = await getVideoDurationFromBlob(videoDownload.blob);
+  console.log("[WCS Ingest] Video duration:", videoDuration ? `${videoDuration.toFixed(2)}s` : "unknown");
   
   let videoExt = getExtensionFromUrl(videoUrl, ".mp4");
   if (videoExt === ".mp4" && videoDownload.contentType) {
@@ -240,6 +291,7 @@ export async function ingestHighlight(payload: HighlightIngestPayload) {
     opta_event_id: metadata.opta_event_id || "",
     video_url: vPub,
     thumbnail_url: thumbPublicUrl || "",
+    duration_seconds: videoDuration,
     status: "ready",
     updated_at: new Date().toISOString().replace("Z", ""),
   };

@@ -25,6 +25,7 @@ import { ClubStandingsTable } from "@/components/blocks/tournament/club-standing
 import type { BroadcastPartnersDocument } from "../../../../../prismicio-types"
 import type { TeamRecord } from "@/lib/v2-utils/records-from-f9"
 import type { TeamStatSheet } from "@/lib/v2-utils/team-stat-sheet-from-f9"
+import type { MatchHighlight } from "@/lib/supabase/queries/highlights"
 
 type Props = {
     tournament: TournamentDocument
@@ -45,9 +46,10 @@ type Props = {
     disneyPlus?: BroadcastPartnersDocument | null
     f9FeedsMap?: Map<string, F9MatchResponse>
     teamRecords?: TeamRecord[]
+    recapVideosMap?: Map<string, MatchHighlight>
 }
 
-export default function TournamentPageLive({ tournament, tournamentBlogs, f3StandingsData, f1FixturesData, teamStatSheets, f30TeamStats, prismicTeams, matchSlugMap, compact = false, dazn, tnt, truTV, hboMax, univision, espn, disneyPlus, f9FeedsMap, teamRecords }: Props) {
+export default function TournamentPageLive({ tournament, tournamentBlogs, f3StandingsData, f1FixturesData, teamStatSheets, f30TeamStats, prismicTeams, matchSlugMap, compact = false, dazn, tnt, truTV, hboMax, univision, espn, disneyPlus, f9FeedsMap, teamRecords, recapVideosMap }: Props) {
     const semiFinalMatches = getSemiFinalMatches(f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData)
     const thirdPlaceMatches = getThirdPlaceMatch(f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData)
     const finalMatches = getFinalMatch(f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData)
@@ -122,6 +124,7 @@ export default function TournamentPageLive({ tournament, tournamentBlogs, f3Stan
                     tournamentStatus={tournament.data.status ?? undefined}
                     teamRecords={teamRecords}
                     isKnockoutStage={knockoutStage}
+                    recapVideosMap={recapVideosMap}
                 />
                 <KnockoutStageSection
                     semiFinalMatches={semiFinalMatches}
@@ -136,6 +139,7 @@ export default function TournamentPageLive({ tournament, tournamentBlogs, f3Stan
                     streamingLink={dazn?.data.streaming_link}
                     broadcastPartners={broadcastPartners}
                     f9FeedsMap={f9FeedsMap}
+                    recapVideosMap={recapVideosMap}
                 />
                 <Section padding="md" id="stat-sheet">
                     <SectionHeading className="pb-8">
