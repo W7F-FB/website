@@ -85,12 +85,18 @@ export function Countdown({ targetDate, className, onComplete }: CountdownProps)
 
   useInterval(updateCountdown, timeRemaining.total > 0 ? 1000 : null)
 
-  if (timeRemaining.total <= 0) {
-    return null
-  }
-
   const { days, hours, minutes, seconds } = timeRemaining
   const pad = (n: number) => n.toString().padStart(2, "0")
+
+  if (timeRemaining.total <= 0) {
+    return (
+      <div className={cn("inline-flex items-center gap-[0.5em]", className)}>
+        <CountdownUnit value="00" label="Hrs" />
+        <CountdownUnit value="00" label="Min" />
+        <SecondsUnit value="00" label="Sec" />
+      </div>
+    )
+  }
 
   if (days >= 1) {
     return (
