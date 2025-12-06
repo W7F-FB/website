@@ -169,7 +169,7 @@ export function NavigationMenuTournamentFeatured({
                                 return (
                                     <NavSheetLink key={team.id}>
                                         <PrismicLink
-                                            document={team}
+                                            href={`/club/${team.uid}`}
                                             className="relative size-6.5 flex-shrink-0 opacity-100 hover:opacity-80 transition-opacity"
                                         >
                                             <PrismicNextImage
