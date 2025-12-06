@@ -8,13 +8,13 @@ import { useRefCam } from './ref-cam-context';
 
 export function RefCamFloatingButton() {
   const [mounted, setMounted] = useState(false);
-  const { isWhitelisted, hasSeenDialog, setOpen } = useRefCam();
+  const { isAccessible, hasSeenDialog, setOpen } = useRefCam();
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  if (!mounted || !isWhitelisted || !hasSeenDialog) {
+  if (!mounted || !isAccessible || !hasSeenDialog) {
     return null;
   }
 

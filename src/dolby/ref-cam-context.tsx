@@ -1,13 +1,13 @@
 "use client"
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { dolbyRefCamIpList } from './dolby-ref-cam-ip-list';
+import { Director } from '@millicast/sdk';
 import { useSafeAsync } from '@/hooks/use-safe-async';
 import { dev } from '@/lib/dev';
+import { REF_CAM_CONFIG } from './ref-cam-config';
 
 interface RefCamContextType {
-  userIp: string | null;
-  isWhitelisted: boolean;
+  isAccessible: boolean;
   open: boolean;
   setOpen: (open: boolean) => void;
   hasSeenDialog: boolean;
@@ -17,8 +17,7 @@ const RefCamContext = createContext<RefCamContextType | undefined>(undefined);
 
 export function RefCamProvider({ children }: { children: ReactNode }) {
   const [isMounted, setIsMounted] = useState(false);
-  const [userIp, setUserIp] = useState<string | null>(null);
-  const [isWhitelisted, setIsWhitelisted] = useState(false);
+  const [isAccessible, setIsAccessible] = useState(false);
   const [open, setOpenState] = useState(false);
   const [hasSeenDialog, setHasSeenDialog] = useState(false);
 
@@ -28,25 +27,25 @@ export function RefCamProvider({ children }: { children: ReactNode }) {
 
   useSafeAsync(
     async () => {
-      const response = await fetch('/api/user-ip');
-      if (!response.ok) {
-        throw new Error(`Failed to fetch IP: ${response.status} ${response.statusText}`);
-      }
-      const data = await response.json();
-      
-      dev.log('Ref Cam - IP Response:', data);
-      
-      if (data.ip) {
-        setUserIp(data.ip);
-        const isWhitelist = dolbyRefCamIpList.includes(data.ip);
-        dev.log('Ref Cam - IP Check:', { 
-          userIp: data.ip, 
-          isWhitelisted: isWhitelist,
-          whitelist: dolbyRefCamIpList 
+      try {
+        const data = await Director.getSubscriber({
+          streamName: REF_CAM_CONFIG.streamName,
+          streamAccountId: REF_CAM_CONFIG.streamAccountId,
+          subscriberToken: REF_CAM_CONFIG.subscriberToken,
         });
-        setIsWhitelisted(isWhitelist);
+        
+        const accessible = !!data && !!data.urls && data.urls.length > 0;
+        
+        dev.log('Ref Cam - Stream Check:', { 
+          streamName: REF_CAM_CONFIG.streamName,
+          accountId: REF_CAM_CONFIG.streamAccountId,
+          accessible,
+          data 
+        });
+        
+        if (accessible) {
+          setIsAccessible(true);
 
-        if (isWhitelist) {
           try {
             const shown = sessionStorage.getItem('ref-cam-shown');
             dev.log('Ref Cam - Session Check:', { shown, willOpen: !shown });
@@ -61,21 +60,27 @@ export function RefCamProvider({ children }: { children: ReactNode }) {
               source: 'ref-cam-session-storage',
             });
           }
+        } else {
+          setIsAccessible(false);
         }
+      } catch (error) {
+        dev.log('Ref Cam - Stream not accessible:', error);
+        setIsAccessible(false);
       }
     },
     [isMounted],
     {
       enabled: isMounted,
       onError: (error) => {
-        dev.error(error, { source: 'ref-cam-fetch-ip' });
+        dev.log('Ref Cam - Check failed, stream not accessible');
+        setIsAccessible(false);
       },
     }
   );
 
   const setOpen = (newOpen: boolean) => {
     setOpenState(newOpen);
-    if (!newOpen && isWhitelisted) {
+    if (!newOpen && isAccessible) {
       setHasSeenDialog(true);
     }
   };
@@ -83,8 +88,7 @@ export function RefCamProvider({ children }: { children: ReactNode }) {
   return (
     <RefCamContext.Provider
       value={{
-        userIp,
-        isWhitelisted: isMounted ? isWhitelisted : false,
+        isAccessible: isMounted ? isAccessible : false,
         open: isMounted ? open : false,
         setOpen,
         hasSeenDialog: isMounted ? hasSeenDialog : false,

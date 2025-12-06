@@ -14,16 +14,17 @@ import {
 import { Status, StatusIndicator } from '@/components/ui/status';
 import { Button } from '@/components/ui/button';
 import { useRefCam } from './ref-cam-context';
+import { REF_CAM_CONFIG } from './ref-cam-config';
 
 export function RefCamResponsiveDialog() {
   const [mounted, setMounted] = useState(false);
-  const { open, setOpen, isWhitelisted } = useRefCam();
+  const { open, setOpen, isAccessible } = useRefCam();
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  if (!mounted || !isWhitelisted) {
+  if (!mounted || !isAccessible) {
     return null;
   }
 
@@ -43,7 +44,7 @@ export function RefCamResponsiveDialog() {
         <ResponsiveDialogBody>
           <div className="w-full aspect-video">
             <iframe
-              src="https://viewer.millicast.com/?streamId=FBb77b/Ref_Cam_Stream&token=48b2e9f09e96b1f82b920b1bf8032282b6ec917e332c8801805f968d032ca93f"
+              src={REF_CAM_CONFIG.iframeUrl}
               allowFullScreen
               className="w-full h-full border-0"
             />

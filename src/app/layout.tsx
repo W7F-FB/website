@@ -7,7 +7,7 @@ import Script from "next/script";
 
 import { ClipPaths } from "@/components/ui/clip-paths";
 import { MetallicGradients } from "@/components/website-base/icons";
-import { RefCamWrapper } from "@/dolby/ref-cam-wrapper";
+import { RefCamClientWrapper } from "@/dolby/ref-cam-client-wrapper";
 import { ErrorHandler } from "@/components/website-base/error-handler";
 
 
@@ -36,9 +36,8 @@ export default async function RootLayout({
         />
         <ClipPaths />
         <MetallicGradients />
-        <RefCamWrapper>
-          {children}
-        </RefCamWrapper>
+        {children}
+        <RefCamClientWrapper />
         <PrismicPreview repositoryName="world-sevens-football" />
       </body>
     </html>
