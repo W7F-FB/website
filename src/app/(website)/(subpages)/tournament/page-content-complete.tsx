@@ -32,6 +32,7 @@ import { GroupStageSection } from "@/components/blocks/tournament/group-stage-se
 import { KnockoutStageSection } from "@/components/blocks/tournament/knockout-stage-section"
 import type { TeamRecord } from "@/lib/v2-utils/records-from-f9"
 import type { TeamStatSheet } from "@/lib/v2-utils/team-stat-sheet-from-f9"
+import type { MatchHighlight } from "@/lib/supabase/queries/highlights"
 
 type Props = {
     tournament: TournamentDocument
@@ -47,9 +48,10 @@ type Props = {
     dazn?: BroadcastPartnersDocument | null
     f9FeedsMap?: Map<string, F9MatchResponse>
     teamRecords?: TeamRecord[]
+    recapVideosMap?: Map<string, MatchHighlight>
 }
 
-export default function TournamentPagePast({ tournament, tournamentBlogs, f3StandingsData, f1FixturesData, teamStatSheets, f30TeamStats, prismicTeams, matchSlugMap, awards, compact = false, dazn, f9FeedsMap, teamRecords }: Props) {
+export default function TournamentPagePast({ tournament, tournamentBlogs, f3StandingsData, f1FixturesData, teamStatSheets, f30TeamStats, prismicTeams, matchSlugMap, awards, compact = false, dazn, f9FeedsMap, teamRecords, recapVideosMap }: Props) {
     const semiFinalMatches = getSemiFinalMatches(f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData)
     const thirdPlaceMatches = getThirdPlaceMatch(f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData)
     const finalMatches = getFinalMatch(f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData)
@@ -173,6 +175,7 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                     tournamentStatus={tournament.data.status ?? undefined}
                     teamRecords={teamRecords}
                     isKnockoutStage={knockoutStage}
+                    recapVideosMap={recapVideosMap}
                 />
                 <KnockoutStageSection
                     semiFinalMatches={semiFinalMatches}
@@ -186,6 +189,7 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                     compact={compact}
                     streamingLink={dazn?.data.streaming_link}
                     f9FeedsMap={f9FeedsMap}
+                    recapVideosMap={recapVideosMap}
                 />
                 <Section padding="md" id="stat-sheet">
                     <SectionHeading className="pb-8">

@@ -23,6 +23,7 @@ import { groupMatchesByDate } from "../utils"
 import { buildMatchSlugMap } from "@/lib/match-url"
 import { getRecordsFromF9 } from "@/lib/v2-utils/records-from-f9"
 import { getTeamStatSheetFromF9, type TeamStatSheet } from "@/lib/v2-utils/team-stat-sheet-from-f9"
+import { getRecapVideosForMatches, type MatchHighlight } from "@/lib/supabase/queries/highlights"
 
 type AwardAwardsField = TournamentDocumentDataAwardsItem['awards']
 type AwardData = AwardAwardsField extends prismic.ContentRelationshipField<infer _ID, infer _Lang, infer TData>
@@ -124,6 +125,7 @@ export default async function TournamentPage({ params, searchParams }: Props) {
   const f30TeamStats: Map<string, F30SeasonStatsResponse> = new Map()
   let f9FeedsMap: Map<string, F9MatchResponse> = new Map()
   let liveMinutesMap: Map<string, string> = new Map()
+  let recapVideosMap: Map<string, MatchHighlight> = new Map()
 
   if (competitionId && seasonId && tournament.uid && (status === "Live" || status === "Complete")) {
     try {
@@ -135,9 +137,6 @@ export default async function TournamentPage({ params, searchParams }: Props) {
       f3StandingsData = standings
       f1FixturesData = fixtures
       prismicTeams = teams
-
-      dev.log('f1FixturesData', f1FixturesData)
-      dev.log('f3StandingsData', f3StandingsData)
 
       const uniqueTeamIds = prismicTeams
         .map(team => team.data.opta_id)
@@ -163,9 +162,13 @@ export default async function TournamentPage({ params, searchParams }: Props) {
       const allMatches = f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData
       if (allMatches && Array.isArray(allMatches)) {
         const matchIds = extractMatchIdsFromFixtures(allMatches)
-        const fetchedResult = await fetchF9FeedsForMatches(matchIds)
+        const [fetchedResult, fetchedRecaps] = await Promise.all([
+          fetchF9FeedsForMatches(matchIds),
+          getRecapVideosForMatches(matchIds)
+        ])
         f9FeedsMap = fetchedResult.f9FeedsMap
         liveMinutesMap = fetchedResult.liveMinutesMap
+        recapVideosMap = fetchedRecaps
 
         const teamStatSheetArray = getTeamStatSheetFromF9(Array.from(f9FeedsMap.values()))
         teamStatSheetArray.forEach(stat => {
@@ -179,7 +182,6 @@ export default async function TournamentPage({ params, searchParams }: Props) {
             const f1Stats = Array.isArray(fixture.Stat) ? fixture.Stat : []
             const matchTimeStat = f1Stats.find(s => s.Type === "match_time")
             const matchTime = matchTimeStat?.value ? Number(matchTimeStat.value) : null
-            dev.log(`F1 Live Match: ${fixture.uID} - Minute: ${matchTime ?? 'N/A'}`)
           }
         })
       }
@@ -199,29 +201,9 @@ export default async function TournamentPage({ params, searchParams }: Props) {
           const matchStats = Array.isArray(matchData.Stat) ? matchData.Stat : []
           const matchTimeStat = matchStats.find(s => s.Type === "match_time")
           const matchTime = matchTimeStat?.value ? Number(matchTimeStat.value) : null
-          dev.log(`F9 Live Match: ${matchId} - Minute: ${matchTime ?? 'N/A'}`)
         }
       })
 
-      const targetMatchIds = ["2610446", "2610447", "2610441"]
-      targetMatchIds.forEach((matchIdStr) => {
-        const targetMatchId = normalizeOptaId(matchIdStr)
-        const targetMatchFeed = f9FeedsMap.get(targetMatchId)
-        if (targetMatchFeed) {
-          dev.log(`Match ${matchIdStr} Full F9 Feed:`, targetMatchFeed)
-        } else {
-          dev.log(`Match ${matchIdStr} not found in f9FeedsMap`)
-        }
-
-        if (allMatches && Array.isArray(allMatches)) {
-          const targetF1Fixture = allMatches.find((fixture) => normalizeOptaId(fixture.uID) === targetMatchId)
-          if (targetF1Fixture) {
-            dev.log(`Match ${matchIdStr} Full F1 Fixture:`, targetF1Fixture)
-          } else {
-            dev.log(`Match ${matchIdStr} not found in F1 fixtures`)
-          }
-        }
-      })
       
     } catch (error) {
       dev.log('Error fetching tournament data:', error)
@@ -285,6 +267,7 @@ export default async function TournamentPage({ params, searchParams }: Props) {
         disneyPlus={disneyPlus}
         f9FeedsMap={f9FeedsMap}
         teamRecords={teamRecords}
+        recapVideosMap={recapVideosMap}
       />
     )
   } else if (status === "Complete") {
@@ -303,6 +286,7 @@ export default async function TournamentPage({ params, searchParams }: Props) {
         dazn={dazn}
         f9FeedsMap={f9FeedsMap}
         teamRecords={teamRecords}
+        recapVideosMap={recapVideosMap}
       />
     )
   } else {

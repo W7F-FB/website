@@ -34,6 +34,8 @@ type ThumbnailCarouselContextValue = {
   scrollNext: () => void
   canScrollPrev: boolean
   canScrollNext: boolean
+  totalItems: number
+  setTotalItems: (count: number) => void
 }
 
 
@@ -70,6 +72,7 @@ function ThumbnailCarousel({
   const [selectedIndex, setSelectedIndex] = React.useState(0)
   const [canScrollPrev, setCanScrollPrev] = React.useState(false)
   const [canScrollNext, setCanScrollNext] = React.useState(false)
+  const [totalItems, setTotalItems] = React.useState(0)
 
   const onThumbClick = React.useCallback(
     (index: number) => {
@@ -136,10 +139,17 @@ function ThumbnailCarousel({
         scrollNext,
         canScrollPrev,
         canScrollNext,
+        totalItems,
+        setTotalItems,
       }}
     >
       <div
-        className={cn("relative", className)}
+        className={cn(
+          "flex items-center gap-2",
+          orientation === "vertical" && "flex-col",
+          totalItems === 1 && "hidden",
+          className
+        )}
         role="region"
         aria-roledescription="thumbnail carousel"
         {...props}
@@ -152,22 +162,30 @@ function ThumbnailCarousel({
 
 function ThumbnailCarouselContent({
   className,
+  children,
   ...props
 }: React.ComponentProps<"div">) {
-  const { carouselRef, orientation } = useThumbnailCarousel()
+  const { carouselRef, orientation, setTotalItems } = useThumbnailCarousel()
+  const childCount = React.Children.count(children)
+
+  React.useEffect(() => {
+    setTotalItems(childCount)
+  }, [childCount, setTotalItems])
 
   return (
-    <div ref={carouselRef} className="overflow-hidden">
+    <div ref={carouselRef} className="overflow-hidden flex-1 min-w-0">
       <div
         className={cn(
           "flex justify-start",
           orientation === "horizontal"
-            ? "-ml-4 flex-row"
-            : "-mt-4 flex-col",
+            ? "-ml-1.5 flex-row"
+            : "-mt-1.5 flex-col",
           className
         )}
         {...props}
-      />
+      >
+        {children}
+      </div>
     </div>
   )
 }
@@ -176,9 +194,11 @@ const ThumbnailCarouselItem = React.memo(
   ({
     index,
     className,
+    style,
+    children,
     ...props
   }: React.ComponentProps<"div"> & { index: number }) => {
-    const { orientation, onThumbClick, selectedIndex } = useThumbnailCarousel()
+    const { orientation, onThumbClick, selectedIndex, totalItems } = useThumbnailCarousel()
     const isSelected = selectedIndex === index
 
     const handleClick = React.useCallback(
@@ -190,19 +210,33 @@ const ThumbnailCarouselItem = React.memo(
       [onThumbClick, index]
     )
 
+    const basisPercent = totalItems > 0 ? 100 / Math.min(totalItems, 5) : 20
+
     return (
       <div
         role="group"
         aria-roledescription="slide"
         aria-current={isSelected ? "true" : "false"}
         className={cn(
-          "min-w-0 shrink-0 grow-0 basis-full cursor-pointer",
-          orientation === "horizontal" ? "pl-4" : "pt-4",
+          "min-w-0 shrink-0 grow-0 cursor-pointer",
+          orientation === "horizontal" ? "pl-1.5" : "pt-1.5",
           className
         )}
+        style={{ flexBasis: `${basisPercent}%`, ...style }}
         onClick={handleClick}
         {...props}
-      />
+      >
+        <div
+          className={cn(
+            "relative aspect-video overflow-hidden rounded-md border transition-all",
+            isSelected
+              ? "border-border ring-1 ring-border"
+              : "border-transparent opacity-60 hover:opacity-100"
+          )}
+        >
+          {children}
+        </div>
+      </div>
     )
   }
 )
@@ -213,6 +247,8 @@ function ThumbnailCarouselPrevious({
   variant = "link",
   size = "icon",
   icon: Icon = CaretRightIcon,
+  asChild = false,
+  children,
   ...props
 }: React.ComponentProps<typeof Button> & {
   icon?: React.ComponentType<{ className?: string }>
@@ -223,19 +259,22 @@ function ThumbnailCarouselPrevious({
     <Button
       variant={variant}
       size={size}
+      asChild={asChild}
       className={cn(
-        "absolute size-6 z-10",
-        orientation === "horizontal"
-          ? "top-1/2 left-2 -translate-y-1/2"
-          : "top-2 left-1/2 -translate-x-1/2 rotate-90",
+        "shrink-0 size-6",
+        orientation === "vertical" && "rotate-90",
         className
       )}
       disabled={!canScrollPrev}
       onClick={scrollPrev}
       {...props}
     >
-      <Icon className="size-4 rotate-180" />
-      <span className="sr-only">Previous thumbnail</span>
+      {asChild ? children : (
+        <>
+          <Icon className="size-4 rotate-180" />
+          <span className="sr-only">Previous thumbnail</span>
+        </>
+      )}
     </Button>
   )
 }
@@ -245,6 +284,8 @@ function ThumbnailCarouselNext({
   variant = "link",
   size = "icon",
   icon: Icon = CaretRightIcon,
+  asChild = false,
+  children,
   ...props
 }: React.ComponentProps<typeof Button> & {
   icon?: React.ComponentType<{ className?: string }>
@@ -255,19 +296,22 @@ function ThumbnailCarouselNext({
     <Button
       variant={variant}
       size={size}
+      asChild={asChild}
       className={cn(
-        "absolute size-6 z-10",
-        orientation === "horizontal"
-          ? "top-1/2 right-2 -translate-y-1/2"
-          : "bottom-2 left-1/2 -translate-x-1/2 rotate-90",
+        "shrink-0 size-6",
+        orientation === "vertical" && "rotate-90",
         className
       )}
       disabled={!canScrollNext}
       onClick={scrollNext}
       {...props}
     >
-      <Icon className="size-4" />
-      <span className="sr-only">Next thumbnail</span>
+      {asChild ? children : (
+        <>
+          <Icon className="size-4" />
+          <span className="sr-only">Next thumbnail</span>
+        </>
+      )}
     </Button>
   )
 }
