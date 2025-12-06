@@ -1,0 +1,2039 @@
+{
+    "SoccerDocument": {
+        "Competition": {
+            "Name": "World Sevens Football Americas",
+            "Round": {
+                "Name": "Round",
+                "Pool": 1,
+                "RoundNumber": 1
+            },
+            "Stat": [
+                {
+                    "value": 2025,
+                    "Type": "season_id"
+                },
+                {
+                    "value": "Season 2025/2026",
+                    "Type": "season_name"
+                },
+                {
+                    "value": "WSA",
+                    "Type": "symid"
+                },
+                {
+                    "value": 2,
+                    "Type": "matchday"
+                }
+            ],
+            "uID": "c1343"
+        },
+        "MatchData": {
+            "MatchInfo": {
+                "Date": "20251206T163000+0000",
+                "DateUtc": "20251206T163000+0000",
+                "MatchType": "Cup 1ET PENS",
+                "Period": "FullTime",
+                "TimeFrameLengthId": 34,
+                "TimeStamp": "20251206T172241+0000"
+            },
+            "Stat": [
+                {
+                    "value": 71,
+                    "Type": "match_time"
+                },
+                {
+                    "value": "20251206T163017+0000",
+                    "Type": "first_half_start"
+                },
+                {
+                    "value": "20251206T163017+0000",
+                    "Type": "first_half_start_utc"
+                },
+                {
+                    "value": 15,
+                    "Type": "first_half_time"
+                },
+                {
+                    "value": "20251206T164606+0000",
+                    "Type": "first_half_stop"
+                },
+                {
+                    "value": "20251206T164606+0000",
+                    "Type": "first_half_stop_utc"
+                },
+                {
+                    "value": "20251206T165116+0000",
+                    "Type": "second_half_start"
+                },
+                {
+                    "value": "20251206T165116+0000",
+                    "Type": "second_half_start_utc"
+                },
+                {
+                    "value": 16,
+                    "Type": "second_half_time"
+                },
+                {
+                    "value": "20251206T170825+0000",
+                    "Type": "second_half_stop"
+                },
+                {
+                    "value": "20251206T170825+0000",
+                    "Type": "second_half_stop_utc"
+                },
+                {
+                    "value": "20251206T171156+0000",
+                    "Type": "first_half_extra_start"
+                },
+                {
+                    "value": "20251206T171156+0000",
+                    "Type": "first_half_extra_start_utc"
+                },
+                {
+                    "value": 5,
+                    "Type": "first_half_extra_time"
+                },
+                {
+                    "value": "20251206T171802+0000",
+                    "Type": "first_half_extra_stop"
+                },
+                {
+                    "value": "20251206T171802+0000",
+                    "Type": "first_half_extra_stop_utc"
+                }
+            ],
+            "TeamData": [
+                {
+                    "Goal": [
+                        {
+                            "Assist": {
+                                "value": "p441500",
+                                "PlayerRef": "p441500"
+                            },
+                            "EventID": 2880462475,
+                            "EventNumber": 131,
+                            "Min": 2,
+                            "Period": "FirstHalf",
+                            "PlayerRef": "p722742",
+                            "Sec": 32,
+                            "Time": 3,
+                            "TimeStamp": "20251206T163320+0000",
+                            "TimeStampUTC": "20251206T163320+0000",
+                            "Type": "Goal",
+                            "uID": "g23622-1"
+                        },
+                        {
+                            "EventID": 2880505665,
+                            "EventNumber": 2302,
+                            "Min": 29,
+                            "Period": "SecondHalf",
+                            "PlayerRef": "p456368",
+                            "Sec": 56,
+                            "Time": 30,
+                            "TimeStamp": "20251206T170659+0000",
+                            "TimeStampUTC": "20251206T170659+0000",
+                            "Type": "Goal",
+                            "uID": "g23622-2"
+                        }
+                    ],
+                    "PlayerLineUp": {
+                        "MatchPlayer": [
+                            {
+                                "Stat": [
+                                    {
+                                        "value": 13,
+                                        "Type": "accurate_back_zone_pass"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "accurate_chipped_pass"
+                                    },
+                                    {
+                                        "value": 12,
+                                        "Type": "accurate_fwd_zone_pass"
+                                    },
+                                    {
+                                        "value": 7,
+                                        "Type": "accurate_goal_kicks"
+                                    },
+                                    {
+                                        "value": 5,
+                                        "Type": "accurate_keeper_throws"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "accurate_launches"
+                                    },
+                                    {
+                                        "value": 12,
+                                        "Type": "accurate_long_balls"
+                                    },
+                                    {
+                                        "value": 25,
+                                        "Type": "accurate_pass"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "att_lg_centre"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "att_miss_left"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "att_obox_miss"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "att_openplay"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "att_rf_total"
+                                    },
+                                    {
+                                        "value": 9,
+                                        "Type": "attempts_conceded_ibox"
+                                    },
+                                    {
+                                        "value": 8,
+                                        "Type": "attempts_conceded_obox"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "attempts_obox"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "backward_pass"
+                                    },
+                                    {
+                                        "value": 6,
+                                        "Type": "ball_recovery"
+                                    },
+                                    {
+                                        "value": 16,
+                                        "Type": "carries"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "dispossessed"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "diving_save"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "duel_lost"
+                                    },
+                                    {
+                                        "value": 16,
+                                        "Type": "final_third_entries"
+                                    },
+                                    {
+                                        "value": 20,
+                                        "Type": "fwd_pass"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "game_started"
+                                    },
+                                    {
+                                        "value": 9,
+                                        "Type": "goal_kicks"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "goals_conceded"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "goals_conceded_ibox"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "goals_conceded_obox"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "interception"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "interception_won"
+                                    },
+                                    {
+                                        "value": 6,
+                                        "Type": "keeper_pick_up"
+                                    },
+                                    {
+                                        "value": 5,
+                                        "Type": "keeper_throws"
+                                    },
+                                    {
+                                        "value": 7,
+                                        "Type": "leftside_pass"
+                                    },
+                                    {
+                                        "value": 21,
+                                        "Type": "long_pass_own_to_opp"
+                                    },
+                                    {
+                                        "value": 13,
+                                        "Type": "long_pass_own_to_opp_success"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "lost_corners"
+                                    },
+                                    {
+                                        "value": 25,
+                                        "Type": "open_play_pass"
+                                    },
+                                    {
+                                        "value": 7,
+                                        "Type": "passes_left"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "passes_right"
+                                    },
+                                    {
+                                        "value": 6,
+                                        "Type": "pen_area_entries"
+                                    },
+                                    {
+                                        "value": 11,
+                                        "Type": "poss_lost_all"
+                                    },
+                                    {
+                                        "value": 11,
+                                        "Type": "poss_lost_ctrl"
+                                    },
+                                    {
+                                        "value": 13,
+                                        "Type": "progressive_carries"
+                                    },
+                                    {
+                                        "value": 6,
+                                        "Type": "rightside_pass"
+                                    },
+                                    {
+                                        "value": 3,
+                                        "Type": "saved_ibox"
+                                    },
+                                    {
+                                        "value": 3,
+                                        "Type": "saved_obox"
+                                    },
+                                    {
+                                        "value": 5,
+                                        "Type": "saves"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "shot_off_target"
+                                    },
+                                    {
+                                        "value": 4,
+                                        "Type": "stand_save"
+                                    },
+                                    {
+                                        "value": 7,
+                                        "Type": "successful_final_third_passes"
+                                    },
+                                    {
+                                        "value": 18,
+                                        "Type": "successful_open_play_pass"
+                                    },
+                                    {
+                                        "value": 13,
+                                        "Type": "total_back_zone_pass"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "total_chipped_pass"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "total_contest"
+                                    },
+                                    {
+                                        "value": 16,
+                                        "Type": "total_final_third_passes"
+                                    },
+                                    {
+                                        "value": 21,
+                                        "Type": "total_fwd_zone_pass"
+                                    },
+                                    {
+                                        "value": 3,
+                                        "Type": "total_launches"
+                                    },
+                                    {
+                                        "value": 20,
+                                        "Type": "total_long_balls"
+                                    },
+                                    {
+                                        "value": 34,
+                                        "Type": "total_pass"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "total_scoring_att"
+                                    },
+                                    {
+                                        "value": 49,
+                                        "Type": "touches"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "touches_in_final_third"
+                                    },
+                                    {
+                                        "value": 0,
+                                        "Type": "winning_goal"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "times_tackled"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "formation_place"
+                                    }
+                                ],
+                                "PlayerRef": "p428804",
+                                "Position": "Goalkeeper",
+                                "ShirtNumber": 17,
+                                "Status": "Start"
+                            },
+                            {
+                                "Stat": [
+                                    {
+                                        "value": 6,
+                                        "Type": "accurate_back_zone_pass"
+                                    },
+                                    {
+                                        "value": 10,
+                                        "Type": "accurate_fwd_zone_pass"
+                                    },
+                                    {
+                                        "value": 4,
+                                        "Type": "accurate_long_balls"
+                                    },
+                                    {
+                                        "value": 16,
+                                        "Type": "accurate_pass"
+                                    },
+                                    {
+                                        "value": 3,
+                                        "Type": "accurate_throws"
+                                    },
+                                    {
+                                        "value": 3,
+                                        "Type": "att_assist_openplay"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "att_ibox_miss"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "att_lf_total"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "att_miss_left"
+                                    },
+                                    {
+                                        "value": 3,
+                                        "Type": "att_obox_blocked"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "att_obx_centre"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "att_obxd_left"
+                                    },
+                                    {
+                                        "value": 4,
+                                        "Type": "att_openplay"
+                                    },
+                                    {
+                                        "value": 3,
+                                        "Type": "att_rf_total"
+                                    },
+                                    {
+                                        "value": 7,
+                                        "Type": "attempts_conceded_ibox"
+                                    },
+                                    {
+                                        "value": 7,
+                                        "Type": "attempts_conceded_obox"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "attempts_ibox"
+                                    },
+                                    {
+                                        "value": 3,
+                                        "Type": "attempts_obox"
+                                    },
+                                    {
+                                        "value": 3,
+                                        "Type": "backward_pass"
+                                    },
+                                    {
+                                        "value": 5,
+                                        "Type": "ball_recovery"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "big_chance_created"
+                                    },
+                                    {
+                                        "value": 3,
+                                        "Type": "blocked_scoring_att"
+                                    },
+                                    {
+                                        "value": 7,
+                                        "Type": "carries"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "corner_taken"
+                                    },
+                                    {
+                                        "value": 3,
+                                        "Type": "duel_won"
+                                    },
+                                    {
+                                        "value": 3,
+                                        "Type": "final_third_entries"
+                                    },
+                                    {
+                                        "value": 9,
+                                        "Type": "fwd_pass"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "game_started"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "goal_assist"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "goal_assist_intentional"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "goal_assist_openplay"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "goals_conceded"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "goals_conceded_ibox"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "goals_conceded_obox"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "interception"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "interception_won"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "leftside_pass"
+                                    },
+                                    {
+                                        "value": 7,
+                                        "Type": "long_pass_own_to_opp"
+                                    },
+                                    {
+                                        "value": 5,
+                                        "Type": "long_pass_own_to_opp_success"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "offtarget_att_assist"
+                                    },
+                                    {
+                                        "value": 3,
+                                        "Type": "ontarget_att_assist"
+                                    },
+                                    {
+                                        "value": 18,
+                                        "Type": "open_play_pass"
+                                    },
+                                    {
+                                        "value": 3,
+                                        "Type": "passes_left"
+                                    },
+                                    {
+                                        "value": 3,
+                                        "Type": "passes_right"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "pen_area_entries"
+                                    },
+                                    {
+                                        "value": 4,
+                                        "Type": "poss_lost_all"
+                                    },
+                                    {
+                                        "value": 4,
+                                        "Type": "poss_lost_ctrl"
+                                    },
+                                    {
+                                        "value": 4,
+                                        "Type": "poss_won_def_3rd"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "poss_won_mid_3rd"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "progressive_carries"
+                                    },
+                                    {
+                                        "value": 6,
+                                        "Type": "rightside_pass"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "saves"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "shot_off_target"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "six_yard_block"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "stand_save"
+                                    },
+                                    {
+                                        "value": 3,
+                                        "Type": "successful_final_third_passes"
+                                    },
+                                    {
+                                        "value": 15,
+                                        "Type": "successful_open_play_pass"
+                                    },
+                                    {
+                                        "value": 4,
+                                        "Type": "total_att_assist"
+                                    },
+                                    {
+                                        "value": 6,
+                                        "Type": "total_back_zone_pass"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "total_corners_intobox"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "total_cross"
+                                    },
+                                    {
+                                        "value": 4,
+                                        "Type": "total_final_third_passes"
+                                    },
+                                    {
+                                        "value": 14,
+                                        "Type": "total_fwd_zone_pass"
+                                    },
+                                    {
+                                        "value": 6,
+                                        "Type": "total_long_balls"
+                                    },
+                                    {
+                                        "value": 19,
+                                        "Type": "total_pass"
+                                    },
+                                    {
+                                        "value": 4,
+                                        "Type": "total_scoring_att"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "total_sub_off"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "total_tackle"
+                                    },
+                                    {
+                                        "value": 3,
+                                        "Type": "total_throws"
+                                    },
+                                    {
+                                        "value": 35,
+                                        "Type": "touches"
+                                    },
+                                    {
+                                        "value": 9,
+                                        "Type": "touches_in_final_third"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "touches_in_opp_box"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "was_fouled"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "won_corners"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "won_tackle"
+                                    },
+                                    {
+                                        "value": 0,
+                                        "Type": "winning_goal"
+                                    },
+                                    {
+                                        "value": 0,
+                                        "Type": "times_tackled"
+                                    },
+                                    {
+                                        "value": 5,
+                                        "Type": "formation_place"
+                                    }
+                                ],
+                                "PlayerRef": "p441500",
+                                "Position": "Defender",
+                                "ShirtNumber": 2,
+                                "Status": "Start"
+                            },
+                            {
+                                "Stat": [
+                                    {
+                                        "value": 3,
+                                        "Type": "accurate_back_zone_pass"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "accurate_chipped_pass"
+                                    },
+                                    {
+                                        "value": 5,
+                                        "Type": "accurate_fwd_zone_pass"
+                                    },
+                                    {
+                                        "value": 5,
+                                        "Type": "accurate_long_balls"
+                                    },
+                                    {
+                                        "value": 8,
+                                        "Type": "accurate_pass"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "accurate_throws"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "att_bx_centre"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "att_goal_low_left"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "att_ibox_goal"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "att_ibox_target"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "att_lf_goal"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "att_lf_total"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "att_openplay"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "att_rf_target"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "att_rf_total"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "att_sv_low_centre"
+                                    },
+                                    {
+                                        "value": 6,
+                                        "Type": "attempts_conceded_ibox"
+                                    },
+                                    {
+                                        "value": 7,
+                                        "Type": "attempts_conceded_obox"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "attempts_ibox"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "backward_pass"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "ball_recovery"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "big_chance_missed"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "big_chance_saves"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "big_chance_scored"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "blocked_pass"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "carries"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "clearance_off_line"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "dispossessed"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "duel_lost"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "duel_won"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "effective_clearance"
+                                    },
+                                    {
+                                        "value": 6,
+                                        "Type": "final_third_entries"
+                                    },
+                                    {
+                                        "value": 8,
+                                        "Type": "fwd_pass"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "game_started"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "goals"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "goals_conceded"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "goals_conceded_ibox"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "goals_conceded_obox"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "goals_openplay"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "head_pass"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "interception"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "interception_won"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "leftside_pass"
+                                    },
+                                    {
+                                        "value": 8,
+                                        "Type": "long_pass_own_to_opp"
+                                    },
+                                    {
+                                        "value": 6,
+                                        "Type": "long_pass_own_to_opp_success"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "lost_corners"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "ontarget_scoring_att"
+                                    },
+                                    {
+                                        "value": 11,
+                                        "Type": "open_play_pass"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "outfielder_block"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "pen_area_entries"
+                                    },
+                                    {
+                                        "value": 6,
+                                        "Type": "poss_lost_all"
+                                    },
+                                    {
+                                        "value": 6,
+                                        "Type": "poss_lost_ctrl"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "poss_won_def_3rd"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "poss_won_mid_3rd"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "progressive_carries"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "put_through"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "rightside_pass"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "shield_ball_oop"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "successful_final_third_passes"
+                                    },
+                                    {
+                                        "value": 8,
+                                        "Type": "successful_open_play_pass"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "successful_put_through"
+                                    },
+                                    {
+                                        "value": 3,
+                                        "Type": "total_back_zone_pass"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "total_chipped_pass"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "total_clearance"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "total_contest"
+                                    },
+                                    {
+                                        "value": 5,
+                                        "Type": "total_final_third_passes"
+                                    },
+                                    {
+                                        "value": 9,
+                                        "Type": "total_fwd_zone_pass"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "total_launches"
+                                    },
+                                    {
+                                        "value": 8,
+                                        "Type": "total_long_balls"
+                                    },
+                                    {
+                                        "value": 12,
+                                        "Type": "total_pass"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "total_scoring_att"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "total_sub_off"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "total_tackle"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "total_throws"
+                                    },
+                                    {
+                                        "value": 29,
+                                        "Type": "touches"
+                                    },
+                                    {
+                                        "value": 4,
+                                        "Type": "touches_in_final_third"
+                                    },
+                                    {
+                                        "value": 3,
+                                        "Type": "touches_in_opp_box"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "won_contest"
+                                    },
+                                    {
+                                        "value": 0,
+                                        "Type": "winning_goal"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "times_tackled"
+                                    },
+                                    {
+                                        "value": 4,
+                                        "Type": "formation_place"
+                                    }
+                                ],
+                                "PlayerRef": "p456368",
+                                "Position": "Defender",
+                                "ShirtNumber": 28,
+                                "Status": "Start"
+                            },
+                            {
+                                "Stat": [
+                                    {
+                                        "value": 8,
+                                        "Type": "accurate_back_zone_pass"
+                                    },
+                                    {
+                                        "value": 3,
+                                        "Type": "accurate_fwd_zone_pass"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "accurate_long_balls"
+                                    },
+                                    {
+                                        "value": 11,
+                                        "Type": "accurate_pass"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "accurate_throws"
+                                    },
+                                    {
+                                        "value": 14,
+                                        "Type": "attempts_conceded_ibox"
+                                    },
+                                    {
+                                        "value": 10,
+                                        "Type": "attempts_conceded_obox"
+                                    },
+                                    {
+                                        "value": 4,
+                                        "Type": "backward_pass"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "blocked_pass"
+                                    },
+                                    {
+                                        "value": 3,
+                                        "Type": "carries"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "challenge_lost"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "duel_lost"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "duel_won"
+                                    },
+                                    {
+                                        "value": 3,
+                                        "Type": "effective_clearance"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "final_third_entries"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "fwd_pass"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "game_started"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "goals_conceded"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "goals_conceded_ibox"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "goals_conceded_obox"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "interception"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "interception_won"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "interceptions_in_box"
+                                    },
+                                    {
+                                        "value": 3,
+                                        "Type": "leftside_pass"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "long_pass_own_to_opp"
+                                    },
+                                    {
+                                        "value": 12,
+                                        "Type": "open_play_pass"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "passes_left"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "passes_right"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "pen_area_entries"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "poss_lost_all"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "poss_lost_ctrl"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "progressive_carries"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "put_through"
+                                    },
+                                    {
+                                        "value": 3,
+                                        "Type": "rightside_pass"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "successful_final_third_passes"
+                                    },
+                                    {
+                                        "value": 11,
+                                        "Type": "successful_open_play_pass"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "successful_put_through"
+                                    },
+                                    {
+                                        "value": 8,
+                                        "Type": "total_back_zone_pass"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "total_chipped_pass"
+                                    },
+                                    {
+                                        "value": 3,
+                                        "Type": "total_clearance"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "total_final_third_passes"
+                                    },
+                                    {
+                                        "value": 4,
+                                        "Type": "total_fwd_zone_pass"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "total_long_balls"
+                                    },
+                                    {
+                                        "value": 12,
+                                        "Type": "total_pass"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "total_tackle"
+                                    },
+                                    {
+                                        "value": 3,
+                                        "Type": "total_throws"
+                                    },
+                                    {
+                                        "value": 23,
+                                        "Type": "touches"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "touches_in_final_third"
+                                    },
+                                    {
+                                        "value": 0,
+                                        "Type": "winning_goal"
+                                    },
+                                    {
+                                        "value": 0,
+                                        "Type": "times_tackled"
+                                    },
+                                    {
+                                        "value": 6,
+                                        "Type": "formation_place"
+                                    }
+                                ],
+                                "Captain": 1,
+                                "PlayerRef": "p186296",
+                                "Position": "Defender",
+                                "ShirtNumber": 5,
+                                "Status": "Start"
+                            },
+                            {
+                                "Stat": [
+                                    {
+                                        "value": 16,
+                                        "Type": "accurate_back_zone_pass"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "accurate_flick_on"
+                                    },
+                                    {
+                                        "value": 6,
+                                        "Type": "accurate_fwd_zone_pass"
+                                    },
+                                    {
+                                        "value": 4,
+                                        "Type": "accurate_long_balls"
+                                    },
+                                    {
+                                        "value": 22,
+                                        "Type": "accurate_pass"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "accurate_throws"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "aerial_lost"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "attempted_tackle_foul"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "attempts_conceded_ibox"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "attempts_conceded_obox"
+                                    },
+                                    {
+                                        "value": 7,
+                                        "Type": "backward_pass"
+                                    },
+                                    {
+                                        "value": 3,
+                                        "Type": "ball_recovery"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "blocked_pass"
+                                    },
+                                    {
+                                        "value": 5,
+                                        "Type": "carries"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "dispossessed"
+                                    },
+                                    {
+                                        "value": 3,
+                                        "Type": "duel_lost"
+                                    },
+                                    {
+                                        "value": 3,
+                                        "Type": "duel_won"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "fouls"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "fwd_pass"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "game_started"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "goals_conceded"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "goals_conceded_ibox"
+                                    },
+                                    {
+                                        "value": 7,
+                                        "Type": "leftside_pass"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "long_pass_own_to_opp"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "long_pass_own_to_opp_success"
+                                    },
+                                    {
+                                        "value": 21,
+                                        "Type": "open_play_pass"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "outfielder_block"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "passes_left"
+                                    },
+                                    {
+                                        "value": 3,
+                                        "Type": "passes_right"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "poss_lost_all"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "poss_lost_ctrl"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "poss_won_def_3rd"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "poss_won_mid_3rd"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "progressive_carries"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "put_through"
+                                    },
+                                    {
+                                        "value": 6,
+                                        "Type": "rightside_pass"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "successful_final_third_passes"
+                                    },
+                                    {
+                                        "value": 21,
+                                        "Type": "successful_open_play_pass"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "successful_put_through"
+                                    },
+                                    {
+                                        "value": 16,
+                                        "Type": "total_back_zone_pass"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "total_final_third_passes"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "total_flick_on"
+                                    },
+                                    {
+                                        "value": 6,
+                                        "Type": "total_fwd_zone_pass"
+                                    },
+                                    {
+                                        "value": 4,
+                                        "Type": "total_long_balls"
+                                    },
+                                    {
+                                        "value": 22,
+                                        "Type": "total_pass"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "total_sub_off"
+                                    },
+                                    {
+                                        "value": 3,
+                                        "Type": "total_tackle"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "total_throws"
+                                    },
+                                    {
+                                        "value": 31,
+                                        "Type": "touches"
+                                    },
+                                    {
+                                        "value": 6,
+                                        "Type": "touches_in_final_third"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "touches_in_opp_box"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "turnover"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "unsuccessful_touch"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "won_tackle"
+                                    },
+                                    {
+                                        "value": 0,
+                                        "Type": "winning_goal"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "times_tackled"
+                                    },
+                                    {
+                                        "value": 8,
+                                        "Type": "formation_place"
+                                    }
+                                ],
+                                "PlayerRef": "p426484",
+                                "Position": "Midfielder",
+                                "ShirtNumber": 8,
+                                "Status": "Start"
+                            },
+                            {
+                                "Stat": [
+                                    {
+                                        "value": 3,
+                                        "Type": "accurate_back_zone_pass"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "accurate_chipped_pass"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "accurate_flick_on"
+                                    },
+                                    {
+                                        "value": 5,
+                                        "Type": "accurate_fwd_zone_pass"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "accurate_long_balls"
+                                    },
+                                    {
+                                        "value": 8,
+                                        "Type": "accurate_pass"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "accurate_throws"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "att_assist_openplay"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "att_bx_centre"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "att_goal_low_right"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "att_ibox_goal"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "att_ibox_miss"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "att_lf_total"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "att_miss_high"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "att_obox_target"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "att_obx_centre"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "att_obxd_left"
+                                    },
+                                    {
+                                        "value": 4,
+                                        "Type": "att_openplay"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "att_rf_goal"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "att_rf_target"
+                                    },
+                                    {
+                                        "value": 3,
+                                        "Type": "att_rf_total"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "att_sv_high_right"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "att_sv_low_left"
+                                    },
+                                    {
+                                        "value": 6,
+                                        "Type": "attempts_conceded_ibox"
+                                    },
+                                    {
+                                        "value": 3,
+                                        "Type": "attempts_conceded_obox"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "attempts_ibox"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "attempts_obox"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "backward_pass"
+                                    },
+                                    {
+                                        "value": 5,
+                                        "Type": "ball_recovery"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "big_chance_missed"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "big_chance_scored"
+                                    },
+                                    {
+                                        "value": 5,
+                                        "Type": "carries"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "duel_lost"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "duel_won"
+                                    },
+                                    {
+                                        "value": 3,
+                                        "Type": "final_third_entries"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "fouls"
+                                    },
+                                    {
+                                        "value": 5,
+                                        "Type": "fwd_pass"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "game_started"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "goals"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "goals_conceded"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "goals_conceded_ibox"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "goals_openplay"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "head_pass"
+                                    },
+                                    {
+                                        "value": 3,
+                                        "Type": "leftside_pass"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "long_pass_own_to_opp"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "offtarget_att_assist"
+                                    },
+                                    {
+                                        "value": 3,
+                                        "Type": "ontarget_scoring_att"
+                                    },
+                                    {
+                                        "value": 12,
+                                        "Type": "open_play_pass"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "passes_left"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "passes_right"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "pen_area_entries"
+                                    },
+                                    {
+                                        "value": 7,
+                                        "Type": "poss_lost_all"
+                                    },
+                                    {
+                                        "value": 7,
+                                        "Type": "poss_lost_ctrl"
+                                    },
+                                    {
+                                        "value": 3,
+                                        "Type": "poss_won_att_3rd"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "poss_won_def_3rd"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "poss_won_mid_3rd"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "progressive_carries"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "put_through"
+                                    },
+                                    {
+                                        "value": 4,
+                                        "Type": "rightside_pass"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "shot_off_target"
+                                    },
+                                    {
+                                        "value": 5,
+                                        "Type": "successful_final_third_passes"
+                                    },
+                                    {
+                                        "value": 7,
+                                        "Type": "successful_open_play_pass"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "total_att_assist"
+                                    },
+                                    {
+                                        "value": 4,
+                                        "Type": "total_back_zone_pass"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "total_chipped_pass"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "total_contest"
+                                    },
+                                    {
+                                        "value": 8,
+                                        "Type": "total_final_third_passes"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "total_flick_on"
+                                    },
+                                    {
+                                        "value": 9,
+                                        "Type": "total_fwd_zone_pass"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "total_long_balls"
+                                    },
+                                    {
+                                        "value": 13,
+                                        "Type": "total_pass"
+                                    },
+                                    {
+                                        "value": 4,
+                                        "Type": "total_scoring_att"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "total_sub_off"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "total_throws"
+                                    },
+                                    {
+                                        "value": 21,
+                                        "Type": "touches"
+                                    },
+                                    {
+                                        "value": 12,
+                                        "Type": "touches_in_final_third"
+                                    },
+                                    {
+                                        "value": 4,
+                                        "Type": "touches_in_opp_box"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "turnover"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "unsuccessful_touch"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "won_contest"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "won_corners"
+                                    },
+                                    {
+                                        "value": 0,
+                                        "Type": "winning_goal"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "times_tackled"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "formation_place"
+                                    }
+                                ],
+                                "PlayerRef": "p722742",
+                                "Position": "Midfielder",
+                                "ShirtNumber": 10,
+                                "Status": "Start"
+                            },
+                            {
+                                "Stat": [
+                                    {
+                                        "value": 1,
+                                        "Type": "accurate_back_zone_pass"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "accurate_pass"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "att_obox_target"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "att_obx_centre"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "att_openplay"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "att_rf_target"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "att_rf_total"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "att_sv_low_centre"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "attempted_tackle_foul"
+                                    },
+                                    {
+                                        "value": 6,
+                                        "Type": "attempts_conceded_ibox"
+                                    },
+                                    {
+                                        "value": 5,
+                                        "Type": "attempts_conceded_obox"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "attempts_obox"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "backward_pass"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "ball_recovery"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "blocked_pass"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "carries"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "challenge_lost"
+                                    },
+                                    {
+                                        "value": 3,
+                                        "Type": "dispossessed"
+                                    },
+                                    {
+                                        "value": 6,
+                                        "Type": "duel_lost"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "duel_won"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "final_third_entries"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "fouls"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "game_started"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "goals_conceded"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "goals_conceded_ibox"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "goals_conceded_obox"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "leftside_pass"
+                                    },
+                                    {
+                                        "value": 1,
+                                        "Type": "ontarget_scoring_att"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "Type": "open_play_pass"
+                                    },
+                                    "This object has been omitted by React in the console log to avoid sending too much data from the server. Try logging smaller or more specific objects.",
+                                    "This object has been omitted by React in the console log to avoid sending too much data from the server. Try logging smaller or more specific objects.",
+                                    "This object has been omitted by React in the console log to avoid sending too much data from the server. Try logging smaller or more specific objects.",
+                                    "This object has been omitted by React in the console log to avoid sending too much data from the server. Try logging smaller or more specific objects.",
+                                    "This object has been omitted by React in the console log to avoid sending too much data from the server. Try logging smaller or more specific objects.",
+                                    "This object has been omitted by React in the console log to avoid sending too much data from the server. Try logging smaller or more specific objects.",
+                                    "This object has been omitted by React in the console log to avoid sending too much data from the server. Try logging smaller or more specific objects.",
+                                    "This object has been omitted by React in the console log to avoid sending too much data from the server. Try logging smaller or more specific objects.",
+                                    "This object has been omitted by React in the console log to avoid sending too much data from the server. Try logging smaller or more specific objects.",
+                                    "This object has been omitted by React in the console log to avoid sending too much data from the server. Try logging smaller or more specific objects.",
+                                    "This object has been omitted by React in the console log to avoid sending too much data from the server. Try logging smaller or more specific objects.",
+                                    "This object has been omitted by React in the console log to avoid sending too much data from the server. Try logging smaller or more specific objects.",
+                                    "This object has been omitted by React in the console log to avoid sending too much data from the server. Try logging smaller or more specific objects.",
+                                    "This object has been omitted by React in the console log to avoid sending too much data from the server. Try logging smaller or more specific objects.",
+                                    "This object has been omitted by React in the console log to avoid sending too much data from the server. Try logging smaller or more specific objects.",
+                                    "This object has been omitted by React in the console log to avoid sending too much data from the server. Try logging smaller or more specific objects.",
+                                    "This object has been omitted by React in the console log to avoid sending too much data from the server. Try logging smaller or more specific objects.",
+                                    "This object has been omitted by React in the console log to avoid sending too much data from the server. Try logging smaller or more specific objects.",
+                                    "This object has been omitted by React in the console log to avoid sending too much data from the server. Try logging smaller or more specific objects.",
+                                    "This object has been omitted by React in the console log to avoid sending too much data from the server. Try logging smaller or more specific objects.",
+                                    "This object has been omitted by React in the console log to avoid sending too much data from the server. Try logging smaller or more specific objects.",
+                                    "This object has been omitted by React in the console log to avoid sending too much data from the server. Try logging smaller or more specific objects.",
+                                    "This object has been omitted by React in the console log to avoid sending too much data from the server. Try logging smaller or more specific objects."
+                                ],
+                                "PlayerRef": "p97376",
+                                "Position": "Midfielder",
+                                "ShirtNumber": 11,
+                                "Status": "Start"
+                            },
+                            "This object has been omitted by React in the console log to avoid sending too much data from the server. Try logging smaller or more specific objects.",
+                            "This object has been omitted by React in the console log to avoid sending too much data from the server. Try logging smaller or more specific objects.",
+                            "This object has been omitted by React in the console log to avoid sending too much data from the server. Try logging smaller or more specific objects.",
+                            "This object has been omitted by React in the console log to avoid sending too much data from the server. Try logging smaller or more specific objects.",
+                            "This object has been omitted by React in the console log to avoid sending too much data from the server. Try logging smaller or more specific objects.",
+                            "This object has been omitted by React in the console log to avoid sending too much data from the server. Try logging smaller or more specific objects.",
+                            "This object has been omitted by React in the console log to avoid sending too much data from the server. Try logging smaller or more specific objects.",
+                            "This object has been omitted by React in the console log to avoid sending too much data from the server. Try logging smaller or more specific objects.",
+                            "This object has been omitted by React in the console log to avoid sending too much data from the server. Try logging smaller or more specific objects.",
+                            "This object has been omitted by React in the console log to avoid sending too much data from the server. Try logging smaller or more specific objects.",
+                            "This object has been omitted by React in the console log to avoid sending too much data from the server. Try logging smaller or more specific objects.",
+                            "This object has been omitted by React in the console log to avoid sending too much data from the server. Try logging smaller or more specific objects.",
+                            "This object has been omitted by React in the console log to avoid sending too much data from the server. Try logging smaller or more specific objects."
+                        ]
+                    },
+                    "ShootOut": "This object has been omitted by React in the console log to avoid sending too much data from the server. Try logging smaller or more specific objects.",
+                    "Stat": "This object has been omitted by React in the console log to avoid sending too much data from the server. Try logging smaller or more specific objects.",
+                    "Substitution": "This object has been omitted by React in the console log to avoid sending too much data from the server. Try logging smaller or more specific objects.",
+                    "AverageAge": 34.1,
+                    "Score": 2,
+                    "ShootOutScore": 2,
+                    "Side": "Home",
+                    "TeamRef": "t23622"
+                },
+                "This object has been omitted by React in the console log to avoid sending too much data from the server. Try logging smaller or more specific objects."
+            ]
+        },
+        "Team": "This object has been omitted by React in the console log to avoid sending too much data from the server. Try logging smaller or more specific objects.",
+        "Venue": "This object has been omitted by React in the console log to avoid sending too much data from the server. Try logging smaller or more specific objects.",
+        "Type": "Latest",
+        "detail_id": 1,
+        "uID": "f2610446"
+    },
+    "TimeStamp": "20251206T173304+0000"
+}

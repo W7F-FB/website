@@ -76,6 +76,7 @@ export default async function TournamentKnowBeforeYouGoPage({ params }: Props) {
   let prismicTeams: TeamDocument[] = []
   let optaTeams: F1TeamData[] = []
   let f9FeedsMap: Map<string, F9MatchResponse> = new Map()
+  let liveMinutesMap: Map<string, string> = new Map()
   
   if (competitionId && seasonId && tournament.uid) {
     try {
@@ -95,7 +96,9 @@ export default async function TournamentKnowBeforeYouGoPage({ params }: Props) {
           
           // Fetch F9 data for all matches
           const matchIds = extractMatchIdsFromFixtures(matchData)
-          f9FeedsMap = await fetchF9FeedsForMatches(matchIds)
+          const fetchedResult = await fetchF9FeedsForMatches(matchIds)
+          f9FeedsMap = fetchedResult.f9FeedsMap
+          liveMinutesMap = fetchedResult.liveMinutesMap
         }
       }
     } catch (error) {
@@ -117,6 +120,7 @@ export default async function TournamentKnowBeforeYouGoPage({ params }: Props) {
         optaTeams={optaTeams.length > 0 ? optaTeams : undefined}
         tournament={tournament}
         f9FeedsMap={f9FeedsMap.size > 0 ? f9FeedsMap : undefined}
+        liveMinutesMap={liveMinutesMap.size > 0 ? liveMinutesMap : undefined}
       />
       <main className="flex-grow min-h-[30rem]">
         <TournamentKnowBeforeYouGoPageContent tournament={tournament} />

@@ -125,7 +125,7 @@ function MatchCardTeam({
         <>
             {logoNode}
             <div>
-                <H4 className={cn(linkToTeam && team?.uid && "group-hover:underline", teamNamesClassName)}>
+                <H4 className={cn("text-left",linkToTeam && team?.uid && "group-hover:underline", teamNamesClassName)}>
                     {nameNode}
                 </H4>
             </div>
@@ -203,14 +203,15 @@ function MatchCard({
     className,
     variant = "default",
     f9Feed,
+    liveMinute: propLiveMinute,
     streamingLink,
     broadcastPartners,
     ...restProps
 }: GameCardOpta) {
     const gameCardData = f9Feed 
-        ? getF9GameCardData(f9Feed, prismicTeams, optaTeams) 
+        ? getF9GameCardData(f9Feed, prismicTeams, optaTeams, propLiveMinute ?? null) 
         : null
-    const finalData = gameCardData || getF1GameCardData(fixture, prismicTeams, optaTeams)
+    const finalData = gameCardData || getF1GameCardData(fixture, prismicTeams, optaTeams, propLiveMinute ?? null)
     
     const normalizedMatchId = normalizeOptaId(fixture.uID)
     const matchSlug = matchSlugMap?.get(normalizedMatchId)
@@ -233,7 +234,9 @@ function MatchCard({
         isLive,
         isPenalties,
         isExtraTime,
+        period,
         matchTime,
+        liveMinute,
         startTime,
         homeLogoUrl,
         awayLogoUrl,
@@ -245,15 +248,22 @@ function MatchCard({
     const awayOptaTeam = optaTeams.find(t => normalizeOptaId(t.TeamRef || t.uID) === normalizeOptaId(fixture.TeamData.find(td => td.Side === "Away")?.TeamRef || ""))
 
     const gameDate = formatGameDate(startTime)
-    const currentMinute = matchTime !== null ? String(matchTime) : null
+    const currentMinute = liveMinute ?? null
     
     const getStatusText = () => {
         if (isFinal) {
             if (isPenalties) return "FT/PKs"
-            if (isExtraTime) return "AET"
+            if (isExtraTime) return "F/OT"
             return "FT"
         }
-        if (isLive) return "Live"
+        if (isLive) {
+            if (period === "HalfTime") return "HT"
+            if (period === "FullTime90") return "OT"
+            if (period === "FullTimePens") return "PKs"
+            if (period === "ExtraHalfTime") return "ET HT"
+            if (period === "ShootOut") return "PKs"
+            return "Live"
+        }
         return ""
     }
     const fixtureStatus = getStatusText()
@@ -302,7 +312,7 @@ function MatchCard({
                     </div>
                 )}
                 <div className={cn("font-headers font-medium", variantStyles.status)}>
-                    {isLive ? (currentMinute ? <span className="hidden">{`'${currentMinute}`}</span> : "") : fixtureStatus}
+                    {isLive && fixtureStatus !== "Live" ? fixtureStatus : (isLive ? (currentMinute ? `'${currentMinute}` : "") : fixtureStatus)}
                 </div>
             </CardHeader>
             <CardContent className={cn("px-0 lg:px-0 flex-grow", variantStyles.content)}>

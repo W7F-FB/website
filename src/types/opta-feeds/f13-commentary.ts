@@ -3,46 +3,56 @@ export interface F13CommentaryResponse {
 }
 
 export interface F13Commentary {
-  away_score: string;
-  away_team_id: string;
-  away_team_name: string;
-  competition: string;
-  competition_id: string;
-  game_date: string;
-  game_id: string;
-  home_score: string;
-  home_team_id: string;
-  home_team_name: string;
-  lang_id: string;
-  matchday: string;
-  season: string;
-  season_id: string;
-  sport_id: string;
-  sport_name: string;
   message: F13Message[];
+  away_score: number;
+  away_team_id: number;
+  away_team_name: string;
+  away_team_official: string;
+  away_team_short: string;
+  competition: string;
+  competition_id: number;
+  game_date: string;
+  game_date_utc: string;
+  game_id: number;
+  home_score: number;
+  home_team_id: number;
+  home_team_name: string;
+  home_team_official: string;
+  home_team_short: string;
+  lang_id: string;
+  matchday: number;
+  season: string;
+  season_id: number;
+  sport_id: number;
+  sport_name: string;
 }
 
 export interface F13Message {
-  id: string;
+  id: number;
   comment: string;
   last_modified: string;
   last_modified_utc: string;
-  minute?: string;
-  period?: string;
-  player_ref1?: string;
-  player_ref2?: string;
-  second?: string;
+  minute?: number;
+  period?: number;
+  player_ref1?: number;
+  player_ref2?: number;
+  second?: number;
+  team_ref1?: number;
+  team_ref2?: number;
   time?: string;
   timestamp: string;
+  timestamp_utc: string;
   type: F13MessageType;
 }
 
 export type F13MessageType =
   | 'start'
+  | 'start delay'
   | 'end 1'
   | 'end 2'
   | 'end 14'
   | 'goal'
+  | 'own goal'
   | 'miss'
   | 'post'
   | 'attempt saved'
@@ -59,6 +69,7 @@ export type F13MessageType =
   | 'lineup'
   | 'contentious referee decisions'
   | 'delay'
+  | 'added time'
   | string;
 
 export const F13_SUPPORTED_LANGUAGES = {

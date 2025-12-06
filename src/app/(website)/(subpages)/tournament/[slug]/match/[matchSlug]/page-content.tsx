@@ -64,6 +64,7 @@ type Props = {
   matchBlogs?: BlogDocument[];
   teamRecords?: TeamRecord[];
   teamStats?: TeamStats[];
+  liveMinute?: string | null;
 };
 
 export default function MatchPageContent({
@@ -93,6 +94,7 @@ export default function MatchPageContent({
   matchBlogs = [],
   teamRecords,
   teamStats,
+  liveMinute,
 }: Props) {
   const matchData = f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData;
   const f1Matches = Array.isArray(matchData) ? matchData : (matchData ? [matchData] : []);
@@ -151,6 +153,7 @@ export default function MatchPageContent({
         broadcastPartners={broadcastPartners}
         f1FixturesData={f1FixturesData}
         teamRecords={teamRecords}
+        liveMinute={liveMinute}
       />
       <Separator variant="gradient" className="my-8" />
       <Section padding="none" className="grid grid-cols-1 lg:grid-cols-4 gap-8">

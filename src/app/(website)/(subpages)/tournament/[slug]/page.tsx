@@ -15,6 +15,7 @@ import type { F9MatchResponse } from "@/types/opta-feeds/f9-match"
 import type * as prismic from "@prismicio/client"
 import { dev } from "@/lib/dev"
 import { fetchF9FeedsForMatches, extractMatchIdsFromFixtures } from "@/lib/opta/match-data"
+import { normalizeOptaId } from "@/lib/opta/utils"
 import { NavMain } from "@/components/website-base/nav/nav-main"
 import { Footer } from "@/components/website-base/footer/footer-main"
 import type { F1MatchData, F1TeamData } from "@/types/opta-feeds/f1-fixtures"
@@ -119,7 +120,8 @@ export default async function TournamentPage({ params, searchParams }: Props) {
   let f1FixturesData = null
   let prismicTeams: TeamDocument[] = []
   const f30TeamStats: Map<string, F30SeasonStatsResponse> = new Map()
-  const f9FeedsMap: Map<string, F9MatchResponse> = new Map()
+  let f9FeedsMap: Map<string, F9MatchResponse> = new Map()
+  let liveMinutesMap: Map<string, string> = new Map()
 
   if (competitionId && seasonId && tournament.uid && (status === "Live" || status === "Complete")) {
     try {
@@ -159,10 +161,9 @@ export default async function TournamentPage({ params, searchParams }: Props) {
       const allMatches = f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData
       if (allMatches && Array.isArray(allMatches)) {
         const matchIds = extractMatchIdsFromFixtures(allMatches)
-        const fetchedF9Feeds = await fetchF9FeedsForMatches(matchIds)
-        fetchedF9Feeds.forEach((f9Data, matchId) => {
-          f9FeedsMap.set(matchId, f9Data)
-        })
+        const fetchedResult = await fetchF9FeedsForMatches(matchIds)
+        f9FeedsMap = fetchedResult.f9FeedsMap
+        liveMinutesMap = fetchedResult.liveMinutesMap
       }
 
       if (allMatches && Array.isArray(allMatches)) {
@@ -192,6 +193,26 @@ export default async function TournamentPage({ params, searchParams }: Props) {
           const matchTimeStat = matchStats.find(s => s.Type === "match_time")
           const matchTime = matchTimeStat?.value ? Number(matchTimeStat.value) : null
           dev.log(`F9 Live Match: ${matchId} - Minute: ${matchTime ?? 'N/A'}`)
+        }
+      })
+
+      const targetMatchIds = ["2610446", "2610447", "2610441"]
+      targetMatchIds.forEach((matchIdStr) => {
+        const targetMatchId = normalizeOptaId(matchIdStr)
+        const targetMatchFeed = f9FeedsMap.get(targetMatchId)
+        if (targetMatchFeed) {
+          dev.log(`Match ${matchIdStr} Full F9 Feed:`, targetMatchFeed)
+        } else {
+          dev.log(`Match ${matchIdStr} not found in f9FeedsMap`)
+        }
+
+        if (allMatches && Array.isArray(allMatches)) {
+          const targetF1Fixture = allMatches.find((fixture) => normalizeOptaId(fixture.uID) === targetMatchId)
+          if (targetF1Fixture) {
+            dev.log(`Match ${matchIdStr} Full F1 Fixture:`, targetF1Fixture)
+          } else {
+            dev.log(`Match ${matchIdStr} not found in F1 fixtures`)
+          }
         }
       })
       
@@ -293,6 +314,7 @@ export default async function TournamentPage({ params, searchParams }: Props) {
         tournament={tournament}
         matchSlugMap={matchSlugMap}
         f9FeedsMap={f9FeedsMap.size > 0 ? f9FeedsMap : undefined}
+        liveMinutesMap={liveMinutesMap.size > 0 ? liveMinutesMap : undefined}
       />
       <main className="flex-grow min-h-[30rem]">
         {mainContent}

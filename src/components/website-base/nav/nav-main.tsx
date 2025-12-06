@@ -58,9 +58,10 @@ type NavMainProps = {
   tournament?: TournamentDocument;
   matchSlugMap?: Map<string, string>;
   f9FeedsMap?: Map<string, F9MatchResponse>;
+  liveMinutesMap?: Map<string, string>;
 }
 
-async function NavMain({ showBreadcrumbs, pathname, customBreadcrumbs, groupedFixtures, prismicTeams, optaTeams, tournament, matchSlugMap, f9FeedsMap }: NavMainProps = {} as NavMainProps) {
+async function NavMain({ showBreadcrumbs, pathname, customBreadcrumbs, groupedFixtures, prismicTeams, optaTeams, tournament, matchSlugMap, f9FeedsMap, liveMinutesMap }: NavMainProps = {} as NavMainProps) {
   let tournaments: Awaited<ReturnType<typeof getNavigationTournaments>> = []
   let recentBlog: Awaited<ReturnType<typeof getMostRecentBlog>> = null
   let navSettings: Awaited<ReturnType<typeof getNavigationSettings>> = null
@@ -283,6 +284,7 @@ async function NavMain({ showBreadcrumbs, pathname, customBreadcrumbs, groupedFi
           tournament={tournament!}
           matchSlugMap={matchSlugMap}
           f9FeedsMap={f9FeedsMap}
+          liveMinutesMap={liveMinutesMap}
         />
       )}
     </div>

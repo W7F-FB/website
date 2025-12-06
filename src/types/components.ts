@@ -76,6 +76,7 @@ export interface GameCardOpta extends React.HTMLAttributes<HTMLDivElement> {
   banner?: React.ReactNode
   variant?: "default" | "mini"
   f9Feed?: F9MatchResponse
+  liveMinute?: string | null
   streamingLink?: string | null
   broadcastPartners?: BroadcastPartnersDocument[]
 }
