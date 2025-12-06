@@ -164,6 +164,36 @@ export default async function TournamentPage({ params, searchParams }: Props) {
           f9FeedsMap.set(matchId, f9Data)
         })
       }
+
+      if (allMatches && Array.isArray(allMatches)) {
+        allMatches.forEach((fixture) => {
+          if (fixture.MatchInfo?.Period === "Live") {
+            const f1Stats = Array.isArray(fixture.Stat) ? fixture.Stat : []
+            const matchTimeStat = f1Stats.find(s => s.Type === "match_time")
+            const matchTime = matchTimeStat?.value ? Number(matchTimeStat.value) : null
+            dev.log(`F1 Live Match: ${fixture.uID} - Minute: ${matchTime ?? 'N/A'}`)
+          }
+        })
+      }
+
+      f9FeedsMap.forEach((f9Feed, matchId) => {
+        const soccerDoc = f9Feed?.SoccerFeed?.SoccerDocument
+        if (!soccerDoc) return
+        
+        const matchData = Array.isArray(soccerDoc) ? soccerDoc[0]?.MatchData : soccerDoc?.MatchData
+        if (!matchData) return
+
+        const period = matchData.MatchInfo?.Period
+        const isFinal = period === "FullTime" || period === "FullTime90" || period === "FullTimePens"
+        const isLive = !isFinal && period !== "PreMatch" && period !== null
+
+        if (isLive) {
+          const matchStats = Array.isArray(matchData.Stat) ? matchData.Stat : []
+          const matchTimeStat = matchStats.find(s => s.Type === "match_time")
+          const matchTime = matchTimeStat?.value ? Number(matchTimeStat.value) : null
+          dev.log(`F9 Live Match: ${matchId} - Minute: ${matchTime ?? 'N/A'}`)
+        }
+      })
       
     } catch (error) {
       dev.log('Error fetching tournament data:', error)

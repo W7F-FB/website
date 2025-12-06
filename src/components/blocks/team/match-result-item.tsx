@@ -12,6 +12,7 @@ import { normalizeOptaId } from "@/lib/opta/utils"
 import { buildMatchUrl } from "@/lib/match-url"
 import { cn, formatGameDate } from "@/lib/utils"
 import { getF9GameCardData, getF1GameCardData } from "@/components/blocks/match/utils"
+import { Status, StatusIndicator } from "@/components/ui/status"
 
 function getRoundTypeLabel(roundType?: string): string {
     if (!roundType) return ""
@@ -209,9 +210,12 @@ export function MatchResultItem({
             <TableRow className={rowClassName} onClick={handleRowClick}>
                 <TableCell className="relative w-6 md:w-8 pl-2 pr-0 md:pl-3">
                     <div className="absolute -left-0.5 top-0 bottom-0 w-1 bg-destructive animate-pulse" />
-                    <span className="font-headers font-semibold text-xs md:text-sm">
-                        {matchTime !== null ? `'${matchTime}` : "—"}
-                    </span>
+                    <Status className="p-0 bg-transparent border-0">
+                        <StatusIndicator className="text-destructive size-2.5" />
+                        <span className="hidden font-headers font-semibold text-xs md:text-sm">
+                            {matchTime !== null ? `'${matchTime}` : "—"}
+                        </span>
+                    </Status>
                 </TableCell>
                 {opponentCell}
                 <TableCell className="text-right align-middle px-2 md:px-4">

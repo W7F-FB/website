@@ -229,6 +229,20 @@ function NavigationMenuTrigger({
 }: React.ComponentProps<typeof NavigationMenuPrimitive.Trigger>) {
   const { isTablet, hasMounted } = useNavigationMenuContext()
 
+  if (isTablet && hasMounted) {
+    return (
+      <span
+        data-slot="navigation-menu-trigger"
+        className={cn(
+          "inline-block font-[450] font-headers uppercase text-accent-foreground mb-0 text-base whitespace-nowrap  px-4 py-3 bg-extra-muted",
+          className
+        )}
+      >
+        {children}
+      </span>
+    )
+  }
+
   if (!hasMounted) {
     return (
       <button
@@ -244,20 +258,6 @@ function NavigationMenuTrigger({
           />
         </span>
       </button>
-    )
-  }
-
-  if (isTablet) {
-    return (
-      <span
-        data-slot="navigation-menu-trigger"
-        className={cn(
-          "inline-block font-[450] font-headers uppercase text-accent-foreground mb-0 text-base whitespace-nowrap  px-4 py-3 bg-extra-muted",
-          className
-        )}
-      >
-        {children}
-      </span>
     )
   }
 
@@ -301,11 +301,15 @@ function NavigationMenuContent({
 }: React.ComponentProps<typeof NavigationMenuPrimitive.Content>) {
   const { isTablet, hasMounted } = useNavigationMenuContext()
 
-  if (!hasMounted || isTablet) {
+  if (!hasMounted || (isTablet && hasMounted)) {
     return (
       <div
         data-slot="navigation-menu-content"
-        className={cn(className, isTablet && "!w-full px-6", !hasMounted && "hidden")}
+        className={cn(
+          className,
+          isTablet && hasMounted && "!w-full px-6",
+          !hasMounted && "hidden"
+        )}
         {...props}
       >
         {children}
