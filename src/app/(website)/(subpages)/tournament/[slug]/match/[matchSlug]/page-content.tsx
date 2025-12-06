@@ -35,6 +35,7 @@ import { Container } from "@/components/website-base/padding-containers";
 import { PrismicLink } from "@prismicio/react";
 import { mapBlogDocumentToMetadata } from "@/lib/utils";
 import type { TeamRecord } from "@/lib/v2-utils/records-from-f9";
+import type { TeamStats } from "@/lib/v2-utils/team-stats-from-f9";
 
 type Props = {
   f9MatchData?: F9MatchData | null;
@@ -62,6 +63,7 @@ type Props = {
   isKnockoutStage: boolean;
   matchBlogs?: BlogDocument[];
   teamRecords?: TeamRecord[];
+  teamStats?: TeamStats[];
 };
 
 export default function MatchPageContent({
@@ -90,6 +92,7 @@ export default function MatchPageContent({
   isKnockoutStage,
   matchBlogs = [],
   teamRecords,
+  teamStats,
 }: Props) {
   const matchData = f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData;
   const f1Matches = Array.isArray(matchData) ? matchData : (matchData ? [matchData] : []);
@@ -147,6 +150,7 @@ export default function MatchPageContent({
         tournament={tournament}
         broadcastPartners={broadcastPartners}
         f1FixturesData={f1FixturesData}
+        teamRecords={teamRecords}
       />
       <Separator variant="gradient" className="my-8" />
       <Section padding="none" className="grid grid-cols-1 lg:grid-cols-4 gap-8">
@@ -215,11 +219,13 @@ export default function MatchPageContent({
             <CardContent className="grid grid-cols-2 gap-4">
               <TeamSnapshot
                 prismicTeam={homeTeamPrismic}
-                fixtures={f1FixturesData}
+                teamRecords={teamRecords}
+                teamStats={teamStats}
               />
               <TeamSnapshot
                 prismicTeam={awayTeamPrismic}
-                fixtures={f1FixturesData}
+                teamRecords={teamRecords}
+                teamStats={teamStats}
               />
             </CardContent>
           </Card>

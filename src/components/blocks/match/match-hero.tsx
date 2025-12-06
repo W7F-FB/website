@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { BroadcastPartnerButton } from "../broadcast-partner";
 import { useState, useEffect, useMemo } from "react";
-import { calculateTeamRecordsFromMatches } from "@/app/(website)/(subpages)/tournament/utils";
+import type { TeamRecord } from "@/lib/v2-utils/records-from-f9";
 import { Countdown } from "@/components/ui/countdown";
 import { parseISO } from "date-fns";
 import { Status, StatusIndicator } from "@/components/ui/status";
@@ -35,9 +35,10 @@ interface MatchHeroProps {
   broadcastPartners?: BroadcastPartnersDocument[];
   f1FixturesData?: F1FixturesResponse | null;
   streamingLink?: string | null;
+  teamRecords?: TeamRecord[];
 }
 
-export default function MatchHero({ f9MatchData, homeTeamData, awayTeamData, homeTeam, awayTeam, homeTeamPrismic, awayTeamPrismic, homeTeamFromF2, awayTeamFromF2, f2Preview, tournament, broadcastPartners, f1FixturesData, streamingLink }: MatchHeroProps) {
+export default function MatchHero({ f9MatchData, homeTeamData, awayTeamData, homeTeam, awayTeam, homeTeamPrismic, awayTeamPrismic, homeTeamFromF2, awayTeamFromF2, f2Preview, tournament, broadcastPartners, f1FixturesData, streamingLink, teamRecords = [] }: MatchHeroProps) {
   const homeTeamColor = homeTeamPrismic?.data.color_primary || undefined;
   const awayTeamColor = awayTeamPrismic?.data.color_primary || undefined;
 
@@ -107,21 +108,19 @@ export default function MatchHero({ f9MatchData, homeTeamData, awayTeamData, hom
     'Away Team'
   );
 
-  const teamRecords = useMemo(() => {
-    return calculateTeamRecordsFromMatches(f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData);
-  }, [f1FixturesData]);
+  const recordsMap = useMemo(() => {
+    const map = new Map<string, { wins: number; losses: number }>();
+    for (const record of teamRecords) {
+      map.set(record.optaNormalizedTeamId, { wins: record.wins, losses: record.losses });
+    }
+    return map;
+  }, [teamRecords]);
 
-  const getTeamIdWithPrefix = (optaId: string | number | null | undefined) => {
-    if (!optaId) return null;
-    const idStr = optaId.toString();
-    return idStr.startsWith('t') ? idStr : `t${idStr}`;
-  };
+  const homeTeamOptaId = homeTeamPrismic?.data.opta_id;
+  const awayTeamOptaId = awayTeamPrismic?.data.opta_id;
 
-  const homeTeamId = getTeamIdWithPrefix(homeTeamPrismic?.data.opta_id);
-  const awayTeamId = getTeamIdWithPrefix(awayTeamPrismic?.data.opta_id);
-
-  const homeStanding = homeTeamId ? teamRecords.get(homeTeamId) : null;
-  const awayStanding = awayTeamId ? teamRecords.get(awayTeamId) : null;
+  const homeStanding = homeTeamOptaId ? recordsMap.get(homeTeamOptaId) : null;
+  const awayStanding = awayTeamOptaId ? recordsMap.get(awayTeamOptaId) : null;
 
   const formatRecord = (record: { wins: number; losses: number } | null | undefined) => {
     if (!record) return null;
@@ -155,7 +154,7 @@ export default function MatchHero({ f9MatchData, homeTeamData, awayTeamData, hom
           className=" absolute top-0 lg:-right-48 lg:w-80 w-60 -right-42 skew-x-[var(--skew-btn)] h-full pointer-events-none"
           style={awayTeamColor ? { backgroundImage: `linear-gradient(to left, ${awayTeamColor}, transparent)` } : undefined}
         />
-        <div className="relative">
+        <div className="relative w-fit">
           <Link
             href={homeTeamPrismic?.uid ? `/club/${homeTeamPrismic.uid}` : "#"}
             className="flex flex-col md:flex-row relative z-2 items-center lg:gap-4 gap-1 md:gap-2.5 hover:underline"
@@ -256,31 +255,33 @@ export default function MatchHero({ f9MatchData, homeTeamData, awayTeamData, hom
             </div>
           )}
         </div>
-        <Link
-          href={awayTeamPrismic?.uid ? `/club/${awayTeamPrismic.uid}` : "#"}
-          className="flex flex-col-reverse md:flex-row relative items-center lg:gap-4 gap-1 md:gap-2.5 justify-end hover:underline"
-        >
-          <div className="text-center md:text-right">
-            <div className="font-headers lg:text-xl text-sm font-medium">
-              {awayTeamShortName && (
-                <span className="md:hidden">{awayTeamShortName}</span>
+        <div className="relative w-fit ml-auto">
+          <Link
+            href={awayTeamPrismic?.uid ? `/club/${awayTeamPrismic.uid}` : "#"}
+            className="flex flex-col-reverse md:flex-row relative z-2 items-center lg:gap-4 gap-1 md:gap-2.5 justify-end hover:underline"
+          >
+            <div className="text-center md:text-right">
+              <div className="font-headers lg:text-xl text-sm font-medium">
+                {awayTeamShortName && (
+                  <span className="md:hidden">{awayTeamShortName}</span>
+                )}
+                <span className={awayTeamShortName ? "hidden md:inline" : ""}>{awayTeamFullName}</span>
+              </div>
+              {formatRecord(awayStanding) && (
+                <div className="lg:text-lg text-base text-muted-foreground mt-0.5">{formatRecord(awayStanding)}</div>
               )}
-              <span className={awayTeamShortName ? "hidden md:inline" : ""}>{awayTeamFullName}</span>
             </div>
-            {formatRecord(awayStanding) && (
-              <div className="lg:text-lg text-base text-muted-foreground mt-0.5">{formatRecord(awayStanding)}</div>
-            )}
-          </div>
-          <div className="size-8 lg:size-18 relative">
-            {awayTeamPrismic?.data.logo && (
-              <PrismicNextImage
-                field={awayTeamPrismic.data.logo}
-                fill
-                className="object-contain"
-              />
-            )}
-          </div>
-        </Link>
+            <div className="size-8 lg:size-18 relative">
+              {awayTeamPrismic?.data.logo && (
+                <PrismicNextImage
+                  field={awayTeamPrismic.data.logo}
+                  fill
+                  className="object-contain"
+                />
+              )}
+            </div>
+          </Link>
+        </div>
         {displayPartners.length < -1 && (
           <div className="col-span-full px-6 text-center text-xs flex flex-col gap-2 items-center pt-4 md:pt-0">
             <div className="font-headers text-xs uppercase font-medium text-muted-foreground">Stream Free</div>

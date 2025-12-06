@@ -87,6 +87,16 @@ export function ClubStandingsTable({ prismicTeams, f1FixturesData, f3StandingsDa
         return f40Team?.short_club_name || team.data.name || ''
     }, [squadTeams])
 
+    const getTeamCountry = useCallback((team: TeamDocument): string | null => {
+        const optaId = team.data.opta_id
+        const teamIdWithPrefix = optaId?.toString().startsWith('t')
+            ? optaId
+            : `t${optaId}`
+        
+        const f40Team = squadTeams.find(t => normalizeOptaId(t.uID) === normalizeOptaId(teamIdWithPrefix))
+        return f40Team?.country || f40Team?.Country || null
+    }, [squadTeams])
+
     const groupData = useMemo(() => {
         if (isKnockoutStage) return null
         
@@ -132,12 +142,13 @@ export function ClubStandingsTable({ prismicTeams, f1FixturesData, f3StandingsDa
                 team,
                 name: getDisplayName(team),
                 placement: getKnockoutPlacement(optaId),
-                record: `${wins}-${losses}`
+                record: `${wins}-${losses}`,
+                country: getTeamCountry(team)
             }
         }).sort((a, b) => {
             return placementOrder[a.placement] - placementOrder[b.placement]
         })
-    }, [isKnockoutStage, prismicTeams, recordsMap, getDisplayName, getKnockoutPlacement])
+    }, [isKnockoutStage, prismicTeams, recordsMap, getDisplayName, getKnockoutPlacement, getTeamCountry])
 
     if (isKnockoutStage) {
         const firstEliminatedIndex = knockoutTableData.findIndex(row => row.placement === 'E')
@@ -165,15 +176,16 @@ export function ClubStandingsTable({ prismicTeams, f1FixturesData, f3StandingsDa
                                         </TableRow>
                                     )}
                                     <TableRow>
-                                        <ClubRankRow
-                                            placement={row.placement}
-                                            logo={row.team.data.logo}
-                                            name={row.name}
-                                            record={row.record}
-                                            className="pr-2"
-                                            tournamentStatus={tournamentStatus}
-                                            href={row.team.uid ? `/club/${row.team.uid}` : undefined}
-                                        />
+                                    <ClubRankRow
+                                                placement={row.placement}
+                                                logo={row.team.data.logo}
+                                                name={row.name}
+                                                record={row.record}
+                                                className="pr-2"
+                                                tournamentStatus={tournamentStatus}
+                                                href={row.team.uid ? `/club/${row.team.uid}` : undefined}
+                                                country={row.country}
+                                            />
                                     </TableRow>
                                 </Fragment>
                             ))}
@@ -223,8 +235,8 @@ export function ClubStandingsTable({ prismicTeams, f1FixturesData, f3StandingsDa
                                                 logo={team.data.logo}
                                                 name={getDisplayName(team)}
                                                 record={`${wins}-${losses}`}
-
                                                 href={team.uid ? `/club/${team.uid}` : undefined}
+                                                country={getTeamCountry(team)}
                                             />
                                         </TableRow>
                                     )

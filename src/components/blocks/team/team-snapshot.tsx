@@ -2,40 +2,56 @@ import { useMemo } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import type { TeamDocument } from "@/../prismicio-types"
-import type { F1FixturesResponse } from "@/types/opta-feeds/f1-fixtures"
-import { calculateTeamRecordsFromMatches } from "@/app/(website)/(subpages)/tournament/utils"
+import type { TeamRecord } from "@/lib/v2-utils/records-from-f9"
+import type { TeamStats } from "@/lib/v2-utils/team-stats-from-f9"
 import { PlayerMiniStatTable } from "@/components/blocks/players/player-mini-stat.table"
 import { GradientBg } from "@/components/ui/gradient-bg"
 import { cn } from "@/lib/utils"
 
 type TeamSnapshotProps = {
     prismicTeam?: TeamDocument | null
-    fixtures?: F1FixturesResponse | null
+    teamRecords?: TeamRecord[]
+    teamStats?: TeamStats[]
     className?: string
     recordBased?: boolean
 }
 
-export function TeamSnapshot({ prismicTeam, fixtures, className, recordBased }: TeamSnapshotProps) {
+export function TeamSnapshot({ prismicTeam, teamRecords = [], teamStats = [], className, recordBased }: TeamSnapshotProps) {
     const teamLogo = prismicTeam?.data?.logo?.url || undefined
     const primaryColor = prismicTeam?.data?.color_primary || undefined
     const teamName = prismicTeam?.data?.name || ""
     const teamOptaId = prismicTeam?.data?.opta_id
-    const teamId = teamOptaId ? `t${teamOptaId}` : null
 
-    const teamRecords = useMemo(() =>
-        calculateTeamRecordsFromMatches(fixtures?.SoccerFeed?.SoccerDocument?.MatchData),
-        [fixtures]
-    )
+    const recordsMap = useMemo(() => {
+        const map = new Map<string, { wins: number; losses: number }>()
+        for (const record of teamRecords) {
+            map.set(record.optaNormalizedTeamId, { wins: record.wins, losses: record.losses })
+        }
+        return map
+    }, [teamRecords])
 
-    const teamRecord = teamId ? teamRecords.get(teamId) : null
+    const statsMap = useMemo(() => {
+        const map = new Map<string, { gamesPlayed: number; goalsFor: number; goalsAgainst: number }>()
+        for (const stat of teamStats) {
+            map.set(stat.optaNormalizedTeamId, { 
+                gamesPlayed: stat.gamesPlayed, 
+                goalsFor: stat.goalsFor, 
+                goalsAgainst: stat.goalsAgainst 
+            })
+        }
+        return map
+    }, [teamStats])
+
+    const teamRecord = teamOptaId ? recordsMap.get(teamOptaId) : null
+    const teamStat = teamOptaId ? statsMap.get(teamOptaId) : null
     const wins = teamRecord?.wins ?? 0
     const losses = teamRecord?.losses ?? 0
-    const gamesPlayed = wins + losses
-    const goalsFor = teamRecord?.goalsFor ?? 0
-    const goalsAgainst = teamRecord?.goalsAgainst ?? 0
+    const gamesPlayed = teamStat?.gamesPlayed ?? 0
+    const goalsFor = teamStat?.goalsFor ?? 0
+    const goalsAgainst = teamStat?.goalsAgainst ?? 0
     const record = `${wins}-${losses}`
 
-    const statValues = teamRecord ? [
+    const statValues = teamStat ? [
         { label: "GP", value: String(gamesPlayed) },
         { label: "G", value: String(goalsFor) },
         { label: "GA", value: String(goalsAgainst) }
@@ -121,4 +137,3 @@ export function TeamSnapshot({ prismicTeam, fixtures, className, recordBased }: 
         </div>
     )
 }
-

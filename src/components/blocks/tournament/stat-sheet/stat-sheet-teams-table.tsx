@@ -185,7 +185,8 @@ export function StatSheetTeamsTable({ prismicTeams, f30TeamStats, f1FixturesData
                         <Table>
                             <TableHeader>
                                 <TableRow>
-                                    <TableHead>Placement</TableHead>
+                                    <TableHead className="w-fit"></TableHead>
+                                    <TableHead></TableHead>
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
@@ -204,6 +205,7 @@ export function StatSheetTeamsTable({ prismicTeams, f30TeamStats, f1FixturesData
                                                 useShortName={isTablet}
                                                 tournamentStatus={tournamentStatus}
                                                 href={row.href}
+                                                hideRecord={true}
                                             />
                                         </TableRow>
                                         {row.placement === '4th' && (
@@ -222,6 +224,7 @@ export function StatSheetTeamsTable({ prismicTeams, f30TeamStats, f1FixturesData
                         <Table>
                             <TableHeader>
                                 <TableRow>
+                                    <TableHead></TableHead>
                                     <TableHead className="pl-6">GP</TableHead>
                                     <TableHead>Record</TableHead>
                                     <TableHead>Goals/Allowed</TableHead>
@@ -239,6 +242,7 @@ export function StatSheetTeamsTable({ prismicTeams, f30TeamStats, f1FixturesData
                                             onMouseLeave={() => setHoveredRow(null)}
                                             className={cn("h-12 py-0 text-base hover:bg-transparent", hoveredRow === index && "bg-muted/30 hover:bg-muted/30")}
                                         >
+                                            <TableCell></TableCell>
                                             <TableCell className="pl-6">{row.gamesPlayed}</TableCell>
                                             <TableCell>{row.wins}-{row.losses}</TableCell>
                                             <TableCell>{row.goals} / {row.goalsAllowed}</TableCell>
@@ -249,7 +253,7 @@ export function StatSheetTeamsTable({ prismicTeams, f30TeamStats, f1FixturesData
                                         </TableRow>
                                         {row.placement === '4th' && (
                                             <TableRow className="hover:bg-transparent">
-                                                <TableCell colSpan={7} className="p-0 h-4">
+                                                <TableCell colSpan={8} className="p-0 h-4">
                                                     <LinePattern className="h-full w-full" patternSize={5} />
                                                 </TableCell>
                                             </TableRow>
@@ -272,18 +276,19 @@ export function StatSheetTeamsTable({ prismicTeams, f30TeamStats, f1FixturesData
                     <Table>
                         <TableHeader>
                             <TableRow>
-                                <TableHead>Rank</TableHead>
+                                <TableHead className="w-fit"></TableHead>
+                                <TableHead></TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
                             {groupData?.map((group, groupIndex) => (
                                 <Fragment key={group.groupId}>
                                     <TableRow className="hover:bg-transparent">
-                                        <TableCell className="p-0 h-8">
+                                        <TableCell className="p-0 h-8" colSpan={2}>
                                             <div className="relative h-full w-full">
-                                                <LinePattern className="h-full w-full" patternSize={5} />
+                                                <LinePattern className="absolute inset-0 h-full w-full" patternSize={5} />
                                                 <div className="absolute inset-0 flex items-center justify-start pl-3">
-                                                    <span className="font-headers font-semibold text-xs text-muted-foreground bg-background px-2">{group.groupName}</span>
+                                                    <span className="font-headers font-medium text-sm uppercase">{group.groupName}</span>
                                                 </div>
                                             </div>
                                         </TableCell>
@@ -305,6 +310,7 @@ export function StatSheetTeamsTable({ prismicTeams, f30TeamStats, f1FixturesData
                                                     shortName={row.shortName}
                                                     useShortName={isTablet}
                                                     href={row.href}
+                                                    hideRecord={true}
                                                 />
                                             </TableRow>
                                         )
@@ -318,6 +324,7 @@ export function StatSheetTeamsTable({ prismicTeams, f30TeamStats, f1FixturesData
                     <Table>
                         <TableHeader>
                             <TableRow>
+                                <TableHead></TableHead>
                                 <TableHead className="pl-6">GP</TableHead>
                                 <TableHead>Record</TableHead>
                                 <TableHead>Goals/Allowed</TableHead>
@@ -331,7 +338,7 @@ export function StatSheetTeamsTable({ prismicTeams, f30TeamStats, f1FixturesData
                             {groupData?.map((group, groupIndex) => (
                                 <Fragment key={group.groupId}>
                                     <TableRow className="hover:bg-transparent">
-                                        <TableCell colSpan={7} className="p-0 h-8">
+                                        <TableCell colSpan={8} className="p-0 h-8">
                                             <LinePattern className="h-full w-full" patternSize={5} />
                                         </TableCell>
                                     </TableRow>
@@ -345,6 +352,7 @@ export function StatSheetTeamsTable({ prismicTeams, f30TeamStats, f1FixturesData
                                                 onMouseLeave={() => setHoveredRow(null)}
                                                 className={cn("h-12 py-0 text-base hover:bg-transparent", hoveredRow === globalIndex && "bg-muted/30 hover:bg-muted/30")}
                                             >
+                                                <TableCell></TableCell>
                                                 <TableCell className="pl-6">{row.gamesPlayed}</TableCell>
                                                 <TableCell>{row.wins}-{row.losses}</TableCell>
                                                 <TableCell>{row.goals} / {row.goalsAllowed}</TableCell>

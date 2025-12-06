@@ -17,7 +17,12 @@ interface RosterCardProps extends React.ComponentProps<"div"> {
 }
 
 export function RosterCard({ players, seasonStats, className }: RosterCardProps) {
-  const filteredPlayers = players.filter((p) => p.Position !== "Substitute");
+  const filteredPlayers = players.filter((p) => {
+    if (p.Position === "Substitute") return false;
+    const jerseyNum = parseInt(String(getPlayerJerseyNumber(p) ?? ''), 10);
+    if (!isNaN(jerseyNum) && jerseyNum > 500) return false;
+    return true;
+  });
   const goalkeepers = filteredPlayers.filter((p) => p.Position === "Goalkeeper");
   const outfieldPlayers = filteredPlayers.filter((p) => p.Position !== "Goalkeeper");
 

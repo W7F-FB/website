@@ -1,8 +1,9 @@
 import { TableCell } from "@/components/ui/table"
 import { PrismicNextImage } from "@prismicio/next"
-import { cn } from "@/lib/utils"
+import { cn, getCountryIsoCode } from "@/lib/utils"
 import type { ImageField } from "@prismicio/client"
 import Link from "next/link"
+import ReactCountryFlag from "react-country-flag"
 
 type ClubRankRowProps = {
     placement: string
@@ -14,11 +15,14 @@ type ClubRankRowProps = {
     className?: string
     tournamentStatus?: string
     href?: string
+    country?: string | null
+    hideRecord?: boolean
 }
 
-export function ClubRankRow({ placement, logo, name, shortName, useShortName = false, record, className, tournamentStatus, href }: ClubRankRowProps) {
+export function ClubRankRow({ placement, logo, name, shortName, useShortName = false, record, className, tournamentStatus, href, country, hideRecord = false }: ClubRankRowProps) {
     const isComplete = tournamentStatus === 'Complete'
     const displayName = useShortName && shortName ? shortName : name
+    const countryIso = country ? getCountryIsoCode(country) : null
     
     const logoAndNameContent = (
         <div className={cn("flex items-center gap-2", href && "group")}>
@@ -37,6 +41,13 @@ export function ClubRankRow({ placement, logo, name, shortName, useShortName = f
             )}>
                 {displayName}
             </span>
+            {countryIso && (
+                <ReactCountryFlag
+                    countryCode={countryIso}
+                    svg
+                    className="!w-4 !h-4 rounded flex-shrink-0"
+                />
+            )}
         </div>
     )
     
@@ -53,7 +64,10 @@ export function ClubRankRow({ placement, logo, name, shortName, useShortName = f
             )}>
                 {placement}
             </TableCell>
-            <TableCell className="h-12 py-0 font-medium font-headers text-xs lg:text-sm px-2">
+            <TableCell className={cn(
+                "h-12 py-0 font-medium font-headers px-2 text-xs lg:text-sm",
+                hideRecord && "pr-6"
+            )}>
                 {href ? (
                     <Link className="w-fit block" href={href}>
                         {logoAndNameContent}
@@ -62,9 +76,11 @@ export function ClubRankRow({ placement, logo, name, shortName, useShortName = f
                     logoAndNameContent
                 )}
             </TableCell>
-            <TableCell className="h-12 py-0 font-medium font-headers text-xs lg:text-sm text-right pr-3 pl-0 w-12 lg:w-14">
-                {record}
-            </TableCell>
+            {!hideRecord && (
+                <TableCell className="h-12 py-0 font-medium font-headers text-xs lg:text-sm text-right pr-3 pl-0 w-12 lg:w-14">
+                    {record}
+                </TableCell>
+            )}
         </>
     )
 }
