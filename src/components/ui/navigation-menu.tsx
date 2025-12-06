@@ -8,7 +8,6 @@ import { useRouter } from "next/navigation"
 
 import { cn } from "@/lib/utils"
 import { CaretRightIcon } from "@/components/website-base/icons"
-import { useIsTablet } from "@/hooks/use-tablet"
 import {
   Sheet,
   SheetContent,
@@ -19,12 +18,14 @@ type NavigationMenuContextValue = {
   isTablet: boolean
   isSheetOpen: boolean
   setIsSheetOpen: (open: boolean) => void
+  hasMounted: boolean
 }
 
 const NavigationMenuContext = React.createContext<NavigationMenuContextValue>({
   isTablet: false,
   isSheetOpen: false,
   setIsSheetOpen: () => {},
+  hasMounted: false,
 })
 
 function useNavigationMenuContext() {
@@ -36,12 +37,24 @@ function NavigationMenuProvider({
 }: {
   children: React.ReactNode
 }) {
-  const isTablet = useIsTablet()
+  const [hasMounted, setHasMounted] = React.useState(false)
+  const [isTablet, setIsTablet] = React.useState(false)
   const [isSheetOpen, setIsSheetOpen] = React.useState(false)
 
+  React.useEffect(() => {
+    setHasMounted(true)
+    const mql = window.matchMedia(`(max-width: 1023px)`)
+    const onChange = () => {
+      setIsTablet(window.innerWidth < 1024)
+    }
+    mql.addEventListener("change", onChange)
+    setIsTablet(window.innerWidth < 1024)
+    return () => mql.removeEventListener("change", onChange)
+  }, [])
+
   const contextValue = React.useMemo(
-    () => ({ isTablet, isSheetOpen, setIsSheetOpen }),
-    [isTablet, isSheetOpen]
+    () => ({ isTablet: hasMounted ? isTablet : false, isSheetOpen, setIsSheetOpen, hasMounted }),
+    [hasMounted, isTablet, isSheetOpen]
   )
 
   return (
@@ -87,25 +100,37 @@ function NavigationMenu({
   viewport?: boolean
   mobileFooter?: React.ReactNode
 }) {
-  const { isTablet, isSheetOpen, setIsSheetOpen } = useNavigationMenuContext()
+  const { isTablet, isSheetOpen, setIsSheetOpen, hasMounted } = useNavigationMenuContext()
+
+  if (!hasMounted) {
+    return (
+      <div 
+        className={cn(
+          "group/navigation-menu relative flex max-w-max flex-1 items-center justify-center",
+          className
+        )}
+      >
+        {children}
+      </div>
+    )
+  }
 
   return (
     <>
-      {!isTablet && (
-        <NavigationMenuPrimitive.Root
-          data-slot="navigation-menu"
-          data-viewport={viewport}
-          delayDuration={50}
-          className={cn(
-            "group/navigation-menu relative flex max-w-max flex-1 items-center justify-center",
-            className
-          )}
-          {...props}
-        >
-          {children}
-          {viewport && <NavigationMenuViewport />}
-        </NavigationMenuPrimitive.Root>
-      )}
+      <NavigationMenuPrimitive.Root
+        data-slot="navigation-menu"
+        data-viewport={viewport}
+        delayDuration={50}
+        className={cn(
+          "group/navigation-menu relative flex max-w-max flex-1 items-center justify-center",
+          isTablet && "hidden",
+          className
+        )}
+        {...props}
+      >
+        {children}
+        {viewport && <NavigationMenuViewport />}
+      </NavigationMenuPrimitive.Root>
       {isTablet && (
         <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
           <SheetContent side="right" className="flex flex-col p-0 gap-0">
@@ -134,13 +159,16 @@ function NavigationMenuList({
   children,
   ...props
 }: React.ComponentProps<typeof NavigationMenuPrimitive.List>) {
-  const { isTablet } = useNavigationMenuContext()
+  const { isTablet, hasMounted } = useNavigationMenuContext()
 
-  if (isTablet) {
+  if (!hasMounted || isTablet) {
     return (
       <div
         data-slot="navigation-menu-list"
-        className={cn("flex flex-col gap-6 pb-6", className)}
+        className={cn(
+          isTablet ? "flex flex-col gap-6 pb-6" : "group flex flex-1 list-none items-center justify-center gap-1",
+          className
+        )}
       >
         {children}
       </div>
@@ -166,13 +194,13 @@ function NavigationMenuItem({
   children,
   ...props
 }: React.ComponentProps<typeof NavigationMenuPrimitive.Item>) {
-  const { isTablet } = useNavigationMenuContext()
+  const { isTablet, hasMounted } = useNavigationMenuContext()
 
-  if (isTablet) {
+  if (!hasMounted || isTablet) {
     return (
       <div
         data-slot="navigation-menu-item"
-        className={cn("flex flex-col lg:gap-2 gap-4", className)}
+        className={cn(isTablet ? "flex flex-col lg:gap-2 gap-4" : "relative", className)}
       >
         {children}
       </div>
@@ -199,7 +227,25 @@ function NavigationMenuTrigger({
   children,
   ...props
 }: React.ComponentProps<typeof NavigationMenuPrimitive.Trigger>) {
-  const { isTablet } = useNavigationMenuContext()
+  const { isTablet, hasMounted } = useNavigationMenuContext()
+
+  if (!hasMounted) {
+    return (
+      <button
+        type="button"
+        data-slot="navigation-menu-trigger"
+        className={cn(navigationMenuTriggerStyle(), "group", className)}
+      >
+        {children}{" "}
+        <span className="inline-flex">
+          <CaretRightIcon
+            className="relative top-[1px] ml-2.5 size-3 transition duration-300 rotate-90"
+            aria-hidden="true"
+          />
+        </span>
+      </button>
+    )
+  }
 
   if (isTablet) {
     return (
@@ -253,13 +299,13 @@ function NavigationMenuContent({
   children,
   ...props
 }: React.ComponentProps<typeof NavigationMenuPrimitive.Content>) {
-  const { isTablet } = useNavigationMenuContext()
+  const { isTablet, hasMounted } = useNavigationMenuContext()
 
-  if (isTablet) {
+  if (!hasMounted || isTablet) {
     return (
       <div
         data-slot="navigation-menu-content"
-        className={cn(className, "!w-full px-6")}
+        className={cn(className, isTablet && "!w-full px-6", !hasMounted && "hidden")}
         {...props}
       >
         {children}

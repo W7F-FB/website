@@ -1,8 +1,7 @@
 import * as React from "react"
 import type { TeamDocument, MatchDocument, BroadcastPartnersDocument } from "../../prismicio-types"
 import type { F1MatchData, F1TeamData } from "./opta-feeds/f1-fixtures"
-import type { F3StandingsResponse } from "./opta-feeds/f3-standings"
-import type { F9MatchPlayer, F9Team } from "./opta-feeds/f9-match"
+import type { F9MatchPlayer, F9Team, F9MatchResponse } from "./opta-feeds/f9-match"
 import type { F24Event } from "./opta-feeds/f24-match-events"
 import type { LeaderType } from "./game-leaders"
 
@@ -76,8 +75,7 @@ export interface GameCardOpta extends React.HTMLAttributes<HTMLDivElement> {
   compact?: boolean
   banner?: React.ReactNode
   variant?: "default" | "mini"
-  allMatches?: F1MatchData[]
-  f3StandingsData?: F3StandingsResponse | null
+  f9Feed?: F9MatchResponse
   streamingLink?: string | null
   broadcastPartners?: BroadcastPartnersDocument[]
 }

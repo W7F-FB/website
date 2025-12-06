@@ -23,6 +23,7 @@ import { GamesSlider } from "@/components/blocks/tournament/games-slider/games-s
 import { GamesSliderCollapseProvider } from "@/components/blocks/tournament/games-slider/games-slider-collapse-context"
 import type { TournamentDocument, TeamDocument } from "../../../../prismicio-types"
 import type { F1MatchData, F1TeamData } from "@/types/opta-feeds/f1-fixtures"
+import type { F9MatchResponse } from "@/types/opta-feeds/f9-match"
 import { cn } from "@/lib/utils"
 import { Subtitle } from "../typography"
 import { Separator } from "@/components/ui/separator"
@@ -56,9 +57,10 @@ type NavMainProps = {
   optaTeams?: F1TeamData[];
   tournament?: TournamentDocument;
   matchSlugMap?: Map<string, string>;
+  f9FeedsMap?: Map<string, F9MatchResponse>;
 }
 
-async function NavMain({ showBreadcrumbs, pathname, customBreadcrumbs, groupedFixtures, prismicTeams, optaTeams, tournament, matchSlugMap }: NavMainProps = {} as NavMainProps) {
+async function NavMain({ showBreadcrumbs, pathname, customBreadcrumbs, groupedFixtures, prismicTeams, optaTeams, tournament, matchSlugMap, f9FeedsMap }: NavMainProps = {} as NavMainProps) {
   let tournaments: Awaited<ReturnType<typeof getNavigationTournaments>> = []
   let recentBlog: Awaited<ReturnType<typeof getMostRecentBlog>> = null
   let navSettings: Awaited<ReturnType<typeof getNavigationSettings>> = null
@@ -280,6 +282,7 @@ async function NavMain({ showBreadcrumbs, pathname, customBreadcrumbs, groupedFi
           optaTeams={optaTeams!}
           tournament={tournament!}
           matchSlugMap={matchSlugMap}
+          f9FeedsMap={f9FeedsMap}
         />
       )}
     </div>

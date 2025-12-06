@@ -1,16 +1,18 @@
 import { Section } from "@/components/website-base/padding-containers"
 import type { TeamDocument, BroadcastPartnersDocument } from "../../../../prismicio-types"
-import { GroupList, GroupListPrismic } from "@/components/blocks/tournament/group-list"
 import type { F3StandingsResponse } from "@/types/opta-feeds/f3-standings"
 import type { F1FixturesResponse } from "@/types/opta-feeds/f1-fixtures"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import type { F9MatchResponse } from "@/types/opta-feeds/f9-match"
+import type { F40SquadsResponse } from "@/types/opta-feeds/f40-squads-feed"
 import { SectionHeading, SectionHeadingHeading, SectionHeadingText } from "@/components/sections/section-heading"
 import { MatchCard } from "@/components/blocks/match/match-card"
-import { getGroupStageMatches, groupMatchesByDate, buildGroupsFromPrismic } from "@/app/(website)/(subpages)/tournament/utils"
+import { getGroupStageMatches, groupMatchesByDate } from "@/app/(website)/(subpages)/tournament/utils"
 import { MatchDayBadge } from "@/components/blocks/tournament/match-day-badge"
-import { getMatchTeams } from "@/lib/opta/utils"
+import { getMatchTeams, normalizeOptaId } from "@/lib/opta/utils"
 import { GridCellScrollLink } from "@/components/blocks/grid-cell-scroll-link"
 import { cn } from "@/lib/utils"
+import { ClubStandingsTable } from "@/components/blocks/tournament/club-standings-table"
+import type { TeamRecord } from "@/lib/v2-utils/records-from-f9"
 
 type GroupStageSectionProps = {
     f3StandingsData: F3StandingsResponse | null
@@ -21,6 +23,10 @@ type GroupStageSectionProps = {
     compact?: boolean
     streamingLink?: string | null
     broadcastPartners?: BroadcastPartnersDocument[]
+    f9FeedsMap?: Map<string, F9MatchResponse>
+    f40Squads?: F40SquadsResponse | null
+    tournamentStatus?: string
+    teamRecords?: TeamRecord[]
 }
 
 export function GroupStageSection({ 
@@ -31,7 +37,11 @@ export function GroupStageSection({
     matchSlugMap,
     compact = false,
     streamingLink,
-    broadcastPartners
+    broadcastPartners,
+    f9FeedsMap,
+    f40Squads,
+    tournamentStatus,
+    teamRecords
 }: GroupStageSectionProps) {
     const groupStageMatches = getGroupStageMatches(f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData)
     const matchesByDay = groupMatchesByDate(groupStageMatches)
@@ -48,39 +58,17 @@ export function GroupStageSection({
                 </SectionHeadingText>
             </SectionHeading>
             <div className="grid grid-cols-1 md:grid-cols-7 gap-6 md:gap-12">
-                <Card banner className="col-span-1 md:col-span-2 self-start md:sticky md:top-default-sticky-distance">
-                    {f3StandingsData?.SoccerFeed?.SoccerDocument?.Competition?.TeamStandings ? (
-                        f3StandingsData.SoccerFeed.SoccerDocument.Competition.TeamStandings.map((groupStandings) => {
-                            const groupName = groupStandings.Round?.Name.value || 'Unknown Group'
-                            return (
-                                <div key={groupStandings.Round?.Name.id || Math.random()}>
-                                    <CardHeader>
-                                        <CardTitle>{groupName}</CardTitle>
-                                    </CardHeader>
-                                    <CardContent>
-                                        <GroupList
-                                            groupStandings={groupStandings}
-                                            teams={f3StandingsData?.SoccerFeed?.SoccerDocument?.Team || []}
-                                            prismicTeams={prismicTeams}
-                                            matches={f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData || []}
-                                        />
-                                    </CardContent>
-                                </div>
-                            )
-                        })
-                    ) : (
-                        buildGroupsFromPrismic(prismicTeams).map((group) => (
-                            <div key={group.groupId}>
-                                <CardHeader>
-                                    <CardTitle>{group.groupName}</CardTitle>
-                                </CardHeader>
-                                <CardContent>
-                                    <GroupListPrismic teams={group.teams} />
-                                </CardContent>
-                            </div>
-                        ))
-                    )}
-                </Card>
+                <div className="col-span-1 md:col-span-2 self-start md:sticky md:top-default-sticky-distance">
+                    <ClubStandingsTable
+                        prismicTeams={prismicTeams}
+                        f1FixturesData={f1FixturesData}
+                        f3StandingsData={f3StandingsData}
+                        f40Squads={f40Squads}
+                        tournamentStatus={tournamentStatus}
+                        isKnockoutStage={false}
+                        teamRecords={teamRecords}
+                    />
+                </div>
                 <div className="col-span-1 md:col-span-5 space-y-18">
                     {Array.from(matchesByDay.entries()).map(([date, matches], index) => {
                         const columns = compact ? 3 : 2
@@ -102,8 +90,7 @@ export function GroupStageSection({
                                             tournamentSlug={tournamentSlug}
                                             matchSlugMap={matchSlugMap}
                                             compact={compact}
-                                            allMatches={f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData}
-                                            f3StandingsData={f3StandingsData}
+                                            f9Feed={f9FeedsMap?.get(normalizeOptaId(match.uID))}
                                             streamingLink={streamingLink}
                                             broadcastPartners={broadcastPartners}
                                         />

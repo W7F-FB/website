@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState, useEffect } from "react"
 import {
     Tabs,
     TabsList,
@@ -154,9 +154,14 @@ type StatSheetTabsHeaderProps = {
 }
 
 function StatSheetTabsHeader({ prismicTeams, f30TeamStats, selectedTeamId, onTeamSelect, showPlayersTab }: StatSheetTabsHeaderProps) {
+    const [hasMounted, setHasMounted] = useState(false)
     const { activeValue } = useTabs()
     const showTeamSelect = activeValue === "players"
     const isMobile = useIsMobile()
+
+    useEffect(() => {
+        setHasMounted(true)
+    }, [])
 
     const sortedTeams = useMemo(() => {
         return [...prismicTeams].sort((a, b) => {
@@ -180,7 +185,7 @@ function StatSheetTabsHeader({ prismicTeams, f30TeamStats, selectedTeamId, onTea
                     <TabsTrigger value="players">Players</TabsTrigger>
                 </TabsList>
             )}
-            {showTeamSelect && (
+            {showTeamSelect && hasMounted && (
                 <Select 
                     clearable 
                     value={selectedTeamId}

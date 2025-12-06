@@ -46,7 +46,7 @@ export class OptaClient {
 
     const response = await fetch(url, {
       method: 'GET',
-      next: { revalidate: 300 },
+      next: { revalidate: 25 },
     });
 
     if (!response.ok) {
@@ -69,7 +69,7 @@ export class OptaClient {
 
     const response = await fetch(url, {
       method: 'GET',
-      next: { revalidate: 300 },
+      next: { revalidate: 25 },
     });
 
     if (!response.ok) {
@@ -92,7 +92,7 @@ export class OptaClient {
 
     const response = await fetch(url, {
       method: 'GET',
-      next: { revalidate: 300 },
+      next: { revalidate: 25 },
     });
 
     if (!response.ok) {
@@ -129,7 +129,6 @@ export class OptaClient {
     });
 
     const url = `${this.baseUrl}/?${queryParams.toString()}`;
-    dev.log('F2 Feed Request URL:', url);
 
     const response = await this.makeDirectRequest(params);
 
@@ -146,7 +145,6 @@ export class OptaClient {
       competition: String(competitionId),
       season_id: String(seasonId),
     }).toString()}`
-    dev.log('F3 Feed Request URL:', url)
     const response = await this.makeRequest({
       feed_type: 'f3',
       competition: competitionId,
@@ -175,7 +173,6 @@ export class OptaClient {
     });
 
     const url = `${this.baseUrl}/?${queryParams.toString()}`;
-    dev.log('F9 Feed Request URL:', url);
 
     const response = await this.makeDirectRequest(params);
 

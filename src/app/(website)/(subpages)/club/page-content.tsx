@@ -24,6 +24,7 @@ import type { F40Team } from "@/types/opta-feeds/f40-squads-feed";
 import type { F3StandingsResponse } from "@/types/opta-feeds/f3-standings";
 import type { F1FixturesResponse } from "@/types/opta-feeds/f1-fixtures";
 import type { F30SeasonStatsResponse } from "@/types/opta-feeds/f30-season-stats";
+import type { F9MatchResponse } from "@/types/opta-feeds/f9-match";
 
 type Props = {
   team: TeamDocument;
@@ -36,6 +37,7 @@ type Props = {
   seasonStats?: F30SeasonStatsResponse | null;
   tournamentDocuments?: TournamentDocument[];
   matchSlugMap?: Map<string, string>;
+  f9FeedsMap?: Map<string, F9MatchResponse>;
 };
 
 export default function TeamPageContent({
@@ -49,6 +51,7 @@ export default function TeamPageContent({
   seasonStats,
   tournamentDocuments = [],
   matchSlugMap,
+  f9FeedsMap: _f9FeedsMap,
 }: Props) {
   const teamLeaders = getTeamLeaders(team, seasonStats, teamSquad);
 

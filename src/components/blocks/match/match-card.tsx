@@ -9,9 +9,9 @@ import { QuestionMarkIcon, CaretFilledIcon, CaretRightIcon, StreamIcon, Informat
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import type { GameCardTeam, GameCardOpta } from "@/types/components"
-import { getStatusDisplay, normalizeOptaId } from "@/lib/opta/utils"
+import { normalizeOptaId } from "@/lib/opta/utils"
 import { buildMatchUrl } from "@/lib/match-url"
-import { getOptaGameCardData } from "./utils"
+import { getF9GameCardData, getF1GameCardData } from "./utils"
 import { Separator } from "@/components/ui/separator"
 import { Button } from "@/components/ui/button"
 import { Status, StatusIndicator } from "@/components/ui/status"
@@ -202,17 +202,19 @@ function MatchCard({
     banner,
     className,
     variant = "default",
-    allMatches,
-    f3StandingsData,
+    f9Feed,
     streamingLink,
     broadcastPartners,
     ...restProps
 }: GameCardOpta) {
-    const gameCardData = getOptaGameCardData(fixture, prismicTeams, optaTeams, allMatches, f3StandingsData)
-    const normalizedOptaId = normalizeOptaId(fixture.uID)
-    const matchSlug = matchSlugMap?.get(normalizedOptaId)
+    const gameCardData = f9Feed 
+        ? getF9GameCardData(f9Feed, prismicTeams, optaTeams) 
+        : null
+    const finalData = gameCardData || getF1GameCardData(fixture, prismicTeams, optaTeams)
+    
+    const normalizedMatchId = normalizeOptaId(fixture.uID)
+    const matchSlug = matchSlugMap?.get(normalizedMatchId)
     const matchHref = matchSlug ? buildMatchUrl(tournamentSlug, matchSlug) : `/tournament/${tournamentSlug}`
-    const fixtureStatus = getStatusDisplay(fixture.MatchInfo)
 
     const {
         homeTeam,
@@ -227,19 +229,34 @@ function MatchCard({
         awayIsLosing,
         homeIsWinning,
         awayIsWinning,
+        isFinal,
+        isLive,
+        isPenalties,
+        isExtraTime,
+        matchTime,
         startTime,
         homeLogoUrl,
         awayLogoUrl,
         homeLogoAlt,
         awayLogoAlt,
-        homeOptaTeam,
-        awayOptaTeam,
-    } = gameCardData
+    } = finalData
+    
+    const homeOptaTeam = optaTeams.find(t => normalizeOptaId(t.TeamRef || t.uID) === normalizeOptaId(fixture.TeamData.find(td => td.Side === "Home")?.TeamRef || ""))
+    const awayOptaTeam = optaTeams.find(t => normalizeOptaId(t.TeamRef || t.uID) === normalizeOptaId(fixture.TeamData.find(td => td.Side === "Away")?.TeamRef || ""))
 
     const gameDate = formatGameDate(startTime)
-
-    const matchTimeStat = fixture.Stat?.find(stat => stat.Type === "match_time")
-    const currentMinute = matchTimeStat?.value ? String(matchTimeStat.value) : null
+    const currentMinute = matchTime !== null ? String(matchTime) : null
+    
+    const getStatusText = () => {
+        if (isFinal) {
+            if (isPenalties) return "FT/PKs"
+            if (isExtraTime) return "AET"
+            return "FT"
+        }
+        if (isLive) return "Live"
+        return ""
+    }
+    const fixtureStatus = getStatusText()
     const resolvedVariant: MatchCardVariant = variant ?? "default"
     const variantStyles = MATCH_CARD_VARIANTS[resolvedVariant] ?? MATCH_CARD_VARIANTS.default
     const isCompact = compact || resolvedVariant === "mini"
@@ -251,6 +268,11 @@ function MatchCard({
     }
     const homeShortName = isMini ? (homeTeam?.data?.key || getMiniPlaceholder(homePlaceholderName) || homeTeam?.data?.name || "Home Team") : (homeTeamShortName || "")
     const awayShortName = isMini ? (awayTeam?.data?.key || getMiniPlaceholder(awayPlaceholderName) || awayTeam?.data?.name || "Away Team") : (awayTeamShortName || "")
+    
+    // Only show scores if match has started (live or final)
+    const showScores = isLive || isFinal
+    const displayHomeScore = showScores ? homeScore : null
+    const displayAwayScore = showScores ? awayScore : null
     const homeOptaDisplayName = homeTeamShortName || homeOptaTeam?.ShortTeamName || homeOptaTeam?.ShortName || homeOptaTeam?.Name || homeOptaTeam?.name || homePlaceholderName || "Home Team"
     const awayOptaDisplayName = awayTeamShortName || awayOptaTeam?.ShortTeamName || awayOptaTeam?.ShortName || awayOptaTeam?.Name || awayOptaTeam?.name || awayPlaceholderName || "Away Team"
 
@@ -269,7 +291,7 @@ function MatchCard({
                 </CardHeader>
             )}
             <CardHeader className={cn("flex items-center justify-between", variantStyles.header)}>
-                {fixtureStatus === "Live" ? (
+                {isLive ? (
                     <Status className={variantStyles.liveStatus}>
                         <StatusIndicator className={cn("text-destructive", variantStyles.liveStatusIndicator)} />
                         <span className={cn("tracking-widest", variantStyles.liveStatusText)}>LIVE</span>
@@ -280,7 +302,7 @@ function MatchCard({
                     </div>
                 )}
                 <div className={cn("font-headers font-medium", variantStyles.status)}>
-                    {fixtureStatus === "Live" ? `'${currentMinute}` : fixtureStatus}
+                    {isLive ? `'${currentMinute}` : fixtureStatus}
                 </div>
             </CardHeader>
             <CardContent className={cn("px-0 lg:px-0 flex-grow", variantStyles.content)}>
@@ -288,7 +310,7 @@ function MatchCard({
                     team={homeTeam ?? null}
                     logoUrl={homeLogoUrl}
                     logoAlt={homeLogoAlt}
-                    score={homeScore}
+                    score={displayHomeScore}
                     teamLabel={homePlaceholderName || "Home Team"}
                     teamShortName={homeShortName}
                     compact={isCompact}
@@ -318,7 +340,7 @@ function MatchCard({
                     team={awayTeam ?? null}
                     logoUrl={awayLogoUrl}
                     logoAlt={awayLogoAlt}
-                    score={awayScore}
+                    score={displayAwayScore}
                     teamLabel={awayPlaceholderName || "Away Team"}
                     teamShortName={awayShortName}
                     compact={isCompact}
@@ -345,7 +367,7 @@ function MatchCard({
                             />
                         </Link>
                     </Button>
-                    {fixtureStatus === "Live" && streamingLink && (
+                    {isLive && streamingLink && (
                         <div className="flex items-center gap-1">
                             <Button asChild variant="outline" size="sm" className="text-xs">
                                 <Link href={streamingLink} target="_blank" rel="noopener noreferrer">
