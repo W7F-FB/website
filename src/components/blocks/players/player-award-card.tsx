@@ -61,6 +61,8 @@ export function PlayerAwardCard({ award, player, optaTeam }: PlayerAwardCardProp
         .filter(Boolean)
         .join(", ");
 
+    const displayPlayerName = award.player_name === 'DiDi Haracic' ? 'DiDi Haračić' : award.player_name;
+
     return (
         <Card className="p-0 gap-0">
             <CardHeader className="lg:px-3 px-3 h-14 bg-muted/50 font-headers text-base font-semibold gap-0 flex flex-col items-start justify-center">
@@ -80,7 +82,7 @@ export function PlayerAwardCard({ award, player, optaTeam }: PlayerAwardCardProp
                 <div className="flex flex-col justify-center">
                     <span className="flex flex-col justify-start">
                         <span className="font-headers text-base font-medium">
-                            {award.player_name || ""}
+                            {displayPlayerName || ""}
                         </span>
                         {playerDetails && (
                             <span className="text-muted-foreground/75 text-sm">
