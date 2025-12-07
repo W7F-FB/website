@@ -7,7 +7,7 @@ import type { TeamDocument } from "../../../../prismicio-types"
 import type { F1FixturesResponse } from "@/types/opta-feeds/f1-fixtures"
 import type { F3StandingsResponse } from "@/types/opta-feeds/f3-standings"
 import type { F40SquadsResponse } from "@/types/opta-feeds/f40-squads-feed"
-import { getFinalMatch, getThirdPlaceMatch, getTeamRankings, sortTeamsByRanking } from "@/app/(website)/(subpages)/tournament/utils"
+import { getFinalMatch, getThirdPlaceMatch, getSemiFinalMatches, getTeamRankings, sortTeamsByRanking } from "@/app/(website)/(subpages)/tournament/utils"
 import { LinePattern } from "@/components/blocks/line-pattern"
 import { ClubRankRow } from "@/components/blocks/tournament/club-rank-row"
 import { normalizeOptaId } from "@/lib/opta/utils"
@@ -33,8 +33,10 @@ type ClubStandingsTableProps = {
 }
 
 export function ClubStandingsTable({ prismicTeams, f1FixturesData, f3StandingsData, f40Squads, tournamentStatus, isKnockoutStage, teamRecords, button }: ClubStandingsTableProps) {
-    const finalMatches = getFinalMatch(f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData)
-    const thirdPlaceMatches = getThirdPlaceMatch(f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData)
+    const matchData = f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData
+    const finalMatches = getFinalMatch(matchData)
+    const thirdPlaceMatches = getThirdPlaceMatch(matchData)
+    const semiFinalMatches = getSemiFinalMatches(matchData)
     
     const finalMatch = finalMatches[0]
     const thirdPlaceMatch = thirdPlaceMatches[0]
@@ -51,6 +53,40 @@ export function ClubStandingsTable({ prismicTeams, f1FixturesData, f3StandingsDa
     
     const squadTeams = useMemo(() => f40Squads?.SoccerFeed?.SoccerDocument?.Team || [], [f40Squads])
     
+    const semifinalTeamIds = useMemo(() => {
+        const teamIds = new Set<string>()
+        for (const match of semiFinalMatches) {
+            if (match.TeamData?.[0]?.TeamRef) teamIds.add(normalizeOptaId(match.TeamData[0].TeamRef))
+            if (match.TeamData?.[1]?.TeamRef) teamIds.add(normalizeOptaId(match.TeamData[1].TeamRef))
+        }
+        return teamIds
+    }, [semiFinalMatches])
+
+    const semifinalTeamRankings = useMemo(() => {
+        const rankings: { teamId: string; groupPosition: number }[] = []
+        const teamStandings = f3StandingsData?.SoccerFeed?.SoccerDocument?.Competition?.TeamStandings
+        
+        if (!teamStandings) return new Map<string, number>()
+        
+        for (const teamId of semifinalTeamIds) {
+            for (const groupStanding of teamStandings) {
+                const teamRecord = groupStanding.TeamRecord?.find(
+                    record => normalizeOptaId(record.TeamRef) === teamId
+                )
+                if (teamRecord) {
+                    rankings.push({ teamId, groupPosition: teamRecord.Standing.Position })
+                    break
+                }
+            }
+        }
+        
+        rankings.sort((a, b) => a.groupPosition - b.groupPosition)
+        
+        const rankMap = new Map<string, number>()
+        rankings.forEach((r, idx) => rankMap.set(r.teamId, idx + 1))
+        return rankMap
+    }, [semifinalTeamIds, f3StandingsData])
+
     const getKnockoutPlacement = useCallback((teamOptaId: string | null | undefined): string => {
         if (!teamOptaId) return 'E'
         
@@ -70,26 +106,15 @@ export function ClubStandingsTable({ prismicTeams, f1FixturesData, f3StandingsDa
         }
         
         if (!finalMatch?.MatchInfo?.MatchWinner && !thirdPlaceMatch?.MatchInfo?.MatchWinner) {
-            const teamStandings = f3StandingsData?.SoccerFeed?.SoccerDocument?.Competition?.TeamStandings
-            if (teamStandings) {
-                for (const groupStanding of teamStandings) {
-                    const teamRecord = groupStanding.TeamRecord?.find(
-                        record => normalizeOptaId(record.TeamRef) === normalizedTeamId
-                    )
-                    if (teamRecord && (teamRecord.Standing.Position === 1 || teamRecord.Standing.Position === 2)) {
-                        const groupId = groupStanding.Round?.Name.id || 0
-                        const position = teamRecord.Standing.Position
-                        const rank = groupId === 1 
-                            ? (position === 1 ? 1 : 3) 
-                            : (position === 1 ? 2 : 4)
-                        return rank === 1 ? '1st' : rank === 2 ? '2nd' : rank === 3 ? '3rd' : '4th'
-                    }
-                }
-            }
+            const rank = semifinalTeamRankings.get(normalizedTeamId)
+            if (rank === 1) return '1st'
+            if (rank === 2) return '2nd'
+            if (rank === 3) return '3rd'
+            if (rank === 4) return '4th'
         }
         
         return 'E'
-    }, [finalMatch, thirdPlaceMatch, f3StandingsData])
+    }, [finalMatch, thirdPlaceMatch, semifinalTeamRankings])
 
     const getGroupPlacement = (teamOptaId: string | null | undefined, groupId: number): string => {
         if (!teamOptaId) return '-'
