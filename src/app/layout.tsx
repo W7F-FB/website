@@ -37,7 +37,6 @@ export default async function RootLayout({
         <ClipPaths />
         <MetallicGradients />
         {children}
-        <RefCamClientWrapper />
         <PrismicPreview repositoryName="world-sevens-football" />
       </body>
     </html>

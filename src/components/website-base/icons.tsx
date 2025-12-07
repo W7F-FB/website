@@ -424,3 +424,12 @@ export const VideoRecordIcon = createIcon(
   />
 )
 
+export const BarGraphIcon = createIcon(
+  "BarGraphIcon",
+  <path
+    fillRule="evenodd"
+    d="M7 1H1.5v17.9641H7V1Zm15 5h-5.5v12.9641H22V6ZM9 11h5.5v7.9641H9V11ZM1.638 22.9641H22v-2H1.638v2Z"
+    clipRule="evenodd"
+  />
+)
+

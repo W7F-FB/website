@@ -20,6 +20,7 @@ import { getPlayerByName } from "@/types/opta-feeds/f30-season-stats"
 import { SectionHeading, SectionHeadingHeading, SectionHeadingSubtitle } from "@/components/sections/section-heading"
 import { getSemiFinalMatches, getThirdPlaceMatch, getFinalMatch, isInKnockoutStage } from "./utils"
 import { formatDateRange, formatCurrencyInWords, mapBlogDocumentToMetadata } from "@/lib/utils"
+import { normalizeOptaId } from "@/lib/opta/utils"
 import { PostGrid } from "@/components/blocks/posts/post-grid"
 import { PrismicLink } from "@prismicio/react"
 import { Separator } from "@/components/ui/separator"
@@ -60,6 +61,14 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
     const allMatches = f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData
     const knockoutStage = isInKnockoutStage(allMatches)
 
+    const finalMatch = finalMatches[0]
+    const finalMatchHighlight = finalMatch && recapVideosMap ? recapVideosMap.get(normalizeOptaId(finalMatch.uID)) : undefined
+    const isEstorilPortugal = tournament.uid === "estoril-portugal"
+    const useFinalHighlight: MatchHighlight | undefined = !isEstorilPortugal ? finalMatchHighlight : undefined
+    const videoUrl = useFinalHighlight?.video_url || (tournament.data.highlight_reel_link && typeof tournament.data.highlight_reel_link === 'string' ? tournament.data.highlight_reel_link : undefined)
+    const videoThumbnail = useFinalHighlight?.thumbnail_url || "/images/static-media/video-banner.avif"
+    const videoLabel = useFinalHighlight ? "Recap The Final" : "Recap the action"
+
     return (
         <div>
             <PaddingGlobal>
@@ -69,7 +78,6 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                     <Status className="text-lg mb-5 gap-3">
                         Final
                     </Status>
-                    <Subtitle>{tournament.data.nickname || "Results"}</Subtitle>
                     <H1 className="uppercase">{tournament.data.title}</H1>
                     <P className="text-lg"><span className="font-semibold">{formatDateRange(tournament.data.start_date, tournament.data.end_date)}</span><span className="ml-3 font-light text-sm">{tournament.data.stadium_name}</span></P>
                     {isFilled.number(tournament.data.prize_pool) && (
@@ -78,7 +86,7 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                     <div className="mt-8 flex justify-start">
                         <div className="grid grid-cols-2 gap-4">
                             <Button asChild size="skew_lg" className="clip-chop-sm">
-                                <Link href="#results"><span>Results</span></Link>
+                                <Link href="#group-stage"><span>Results</span></Link>
                             </Button>
                             <Button asChild size="skew_lg" variant="outline">
                                 <Link href="#stat-sheet"><span>Stat Sheet</span></Link>
@@ -93,7 +101,7 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                             fill
                             className="object-cover object-left"
                         />
-                        <SubpageHeroMediaBanner>
+                        <SubpageHeroMediaBanner className="hidden">
                             <P noSpace><span>Event #2 is coming to Fort Lauderdale, FL</span>
                                 <br />
                                 <span>Dec 5-7, 2025
@@ -122,12 +130,12 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                         }} />
                     </div>
                 )}
-                {tournament.data.highlight_reel_link && typeof tournament.data.highlight_reel_link === 'string' && (
+                {videoUrl && (
                     <div className="col-span-1 md:h-full">
                         <VideoBanner
-                            thumbnail="/images/static-media/video-banner.avif"
-                            videoUrl={tournament.data.highlight_reel_link}
-                            label="Recap the action"
+                            thumbnail={videoThumbnail}
+                            videoUrl={videoUrl}
+                            label={videoLabel}
                             className="md:h-full"
                             size="sm"
                         />
