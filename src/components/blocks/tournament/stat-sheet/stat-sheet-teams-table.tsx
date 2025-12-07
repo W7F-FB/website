@@ -107,6 +107,23 @@ export function StatSheetTeamsTable({ prismicTeams, teamStatSheets, f1FixturesDa
         return rankings.get(normalizedTeamRef) ?? '-'
     }, [f3StandingsData])
 
+    const getF3GroupPosition = useCallback((teamOptaId: string | null | undefined): number => {
+        if (!teamOptaId) return 999
+        const normalizedTeamId = normalizeOptaId(`t${teamOptaId}`)
+        const teamStandings = f3StandingsData?.SoccerFeed?.SoccerDocument?.Competition?.TeamStandings
+        if (!teamStandings) return 999
+        
+        for (const groupStanding of teamStandings) {
+            const teamRecord = groupStanding.TeamRecord?.find(
+                record => normalizeOptaId(record.TeamRef) === normalizedTeamId
+            )
+            if (teamRecord) {
+                return teamRecord.Standing.Position
+            }
+        }
+        return 999
+    }, [f3StandingsData])
+
     const groupData = useMemo(() => {
         if (isKnockoutStage) return null
         
@@ -187,10 +204,15 @@ export function StatSheetTeamsTable({ prismicTeams, teamStatSheets, f1FixturesDa
     const knockoutTableData = useMemo(() => {
         if (!isKnockoutStage) return []
         
-        return prismicTeams.map(team => buildTeamRowData(team)).sort((a, b) => {
-            return placementOrder[a.placement] - placementOrder[b.placement]
+        return prismicTeams.map(team => ({
+            ...buildTeamRowData(team),
+            f3Position: getF3GroupPosition(team.data.opta_id)
+        })).sort((a, b) => {
+            const placementDiff = placementOrder[a.placement] - placementOrder[b.placement]
+            if (placementDiff !== 0) return placementDiff
+            return a.f3Position - b.f3Position
         })
-    }, [isKnockoutStage, prismicTeams, buildTeamRowData])
+    }, [isKnockoutStage, prismicTeams, buildTeamRowData, getF3GroupPosition])
 
     if (isKnockoutStage) {
         return (
