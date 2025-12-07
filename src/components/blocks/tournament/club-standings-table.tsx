@@ -19,7 +19,8 @@ const placementOrder: Record<string, number> = {
     '2nd': 3,
     '3rd': 4,
     '4th': 5,
-    'E': 6
+    '-': 6,
+    'E': 7
 }
 
 type ClubStandingsTableProps = {
@@ -82,8 +83,15 @@ export function ClubStandingsTable({ prismicTeams, f1FixturesData, f3StandingsDa
                 normalizeOptaId(thirdPlaceMatch.TeamData?.[1]?.TeamRef || '') === normalizedTeamId) return '4th'
         }
         
+        if (finalMatch?.TeamData?.[0]?.TeamRef && finalMatch?.TeamData?.[1]?.TeamRef) {
+            if (normalizeOptaId(finalMatch.TeamData[0].TeamRef) === normalizedTeamId || 
+                normalizeOptaId(finalMatch.TeamData[1].TeamRef) === normalizedTeamId) {
+                return QUALIFIED_ALIVE
+            }
+        }
+        
         if (semifinalTeamIds.has(normalizedTeamId)) {
-            return QUALIFIED_ALIVE
+            return '-'
         }
         
         return 'E'

@@ -19,7 +19,8 @@ const placementOrder: Record<string, number> = {
     '2nd': 3,
     '3rd': 4,
     '4th': 5,
-    'E': 6
+    '-': 6,
+    'E': 7
 }
 
 type StatSheetTeamsTableProps = {
@@ -91,8 +92,15 @@ export function StatSheetTeamsTable({ prismicTeams, teamStatSheets, f1FixturesDa
                 normalizeOptaId(thirdPlaceMatch.TeamData?.[1]?.TeamRef || '') === normalizedTeamId) return '4th'
         }
         
+        if (finalMatch?.TeamData?.[0]?.TeamRef && finalMatch?.TeamData?.[1]?.TeamRef) {
+            if (normalizeOptaId(finalMatch.TeamData[0].TeamRef) === normalizedTeamId || 
+                normalizeOptaId(finalMatch.TeamData[1].TeamRef) === normalizedTeamId) {
+                return QUALIFIED_ALIVE
+            }
+        }
+        
         if (semifinalTeamIds.has(normalizedTeamId)) {
-            return QUALIFIED_ALIVE
+            return '-'
         }
         
         return 'E'
@@ -230,6 +238,13 @@ export function StatSheetTeamsTable({ prismicTeams, teamStatSheets, f1FixturesDa
                             <TableBody>
                                 {knockoutTableData.map((row, index) => (
                                     <Fragment key={row.team.id}>
+                                        {index === firstEliminatedIndex && firstEliminatedIndex > 0 && (
+                                            <TableRow className="hover:bg-transparent">
+                                                <TableCell className="p-0 h-4">
+                                                    <LinePattern className="h-full w-full" patternSize={5} />
+                                                </TableCell>
+                                            </TableRow>
+                                        )}
                                         <TableRow 
                                             onMouseEnter={() => setHoveredRow(index)}
                                             onMouseLeave={() => setHoveredRow(null)}
@@ -246,7 +261,7 @@ export function StatSheetTeamsTable({ prismicTeams, teamStatSheets, f1FixturesDa
                                                 hideRecord={true}
                                             />
                                         </TableRow>
-                                        {row.placement === '4th' && (
+                                        {row.placement === '4th' && tournamentStatus === 'Complete' && (
                                             <TableRow className="hover:bg-transparent">
                                                 <TableCell className="p-0 h-4">
                                                     <LinePattern className="h-full w-full" patternSize={5} />
@@ -275,6 +290,13 @@ export function StatSheetTeamsTable({ prismicTeams, teamStatSheets, f1FixturesDa
                             <TableBody>
                                 {knockoutTableData.map((row, index) => (
                                     <Fragment key={row.team.id}>
+                                        {index === firstEliminatedIndex && firstEliminatedIndex > 0 && (
+                                            <TableRow className="hover:bg-transparent">
+                                                <TableCell colSpan={8} className="p-0 h-4">
+                                                    <LinePattern className="h-full w-full" patternSize={5} />
+                                                </TableCell>
+                                            </TableRow>
+                                        )}
                                         <TableRow 
                                             onMouseEnter={() => setHoveredRow(index)}
                                             onMouseLeave={() => setHoveredRow(null)}
@@ -289,7 +311,7 @@ export function StatSheetTeamsTable({ prismicTeams, teamStatSheets, f1FixturesDa
                                             <TableCell>{row.fouls}</TableCell>
                                             <TableCell>{row.cards}</TableCell>
                                         </TableRow>
-                                        {row.placement === '4th' && (
+                                        {row.placement === '4th' && tournamentStatus === 'Complete' && (
                                             <TableRow className="hover:bg-transparent">
                                                 <TableCell colSpan={8} className="p-0 h-4">
                                                     <LinePattern className="h-full w-full" patternSize={5} />
