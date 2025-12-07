@@ -115,7 +115,7 @@ export default function PlayByPlay({ commentary, className, isPreGame }: PlayByP
         ? commentary.Commentary.message 
         : [];
     
-    const messages = groupSubstitutions(rawMessages);
+    const messages = groupSubstitutions(rawMessages, commentary?.Commentary || null);
     const scoringMessages = messages.filter(msg => isScoringAttempt(msg));
 
     if (messages.length === 0) {

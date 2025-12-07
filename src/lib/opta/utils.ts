@@ -1,5 +1,5 @@
 import type { F1MatchInfo, F1MatchData, F1TeamData } from "@/types/opta-feeds/f1-fixtures"
-import type { F13Message } from "@/types/opta-feeds/f13-commentary"
+import type { F13Message, F13Commentary } from "@/types/opta-feeds/f13-commentary"
 import { isSubstitutionMessage } from "@/types/opta-feeds/f13-commentary"
 
 export function normalizeOptaId(id: string): string {
@@ -63,64 +63,138 @@ export function removeW7F(text: string): string {
     .trim()
 }
 
-export function groupSubstitutions(messages: F13Message[]): F13Message[] {
-  const result: F13Message[] = []
-  let i = 0
+function extractMinuteFromTime(time?: string, fallbackMinute?: number): number {
+  if (time) {
+    const match = time.match(/^(\d+)'?$/)
+    if (match) {
+      return parseInt(match[1], 10)
+    }
+  }
+  
+  return fallbackMinute ?? 0
+}
 
-  while (i < messages.length) {
-    const currentMessage = messages[i]
+function cleanSubstitutionText(text: string, teamName: string): string {
+  let cleaned = removeW7F(text).trim()
+  
+  const escapedTeamName = teamName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  const substitutionPrefixPattern = new RegExp(
+    `^Substitution,?\\s*${escapedTeamName}\\.?\\s*`,
+    'i'
+  )
+  cleaned = cleaned.replace(substitutionPrefixPattern, '')
+  
+  cleaned = cleaned.replace(/^Substitution,?\s*/i, '')
+  
+  const teamNamePrefixPattern = new RegExp(`^${escapedTeamName}[.,:\\s]+`, 'i')
+  cleaned = cleaned.replace(teamNamePrefixPattern, '')
+  
+  cleaned = cleaned.replace(/\.\.+/g, '.')
+  cleaned = cleaned.replace(/^[.,;:\s]+|[.,;:\s]+$/g, '')
+  
+  return cleaned.trim()
+}
 
-    if (!isSubstitutionMessage(currentMessage)) {
-      result.push(currentMessage)
-      i++
+function getTeamName(teamRef: string, commentary: F13Commentary): string {
+  const homeTeamId = String(commentary.home_team_id)
+  const awayTeamId = String(commentary.away_team_id)
+  
+  const normalizedHomeId = normalizeOptaId(homeTeamId)
+  const normalizedAwayId = normalizeOptaId(awayTeamId)
+  
+  if (teamRef === normalizedHomeId) {
+    return commentary.home_team_name || 'Home Team'
+  }
+  
+  if (teamRef === normalizedAwayId) {
+    return commentary.away_team_name || 'Away Team'
+  }
+  
+  return 'Team'
+}
+
+function formatSubstitutionGroup(substitutions: F13Message[], teamName: string): string {
+  if (substitutions.length === 0) return ''
+  
+  const cleanedTexts = substitutions.map(msg => {
+    const cleaned = cleanSubstitutionText(msg.comment, teamName)
+    return cleaned.replace(/[.,;:]+\s*$/, '').trim()
+  }).filter(text => text.length > 0)
+
+  if (cleanedTexts.length === 0) return ''
+  
+  const substitutionsList = cleanedTexts.join(', ')
+  return `Substitutions, ${teamName}: ${substitutionsList}.`
+}
+
+export function groupSubstitutions(messages: F13Message[], commentary: F13Commentary | null): F13Message[] {
+  if (!commentary) return messages
+
+  const substitutionMap = new Map<string, F13Message[]>()
+  const processedSubstitutions = new Set<number>()
+
+  for (const message of messages) {
+    if (!isSubstitutionMessage(message)) {
       continue
     }
 
-    const substitutionGroup: F13Message[] = [currentMessage]
-    const teamRefRaw = currentMessage.team_ref1 || currentMessage.team_ref2
+    const minute = extractMinuteFromTime(message.time, message.minute)
+    const teamRefRaw = message.team_ref1 || message.team_ref2
     const teamRef = teamRefRaw ? normalizeOptaId(String(teamRefRaw)) : null
-    let j = i + 1
 
-    while (j < messages.length && isSubstitutionMessage(messages[j])) {
-      const nextTeamRefRaw = messages[j].team_ref1 || messages[j].team_ref2
-      const nextTeamRef = nextTeamRefRaw ? normalizeOptaId(String(nextTeamRefRaw)) : null
-      if (nextTeamRef === teamRef && teamRef !== null) {
-        substitutionGroup.push(messages[j])
-        j++
-      } else {
-        break
-      }
+    if (!teamRef) {
+      continue
     }
 
-    if (substitutionGroup.length > 1) {
-      const combinedComment = combineSubstitutionTexts(substitutionGroup.map(msg => msg.comment))
+    const key = `${minute}-${teamRef}`
+    
+    if (!substitutionMap.has(key)) {
+      substitutionMap.set(key, [])
+    }
+    
+    substitutionMap.get(key)!.push(message)
+  }
+
+  const result: F13Message[] = []
+
+  for (const message of messages) {
+    if (!isSubstitutionMessage(message)) {
+      result.push(message)
+      continue
+    }
+
+    if (processedSubstitutions.has(message.id)) {
+      continue
+    }
+
+    const minute = extractMinuteFromTime(message.time, message.minute)
+    const teamRefRaw = message.team_ref1 || message.team_ref2
+    const teamRef = teamRefRaw ? normalizeOptaId(String(teamRefRaw)) : null
+
+    if (!teamRef) {
+      result.push(message)
+      continue
+    }
+
+    const key = `${minute}-${teamRef}`
+    const substitutionGroup = substitutionMap.get(key)
+
+    if (substitutionGroup && substitutionGroup.length > 0) {
+      const teamName = getTeamName(teamRef, commentary)
+      const combinedComment = formatSubstitutionGroup(substitutionGroup, teamName)
+      
       const groupedMessage: F13Message = {
         ...substitutionGroup[0],
         comment: combinedComment,
       }
+      
       result.push(groupedMessage)
+      
+      substitutionGroup.forEach(msg => processedSubstitutions.add(msg.id))
     } else {
-      result.push(currentMessage)
+      result.push(message)
     }
-
-    i = j
   }
 
   return result
-}
-
-function combineSubstitutionTexts(comments: string[]): string {
-  if (comments.length === 0) return ''
-  if (comments.length === 1) return comments[0]
-
-  const cleanedComments = comments.map(comment => removeW7F(comment).trim())
-
-  if (cleanedComments.length === 2) {
-    return `${cleanedComments[0]} y ${cleanedComments[1]}`
-  }
-
-  const allButLast = cleanedComments.slice(0, -1)
-  const last = cleanedComments[cleanedComments.length - 1]
-  
-  return `${allButLast.join(', ')}, y ${last}`
 }
