@@ -73,6 +73,10 @@ export default async function MatchPage({
   const optaId = match.data.opta_id;
   if (!optaId) return notFound();
 
+  if (optaId === "2610494" || match.id === "2610494") {
+    dev.log("Match with id 2610494:", match);
+  }
+
   const normalizedOptaId = normalizeOptaId(optaId);
 
   const [fixtures, standings, squads, commentary, f9FeedResult, f24Events, f2Preview, highlights] = await Promise.all([
@@ -88,6 +92,11 @@ export default async function MatchPage({
 
   const f9Feed = f9FeedResult.f9;
   const matchLiveMinute = f9FeedResult.liveMinute;
+
+  if (optaId === "2610494" || match.id === "2610494") {
+    dev.log("F9 Feed Result for match 2610494:", f9FeedResult);
+    dev.log("F9 Feed for match 2610494:", f9Feed);
+  }
 
   const f9Doc: F9SoccerDocument | null = f9Feed?.SoccerFeed?.SoccerDocument
     ? (Array.isArray(f9Feed.SoccerFeed.SoccerDocument) 

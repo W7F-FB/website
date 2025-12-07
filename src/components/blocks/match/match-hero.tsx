@@ -78,7 +78,8 @@ export default function MatchHero({ f9MatchData, homeTeamData, awayTeamData, hom
 
   const period = f9MatchData?.MatchInfo.Period;
   const resultType = f9MatchData?.MatchInfo.Result?.Type;
-  const isFinal = period === "FullTime" || f9MatchData?.MatchInfo.PostMatch === "1";
+  const postMatch = f9MatchData?.MatchInfo.PostMatch;
+  const isFinal = period === "FullTime" || postMatch === 1 || postMatch === "1";
   const hasShootOutScores = (homeTeamData?.ShootOutScore !== undefined && homeTeamData?.ShootOutScore !== null) || 
                             (awayTeamData?.ShootOutScore !== undefined && awayTeamData?.ShootOutScore !== null);
   const isPenalties = resultType === "PenaltyShootout" || 

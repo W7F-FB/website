@@ -207,7 +207,8 @@ export default function MatchPageContent({
   const matchData = f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData;
   const f1Matches = Array.isArray(matchData) ? matchData : (matchData ? [matchData] : []);
   const currentMatchFromF1 = f1Matches.find((m: F1MatchData) => normalizeOptaId(m.uID) === normalizeOptaId(matchId));
-  const isMatchComplete = currentMatchFromF1?.MatchInfo?.Period === "FullTime";
+  const postMatch = f9MatchData?.MatchInfo?.PostMatch;
+  const isMatchComplete = currentMatchFromF1?.MatchInfo?.Period === "FullTime" || postMatch === 1 || postMatch === "1";
   const isPreGame = !f9MatchData || f9MatchData.MatchInfo.Period === "PreMatch";
   const hasCommentary = (commentary?.Commentary?.message?.length ?? 0) > 0;
 

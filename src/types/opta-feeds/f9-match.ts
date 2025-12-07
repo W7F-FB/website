@@ -199,7 +199,7 @@ export interface F9MatchData {
 export interface F9MatchInfo {
   MatchType: F9MatchType | string; // spec enum, but keep string for safety
   Period: F9Period | string;
-  PostMatch?: "1";               // present and "1" when all live QC completed
+  PostMatch?: "1" | 1;           // present and "1" or 1 when all live QC completed
   TimeFrameLengthId?: number;
   AdditionalInfo?: "Behind Closed Doors" | "Limited Audience" | "Away" | string;
   Attendance?: number;

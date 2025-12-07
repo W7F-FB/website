@@ -194,7 +194,8 @@ export default async function TournamentPage({ params, searchParams }: Props) {
         if (!matchData) return
 
         const period = matchData.MatchInfo?.Period
-        const isFinal = period === "FullTime" || period === "FullTime90" || period === "FullTimePens"
+        const postMatch = matchData.MatchInfo?.PostMatch
+        const isFinal = period === "FullTime" || period === "FullTime90" || period === "FullTimePens" || postMatch === 1 || postMatch === "1"
         const isLive = !isFinal && period !== "PreMatch" && period !== null
 
         if (isLive) {

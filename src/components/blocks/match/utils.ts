@@ -136,8 +136,9 @@ export function getF9GameCardData(
     const awayScore = awayTeamData.Score ?? null
 
     const period = matchData.MatchInfo?.Period || null
-    const isFinal = period === "FullTime"
-    const isLive = period !== null && LIVE_PERIODS.includes(period as typeof LIVE_PERIODS[number])
+    const postMatch = matchData.MatchInfo?.PostMatch
+    const isFinal = period === "FullTime" || (postMatch !== undefined && (postMatch === 1 || postMatch === "1"))
+    const isLive = !isFinal && period !== null && LIVE_PERIODS.includes(period as typeof LIVE_PERIODS[number])
     
     const resultType = matchData.MatchInfo?.Result?.Type
     const hasShootOutScores = (homeTeamData.ShootOutScore !== undefined && homeTeamData.ShootOutScore !== null) || 
