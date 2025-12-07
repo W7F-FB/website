@@ -44,6 +44,21 @@ const nextConfig: NextConfig = {
         destination: '/tournament/fort-lauderdale',
         permanent: true,
       },
+      {
+        source: '/checkout',
+        destination: '/tournament/fort-lauderdale',
+        permanent: true,
+      },
+      {
+        source: '/tournament/:slug/tickets',
+        destination: '/tournament/fort-lauderdale',
+        permanent: true,
+      },
+      {
+        source: '/tournament/:slug/vip-cabanas',
+        destination: '/tournament/fort-lauderdale',
+        permanent: true,
+      },
     ];
   },
 };

@@ -40,11 +40,13 @@ export default function TicketsPageContent({ tournament }: Props) {
             {isFilled.number(tournament.data.prize_pool) && (
               <P noSpace className="text-lg mt-1"><span className="font-semibold">{formatCurrencyInWords(tournament.data.prize_pool)}</span><span className="ml-3 font-light text-sm">Prize Pool</span></P>
             )}
-            <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-4">
-              <Button asChild size="skew_lg" className="w-full">
-                <Link href="/checkout"><span>Purchase Tickets</span></Link>
-              </Button>
-              <Button asChild size="skew_lg" variant="outline" className="w-full">
+            <div className={`mt-8 grid gap-4 ${tournament.data.tickets_available ? "grid-cols-1 lg:grid-cols-2" : "grid-cols-1"}`}>
+              {tournament.data.tickets_available && (
+                <Button asChild size="skew_lg" className="w-full">
+                  <Link href="/checkout"><span>Purchase Tickets</span></Link>
+                </Button>
+              )}
+              <Button asChild size="skew_lg" variant={tournament.data.tickets_available ? "outline" : undefined} className="w-full">
                 <Link href="#schedule"><span>View Schedule</span></Link>
               </Button>
             </div>
@@ -52,7 +54,7 @@ export default function TicketsPageContent({ tournament }: Props) {
         </SubpageHeroSecondary>
         <Container maxWidth="lg">
           <Section padding="md">
-            <TicketOptionsGrid />
+            <TicketOptionsGrid tournament={tournament} />
           </Section>
           <Separator variant="gradient" />
           <Section padding="md" id="schedule">

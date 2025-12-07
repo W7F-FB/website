@@ -80,11 +80,13 @@ export default function TournamentPageLive({ tournament, tournamentBlogs, f3Stan
                         <P noSpace className="text-lg mt-1"><span className="font-semibold">{formatCurrencyInWords(tournament.data.prize_pool)}</span><span className="ml-3 font-light text-sm">Prize Pool</span></P>
                     )}
                     <div className="mt-8 flex justify-start">
-                        <div className="grid md:grid-cols-2 gap-4">
-                            <Button asChild size="skew_lg" className="clip-chop-sm">
-                                <Link href="/checkout"><span>Purchase Tickets</span></Link>
-                            </Button>
-                            <Button asChild size="skew_lg" variant="outline">
+                        <div className={`grid gap-4 ${tournament.data.tickets_available ? "md:grid-cols-2" : "grid-cols-1"}`}>
+                            {tournament.data.tickets_available && (
+                                <Button asChild size="skew_lg" className="clip-chop-sm">
+                                    <Link href="/checkout"><span>Purchase Tickets</span></Link>
+                                </Button>
+                            )}
+                            <Button asChild size="skew_lg" variant={tournament.data.tickets_available ? "outline" : undefined} className={tournament.data.tickets_available ? "" : "w-full"}>
                                 <Link href={knockoutStage ? "#knockout" : "#group-stage"}><span>Matches</span></Link>
                             </Button>
                         </div>

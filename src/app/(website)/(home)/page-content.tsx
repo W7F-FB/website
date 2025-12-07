@@ -87,13 +87,17 @@ export default function HomePageContent({
                         <HeroSliderSlideContent className="w-full lg:max-w-3xl justify-self-start px-8 pb-24  lg:pr-48 flex flex-col items-start justify-end">
                             <Image src="/images/static-media/watercolor-bg.jpg" alt="Hero Slider 1" fill className="object-cover clip-watercolor-mask" />
                             <TextProtect className="relative z-10 block space-y-3 lg:space-y-5">
-                                <Subtitle className="text-lg lg:text-xl text-primary">Tickets available now</Subtitle>
+                                {tournament.data.tickets_available && (
+                                    <Subtitle className="text-lg lg:text-xl text-primary">Tickets available now</Subtitle>
+                                )}
                                 <H1 className="font-proxima uppercase font-black text-3xl lg:text-6xl">Fort Lauderdale,<br />FLorida, USA</H1>
                                 <P noSpace className="text-xl lg:text-3xl text-balance font-headers font-medium text-foreground">New City. Same Stakes. <span className="font-bold">$5 Million Prize Pool.</span></P>
                             </TextProtect>
-                            <div className="mt-6 w-full lg:mt-10 flex flex-col lg:flex-row gap-3 lg:gap-4">
-                                <Button asChild size="skew_lg"><Link href="/checkout"><span>Purchase Tickets</span></Link></Button>
-                                <Button asChild size="skew_lg" variant="accent"><Link href="/tournament/fort-lauderdale"><span>Matches</span></Link></Button>
+                            <div className={`mt-6 w-full lg:mt-10 flex gap-3 lg:gap-4 ${tournament.data.tickets_available ? "flex-col lg:flex-row" : "flex-col lg:flex-row"}`}>
+                                {tournament.data.tickets_available && (
+                                    <Button asChild size="skew_lg"><Link href="/checkout"><span>Purchase Tickets</span></Link></Button>
+                                )}
+                                <Button asChild size="skew_lg" variant={tournament.data.tickets_available ? "accent" : undefined}><Link href="/tournament/fort-lauderdale"><span>Matches</span></Link></Button>
                             </div>
                         </HeroSliderSlideContent>
                         <HeroSliderSlideContent className="max-w-none w-full h-full pb-6 lg:pb-12 pr-4 lg:pr-36 flex flex-col items-start justify-end text-shadow-xl gap-2">
@@ -131,7 +135,7 @@ export default function HomePageContent({
                     <ClubList tournament={tournament} />
                 </Section>
                 <Section padding="md">
-                    <TicketOptionsGrid />
+                    <TicketOptionsGrid tournament={tournament} />
                 </Section>
                 <Section padding="md">
                     <Separator variant="gradient" />

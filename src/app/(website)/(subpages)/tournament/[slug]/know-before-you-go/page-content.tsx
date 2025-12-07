@@ -4,7 +4,7 @@ import type { TournamentDocument } from "../../../../../../../prismicio-types"
 import { SubpageHeroSecondary } from "@/components/blocks/subpage-hero"
 import { Button } from "@/components/ui/button"
 import { PalmtreeIcon } from "@/components/website-base/icons"
-import { formatDateRange, formatCurrencyInWords } from "@/lib/utils"
+import { formatDateRange, formatCurrencyInWords, cn } from "@/lib/utils"
 import { isFilled } from "@prismicio/client"
 import { Background } from "@/components/ui/background"
 import Link from "next/link"
@@ -15,6 +15,10 @@ type Props = {
 }
 
 export default function TournamentKnowBeforeYouGoPageContent({ tournament }: Props) {
+    const hasTickets = tournament.data.tickets_available
+    const hasPdf = isFilled.link(tournament.data.know_before_you_go_pdf) && tournament.data.know_before_you_go_pdf.link_type === "Media"
+    const hasBothButtons = hasTickets && hasPdf
+    
     return (
         <div>
             <PaddingGlobal>
@@ -31,15 +35,18 @@ export default function TournamentKnowBeforeYouGoPageContent({ tournament }: Pro
                             {isFilled.number(tournament.data.prize_pool) && (
                                 <P noSpace className="text-lg mt-1"><span className="font-semibold">{formatCurrencyInWords(tournament.data.prize_pool)}</span><span className="ml-3 font-light text-sm">Prize Pool</span></P>
                             )}
-                            {(tournament.data.tickets_available || (isFilled.link(tournament.data.know_before_you_go_pdf) && tournament.data.know_before_you_go_pdf.link_type === "Media")) && (
-                                <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-4 w-auto">
-                                    {tournament.data.tickets_available && (
-                                        <Button asChild size="skew_lg">
+                            {(hasTickets || hasPdf) && (
+                                <div className={cn(
+                                    "mt-8 gap-4 w-auto",
+                                    hasBothButtons ? "grid grid-cols-1 lg:grid-cols-2" : "flex items-center justify-center"
+                                )}>
+                                    {hasTickets && (
+                                        <Button asChild size="skew_lg" className={hasBothButtons ? "w-full" : ""}>
                                             <Link href="/checkout"><span>Purchase Tickets</span></Link>
                                         </Button>
                                     )}
-                                    {isFilled.link(tournament.data.know_before_you_go_pdf) && tournament.data.know_before_you_go_pdf.link_type === "Media" && (
-                                        <Button asChild size="skew_lg" variant="outline">
+                                    {hasPdf && tournament.data.know_before_you_go_pdf.link_type === "Media" && "url" in tournament.data.know_before_you_go_pdf && (
+                                        <Button asChild size="skew_lg" variant={hasTickets ? "outline" : undefined} className={hasBothButtons ? "w-full" : ""}>
                                             <a href={tournament.data.know_before_you_go_pdf.url} download target="_blank" rel="noopener noreferrer">
                                                 <span>Download PDF Guide</span>
                                             </a>

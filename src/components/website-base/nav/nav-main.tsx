@@ -117,9 +117,11 @@ async function NavMain({ showBreadcrumbs, pathname, customBreadcrumbs, groupedFi
                 className="hidden lg:flex justify-end"
                 mobileFooter={
                   <div className="flex gap-3">
-                    <Button asChild size="skew" className="flex-1 px-2">
-                      <Link href="/checkout"><span>Purchase Tickets</span></Link>
-                    </Button>
+                    {tournament?.data.tickets_available && (
+                      <Button asChild size="skew" className="flex-1 px-2">
+                        <Link href="/checkout"><span>Purchase Tickets</span></Link>
+                      </Button>
+                    )}
                     <Button asChild size="skew" variant="outline" className="px-5">
                       <Link href="https://shopw7f.myshopify.com/" target="_blank" rel="me"><span>Shop</span></Link>
                     </Button>
@@ -266,9 +268,11 @@ async function NavMain({ showBreadcrumbs, pathname, customBreadcrumbs, groupedFi
               </NavigationMenuList>
               </NavigationMenu>
               <div className="flex flex-grow justify-end">
-                <div className="hidden lg:block">
-                  <Button asChild size="skew"><Link href="/checkout"><span>Purchase Tickets</span></Link></Button>
-                </div>
+                {tournament?.data.tickets_available && (
+                  <div className="hidden lg:block">
+                    <Button asChild size="skew"><Link href="/checkout"><span>Purchase Tickets</span></Link></Button>
+                  </div>
+                )}
                 <MobileNavigationTrigger />
               </div>
             </NavigationMenuProvider>

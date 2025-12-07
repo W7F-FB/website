@@ -75,11 +75,13 @@ export default function TournamentPageUpcoming({ tournament, tournamentBlogs }: 
                                 <P noSpace className="text-lg mt-1"><span className="font-semibold">{formatCurrencyInWords(tournament.data.prize_pool)}</span><span className="ml-3 font-light text-sm">Prize Pool</span></P>
                             )}
                             <div className="mt-8 flex justify-center md:justify-start">
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <Button asChild size="skew_lg">
-                                        <Link href="/checkout"><span>Purchase Tickets</span></Link>
-                                    </Button>
-                                    <Button asChild size="skew_lg" variant="outline">
+                                <div className={`grid gap-4 ${tournament.data.tickets_available ? "grid-cols-1 md:grid-cols-2" : "grid-cols-1"}`}>
+                                    {tournament.data.tickets_available && (
+                                        <Button asChild size="skew_lg">
+                                            <Link href="/checkout"><span>Purchase Tickets</span></Link>
+                                        </Button>
+                                    )}
+                                    <Button asChild size="skew_lg" variant={tournament.data.tickets_available ? "outline" : undefined} className={tournament.data.tickets_available ? "" : "w-full"}>
                                         <Link href={`/tournament/${tournament.uid}/schedule`}><span>View Schedule</span></Link>
                                     </Button>
                                 </div>
@@ -92,16 +94,18 @@ export default function TournamentPageUpcoming({ tournament, tournamentBlogs }: 
                                     fill
                                     className="object-cover"
                                 />
-                                <SubpageHeroMediaBanner>
-                                    <P noSpace>Interested in watching the action from a pitchside cabana? <span>
-                                        <Button asChild variant="link" size="sm" className=" ml-1 p-0 h-auto !px-0">
-                                            <Link href="#vip-cabanas">
-                                                Contact Us
-                                                <CaretRightIcon className="size-3 mt-px" />
-                                            </Link>
-                                        </Button>
-                                    </span></P>
-                                </SubpageHeroMediaBanner>
+                                {tournament.data.tickets_available && (
+                                    <SubpageHeroMediaBanner>
+                                        <P noSpace>Interested in watching the action from a pitchside cabana? <span>
+                                            <Button asChild variant="link" size="sm" className=" ml-1 p-0 h-auto !px-0">
+                                                <Link href="#vip-cabanas">
+                                                    Contact Us
+                                                    <CaretRightIcon className="size-3 mt-px" />
+                                                </Link>
+                                            </Button>
+                                        </span></P>
+                                    </SubpageHeroMediaBanner>
+                                )}
                             </SubpageHeroMedia>
                         )}
                     </SubpageHero>
@@ -114,7 +118,7 @@ export default function TournamentPageUpcoming({ tournament, tournamentBlogs }: 
                         </Section>
                         <Separator variant="gradient" />
                         <Section padding="md">
-                            <TicketOptionsGrid />
+                            <TicketOptionsGrid tournament={tournament} />
                         </Section>
                         <Section padding="md" id="schedule">
                             <SectionHeading variant="split" className="pb-8">
@@ -135,33 +139,37 @@ export default function TournamentPageUpcoming({ tournament, tournamentBlogs }: 
                                 </Button>
                             </div>
                         </Section>
-                        <Separator variant="gradient" />
-                        <Section padding="lg" id="vip-cabanas" className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 items-start">
-                            <div className="relative h-80 md:h-full w-full">
-                                <div className="absolute top-4 left-4 z-10">
-                                    <Badge fast size="lg" variant="secondary">VIP Cabanas</Badge>
-                                </div>
-                                <ImageSlider autoplay autoplayDelay={5000}>
-                                    <ImageSliderSlide >
-                                        <Image
-                                            src="/images/static-media/vip-cabanas.jpg"
-                                            alt="VIP Cabanas"
-                                            fill
-                                            className="w-full h-full object-cover"
-                                        />
-                                    </ImageSliderSlide>
-                                    <ImageSliderSlide>
-                                        <Image
-                                            src="/images/static-media/vip-cabanas-2.webp"
-                                            alt="VIP Cabanas View"
-                                            fill
-                                            className="w-full h-full object-cover"
-                                        />
-                                    </ImageSliderSlide>
-                                </ImageSlider>
-                            </div>
-                            <PrivateVipForm />
-                        </Section>
+                        {tournament.data.tickets_available && (
+                            <>
+                                <Separator variant="gradient" />
+                                <Section padding="lg" id="vip-cabanas" className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 items-start">
+                                    <div className="relative h-80 md:h-full w-full">
+                                        <div className="absolute top-4 left-4 z-10">
+                                            <Badge fast size="lg" variant="secondary">VIP Cabanas</Badge>
+                                        </div>
+                                        <ImageSlider autoplay autoplayDelay={5000}>
+                                            <ImageSliderSlide >
+                                                <Image
+                                                    src="/images/static-media/vip-cabanas.jpg"
+                                                    alt="VIP Cabanas"
+                                                    fill
+                                                    className="w-full h-full object-cover"
+                                                />
+                                            </ImageSliderSlide>
+                                            <ImageSliderSlide>
+                                                <Image
+                                                    src="/images/static-media/vip-cabanas-2.webp"
+                                                    alt="VIP Cabanas View"
+                                                    fill
+                                                    className="w-full h-full object-cover"
+                                                />
+                                            </ImageSliderSlide>
+                                        </ImageSlider>
+                                    </div>
+                                    <PrivateVipForm />
+                                </Section>
+                            </>
+                        )}
                         {tournamentBlogs.length > 0 && (
                             <>
                                 <Separator variant="gradient" />

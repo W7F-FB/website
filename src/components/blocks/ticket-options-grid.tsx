@@ -81,7 +81,15 @@ const ticketOptions: TicketOption[] = [
     },
 ];
 
-export function TicketOptionsGrid() {
+type TicketOptionsGridProps = {
+    tournament?: {
+        data: {
+            tickets_available?: boolean | null
+        }
+    }
+}
+
+export function TicketOptionsGrid({ tournament }: TicketOptionsGridProps = {}) {
     const [lightboxOpen, setLightboxOpen] = useState(false);
 
     const layoutImages = [
@@ -157,24 +165,28 @@ export function TicketOptionsGrid() {
                         ))}
                     </ul>
                     <Separator />
-                    <div className="pr-5 w-full">
-                        <Button asChild size="skew_lg" className="w-full origin-bottom-left">
-                            <Link href="/checkout"><span>Purchase Tickets</span></Link>
-                        </Button>
-                    </div>
-                    <GradientAside>
-                        <p >
-                            Interested in watching the action from a pitchside cabana?
-                            <span>
-                                <Button asChild variant="link" size="sm" className="mt-1 p-0 h-auto !px-0">
-                                    <Link href="/tournament/fort-lauderdale#vip-cabanas">
-                                        Contact Us
-                                        <CaretRightIcon className="size-3 mt-px" />
-                                    </Link>
+                    {tournament?.data.tickets_available && (
+                        <>
+                            <div className="pr-5 w-full">
+                                <Button asChild size="skew_lg" className="w-full origin-bottom-left">
+                                    <Link href="/checkout"><span>Purchase Tickets</span></Link>
                                 </Button>
-                            </span>
-                        </p>
-                    </GradientAside>
+                            </div>
+                            <GradientAside>
+                                <p >
+                                    Interested in watching the action from a pitchside cabana?
+                                    <span>
+                                        <Button asChild variant="link" size="sm" className="mt-1 p-0 h-auto !px-0">
+                                            <Link href="/tournament/fort-lauderdale#vip-cabanas">
+                                                Contact Us
+                                                <CaretRightIcon className="size-3 mt-px" />
+                                            </Link>
+                                        </Button>
+                                    </span>
+                                </p>
+                            </GradientAside>
+                        </>
+                    )}
                 </CardContent>
                 <CardFooter className="border-t">
                     <Link href="https://www.dazn.com/en-US/competition/Competition:2ysblq9gh9ulnfw31299e659p?utm_source=web&utm_medium=organicpartner&utm_campaign=dazn_global_gl_display_soccer_acquisition_fs_2024&utm_term=allwomensfootballfreemium-worldsevensfootball_fixed" className="flex gap-3">
@@ -211,11 +223,13 @@ export function TicketOptionsGrid() {
                         </CardContent>
                     </Card>
                 ))}
-                <div className="flex items-center justify-center mt-8">
-                    <Button asChild size="skew_lg">
-                        <Link href="/checkout"><span>Purchase Tickets</span></Link>
-                    </Button>
-                </div>
+                {tournament?.data.tickets_available && (
+                    <div className="flex items-center justify-center mt-8">
+                        <Button asChild size="skew_lg">
+                            <Link href="/checkout"><span>Purchase Tickets</span></Link>
+                        </Button>
+                    </div>
+                )}
             </div>
 
             <Lightbox

@@ -198,22 +198,26 @@ export function NavigationMenuTournamentFeatured({
                             Explore
                         </div>
                     </CategoryButton>
+                    {tournament.data.tickets_available && (
+                        <>
+                            <Separator variant="gradient" gradientDirection="toRight" />
+                            <CategoryButton href={`/tournament/${tournament.uid}/tickets`}>
+                                <div className="flex items-center gap-3">
+                                    <TicketIcon className="size-4 text-foreground" />
+                                    Tickets
+                                </div>
+                            </CategoryButton>
+                            <Separator variant="gradient" gradientDirection="toRight" />
+                            <CategoryButton href={`/tournament/${tournament.uid}/vip-cabanas`}>
+                                <div className="flex items-center gap-3">
+                                    <VIPIcon className="size-4 text-foreground" />
+                                    VIP Cabanas
+                                </div>
+                            </CategoryButton>
+                        </>
+                    )}
                     <Separator variant="gradient" gradientDirection="toRight" />
-                    <CategoryButton href={`/tournament/${tournament.uid}/tickets`}>
-                        <div className="flex items-center gap-3">
-                            <TicketIcon className="size-4 text-foreground" />
-                            Tickets
-                        </div>
-                    </CategoryButton>
-                    <Separator variant="gradient" gradientDirection="toRight" />
-                    <CategoryButton href={`/tournament/${tournament.uid}/vip-cabanas`}>
-                        <div className="flex items-center gap-3">
-                            <VIPIcon className="size-4 text-foreground" />
-                            VIP Cabanas
-                        </div>
-                    </CategoryButton>
-                    <Separator variant="gradient" gradientDirection="toRight" />
-                    <CategoryButton href={`/tournament/${tournament.uid}/tickets#schedule`}>
+                    <CategoryButton href={`/tournament/${tournament.uid}${tournament.data.tickets_available ? '/tickets#schedule' : '/schedule'}`}>
                         <div className="flex items-center gap-3">
                             <WhistleIcon className="size-4 text-foreground" />
                             Schedule
