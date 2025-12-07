@@ -116,7 +116,7 @@ export function NavigationMenuTournamentFeatured({
             case 'future':
                 return `Upcoming • ${dateRange}`
             case 'present':
-                return `LIVE • ${dateRange}`
+                return `FINAL • ${dateRange}`
             case 'past':
                 return `Final • ${dateRange}`
             default:
