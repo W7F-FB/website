@@ -14,7 +14,8 @@ interface TuneInBannerProps extends React.ComponentProps<typeof GradientBanner> 
     tnt?: BroadcastPartnersDocument | null
     truTV?: BroadcastPartnersDocument | null
     hboMax?: BroadcastPartnersDocument | null
-    univision?: BroadcastPartnersDocument | null
+    vix?: BroadcastPartnersDocument | null
+    tudn?: BroadcastPartnersDocument | null
     espn?: BroadcastPartnersDocument | null
     disneyPlus?: BroadcastPartnersDocument | null
 }
@@ -22,7 +23,7 @@ interface TuneInBannerProps extends React.ComponentProps<typeof GradientBanner> 
 const TuneInBanner = React.forwardRef<
     HTMLDivElement,
     TuneInBannerProps
->(({ className, dazn, tnt, truTV, hboMax, univision, espn, disneyPlus, ...props }, ref) => {
+>(({ className, dazn, tnt, truTV, hboMax, vix, tudn, espn, disneyPlus, ...props }, ref) => {
     return (
         <GradientBanner
             ref={ref}
@@ -59,7 +60,8 @@ const TuneInBanner = React.forwardRef<
                     <div className="">
                         <Subtitle className="text-xs mb-3 normal-case text-muted-foreground h-8 flex items-end">Available in the U.S. & Mexico</Subtitle>
                         <div className="border-y border-border/50 divide-y !divide-border/50">
-                            {univision && <BroadcastPartnerLink partner={univision} size="sm" showName noLink />}
+                            {vix && <BroadcastPartnerLink partner={vix} size="sm" showName noLink />}
+                            {tudn && <BroadcastPartnerLink partner={tudn} size="sm" showName noLink />}
                         </div>
                         <P className="text-sm text-muted-foreground italic !mt-2">Transmisión en Español</P>
                     </div>

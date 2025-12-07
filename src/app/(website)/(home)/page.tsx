@@ -71,12 +71,13 @@ export default async function HomePage() {
     const tournamentRecapBlogs = await getSocialBlogsByCategory("Tournament Recap");
     const featuredRecapBlog = tournamentRecapBlogs.length > 0 ? tournamentRecapBlogs[0] : null;
 
-    const [dazn, tnt, truTV, hboMax, univision, espn, disneyPlus] = await Promise.all([
+    const [dazn, tnt, truTV, hboMax, vix, tudn, espn, disneyPlus] = await Promise.all([
         getBroadcastPartnerByUid("dazn"),
         getBroadcastPartnerByUid("tnt"),
         getBroadcastPartnerByUid("tru-tv"),
         getBroadcastPartnerByUid("hbo-max"),
-        getBroadcastPartnerByUid("univision"),
+        getBroadcastPartnerByUid("vix"),
+        getBroadcastPartnerByUid("tudn"),
         getBroadcastPartnerByUid("espn"),
         getBroadcastPartnerByUid("disney-plus"),
     ]);
@@ -154,7 +155,8 @@ export default async function HomePage() {
                         tnt={tnt}
                         truTV={truTV}
                         hboMax={hboMax}
-                        univision={univision}
+                        vix={vix}
+                        tudn={tudn}
                         espn={espn}
                         disneyPlus={disneyPlus}
                     />

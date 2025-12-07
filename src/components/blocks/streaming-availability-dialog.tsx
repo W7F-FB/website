@@ -29,7 +29,8 @@ export function StreamingAvailabilityDialog({
     const tnt = broadcastPartners.find(p => p.uid === "tnt")
     const truTV = broadcastPartners.find(p => p.uid === "trutv")
     const hboMax = broadcastPartners.find(p => p.uid === "max")
-    const univision = broadcastPartners.find(p => p.uid === "univision")
+    const vix = broadcastPartners.find(p => p.uid === "vix")
+    const tudn = broadcastPartners.find(p => p.uid === "tudn")
     const espn = broadcastPartners.find(p => p.uid === "espn")
     const disneyPlus = broadcastPartners.find(p => p.uid === "disney-plus")
 
@@ -68,14 +69,15 @@ export function StreamingAvailabilityDialog({
                         </div>
                     )}
 
-                    {univision && (
+                    {(vix || tudn) && (
                         <div>
                             <div className="flex items-center gap-3 mb-3">
                                 <Subtitle className="text-sm normal-case mb-0">Available in the U.S. & Mexico</Subtitle>
                                 <Separator variant="gradient" gradientDirection="toRight" className="!w-auto flex-grow" />
                             </div>
                             <div className="flex flex-wrap gap-2">
-                                <BroadcastPartnerLink partner={univision} size="sm" showName noLink />
+                                {vix && <BroadcastPartnerLink partner={vix} size="sm" showName noLink />}
+                                {tudn && <BroadcastPartnerLink partner={tudn} size="sm" showName noLink />}
                             </div>
                             <P className="text-sm text-muted-foreground italic !mt-2">Transmisión en Español</P>
                         </div>

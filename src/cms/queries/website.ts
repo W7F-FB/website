@@ -99,7 +99,7 @@ export async function getNavigationSettings(): Promise<NavigationSettings | null
     const client = createClient();
     const website = await client.getSingle("website");
     
-    const partnerUids = ["dazn", "tnt", "tru-tv", "hbo-max", "univision", "espn", "disney-plus"];
+    const partnerUids = ["dazn", "tnt", "tru-tv", "hbo-max", "vix", "tudn", "espn", "disney-plus"];
     const broadcastPartners: BroadcastPartnersDocument[] = [];
     
     for (const uid of partnerUids) {

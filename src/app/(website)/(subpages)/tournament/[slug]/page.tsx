@@ -218,12 +218,13 @@ export default async function TournamentPage({ params, searchParams }: Props) {
     .map(award => award.data)
     .filter((award): award is NonNullable<AwardData> => !!award) || []
 
-  const [dazn, tnt, truTV, hboMax, univision, espn, disneyPlus] = await Promise.all([
+  const [dazn, tnt, truTV, hboMax, vix, tudn, espn, disneyPlus] = await Promise.all([
     getBroadcastPartnerByUid("dazn"),
     getBroadcastPartnerByUid("tnt"),
     getBroadcastPartnerByUid("tru-tv"),
     getBroadcastPartnerByUid("hbo-max"),
-    getBroadcastPartnerByUid("univision"),
+    getBroadcastPartnerByUid("vix"),
+    getBroadcastPartnerByUid("tudn"),
     getBroadcastPartnerByUid("espn"),
     getBroadcastPartnerByUid("disney-plus"),
   ])
@@ -262,7 +263,8 @@ export default async function TournamentPage({ params, searchParams }: Props) {
         tnt={tnt}
         truTV={truTV}
         hboMax={hboMax}
-        univision={univision}
+        vix={vix}
+        tudn={tudn}
         espn={espn}
         disneyPlus={disneyPlus}
         f9FeedsMap={f9FeedsMap}

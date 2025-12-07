@@ -41,7 +41,8 @@ type Props = {
     tnt?: BroadcastPartnersDocument | null
     truTV?: BroadcastPartnersDocument | null
     hboMax?: BroadcastPartnersDocument | null
-    univision?: BroadcastPartnersDocument | null
+    vix?: BroadcastPartnersDocument | null
+    tudn?: BroadcastPartnersDocument | null
     espn?: BroadcastPartnersDocument | null
     disneyPlus?: BroadcastPartnersDocument | null
     f9FeedsMap?: Map<string, F9MatchResponse>
@@ -49,7 +50,7 @@ type Props = {
     recapVideosMap?: Map<string, MatchHighlight>
 }
 
-export default function TournamentPageLive({ tournament, tournamentBlogs, f3StandingsData, f1FixturesData, teamStatSheets, f30TeamStats, prismicTeams, matchSlugMap, compact = false, dazn, tnt, truTV, hboMax, univision, espn, disneyPlus, f9FeedsMap, teamRecords, recapVideosMap }: Props) {
+export default function TournamentPageLive({ tournament, tournamentBlogs, f3StandingsData, f1FixturesData, teamStatSheets, f30TeamStats, prismicTeams, matchSlugMap, compact = false, dazn, tnt, truTV, hboMax, vix, tudn, espn, disneyPlus, f9FeedsMap, teamRecords, recapVideosMap }: Props) {
     const semiFinalMatches = getSemiFinalMatches(f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData)
     const thirdPlaceMatches = getThirdPlaceMatch(f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData)
     const finalMatches = getFinalMatch(f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData)
@@ -59,7 +60,7 @@ export default function TournamentPageLive({ tournament, tournamentBlogs, f3Stan
     const earliestMatchDate = getEarliestMatchDate(allMatches)
     const knockoutStage = isInKnockoutStage(allMatches)
     
-    const broadcastPartners = [dazn, tnt, truTV, hboMax, univision, espn, disneyPlus].filter((p): p is BroadcastPartnersDocument => p !== null && p !== undefined)
+    const broadcastPartners = [dazn, tnt, truTV, hboMax, vix, tudn, espn, disneyPlus].filter((p): p is BroadcastPartnersDocument => p !== null && p !== undefined)
 
     return (
         <div>
@@ -104,7 +105,8 @@ export default function TournamentPageLive({ tournament, tournamentBlogs, f3Stan
                     tnt={tnt}
                     truTV={truTV}
                     hboMax={hboMax}
-                    univision={univision}
+                    vix={vix}
+                    tudn={tudn}
                     espn={espn}
                     disneyPlus={disneyPlus}
                 />

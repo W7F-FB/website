@@ -57,7 +57,8 @@ type Props = {
     tnt: BroadcastPartnersDocument | null;
     truTV: BroadcastPartnersDocument | null;
     hboMax: BroadcastPartnersDocument | null;
-    univision: BroadcastPartnersDocument | null;
+    vix: BroadcastPartnersDocument | null;
+    tudn: BroadcastPartnersDocument | null;
     espn: BroadcastPartnersDocument | null;
     disneyPlus: BroadcastPartnersDocument | null;
 };
@@ -70,7 +71,8 @@ export default function HomePageContent({
     tnt,
     truTV,
     hboMax,
-    univision,
+    vix,
+    tudn,
     espn,
     disneyPlus,
 }: Props) {
@@ -106,7 +108,8 @@ export default function HomePageContent({
                         tnt={tnt}
                         truTV={truTV}
                         hboMax={hboMax}
-                        univision={univision}
+                        vix={vix}
+                        tudn={tudn}
                         espn={espn}
                         disneyPlus={disneyPlus}
                     />
