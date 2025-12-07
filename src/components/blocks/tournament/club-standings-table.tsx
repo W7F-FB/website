@@ -55,19 +55,41 @@ export function ClubStandingsTable({ prismicTeams, f1FixturesData, f3StandingsDa
         if (!teamOptaId) return 'E'
         
         const teamId = `t${teamOptaId}`
+        const normalizedTeamId = normalizeOptaId(teamId)
         
-        if (finalMatch) {
-            if (finalMatch.MatchInfo?.MatchWinner === teamId) return '1st'
-            if (finalMatch.TeamData?.[0]?.TeamRef === teamId || finalMatch.TeamData?.[1]?.TeamRef === teamId) return '2nd'
+        if (finalMatch?.MatchInfo?.MatchWinner) {
+            if (normalizeOptaId(finalMatch.MatchInfo.MatchWinner) === normalizedTeamId) return '1st'
+            if (normalizeOptaId(finalMatch.TeamData?.[0]?.TeamRef || '') === normalizedTeamId || 
+                normalizeOptaId(finalMatch.TeamData?.[1]?.TeamRef || '') === normalizedTeamId) return '2nd'
         }
         
-        if (thirdPlaceMatch) {
-            if (thirdPlaceMatch.MatchInfo?.MatchWinner === teamId) return '3rd'
-            if (thirdPlaceMatch.TeamData?.[0]?.TeamRef === teamId || thirdPlaceMatch.TeamData?.[1]?.TeamRef === teamId) return '4th'
+        if (thirdPlaceMatch?.MatchInfo?.MatchWinner) {
+            if (normalizeOptaId(thirdPlaceMatch.MatchInfo.MatchWinner) === normalizedTeamId) return '3rd'
+            if (normalizeOptaId(thirdPlaceMatch.TeamData?.[0]?.TeamRef || '') === normalizedTeamId || 
+                normalizeOptaId(thirdPlaceMatch.TeamData?.[1]?.TeamRef || '') === normalizedTeamId) return '4th'
+        }
+        
+        if (!finalMatch?.MatchInfo?.MatchWinner && !thirdPlaceMatch?.MatchInfo?.MatchWinner) {
+            const teamStandings = f3StandingsData?.SoccerFeed?.SoccerDocument?.Competition?.TeamStandings
+            if (teamStandings) {
+                for (const groupStanding of teamStandings) {
+                    const teamRecord = groupStanding.TeamRecord?.find(
+                        record => normalizeOptaId(record.TeamRef) === normalizedTeamId
+                    )
+                    if (teamRecord && (teamRecord.Standing.Position === 1 || teamRecord.Standing.Position === 2)) {
+                        const groupId = groupStanding.Round?.Name.id || 0
+                        const position = teamRecord.Standing.Position
+                        const rank = groupId === 1 
+                            ? (position === 1 ? 1 : 3) 
+                            : (position === 1 ? 2 : 4)
+                        return rank === 1 ? '1st' : rank === 2 ? '2nd' : rank === 3 ? '3rd' : '4th'
+                    }
+                }
+            }
         }
         
         return 'E'
-    }, [finalMatch, thirdPlaceMatch])
+    }, [finalMatch, thirdPlaceMatch, f3StandingsData])
 
     const getGroupPlacement = (teamOptaId: string | null | undefined, groupId: number): string => {
         if (!teamOptaId) return '-'

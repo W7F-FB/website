@@ -58,8 +58,9 @@ export function ClubRankRow({ placement, logo, name, shortName, useShortName = f
                 isComplete && placement === '1st' && "font-semibold bg-gold-gradient bg-clip-text text-transparent",
                 isComplete && placement === '2nd' && "font-semibold bg-silver-gradient bg-clip-text text-transparent",
                 isComplete && placement === '3rd' && "font-semibold bg-bronze-gradient bg-clip-text text-transparent",
+                !isComplete && ['1st', '2nd', '3rd', '4th'].includes(placement) && "text-muted-foreground",
                 placement === 'E' && "text-muted-foreground/80",
-                !['1st', '2nd', '3rd', 'E'].includes(placement) && "text-muted-foreground",
+                !['1st', '2nd', '3rd', '4th', 'E'].includes(placement) && "text-muted-foreground",
                 className
             )}>
                 {placement}
