@@ -60,6 +60,8 @@ export function MatchResultItem({
         isLive,
         matchTime,
         startTime,
+        isPenalties,
+        isExtraTime,
     } = finalData
 
     // Determine which team is "current" and which is "opponent"
@@ -107,6 +109,13 @@ export function MatchResultItem({
         e.stopPropagation()
     }
 
+    const getFinalStatus = () => {
+        if (!isFinal) return ""
+        if (isPenalties) return "FT/PKs"
+        if (isExtraTime) return "FT/OT"
+        return "FT"
+    }
+
     const opponentIdentity = (
         <>
             {opponentTeam?.data.logo && (
@@ -119,7 +128,7 @@ export function MatchResultItem({
                     {opponentName}
                 </H4>
                 <div className="text-xs text-muted-foreground mt-0.5 truncate md:truncate-none">
-                    {`${formatGameDate(startTime).month} ${formatGameDate(startTime).day}${getRoundTypeLabel(fixture.MatchInfo.RoundType) ? `, ${getRoundTypeLabel(fixture.MatchInfo.RoundType)}` : ''}`}
+                    {`${formatGameDate(startTime).month} ${formatGameDate(startTime).day}${getRoundTypeLabel(fixture.MatchInfo.RoundType) ? `, ${getRoundTypeLabel(fixture.MatchInfo.RoundType)}` : ''}${isFinal && getFinalStatus() ? `, ${getFinalStatus()}` : ''}`}
                 </div>
             </div>
         </>

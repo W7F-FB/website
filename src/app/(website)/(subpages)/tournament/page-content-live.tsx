@@ -22,6 +22,7 @@ import { TuneInBanner } from "@/components/blocks/tune-in-banner"
 import { GroupStageSection } from "@/components/blocks/tournament/group-stage-section"
 import { KnockoutStageSection } from "@/components/blocks/tournament/knockout-stage-section"
 import { ClubStandingsTable } from "@/components/blocks/tournament/club-standings-table"
+import { ClubList } from "@/components/blocks/clubs/club-list"
 import type { BroadcastPartnersDocument } from "../../../../../prismicio-types"
 import type { TeamRecord } from "@/lib/v2-utils/records-from-f9"
 import type { TeamStatSheet } from "@/lib/v2-utils/team-stat-sheet-from-f9"
@@ -94,7 +95,7 @@ export default function TournamentPageLive({ tournament, tournamentBlogs, f3Stan
                         <PrismicNextImage
                             field={tournament.data.hero_image}
                             fill
-                            className="object-cover"
+                            className="object-cover object-left"
                         />
                     </SubpageHeroMedia>
                 )}
@@ -166,6 +167,9 @@ export default function TournamentPageLive({ tournament, tournamentBlogs, f3Stan
                         recapVideosMap={recapVideosMap}
                     />
                 )}
+                <Section padding="md">
+                    <ClubList tournament={tournament} />
+                </Section>
                 <Section padding="md" id="stat-sheet">
                     <SectionHeading className="pb-8">
                         <SectionHeadingHeading variant="h2">

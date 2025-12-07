@@ -11,7 +11,6 @@ import { PostGrid } from "@/components/blocks/posts/post-grid";
 import { H3 } from "@/components/website-base/typography";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { EmptyMessage } from "@/components/ui/empty-message";
-import { ReplayIcon } from "@/components/website-base/icons";
 import { SectionHeading, SectionHeadingHeading, SectionHeadingSubtitle } from "@/components/sections/section-heading";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
@@ -110,19 +109,6 @@ export default function TeamPageContent({
                 </div>
               </CardContent>
             </Card>
-            {currentTournament?.uid === "fort-lauderdale" && (
-              <Card banner className="bg-card/50 border-muted/50 w-full">
-                <CardHeader>
-                  <CardTitle>Highlights</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <EmptyMessage className="py-24 relative overflow-hidden">
-                    <ReplayIcon className="absolute -top-10 -left-10 size-64 mx-auto text-muted-foreground/2" />
-                    <span className="relative font-headers uppercase font-medium text-lg">Check back soon for match highlights</span>
-                  </EmptyMessage>
-                </CardContent>
-              </Card>
-            )}
             <Card banner className="bg-card/50 border-muted/50 w-full" id="roster">
               <CardHeader>
                 <CardTitle>Roster</CardTitle>

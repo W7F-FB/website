@@ -30,6 +30,7 @@ import { PlayerAwardCard } from "@/components/blocks/players/player-award-card"
 import { StatSheetTabs } from "@/components/blocks/tournament/stat-sheet/stat-sheet-tabs"
 import { GroupStageSection } from "@/components/blocks/tournament/group-stage-section"
 import { KnockoutStageSection } from "@/components/blocks/tournament/knockout-stage-section"
+import { ClubList } from "@/components/blocks/clubs/club-list"
 import type { TeamRecord } from "@/lib/v2-utils/records-from-f9"
 import type { TeamStatSheet } from "@/lib/v2-utils/team-stat-sheet-from-f9"
 import type { MatchHighlight } from "@/lib/supabase/queries/highlights"
@@ -86,7 +87,7 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                         <PrismicNextImage
                             field={tournament.data.hero_image}
                             fill
-                            className="object-cover"
+                            className="object-cover object-left"
                         />
                         <SubpageHeroMediaBanner>
                             <P noSpace><span>Event #2 is coming to Fort Lauderdale, FL</span>
@@ -129,6 +130,12 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                     </div>
                 )}
             </div>
+
+            <Container maxWidth="lg">
+                <Section padding="md">
+                    <ClubList tournament={tournament} />
+                </Section>
+            </Container>
 
             <Container maxWidth="lg">
                 {awards.length > 0 && (
