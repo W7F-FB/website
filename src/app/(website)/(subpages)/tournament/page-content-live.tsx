@@ -177,7 +177,7 @@ export default function TournamentPageLive({ tournament, tournamentBlogs, f3Stan
                         </SectionHeadingHeading>
                     </SectionHeading>
                     
-                    <StatSheetTabs prismicTeams={prismicTeams} teamStatSheets={teamStatSheets} f30TeamStats={f30TeamStats} f1FixturesData={f1FixturesData} f3StandingsData={f3StandingsData} tournamentStatus={tournament.data.status ?? undefined} isKnockoutStage={knockoutStage} />
+                    <StatSheetTabs prismicTeams={prismicTeams} teamStatSheets={teamStatSheets} f30TeamStats={f30TeamStats} f1FixturesData={f1FixturesData} f3StandingsData={f3StandingsData} tournamentStatus={tournament.data.status ?? undefined} isKnockoutStage={knockoutStage} f9FeedsMap={f9FeedsMap} />
                 </Section>
                 {tournamentBlogs.length > 0 && (
                     <>

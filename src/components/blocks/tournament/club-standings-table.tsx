@@ -1,17 +1,19 @@
 'use client';
 
-import { Fragment, useMemo, useCallback } from "react"
+import { Fragment, useMemo, useCallback, useEffect } from "react"
 import { Table, TableBody, TableCell, TableHeader, TableRow } from "@/components/ui/table"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import type { TeamDocument } from "../../../../prismicio-types"
 import type { F1FixturesResponse } from "@/types/opta-feeds/f1-fixtures"
 import type { F3StandingsResponse } from "@/types/opta-feeds/f3-standings"
 import type { F40SquadsResponse } from "@/types/opta-feeds/f40-squads-feed"
+import type { F9MatchResponse } from "@/types/opta-feeds/f9-match"
 import { getFinalMatch, getThirdPlaceMatch, getSemiFinalMatches, getTeamRankings, sortTeamsByRanking, QUALIFIED_ALIVE } from "@/app/(website)/(subpages)/tournament/utils"
 import { LinePattern } from "@/components/blocks/line-pattern"
 import { ClubRankRow } from "@/components/blocks/tournament/club-rank-row"
 import { normalizeOptaId } from "@/lib/opta/utils"
 import type { TeamRecord } from "@/lib/v2-utils/records-from-f9"
+import { dev } from "@/lib/dev"
 
 const placementOrder: Record<string, number> = {
     [QUALIFIED_ALIVE]: 1,
@@ -32,9 +34,10 @@ type ClubStandingsTableProps = {
     isKnockoutStage: boolean
     teamRecords?: TeamRecord[]
     button?: React.ReactNode
+    f9FeedsMap?: Map<string, F9MatchResponse>
 }
 
-export function ClubStandingsTable({ prismicTeams, f1FixturesData, f3StandingsData, f40Squads, tournamentStatus, isKnockoutStage, teamRecords, button }: ClubStandingsTableProps) {
+export function ClubStandingsTable({ prismicTeams, f1FixturesData, f3StandingsData, f40Squads, tournamentStatus, isKnockoutStage, teamRecords, button, f9FeedsMap }: ClubStandingsTableProps) {
     const matchData = f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData
     const finalMatches = getFinalMatch(matchData)
     const thirdPlaceMatches = getThirdPlaceMatch(matchData)
@@ -42,6 +45,21 @@ export function ClubStandingsTable({ prismicTeams, f1FixturesData, f3StandingsDa
     
     const finalMatch = finalMatches[0]
     const thirdPlaceMatch = thirdPlaceMatches[0]
+    
+    const finalMatchNormalizedId = finalMatch ? normalizeOptaId(finalMatch.uID) : undefined
+    const thirdPlaceMatchNormalizedId = thirdPlaceMatch ? normalizeOptaId(thirdPlaceMatch.uID) : undefined
+    
+    const finalMatchF9 = finalMatchNormalizedId ? f9FeedsMap?.get(finalMatchNormalizedId) : undefined
+    const thirdPlaceMatchF9 = thirdPlaceMatchNormalizedId ? f9FeedsMap?.get(thirdPlaceMatchNormalizedId) : undefined
+    
+    const finalF9Doc = useMemo(
+        () => Array.isArray(finalMatchF9?.SoccerFeed?.SoccerDocument) ? finalMatchF9?.SoccerFeed?.SoccerDocument[0] : finalMatchF9?.SoccerFeed?.SoccerDocument,
+        [finalMatchF9]
+    )
+    const thirdPlaceF9Doc = useMemo(
+        () => Array.isArray(thirdPlaceMatchF9?.SoccerFeed?.SoccerDocument) ? thirdPlaceMatchF9?.SoccerFeed?.SoccerDocument[0] : thirdPlaceMatchF9?.SoccerFeed?.SoccerDocument,
+        [thirdPlaceMatchF9]
+    )
     
     const recordsMap = useMemo(() => {
         const map = new Map<string, { wins: number; losses: number }>()
@@ -71,16 +89,30 @@ export function ClubStandingsTable({ prismicTeams, f1FixturesData, f3StandingsDa
         const teamId = `t${teamOptaId}`
         const normalizedTeamId = normalizeOptaId(teamId)
         
-        if (finalMatch?.MatchInfo?.MatchWinner) {
-            if (normalizeOptaId(finalMatch.MatchInfo.MatchWinner) === normalizedTeamId) return '1st'
+        const finalF9Doc = Array.isArray(finalMatchF9?.SoccerFeed?.SoccerDocument) ? finalMatchF9?.SoccerFeed?.SoccerDocument[0] : finalMatchF9?.SoccerFeed?.SoccerDocument
+        const finalWinner = finalF9Doc?.MatchData?.MatchInfo?.Result?.Winner || finalMatch?.MatchInfo?.MatchWinner || finalMatch?.MatchInfo?.GameWinner
+        if (finalWinner) {
+            if (normalizeOptaId(finalWinner) === normalizedTeamId) return '1st'
             if (normalizeOptaId(finalMatch.TeamData?.[0]?.TeamRef || '') === normalizedTeamId || 
                 normalizeOptaId(finalMatch.TeamData?.[1]?.TeamRef || '') === normalizedTeamId) return '2nd'
         }
         
-        if (thirdPlaceMatch?.MatchInfo?.MatchWinner) {
-            if (normalizeOptaId(thirdPlaceMatch.MatchInfo.MatchWinner) === normalizedTeamId) return '3rd'
-            if (normalizeOptaId(thirdPlaceMatch.TeamData?.[0]?.TeamRef || '') === normalizedTeamId || 
-                normalizeOptaId(thirdPlaceMatch.TeamData?.[1]?.TeamRef || '') === normalizedTeamId) return '4th'
+        if (thirdPlaceMatch) {
+            const team0Id = normalizeOptaId(thirdPlaceMatch.TeamData?.[0]?.TeamRef || '')
+            const team1Id = normalizeOptaId(thirdPlaceMatch.TeamData?.[1]?.TeamRef || '')
+            const isInThirdPlaceMatch = team0Id === normalizedTeamId || team1Id === normalizedTeamId
+            
+            if (isInThirdPlaceMatch) {
+                const thirdPlaceWinner = thirdPlaceF9Doc?.MatchData?.MatchInfo?.Result?.Winner || thirdPlaceMatch?.MatchInfo?.MatchWinner || thirdPlaceMatch?.MatchInfo?.GameWinner
+                
+                if (thirdPlaceWinner && normalizeOptaId(thirdPlaceWinner) === normalizedTeamId) {
+                    return '3rd'
+                }
+                if (thirdPlaceWinner) {
+                    return '4th'
+                }
+                return '-'
+            }
         }
         
         if (finalMatch?.TeamData?.[0]?.TeamRef && finalMatch?.TeamData?.[1]?.TeamRef) {
@@ -95,7 +127,7 @@ export function ClubStandingsTable({ prismicTeams, f1FixturesData, f3StandingsDa
         }
         
         return 'E'
-    }, [finalMatch, thirdPlaceMatch, semifinalTeamIds])
+    }, [finalMatch, thirdPlaceMatch, finalF9Doc, thirdPlaceF9Doc, semifinalTeamIds])
 
     const getGroupPlacement = (teamOptaId: string | null | undefined, groupId: number): string => {
         if (!teamOptaId) return '-'
@@ -198,6 +230,7 @@ export function ClubStandingsTable({ prismicTeams, f1FixturesData, f3StandingsDa
         })
     }, [isKnockoutStage, prismicTeams, recordsMap, getDisplayName, getKnockoutPlacement, getTeamCountry, getF3GroupPosition])
 
+
     if (isKnockoutStage) {
         const firstEliminatedIndex = knockoutTableData.findIndex(row => row.placement === 'E')
         
@@ -236,6 +269,7 @@ export function ClubStandingsTable({ prismicTeams, f1FixturesData, f3StandingsDa
                                                 tournamentStatus={tournamentStatus}
                                                 href={row.team.uid ? `/club/${row.team.uid}` : undefined}
                                                 country={row.country}
+                                                isKnockoutStage={isKnockoutStage}
                                             />
                                     </TableRow>
                                 </Fragment>
@@ -291,6 +325,7 @@ export function ClubStandingsTable({ prismicTeams, f1FixturesData, f3StandingsDa
                                                 record={`${wins}-${losses}`}
                                                 href={team.uid ? `/club/${team.uid}` : undefined}
                                                 country={getTeamCountry(team)}
+                                                isKnockoutStage={false}
                                             />
                                         </TableRow>
                                     )

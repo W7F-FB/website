@@ -4,7 +4,7 @@ import React from "react";
 import { Section } from "@/components/website-base/padding-containers";
 import MatchHero from "@/components/blocks/match/match-hero";
 import PlayByPlay from "@/components/blocks/match/play-by-play";
-import type { F9MatchData, F9TeamData, F9Team } from "@/types/opta-feeds/f9-match";
+import type { F9MatchData, F9TeamData, F9Team, F9MatchResponse } from "@/types/opta-feeds/f9-match";
 import type { F40Team, F40SquadsResponse } from "@/types/opta-feeds/f40-squads-feed";
 import type { TeamDocument, TournamentDocument, BroadcastPartnersDocument, BlogDocument } from "../../../../../../../../prismicio-types";
 import type { F13CommentaryResponse } from "@/types/opta-feeds/f13-commentary";
@@ -172,6 +172,7 @@ type Props = {
   teamStats?: TeamStats[];
   liveMinute?: string | null;
   highlights?: MatchHighlight[];
+  f9FeedsMap?: Map<string, F9MatchResponse>;
 };
 
 export default function MatchPageContent({
@@ -203,6 +204,7 @@ export default function MatchPageContent({
   teamStats,
   liveMinute,
   highlights = [],
+  f9FeedsMap,
 }: Props) {
   const matchData = f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData;
   const f1Matches = Array.isArray(matchData) ? matchData : (matchData ? [matchData] : []);
@@ -422,6 +424,7 @@ export default function MatchPageContent({
               tournamentStatus={tournament?.data.status ?? undefined}
               isKnockoutStage={isKnockoutStage}
               teamRecords={teamRecords}
+              f9FeedsMap={f9FeedsMap}
             />
           )}
           {hasCommentary && <FastBanner text="FORWARD." position="right" strokeWidth="1.5px" className="hidden lg:block" />}

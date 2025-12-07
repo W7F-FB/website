@@ -88,6 +88,7 @@ export function KnockoutStageSection({
                             tournamentStatus={tournamentStatus}
                             isKnockoutStage={true}
                             teamRecords={teamRecords}
+                            f9FeedsMap={f9FeedsMap}
                             button={
                                 <Button asChild variant="outline" size="sm" className="text-foreground text-xxs lg:text-sm">
                                     <Link href="#stat-sheet">Stat Sheet</Link>

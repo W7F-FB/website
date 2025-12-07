@@ -73,9 +73,6 @@ export default async function MatchPage({
   const optaId = match.data.opta_id;
   if (!optaId) return notFound();
 
-  if (optaId === "2610494" || match.id === "2610494") {
-    dev.log("Match with id 2610494:", match);
-  }
 
   const normalizedOptaId = normalizeOptaId(optaId);
 
@@ -93,10 +90,9 @@ export default async function MatchPage({
   const f9Feed = f9FeedResult.f9;
   const matchLiveMinute = f9FeedResult.liveMinute;
 
-  if (optaId === "2610494" || match.id === "2610494") {
-    dev.log("F9 Feed Result for match 2610494:", f9FeedResult);
-    dev.log("F9 Feed for match 2610494:", f9Feed);
-  }
+  dev.log('F9 Feed:', f9Feed);
+
+  
 
   const f9Doc: F9SoccerDocument | null = f9Feed?.SoccerFeed?.SoccerDocument
     ? (Array.isArray(f9Feed.SoccerFeed.SoccerDocument) 
@@ -259,6 +255,7 @@ export default async function MatchPage({
               teamStats={teamStats}
               liveMinute={matchLiveMinute}
               highlights={highlights}
+              f9FeedsMap={f9FeedsMap}
             />
           </PaddingGlobal>
         </div>

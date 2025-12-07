@@ -5,6 +5,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import type { TeamDocument } from "../../../../../prismicio-types"
 import type { F1FixturesResponse } from "@/types/opta-feeds/f1-fixtures"
 import type { F3StandingsResponse } from "@/types/opta-feeds/f3-standings"
+import type { F9MatchResponse } from "@/types/opta-feeds/f9-match"
 import { cn } from "@/lib/utils"
 import { getFinalMatch, getThirdPlaceMatch, getSemiFinalMatches, getTeamRankings, sortTeamsByRanking, QUALIFIED_ALIVE } from "@/app/(website)/(subpages)/tournament/utils"
 import { LinePattern } from "@/components/blocks/line-pattern"
@@ -30,6 +31,7 @@ type StatSheetTeamsTableProps = {
     f3StandingsData: F3StandingsResponse | null
     tournamentStatus?: string
     isKnockoutStage: boolean
+    f9FeedsMap?: Map<string, F9MatchResponse>
 }
 
 type TeamRowData = {
@@ -51,7 +53,7 @@ type TeamRowData = {
     href: string
 }
 
-export function StatSheetTeamsTable({ prismicTeams, teamStatSheets, f1FixturesData, f3StandingsData, tournamentStatus, isKnockoutStage }: StatSheetTeamsTableProps) {
+export function StatSheetTeamsTable({ prismicTeams, teamStatSheets, f1FixturesData, f3StandingsData, tournamentStatus, isKnockoutStage, f9FeedsMap }: StatSheetTeamsTableProps) {
     const [hoveredRow, setHoveredRow] = useState<number | null>(null)
     const isTablet = useIsTablet()
 
@@ -62,6 +64,9 @@ export function StatSheetTeamsTable({ prismicTeams, teamStatSheets, f1FixturesDa
     
     const finalMatch = finalMatches[0]
     const thirdPlaceMatch = thirdPlaceMatches[0]
+    
+    const finalMatchF9 = finalMatch ? f9FeedsMap?.get(normalizeOptaId(finalMatch.uID)) : undefined
+    const thirdPlaceMatchF9 = thirdPlaceMatch ? f9FeedsMap?.get(normalizeOptaId(thirdPlaceMatch.uID)) : undefined
     
     const optaTeams = useMemo(() => f1FixturesData?.SoccerFeed?.SoccerDocument?.Team || [], [f1FixturesData])
     
@@ -80,16 +85,31 @@ export function StatSheetTeamsTable({ prismicTeams, teamStatSheets, f1FixturesDa
         const teamId = `t${teamOptaId}`
         const normalizedTeamId = normalizeOptaId(teamId)
         
-        if (finalMatch?.MatchInfo?.MatchWinner) {
-            if (normalizeOptaId(finalMatch.MatchInfo.MatchWinner) === normalizedTeamId) return '1st'
+        const finalF9Doc = Array.isArray(finalMatchF9?.SoccerFeed?.SoccerDocument) ? finalMatchF9?.SoccerFeed?.SoccerDocument[0] : finalMatchF9?.SoccerFeed?.SoccerDocument
+        const finalWinner = finalF9Doc?.MatchData?.MatchInfo?.Result?.Winner || finalMatch?.MatchInfo?.MatchWinner
+        if (finalWinner) {
+            if (normalizeOptaId(finalWinner) === normalizedTeamId) return '1st'
             if (normalizeOptaId(finalMatch.TeamData?.[0]?.TeamRef || '') === normalizedTeamId || 
                 normalizeOptaId(finalMatch.TeamData?.[1]?.TeamRef || '') === normalizedTeamId) return '2nd'
         }
         
-        if (thirdPlaceMatch?.MatchInfo?.MatchWinner) {
-            if (normalizeOptaId(thirdPlaceMatch.MatchInfo.MatchWinner) === normalizedTeamId) return '3rd'
-            if (normalizeOptaId(thirdPlaceMatch.TeamData?.[0]?.TeamRef || '') === normalizedTeamId || 
-                normalizeOptaId(thirdPlaceMatch.TeamData?.[1]?.TeamRef || '') === normalizedTeamId) return '4th'
+        if (thirdPlaceMatch) {
+            const team0Id = normalizeOptaId(thirdPlaceMatch.TeamData?.[0]?.TeamRef || '')
+            const team1Id = normalizeOptaId(thirdPlaceMatch.TeamData?.[1]?.TeamRef || '')
+            const isInThirdPlaceMatch = team0Id === normalizedTeamId || team1Id === normalizedTeamId
+            
+            if (isInThirdPlaceMatch) {
+                const thirdPlaceF9Doc = Array.isArray(thirdPlaceMatchF9?.SoccerFeed?.SoccerDocument) ? thirdPlaceMatchF9?.SoccerFeed?.SoccerDocument[0] : thirdPlaceMatchF9?.SoccerFeed?.SoccerDocument
+                const thirdPlaceWinner = thirdPlaceF9Doc?.MatchData?.MatchInfo?.Result?.Winner || thirdPlaceMatch?.MatchInfo?.MatchWinner
+                
+                if (thirdPlaceWinner && normalizeOptaId(thirdPlaceWinner) === normalizedTeamId) {
+                    return '3rd'
+                }
+                if (thirdPlaceWinner) {
+                    return '4th'
+                }
+                return '-'
+            }
         }
         
         if (finalMatch?.TeamData?.[0]?.TeamRef && finalMatch?.TeamData?.[1]?.TeamRef) {
@@ -104,7 +124,7 @@ export function StatSheetTeamsTable({ prismicTeams, teamStatSheets, f1FixturesDa
         }
         
         return 'E'
-    }, [finalMatch, thirdPlaceMatch, semifinalTeamIds])
+    }, [finalMatch, thirdPlaceMatch, finalMatchF9, thirdPlaceMatchF9, semifinalTeamIds])
 
     const getGroupPlacement = useCallback((teamOptaId: string | null | undefined, groupId: number): string => {
         if (!teamOptaId) return '-'
@@ -259,6 +279,7 @@ export function StatSheetTeamsTable({ prismicTeams, teamStatSheets, f1FixturesDa
                                                 tournamentStatus={tournamentStatus}
                                                 href={row.href}
                                                 hideRecord={true}
+                                                isKnockoutStage={isKnockoutStage}
                                             />
                                         </TableRow>
                                         {row.placement === '4th' && tournamentStatus === 'Complete' && (
@@ -370,6 +391,7 @@ export function StatSheetTeamsTable({ prismicTeams, teamStatSheets, f1FixturesDa
                                                     useShortName={isTablet}
                                                     href={row.href}
                                                     hideRecord={true}
+                                                    isKnockoutStage={false}
                                                 />
                                             </TableRow>
                                         )

@@ -18,10 +18,12 @@ type ClubRankRowProps = {
     href?: string
     country?: string | null
     hideRecord?: boolean
+    isKnockoutStage?: boolean
 }
 
-export function ClubRankRow({ placement, logo, name, shortName, useShortName = false, record, className, tournamentStatus, href, country, hideRecord = false }: ClubRankRowProps) {
-    const isComplete = tournamentStatus === 'Complete'
+export function ClubRankRow({ placement, logo, name, shortName, useShortName = false, record, className, tournamentStatus, href, country, hideRecord = false, isKnockoutStage = false }: ClubRankRowProps) {
+    const isLiveOrComplete = tournamentStatus === 'Live' || tournamentStatus === 'Complete'
+    const showGradients = isKnockoutStage && isLiveOrComplete
     const displayName = useShortName && shortName ? shortName : name
     const countryIso = country ? getCountryIsoCode(country) : null
     
@@ -56,9 +58,12 @@ export function ClubRankRow({ placement, logo, name, shortName, useShortName = f
         <>
             <TableCell className={cn(
                 "h-12 py-0 font-medium font-headers text-xxs lg:text-xs lg:w-10 pl-4 pr-0 pr-3",
-                placement === '1st' && isComplete && "font-semibold bg-gold-gradient bg-clip-text text-transparent",
-                placement === '2nd' && isComplete && "font-semibold bg-silver-gradient bg-clip-text text-transparent",
-                placement === '3rd' && isComplete && "font-semibold bg-bronze-gradient bg-clip-text text-transparent",
+                placement === '1st' && showGradients && "font-semibold bg-gold-gradient bg-clip-text text-transparent",
+                placement === '1st' && !showGradients && "text-muted-foreground",
+                placement === '2nd' && showGradients && "font-semibold bg-silver-gradient bg-clip-text text-transparent",
+                placement === '2nd' && !showGradients && "text-muted-foreground",
+                placement === '3rd' && showGradients && "font-semibold bg-bronze-gradient bg-clip-text text-transparent",
+                placement === '3rd' && !showGradients && "text-muted-foreground",
                 placement === '4th' && "text-muted-foreground",
                 placement === QUALIFIED_ALIVE && "text-muted-foreground",
                 placement === 'E' && "text-muted-foreground/80",

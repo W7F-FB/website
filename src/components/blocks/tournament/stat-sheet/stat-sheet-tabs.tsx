@@ -14,6 +14,7 @@ import type { F30SeasonStatsResponse } from "@/types/opta-feeds/f30-season-stats
 import { getTeamShortName, getPlayers, getPlayerStat } from "@/types/opta-feeds/f30-season-stats"
 import type { F1FixturesResponse } from "@/types/opta-feeds/f1-fixtures"
 import type { F3StandingsResponse } from "@/types/opta-feeds/f3-standings"
+import type { F9MatchResponse } from "@/types/opta-feeds/f9-match"
 import { StatSheetTeamsTable } from "./stat-sheet-teams-table"
 import { StatSheetPlayersTable } from "./stat-sheet-players-table"
 import type { TeamStatSheet } from "@/lib/v2-utils/team-stat-sheet-from-f9"
@@ -52,9 +53,10 @@ type StatSheetTabsProps = {
     f3StandingsData: F3StandingsResponse | null
     tournamentStatus?: string
     isKnockoutStage: boolean
+    f9FeedsMap?: Map<string, F9MatchResponse>
 }
 
-export function StatSheetTabs({ prismicTeams, teamStatSheets, f30TeamStats, f1FixturesData, f3StandingsData, tournamentStatus, isKnockoutStage }: StatSheetTabsProps) {
+export function StatSheetTabs({ prismicTeams, teamStatSheets, f30TeamStats, f1FixturesData, f3StandingsData, tournamentStatus, isKnockoutStage, f9FeedsMap }: StatSheetTabsProps) {
     const [selectedTeamId, setSelectedTeamId] = useState<string>("")
     const [leaderView, setLeaderView] = useState<StatSheetLeaderValue>("goals")
     const showPlayersTab = useMemo(() => hasEligiblePlayers(f30TeamStats), [f30TeamStats])
@@ -74,6 +76,7 @@ export function StatSheetTabs({ prismicTeams, teamStatSheets, f30TeamStats, f1Fi
                 tournamentStatus={tournamentStatus}
                 isKnockoutStage={isKnockoutStage}
                 showPlayersTab={showPlayersTab}
+                f9FeedsMap={f9FeedsMap}
             />
         </Tabs>
     )
@@ -92,6 +95,7 @@ type StatSheetTabsContentProps = {
     tournamentStatus?: string
     isKnockoutStage: boolean
     showPlayersTab: boolean
+    f9FeedsMap?: Map<string, F9MatchResponse>
 }
 
 function StatSheetTabsContent({ 
@@ -106,7 +110,8 @@ function StatSheetTabsContent({
     onLeaderViewChange,
     tournamentStatus,
     isKnockoutStage,
-    showPlayersTab
+    showPlayersTab,
+    f9FeedsMap
 }: StatSheetTabsContentProps) {
     const { activeValue } = useTabs()
 
@@ -131,7 +136,7 @@ function StatSheetTabsContent({
 
             <TabsContents>
                 <TabsContent value="teams" className="pt-4">
-                    <StatSheetTeamsTable prismicTeams={prismicTeams} teamStatSheets={teamStatSheets} f1FixturesData={f1FixturesData} f3StandingsData={f3StandingsData} tournamentStatus={tournamentStatus} isKnockoutStage={isKnockoutStage} />
+                    <StatSheetTeamsTable prismicTeams={prismicTeams} teamStatSheets={teamStatSheets} f1FixturesData={f1FixturesData} f3StandingsData={f3StandingsData} tournamentStatus={tournamentStatus} isKnockoutStage={isKnockoutStage} f9FeedsMap={f9FeedsMap} />
                 </TabsContent>
 
                 {showPlayersTab && (
