@@ -1,3 +1,6 @@
+"use client"
+
+import { useState, useEffect } from "react"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import type { F30Player } from "@/types/opta-feeds/f30-season-stats"
 import type { F1TeamData } from "@/types/opta-feeds/f1-fixtures"
@@ -21,6 +24,23 @@ type PlayerAwardCardProps = {
 }
 
 export function PlayerAwardCard({ award, player, optaTeam }: PlayerAwardCardProps) {
+    const initialHeadshotUrl = award.player_headshot?.url ?? undefined
+    const [fetchedHeadshotUrl, setFetchedHeadshotUrl] = useState<string | undefined>(initialHeadshotUrl)
+
+    useEffect(() => {
+        if (initialHeadshotUrl || !player?.player_id) return
+
+        const playerId = `p${player.player_id}`
+        
+        fetch(`/api/player/headshot?optaId=${encodeURIComponent(playerId)}`)
+            .then(res => res.json())
+            .then(data => {
+                if (data.headshotUrl) {
+                    setFetchedHeadshotUrl(data.headshotUrl)
+                }
+            })
+            .catch(() => {})
+    }, [player?.player_id, initialHeadshotUrl])
     const teamShortName = optaTeam?.ShortTeamName || optaTeam?.ShortName || "";
     const teamName = teamShortName || (isFilled.contentRelationship(award.player_team) && award.player_team.data?.name 
         ? award.player_team.data.name 
@@ -54,7 +74,7 @@ export function PlayerAwardCard({ award, player, optaTeam }: PlayerAwardCardProp
             <CardContent className="grid grid-cols-[auto_1fr] gap-3 lg:p-3 p-3">
                 <PlayerHeadshot 
                     logoField={teamLogoField}
-                    headshotUrl={award.player_headshot?.url ?? undefined}
+                    headshotUrl={fetchedHeadshotUrl}
                     primaryColor={primaryColor}
                 />
                 <div className="flex flex-col justify-center">

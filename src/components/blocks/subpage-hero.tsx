@@ -35,23 +35,45 @@ function SubpageHeroContent({
   accentColor?: string;
   shadowColor?: string;
 }) {
+  const useClubStyleGradient = !!accentColor;
+
   return (
     <div
       className={cn("relative z-10 pb-12 lg:pb-24 pt-12 lg:pt-36 px-6 lg:px-18 min-h-80 flex flex-col gap-4 max-w-3xl w-full bg-extra-muted", className)}
       {...props}
     >
-      <div
-        className="absolute top-0 bottom-0 -right-[0.5rem] -left-[50%] origin-bottom-right -skew-x-[var(--skew-btn)] bg-secondary/15 backdrop-blur-sm border-r border-foreground/10"
-      />
-      <div
-        className="absolute top-0 bottom-0 right-0 -left-[50%] origin-bottom-right -skew-x-[var(--skew-btn)] bg-extra-muted"
-      />
-      <GradientBg
-        className="top-0 bottom-0 right-0 -left-[50%] origin-bottom-right -skew-x-[var(--skew-btn)] opacity-30"
-        overlayColor={overlayColor}
-        accentColor={accentColor}
-        shadowColor={shadowColor}
-      />
+      {useClubStyleGradient ? (
+        <>
+          <div
+            className="absolute top-0 bottom-0 -right-[0.5rem] -left-[50%] origin-bottom-right -skew-x-[var(--skew-btn)] bg-secondary/15 backdrop-blur-sm border-r border-foreground/10"
+          />
+          <div
+            className="absolute top-0 bottom-0 right-0 -left-[50%] origin-bottom-right -skew-x-[var(--skew-btn)] bg-extra-muted"
+          />
+          <GradientBg
+            className="w-[300%] aspect-square absolute bottom-0 right-0 -skew-x-[var(--skew-btn)] origin-bottom-right"
+            overlayColor={overlayColor || "oklch(0.1949 0.0274 260.031)"}
+            accentColor={accentColor}
+            shadowColor={shadowColor || "oklch(0.1949 0.0274 260.031)"}
+            accentOpacity={0.4}
+          />
+        </>
+      ) : (
+        <>
+          <div
+            className="absolute top-0 bottom-0 -right-[0.5rem] -left-[50%] origin-bottom-right -skew-x-[var(--skew-btn)] bg-secondary/15 backdrop-blur-sm border-r border-foreground/10"
+          />
+          <div
+            className="absolute top-0 bottom-0 right-0 -left-[50%] origin-bottom-right -skew-x-[var(--skew-btn)] bg-extra-muted"
+          />
+          <GradientBg
+            className="top-0 bottom-0 right-0 -left-[50%] origin-bottom-right -skew-x-[var(--skew-btn)] opacity-30"
+            overlayColor={overlayColor}
+            accentColor={accentColor}
+            shadowColor={shadowColor}
+          />
+        </>
+      )}
       <div className="relative text-center md:text-left flex flex-col items-center md:items-start">
         {children}
       </div>

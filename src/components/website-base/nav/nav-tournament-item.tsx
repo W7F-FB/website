@@ -10,7 +10,7 @@ import { PrismicLink } from "@prismicio/react"
 import { isFilled } from "@prismicio/client"
 import { Separator } from "@/components/ui/separator"
 import { CategoryButton } from "@/components/blocks/category-button"
-import { SoccerIcon, TicketIcon, WhistleIcon, InfoShieldIcon, VIPIcon, BarGraphIcon } from "../icons"
+import { SoccerIcon, TicketIcon, WhistleIcon, InfoShieldIcon, VIPIcon, BarGraphIcon, ChampionIcon } from "../icons"
 import { PrismicNextImage } from "@prismicio/next"
 import { NavSheetLink } from "@/components/ui/navigation-menu"
 import type { TeamDocument } from "../../../../prismicio-types"
@@ -195,7 +195,14 @@ export function NavigationMenuTournamentFeatured({
                     <CategoryButton href={`/tournament/${tournament.uid}`}>
                         <div className="flex items-center gap-3">
                             <SoccerIcon className="size-4 text-foreground" />
-                            Explore
+                            Results
+                        </div>
+                    </CategoryButton>
+                    <Separator variant="gradient" gradientDirection="toRight" />
+                    <CategoryButton href={`/tournament/${tournament.uid}#standouts`}>
+                        <div className="flex items-center gap-3">
+                            <ChampionIcon className="size-4 text-foreground" />
+                            Awards
                         </div>
                     </CategoryButton>
                     {tournament.data.tickets_available && (
