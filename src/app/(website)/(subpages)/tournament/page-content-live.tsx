@@ -85,7 +85,7 @@ export default function TournamentPageLive({ tournament, tournamentBlogs, f3Stan
                                 <Link href="/checkout"><span>Purchase Tickets</span></Link>
                             </Button>
                             <Button asChild size="skew_lg" variant="outline">
-                                <Link href="#group-stage"><span>Matches</span></Link>
+                                <Link href={knockoutStage ? "#knockout" : "#group-stage"}><span>Matches</span></Link>
                             </Button>
                         </div>
                     </div>
