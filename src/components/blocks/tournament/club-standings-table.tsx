@@ -53,6 +53,7 @@ export function ClubStandingsTable({ prismicTeams, f1FixturesData, f3StandingsDa
     }, [teamRecords])
     
     const squadTeams = useMemo(() => f40Squads?.SoccerFeed?.SoccerDocument?.Team || [], [f40Squads])
+    const optaTeams = useMemo(() => f1FixturesData?.SoccerFeed?.SoccerDocument?.Team || [], [f1FixturesData])
     
     const semifinalTeamIds = useMemo(() => {
         const teamIds = new Set<string>()
@@ -99,13 +100,12 @@ export function ClubStandingsTable({ prismicTeams, f1FixturesData, f3StandingsDa
 
     const getDisplayName = useCallback((team: TeamDocument): string => {
         const optaId = team.data.opta_id
-        const teamIdWithPrefix = optaId?.toString().startsWith('t')
-            ? optaId
-            : `t${optaId}`
+        const teamId = optaId ? `t${optaId}` : null
         
-        const f40Team = squadTeams.find(t => normalizeOptaId(t.uID) === normalizeOptaId(teamIdWithPrefix))
-        return f40Team?.short_club_name || team.data.name || ''
-    }, [squadTeams])
+        const optaTeam = optaTeams.find(t => t.uID === teamId)
+        const optaShortName = optaTeam?.ShortTeamName || optaTeam?.ShortName
+        return optaShortName || optaTeam?.Name || team.data.name || ''
+    }, [optaTeams])
 
     const getTeamCountry = useCallback((team: TeamDocument): string | null => {
         const optaId = team.data.opta_id

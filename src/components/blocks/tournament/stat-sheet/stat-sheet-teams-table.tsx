@@ -215,6 +215,8 @@ export function StatSheetTeamsTable({ prismicTeams, teamStatSheets, f1FixturesDa
     }, [isKnockoutStage, prismicTeams, buildTeamRowData, getF3GroupPosition])
 
     if (isKnockoutStage) {
+        const firstEliminatedIndex = knockoutTableData.findIndex(row => row.placement === 'E')
+
         return (
             <div>
                 <div className="flex gap-0">
