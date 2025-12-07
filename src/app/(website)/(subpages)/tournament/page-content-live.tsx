@@ -111,6 +111,26 @@ export default function TournamentPageLive({ tournament, tournamentBlogs, f3Stan
             </div>
 
             <Container maxWidth="lg">
+                {knockoutStage && (
+                    <KnockoutStageSection
+                        semiFinalMatches={semiFinalMatches}
+                        thirdPlaceMatches={thirdPlaceMatches}
+                        finalMatches={finalMatches}
+                        f1FixturesData={f1FixturesData}
+                        f3StandingsData={f3StandingsData}
+                        prismicTeams={prismicTeams}
+                        tournamentSlug={tournament.uid}
+                        matchSlugMap={matchSlugMap}
+                        compact={compact}
+                        streamingLink={dazn?.data.streaming_link}
+                        broadcastPartners={broadcastPartners}
+                        f9FeedsMap={f9FeedsMap}
+                        recapVideosMap={recapVideosMap}
+                        liveKnockoutStage={knockoutStage}
+                        tournamentStatus={tournament.data.status ?? undefined}
+                        teamRecords={teamRecords}
+                    />
+                )}
                 <GroupStageSection
                     f3StandingsData={f3StandingsData}
                     f1FixturesData={f1FixturesData}
@@ -125,22 +145,25 @@ export default function TournamentPageLive({ tournament, tournamentBlogs, f3Stan
                     teamRecords={teamRecords}
                     isKnockoutStage={knockoutStage}
                     recapVideosMap={recapVideosMap}
+                    liveKnockoutStage={knockoutStage}
                 />
-                <KnockoutStageSection
-                    semiFinalMatches={semiFinalMatches}
-                    thirdPlaceMatches={thirdPlaceMatches}
-                    finalMatches={finalMatches}
-                    f1FixturesData={f1FixturesData}
-                    f3StandingsData={f3StandingsData}
-                    prismicTeams={prismicTeams}
-                    tournamentSlug={tournament.uid}
-                    matchSlugMap={matchSlugMap}
-                    compact={compact}
-                    streamingLink={dazn?.data.streaming_link}
-                    broadcastPartners={broadcastPartners}
-                    f9FeedsMap={f9FeedsMap}
-                    recapVideosMap={recapVideosMap}
-                />
+                {!knockoutStage && (
+                    <KnockoutStageSection
+                        semiFinalMatches={semiFinalMatches}
+                        thirdPlaceMatches={thirdPlaceMatches}
+                        finalMatches={finalMatches}
+                        f1FixturesData={f1FixturesData}
+                        f3StandingsData={f3StandingsData}
+                        prismicTeams={prismicTeams}
+                        tournamentSlug={tournament.uid}
+                        matchSlugMap={matchSlugMap}
+                        compact={compact}
+                        streamingLink={dazn?.data.streaming_link}
+                        broadcastPartners={broadcastPartners}
+                        f9FeedsMap={f9FeedsMap}
+                        recapVideosMap={recapVideosMap}
+                    />
+                )}
                 <Section padding="md" id="stat-sheet">
                     <SectionHeading className="pb-8">
                         <SectionHeadingHeading variant="h2">

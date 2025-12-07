@@ -32,6 +32,7 @@ type GroupStageSectionProps = {
     teamRecords?: TeamRecord[]
     isKnockoutStage?: boolean
     recapVideosMap?: Map<string, MatchHighlight>
+    liveKnockoutStage?: boolean
 }
 
 export function GroupStageSection({ 
@@ -48,7 +49,8 @@ export function GroupStageSection({
     tournamentStatus,
     teamRecords,
     isKnockoutStage = false,
-    recapVideosMap
+    recapVideosMap,
+    liveKnockoutStage = false
 }: GroupStageSectionProps) {
     const groupStageMatches = getGroupStageMatches(f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData)
     const matchesByDay = groupMatchesByDate(groupStageMatches)
@@ -56,6 +58,63 @@ export function GroupStageSection({
 
     if (totalMatches === 0) {
         return null
+    }
+
+    if (liveKnockoutStage) {
+        return (
+            <Section padding="md" id="group-stage">
+                <SectionHeading variant="split">
+                    <SectionHeadingHeading>
+                        Group Stage
+                    </SectionHeadingHeading>
+                    <SectionHeadingText variant="lg" className="ml-0 md:ml-auto mt-auto">
+                        {totalMatches} {totalMatches === 1 ? 'Match' : 'Matches'}
+                    </SectionHeadingText>
+                </SectionHeading>
+                <div className="space-y-18">
+                    {Array.from(matchesByDay.entries()).map(([date, matches], index) => {
+                        const columns = compact ? 3 : 2
+                        const filledCellsInLastRow = matches.length % columns
+                        const emptyCells = filledCellsInLastRow === 0 ? 0 : columns - filledCellsInLastRow
+                        const isLastMatchDay = index === matchesByDay.size - 1
+                        const nextMatchDayHref = isLastMatchDay ? "#knockout" : `#match-day-${index + 2}`
+
+                        return (
+                            <div key={date} id={`match-day-${index + 1}`} className="space-y-8">
+                                <MatchDayBadge matchDay={index + 1} date={date} />
+                                <div className={cn("grid grid-cols-1 md:grid-cols-2 gap-6", compact && "md:grid-cols-3")}>
+                                    {matches.map((match) => (
+                                        <MatchCard
+                                            key={match.uID}
+                                            fixture={match}
+                                            prismicTeams={prismicTeams}
+                                            optaTeams={getMatchTeams(match, f1FixturesData?.SoccerFeed?.SoccerDocument?.Team || [])}
+                                            tournamentSlug={tournamentSlug}
+                                            matchSlugMap={matchSlugMap}
+                                            compact={compact}
+                                            f9Feed={f9FeedsMap?.get(normalizeOptaId(match.uID))}
+                                            streamingLink={streamingLink}
+                                            broadcastPartners={broadcastPartners}
+                                            recapVideo={recapVideosMap?.get(normalizeOptaId(match.uID))}
+                                        />
+                                    ))}
+                                    {emptyCells > 0 && (
+                                        <GridCellScrollLink
+                                            href={nextMatchDayHref}
+                                            className={cn(
+                                                "col-span-1",
+                                                emptyCells === 2 && "md:col-span-2 md:col-start-auto",
+                                                emptyCells === 3 && "md:col-span-3 md:col-start-auto"
+                                            )}
+                                        />
+                                    )}
+                                </div>
+                            </div>
+                        )
+                    })}
+                </div>
+            </Section>
+        )
     }
 
     return (
