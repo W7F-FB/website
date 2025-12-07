@@ -43,8 +43,14 @@ export function KnockoutStageSection({
     f9FeedsMap,
     recapVideosMap
 }: KnockoutStageSectionProps) {
+    const sortedSemiFinalMatches = [...semiFinalMatches].sort((a, b) => {
+        const dateA = a.MatchInfo?.Date ? new Date(a.MatchInfo.Date).getTime() : 0
+        const dateB = b.MatchInfo?.Date ? new Date(b.MatchInfo.Date).getTime() : 0
+        return dateA - dateB
+    })
+
     const knockoutMatches = semiFinalMatches.length + thirdPlaceMatches.length + finalMatches.length
-    const knockoutDate = semiFinalMatches[0]?.MatchInfo?.Date
+    const knockoutDate = sortedSemiFinalMatches[0]?.MatchInfo?.Date
         || thirdPlaceMatches[0]?.MatchInfo?.Date
         || finalMatches[0]?.MatchInfo?.Date
 
@@ -67,34 +73,34 @@ export function KnockoutStageSection({
                 <FastBanner text="FAST." position="left" strokeWidth="1px" uppercase className="hidden md:block" />
                 <div className="max-w-3xl w-full space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        {semiFinalMatches[0] && (
+                        {sortedSemiFinalMatches[0] && (
                             <MatchCard
-                                fixture={semiFinalMatches[0]}
+                                fixture={sortedSemiFinalMatches[0]}
                                 prismicTeams={prismicTeams}
-                                optaTeams={getMatchTeams(semiFinalMatches[0], f1FixturesData?.SoccerFeed?.SoccerDocument?.Team || [])}
+                                optaTeams={getMatchTeams(sortedSemiFinalMatches[0], f1FixturesData?.SoccerFeed?.SoccerDocument?.Team || [])}
                                 tournamentSlug={tournamentSlug}
                                 matchSlugMap={matchSlugMap}
                                 compact={compact}
                                 banner="Semi Final 1"
-                                f9Feed={f9FeedsMap?.get(normalizeOptaId(semiFinalMatches[0].uID))}
+                                f9Feed={f9FeedsMap?.get(normalizeOptaId(sortedSemiFinalMatches[0].uID))}
                                 streamingLink={streamingLink}
                                 broadcastPartners={broadcastPartners}
-                                recapVideo={recapVideosMap?.get(normalizeOptaId(semiFinalMatches[0].uID))}
+                                recapVideo={recapVideosMap?.get(normalizeOptaId(sortedSemiFinalMatches[0].uID))}
                             />
                         )}
-                        {semiFinalMatches[1] && (
+                        {sortedSemiFinalMatches[1] && (
                             <MatchCard
-                                fixture={semiFinalMatches[1]}
+                                fixture={sortedSemiFinalMatches[1]}
                                 prismicTeams={prismicTeams}
-                                optaTeams={getMatchTeams(semiFinalMatches[1], f1FixturesData?.SoccerFeed?.SoccerDocument?.Team || [])}
+                                optaTeams={getMatchTeams(sortedSemiFinalMatches[1], f1FixturesData?.SoccerFeed?.SoccerDocument?.Team || [])}
                                 tournamentSlug={tournamentSlug}
                                 matchSlugMap={matchSlugMap}
                                 compact={compact}
                                 banner="Semi Final 2"
-                                f9Feed={f9FeedsMap?.get(normalizeOptaId(semiFinalMatches[1].uID))}
+                                f9Feed={f9FeedsMap?.get(normalizeOptaId(sortedSemiFinalMatches[1].uID))}
                                 streamingLink={streamingLink}
                                 broadcastPartners={broadcastPartners}
-                                recapVideo={recapVideosMap?.get(normalizeOptaId(semiFinalMatches[1].uID))}
+                                recapVideo={recapVideosMap?.get(normalizeOptaId(sortedSemiFinalMatches[1].uID))}
                             />
                         )}
                     </div>
