@@ -4,6 +4,7 @@ import { cn, getCountryIsoCode } from "@/lib/utils"
 import type { ImageField } from "@prismicio/client"
 import Link from "next/link"
 import ReactCountryFlag from "react-country-flag"
+import { QUALIFIED_ALIVE } from "@/app/(website)/(subpages)/tournament/utils"
 
 type ClubRankRowProps = {
     placement: string
@@ -55,12 +56,13 @@ export function ClubRankRow({ placement, logo, name, shortName, useShortName = f
         <>
             <TableCell className={cn(
                 "h-12 py-0 font-medium font-headers text-xxs lg:text-xs lg:w-10 pl-4 pr-0 pr-3",
-                isComplete && placement === '1st' && "font-semibold bg-gold-gradient bg-clip-text text-transparent",
-                isComplete && placement === '2nd' && "font-semibold bg-silver-gradient bg-clip-text text-transparent",
-                isComplete && placement === '3rd' && "font-semibold bg-bronze-gradient bg-clip-text text-transparent",
-                !isComplete && ['1st', '2nd', '3rd', '4th'].includes(placement) && "text-muted-foreground",
+                placement === '1st' && "font-semibold bg-gold-gradient bg-clip-text text-transparent",
+                placement === '2nd' && "font-semibold bg-silver-gradient bg-clip-text text-transparent",
+                placement === '3rd' && "font-semibold bg-bronze-gradient bg-clip-text text-transparent",
+                placement === '4th' && "text-muted-foreground",
+                placement === QUALIFIED_ALIVE && "text-muted-foreground",
                 placement === 'E' && "text-muted-foreground/80",
-                !['1st', '2nd', '3rd', '4th', 'E'].includes(placement) && "text-muted-foreground",
+                !['1st', '2nd', '3rd', '4th', QUALIFIED_ALIVE, 'E'].includes(placement) && "text-muted-foreground",
                 className
             )}>
                 {placement}

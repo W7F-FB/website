@@ -4,6 +4,8 @@ import type { F3StandingsResponse } from "@/types/opta-feeds/f3-standings"
 import { isFilled } from "@prismicio/client"
 import { normalizeOptaId } from "@/lib/opta/utils"
 
+export const QUALIFIED_ALIVE = 'Q'
+
 export function getGroupStageMatches(matches: F1MatchData[] | undefined) {
     if (!matches) return []
     return matches.filter(match => match.MatchInfo.RoundType === "Round")
