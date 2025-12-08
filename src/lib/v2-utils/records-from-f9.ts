@@ -34,7 +34,7 @@ export function getRecordsFromF9(feeds: F9MatchResponse[]): TeamRecord[] {
 
     if (!matchInfo || teamData.length < 2) continue
     
-    const roundType = matchInfo.RoundType || 'Unknown'
+    const roundType = doc.Competition?.Round?.Name || 'Unknown'
     const period = matchInfo.Period
     
     if (matchInfo.Period !== "FullTime") {
