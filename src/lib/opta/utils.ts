@@ -74,25 +74,15 @@ function extractMinuteFromTime(time?: string, fallbackMinute?: number): number {
   return fallbackMinute ?? 0
 }
 
-function cleanSubstitutionText(text: string, teamName: string): string {
+function extractSubstitutionPlayers(text: string): string {
   let cleaned = removeW7F(text).trim()
-  
-  const escapedTeamName = teamName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-  const substitutionPrefixPattern = new RegExp(
-    `^Substitution,?\\s*${escapedTeamName}\\.?\\s*`,
-    'i'
-  )
-  cleaned = cleaned.replace(substitutionPrefixPattern, '')
-  
   cleaned = cleaned.replace(/^Substitution,?\s*/i, '')
-  
-  const teamNamePrefixPattern = new RegExp(`^${escapedTeamName}[.,:\\s]+`, 'i')
-  cleaned = cleaned.replace(teamNamePrefixPattern, '')
-  
-  cleaned = cleaned.replace(/\.\.+/g, '.')
-  cleaned = cleaned.replace(/^[.,;:\s]+|[.,;:\s]+$/g, '')
-  
-  return cleaned.trim()
+  const match = cleaned.match(/^[^.]*\.\s*(.+)/)
+  if (match) {
+    cleaned = match[1]
+  }
+  cleaned = cleaned.replace(/[.,;:]+\s*$/, '').trim()
+  return cleaned
 }
 
 function getTeamName(teamRef: string, commentary: F13Commentary): string {
@@ -116,14 +106,14 @@ function getTeamName(teamRef: string, commentary: F13Commentary): string {
 function formatSubstitutionGroup(substitutions: F13Message[], teamName: string): string {
   if (substitutions.length === 0) return ''
   
-  const cleanedTexts = substitutions.map(msg => {
-    const cleaned = cleanSubstitutionText(msg.comment, teamName)
-    return cleaned.replace(/[.,;:]+\s*$/, '').trim()
+  const substitutionTexts = substitutions.map(msg => {
+    const players = extractSubstitutionPlayers(msg.comment)
+    return players.replace(/[.,;:]+\s*$/, '').trim()
   }).filter(text => text.length > 0)
 
-  if (cleanedTexts.length === 0) return ''
+  if (substitutionTexts.length === 0) return ''
   
-  const substitutionsList = cleanedTexts.join(', ')
+  const substitutionsList = substitutionTexts.join(', ')
   return `Substitutions, ${teamName}: ${substitutionsList}.`
 }
 
@@ -153,6 +143,17 @@ export function groupSubstitutions(messages: F13Message[], commentary: F13Commen
     }
     
     substitutionMap.get(key)!.push(message)
+  }
+
+  for (const [key, group] of substitutionMap.entries()) {
+    group.sort((a, b) => {
+      const secondA = a.second ?? 0
+      const secondB = b.second ?? 0
+      if (secondA !== secondB) {
+        return secondA - secondB
+      }
+      return new Date(a.timestamp_utc).getTime() - new Date(b.timestamp_utc).getTime()
+    })
   }
 
   const result: F13Message[] = []
