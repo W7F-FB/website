@@ -252,8 +252,10 @@ export function KnockoutStageSection({
                     ))}
                     {allMatchesFullTime && (
                         <ChampionsCard
-                            f3StandingsData={f3StandingsData}
+                            finalMatch={finalMatches[0] || null}
+                            finalMatchF9={f9FeedsMap?.get(normalizeOptaId(finalMatches[0]?.uID || ''))}
                             prismicTeams={prismicTeams}
+                            f1FixturesData={f1FixturesData}
                         />
                     )}
                 </div>

@@ -1,41 +1,50 @@
 import { Card } from "@/components/ui/card"
 import { H2, H3 } from "@/components/website-base/typography"
 import type { TeamDocument } from "../../../../prismicio-types"
-import type { F3StandingsResponse } from "@/types/opta-feeds/f3-standings"
+import type { F1FixturesResponse, F1MatchData } from "@/types/opta-feeds/f1-fixtures"
+import type { F9MatchResponse } from "@/types/opta-feeds/f9-match"
 import Image from "next/image"
 import { cn } from "@/lib/utils"
 import { ChampionIcon } from "@/components/website-base/icons"
 import { GradientBg } from "@/components/ui/gradient-bg"
 import { getImageUrl, getImageAlt } from "@/cms/utils"
 import { normalizeOptaId } from "@/lib/opta/utils"
+import { useMemo } from "react"
 
 type Props = {
-    f3StandingsData: F3StandingsResponse | null
+    finalMatch: F1MatchData | null
+    finalMatchF9?: F9MatchResponse
     prismicTeams: TeamDocument[]
-    overlayColor?: string
-    accentColor?: string
-    shadowColor?: string
+    f1FixturesData?: F1FixturesResponse | null
 }
 
-export function ChampionsCard({ f3StandingsData, prismicTeams, overlayColor, accentColor, shadowColor }: Props) {
-    const allTeamRecords = f3StandingsData?.SoccerFeed?.SoccerDocument?.Competition?.TeamStandings?.flatMap(
-        standings => standings.TeamRecord || []
-    ) || []
+export function ChampionsCard({ finalMatch, finalMatchF9, prismicTeams, f1FixturesData }: Props) {
+    const finalF9Doc = useMemo(
+        () => Array.isArray(finalMatchF9?.SoccerFeed?.SoccerDocument) 
+            ? finalMatchF9?.SoccerFeed?.SoccerDocument[0] 
+            : finalMatchF9?.SoccerFeed?.SoccerDocument,
+        [finalMatchF9]
+    )
     
-    const championRecord = allTeamRecords.find(record => record.Standing?.Position === 1)
-    const championTeamRef = championRecord ? normalizeOptaId(championRecord.TeamRef) : null
-    const champion = championTeamRef ? prismicTeams.find(t => t.data.opta_id === championTeamRef) : null
+    const finalWinner = finalF9Doc?.MatchData?.MatchInfo?.Result?.Winner 
+        || finalMatch?.MatchInfo?.MatchWinner 
+        || finalMatch?.MatchInfo?.GameWinner
+    
+    const championTeamRef = finalWinner ? normalizeOptaId(finalWinner) : null
+    const champion = championTeamRef ? prismicTeams.find(t => normalizeOptaId(`t${t.data.opta_id}`) === championTeamRef) : null
     
     const championLogo = champion ? getImageUrl(champion.data.logo) : null
     const championLogoAlt = champion ? getImageAlt(champion.data.logo) : ""
+    const championColor = champion?.data.color_primary || "#0c224a"
 
     return (
         <Card className={cn("py-12 px-8 text-center bg-card/50 border-border/50 gap-0 relative flex flex-col items-center justify-center overflow-hidden")}>
             <GradientBg
-                className="inset-0 opacity-20"
-                overlayColor={overlayColor}
-                accentColor={accentColor}
-                shadowColor={shadowColor}
+                className="absolute top-0 left-0 w-[150%] h-[150%] opacity-20 rotate-y-180"
+                
+                accentColor={championColor}
+                
+                accentOpacity={1}
             />
             <ChampionIcon className="hidden absolute -bottom-24 opacity-2 size-100" />
             <H2 className="text-3xl md:text-5xl font-headers tracking-wider italic relative">Champions</H2>

@@ -1,5 +1,6 @@
 import type { F9MatchResponse, F9SoccerDocument, F9TeamData } from "@/types/opta-feeds/f9-match"
 import { getWinnerTeamRef } from "@/components/blocks/match/utils"
+import { dev } from "@/lib/dev"
 
 export type TeamRecord = {
   optaNormalizedTeamId: string
@@ -32,7 +33,14 @@ export function getRecordsFromF9(feeds: F9MatchResponse[]): TeamRecord[] {
     const teamData = getTeamDataArray(doc.MatchData?.TeamData)
 
     if (!matchInfo || teamData.length < 2) continue
-    if (matchInfo.Period !== "FullTime") continue
+    
+    const roundType = matchInfo.RoundType || 'Unknown'
+    const period = matchInfo.Period
+    
+    if (matchInfo.Period !== "FullTime") {
+      dev.log(`[RECORDS] ${roundType} - Period: ${period} - SKIPPED`)
+      continue
+    }
 
     const homeTeamData = teamData.find((t) => t.Side === "Home")
     const awayTeamData = teamData.find((t) => t.Side === "Away")
@@ -46,13 +54,18 @@ export function getRecordsFromF9(feeds: F9MatchResponse[]): TeamRecord[] {
       matchInfo.Result?.Winner
     )
 
-    if (!winnerRef) continue
+    if (!winnerRef) {
+      dev.log(`[RECORDS] ${roundType} - Period: ${period} - NO WINNER`)
+      continue
+    }
 
     const loserRef = teamData.find((t) => t.TeamRef !== winnerRef)?.TeamRef
     if (!loserRef) continue
 
     const winnerId = normalizeTeamId(winnerRef)
     const loserId = normalizeTeamId(loserRef)
+    
+    dev.log(`[RECORDS] ${roundType} - Period: ${period} - Winner: ${winnerId}, Loser: ${loserId}`)
 
     if (!recordsMap.has(winnerId)) {
       recordsMap.set(winnerId, { wins: 0, losses: 0 })
