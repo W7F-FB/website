@@ -40,10 +40,10 @@ export function ChampionsCard({ finalMatch, finalMatchF9, prismicTeams, f1Fixtur
     return (
         <Card className={cn("py-12 px-8 text-center bg-card/50 border-border/50 gap-0 relative flex flex-col items-center justify-center overflow-hidden")}>
             <GradientBg
-                className="absolute top-0 left-0 w-[150%] h-[150%] opacity-20 rotate-y-180"
-                
+                className="absolute top-0 left-0 w-[175%] h-[175%] opacity-20 rotate-y-180"
+                overlayColor="oklch(0.1949 0.0274 260.031)"
                 accentColor={championColor}
-                
+                shadowColor="oklch(0.1949 0.0274 260.031)"
                 accentOpacity={1}
             />
             <ChampionIcon className="hidden absolute -bottom-24 opacity-2 size-100" />
