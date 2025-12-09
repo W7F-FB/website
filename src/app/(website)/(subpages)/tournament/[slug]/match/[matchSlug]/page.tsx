@@ -22,6 +22,8 @@ import { getTeamStatsFromF9 } from "@/lib/v2-utils/team-stats-from-f9";
 import { dev } from "@/lib/dev";
 import { getHighlightsByMatchId } from "@/lib/supabase/queries/highlights";
 
+export const dynamic = 'force-dynamic'
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string; matchSlug: string }> }) {
   await params;
   return {

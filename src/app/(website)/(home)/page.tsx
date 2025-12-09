@@ -63,6 +63,8 @@ export const metadata: Metadata = {
     }
 };
 
+export const dynamic = 'force-dynamic'
+
 export default async function HomePage() {
     const tournament = await getTournamentByUid("fort-lauderdale");
     const estorilTournament = await getTournamentByUid("estoril-portugal");

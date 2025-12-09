@@ -12,6 +12,8 @@ import type { TeamDocument } from "../../../../../../../prismicio-types"
 import { groupMatchesByDate } from "../../utils"
 import { dev } from "@/lib/dev"
 
+export const dynamic = 'force-dynamic'
+
 type Props = {
   params: Promise<{ slug: string }>
 }

@@ -29,6 +29,8 @@ type AwardData = AwardAwardsField extends prismic.ContentRelationshipField<infer
     ? TData
     : never
 
+export const dynamic = 'force-dynamic'
+
 type Props = {
   params: Promise<{ slug: string }>
   searchParams: Promise<{ state?: string }>
