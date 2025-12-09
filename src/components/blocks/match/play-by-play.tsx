@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { EmptyMessage } from "@/components/ui/empty-message";
 import React from "react";
 import { cn } from "@/lib/utils";
-import { removeW7F } from "@/lib/opta/utils";
+import { removeW7F, groupSubstitutions } from "@/lib/opta/utils";
 import { SoccerIcon, SubstituteIcon, WhistleIcon, BlockedIcon, SavedIcon, BounceIcon, ReplayIcon } from "@/components/website-base/icons";
 
 interface PlayByPlayProps extends React.ComponentProps<"div"> {
@@ -111,9 +111,11 @@ function ActionCell({ type }: ActionCellProps) {
 }
 
 export default function PlayByPlay({ commentary, className, isPreGame }: PlayByPlayProps) {
-    const messages = Array.isArray(commentary?.Commentary?.message) 
+    const rawMessages = Array.isArray(commentary?.Commentary?.message) 
         ? commentary.Commentary.message 
         : [];
+    
+    const messages = groupSubstitutions(rawMessages, commentary?.Commentary || null);
     const scoringMessages = messages.filter(msg => isScoringAttempt(msg));
 
     if (messages.length === 0) {
