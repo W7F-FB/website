@@ -35,8 +35,7 @@ import { ClubList } from "@/components/blocks/clubs/club-list"
 import type { TeamRecord } from "@/lib/v2-utils/records-from-f9"
 import type { TeamStatSheet } from "@/lib/v2-utils/team-stat-sheet-from-f9"
 import type { MatchHighlight } from "@/lib/supabase/queries/highlights"
-import { Status, StatusIndicator } from "@/components/ui/status"
-import { GradientBg } from "@/components/ui/gradient-bg"
+import { Status } from "@/components/ui/status"
 
 type Props = {
     tournament: TournamentDocument
@@ -81,7 +80,7 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                     <Status className="text-lg mb-5 gap-3">
                         {isFortLauderdale ? tournament.data.title : "Final"}
                     </Status>
-                    <H1 className="uppercase">{isFortLauderdale ? "San Diego Wave Are Champions" : tournament.data.title}</H1>
+                    <H1 className="uppercase">{isFortLauderdale ? "San Diego Wave FC Are Champions" : tournament.data.title}</H1>
                     <P className="text-lg"><span className="font-semibold">{formatDateRange(tournament.data.start_date, tournament.data.end_date)}</span><span className="ml-3 font-light text-sm">{tournament.data.stadium_name}</span></P>
                     {isFilled.number(tournament.data.prize_pool) && (
                         <P noSpace className="text-lg mt-1"><span className="font-semibold">{formatCurrencyInWords(tournament.data.prize_pool)}</span><span className="ml-3 font-light text-sm">Prize Pool</span></P>
