@@ -15,8 +15,6 @@ export const metadata: Metadata = {
   description: "The global 7v7 series reimagining the game. Elite clubs, star players, high-stakes matches, and a $5M prize pool per tournament.",
 };
 
-export const revalidate = 15
-
 export default async function RootLayout({
   children,
 }: Readonly<{

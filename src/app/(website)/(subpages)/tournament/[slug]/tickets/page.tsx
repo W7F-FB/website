@@ -12,8 +12,6 @@ import type { TeamDocument } from "../../../../../../../prismicio-types"
 import { groupMatchesByDate } from "../../utils"
 import { dev } from "@/lib/dev"
 
-export const revalidate = 20
-
 type Props = {
   params: Promise<{ slug: string }>
 }

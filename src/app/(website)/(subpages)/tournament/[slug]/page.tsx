@@ -29,8 +29,6 @@ type AwardData = AwardAwardsField extends prismic.ContentRelationshipField<infer
     ? TData
     : never
 
-export const revalidate = 20
-
 type Props = {
   params: Promise<{ slug: string }>
   searchParams: Promise<{ state?: string }>

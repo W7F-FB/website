@@ -63,8 +63,6 @@ export const metadata: Metadata = {
     }
 };
 
-export const revalidate = 20
-
 export default async function HomePage() {
     const tournament = await getTournamentByUid("fort-lauderdale");
     const estorilTournament = await getTournamentByUid("estoril-portugal");

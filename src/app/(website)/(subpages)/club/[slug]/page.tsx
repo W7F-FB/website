@@ -17,8 +17,6 @@ import type { F9MatchResponse } from "@/types/opta-feeds/f9-match";
 import { getRecordsFromF9 } from "@/lib/v2-utils/records-from-f9";
 import { getTeamStatsFromF9 } from "@/lib/v2-utils/team-stats-from-f9";
 
-export const revalidate = 20
-
 type Props = {
   params: Promise<{ slug: string }>;
 };
