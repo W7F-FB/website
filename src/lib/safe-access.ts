@@ -44,7 +44,7 @@ export function safeGet<T, K extends keyof T>(
   }
 }
 
-export function safeCall<T extends (...args: any[]) => any>(
+export function safeCall<T extends (...args: unknown[]) => unknown>(
   fn: T | null | undefined,
   ...args: Parameters<T>
 ): ReturnType<T> | undefined {
@@ -53,7 +53,7 @@ export function safeCall<T extends (...args: any[]) => any>(
   }
 
   try {
-    return fn(...args)
+    return fn(...args) as ReturnType<T>
   } catch (error) {
     const err = error instanceof Error ? error : new Error(String(error))
     dev.error(err, {

@@ -53,10 +53,10 @@ export function getMatchTeams(fixture: F1MatchData, optaTeams: F1TeamData[]): F1
 export function removeW7F(text: string): string {
   return text
     .replace(/\s*W7F\s+2/g, ' 2')
-    .replace(/\s*W7F(?=[.,;:!?\)])/g, '')
+    .replace(/\s*W7F(?=[.,;:!?)])/g, '')
     .replace(/\s*W7F\s*/g, ' ')
     .replace(/\s+/g, ' ')
-    .replace(/\s+([.,;:!?\)])/g, '$1')
+    .replace(/\s+([.,;:!?)])/g, '$1')
     .replace(/,([^\s])/g, ', $1')
     .trim()
 }

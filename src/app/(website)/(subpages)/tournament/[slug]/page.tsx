@@ -15,7 +15,6 @@ import type { F30SeasonStatsResponse } from "@/types/opta-feeds/f30-season-stats
 import type * as prismic from "@prismicio/client"
 import { dev } from "@/lib/dev"
 import { fetchF9FeedsForMatches, extractMatchIdsFromFixtures } from "@/lib/opta/match-data"
-import { normalizeOptaId } from "@/lib/opta/utils"
 import { NavMain } from "@/components/website-base/nav/nav-main"
 import { Footer } from "@/components/website-base/footer/footer-main"
 import type { F1MatchData, F1TeamData } from "@/types/opta-feeds/f1-fixtures"
@@ -121,7 +120,7 @@ export default async function TournamentPage({ params, searchParams }: Props) {
   let f3StandingsData = null
   let f1FixturesData = null
   let prismicTeams: TeamDocument[] = []
-  let teamStatSheets: Map<string, TeamStatSheet> = new Map()
+  const teamStatSheets: Map<string, TeamStatSheet> = new Map()
   const f30TeamStats: Map<string, F30SeasonStatsResponse> = new Map()
   let f9FeedsMap: Map<string, F9MatchResponse> = new Map()
   let liveMinutesMap: Map<string, string> = new Map()
@@ -181,12 +180,12 @@ export default async function TournamentPage({ params, searchParams }: Props) {
           if (fixture.MatchInfo?.Period === "Live") {
             const f1Stats = Array.isArray(fixture.Stat) ? fixture.Stat : []
             const matchTimeStat = f1Stats.find(s => s.Type === "match_time")
-            const matchTime = matchTimeStat?.value ? Number(matchTimeStat.value) : null
+            const _matchTime = matchTimeStat?.value ? Number(matchTimeStat.value) : null
           }
         })
       }
 
-      f9FeedsMap.forEach((f9Feed, matchId) => {
+      f9FeedsMap.forEach((f9Feed, _matchId) => {
         const soccerDoc = f9Feed?.SoccerFeed?.SoccerDocument
         if (!soccerDoc) return
         
@@ -201,7 +200,7 @@ export default async function TournamentPage({ params, searchParams }: Props) {
         if (isLive) {
           const matchStats = Array.isArray(matchData.Stat) ? matchData.Stat : []
           const matchTimeStat = matchStats.find(s => s.Type === "match_time")
-          const matchTime = matchTimeStat?.value ? Number(matchTimeStat.value) : null
+          const _matchTime = matchTimeStat?.value ? Number(matchTimeStat.value) : null
         }
       })
 

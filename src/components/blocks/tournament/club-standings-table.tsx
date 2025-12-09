@@ -1,6 +1,6 @@
 'use client';
 
-import { Fragment, useMemo, useCallback, useEffect } from "react"
+import { Fragment, useMemo, useCallback } from "react"
 import { Table, TableBody, TableCell, TableHeader, TableRow } from "@/components/ui/table"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import type { TeamDocument } from "../../../../prismicio-types"
@@ -13,7 +13,6 @@ import { LinePattern } from "@/components/blocks/line-pattern"
 import { ClubRankRow } from "@/components/blocks/tournament/club-rank-row"
 import { normalizeOptaId } from "@/lib/opta/utils"
 import type { TeamRecord } from "@/lib/v2-utils/records-from-f9"
-import { dev } from "@/lib/dev"
 
 const placementOrder: Record<string, number> = {
     [QUALIFIED_ALIVE]: 1,

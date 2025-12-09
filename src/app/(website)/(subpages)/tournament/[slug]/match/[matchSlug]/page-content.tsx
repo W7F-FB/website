@@ -21,7 +21,6 @@ import { Separator } from "@/components/ui/separator";
 import { PlayerLeaderCard } from "@/components/blocks/players/player-leader-card";
 import { calculateMatchStandouts } from "@/lib/opta/calculate-match-standouts";
 import { H3 } from "@/components/website-base/typography";
-import { VideoBanner } from "@/components/blocks/video-banner/video-banner";
 import { ClubStandingsTable } from "@/components/blocks/tournament/club-standings-table";
 import { FastBanner } from "@/components/blocks/fast-banners";
 import { TeamSnapshot } from "@/components/blocks/team/team-snapshot";

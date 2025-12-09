@@ -236,8 +236,8 @@ export function getF1GameCardData(
     const matchTimeStat = f1Stats.find(s => s.Type === "match_time")
     const matchTime = matchTimeStat?.value ? Number(matchTimeStat.value) : null
 
-    const homeShootOutScore = (homeTeamData as any)?.PenaltyScore ?? null
-    const awayShootOutScore = (awayTeamData as any)?.PenaltyScore ?? null
+    const homeShootOutScore = ('PenaltyScore' in (homeTeamData || {}) ? (homeTeamData as unknown as Record<string, unknown>).PenaltyScore as number | null | undefined : null) ?? null
+    const awayShootOutScore = ('PenaltyScore' in (awayTeamData || {}) ? (awayTeamData as unknown as Record<string, unknown>).PenaltyScore as number | null | undefined : null) ?? null
     const { homeIsWinning, awayIsWinning, homeIsLosing, awayIsLosing } = determineWinner(
         isFinal, homeScore, awayScore, winnerRef, homeTeamData?.TeamRef, awayTeamData?.TeamRef, isPenalties, homeShootOutScore, awayShootOutScore
     )

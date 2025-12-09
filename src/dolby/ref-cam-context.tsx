@@ -71,7 +71,7 @@ export function RefCamProvider({ children }: { children: ReactNode }) {
     [isMounted],
     {
       enabled: isMounted,
-      onError: (error) => {
+      onError: (_error) => {
         dev.log('Ref Cam - Check failed, stream not accessible');
         setIsAccessible(false);
       },

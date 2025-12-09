@@ -49,7 +49,7 @@ export default function TeamPageContent({
   teamSquad,
   standings: _standings,
   fixtures,
-  currentTournament,
+  currentTournament: _currentTournament,
   prismicTeams,
   optaTeams = [],
   teamBlogs = [],

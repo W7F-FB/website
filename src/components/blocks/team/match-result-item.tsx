@@ -67,9 +67,9 @@ export function MatchResultItem({
     // Determine which team is "current" and which is "opponent"
     const normalizedCurrentId = normalizeOptaId(currentTeamOptaId)
     const isCurrentTeamHome = homeTeam?.data.opta_id === normalizedCurrentId
-    const isCurrentTeamAway = awayTeam?.data.opta_id === normalizedCurrentId
+    const _isCurrentTeamAway = awayTeam?.data.opta_id === normalizedCurrentId
     
-    const currentTeam = isCurrentTeamHome ? homeTeam : awayTeam
+    const _currentTeam = isCurrentTeamHome ? homeTeam : awayTeam
     const opponentTeam = isCurrentTeamHome ? awayTeam : homeTeam
     
     const currentScore = isCurrentTeamHome ? homeScore : awayScore
@@ -77,7 +77,7 @@ export function MatchResultItem({
     
     const isWin = isFinal && (isCurrentTeamHome ? homeIsWinning : awayIsWinning)
     const isLoss = isFinal && (isCurrentTeamHome ? awayIsWinning : homeIsWinning)
-    const isDraw = isFinal && !homeIsWinning && !awayIsWinning
+    const _isDraw = isFinal && !homeIsWinning && !awayIsWinning
 
     // Get opponent name from various sources
     const opponentOptaTeam = optaTeams.find(t => {

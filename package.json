@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "npm run lint:check && next build",
     "start": "next start",
     "lint": "next lint",
+    "lint:check": "eslint . --ext .ts,.tsx,.js,.jsx --max-warnings 0",
     "slicemachine": "start-slicemachine"
   },
   "dependencies": {

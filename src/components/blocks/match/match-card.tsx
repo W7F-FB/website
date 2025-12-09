@@ -239,7 +239,7 @@ function MatchCard({
         isPenalties,
         isExtraTime,
         period,
-        matchTime,
+        matchTime: _matchTime,
         liveMinute,
         startTime,
         homeLogoUrl,

@@ -1,6 +1,6 @@
 import type { F9MatchResponse, F9TeamData, F9MatchPlayer } from "@/types/opta-feeds/f9-match"
-import { getTeamStatsFromF9, type TeamStats } from "./team-stats-from-f9"
-import { getRecordsFromF9, type TeamRecord } from "./records-from-f9"
+import { getTeamStatsFromF9 } from "./team-stats-from-f9"
+import { getRecordsFromF9 } from "./records-from-f9"
 
 export type TeamStatSheet = {
   optaNormalizedTeamId: string

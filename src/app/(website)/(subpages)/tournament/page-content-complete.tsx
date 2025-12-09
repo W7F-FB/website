@@ -1,5 +1,5 @@
 import { Section, Container, PaddingGlobal } from "@/components/website-base/padding-containers"
-import { H1, P, Subtitle } from "@/components/website-base/typography"
+import { H1, P } from "@/components/website-base/typography"
 import type { TournamentDocument, TeamDocument, BlogDocument, TournamentDocumentDataAwardsItem, BroadcastPartnersDocument } from "../../../../../prismicio-types"
 import type * as prismic from "@prismicio/client"
 import { SubpageHero, SubpageHeroMedia, SubpageHeroContent, SubpageHeroMediaBanner } from "@/components/blocks/subpage-hero"
@@ -36,6 +36,7 @@ import type { TeamRecord } from "@/lib/v2-utils/records-from-f9"
 import type { TeamStatSheet } from "@/lib/v2-utils/team-stat-sheet-from-f9"
 import type { MatchHighlight } from "@/lib/supabase/queries/highlights"
 import { Status } from "@/components/ui/status"
+import { dev } from "@/lib/dev"
 
 type Props = {
     tournament: TournamentDocument
@@ -55,6 +56,11 @@ type Props = {
 }
 
 export default function TournamentPagePast({ tournament, tournamentBlogs, f3StandingsData, f1FixturesData, teamStatSheets, f30TeamStats, prismicTeams, matchSlugMap, awards, compact = false, dazn, f9FeedsMap, teamRecords, recapVideosMap }: Props) {
+    const f9Feed = f9FeedsMap?.get(normalizeOptaId("2610494"))
+    const soccerDoc = f9Feed?.SoccerFeed?.SoccerDocument
+    const matchData = Array.isArray(soccerDoc) ? soccerDoc[0]?.MatchData : soccerDoc?.MatchData
+    const matchInfo = matchData?.MatchInfo
+    dev.log("MatchInfo", matchInfo)
     const semiFinalMatches = getSemiFinalMatches(f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData)
     const thirdPlaceMatches = getThirdPlaceMatch(f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData)
     const finalMatches = getFinalMatch(f1FixturesData?.SoccerFeed?.SoccerDocument?.MatchData)

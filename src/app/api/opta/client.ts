@@ -11,7 +11,6 @@ import { F24EventDetailsFeed } from '@/types/opta-feeds/f24-match-events';
 import { F40SquadsResponse } from '@/types/opta-feeds/f40-squads-feed';
 import { F15RankingsResponse } from '@/types/opta-feeds/f15-rankings';
 import { F30SeasonStatsResponse } from '@/types/opta-feeds/f30-season-stats';
-import { dev } from '@/lib/dev';
 
 export class OptaClient {
   private baseUrl: string;
@@ -120,16 +119,6 @@ export class OptaClient {
       game_id: matchId,
     };
 
-    const queryParams = new URLSearchParams({
-      user: this.username,
-      psw: this.password,
-      ...Object.fromEntries(
-        Object.entries(params).map(([key, value]) => [key, String(value)])
-      )
-    });
-
-    const url = `${this.baseUrl}/?${queryParams.toString()}`;
-
     const response = await this.makeDirectRequest(params);
 
     const xmlText = await response.text();
@@ -138,13 +127,6 @@ export class OptaClient {
   }
 
   async getF3Standings(competitionId: string | number, seasonId: string | number): Promise<F3StandingsResponse> {
-    const url = `${this.baseUrl}/competition.php?${new URLSearchParams({
-      user: this.username,
-      psw: this.password,
-      feed_type: 'f3',
-      competition: String(competitionId),
-      season_id: String(seasonId),
-    }).toString()}`
     const response = await this.makeRequest({
       feed_type: 'f3',
       competition: competitionId,
@@ -163,16 +145,6 @@ export class OptaClient {
       feed_type: 'F9',
       game_id: matchId,
     };
-
-    const queryParams = new URLSearchParams({
-      user: this.username,
-      psw: this.password,
-      ...Object.fromEntries(
-        Object.entries(params).map(([key, value]) => [key, String(value)])
-      )
-    });
-
-    const url = `${this.baseUrl}/?${queryParams.toString()}`;
 
     const response = await this.makeDirectRequest(params);
 

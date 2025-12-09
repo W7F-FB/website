@@ -21,7 +21,6 @@ import { TournamentStatus } from "@/components/blocks/tournament/tournament-stat
 import { TuneInBanner } from "@/components/blocks/tune-in-banner"
 import { GroupStageSection } from "@/components/blocks/tournament/group-stage-section"
 import { KnockoutStageSection } from "@/components/blocks/tournament/knockout-stage-section"
-import { ClubStandingsTable } from "@/components/blocks/tournament/club-standings-table"
 import { ClubList } from "@/components/blocks/clubs/club-list"
 import type { BroadcastPartnersDocument } from "../../../../../prismicio-types"
 import type { TeamRecord } from "@/lib/v2-utils/records-from-f9"

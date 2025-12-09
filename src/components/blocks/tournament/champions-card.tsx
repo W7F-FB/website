@@ -18,7 +18,7 @@ type Props = {
     f1FixturesData?: F1FixturesResponse | null
 }
 
-export function ChampionsCard({ finalMatch, finalMatchF9, prismicTeams, f1FixturesData }: Props) {
+export function ChampionsCard({ finalMatch, finalMatchF9, prismicTeams, f1FixturesData: _f1FixturesData }: Props) {
     const finalF9Doc = useMemo(
         () => Array.isArray(finalMatchF9?.SoccerFeed?.SoccerDocument) 
             ? finalMatchF9?.SoccerFeed?.SoccerDocument[0] 
