@@ -260,7 +260,7 @@ export function StatSheetTeamsTable({ prismicTeams, teamStatSheets, f1FixturesDa
                                     <Fragment key={row.team.id}>
                                         {index === firstEliminatedIndex && firstEliminatedIndex > 0 && (
                                             <TableRow className="hover:bg-transparent">
-                                                <TableCell className="p-0 h-4">
+                                                <TableCell className="p-0 h-4" colSpan={2}>
                                                     <LinePattern className="h-full w-full" patternSize={5} />
                                                 </TableCell>
                                             </TableRow>
@@ -282,13 +282,6 @@ export function StatSheetTeamsTable({ prismicTeams, teamStatSheets, f1FixturesDa
                                                 isKnockoutStage={isKnockoutStage}
                                             />
                                         </TableRow>
-                                        {row.placement === '4th' && tournamentStatus === 'Complete' && (
-                                            <TableRow className="hover:bg-transparent">
-                                                <TableCell className="p-0 h-4">
-                                                    <LinePattern className="h-full w-full" patternSize={5} />
-                                                </TableCell>
-                                            </TableRow>
-                                        )}
                                     </Fragment>
                                 ))}
                             </TableBody>
@@ -332,13 +325,6 @@ export function StatSheetTeamsTable({ prismicTeams, teamStatSheets, f1FixturesDa
                                             <TableCell>{row.fouls}</TableCell>
                                             <TableCell>{row.cards}</TableCell>
                                         </TableRow>
-                                        {row.placement === '4th' && tournamentStatus === 'Complete' && (
-                                            <TableRow className="hover:bg-transparent">
-                                                <TableCell colSpan={8} className="p-0 h-4">
-                                                    <LinePattern className="h-full w-full" patternSize={5} />
-                                                </TableCell>
-                                            </TableRow>
-                                        )}
                                     </Fragment>
                                 ))}
                             </TableBody>

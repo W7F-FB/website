@@ -13,7 +13,7 @@ const FooterFast = React.forwardRef<
             className={cn("relative text-center", className)}
             {...props}
         >
-            <PaddingGlobal className="flex justify-center opacity-50 py-16 mt-8">
+            <PaddingGlobal className="flex justify-center opacity-100 py-16 mt-8">
                 <div className="hidden md:block text-[8.3vw] font-headers leading-none italic font-black whitespace-nowrap text-transparent text-stroke-[0.2vw]/muted">
                     FAST. FORWARD.
                 </div>

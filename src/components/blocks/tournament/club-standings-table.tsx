@@ -254,7 +254,7 @@ export function ClubStandingsTable({ prismicTeams, f1FixturesData, f3StandingsDa
                                     {index === firstEliminatedIndex && (
                                         <TableRow className="hover:bg-transparent">
                                             <TableCell colSpan={3} className="p-0 h-4">
-                                                <LinePattern className="h-full w-full" patternSize={7} />
+                                                <LinePattern className="h-full w-full" patternSize={5} />
                                             </TableCell>
                                         </TableRow>
                                     )}
@@ -301,7 +301,7 @@ export function ClubStandingsTable({ prismicTeams, f1FixturesData, f3StandingsDa
                                 <TableRow className="hover:bg-transparent">
                                     <TableCell className="p-0 px-4 h-8">
                                         <div className="relative h-full w-full">
-                                            <LinePattern className="h-full w-full" patternSize={7} />
+                                            <LinePattern className="h-full w-full" patternSize={5} />
                                             <div className="absolute inset-0 flex items-center justify-start">
                                                 <span className="font-headers font-medium text-sm uppercase ">{group.groupName}</span>
                                             </div>

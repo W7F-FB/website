@@ -130,7 +130,7 @@ async function NavMain({ showBreadcrumbs, pathname, customBreadcrumbs, groupedFi
               >
               <NavigationMenuList className="lg:gap-2">
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger><span>Events & Tickets</span></NavigationMenuTrigger>
+                  <NavigationMenuTrigger><span>Events</span></NavigationMenuTrigger>
                   <NavigationMenuContent className="right-auto !w-max">
                     {(() => {
                       const otherTournaments = tournaments.filter(t => t.data.featured !== true)
