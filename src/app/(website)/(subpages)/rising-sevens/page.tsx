@@ -74,7 +74,7 @@ const infoData: InfoCardItem[] = [
     {
         id: "item-6",
         subtitle: "Awards",
-        description: "Rising Sevens Youth Tournament by W7F medals and trophies for Champions & Finalists. The winning teams of each age group will be recognized on the professional tournament’s stadium field and will also receive $500 to be donated to one of W7F’s local nonprofit Community Champions.",
+        description: "Rising Sevens Youth Tournament by W7F medals and trophies for Champions & Finalists. The winning teams of each age group will be recognized on the professional tournament’s stadium field.",
     },
     {
         id: "item-7",
