@@ -77,7 +77,7 @@ interface AwardsDocumentData {
    * Award Title field in *Awards*
    *
    * - **Field Type**: Text
-   * - **Placeholder**: *None*
+   * - **Placeholder**: Golden Glove
    * - **API ID Path**: awards.award_title
    * - **Tab**: Main
    * - **Documentation**: https://prismic.io/docs/fields/text
@@ -88,7 +88,7 @@ interface AwardsDocumentData {
    * Award Subtitle field in *Awards*
    *
    * - **Field Type**: Text
-   * - **Placeholder**: *None*
+   * - **Placeholder**: 2025 Season
    * - **API ID Path**: awards.award_subtitle
    * - **Tab**: Main
    * - **Documentation**: https://prismic.io/docs/fields/text
@@ -99,7 +99,7 @@ interface AwardsDocumentData {
    * Player Name field in *Awards*
    *
    * - **Field Type**: Text
-   * - **Placeholder**: *None*
+   * - **Placeholder**: Player Name
    * - **API ID Path**: awards.player_name
    * - **Tab**: Main
    * - **Documentation**: https://prismic.io/docs/fields/text
@@ -123,23 +123,12 @@ interface AwardsDocumentData {
    * Sort Order field in *Awards*
    *
    * - **Field Type**: Text
-   * - **Placeholder**: *None*
+   * - **Placeholder**: 1
    * - **API ID Path**: awards.sort_order
    * - **Tab**: Main
    * - **Documentation**: https://prismic.io/docs/fields/text
    */
   sort_order: prismic.KeyTextField;
-
-  /**
-   * Player Headshot field in *Awards*
-   *
-   * - **Field Type**: Image
-   * - **Placeholder**: *None*
-   * - **API ID Path**: awards.player_headshot
-   * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/fields/image
-   */
-  player_headshot: prismic.ImageField<never>;
 }
 
 /**
@@ -215,7 +204,7 @@ interface BlogDocumentData {
    * - **Field Type**: Text
    * - **Placeholder**: Blog title
    * - **API ID Path**: blog.title
-   * - **Tab**: Main
+   * - **Tab**: Content
    * - **Documentation**: https://prismic.io/docs/fields/text
    */
   title: prismic.KeyTextField;
@@ -226,7 +215,7 @@ interface BlogDocumentData {
    * - **Field Type**: Image
    * - **Placeholder**: *None*
    * - **API ID Path**: blog.image
-   * - **Tab**: Main
+   * - **Tab**: Content
    * - **Documentation**: https://prismic.io/docs/fields/image
    */
   image: prismic.ImageField<never>;
@@ -237,7 +226,7 @@ interface BlogDocumentData {
    * - **Field Type**: Select
    * - **Placeholder**: *None*
    * - **API ID Path**: blog.category
-   * - **Tab**: Main
+   * - **Tab**: Content
    * - **Documentation**: https://prismic.io/docs/fields/select
    */
   category: prismic.SelectField<
@@ -254,7 +243,7 @@ interface BlogDocumentData {
    * - **Field Type**: Date
    * - **Placeholder**: *None*
    * - **API ID Path**: blog.date
-   * - **Tab**: Main
+   * - **Tab**: Content
    * - **Documentation**: https://prismic.io/docs/fields/date
    */
   date: prismic.DateField;
@@ -265,7 +254,7 @@ interface BlogDocumentData {
    * - **Field Type**: Text
    * - **Placeholder**: *None*
    * - **API ID Path**: blog.author
-   * - **Tab**: Main
+   * - **Tab**: Content
    * - **Documentation**: https://prismic.io/docs/fields/text
    */
   author: prismic.KeyTextField;
@@ -276,7 +265,7 @@ interface BlogDocumentData {
    * - **Field Type**: Text
    * - **Placeholder**: *None*
    * - **API ID Path**: blog.excerpt
-   * - **Tab**: Main
+   * - **Tab**: Content
    * - **Documentation**: https://prismic.io/docs/fields/text
    */
   excerpt: prismic.KeyTextField;
@@ -287,7 +276,7 @@ interface BlogDocumentData {
    * - **Field Type**: Rich Text
    * - **Placeholder**: *None*
    * - **API ID Path**: blog.content
-   * - **Tab**: Main
+   * - **Tab**: Content
    * - **Documentation**: https://prismic.io/docs/fields/rich-text
    */
   content: prismic.RichTextField;
@@ -298,7 +287,7 @@ interface BlogDocumentData {
    * - **Field Type**: Content Relationship
    * - **Placeholder**: *None*
    * - **API ID Path**: blog.tournament
-   * - **Tab**: Main
+   * - **Tab**: Content
    * - **Documentation**: https://prismic.io/docs/fields/content-relationship
    */
   tournament: prismic.ContentRelationshipField<"tournament">;
@@ -309,7 +298,7 @@ interface BlogDocumentData {
    * - **Field Type**: Group
    * - **Placeholder**: *None*
    * - **API ID Path**: blog.matches[]
-   * - **Tab**: Main
+   * - **Tab**: Content
    * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
    */
   matches: prismic.GroupField<Simplify<BlogDocumentDataMatchesItem>>;
@@ -320,7 +309,7 @@ interface BlogDocumentData {
    * - **Field Type**: Group
    * - **Placeholder**: *None*
    * - **API ID Path**: blog.teams[]
-   * - **Tab**: Main
+   * - **Tab**: Content
    * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
    */
   teams: prismic.GroupField<Simplify<BlogDocumentDataTeamsItem>>;
@@ -331,7 +320,7 @@ interface BlogDocumentData {
    * - **Field Type**: Slice Zone
    * - **Placeholder**: *None*
    * - **API ID Path**: blog.slices[]
-   * - **Tab**: Main
+   * - **Tab**: Content
    * - **Documentation**: https://prismic.io/docs/slices
    */
   slices: prismic.SliceZone<BlogDocumentDataSlicesSlice>;
@@ -455,6 +444,85 @@ export type BroadcastPartnersDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithUID<
     Simplify<BroadcastPartnersDocumentData>,
     "broadcast_partners",
+    Lang
+  >;
+
+/**
+ * Item in *Faq Section → FAQs*
+ */
+export interface FaqSectionDocumentDataFaqsItem {
+  /**
+   * Question field in *Faq Section → FAQs*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: faq_section.faqs[].question
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  question: prismic.KeyTextField;
+
+  /**
+   * Answer field in *Faq Section → FAQs*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: faq_section.faqs[].answer
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  answer: prismic.RichTextField;
+}
+
+/**
+ * Content for Faq Section documents
+ */
+interface FaqSectionDocumentData {
+  /**
+   * Section title field in *Faq Section*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: faq_section.section_title
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  section_title: prismic.KeyTextField;
+
+  /**
+   * Section order field in *Faq Section*
+   *
+   * - **Field Type**: Number
+   * - **Placeholder**: *None*
+   * - **API ID Path**: faq_section.section_order
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/number
+   */
+  section_order: prismic.NumberField;
+
+  /**
+   * FAQs field in *Faq Section*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: faq_section.faqs[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  faqs: prismic.GroupField<Simplify<FaqSectionDocumentDataFaqsItem>>;
+}
+
+/**
+ * Faq Section document from Prismic
+ *
+ * - **API ID**: `faq_section`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/content-modeling
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type FaqSectionDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<
+    Simplify<FaqSectionDocumentData>,
+    "faq_section",
     Lang
   >;
 
@@ -1894,6 +1962,7 @@ export type AllDocumentTypes =
   | AwardsDocument
   | BlogDocument
   | BroadcastPartnersDocument
+  | FaqSectionDocument
   | ImageWithTextDocument
   | MatchDocument
   | PlayerDocument
@@ -1934,6 +2003,9 @@ declare module "@prismicio/client" {
       BlogDocumentDataSlicesSlice,
       BroadcastPartnersDocument,
       BroadcastPartnersDocumentData,
+      FaqSectionDocument,
+      FaqSectionDocumentData,
+      FaqSectionDocumentDataFaqsItem,
       ImageWithTextDocument,
       ImageWithTextDocumentData,
       MatchDocument,

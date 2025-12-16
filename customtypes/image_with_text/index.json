@@ -5,7 +5,7 @@
   "repeatable": true,
   "status": true,
   "json": {
-    "Main": {
+    "Content": {
       "uid": {
         "type": "UID",
         "config": {
@@ -26,22 +26,6 @@
           "placeholder": ""
         }
       },
-      "image": {
-        "type": "Image",
-        "config": {
-          "label": "image",
-          "constraint": {},
-          "thumbnails": []
-        }
-      },
-      "align_image": {
-        "type": "Select",
-        "config": {
-          "label": "align image",
-          "placeholder": "",
-          "options": ["left", "right"]
-        }
-      },
       "description": {
         "type": "StructuredText",
         "config": {
@@ -49,6 +33,28 @@
           "placeholder": "",
           "allowTargetBlank": true,
           "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+        }
+      }
+    },
+
+    "Media": {
+      "image": {
+        "type": "Image",
+        "config": {
+          "label": "image",
+          "constraint": {},
+          "thumbnails": []
+        }
+      }
+    },
+
+    "Layout": {
+      "align_image": {
+        "type": "Select",
+        "config": {
+          "label": "align image",
+          "placeholder": "",
+          "options": ["left", "right"]
         }
       }
     }

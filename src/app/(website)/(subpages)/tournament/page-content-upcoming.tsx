@@ -3,7 +3,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import { FAQItem } from "@/types/basic"
 import { H1, H2, P, Subtitle } from "@/components/website-base/typography"
 import type { TournamentDocument, BlogDocument } from "../../../../../prismicio-types"
 import { SubpageHero, SubpageHeroMedia, SubpageHeroContent, SubpageHeroMediaBanner } from "@/components/blocks/subpage-hero"
@@ -24,43 +23,17 @@ import { isFilled } from "@prismicio/client"
 import { Badge } from "@/components/ui/badge"
 import { PostGrid } from "@/components/blocks/posts/post-grid"
 import { PrismicLink } from "@prismicio/react"
-
-const faqData: FAQItem[] = [
-    {
-        id: "item-1",
-        question: "What is the format of a W7F tournament?",
-        answer: (
-            <>
-                <P>The fast-paced seven-a-side format includes a two-day group-stage round-robin, featuring two groups of four teams. On day three of the tournament, the top two clubs per group will advance to the knockout stage. There will be sixteen matches per tournament, including a third-place match, and of course, a much-anticipated championship match.</P>
-                <P>Each club will play between three and five games in total, depending on the progress of that club through the tournament.</P>
-            </>
-        )
-    },
-    {
-        id: "item-2",
-        question: "Who participates in W7F tournaments?",
-        answer: (
-            <>
-                <P>Established professional clubs from the best leagues across the globe have committed to participating in W7F&apos;s seven-a-side tournaments. From that club pool, teams will be chosen to compete.</P>
-                <P>For the May 2025 tournament in Estoril, participating clubs were: Ajax, Bayern, Benfica, Manchester City, Manchester United, Paris Saint-Germain, AS Roma and FC Rosengard.</P>
-            </>
-        )
-    },
-    {
-        id: "item-3",
-        question: "How many clubs will take part in each W7F tournament?",
-        answer: (
-            <P>The first and second tournament feature eight sides from the club pool. As the series grows, we expect to expand the number of teams competing in each event.</P>
-        )
-    }
-];
+import { getUpcomingTournamentFaqSection } from "@/cms/queries/faqs"
+import { PrismicRichTextComponent } from "@/components/website-base/prismic-rich-text"
 
 type Props = {
     tournament: TournamentDocument
     tournamentBlogs: BlogDocument[]
 }
 
-export default function TournamentPageUpcoming({ tournament, tournamentBlogs }: Props) {
+export default async function TournamentPageUpcoming({ tournament, tournamentBlogs }: Props) {
+    const upcomingTournamentFaqSection = await getUpcomingTournamentFaqSection()
+    const faqData = upcomingTournamentFaqSection?.data.faqs || []
 
     return (
         <div>
@@ -199,13 +172,13 @@ export default function TournamentPageUpcoming({ tournament, tournamentBlogs }: 
                                     </CardHeader>
                                     <CardContent>
                                         <Accordion type="single" collapsible className="w-full">
-                                            {faqData.map((faq) => (
-                                                <AccordionItem key={faq.id} value={faq.id}>
+                                            {faqData.map((faq, index) => (
+                                                <AccordionItem key={`competition-faq-${index}`} value={`competition-faq-${index}`}>
                                                     <AccordionTrigger>
                                                         <span className="font-medium">{faq.question}</span>
                                                     </AccordionTrigger>
                                                     <AccordionContent>
-                                                        {faq.answer}
+                                                        <PrismicRichTextComponent field={faq.answer} />
                                                     </AccordionContent>
                                                 </AccordionItem>
                                             ))}

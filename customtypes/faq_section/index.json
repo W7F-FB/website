@@ -1,0 +1,56 @@
+{
+  "format": "custom",
+  "id": "faq_section",
+  "label": "Faq Section",
+  "repeatable": true,
+  "status": true,
+  "json": {
+    "Main": {
+      "uid": {
+        "type": "UID",
+        "config": {
+          "label": "UID"
+        }
+      },
+      "section_title": {
+        "type": "Text",
+        "config": {
+          "label": "Section title",
+          "placeholder": ""
+        }
+      },
+      "section_order": {
+        "type": "Number",
+        "config": {
+          "label": "Section order",
+          "placeholder": ""
+        }
+      },
+      "faqs": {
+        "type": "Group",
+        "config": {
+          "label": "FAQs",
+          "repeat": true,
+          "fields": {
+            "question": {
+              "type": "Text",
+              "config": {
+                "label": "Question",
+                "placeholder": ""
+              }
+            },
+            "answer": {
+              "type": "StructuredText",
+              "config": {
+                "label": "Answer",
+                "placeholder": "",
+                "allowTargetBlank": true,
+                "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

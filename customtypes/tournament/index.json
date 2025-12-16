@@ -5,7 +5,7 @@
   "repeatable": true,
   "status": true,
   "json": {
-    "Main": {
+    "General": {
       "uid": {
         "type": "UID",
         "config": {
@@ -30,17 +30,6 @@
           "options": ["Upcoming", "Live", "Complete"]
         }
       },
-      "hero_image": {
-        "type": "Image",
-        "config": {
-          "label": "Hero Image",
-          "constraint": {
-            "width": 3000,
-            "height": 2000
-          },
-          "thumbnails": []
-        }
-      },
       "title": {
         "type": "Text",
         "config": {
@@ -55,7 +44,24 @@
           "label": "Nickname",
           "placeholder": ""
         }
-      },
+      }
+    },
+
+    "Media": {
+      "hero_image": {
+        "type": "Image",
+        "config": {
+          "label": "Hero Image",
+          "constraint": {
+            "width": 3000,
+            "height": 2000
+          },
+          "thumbnails": []
+        }
+      }
+    },
+
+    "Tournament Details": {
       "prize_pool": {
         "type": "Number",
         "config": {
@@ -96,6 +102,18 @@
           "placeholder": ""
         }
       },
+      "tickets_available": {
+        "type": "Boolean",
+        "config": {
+          "label": "Tickets Available",
+          "placeholder_false": "false",
+          "placeholder_true": "true",
+          "default_value": false
+        }
+      }
+    },
+
+    "Content": {
       "recap": {
         "type": "Link",
         "config": {
@@ -124,38 +142,34 @@
           "placeholder": ""
         }
       },
-      "tickets_available": {
-        "type": "Boolean",
+      "know_before_you_go": {
+        "type": "StructuredText",
         "config": {
-          "label": "Tickets Available",
-          "placeholder_false": "false",
-          "placeholder_true": "true",
-          "default_value": false
+          "label": "Know before you go ",
+          "placeholder": "",
+          "allowTargetBlank": true,
+          "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
         }
       },
-      "opta_competition_id": {
-        "type": "Text",
+      "know_before_you_go_pdf": {
+        "type": "Link",
         "config": {
-          "label": "Opta Competition ID",
-          "placeholder": ""
+          "label": "Know before you go pdf",
+          "placeholder": "",
+          "select": "media",
+          "allowText": true
         }
       },
-      "opta_season_id": {
-        "type": "Text",
+      "slices": {
+        "type": "Slices",
+        "fieldset": "Slice Zone",
         "config": {
-          "label": "Opta Season ID",
-          "placeholder": ""
+          "choices": {}
         }
-      },
-      "opta_enabled": {
-        "type": "Boolean",
-        "config": {
-          "label": "Opta Enabled",
-          "placeholder_false": "false",
-          "placeholder_true": "true",
-          "default_value": false
-        }
-      },
+      }
+    },
+
+    "Relationships": {
       "matches": {
         "type": "Group",
         "config": {
@@ -295,33 +309,35 @@
             }
           }
         }
-      },
-      "know_before_you_go": {
-        "type": "StructuredText",
+      }
+    },
+
+    "Data (Opta)": {
+      "opta_competition_id": {
+        "type": "Text",
         "config": {
-          "label": "Know before you go ",
-          "placeholder": "",
-          "allowTargetBlank": true,
-          "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+          "label": "Opta Competition ID",
+          "placeholder": ""
         }
       },
-      "know_before_you_go_pdf": {
-        "type": "Link",
+      "opta_season_id": {
+        "type": "Text",
         "config": {
-          "label": "Know before you go pdf",
-          "placeholder": "",
-          "select": "media",
-          "allowText": true
+          "label": "Opta Season ID",
+          "placeholder": ""
         }
       },
-      "slices": {
-        "type": "Slices",
-        "fieldset": "Slice Zone",
+      "opta_enabled": {
+        "type": "Boolean",
         "config": {
-          "choices": {}
+          "label": "Opta Enabled",
+          "placeholder_false": "false",
+          "placeholder_true": "true",
+          "default_value": false
         }
       }
     },
+
     "Navigation": {
       "show_in_navigation": {
         "type": "Boolean",

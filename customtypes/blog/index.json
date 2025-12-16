@@ -5,7 +5,7 @@
   "repeatable": true,
   "status": true,
   "json": {
-    "Main": {
+    "Content": {
       "uid": {
         "type": "UID",
         "config": {
@@ -19,6 +19,32 @@
           "placeholder": "Blog title"
         }
       },
+      "excerpt": {
+        "type": "Text",
+        "config": {
+          "label": "excerpt",
+          "placeholder": ""
+        }
+      },
+      "content": {
+        "type": "StructuredText",
+        "config": {
+          "label": "content",
+          "placeholder": "",
+          "allowTargetBlank": true,
+          "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+        }
+      },
+      "slices": {
+        "type": "Slices",
+        "fieldset": "Slice Zone",
+        "config": {
+          "choices": {}
+        }
+      }
+    },
+
+    "Media & Metadata": {
       "image": {
         "type": "Image",
         "config": {
@@ -54,23 +80,10 @@
           "label": "author",
           "placeholder": ""
         }
-      },
-      "excerpt": {
-        "type": "Text",
-        "config": {
-          "label": "excerpt",
-          "placeholder": ""
-        }
-      },
-      "content": {
-        "type": "StructuredText",
-        "config": {
-          "label": "content",
-          "placeholder": "",
-          "allowTargetBlank": true,
-          "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
-        }
-      },
+      }
+    },
+
+    "Relationships": {
       "tournament": {
         "type": "Link",
         "config": {
@@ -134,13 +147,6 @@
               }
             }
           }
-        }
-      },
-      "slices": {
-        "type": "Slices",
-        "fieldset": "Slice Zone",
-        "config": {
-          "choices": {}
         }
       }
     }

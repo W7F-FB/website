@@ -12,18 +12,20 @@ import { Separator } from "@/components/ui/separator"
 import { FAQBannerLayout } from "@/components/blocks/faq-banner-layout"
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-import { getTicketingFaqs } from "@/lib/data/faqs"
+import { getTicketingFaqSection } from "@/cms/queries/faqs"
 import { formatDateRange, formatCurrencyInWords } from "@/lib/utils"
 import { isFilled } from "@prismicio/client"
 import { getImageUrl, getImageAlt } from "@/cms/utils"
+import { PrismicRichTextComponent } from "@/components/website-base/prismic-rich-text"
 import type { TournamentDocument } from "../../../../../../../prismicio-types"
 
 type Props = {
   tournament: TournamentDocument
 }
 
-export default function TicketsPageContent({ tournament }: Props) {
-  const ticketingFaqs = getTicketingFaqs()
+export default async function TicketsPageContent({ tournament }: Props) {
+  const ticketingFaqSection = await getTicketingFaqSection()
+  const ticketingFaqs = ticketingFaqSection?.data.faqs || []
 
   return (
     <PaddingGlobal>
@@ -91,13 +93,13 @@ export default function TicketsPageContent({ tournament }: Props) {
                 </CardHeader>
                 <CardContent>
                   <Accordion type="single" collapsible className="w-full">
-                    {ticketingFaqs.map((faq) => (
-                      <AccordionItem key={faq.id} value={faq.id}>
+                    {ticketingFaqs.map((faq, index) => (
+                      <AccordionItem key={`ticketing-faq-${index}`} value={`ticketing-faq-${index}`}>
                         <AccordionTrigger>
                           <span className="font-medium">{faq.question}</span>
                         </AccordionTrigger>
                         <AccordionContent>
-                          {faq.answer}
+                          <PrismicRichTextComponent field={faq.answer} />
                         </AccordionContent>
                       </AccordionItem>
                     ))}

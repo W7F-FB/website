@@ -5,18 +5,11 @@
   "repeatable": true,
   "status": true,
   "json": {
-    "Main": {
+    "General": {
       "uid": {
         "type": "UID",
         "config": {
           "label": "UID"
-        }
-      },
-      "opta_id": {
-        "type": "Text",
-        "config": {
-          "label": "Opta ID",
-          "placeholder": ""
         }
       },
       "first_name": {
@@ -32,7 +25,10 @@
           "label": "Last Name",
           "placeholder": ""
         }
-      },
+      }
+    },
+
+    "Media": {
       "headshot": {
         "type": "Image",
         "config": {
@@ -43,7 +39,10 @@
           },
           "thumbnails": []
         }
-      },
+      }
+    },
+
+    "Team": {
       "team": {
         "type": "Link",
         "config": {
@@ -66,6 +65,16 @@
               ]
             }
           ]
+        }
+      }
+    },
+
+    "Data (Opta)": {
+      "opta_id": {
+        "type": "Text",
+        "config": {
+          "label": "Opta ID",
+          "placeholder": ""
         }
       }
     }

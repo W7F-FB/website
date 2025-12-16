@@ -7,7 +7,6 @@ import { H1, H2, H3, P, Subtitle, TextProtect } from "@/components/website-base/
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import type { FAQItem } from "@/types/basic";
 import { ClubList } from "@/components/blocks/clubs/club-list";
 import { SectionHeading, SectionHeadingHeading, SectionHeadingSubtitle, SectionHeadingText } from "@/components/sections/section-heading";
 import { RecentNewsGrid } from "@/components/blocks/recent-news-grid";
@@ -20,34 +19,9 @@ import { FAQBannerLayout } from "@/components/blocks/faq-banner-layout";
 import { mapBlogDocumentToMetadata } from "@/lib/utils";
 import { CaretRightIcon } from "@/components/website-base/icons";
 import { TuneInBanner } from "@/components/blocks/tune-in-banner";
+import { getHomeFaqSection } from "@/cms/queries/faqs";
+import { PrismicRichTextComponent } from "@/components/website-base/prismic-rich-text";
 import type { TournamentDocument, BlogDocument, BroadcastPartnersDocument } from "../../../../prismicio-types";
-
-const faqData: FAQItem[] = [
-    {
-        id: "item-1",
-        question: "What is the format of a W7F tournament?",
-        answer: (
-            <>
-                <P>The fast-paced seven-a side format includes a two-day group-stage round-robin, featuring two groups of four teams. On day three of the tournament, the top two clubs per group will advance to the knockout stage. There will be sixteen matches per tournament, including a third-place match, and of course, a much-anticipated championship match.</P>
-                <P>Each club will play between three and five games in total, depending on the progress of that club through the tournament, over a three-day period.</P>
-            </>
-        )
-    },
-    {
-        id: "item-2",
-        question: "What is the format of a W7F match?",
-        answer: (
-            <P>Our second tournament will take place at Beyond Bancard Field in Fort Lauderdale, Florida on December 5-7, 2025.Matches are played on a pitch half of the size of a standard 11-a-side football pitch. Each match will last 30 minutes, divided into two halves of 15 minutes each, with extra time for a tie-break. There will be a 5-minute halftime. There are unlimited rolling substitutions and no offside rule.</P>
-        )
-    },
-    {
-        id: "item-3",
-        question: "Who participates in W7F tournaments?",
-        answer: (
-            <P>Established professional clubs from the best leagues across the globe have committed to participating in W7F&apos;s seven-a side tournaments. From that club pool, teams will be chosen to compete.</P>
-        )
-    }
-];
 
 type Props = {
     tournament: TournamentDocument;
@@ -62,7 +36,7 @@ type Props = {
     disneyPlus: BroadcastPartnersDocument | null;
 };
 
-export default function HomePageContent({
+export default async function HomePageContent({
     tournament,
     estorilTournament,
     featuredRecapBlog,
@@ -74,6 +48,9 @@ export default function HomePageContent({
     espn,
     disneyPlus,
 }: Props) {
+    const homeFaqSection = await getHomeFaqSection()
+    const faqData = homeFaqSection?.data.faqs || []
+
     return (
         <PaddingGlobal>
             <Section padding="sm">
@@ -198,13 +175,13 @@ export default function HomePageContent({
                             </CardHeader>
                             <CardContent>
                                 <Accordion type="single" collapsible className="w-full">
-                                    {faqData.map((faq) => (
-                                        <AccordionItem key={faq.id} value={faq.id}>
+                                    {faqData.map((faq, index) => (
+                                        <AccordionItem key={`home-faq-${index}`} value={`home-faq-${index}`}>
                                             <AccordionTrigger>
                                                 <span className="font-medium">{faq.question}</span>
                                             </AccordionTrigger>
                                             <AccordionContent>
-                                                {faq.answer}
+                                                <PrismicRichTextComponent field={faq.answer} />
                                             </AccordionContent>
                                         </AccordionItem>
                                     ))}

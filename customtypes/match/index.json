@@ -5,75 +5,11 @@
   "repeatable": true,
   "status": true,
   "json": {
-    "Main": {
+    "General": {
       "uid": {
         "type": "UID",
         "config": {
           "label": "UID"
-        }
-      },
-      "opta_id": {
-        "type": "Text",
-        "config": {
-          "label": "Opta ID",
-          "placeholder": ""
-        }
-      },
-      "tournament": {
-        "type": "Link",
-        "config": {
-          "label": "Tournament",
-          "select": "document",
-          "repeat": false,
-          "customtypes": [
-            {
-              "id": "tournament",
-              "fields": [
-                "status",
-                "prize_pool",
-                "country_code",
-                "stadium_name",
-                "start_date",
-                "end_date",
-                "number_of_teams",
-                "opta_season_id",
-                "opta_enabled",
-                "opta_competition_id"
-              ]
-            }
-          ]
-        }
-      },
-      "broadcasts": {
-        "type": "Group",
-        "config": {
-          "label": "Broadcasts",
-          "repeat": true,
-          "fields": {
-            "streaming_service": {
-              "type": "Link",
-              "config": {
-                "label": "Streaming Service",
-                "select": "document",
-                "repeat": false,
-                "customtypes": [
-                  {
-                    "id": "broadcast_partners",
-                    "fields": [
-                      "name",
-                      "logo",
-                      "logo_white",
-                      "icon_logo",
-                      "logo_on_primary",
-                      "color_primary",
-                      "color_secondary",
-                      "streaming_link"
-                    ]
-                  }
-                ]
-              }
-            }
-          }
         }
       },
       "match_number": {
@@ -83,6 +19,40 @@
           "placeholder": ""
         }
       },
+      "stage": {
+        "type": "Select",
+        "config": {
+          "label": "Stage",
+          "placeholder": "",
+          "options": ["Group Stage", "Knockout Stage"]
+        }
+      },
+      "knockout_stage_match_type": {
+        "type": "Select",
+        "config": {
+          "label": "Knockout Stage Match Type",
+          "placeholder": "",
+          "options": [
+            "Group 1 Semifinal",
+            "Group 2 Semifinal",
+            "Third Place Match",
+            "Final"
+          ]
+        }
+      }
+    },
+
+    "Schedule": {
+      "start_time": {
+        "type": "Timestamp",
+        "config": {
+          "label": "Start Time",
+          "placeholder": ""
+        }
+      }
+    },
+
+    "Teams": {
       "home_team": {
         "type": "Link",
         "config": {
@@ -142,35 +112,80 @@
           "label": "Away Team Name Override",
           "placeholder": ""
         }
-      },
-      "start_time": {
-        "type": "Timestamp",
+      }
+    },
+
+    "Tournament & Broadcast": {
+      "tournament": {
+        "type": "Link",
         "config": {
-          "label": "Start Time",
-          "placeholder": ""
-        }
-      },
-      "stage": {
-        "type": "Select",
-        "config": {
-          "label": "Stage",
-          "placeholder": "",
-          "options": ["Group Stage", "Knockout Stage"]
-        }
-      },
-      "knockout_stage_match_type": {
-        "type": "Select",
-        "config": {
-          "label": "Knockout Stage Match Type",
-          "placeholder": "",
-          "options": [
-            "Group 1 Semifinal",
-            "Group 2 Semifinal",
-            "Third Place Match",
-            "Final"
+          "label": "Tournament",
+          "select": "document",
+          "repeat": false,
+          "customtypes": [
+            {
+              "id": "tournament",
+              "fields": [
+                "status",
+                "prize_pool",
+                "country_code",
+                "stadium_name",
+                "start_date",
+                "end_date",
+                "number_of_teams",
+                "opta_season_id",
+                "opta_enabled",
+                "opta_competition_id"
+              ]
+            }
           ]
         }
       },
+      "broadcasts": {
+        "type": "Group",
+        "config": {
+          "label": "Broadcasts",
+          "repeat": true,
+          "fields": {
+            "streaming_service": {
+              "type": "Link",
+              "config": {
+                "label": "Streaming Service",
+                "select": "document",
+                "repeat": false,
+                "customtypes": [
+                  {
+                    "id": "broadcast_partners",
+                    "fields": [
+                      "name",
+                      "logo",
+                      "logo_white",
+                      "icon_logo",
+                      "logo_on_primary",
+                      "color_primary",
+                      "color_secondary",
+                      "streaming_link"
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "Data (Opta)": {
+      "opta_id": {
+        "type": "Text",
+        "config": {
+          "label": "Opta ID",
+          "placeholder": ""
+        }
+      }
+    },
+
+    "Content": {
       "slices": {
         "type": "Slices",
         "fieldset": "Slice Zone",

@@ -7,7 +7,8 @@ import { H1, H2, P } from "@/components/website-base/typography"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { SubpageHeroSecondary } from "@/components/blocks/subpage-hero";
 import { SectionNav } from "./section-nav";
-import { faqSections } from "@/lib/data/faqs";
+import { getAllFaqSections } from "@/cms/queries/faqs";
+import { PrismicRichTextComponent } from "@/components/website-base/prismic-rich-text";
 
 export const metadata: Metadata = {
     title: "FAQs - World Sevens Football",
@@ -45,7 +46,19 @@ export const metadata: Metadata = {
     },
 };
 
-export default function FAQsPage() {
+export default async function FAQsPage() {
+    const allFaqSections = await getAllFaqSections();
+    
+    const allowedUids = ["competition-format", "event", "ticketing"];
+    const faqSections = allFaqSections.filter((section) => 
+        section.uid && allowedUids.includes(section.uid)
+    );
+
+    const sections = faqSections.map((section) => ({
+        id: section.uid || "",
+        title: section.data.section_title || "",
+    }));
+
     return <>
         <NavMain showBreadcrumbs />
         <main className="flex-grow min-h-[30rem]">
@@ -57,22 +70,22 @@ export default function FAQsPage() {
         </SubpageHeroSecondary>
         <Container maxWidth="lg">
         <Section padding="md" className="min-h-screen grid grid-cols-12 gap-4 md:gap-16 w-full">
-            <div className="hidden md:block col-span-3 md:sticky md:top-24 md:self-start">
-                <SectionNav sections={faqSections} />
+            <div className="hidden md:block col-span-3 md:sticky md:top-32 md:self-start">
+                <SectionNav sections={sections} />
             </div>
 
             <div className="col-span-12 md:col-span-9 space-y-10 w-full min-w-0">
                 {faqSections.map((section) => (
-                    <div key={section.id} id={section.id} className="scroll-mt-24 w-full">
+                    <div key={section.uid} id={section.uid} className="scroll-mt-24 w-full">
                         <Accordion type="single" collapsible className="w-full">
-                            <H2 className="uppercase">{section.title}</H2>
-                            {section.items.map((faq) => (
-                                <AccordionItem key={faq.id} value={faq.id}>
+                            <H2 className="uppercase">{section.data.section_title}</H2>
+                            {section.data.faqs.map((faq, index) => (
+                                <AccordionItem key={`${section.uid}-${index}`} value={`${section.uid}-${index}`}>
                                     <AccordionTrigger>
                                         <span className="font-medium">{faq.question}</span>
                                     </AccordionTrigger>
                                     <AccordionContent>
-                                        {faq.answer}
+                                        <PrismicRichTextComponent field={faq.answer} />
                                     </AccordionContent>
                                 </AccordionItem>
                             ))}

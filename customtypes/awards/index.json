@@ -9,28 +9,29 @@
       "uid": {
         "type": "UID",
         "config": {
-          "label": "UID"
+          "label": "UID",
+          "placeholder": "unique-award-slug"
         }
       },
       "award_title": {
         "type": "Text",
         "config": {
           "label": "Award Title",
-          "placeholder": ""
+          "placeholder": "Golden Glove"
         }
       },
       "award_subtitle": {
         "type": "Text",
         "config": {
           "label": "Award Subtitle",
-          "placeholder": ""
+          "placeholder": "2025 Season"
         }
       },
       "player_name": {
         "type": "Text",
         "config": {
           "label": "Player Name",
-          "placeholder": ""
+          "placeholder": "Player Name"
         }
       },
       "player_team": {
@@ -51,15 +52,7 @@
         "type": "Text",
         "config": {
           "label": "Sort Order",
-          "placeholder": ""
-        }
-      },
-      "player_headshot": {
-        "type": "Image",
-        "config": {
-          "label": "Player Headshot",
-          "constraint": {},
-          "thumbnails": []
+          "placeholder": "1"
         }
       }
     }

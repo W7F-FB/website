@@ -5,7 +5,7 @@
   "repeatable": true,
   "status": true,
   "json": {
-    "Main": {
+    "Content": {
       "name": {
         "type": "Text",
         "config": {
@@ -28,6 +28,18 @@
           "placeholder": "Job title or role"
         }
       },
+      "bio": {
+        "type": "StructuredText",
+        "config": {
+          "multi": "paragraph,strong,em,hyperlink,list-item,o-list-item",
+          "allowTargetBlank": true,
+          "label": "Biography",
+          "placeholder": "Team member's biography"
+        }
+      }
+    },
+
+    "Media": {
       "headshot": {
         "type": "Image",
         "config": {
@@ -49,17 +61,9 @@
             }
           ]
         }
-      },
-      "bio": {
-        "type": "StructuredText",
-        "config": {
-          "multi": "paragraph,strong,em,hyperlink,list-item,o-list-item",
-          "allowTargetBlank": true,
-          "label": "Biography",
-          "placeholder": "Team member's biography"
-        }
       }
     },
+
     "Settings": {
       "display_order": {
         "type": "Number",

@@ -1,4 +1,4 @@
-import { FAQItem, InfoCardItem } from "@/types/basic";
+import { InfoCardItem } from "@/types/basic";
 import { NavMain } from "@/components/website-base/nav/nav-main";
 import { Footer } from "@/components/website-base/footer/footer-main";
 import { P, Subtitle } from "@/components/website-base/typography";
@@ -14,6 +14,8 @@ import { InfoCard } from "@/components/blocks/info-card";
 import { Metadata } from "next";
 import { Badge } from "@/components/ui/badge";
 import { CaretRightIcon } from "@/components/website-base/icons";
+import { getRisingSevensFaqSection } from "@/cms/queries/faqs";
+import { PrismicRichTextComponent } from "@/components/website-base/prismic-rich-text";
 
 export const metadata: Metadata = {
     title: "Rising Sevens Youth Tournament - World Sevens Football",
@@ -83,29 +85,9 @@ const infoData: InfoCardItem[] = [
     },
 ];
 
-const faqData: FAQItem[] = [
-    {
-        id: "item-1",
-        question: "How Do I Register?",
-        answer: (
-            <>
-                <P>Teams must register via Bracket Teams. Please complete the online application fully. Incomplete applications cannot be processed.  Any team not accepted will receive a full refund. Any team which withdraws after the application deadline of November 28, 2025 will not be eligible for a refund.</P>
-            </>
-        )
-    },
-    {
-        id: "item-2",
-        question: "Tournament Information",
-        answer: (
-            <>
-                <P><strong>Register:</strong> <span><Link href="https://bracketteam.com/event/6693/Rising_7s/registration">REGISTER YOUR TEAM</Link></span></P>
-                <P>Questions, please email Claudia Rodriguez, Rising Sevens Tournament Director, at <span><Link href="mailto:crodriquez@tournamentsuccessgroup.com">crodriquez@tournamentsuccessgroup.com</Link></span></P>
-            </>
-        )
-    },
-];
-
-export default function RisingSevensPage() {
+export default async function RisingSevensPage() {
+    const risingSevensFaqSection = await getRisingSevensFaqSection()
+    const faqData = risingSevensFaqSection?.data.faqs || []
     return (
         <>
             <NavMain showBreadcrumbs />
@@ -179,13 +161,13 @@ export default function RisingSevensPage() {
                             </CardHeader>
                             <CardContent>
                                 <Accordion type="single" collapsible className="w-full">
-                                    {faqData.map((faq) => (
-                                        <AccordionItem key={faq.id} value={faq.id}>
+                                    {faqData.map((faq, index) => (
+                                        <AccordionItem key={`rising-sevens-faq-${index}`} value={`rising-sevens-faq-${index}`}>
                                             <AccordionTrigger>
                                                 <span className="font-medium">{faq.question}</span>
                                             </AccordionTrigger>
                                             <AccordionContent>
-                                                {faq.answer}
+                                                <PrismicRichTextComponent field={faq.answer} />
                                             </AccordionContent>
                                         </AccordionItem>
                                     ))}
