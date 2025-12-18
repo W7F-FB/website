@@ -7,6 +7,8 @@ export const components = {
   call_to_action: dynamic(() => import("./CallToAction")),
   hero_section: dynamic(() => import("./HeroSection")),
   image_with_text: dynamic(() => import("./ImageWithText")),
+  info_cards: dynamic(() => import("./InfoCards")),
+  leadership_grid: dynamic(() => import("./LeadershipGrid")),
   partners: dynamic(() => import("./Partners")),
   text_block: dynamic(() => import("./TextBlock")),
 };

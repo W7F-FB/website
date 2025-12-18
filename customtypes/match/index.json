@@ -41,7 +41,6 @@
         }
       }
     },
-
     "Schedule": {
       "start_time": {
         "type": "Timestamp",
@@ -51,7 +50,6 @@
         }
       }
     },
-
     "Teams": {
       "home_team": {
         "type": "Link",
@@ -114,7 +112,6 @@
         }
       }
     },
-
     "Tournament & Broadcast": {
       "tournament": {
         "type": "Link",
@@ -174,7 +171,6 @@
         }
       }
     },
-
     "Data (Opta)": {
       "opta_id": {
         "type": "Text",
@@ -184,7 +180,6 @@
         }
       }
     },
-
     "Content": {
       "slices": {
         "type": "Slices",

@@ -813,6 +813,8 @@ export type MatchDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithUID<Simplify<MatchDocumentData>, "match", Lang>;
 
 type PageDocumentDataSlicesSlice =
+  | LeadershipGridSlice
+  | InfoCardsSlice
   | AccordionSectionSlice
   | CallToActionSlice
   | PartnersSlice
@@ -2352,6 +2354,258 @@ export type ImageWithTextSlice = prismic.SharedSlice<
 >;
 
 /**
+ * Item in *InfoCards → Default → Primary → Cards*
+ */
+export interface InfoCardsSliceDefaultPrimaryCardsItem {
+  /**
+   * Subtitle field in *InfoCards → Default → Primary → Cards*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: info_cards.default.primary.cards[].subtitle
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  subtitle: prismic.KeyTextField;
+
+  /**
+   * Title field in *InfoCards → Default → Primary → Cards*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: info_cards.default.primary.cards[].title
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  title: prismic.KeyTextField;
+
+  /**
+   * Description field in *InfoCards → Default → Primary → Cards*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: info_cards.default.primary.cards[].description
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  description: prismic.KeyTextField;
+}
+
+/**
+ * Primary content in *InfoCards → Default → Primary*
+ */
+export interface InfoCardsSliceDefaultPrimary {
+  /**
+   * Title field in *InfoCards → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: info_cards.default.primary.title
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  title: prismic.KeyTextField;
+
+  /**
+   * Content field in *InfoCards → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: info_cards.default.primary.content
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  content: prismic.RichTextField;
+
+  /**
+   * Footnote field in *InfoCards → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: info_cards.default.primary.footnote
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  footnote: prismic.KeyTextField;
+
+  /**
+   * Button Link field in *InfoCards → Default → Primary*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: info_cards.default.primary.button_link
+   * - **Documentation**: https://prismic.io/docs/fields/link
+   */
+  button_link: prismic.LinkField<
+    string,
+    string,
+    unknown,
+    prismic.FieldState,
+    never
+  >;
+
+  /**
+   * Cards Title field in *InfoCards → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: info_cards.default.primary.cards_title
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  cards_title: prismic.KeyTextField;
+
+  /**
+   * Cards field in *InfoCards → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: info_cards.default.primary.cards[]
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  cards: prismic.GroupField<Simplify<InfoCardsSliceDefaultPrimaryCardsItem>>;
+}
+
+/**
+ * Default variation for InfoCards Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type InfoCardsSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<InfoCardsSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *InfoCards*
+ */
+type InfoCardsSliceVariation = InfoCardsSliceDefault;
+
+/**
+ * InfoCards Shared Slice
+ *
+ * - **API ID**: `info_cards`
+ * - **Description**: InfoCards
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type InfoCardsSlice = prismic.SharedSlice<
+  "info_cards",
+  InfoCardsSliceVariation
+>;
+
+/**
+ * Item in *LeadershipGrid → Default → Primary → Members*
+ */
+export interface LeadershipGridSliceDefaultPrimaryMembersItem {
+  /**
+   * Member field in *LeadershipGrid → Default → Primary → Members*
+   *
+   * - **Field Type**: Content Relationship
+   * - **Placeholder**: *None*
+   * - **API ID Path**: leadership_grid.default.primary.members[].member
+   * - **Documentation**: https://prismic.io/docs/fields/content-relationship
+   */
+  member: ContentRelationshipFieldWithData<
+    [
+      {
+        id: "team_member";
+        fields: [
+          "name",
+          "role",
+          "bio",
+          "headshot",
+          "display_order",
+          "department",
+        ];
+      },
+    ]
+  >;
+}
+
+/**
+ * Primary content in *LeadershipGrid → Default → Primary*
+ */
+export interface LeadershipGridSliceDefaultPrimary {
+  /**
+   * Title field in *LeadershipGrid → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: leadership_grid.default.primary.title
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  title: prismic.KeyTextField;
+
+  /**
+   * Content field in *LeadershipGrid → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: leadership_grid.default.primary.content
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  content: prismic.RichTextField;
+
+  /**
+   * Section ID field in *LeadershipGrid → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: leadership_grid.default.primary.section_id
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  section_id: prismic.KeyTextField;
+
+  /**
+   * Scroll Link field in *LeadershipGrid → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: leadership_grid.default.primary.scroll_link
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  scroll_link: prismic.KeyTextField;
+
+  /**
+   * Members field in *LeadershipGrid → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: leadership_grid.default.primary.members[]
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  members: prismic.GroupField<
+    Simplify<LeadershipGridSliceDefaultPrimaryMembersItem>
+  >;
+}
+
+/**
+ * Default variation for LeadershipGrid Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type LeadershipGridSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<LeadershipGridSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *LeadershipGrid*
+ */
+type LeadershipGridSliceVariation = LeadershipGridSliceDefault;
+
+/**
+ * LeadershipGrid Shared Slice
+ *
+ * - **API ID**: `leadership_grid`
+ * - **Description**: LeadershipGrid
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type LeadershipGridSlice = prismic.SharedSlice<
+  "leadership_grid",
+  LeadershipGridSliceVariation
+>;
+
+/**
  * Item in *Partners → Default → Primary → Logos*
  */
 export interface PartnersSliceDefaultPrimaryLogosItem {
@@ -2599,6 +2853,16 @@ declare module "@prismicio/client" {
       ImageWithTextSliceDefaultPrimary,
       ImageWithTextSliceVariation,
       ImageWithTextSliceDefault,
+      InfoCardsSlice,
+      InfoCardsSliceDefaultPrimaryCardsItem,
+      InfoCardsSliceDefaultPrimary,
+      InfoCardsSliceVariation,
+      InfoCardsSliceDefault,
+      LeadershipGridSlice,
+      LeadershipGridSliceDefaultPrimaryMembersItem,
+      LeadershipGridSliceDefaultPrimary,
+      LeadershipGridSliceVariation,
+      LeadershipGridSliceDefault,
       PartnersSlice,
       PartnersSliceDefaultPrimaryLogosItem,
       PartnersSliceDefaultPrimary,

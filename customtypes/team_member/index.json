@@ -38,7 +38,6 @@
         }
       }
     },
-
     "Media": {
       "headshot": {
         "type": "Image",
@@ -63,7 +62,6 @@
         }
       }
     },
-
     "Settings": {
       "display_order": {
         "type": "Number",

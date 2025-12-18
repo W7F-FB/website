@@ -1,0 +1,79 @@
+{
+  "id": "leadership_grid",
+  "type": "SharedSlice",
+  "name": "LeadershipGrid",
+  "description": "LeadershipGrid",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "title": {
+          "type": "Text",
+          "config": {
+            "label": "Title",
+            "placeholder": ""
+          }
+        },
+        "content": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Content",
+            "placeholder": "",
+            "allowTargetBlank": true,
+            "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+          }
+        },
+        "section_id": {
+          "type": "Text",
+          "config": {
+            "label": "Section ID",
+            "placeholder": ""
+          }
+        },
+        "scroll_link": {
+          "type": "Text",
+          "config": {
+            "label": "Scroll Link",
+            "placeholder": ""
+          }
+        },
+        "members": {
+          "type": "Group",
+          "config": {
+            "label": "Members",
+            "repeat": true,
+            "fields": {
+              "member": {
+                "type": "Link",
+                "config": {
+                  "label": "Member",
+                  "select": "document",
+                  "repeat": false,
+                  "customtypes": [
+                    {
+                      "id": "team_member",
+                      "fields": [
+                        "name",
+                        "role",
+                        "bio",
+                        "headshot",
+                        "display_order",
+                        "department"
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}

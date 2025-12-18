@@ -46,7 +46,6 @@
         }
       }
     },
-
     "Media": {
       "hero_image": {
         "type": "Image",
@@ -60,7 +59,6 @@
         }
       }
     },
-
     "Tournament Details": {
       "prize_pool": {
         "type": "Number",
@@ -112,7 +110,6 @@
         }
       }
     },
-
     "Content": {
       "recap": {
         "type": "Link",
@@ -168,7 +165,6 @@
         }
       }
     },
-
     "Relationships": {
       "matches": {
         "type": "Group",
@@ -311,7 +307,6 @@
         }
       }
     },
-
     "Data (Opta)": {
       "opta_competition_id": {
         "type": "Text",
@@ -337,7 +332,6 @@
         }
       }
     },
-
     "Navigation": {
       "show_in_navigation": {
         "type": "Boolean",

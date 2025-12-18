@@ -1,0 +1,56 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"title": {
+				"__TYPE__": "FieldContent",
+				"value": "think",
+				"type": "Text"
+			},
+			"content": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Ex labore nostrud commodo do exercitation est sint sint ipsum magna labore ad occaecat. Dolore deserunt tempor occaecat consequat minim."
+						}
+					}
+				]
+			},
+			"members": {
+				"__TYPE__": "GroupContentType",
+				"value": [
+					{
+						"__TYPE__": "GroupItemContent",
+						"value": [
+							[
+								"member",
+								{
+									"key": "e01c484c-a689-478e-8262-5c0d314a8a0e",
+									"__TYPE__": "LinkContent",
+									"value": {
+										"__TYPE__": "DocumentLink",
+										"id": "mock_document_id"
+									}
+								}
+							]
+						]
+					}
+				]
+			},
+			"scroll_link": {
+				"__TYPE__": "FieldContent",
+				"value": "empty",
+				"type": "Text"
+			},
+			"section_id": {
+				"__TYPE__": "FieldContent",
+				"value": "triangle",
+				"type": "Text"
+			}
+		},
+		"items": []
+	}
+]

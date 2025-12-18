@@ -1,0 +1,78 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"cards": {
+				"__TYPE__": "GroupContentType",
+				"value": [
+					{
+						"__TYPE__": "GroupItemContent",
+						"value": [
+							[
+								"subtitle",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "stove",
+									"type": "Text"
+								}
+							],
+							[
+								"title",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "treated",
+									"type": "Text"
+								}
+							],
+							[
+								"description",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "get",
+									"type": "Text"
+								}
+							]
+						]
+					}
+				]
+			},
+			"cards_title": {
+				"__TYPE__": "FieldContent",
+				"value": "direction",
+				"type": "Text"
+			},
+			"title": {
+				"__TYPE__": "FieldContent",
+				"value": "likely",
+				"type": "Text"
+			},
+			"content": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Labore eiusmod nostrud cupidatat anim tempor quis mollit aliqua do nisi do non voluptate exercitation irure."
+						}
+					}
+				]
+			},
+			"button_link": {
+				"key": "8b219119-70ea-4ca2-a599-ba35772144d0",
+				"__TYPE__": "LinkContent",
+				"value": {
+					"__TYPE__": "ExternalLink",
+					"url": "https://prismic.io",
+					"text": "teacher"
+				}
+			},
+			"footnote": {
+				"__TYPE__": "FieldContent",
+				"value": "swam",
+				"type": "Text"
+			}
+		},
+		"items": []
+	}
+]

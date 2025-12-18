@@ -43,7 +43,6 @@
         }
       }
     },
-
     "Media & Metadata": {
       "image": {
         "type": "Image",
@@ -82,7 +81,6 @@
         }
       }
     },
-
     "Relationships": {
       "tournament": {
         "type": "Link",

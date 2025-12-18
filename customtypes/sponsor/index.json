@@ -27,7 +27,6 @@
         }
       }
     },
-
     "Branding": {
       "logo": {
         "type": "Image",
@@ -55,7 +54,6 @@
         }
       }
     },
-
     "Settings": {
       "sort_order": {
         "type": "Text",

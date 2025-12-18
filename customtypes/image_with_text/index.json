@@ -36,7 +36,6 @@
         }
       }
     },
-
     "Media": {
       "image": {
         "type": "Image",
@@ -47,7 +46,6 @@
         }
       }
     },
-
     "Layout": {
       "align_image": {
         "type": "Select",

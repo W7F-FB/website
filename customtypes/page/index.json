@@ -17,6 +17,12 @@
         "fieldset": "Slice Zone",
         "config": {
           "choices": {
+            "leadership_grid": {
+              "type": "SharedSlice"
+            },
+            "info_cards": {
+              "type": "SharedSlice"
+            },
             "accordion_section": {
               "type": "SharedSlice"
             },

@@ -41,7 +41,6 @@
         }
       }
     },
-
     "Branding": {
       "logo": {
         "type": "Image",
@@ -69,7 +68,6 @@
         }
       }
     },
-
     "Data & Sorting": {
       "opta_id": {
         "type": "Text",
@@ -94,7 +92,6 @@
         }
       }
     },
-
     "Tournaments": {
       "tournaments": {
         "type": "Group",
