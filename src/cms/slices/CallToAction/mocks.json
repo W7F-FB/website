@@ -1,0 +1,46 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"title": {
+				"__TYPE__": "FieldContent",
+				"value": "large",
+				"type": "Text"
+			},
+			"description": {
+				"__TYPE__": "GroupContentType",
+				"value": [
+					{
+						"__TYPE__": "GroupItemContent",
+						"value": [
+							[
+								"text",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "nails",
+									"type": "Text"
+								}
+							]
+						]
+					}
+				]
+			},
+			"alignment": {
+				"__TYPE__": "FieldContent",
+				"value": "Center",
+				"type": "Select"
+			},
+			"button_link": {
+				"key": "2cfc5836-460c-43e8-9d5a-7744c66bdcc0",
+				"__TYPE__": "LinkContent",
+				"value": {
+					"__TYPE__": "ExternalLink",
+					"url": "https://prismic.io",
+					"text": "desert"
+				}
+			}
+		},
+		"items": []
+	}
+]

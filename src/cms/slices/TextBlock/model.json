@@ -1,0 +1,60 @@
+{
+  "id": "text_block",
+  "type": "SharedSlice",
+  "name": "TextBlock",
+  "description": "TextBlock",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "title": {
+          "type": "Text",
+          "config": {
+            "label": "Title",
+            "placeholder": ""
+          }
+        },
+        "content": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Content",
+            "placeholder": "",
+            "allowTargetBlank": true,
+            "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+          }
+        },
+        "alignment": {
+          "type": "Select",
+          "config": {
+            "label": "Alignment",
+            "placeholder": "",
+            "options": [
+              "Left",
+              "Center",
+              "Right"
+            ]
+          }
+        },
+        "max_width": {
+          "type": "Select",
+          "config": {
+            "label": "Max Width",
+            "placeholder": "",
+            "options": [
+              "sm",
+              "md",
+              "lg",
+              "full"
+            ]
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"title": {
+				"__TYPE__": "FieldContent",
+				"value": "send",
+				"type": "Text"
+			},
+			"content": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Qui aute culpa et anim sit enim id id veniam."
+						}
+					}
+				]
+			},
+			"alignment": {
+				"__TYPE__": "FieldContent",
+				"value": "Right",
+				"type": "Select"
+			},
+			"max_width": {
+				"__TYPE__": "FieldContent",
+				"value": "md",
+				"type": "Select"
+			}
+		},
+		"items": []
+	}
+]
