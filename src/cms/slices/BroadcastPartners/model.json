@@ -1,0 +1,16 @@
+{
+  "id": "broadcast_partners",
+  "type": "SharedSlice",
+  "name": "BroadcastPartners",
+  "description": "BroadcastPartners",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": ""
+    }
+  ]
+}

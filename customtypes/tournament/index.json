@@ -364,6 +364,33 @@
           "placeholder": ""
         }
       }
+    },
+    "Marketing Content": {
+      "hero_headline": {
+        "type": "Text",
+        "config": {
+          "label": "Hero Headline",
+          "placeholder": ""
+        }
+      },
+      "hero_media_banner_text": {
+        "type": "Text",
+        "config": {
+          "label": "Hero Media Banner Text",
+          "placeholder": ""
+        }
+      },
+      "hero_media_banner_cta": {
+        "type": "Link",
+        "config": {
+          "label": "Hero Media Banner CTA",
+          "placeholder": "",
+          "select": null,
+          "allowTargetBlank": true,
+          "allowText": true,
+          "repeat": false
+        }
+      }
     }
   }
 }

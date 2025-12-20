@@ -813,6 +813,11 @@ export type MatchDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithUID<Simplify<MatchDocumentData>, "match", Lang>;
 
 type PageDocumentDataSlicesSlice =
+  | VideoBannerSlice
+  | SectionHeadingSlice
+  | BroadcastPartnersSlice
+  | ClubListSlice
+  | HeroSliderSlice
   | LeadershipGridSlice
   | InfoCardsSlice
   | AccordionSectionSlice
@@ -1806,7 +1811,44 @@ interface TournamentDocumentData {
    * - **Tab**: Navigation
    * - **Documentation**: https://prismic.io/docs/fields/text
    */
-  navigation_description: prismic.KeyTextField;
+  navigation_description: prismic.KeyTextField /**
+   * Hero Headline field in *Tournament*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: tournament.hero_headline
+   * - **Tab**: Marketing Content
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */;
+  hero_headline: prismic.KeyTextField;
+
+  /**
+   * Hero Media Banner Text field in *Tournament*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: tournament.hero_media_banner_text
+   * - **Tab**: Marketing Content
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  hero_media_banner_text: prismic.KeyTextField;
+
+  /**
+   * Hero Media Banner CTA field in *Tournament*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: tournament.hero_media_banner_cta
+   * - **Tab**: Marketing Content
+   * - **Documentation**: https://prismic.io/docs/fields/link
+   */
+  hero_media_banner_cta: prismic.LinkField<
+    string,
+    string,
+    unknown,
+    prismic.FieldState,
+    never
+  >;
 }
 
 /**
@@ -2084,6 +2126,36 @@ export type AccordionSectionSlice = prismic.SharedSlice<
 >;
 
 /**
+ * Default variation for BroadcastPartners Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type BroadcastPartnersSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Record<string, never>,
+  never
+>;
+
+/**
+ * Slice variation for *BroadcastPartners*
+ */
+type BroadcastPartnersSliceVariation = BroadcastPartnersSliceDefault;
+
+/**
+ * BroadcastPartners Shared Slice
+ *
+ * - **API ID**: `broadcast_partners`
+ * - **Description**: BroadcastPartners
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type BroadcastPartnersSlice = prismic.SharedSlice<
+  "broadcast_partners",
+  BroadcastPartnersSliceVariation
+>;
+
+/**
  * Item in *CallToAction → Default → Primary → Description*
  */
 export interface CallToActionSliceDefaultPrimaryDescriptionItem {
@@ -2182,6 +2254,51 @@ export type CallToActionSlice = prismic.SharedSlice<
 >;
 
 /**
+ * Primary content in *ClubList → Default → Primary*
+ */
+export interface ClubListSliceDefaultPrimary {
+  /**
+   * Tournament field in *ClubList → Default → Primary*
+   *
+   * - **Field Type**: Content Relationship
+   * - **Placeholder**: *None*
+   * - **API ID Path**: club_list.default.primary.tournament
+   * - **Documentation**: https://prismic.io/docs/fields/content-relationship
+   */
+  tournament: prismic.ContentRelationshipField<"tournament">;
+}
+
+/**
+ * Default variation for ClubList Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type ClubListSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<ClubListSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *ClubList*
+ */
+type ClubListSliceVariation = ClubListSliceDefault;
+
+/**
+ * ClubList Shared Slice
+ *
+ * - **API ID**: `club_list`
+ * - **Description**: ClubList
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type ClubListSlice = prismic.SharedSlice<
+  "club_list",
+  ClubListSliceVariation
+>;
+
+/**
  * Primary content in *HeroSection → Default → Primary*
  */
 export interface HeroSectionSliceDefaultPrimary {
@@ -2265,6 +2382,138 @@ type HeroSectionSliceVariation = HeroSectionSliceDefault;
 export type HeroSectionSlice = prismic.SharedSlice<
   "hero_section",
   HeroSectionSliceVariation
+>;
+
+/**
+ * Item in *HeroSlider → Default → Primary → Slides*
+ */
+export interface HeroSliderSliceDefaultPrimarySlidesItem {
+  /**
+   * Background Image field in *HeroSlider → Default → Primary → Slides*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero_slider.default.primary.slides[].background_image
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  background_image: prismic.ImageField<never>;
+
+  /**
+   * Background Color field in *HeroSlider → Default → Primary → Slides*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero_slider.default.primary.slides[].background_color
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  background_color: prismic.ImageField<never>;
+
+  /**
+   * Subtitle field in *HeroSlider → Default → Primary → Slides*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero_slider.default.primary.slides[].subtitle
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  subtitle: prismic.KeyTextField;
+
+  /**
+   * Headline field in *HeroSlider → Default → Primary → Slides*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero_slider.default.primary.slides[].headline
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  headline: prismic.KeyTextField;
+
+  /**
+   * Description field in *HeroSlider → Default → Primary → Slides*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero_slider.default.primary.slides[].description
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  description: prismic.KeyTextField;
+
+  /**
+   * CTA Primary field in *HeroSlider → Default → Primary → Slides*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero_slider.default.primary.slides[].cta_primary
+   * - **Documentation**: https://prismic.io/docs/fields/link
+   */
+  cta_primary: prismic.LinkField<
+    string,
+    string,
+    unknown,
+    prismic.FieldState,
+    never
+  >;
+
+  /**
+   * CTA Secondary field in *HeroSlider → Default → Primary → Slides*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero_slider.default.primary.slides[].cta_secondary
+   * - **Documentation**: https://prismic.io/docs/fields/link
+   */
+  cta_secondary: prismic.LinkField<
+    string,
+    string,
+    unknown,
+    prismic.FieldState,
+    never
+  >;
+}
+
+/**
+ * Primary content in *HeroSlider → Default → Primary*
+ */
+export interface HeroSliderSliceDefaultPrimary {
+  /**
+   * Slides field in *HeroSlider → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero_slider.default.primary.slides[]
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  slides: prismic.GroupField<Simplify<HeroSliderSliceDefaultPrimarySlidesItem>>;
+}
+
+/**
+ * Default variation for HeroSlider Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type HeroSliderSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<HeroSliderSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *HeroSlider*
+ */
+type HeroSliderSliceVariation = HeroSliderSliceDefault;
+
+/**
+ * HeroSlider Shared Slice
+ *
+ * - **API ID**: `hero_slider`
+ * - **Description**: HeroSlider
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type HeroSliderSlice = prismic.SharedSlice<
+  "hero_slider",
+  HeroSliderSliceVariation
 >;
 
 /**
@@ -2697,6 +2946,71 @@ export type PartnersSlice = prismic.SharedSlice<
 >;
 
 /**
+ * Primary content in *SectionHeading → Default → Primary*
+ */
+export interface SectionHeadingSliceDefaultPrimary {
+  /**
+   * Subtitle field in *SectionHeading → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: section_heading.default.primary.subtitle
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  subtitle: prismic.KeyTextField;
+
+  /**
+   * Heading field in *SectionHeading → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: section_heading.default.primary.heading
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  heading: prismic.KeyTextField;
+
+  /**
+   * Content field in *SectionHeading → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: section_heading.default.primary.content
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  content: prismic.RichTextField;
+}
+
+/**
+ * Default variation for SectionHeading Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type SectionHeadingSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<SectionHeadingSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *SectionHeading*
+ */
+type SectionHeadingSliceVariation = SectionHeadingSliceDefault;
+
+/**
+ * SectionHeading Shared Slice
+ *
+ * - **API ID**: `section_heading`
+ * - **Description**: SectionHeading
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type SectionHeadingSlice = prismic.SharedSlice<
+  "section_heading",
+  SectionHeadingSliceVariation
+>;
+
+/**
  * Primary content in *TextBlock → Default → Primary*
  */
 export interface TextBlockSliceDefaultPrimary {
@@ -2771,6 +3085,82 @@ export type TextBlockSlice = prismic.SharedSlice<
   TextBlockSliceVariation
 >;
 
+/**
+ * Primary content in *VideoBanner → Default → Primary*
+ */
+export interface VideoBannerSliceDefaultPrimary {
+  /**
+   * Thumbnail field in *VideoBanner → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: video_banner.default.primary.thumbnail
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  thumbnail: prismic.ImageField<never>;
+
+  /**
+   * Video field in *VideoBanner → Default → Primary*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: video_banner.default.primary.video
+   * - **Documentation**: https://prismic.io/docs/fields/link
+   */
+  video: prismic.LinkField<string, string, unknown, prismic.FieldState, never>;
+
+  /**
+   * Label field in *VideoBanner → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: video_banner.default.primary.label
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  label: prismic.KeyTextField;
+
+  /**
+   * Size field in *VideoBanner → Default → Primary*
+   *
+   * - **Field Type**: Select
+   * - **Placeholder**: *None*
+   * - **Default Value**: lg
+   * - **API ID Path**: video_banner.default.primary.size
+   * - **Documentation**: https://prismic.io/docs/fields/select
+   */
+  size: prismic.SelectField<"lg" | "sm", "filled">;
+}
+
+/**
+ * Default variation for VideoBanner Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type VideoBannerSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<VideoBannerSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *VideoBanner*
+ */
+type VideoBannerSliceVariation = VideoBannerSliceDefault;
+
+/**
+ * VideoBanner Shared Slice
+ *
+ * - **API ID**: `video_banner`
+ * - **Description**: VideoBanner
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type VideoBannerSlice = prismic.SharedSlice<
+  "video_banner",
+  VideoBannerSliceVariation
+>;
+
 declare module "@prismicio/client" {
   interface CreateClient {
     (
@@ -2840,15 +3230,27 @@ declare module "@prismicio/client" {
       AccordionSectionSliceDefaultPrimary,
       AccordionSectionSliceVariation,
       AccordionSectionSliceDefault,
+      BroadcastPartnersSlice,
+      BroadcastPartnersSliceVariation,
+      BroadcastPartnersSliceDefault,
       CallToActionSlice,
       CallToActionSliceDefaultPrimaryDescriptionItem,
       CallToActionSliceDefaultPrimary,
       CallToActionSliceVariation,
       CallToActionSliceDefault,
+      ClubListSlice,
+      ClubListSliceDefaultPrimary,
+      ClubListSliceVariation,
+      ClubListSliceDefault,
       HeroSectionSlice,
       HeroSectionSliceDefaultPrimary,
       HeroSectionSliceVariation,
       HeroSectionSliceDefault,
+      HeroSliderSlice,
+      HeroSliderSliceDefaultPrimarySlidesItem,
+      HeroSliderSliceDefaultPrimary,
+      HeroSliderSliceVariation,
+      HeroSliderSliceDefault,
       ImageWithTextSlice,
       ImageWithTextSliceDefaultPrimary,
       ImageWithTextSliceVariation,
@@ -2868,10 +3270,18 @@ declare module "@prismicio/client" {
       PartnersSliceDefaultPrimary,
       PartnersSliceVariation,
       PartnersSliceDefault,
+      SectionHeadingSlice,
+      SectionHeadingSliceDefaultPrimary,
+      SectionHeadingSliceVariation,
+      SectionHeadingSliceDefault,
       TextBlockSlice,
       TextBlockSliceDefaultPrimary,
       TextBlockSliceVariation,
       TextBlockSliceDefault,
+      VideoBannerSlice,
+      VideoBannerSliceDefaultPrimary,
+      VideoBannerSliceVariation,
+      VideoBannerSliceDefault,
     };
   }
 }

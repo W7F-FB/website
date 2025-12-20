@@ -42,7 +42,7 @@ export default async function TournamentPageUpcoming({ tournament, tournamentBlo
                     <SubpageHero>
                         <SubpageHeroContent>
                             <Subtitle>{tournament.data.title}</Subtitle>
-                            <H1 className="uppercase">Tickets on sale now</H1>
+                            <H1 className="uppercase">{tournament.data.hero_headline || "Tickets on sale now"}</H1>
                             <P className="text-lg"><span className="font-semibold">{formatDateRange(tournament.data.start_date, tournament.data.end_date)}</span><span className="ml-3 font-light text-sm">{tournament.data.stadium_name}</span></P>
                             {isFilled.number(tournament.data.prize_pool) && (
                                 <P noSpace className="text-lg mt-1"><span className="font-semibold">{formatCurrencyInWords(tournament.data.prize_pool)}</span><span className="ml-3 font-light text-sm">Prize Pool</span></P>
@@ -65,16 +65,18 @@ export default async function TournamentPageUpcoming({ tournament, tournamentBlo
                                     fill
                                     className="object-cover"
                                 />
-                                <SubpageHeroMediaBanner>
-                                    <P noSpace>Interested in watching the action from a pitchside cabana? <span>
-                                        <Button asChild variant="link" size="sm" className=" ml-1 p-0 h-auto !px-0">
-                                            <Link href="#vip-cabanas">
-                                                Contact Us
-                                                <CaretRightIcon className="size-3 mt-px" />
-                                            </Link>
-                                        </Button>
-                                    </span></P>
-                                </SubpageHeroMediaBanner>
+                                {isFilled.link(tournament.data.hero_media_banner_cta) && tournament.data.hero_media_banner_text && (
+                                    <SubpageHeroMediaBanner>
+                                        <P noSpace>{tournament.data.hero_media_banner_text} <span>
+                                            <Button asChild variant="link" size="sm" className=" ml-1 p-0 h-auto !px-0">
+                                                <PrismicLink field={tournament.data.hero_media_banner_cta}>
+                                                    {tournament.data.hero_media_banner_cta.text || "Learn More"}
+                                                    <CaretRightIcon className="size-3 mt-px" />
+                                                </PrismicLink>
+                                            </Button>
+                                        </span></P>
+                                    </SubpageHeroMediaBanner>
+                                )}
                             </SubpageHeroMedia>
                         )}
                     </SubpageHero>

@@ -4,11 +4,16 @@ import dynamic from "next/dynamic";
 
 export const components = {
   accordion_section: dynamic(() => import("./AccordionSection")),
+  broadcast_partners: dynamic(() => import("./BroadcastPartners")),
   call_to_action: dynamic(() => import("./CallToAction")),
+  club_list: dynamic(() => import("./ClubList")),
   hero_section: dynamic(() => import("./HeroSection")),
+  hero_slider: dynamic(() => import("./HeroSlider")),
   image_with_text: dynamic(() => import("./ImageWithText")),
   info_cards: dynamic(() => import("./InfoCards")),
   leadership_grid: dynamic(() => import("./LeadershipGrid")),
   partners: dynamic(() => import("./Partners")),
+  section_heading: dynamic(() => import("./SectionHeading")),
   text_block: dynamic(() => import("./TextBlock")),
+  video_banner: dynamic(() => import("./VideoBanner")),
 };

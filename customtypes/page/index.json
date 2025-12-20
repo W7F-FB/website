@@ -17,6 +17,21 @@
         "fieldset": "Slice Zone",
         "config": {
           "choices": {
+            "video_banner": {
+              "type": "SharedSlice"
+            },
+            "section_heading": {
+              "type": "SharedSlice"
+            },
+            "broadcast_partners": {
+              "type": "SharedSlice"
+            },
+            "club_list": {
+              "type": "SharedSlice"
+            },
+            "hero_slider": {
+              "type": "SharedSlice"
+            },
             "leadership_grid": {
               "type": "SharedSlice"
             },

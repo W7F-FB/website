@@ -1,0 +1,30 @@
+{
+  "id": "club_list",
+  "type": "SharedSlice",
+  "name": "ClubList",
+  "description": "ClubList",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "tournament": {
+          "type": "Link",
+          "config": {
+            "label": "Tournament",
+            "select": "document",
+            "repeat": false,
+            "customtypes": [
+              "tournament"
+            ]
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "id": "video_banner",
+  "type": "SharedSlice",
+  "name": "VideoBanner",
+  "description": "VideoBanner",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "thumbnail": {
+          "type": "Image",
+          "config": {
+            "label": "Thumbnail",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "video": {
+          "type": "Link",
+          "config": {
+            "label": "Video",
+            "placeholder": "",
+            "select": null,
+            "allowTargetBlank": true,
+            "allowText": true,
+            "repeat": false
+          }
+        },
+        "label": {
+          "type": "Text",
+          "config": {
+            "label": "Label",
+            "placeholder": ""
+          }
+        },
+        "size": {
+          "type": "Select",
+          "config": {
+            "label": "Size",
+            "placeholder": "",
+            "options": [
+              "lg",
+              "sm"
+            ],
+            "default_value": "lg"
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}

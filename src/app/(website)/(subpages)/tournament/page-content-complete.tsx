@@ -86,18 +86,20 @@ export default function TournamentPagePast({ tournament, tournamentBlogs, f3Stan
                             fill
                             className="object-cover"
                         />
-                        <SubpageHeroMediaBanner>
-                            <P noSpace><span>Event #2 is coming to Fort Lauderdale, FL</span>
-                                <br />
-                                <span>Dec 5-7, 2025
-                                    <Button asChild variant="link" size="sm" className=" ml-3 p-0 h-auto !px-0">
-                                        <Link href="/tournament/fort-lauderdale">
-                                            Learn More
-                                            <CaretRightIcon className="size-3 mt-px" />
-                                        </Link>
-                                    </Button>
-                                </span></P>
-                        </SubpageHeroMediaBanner>
+                        {isFilled.link(tournament.data.hero_media_banner_cta) && tournament.data.hero_media_banner_text && (
+                            <SubpageHeroMediaBanner>
+                                <P noSpace>
+                                    {tournament.data.hero_media_banner_text} <span>
+                                        <Button asChild variant="link" size="sm" className=" ml-3 p-0 h-auto !px-0">
+                                            <PrismicLink field={tournament.data.hero_media_banner_cta}>
+                                                {tournament.data.hero_media_banner_cta.text || "Learn More"}
+                                                <CaretRightIcon className="size-3 mt-px" />
+                                            </PrismicLink>
+                                        </Button>
+                                    </span>
+                                </P>
+                            </SubpageHeroMediaBanner>
+                        )}
                     </SubpageHeroMedia>
                 )}
             </SubpageHero>
