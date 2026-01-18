@@ -19,6 +19,7 @@ interface ImageItem {
 interface W7FLineBannerProps {
     className?: string;
     images?: ImageItem[];
+    maskId?: string;
 }
 
 function ImageSequence({ isHovered, images }: { isHovered: boolean; images?: ImageItem[] }) {
@@ -88,7 +89,7 @@ function ImageSequence({ isHovered, images }: { isHovered: boolean; images?: Ima
 const LINE_COLOR = 'oklch(0.1949 0.0274 260.031)';
 const HOVER_LINE_COLOR = 'oklch(0.985 0 0)';
 
-export function W7FLineBanner({ className, images }: W7FLineBannerProps) {
+export function W7FLineBanner({ className, images, maskId = 'w7f-line-banner-mask' }: W7FLineBannerProps) {
     const [isHovered, setIsHovered] = useState(false);
 
     return (
@@ -105,7 +106,7 @@ export function W7FLineBanner({ className, images }: W7FLineBannerProps) {
                 className={cn("w-full h-full text-background relative transition-[stroke,color]", isHovered && "text-foreground/20 transition-[stroke,color]")}
             />
             <div className="absolute inset-0 w-full h-full p-12 ">
-                <W7FVerticalIconMask className="w-full h-full">
+                <W7FVerticalIconMask className="w-full h-full" maskId={maskId}>
                     <div className="w-full h-full flex items-center justify-center">
                         <div className="absolute inset-0 w-full h-full"></div>
                         <motion.div

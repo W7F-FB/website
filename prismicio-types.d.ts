@@ -1285,6 +1285,49 @@ export type TeamMemberDocument<Lang extends string = string> =
   >;
 
 /**
+ * Content for Testimonial documents
+ */
+interface TestimonialDocumentData {
+  /**
+   * Testimonial field in *Testimonial*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: testimonial.testimonial
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  testimonial: prismic.KeyTextField;
+
+  /**
+   * Author field in *Testimonial*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: testimonial.author
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  author: prismic.KeyTextField;
+}
+
+/**
+ * Testimonial document from Prismic
+ *
+ * - **API ID**: `testimonial`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/content-modeling
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type TestimonialDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<
+    Simplify<TestimonialDocumentData>,
+    "testimonial",
+    Lang
+  >;
+
+/**
  * Item in *Tournament → Matches*
  */
 export interface TournamentDocumentDataMatchesItem {
@@ -1901,6 +1944,7 @@ export type AllDocumentTypes =
   | SponsorDocument
   | TeamDocument
   | TeamMemberDocument
+  | TestimonialDocument
   | TournamentDocument
   | WebsiteDocument;
 
@@ -1951,6 +1995,8 @@ declare module "@prismicio/client" {
       TeamDocumentDataTournamentsItem,
       TeamMemberDocument,
       TeamMemberDocumentData,
+      TestimonialDocument,
+      TestimonialDocumentData,
       TournamentDocument,
       TournamentDocumentData,
       TournamentDocumentDataMatchesItem,

@@ -15,9 +15,10 @@ interface FAQBannerLayoutProps {
     bannerClassName?: string;
     children: React.ReactNode;
     images?: ImageItem[];
+    maskId?: string;
 }
 
-export function FAQBannerLayout({ bannerClassName, children, images }: FAQBannerLayoutProps) {
+export function FAQBannerLayout({ bannerClassName, children, images, maskId = 'faq-banner-mask' }: FAQBannerLayoutProps) {
     const [faqRef, { height: faqHeight }] = useMeasure<HTMLDivElement>();
     const initialHeightRef = useRef<number | null>(null);
     const isMobile = useIsMobile();
@@ -36,7 +37,7 @@ export function FAQBannerLayout({ bannerClassName, children, images }: FAQBanner
                 className={cn("hidden lg:block lg:col-span-4", bannerClassName)}
                 style={bannerHeight ? { height: `${bannerHeight}px` } : undefined}
             >
-                <W7FLineBanner className="w-full h-full overflow-hidden p-12" images={images} />
+                <W7FLineBanner className="w-full h-full overflow-hidden p-12" images={images} maskId={maskId} />
             </div>
             <div ref={faqRef} className="lg:col-span-8">
                 {children}

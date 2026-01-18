@@ -2,25 +2,31 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { PaddingGlobal, Section, Container } from "@/components/website-base/padding-containers";
-import { HeroSlider, HeroSliderSlide, HeroSliderSlideBackground, HeroSliderSlideContent } from "@/components/blocks/hero-slider";
-import { H1, H2, H3, P, Subtitle, TextProtect } from "@/components/website-base/typography";
+import { HeroSlider, HeroSliderSlide, HeroSliderSlideContent } from "@/components/blocks/hero-slider";
+import { H1, H2, P } from "@/components/website-base/typography";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import type { FAQItem } from "@/types/basic";
 import { ClubList } from "@/components/blocks/clubs/club-list";
+import { ClubBadge } from "@/components/blocks/clubs/club";
 import { SectionHeading, SectionHeadingHeading, SectionHeadingSubtitle, SectionHeadingText } from "@/components/sections/section-heading";
 import { RecentNewsGrid } from "@/components/blocks/recent-news-grid";
 import { TicketOptionsGrid } from "@/components/blocks/ticket-options-grid";
 import { VideoBanner } from "@/components/blocks/video-banner/video-banner";
 import { Separator } from "@/components/ui/separator";
-import { PostCardHoriz } from "@/components/blocks/posts/post";
 import { PrismicLink } from "@prismicio/react";
 import { FAQBannerLayout } from "@/components/blocks/faq-banner-layout";
-import { mapBlogDocumentToMetadata } from "@/lib/utils";
-import { CaretRightIcon } from "@/components/website-base/icons";
-import { TuneInBanner } from "@/components/blocks/tune-in-banner";
-import type { TournamentDocument, BlogDocument, BroadcastPartnersDocument } from "../../../../prismicio-types";
+import { TournamentCard } from "@/components/blocks/tournament-card";
+import { TestimonialCarousel } from "@/components/blocks/testimonial-carousel";
+import { mapBlogDocumentToMetadata, formatDateRange, formatCurrencyInWords } from "@/lib/utils";
+import { CaretRightIcon, PalmtreeIcon } from "@/components/website-base/icons";
+import { Background } from "@/components/ui/background";
+import { StayUpdatedBanner } from "@/components/blocks/stay-updated-banner";
+import type { TournamentDocument, BlogDocument, TeamDocument } from "../../../../prismicio-types";
+import { Status } from "@/components/ui/status";
+import { GradientBg } from "@/components/ui/gradient-bg";
+import { getImageUrl } from "@/cms/utils";
 
 const faqData: FAQItem[] = [
     {
@@ -49,81 +55,115 @@ const faqData: FAQItem[] = [
     }
 ];
 
-type Props = {
+type HeroTournamentWithChampion = {
     tournament: TournamentDocument;
-    estorilTournament: TournamentDocument | null;
+    champion: TeamDocument | null;
+};
+
+type Props = {
+    heroTournamentsWithChampions: HeroTournamentWithChampion[];
     featuredRecapBlog: BlogDocument | null;
-    dazn: BroadcastPartnersDocument | null;
-    tnt: BroadcastPartnersDocument | null;
-    truTV: BroadcastPartnersDocument | null;
-    hboMax: BroadcastPartnersDocument | null;
-    vix: BroadcastPartnersDocument | null;
-    tudn: BroadcastPartnersDocument | null;
-    espn: BroadcastPartnersDocument | null;
-    disneyPlus: BroadcastPartnersDocument | null;
+    allTournaments: TournamentDocument[];
 };
 
 export default function HomePageContent({
-    tournament,
-    estorilTournament,
+    heroTournamentsWithChampions,
     featuredRecapBlog,
-    dazn,
-    tnt,
-    truTV,
-    hboMax,
-    vix,
-    tudn,
-    espn,
-    disneyPlus,
+    allTournaments,
 }: Props) {
     return (
         <PaddingGlobal>
             <Section padding="sm">
                 <HeroSlider autoplay={true}>
-                    <HeroSliderSlide className="grid grid-cols-1 lg:grid-cols-[auto_1fr]">
-                        <HeroSliderSlideBackground className="h-[25rem] top-auto lg:top-0 lg:h-full">
-                            <Image src="/images/static-media/fl-hero.avif" alt="Hero Slider 1" fill className="object-cover object-bottom-right lg:object-center" />
-                        </HeroSliderSlideBackground>
-                        <HeroSliderSlideContent className="w-full lg:max-w-3xl justify-self-start px-8 pb-24  lg:pr-48 flex flex-col items-start justify-end">
-                            <Image src="/images/static-media/watercolor-bg.jpg" alt="Hero Slider 1" fill className="object-cover clip-watercolor-mask" />
-                            <TextProtect className="relative z-10 block space-y-3 lg:space-y-5">
-                                {tournament.data.tickets_available && (
-                                    <Subtitle className="text-lg lg:text-xl text-primary">Tickets available now</Subtitle>
-                                )}
-                                <H1 className="font-proxima uppercase font-black text-3xl lg:text-6xl">Fort Lauderdale,<br />FLorida, USA</H1>
-                                <P noSpace className="text-xl lg:text-3xl text-balance font-headers font-medium text-foreground">New City. Same Stakes. <span className="font-bold">$5 Million Prize Pool.</span></P>
-                            </TextProtect>
-                            <div className={`mt-6 w-full lg:mt-10 flex gap-3 lg:gap-4 ${tournament.data.tickets_available ? "flex-col lg:flex-row" : "flex-col lg:flex-row"}`}>
-                                {tournament.data.tickets_available && (
-                                    <Button asChild size="skew_lg"><Link href="/checkout"><span>Purchase Tickets</span></Link></Button>
-                                )}
-                                <Button asChild size="skew_lg" variant={tournament.data.tickets_available ? "accent" : undefined}><Link href="/tournament/fort-lauderdale"><span>Matches</span></Link></Button>
+                    {/* Intro slide */}
+                    <HeroSliderSlide key="intro" className="grid grid-cols-1 lg:grid-cols-[auto_1fr]">
+                        <HeroSliderSlideContent className="relative z-10 w-full lg:max-w-3xl justify-self-start flex flex-col items-start justify-center bg-extra-muted !min-h-0 px-6 lg:px-18 py-12 lg:py-24">
+                            <div className="absolute top-0 bottom-0 -right-[0.5rem] -left-[50%] origin-bottom-right -skew-x-[var(--skew-btn)] bg-secondary/15 backdrop-blur-sm border-r border-foreground/10" />
+                            <div className="absolute top-0 bottom-0 right-0 -left-[50%] origin-bottom-right -skew-x-[var(--skew-btn)] bg-extra-muted" />
+                            <GradientBg className="top-0 bottom-0 right-0 -left-[50%] origin-bottom-right -skew-x-[var(--skew-btn)] opacity-30" />
+                            <div className="relative z-10 text-center md:text-left flex flex-col items-center md:items-start">
+                                <H1 className="uppercase">World Sevens Football</H1>
+                                <P className="text-2xl mt-2">
+                                    A fast-paced, action-packed global 7v7 football series
+                                </P>
+                                <div className="mt-8">
+                                    <Button asChild size="skew_lg" className="clip-chop-sm">
+                                        <Link href="/about"><span>Learn More</span></Link>
+                                    </Button>
+                                </div>
                             </div>
                         </HeroSliderSlideContent>
-                        <HeroSliderSlideContent className="max-w-none w-full h-full pb-6 lg:pb-12 pr-4 lg:pr-36 flex flex-col items-start justify-end text-shadow-xl gap-2">
-                            <H3 className="uppercase text-base lg:text-lg">Beyond Bancard Field</H3>
-                            <p className="text-3xl lg:text-5xl font-black font-proxima uppercase">Dec 5-7, 2025</p>
-                        </HeroSliderSlideContent>
+                        <div className="relative h-80 lg:h-auto overflow-hidden">
+                            <Image src="/images/static-media/W7FTrophy.avif" alt="World Sevens Football Trophy" fill className="object-cover object-center" />
+                        </div>
                     </HeroSliderSlide>
+                    {/* Tournament slides */}
+                    {[...heroTournamentsWithChampions].reverse().map(({ tournament: t, champion }, index) => {
+                        const heroImage = getImageUrl(t.data.hero_image);
+                        const eventNumber = heroTournamentsWithChampions.length - index;
+
+                        return (
+                            <HeroSliderSlide key={t.uid} className="grid grid-cols-1 lg:grid-cols-[auto_1fr]">
+                                {/* Content column - matches SubpageHeroContent structure */}
+                                <HeroSliderSlideContent className="relative z-10 w-full lg:max-w-3xl justify-self-start flex flex-col items-start justify-center bg-extra-muted !min-h-0 px-6 lg:px-18 py-12 lg:py-24">
+                                    <div className="absolute top-0 bottom-0 -right-[0.5rem] -left-[50%] origin-bottom-right -skew-x-[var(--skew-btn)] bg-secondary/15 backdrop-blur-sm border-r border-foreground/10" />
+                                    <div className="absolute top-0 bottom-0 right-0 -left-[50%] origin-bottom-right -skew-x-[var(--skew-btn)] bg-extra-muted" />
+                                    <GradientBg className="top-0 bottom-0 right-0 -left-[50%] origin-bottom-right -skew-x-[var(--skew-btn)] opacity-30" />
+                                    {t.uid === "fort-lauderdale" && (
+                                        <Background className="flex items-start justify-start">
+                                            <PalmtreeIcon fill="currentColor" className="opacity-3 text-foreground w-auto h-100 mask-b-from-0% mask-b-to-85%" />
+                                        </Background>
+                                    )}
+                                    <div className="relative z-10 text-center md:text-left flex flex-col items-center md:items-start">
+                                        <Status className="text-lg mb-5 gap-3">Event #{eventNumber}</Status>
+                                        <H1 className="uppercase">{t.data.nickname}</H1>
+                                        <P className="text-lg">
+                                            <span className="font-semibold">{formatDateRange(t.data.start_date, t.data.end_date)}</span>
+                                            <span className="ml-3 font-light text-sm">{t.data.stadium_name}</span>
+                                        </P>
+                                        {t.data.prize_pool && (
+                                            <P noSpace className="text-lg mt-1">
+                                                <span className="font-semibold">{formatCurrencyInWords(t.data.prize_pool)}</span>
+                                                <span className="ml-3 font-light text-sm">Prize Pool</span>
+                                            </P>
+                                        )}
+                                        {champion && (
+                                            <div className="flex items-center gap-3 mt-1">
+                                                <span className="font-semibold text-lg">Champion</span>
+                                                <ClubBadge team={champion} />
+                                            </div>
+                                        )}
+                                        <div className="mt-8 flex justify-start">
+                                            <div className="grid grid-cols-2 gap-4">
+                                                <Button asChild size="skew_lg" className="clip-chop-sm">
+                                                    <Link href={`/tournament/${t.uid}#group-stage`}><span>Results</span></Link>
+                                                </Button>
+                                                <Button asChild size="skew_lg" variant="outline">
+                                                    <Link href={`/tournament/${t.uid}#stat-sheet`}><span>Stat Sheet</span></Link>
+                                                </Button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </HeroSliderSlideContent>
+                                {/* Image column - matches SubpageHeroMedia structure */}
+                                <div className="relative h-80 lg:h-auto overflow-hidden">
+                                    {heroImage && (
+                                        <Image src={heroImage} alt={`${t.data.title} Tournament`} fill className="object-cover object-left" />
+                                    )}
+                                </div>
+                            </HeroSliderSlide>
+                        );
+                    })}
                 </HeroSlider>
-                <div className="mt-4" id="tune-in">
-                    <TuneInBanner 
-                        dazn={dazn}
-                        tnt={tnt}
-                        truTV={truTV}
-                        hboMax={hboMax}
-                        vix={vix}
-                        tudn={tudn}
-                        espn={espn}
-                        disneyPlus={disneyPlus}
-                    />
+                <div className="mt-4" id="stay-updated">
+                    <StayUpdatedBanner />
                 </div>
             </Section>
             <Container>
                 <Section padding="md">
                     <SectionHeading variant="split">
                         <SectionHeadingSubtitle>
-                            Fort Lauderdale – Participants
+                            Fast. Fierce. Action Packed.
                         </SectionHeadingSubtitle>
                         <SectionHeadingHeading>
                             Featuring Elite Global Talent
@@ -132,53 +172,42 @@ export default function HomePageContent({
                             The global 7v7 series reimagining the game. Elite clubs, star players, high-stakes matches, and a $5M prize pool per tournament.
                         </SectionHeadingText>
                     </SectionHeading>
-                    <ClubList tournament={tournament} />
-                </Section>
-                <Section padding="md">
-                    <TicketOptionsGrid tournament={tournament} />
-                </Section>
-                <Section padding="md">
-                    <Separator variant="gradient" />
+                    <VideoBanner
+                        thumbnail="/images/static-media/video-banner.avif"
+                        videoUrl="https://r2.vidzflow.com/source/a4c227f3-6918-4e29-8c72-b509a9cf3d5c.mp4"
+                        label="2025 Playback"
+                        variant="emphasised"
+                    />
                 </Section>
                 <Section padding="md">
                     <SectionHeading variant="split">
                         <SectionHeadingSubtitle>
-                            Event #1 Recap
+                            Global Events
                         </SectionHeadingSubtitle>
                         <SectionHeadingHeading>
-                            World Sevens Football Kickoff
+                            Tournaments
                         </SectionHeadingHeading>
-                        <SectionHeadingText variant="lg">
-                            The inaugural World Sevens Football (W7F) tournament in Estoril, Portugal, delivered an electrifying showcase of elite women&apos;s football. Bayern Munich emerged as champions after a thrilling 2–1 comeback victory over Manchester United in the final, securing the lion&apos;s share of the $5 million prize pool.
-                        </SectionHeadingText>
                     </SectionHeading>
-                    {featuredRecapBlog && (
-                        <PostCardHoriz blog={mapBlogDocumentToMetadata(featuredRecapBlog)} />
-                    )}
-                </Section>
-                <Section padding="md">
-                    <VideoBanner
-                        thumbnail="/images/static-media/video-banner.avif"
-                        videoUrl="https://r2.vidzflow.com/source/a4c227f3-6918-4e29-8c72-b509a9cf3d5c.mp4"
-                        label="Recap the action"
-                    />
-                </Section>
-                <Section padding="md" >
-                    <SectionHeading variant="split">
-                        <div>
-                            <SectionHeadingHeading variant="h2">
-                                Event #1 Founding Participants
-                            </SectionHeadingHeading>
-                            <P className="text-lg pb-6 md:pb-0">
-                                Estoril, Portugal • MAY 21-23, 2025
-                            </P>
+                    <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-4">
+                        <div className="flex flex-col gap-4">
+                            <TournamentCard tournament={allTournaments[0]} />
+                            <ClubList tournament={allTournaments[0]} variant="small" noSkew />
                         </div>
-                        <Button asChild size="skew" variant="outline" className="w-fit ml-0 md:ml-auto mt-auto">
-                            <PrismicLink document={estorilTournament}><span>View Results</span></PrismicLink>
-                        </Button>
-                    </SectionHeading>
-                    {estorilTournament && <ClubList tournament={estorilTournament} />}
+                        <Separator variant="gradient" orientation="vertical" className="hidden md:block !h-auto" />
+                        <div className="flex flex-col gap-4">
+                            <TournamentCard tournament={allTournaments[1]} />
+                            <ClubList tournament={allTournaments[1]} variant="small" noSkew />
+                        </div>
+                    </div>
+
+                    
                 </Section>
+                <Separator variant="gradient" />
+                <Section padding="md">
+                    
+                    <TestimonialCarousel />
+                </Section>
+                <Separator variant="gradient" />
                 <Section padding="md" className="min-h-screen">
                     <SectionHeading variant="split">
                         <SectionHeadingSubtitle>

@@ -3,9 +3,8 @@ import type { Metadata } from "next";
 
 import { NavMain } from "@/components/website-base/nav/nav-main";
 import { Footer } from "@/components/website-base/footer/footer-main";
-import { getTournamentByUid, getLiveTournament } from "@/cms/queries/tournaments";
+import { getTournaments, getLiveTournament } from "@/cms/queries/tournaments";
 import { getSocialBlogsByCategory } from "@/cms/queries/blog";
-import { getBroadcastPartnerByUid } from "@/cms/queries/broadcast-partners";
 import { getTeamsByTournament } from "@/cms/queries/team";
 import { getF1Fixtures } from "@/app/api/opta/feeds";
 import { groupMatchesByDate } from "@/app/(website)/(subpages)/tournament/utils";
@@ -13,6 +12,8 @@ import { buildMatchSlugMap } from "@/lib/match-url";
 import { fetchF9FeedsForMatches, extractMatchIdsFromFixtures } from "@/lib/opta/match-data";
 import type { F1MatchData, F1TeamData } from "@/types/opta-feeds/f1-fixtures";
 import type { F9MatchResponse } from "@/types/opta-feeds/f9-match";
+import type { TeamDocument } from "../../../../prismicio-types";
+import { normalizeOptaId } from "@/lib/opta/utils";
 import { dev } from "@/lib/dev";
 import HomePageContent from "./page-content";
 
@@ -64,23 +65,60 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
-    const tournament = await getTournamentByUid("fort-lauderdale");
-    const estorilTournament = await getTournamentByUid("estoril-portugal");
-    const liveTournament = await getLiveTournament();
+    const [allTournaments, liveTournament] = await Promise.all([
+        getTournaments(),
+        getLiveTournament()
+    ]);
+
+    // Filter for complete tournaments and sort by navigation_order (descending so most recent first)
+    const completeTournaments = allTournaments
+        .filter(t => t.data.status === "Complete")
+        .sort((a, b) => (b.data.navigation_order || 0) - (a.data.navigation_order || 0));
+
+    // Fetch champion data for each complete tournament
+    const heroTournamentsWithChampions = await Promise.all(
+        completeTournaments.map(async (t) => {
+            let champion: TeamDocument | null = null;
+
+            if (t.data.opta_competition_id && t.data.opta_season_id && t.uid) {
+                try {
+                    const [fixtures, teams] = await Promise.all([
+                        getF1Fixtures(t.data.opta_competition_id, t.data.opta_season_id),
+                        getTeamsByTournament(t.uid)
+                    ]);
+
+                    // Find the Final match and get the winner
+                    const matchData = fixtures?.SoccerFeed?.SoccerDocument?.MatchData;
+                    if (matchData && Array.isArray(matchData)) {
+                        const finalMatch = matchData.find(
+                            match => match.MatchInfo?.RoundType === "Final" && match.MatchInfo?.Period === "FullTime"
+                        );
+
+                        if (finalMatch) {
+                            const winnerRef = finalMatch.MatchInfo?.MatchWinner || finalMatch.MatchInfo?.GameWinner;
+                            if (winnerRef) {
+                                const winnerOptaId = normalizeOptaId(winnerRef);
+                                champion = teams.find(
+                                    team => normalizeOptaId(`t${team.data.opta_id}`) === winnerOptaId
+                                ) || null;
+                            }
+                        }
+                    }
+                } catch (error) {
+                    dev.log(`Error fetching champion data for ${t.uid}:`, error);
+                }
+            }
+
+            return { tournament: t, champion };
+        })
+    );
 
     const tournamentRecapBlogs = await getSocialBlogsByCategory("Tournament Recap");
     const featuredRecapBlog = tournamentRecapBlogs.length > 0 ? tournamentRecapBlogs[0] : null;
 
-    const [dazn, tnt, truTV, hboMax, vix, tudn, espn, disneyPlus] = await Promise.all([
-        getBroadcastPartnerByUid("dazn"),
-        getBroadcastPartnerByUid("tnt"),
-        getBroadcastPartnerByUid("tru-tv"),
-        getBroadcastPartnerByUid("hbo-max"),
-        getBroadcastPartnerByUid("vix"),
-        getBroadcastPartnerByUid("tudn"),
-        getBroadcastPartnerByUid("espn"),
-        getBroadcastPartnerByUid("disney-plus"),
-    ]);
+    // Get the featured tournament (first complete one) for the rest of the page content
+    const tournament = completeTournaments[0] || null;
+
 
     let groupedFixtures: Map<string, F1MatchData[]> = new Map();
     let prismicTeams: Awaited<ReturnType<typeof getTeamsByTournament>> = [];
@@ -148,17 +186,9 @@ export default async function HomePage() {
             <main className="flex-grow min-h-[30rem]">
                 <div>
                     <HomePageContent
-                        tournament={tournament}
-                        estorilTournament={estorilTournament}
+                        heroTournamentsWithChampions={heroTournamentsWithChampions}
                         featuredRecapBlog={featuredRecapBlog}
-                        dazn={dazn}
-                        tnt={tnt}
-                        truTV={truTV}
-                        hboMax={hboMax}
-                        vix={vix}
-                        tudn={tudn}
-                        espn={espn}
-                        disneyPlus={disneyPlus}
+                        allTournaments={allTournaments}
                     />
                 </div>
             </main>

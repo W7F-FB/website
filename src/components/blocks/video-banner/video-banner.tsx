@@ -15,6 +15,7 @@ interface VideoBannerProps {
     label?: string;
     className?: string;
     size?: "sm" | "lg";
+    variant?: "emphasised";
 }
 
 export const VideoBanner: React.FC<VideoBannerProps> = ({
@@ -23,6 +24,7 @@ export const VideoBanner: React.FC<VideoBannerProps> = ({
     label,
     className,
     size = "lg",
+    variant,
 }) => {
     const { isOpen, openPlayer, closePlayer } = useReactPlayer();
 
@@ -41,7 +43,7 @@ export const VideoBanner: React.FC<VideoBannerProps> = ({
 
             {label && (
                 <div className="absolute top-4 left-4 z-10">
-                    <Badge fast variant="secondary">{label}</Badge>
+                    <Badge fast variant={variant === "emphasised" ? "default" : "secondary"}>{label}</Badge>
                 </div>
             )}
 
