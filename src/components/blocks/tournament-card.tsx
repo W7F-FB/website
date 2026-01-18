@@ -5,7 +5,7 @@ import { cn, relativeDateRange, formatDateRange, cleanCountryCode } from "@/lib/
 
 import type { TournamentDocument } from "../../../prismicio-types"
 import { Background } from "../ui/background"
-import { H2, H3, TextProtect } from "../website-base/typography"
+import { H3, TextProtect } from "../website-base/typography"
 import { PrismicLink } from "@prismicio/react"
 import { PrismicNextImage } from "@prismicio/next"
 import { CaretRightIcon } from "../website-base/icons"

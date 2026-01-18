@@ -10,8 +10,6 @@ import { GradientBanner } from "@/components/ui/gradient-banner"
 import { cn } from "@/lib/utils"
 import { H2, P, Subtitle } from "../website-base/typography"
 import { Separator } from "../ui/separator"
-import { Background } from "@/components/ui/background"
-import { PalmtreeIcon } from "../website-base/icons"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Field, FieldError, FieldLabel } from "@/components/ui/field"
@@ -27,11 +25,9 @@ const schema = z.object({
 
 const KLAVIYO_LIST_ID = "UrjmkJ"
 
-interface StayUpdatedBannerProps extends React.ComponentProps<typeof GradientBanner> {}
-
 const StayUpdatedBanner = React.forwardRef<
     HTMLDivElement,
-    StayUpdatedBannerProps
+    React.ComponentProps<typeof GradientBanner>
 >(({ className, ...props }, ref) => {
     const [submitted, setSubmitted] = React.useState<string | null>(null)
     const [error, setError] = React.useState<string | null>(null)

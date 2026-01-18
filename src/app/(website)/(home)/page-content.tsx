@@ -12,14 +12,13 @@ import { ClubList } from "@/components/blocks/clubs/club-list";
 import { ClubBadge } from "@/components/blocks/clubs/club";
 import { SectionHeading, SectionHeadingHeading, SectionHeadingSubtitle, SectionHeadingText } from "@/components/sections/section-heading";
 import { RecentNewsGrid } from "@/components/blocks/recent-news-grid";
-import { TicketOptionsGrid } from "@/components/blocks/ticket-options-grid";
 import { VideoBanner } from "@/components/blocks/video-banner/video-banner";
 import { Separator } from "@/components/ui/separator";
 import { PrismicLink } from "@prismicio/react";
 import { FAQBannerLayout } from "@/components/blocks/faq-banner-layout";
 import { TournamentCard } from "@/components/blocks/tournament-card";
 import { TestimonialCarousel } from "@/components/blocks/testimonial-carousel";
-import { mapBlogDocumentToMetadata, formatDateRange, formatCurrencyInWords } from "@/lib/utils";
+import { formatDateRange, formatCurrencyInWords } from "@/lib/utils";
 import { CaretRightIcon, PalmtreeIcon } from "@/components/website-base/icons";
 import { Background } from "@/components/ui/background";
 import { StayUpdatedBanner } from "@/components/blocks/stay-updated-banner";
@@ -68,7 +67,7 @@ type Props = {
 
 export default function HomePageContent({
     heroTournamentsWithChampions,
-    featuredRecapBlog,
+    featuredRecapBlog: _featuredRecapBlog,
     allTournaments,
 }: Props) {
     return (
