@@ -16,6 +16,7 @@ interface VideoBannerProps {
     className?: string;
     size?: "sm" | "lg";
     variant?: "emphasised";
+    aspectRatio?: string;
 }
 
 export const VideoBanner: React.FC<VideoBannerProps> = ({
@@ -25,6 +26,7 @@ export const VideoBanner: React.FC<VideoBannerProps> = ({
     className,
     size = "lg",
     variant,
+    aspectRatio,
 }) => {
     const { isOpen, openPlayer, closePlayer } = useReactPlayer();
 
@@ -53,7 +55,7 @@ export const VideoBanner: React.FC<VideoBannerProps> = ({
 
             <div className="absolute inset-0 w-full h-full bg-black/60 transition-all ease-linear group-hover:bg-black/45"></div>
 
-            {isOpen && <VideoModal videoUrl={videoUrl} onClose={closePlayer} />}
+            {isOpen && <VideoModal videoUrl={videoUrl} onClose={closePlayer} aspectRatio={aspectRatio} />}
         </div>
 
     )

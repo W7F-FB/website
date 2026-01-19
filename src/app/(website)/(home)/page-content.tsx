@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 
@@ -8,10 +10,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import type { FAQItem } from "@/types/basic";
-import { ClubList } from "@/components/blocks/clubs/club-list";
+import { ClubListClient, type ClubListData } from "@/components/blocks/clubs/club-list-client";
 import { ClubBadge } from "@/components/blocks/clubs/club";
 import { SectionHeading, SectionHeadingHeading, SectionHeadingSubtitle, SectionHeadingText } from "@/components/sections/section-heading";
-import { RecentNewsGrid } from "@/components/blocks/recent-news-grid";
+import { RecentNewsGridClient } from "@/components/blocks/recent-news-grid-client";
+import type { BlogMetadata } from "@/components/blocks/posts/post";
 import { VideoBanner } from "@/components/blocks/video-banner/video-banner";
 import { Separator } from "@/components/ui/separator";
 import { PrismicLink } from "@prismicio/react";
@@ -63,12 +66,16 @@ type Props = {
     heroTournamentsWithChampions: HeroTournamentWithChampion[];
     featuredRecapBlog: BlogDocument | null;
     allTournaments: TournamentDocument[];
+    clubListData: ClubListData[];
+    recentNewsPosts: BlogMetadata[];
 };
 
 export default function HomePageContent({
     heroTournamentsWithChampions,
     featuredRecapBlog: _featuredRecapBlog,
     allTournaments,
+    clubListData,
+    recentNewsPosts,
 }: Props) {
     return (
         <PaddingGlobal>
@@ -147,7 +154,7 @@ export default function HomePageContent({
                                 {/* Image column - matches SubpageHeroMedia structure */}
                                 <div className="relative h-80 lg:h-auto overflow-hidden">
                                     {heroImage && (
-                                        <Image src={heroImage} alt={`${t.data.title} Tournament`} fill className="object-cover object-left" />
+                                        <Image src={heroImage} alt={`${t.data.title} Tournament`} fill className="object-cover object-center" />
                                     )}
                                 </div>
                             </HeroSliderSlide>
@@ -173,9 +180,11 @@ export default function HomePageContent({
                     </SectionHeading>
                     <VideoBanner
                         thumbnail="/images/static-media/video-banner.avif"
-                        videoUrl="https://r2.vidzflow.com/source/a4c227f3-6918-4e29-8c72-b509a9cf3d5c.mp4"
+                        videoUrl="https://r2.vidzflow.com/source/5428a452-4e87-47df-9685-a1e034113d79.mp4"
                         label="2025 Playback"
                         variant="emphasised"
+                        aspectRatio="aspect-[9/16]"
+                        className="[&_.video-player]:max-h-[85vh]"
                     />
                 </Section>
                 <Section padding="md">
@@ -190,12 +199,12 @@ export default function HomePageContent({
                     <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-4">
                         <div className="flex flex-col gap-4">
                             <TournamentCard tournament={allTournaments[0]} />
-                            <ClubList tournament={allTournaments[0]} variant="small" noSkew />
+                            {clubListData[0] && <ClubListClient data={clubListData[0]} variant="small" noSkew />}
                         </div>
                         <Separator variant="gradient" orientation="vertical" className="hidden md:block !h-auto" />
                         <div className="flex flex-col gap-4">
                             <TournamentCard tournament={allTournaments[1]} />
-                            <ClubList tournament={allTournaments[1]} variant="small" noSkew />
+                            {clubListData[1] && <ClubListClient data={clubListData[1]} variant="small" noSkew />}
                         </div>
                     </div>
 
@@ -219,7 +228,7 @@ export default function HomePageContent({
                             <PrismicLink href="/news"><span>All News</span></PrismicLink>
                         </Button>
                     </SectionHeading>
-                    <RecentNewsGrid />
+                    <RecentNewsGridClient posts={recentNewsPosts} />
                 </Section>
                 <Separator variant="gradient" className="my-16" />
                 <Section padding="md">

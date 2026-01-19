@@ -9,6 +9,11 @@ import { SubpageHeroSecondary } from "@/components/blocks/subpage-hero";
 import { SectionNav } from "./section-nav";
 import { faqSections } from "@/lib/data/faqs";
 
+// Filter out event and ticketing sections
+const visibleFaqSections = faqSections.filter(
+    section => section.id !== "event" && section.id !== "ticketing"
+);
+
 export const metadata: Metadata = {
     title: "FAQs - World Sevens Football",
     description:
@@ -58,11 +63,11 @@ export default function FAQsPage() {
         <Container maxWidth="lg">
         <Section padding="md" className="min-h-screen grid grid-cols-12 gap-4 md:gap-16 w-full">
             <div className="hidden md:block col-span-3 md:sticky md:top-24 md:self-start">
-                <SectionNav sections={faqSections} />
+                <SectionNav sections={visibleFaqSections} />
             </div>
 
             <div className="col-span-12 md:col-span-9 space-y-10 w-full min-w-0">
-                {faqSections.map((section) => (
+                {visibleFaqSections.map((section) => (
                     <div key={section.id} id={section.id} className="scroll-mt-24 w-full">
                         <Accordion type="single" collapsible className="w-full">
                             <H2 className="uppercase">{section.title}</H2>

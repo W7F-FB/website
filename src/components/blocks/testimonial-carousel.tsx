@@ -49,10 +49,6 @@ function TestimonialCarousel({ className }: { className?: string }) {
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      {/* Quote mark - always at top */}
-      <span className="text-6xl md:text-8xl text-primary leading-none select-none">
-        "
-      </span>
 
       {/* Content area - uses grid to stack all testimonials, tallest sets height */}
       <div className="grid py-4">
