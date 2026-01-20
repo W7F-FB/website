@@ -19,6 +19,7 @@ interface NavigationMenuTournamentProps {
     tournament?: TournamentDocument
     className?: string
     children?: React.ReactNode
+    useHeroImage?: boolean
 }
 
 interface NavigationMenuTournamentFeaturedProps {
@@ -32,9 +33,11 @@ interface NavigationMenuTournamentFeaturedProps {
 
 export function NavigationMenuTournament({
     className,
-    tournament
+    tournament,
+    useHeroImage = false
 }: NavigationMenuTournamentProps) {
-    if (!tournament?.data.show_in_navigation || !tournament?.data.nav_image?.url) {
+    const imageField = useHeroImage ? tournament?.data.hero_image : tournament?.data.nav_image
+    if (!tournament?.data.show_in_navigation || !imageField?.url) {
         return null
     }
 
@@ -59,7 +62,7 @@ export function NavigationMenuTournament({
     const statusText = getStatusText()
 
     return (
-        <NavSheetLink>
+        <NavSheetLink className="flex-1">
             <PrismicLink
                 document={tournament}
                 data-slot="navigation-menu-link"
@@ -71,7 +74,7 @@ export function NavigationMenuTournament({
             >
                 <Background className="-inset-4">
                     <PrismicNextImage
-                        field={tournament.data.nav_image}
+                        field={imageField}
                         fill
                         priority
                         loading="eager"

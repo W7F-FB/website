@@ -466,9 +466,11 @@ function NavigationMenuIndicator({
 function NavSheetLink({
   children,
   href,
+  className,
 }: {
   children: React.ReactElement
   href?: string
+  className?: string
 }) {
   const { isTablet, setIsSheetOpen } = useNavigationMenuContext()
   const router = useRouter()
@@ -505,6 +507,7 @@ function NavSheetLink({
 
   return React.cloneElement(children, {
     onClick: handleClick,
+    className: cn((children.props as { className?: string })?.className, className),
   } as React.HTMLAttributes<HTMLElement>)
 }
 

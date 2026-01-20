@@ -228,9 +228,46 @@ export default async function HomePage() {
     const clubListDataPromises = allTournaments.slice(0, 2).map(t => fetchClubListData(t));
     const clubListDataResults = await Promise.all(clubListDataPromises);
 
-    // Fetch recent news data
+    // Fetch recent news data - sort by user-defined date field (date only) first, then created date (with time)
     const allBlogs = await getAllBlogs();
-    const recentNewsPosts = allBlogs.slice(0, 4).map(mapBlogDocumentToMetadata);
+    const sortedBlogs = [...allBlogs].sort((a, b) => {
+      const dateA = a.data.date;
+      const dateB = b.data.date;
+      
+      if (!dateA && !dateB) {
+        const createdA = a.first_publication_date ? new Date(a.first_publication_date).getTime() : 0;
+        const createdB = b.first_publication_date ? new Date(b.first_publication_date).getTime() : 0;
+        if (createdB !== createdA) return createdB - createdA;
+        return (a.uid || "").localeCompare(b.uid || "");
+      }
+      if (!dateA) return 1;
+      if (!dateB) return -1;
+      
+      const dateATime = new Date(dateA).setHours(0, 0, 0, 0);
+      const dateBTime = new Date(dateB).setHours(0, 0, 0, 0);
+      const dateCompare = dateBTime - dateATime;
+      
+      if (dateCompare !== 0) {
+        return dateCompare;
+      }
+      
+      const createdA = a.first_publication_date ? new Date(a.first_publication_date).getTime() : 0;
+      const createdB = b.first_publication_date ? new Date(b.first_publication_date).getTime() : 0;
+      if (createdB !== createdA) return createdB - createdA;
+      return (a.uid || "").localeCompare(b.uid || "");
+    });
+    
+    dev.log("Recent News Posts (sorted by date field, then created date):");
+    sortedBlogs.slice(0, 4).forEach((blog, index) => {
+      const dateField = blog.data.date || "No date";
+      const createdDate = blog.first_publication_date 
+        ? new Date(blog.first_publication_date).toISOString()
+        : "No created date";
+      const title = blog.data.title || "Untitled";
+      dev.log(`${index + 1}. "${title}" - Date: ${dateField}, Created: ${createdDate}`);
+    });
+    
+    const recentNewsPosts = sortedBlogs.slice(0, 4).map(mapBlogDocumentToMetadata);
 
     return (
         <>

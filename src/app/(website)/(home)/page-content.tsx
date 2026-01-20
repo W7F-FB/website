@@ -94,7 +94,7 @@ export default function HomePageContent({
                                 </P>
                                 <div className="mt-8">
                                     <Button asChild size="skew_lg" className="clip-chop-sm">
-                                        <Link href="/about"><span>Learn More</span></Link>
+                                        <Link href="#tournaments"><span>Tournaments</span></Link>
                                     </Button>
                                 </div>
                             </div>
@@ -172,10 +172,10 @@ export default function HomePageContent({
                             Fast. Fierce. Action Packed.
                         </SectionHeadingSubtitle>
                         <SectionHeadingHeading>
-                            Featuring Elite Global Talent
+                            Featuring Professional Global Talent
                         </SectionHeadingHeading>
                         <SectionHeadingText variant="lg">
-                            The global 7v7 series reimagining the game. Elite clubs, star players, high-stakes matches, and a $5M prize pool per tournament.
+                            The global 7v7 series reimagining the game. Professional clubs, star players, high-stakes matches, and a $5M prize pool per tournament.
                         </SectionHeadingText>
                     </SectionHeading>
                     <VideoBanner
@@ -187,7 +187,7 @@ export default function HomePageContent({
                         className="[&_.video-player]:max-h-[85vh]"
                     />
                 </Section>
-                <Section padding="md">
+                <Section padding="md" id="tournaments">
                     <SectionHeading variant="split">
                         <SectionHeadingSubtitle>
                             Global Events
