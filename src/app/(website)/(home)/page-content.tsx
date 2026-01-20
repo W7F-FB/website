@@ -90,7 +90,7 @@ export default function HomePageContent({
                             <div className="relative z-10 text-center md:text-left flex flex-col items-center md:items-start">
                                 <H1 className="uppercase">World Sevens Football</H1>
                                 <P className="text-2xl mt-2">
-                                    A fast-paced, action-packed global 7v7 football series
+                                    A fast-paced, action-packed global 7v7 women's football series
                                 </P>
                                 <div className="mt-8">
                                     <Button asChild size="skew_lg" className="clip-chop-sm">
