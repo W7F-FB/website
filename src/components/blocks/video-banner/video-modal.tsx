@@ -7,9 +7,10 @@ import ReactPlayer from "react-player";
 interface VideoModalProps {
   videoUrl: string;
   onClose: () => void;
+  aspectRatio?: string;
 }
 
-export const VideoModal: React.FC<VideoModalProps> = ({ videoUrl, onClose }) => {
+export const VideoModal: React.FC<VideoModalProps> = ({ videoUrl, onClose, aspectRatio = "aspect-video" }) => {
   const [visible, setVisible] = useState(false);
 
   const handleClose = useCallback(() => {
@@ -51,7 +52,7 @@ export const VideoModal: React.FC<VideoModalProps> = ({ videoUrl, onClose }) => 
         <XIcon className="size-5" />
       </button>
 
-      <div className="relative w-full max-w-[60rem] min-h-[10rem] aspect-video overflow-hidden">
+      <div className={`relative video-player max-h-[70vh] ${aspectRatio} overflow-hidden`}>
         <ReactPlayer src={videoUrl} playing controls width="100%" height="100%" />
       </div>
     </div>

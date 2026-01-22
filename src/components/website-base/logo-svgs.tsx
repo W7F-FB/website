@@ -118,14 +118,15 @@ W7FVerticalGradientIcon.displayName = "W7FVerticalGradientIcon"
 
 interface W7FVerticalIconMaskProps extends IconProps {
   children?: React.ReactNode
+  maskId: string
 }
 
 export const W7FVerticalIconMask = ({
   className,
   children,
+  maskId,
   ...props
 }: W7FVerticalIconMaskProps) => {
-  const maskId = useId()
 
   return (
     <svg

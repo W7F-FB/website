@@ -9,9 +9,11 @@ import { dev } from "@/lib/dev"
 
 interface ClubListProps extends React.ComponentProps<"div"> {
   tournament: TournamentDocument
+  variant?: "default" | "small"
+  noSkew?: boolean
 }
 
-export async function ClubList({ tournament, className, ...props }: ClubListProps) {
+export async function ClubList({ tournament, variant = "default", noSkew = false, className, ...props }: ClubListProps) {
   const teams = await getTeamsByTournament(tournament.uid)
   const sortedTeams = [...teams].sort((a, b) => {
     const aSort = (a.data.alphabetical_sort_string || "").toLowerCase()
@@ -76,42 +78,56 @@ export async function ClubList({ tournament, className, ...props }: ClubListProp
     allItems.push({ type: 'comingSoon', number: i + 1 })
   }
 
+  const columnsPerRow = variant === "small" ? Math.ceil(numberOfTeams / 2) : numberOfTeams
+
+  const gridId = `club-list-${tournament.uid}-${variant}`
+
   return (
     <>
       <style dangerouslySetInnerHTML={{
-        __html: `
-          .club-list-grid {
-            grid-template-columns: repeat(2, 1fr);
-          }
-          @media (min-width: 1024px) {
-            .club-list-grid {
-              grid-template-columns: repeat(${numberOfTeams}, 1fr);
+        __html: variant === "small"
+          ? `
+            .club-list-grid-${gridId} {
+              grid-template-columns: repeat(${columnsPerRow}, 1fr);
             }
-          }
-        `
+          `
+          : `
+            .club-list-grid-${gridId} {
+              grid-template-columns: repeat(2, 1fr);
+            }
+            @media (min-width: 1024px) {
+              .club-list-grid-${gridId} {
+                grid-template-columns: repeat(${columnsPerRow}, 1fr);
+              }
+            }
+          `
       }} />
-      <div 
-        className={`grid club-list-grid gap-3 ${className || ""}`}
+      <div
+        className={`grid club-list-grid-${gridId} ${variant === "small" ? "gap-2" : "gap-3"} ${className || ""}`}
         {...props}
       >
       {allItems.map((item) => {
         if (item.type === 'team') {
           const optaId = item.team.data.opta_id
           const placement = optaId ? placementMap[optaId] : undefined
-          
+
           return (
-            <ClubBasic 
-              key={item.team.id} 
-              team={item.team} 
+            <ClubBasic
+              key={item.team.id}
+              team={item.team}
               placement={placement}
+              variant={variant}
+              noSkew={noSkew}
             />
           )
         } else {
           return (
-            <ClubBasic 
-              key={`coming-soon-${item.number}`} 
+            <ClubBasic
+              key={`coming-soon-${item.number}`}
               team={{} as TeamDocument}
               comingSoon={item.number}
+              variant={variant}
+              noSkew={noSkew}
             />
           )
         }

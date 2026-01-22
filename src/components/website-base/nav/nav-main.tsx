@@ -134,10 +134,91 @@ async function NavMain({ showBreadcrumbs, pathname, customBreadcrumbs, groupedFi
                   <NavigationMenuContent className="right-auto !w-max">
                     {(() => {
                       const otherTournaments = tournaments.filter(t => t.data.featured !== true)
+                      const sortedByRecent = [...otherTournaments].sort((a, b) => {
+                        const dateA = a.data.start_date ? new Date(a.data.start_date).getTime() : 0
+                        const dateB = b.data.start_date ? new Date(b.data.start_date).getTime() : 0
+                        return dateB - dateA
+                      })
+                      const leftColumnTournaments = featuredTournament ? [] : sortedByRecent.slice(0, 2)
+
+                      const StreamingSection = () => (
+                        navSettings?.moreInfoMode === "Where to watch" && broadcastPartners.length > 0 ? (
+                          <div className="flex flex-col lg:gap-3 gap-4 content-start">
+                            <div className="flex items-center gap-3 w-full">
+                              <Subtitle className="mb-0 text-sm">Stream Live, <span className="text-primary whitespace-nowrap">for Free</span> Worldwide</Subtitle>
+                            </div>
+                            <div className="flex flex-col w-full gap-3">
+                              {(() => {
+                                const daznPartner = broadcastPartners.find(p => p.uid === "dazn")
+                                const otherPartners = broadcastPartners.filter(p => p.uid !== "dazn")
+                                
+                                return (
+                                  <>
+                                    {daznPartner && (
+                                      <BroadcastPartnerLink
+                                        
+                                        key={daznPartner.id}
+                                        partner={daznPartner}
+                                        showName
+                                        className="bg-muted/20 border-y border-muted/50"
+                                      />
+                                    )}
+                                    {otherPartners.length > 0 && (
+                                      <div className="grid grid-cols-3 w-full gap-x-1.5">
+                                        {otherPartners.map((partner, index) => {
+                                          const totalPartners = otherPartners.length
+                                          const itemsInLastRow = totalPartners % 3 || 3
+                                          const lastRowStartIndex = totalPartners - itemsInLastRow
+                                          const isNotOnLastRow = index < lastRowStartIndex
+                                          
+                                          return (
+                                            <BroadcastPartnerLink
+                                              size="sm"
+                                              logoSize="lg:size-6 size-4.5"
+                                              key={partner.id}
+                                              partner={partner}
+                                              showName
+                                              noLink
+                                              className={cn("lg:text-xs text-xxs", isNotOnLastRow ? "border-t border-border/50" : "border-y border-border/50")}
+                                            />
+                                          )
+                                        })}
+                                      </div>
+                                    )}
+                                      <StreamingAvailabilityDialog broadcastPartners={broadcastPartners}>
+                                        <Button variant="secondary" size="sm" className="w-full gap-2.5">
+                                          <InformationCircleIcon className="size-3.5" /> Streaming Availability
+                                        </Button>
+                                      </StreamingAvailabilityDialog>
+                                    </>
+                                )
+                              })()}
+                            </div>
+                          </div>
+                        ) : recentBlog ? (
+                          <div className="flex flex-col lg:gap-3 gap-4 content-start">
+                            <div className="flex items-center w-full">
+                              <Subtitle className="mb-0 text-xs whitespace-nowrap">Recent News</Subtitle>
+                            </div>
+                            <PostMini
+                              blog={{
+                                title: recentBlog.data.title || "",
+                                slug: recentBlog.uid,
+                                excerpt: recentBlog.data.excerpt || null,
+                                image: isFilled.image(recentBlog.data.image) ? recentBlog.data.image.url : undefined,
+                                category: recentBlog.data.category || null,
+                                author: recentBlog.data.author || null,
+                                date: recentBlog.data.date || null,
+                              }}
+                              className="w-full lg:w-[320px]"
+                            />
+                          </div>
+                        ) : null
+                      )
 
                       return (
                         <div className="grid lg:grid-cols-[1fr_1px_auto] gap-4">
-                          {featuredTournament && (
+                          {featuredTournament ? (
                             <ul className="grid gap-2 h-full">
                               <NavigationMenuTournamentFeatured
                                 key={featuredTournament.id}
@@ -145,95 +226,40 @@ async function NavMain({ showBreadcrumbs, pathname, customBreadcrumbs, groupedFi
                                 teams={featuredTournamentTeams}
                               />
                             </ul>
-                          )}
-                          <Separator orientation="vertical" className="hidden lg:block" />
-                          <div className="flex flex-col gap-6 lg:py-3 lg:min-w-[320px]">
-                            {navSettings?.moreInfoMode === "Where to watch" && broadcastPartners.length > 0 ? (
-                              <div className="flex flex-col lg:gap-3 gap-4 content-start">
-                                <div className="flex items-center gap-3 w-full">
-                                  <Subtitle className="mb-0 text-sm">Stream Live, <span className="text-primary whitespace-nowrap">for Free</span> Worldwide</Subtitle>
-                                </div>
-                                <div className="flex flex-col w-full gap-3">
-                                  {(() => {
-                                    const daznPartner = broadcastPartners.find(p => p.uid === "dazn")
-                                    const otherPartners = broadcastPartners.filter(p => p.uid !== "dazn")
-                                    
-                                    return (
-                                      <>
-                                        {daznPartner && (
-                                          <BroadcastPartnerLink
-                                            
-                                            key={daznPartner.id}
-                                            partner={daznPartner}
-                                            showName
-                                            className="bg-muted/20 border-y border-muted/50"
-                                          />
-                                        )}
-                                        {otherPartners.length > 0 && (
-                                          <div className="grid grid-cols-3 w-full gap-x-1.5">
-                                            {otherPartners.map((partner, index) => {
-                                              const totalPartners = otherPartners.length
-                                              const itemsInLastRow = totalPartners % 3 || 3
-                                              const lastRowStartIndex = totalPartners - itemsInLastRow
-                                              const isNotOnLastRow = index < lastRowStartIndex
-                                              
-                                              return (
-                                                <BroadcastPartnerLink
-                                                  size="sm"
-                                                  logoSize="lg:size-6 size-4.5"
-                                                  key={partner.id}
-                                                  partner={partner}
-                                                  showName
-                                                  noLink
-                                                  className={cn("lg:text-xs text-xxs", isNotOnLastRow ? "border-t border-border/50" : "border-y border-border/50")}
-                                                />
-                                              )
-                                            })}
-                                          </div>
-                                        )}
-                                          <StreamingAvailabilityDialog broadcastPartners={broadcastPartners}>
-                                            <Button variant="secondary" size="sm" className="w-full gap-2.5">
-                                              <InformationCircleIcon className="size-3.5" /> Streaming Availability
-                                            </Button>
-                                          </StreamingAvailabilityDialog>
-                                        </>
-                                    )
-                                  })()}
-                                </div>
-                              </div>
-                            ) : recentBlog ? (
-                              <div className="flex flex-col lg:gap-3 gap-4 content-start">
-                                <div className="flex items-center w-full">
-                                  <Subtitle className="mb-0 text-xs whitespace-nowrap">Recent News</Subtitle>
-                                </div>
-                                <PostMini
-                                  blog={{
-                                    title: recentBlog.data.title || "",
-                                    slug: recentBlog.uid,
-                                    excerpt: recentBlog.data.excerpt || null,
-                                    image: isFilled.image(recentBlog.data.image) ? recentBlog.data.image.url : undefined,
-                                    category: recentBlog.data.category || null,
-                                    author: recentBlog.data.author || null,
-                                    date: recentBlog.data.date || null,
-                                  }}
-                                  className="w-full lg:w-[320px]"
+                          ) : leftColumnTournaments.length > 0 ? (
+                            <ul className="flex flex-col gap-2 h-full">
+                              {leftColumnTournaments.map((tournament) => (
+                                <NavigationMenuTournament
+                                  key={tournament.id}
+                                  tournament={tournament}
+                                  useHeroImage
                                 />
+                              ))}
+                            </ul>
+                          ) : null}
+                          <Separator orientation="vertical" className="hidden lg:block" />
+                          {featuredTournament ? (
+                            <div className="flex flex-col gap-6 lg:py-3 lg:min-w-[320px]">
+                              <StreamingSection />
+                              <div className="flex flex-col items-stretch lg:gap-3 gap-4 flex-grow items-start">
+                                <div className="flex items-center gap-3 w-full">
+                                  <Subtitle className="mb-0 text-xs whitespace-nowrap">Past Events</Subtitle>    
+                                </div>
+                                <ul className="grid gap-2 flex-grow">
+                                  {otherTournaments.map((tournament) => (
+                                    <NavigationMenuTournament
+                                      key={tournament.id}
+                                      tournament={tournament}
+                                    />
+                                  ))}
+                                </ul>
                               </div>
-                            ) : null}
-                            <div className="flex flex-col items-stretch lg:gap-3 gap-4 flex-grow items-start">
-                              <div className="flex items-center gap-3 w-full">
-                                <Subtitle className="mb-0 text-xs whitespace-nowrap">Past Events</Subtitle>    
-                              </div>
-                              <ul className="grid gap-2 flex-grow">
-                                {otherTournaments.map((tournament) => (
-                                  <NavigationMenuTournament
-                                    key={tournament.id}
-                                    tournament={tournament}
-                                  />
-                                ))}
-                              </ul>
                             </div>
-                          </div>
+                          ) : (
+                            <div className="flex flex-col gap-6 lg:py-3 lg:min-w-[320px]">
+                              <StreamingSection />
+                            </div>
+                          )}
                         </div>
                       )
                     })()}

@@ -86,19 +86,9 @@ const infoData: InfoCardItem[] = [
 const faqData: FAQItem[] = [
     {
         id: "item-1",
-        question: "How Do I Register?",
-        answer: (
-            <>
-                <P>Teams must register via Bracket Teams. Please complete the online application fully. Incomplete applications cannot be processed.  Any team not accepted will receive a full refund. Any team which withdraws after the application deadline of November 28, 2025 will not be eligible for a refund.</P>
-            </>
-        )
-    },
-    {
-        id: "item-2",
         question: "Tournament Information",
         answer: (
             <>
-                <P><strong>Register:</strong> <span><Link href="https://bracketteam.com/event/6693/Rising_7s/registration">REGISTER YOUR TEAM</Link></span></P>
                 <P>Questions, please email Claudia Rodriguez, Rising Sevens Tournament Director, at <span><Link href="mailto:crodriquez@tournamentsuccessgroup.com">crodriquez@tournamentsuccessgroup.com</Link></span></P>
             </>
         )
@@ -130,11 +120,6 @@ export default function RisingSevensPage() {
                         <P noSpace>December 6-7, 2025</P>
                         <P noSpace>Beyond Bancard Field & Dolphin Field at NSU</P>
                         <P noSpace>Fort Lauderdale, Florida</P>
-                        <div className="mt-8">
-                            <Button asChild size="skew">
-                                <Link href="https://bracketteam.com/event/6693/Rising_7s/registration" target="_blank"><span>Register Now</span></Link>
-                            </Button>
-                        </div>
                     </Container>
                 </Section>
                 <Section padding="md">
@@ -144,11 +129,6 @@ export default function RisingSevensPage() {
                             <P>World Sevens Football proudly introduces Rising Sevens, a youth version of the W7F experience — giving the next generation of elite players the opportunity to be part of this groundbreaking global series. Rising Sevens will take place at Dolphin Field on the campus of Nova Southeastern University (NSU) in Davie, Florida — adjacent to Beyond Bancard Stadium, the site of the professional tournament.</P>
                             <P>The youth event is open to girls’ teams in the U9 through U12 age groups. All four age groups will compete on Saturday, December 6 and Sunday, December 7.</P>
                             <Footnote>Rising Sevens is not affiliated with FYSA or US Club Soccer and is open to all clubs, coaches, and teams. Whether you’re a club coach, trainer, or team parent, you can organize a team and take part in this exciting new addition to the World Sevens Football series.</Footnote>
-                            <div className="mt-8">
-                                <Button asChild size="skew">
-                                    <Link href="https://bracketteam.com/event/6693/Rising_7s/registration" target="_blank"><span>Register Your Team</span></Link>
-                                </Button>
-                            </div>
                         </div>
                         <div>
                             <div className="flex mb-8 mt-3">

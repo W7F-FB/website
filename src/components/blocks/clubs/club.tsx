@@ -16,20 +16,24 @@ interface ClubBasicProps extends React.ComponentProps<"div"> {
   team: TeamDocument
   comingSoon?: number
   placement?: number
+  variant?: "default" | "small"
+  noSkew?: boolean
 }
 
-function ClubBasic({ team, comingSoon, placement, className, ...props }: ClubBasicProps) {
+function ClubBasic({ team, comingSoon, placement, variant = "default", noSkew = false, className, ...props }: ClubBasicProps) {
   const logoUrl = comingSoon ? null : getImageUrl(team.data.logo)
   const logoAlt = comingSoon ? null : getImageAlt(team.data.logo)
+  const isSmall = variant === "small"
 
   const containerClassName = cn(
-    "relative -skew-x-[calc(var(--skew-btn)/5)] origin-center overflow-hidden border border-border/50 ",
+    "relative overflow-hidden border border-border/50",
+    !noSkew && "-skew-x-[calc(var(--skew-btn)/5)] origin-center",
     !comingSoon && "hover:scale-98 transition-transform"
   )
 
   const content = (
     <>
-      <GradientBg 
+      <GradientBg
         className="w-[300%] aspect-square absolute bottom-0 right-0"
         overlayColor="oklch(0.1949 0.0274 260.031)"
         accentColor={team.data?.color_primary || "#0c224a"}
@@ -37,23 +41,28 @@ function ClubBasic({ team, comingSoon, placement, className, ...props }: ClubBas
         accentOpacity={0.4}
       />
       <div
-        className={cn("skew-x-[calc(var(--skew-btn)/5)] relative origin-center h-full", className)}
+        className={cn("relative h-full", !noSkew && "skew-x-[calc(var(--skew-btn)/5)] origin-center", className)}
         {...props}
       >
         <div className={cn(
-          "flex flex-col items-center justify-start space-y-3 py-6 px-3 h-full",
-          comingSoon && "pt-3"
+          "flex flex-col items-center justify-start h-full",
+          isSmall ? "space-y-1.5 py-3 px-2" : "space-y-3 py-6 px-3",
+          comingSoon && !isSmall && "pt-3"
         )}>
 
           {comingSoon ? (
 
-            <div className="py-3 overflow-hidden flex-shrink-0 flex items-center justify-center bg-muted/10 -skew-x-[calc(var(--skew-btn)/5)] w-full origin-bottom-left">
-              <div className="w-13 h-13 flex items-center justify-center">
-                <QuestionMarkIcon className="w-10 h-10 text-muted-foreground/20 skew-x-[calc(var(--skew-btn)/5)]" />
+            <div className={cn(
+              "overflow-hidden flex-shrink-0 flex items-center justify-center bg-muted/10 w-full origin-bottom-left",
+              !noSkew && "-skew-x-[calc(var(--skew-btn)/5)]",
+              isSmall ? "py-1.5" : "py-3"
+            )}>
+              <div className={cn("flex items-center justify-center", isSmall ? "w-8 h-8" : "w-13 h-13")}>
+                <QuestionMarkIcon className={cn("text-muted-foreground/20", !noSkew && "skew-x-[calc(var(--skew-btn)/5)]", isSmall ? "w-6 h-6" : "w-10 h-10")} />
               </div>
             </div>
           ) : logoUrl ? (
-            <div className="relative w-16 h-16 flex-shrink-0">
+            <div className={cn("relative flex-shrink-0", isSmall ? "w-8 h-8" : "w-16 h-16")}>
               <Image
                 src={logoUrl}
                 alt={logoAlt || team.data?.name || "Team logo"}
@@ -64,12 +73,12 @@ function ClubBasic({ team, comingSoon, placement, className, ...props }: ClubBas
             </div>
           ) : null}
 
-          <H3 className="font-bold text-center lg:text-xs text-xs py-1">
+          <H3 className={cn("font-bold text-center py-1", isSmall ? "text-[10px] lg:text-[10px]" : "lg:text-xs text-xs")}>
             {comingSoon ? `Team #${comingSoon}` : team.data?.name}
           </H3>
-          <div className="flex-grow w-full flex flex-col items-center justify-end space-y-2">
+          <div className={cn("flex-grow w-full flex flex-col items-center justify-end", isSmall ? "space-y-1" : "space-y-2")}>
             <Separator className="mr-2 bg-muted" />
-            <span className="font-headers text-muted-foreground text-xs font-medium text-center">
+            <span className={cn("font-headers text-muted-foreground font-medium text-center", isSmall ? "text-[10px]" : "text-xs")}>
               {comingSoon ? "Coming soon" : team.data?.country}
             </span>
           </div>
@@ -189,4 +198,47 @@ function ClubHorizontal({ team, index, record, className, ...props }: ClubHorizo
   )
 }
 
-export { ClubBasic, ClubHorizontal }
+interface ClubBadgeProps extends React.ComponentProps<"div"> {
+  team: TeamDocument
+}
+
+function ClubBadge({ team, className, ...props }: ClubBadgeProps) {
+  const logoUrl = getImageUrl(team.data.logo)
+  const logoAlt = getImageAlt(team.data.logo)
+
+  return (
+    <div
+      className={cn(
+        "relative -skew-x-[calc(var(--skew-btn)/3)] origin-center overflow-hidden border border-border/50",
+        className
+      )}
+      {...props}
+    >
+      <GradientBg
+        className="w-[150%] h-[200%] aspect-square absolute top-0  -left-[20%]  rotate-y-180 opacity-100"
+        overlayColor="oklch(0.1949 0.0274 260.031)"
+        accentColor={team.data?.color_primary || "#0c224a"}
+        shadowColor="oklch(0.1949 0.0274 260.031)"
+        accentOpacity={0.5}
+      />
+      <div className="skew-x-[calc(var(--skew-btn)/3)] relative origin-center flex items-center gap-2 py-1.5 px-3">
+        {logoUrl && (
+          <div className="relative size-5 flex-shrink-0">
+            <Image
+              src={logoUrl}
+              alt={logoAlt || team.data?.name || "Team logo"}
+              fill
+              className="object-contain"
+              sizes="100px"
+            />
+          </div>
+        )}
+        <span className="font-headers text-sm font-semibold">
+          {team.data?.name}
+        </span>
+      </div>
+    </div>
+  )
+}
+
+export { ClubBasic, ClubHorizontal, ClubBadge }

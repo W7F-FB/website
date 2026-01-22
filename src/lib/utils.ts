@@ -248,6 +248,8 @@ export function mapBlogDocumentToMetadata(blog: BlogDocument): BlogMetadata {
     category: blog.data.category ?? null,
     author: blog.data.author ?? null,
     date: blog.data.date ?? null,
+    publicationDate: blog.last_publication_date ?? null,
+    createdDate: blog.first_publication_date ?? null,
   }
 }
 

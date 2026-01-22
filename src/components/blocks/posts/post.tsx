@@ -19,6 +19,8 @@ export type BlogMetadata = {
   category?: string | null
   author?: string | null
   date?: string | null
+  publicationDate?: string | null
+  createdDate?: string | null
 }
 
 export type Blog = {

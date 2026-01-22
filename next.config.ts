@@ -30,11 +30,6 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
-        source: '/',
-        destination: '/tournament/fort-lauderdale',
-        permanent: true,
-      },
-      {
         source: '/info/know-before-you-go',
         destination: '/fort-lauderdale/know-before-you-go',
         permanent: true,
