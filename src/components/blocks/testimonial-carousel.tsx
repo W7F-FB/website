@@ -62,7 +62,7 @@ function TestimonialCarousel({ className }: { className?: string }) {
                 : "opacity-0 pointer-events-none"
             )}
           >
-            <p className="text-lg font-headers font-medium md:text-3xl lg:text-4xl leading-relaxed">
+            <p className="text-2xl font-headers font-medium md:text-3xl lg:text-4xl leading-relaxed">
               {testimonial.quote}
             </p>
             <p className="text-sm text-muted-foreground mt-6">

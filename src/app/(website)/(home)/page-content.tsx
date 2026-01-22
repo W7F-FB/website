@@ -196,7 +196,7 @@ export default function HomePageContent({
                             Tournaments
                         </SectionHeadingHeading>
                     </SectionHeading>
-                    <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] md:gap-4 gap-16">
                         <div className="flex flex-col gap-4">
                             <TournamentCard tournament={allTournaments[0]} />
                             {clubListData[0] && <ClubListClient data={clubListData[0]} variant="small" noSkew />}

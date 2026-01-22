@@ -98,7 +98,7 @@ const StayUpdatedBanner = React.forwardRef<
                             </Field>
                         )}
                     />
-                    <Button type="submit" size="skew" aria-label="Subscribe" className="shrink-0 px-6 min-w-50 h-12" disabled={isLoading}>
+                    <Button type="submit" size="skew" aria-label="Subscribe" className="shrink-0 px-6 md:min-w-50 h-12" disabled={isLoading}>
                         <span>{isLoading ? "Subscribing..." : "Subscribe"}</span>
                     </Button>
                 </form>
