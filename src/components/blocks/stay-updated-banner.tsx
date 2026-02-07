@@ -77,7 +77,7 @@ const StayUpdatedBanner = React.forwardRef<
             </div>
             <Separator variant="gradient" orientation="vertical" className="!h-auto" />
             <div className="lg:px-12 flex flex-col gap-2 relative flex-1">
-                <Subtitle className="text-xl mb-2">Join the <span className="text-primary whitespace-nowrap">W7F Fan Club</span></Subtitle>
+                <Subtitle className="text-xl mb-2">Join the <span className="text-primary whitespace-nowrap">W7F Supporter Club</span></Subtitle>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="flex w-full flex-row gap-2" noValidate>
                     <Controller
                         control={form.control}
