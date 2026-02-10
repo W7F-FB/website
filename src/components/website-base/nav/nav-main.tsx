@@ -14,7 +14,7 @@ import {
 import { NavigationMenuTournament, NavigationMenuTournamentFeatured } from "./nav-tournament-item"
 import { PaddingGlobal } from "@/components/website-base/padding-containers"
 import { getNavigationTournaments } from "@/cms/queries/tournaments"
-import { getMostRecentBlog } from "@/cms/queries/blog"
+import { getMostRecentNews } from "@/cms/queries/blog"
 import { getNavigationSettings } from "@/cms/queries/website"
 import { getTeamsByTournament } from "@/cms/queries/team"
 import { Button } from "@/components/ui/button"
@@ -37,6 +37,7 @@ import { PrismicNextImage } from "@prismicio/next"
 
 const exploreNavItems = [
   { href: "/news", label: "News", key: "nav-news" },
+  { href: "/news?press-releases", label: "Press", key: "nav-press" },
   { href: "/social-impact", label: "Social Impact", key: "nav-social" },
   { href: "/leadership", label: "Leadership", key: "nav-leadership" },
   { href: "/rising-sevens", label: "Rising Sevens", key: "nav-rising-sevens", subtitle: "Youth Tournament" },
@@ -63,7 +64,7 @@ type NavMainProps = {
 
 async function NavMain({ showBreadcrumbs, pathname, customBreadcrumbs, groupedFixtures, prismicTeams, optaTeams, tournament, matchSlugMap, f9FeedsMap, liveMinutesMap }: NavMainProps = {} as NavMainProps) {
   let tournaments: Awaited<ReturnType<typeof getNavigationTournaments>> = []
-  let recentBlog: Awaited<ReturnType<typeof getMostRecentBlog>> = null
+  let recentBlog: Awaited<ReturnType<typeof getMostRecentNews>> = null
   let navSettings: Awaited<ReturnType<typeof getNavigationSettings>> = null
   
   try {
@@ -73,7 +74,7 @@ async function NavMain({ showBreadcrumbs, pathname, customBreadcrumbs, groupedFi
   }
   
   try {
-    recentBlog = await getMostRecentBlog()
+    recentBlog = await getMostRecentNews()
   } catch (error) {
     dev.log("Failed to load recent blog for navigation:", error)
   }

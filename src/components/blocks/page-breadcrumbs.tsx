@@ -35,11 +35,11 @@ export function PageBreadcrumbs({ pathname, customBreadcrumbs }: PageBreadcrumbs
   const { isCollapsed, toggleCollapse, collapsable } = useGamesSliderCollapse();
 
   return (
-    <Breadcrumb className="relative overflow-hidden pr-8">
+    <Breadcrumb className="relative overflow-hidden">
       <div className="absolute -z-10 mt-px">
-        <LinePattern patternSize={5} className="absolute w-[200vw] h-[100vh] top-0left-0 " />
+        <LinePattern patternSize={5} className="absolute w-[200vw] h-[100vh] top-0 left-0 " />
       </div>
-      <PaddingGlobal className="pt-1.5 pb-1 border-t border-border/50">
+      <PaddingGlobal className="pt-1.5 pb-1 border-t relative border-border/50 w-full">
         <BreadcrumbList>
           {breadcrumbs.flatMap((breadcrumb, index) => [
             <BreadcrumbItem key={breadcrumb.href}>
@@ -56,8 +56,8 @@ export function PageBreadcrumbs({ pathname, customBreadcrumbs }: PageBreadcrumbs
         </BreadcrumbList>
       </PaddingGlobal>
       {collapsable && (
-        <div className="absolute right-0 top-0 h-full">
-          <Button variant="outline" size="icon" className="h-full border-border/50 border-y-0 border-r-0" onClick={toggleCollapse}>
+        <div className="absolute right-0 top-px bottom-0">
+          <Button variant="outline" size="icon" className="h-full border-border/50 border-y-0 border-r-0 rounded-none" onClick={toggleCollapse}>
             {isCollapsed ? <CollapseReverseIcon className="size-3" /> : <CollapseIcon className="size-3" />}
           </Button>
         </div>

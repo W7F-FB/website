@@ -57,7 +57,7 @@ function BreadcrumbPage({ className, ...props }: React.ComponentProps<"span">) {
       role="link"
       aria-disabled="true"
       aria-current="page"
-      className={cn("text-foreground font-normal translate-y-[0.1rem] overflow-hidden text-ellipsis whitespace-nowrap block", className)}
+      className={cn("text-foreground font-normal translate-y-[0.1rem] overflow-hidden text-ellipsis whitespace-nowrap block max-w-48 sm:max-w-none", className)}
       {...props}
     />
   )

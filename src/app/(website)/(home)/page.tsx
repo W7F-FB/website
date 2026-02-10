@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { NavMain } from "@/components/website-base/nav/nav-main";
 import { Footer } from "@/components/website-base/footer/footer-main";
 import { getTournaments, getLiveTournament } from "@/cms/queries/tournaments";
-import { getSocialBlogsByCategory, getAllBlogs } from "@/cms/queries/blog";
+import { getSocialBlogsByCategory, getAllNews } from "@/cms/queries/blog";
 import { mapBlogDocumentToMetadata } from "@/lib/utils";
 import { getTeamsByTournament } from "@/cms/queries/team";
 import { getF1Fixtures } from "@/app/api/opta/feeds";
@@ -229,7 +229,7 @@ export default async function HomePage() {
     const clubListDataResults = await Promise.all(clubListDataPromises);
 
     // Fetch recent news data - sort by user-defined date field (date only) first, then created date (with time)
-    const allBlogs = await getAllBlogs();
+    const allBlogs = await getAllNews();
     const sortedBlogs = [...allBlogs].sort((a, b) => {
       const dateA = a.data.date;
       const dateB = b.data.date;

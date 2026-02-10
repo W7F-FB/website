@@ -39,6 +39,73 @@ export async function getAllBlogs(): Promise<BlogDocument[]> {
   }
 }
 
+/**
+ * Get all blogs excluding press releases
+ */
+export async function getAllNews(): Promise<BlogDocument[]> {
+  try {
+    const client = createClient();
+    return await client.getAllByType("blog", {
+      filters: [
+        prismic.filter.not("my.blog.category", "Press Releases")
+      ],
+      orderings: [
+        { field: "my.blog.date", direction: "desc" },
+        { field: "my.blog.title", direction: "asc" },
+      ],
+    });
+  } catch (error) {
+    if (error instanceof Error && error.message.includes("No documents were returned")) {
+      return [];
+    }
+    throw error;
+  }
+}
+
+/**
+ * Get the most recent blog excluding press releases
+ */
+export async function getMostRecentNews(): Promise<BlogDocument | null> {
+  try {
+    const client = createClient();
+    const results = await client.getAllByType("blog", {
+      filters: [
+        prismic.filter.not("my.blog.category", "Press Releases")
+      ],
+      orderings: [
+        { field: "my.blog.date", direction: "desc" },
+      ],
+      limit: 1,
+    });
+    return results[0] || null;
+  } catch (error) {
+    if (error instanceof Error && error.message.includes("No documents were returned")) {
+      return null;
+    }
+    throw error;
+  }
+}
+
+export async function getBlogsByCategory(category: string): Promise<BlogDocument[]> {
+  try {
+    const client = createClient();
+    return await client.getAllByType("blog", {
+      filters: [
+        prismic.filter.at("my.blog.category", category)
+      ],
+      orderings: [
+        { field: "my.blog.date", direction: "desc" },
+        { field: "my.blog.title", direction: "asc" },
+      ],
+    });
+  } catch (error) {
+    if (error instanceof Error && error.message.includes("No documents were returned")) {
+      return [];
+    }
+    throw error;
+  }
+}
+
 export async function getSocialBlogsByCategory(category: string): Promise<BlogDocument[]> {
   try {
     const client = createClient();

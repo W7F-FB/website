@@ -1,14 +1,21 @@
 import type { Metadata } from "next"
+import { Suspense } from "react"
 
 import { Section, Container, PaddingGlobal } from "@/components/website-base/padding-containers"
 import { SubpageHeroSecondary } from "@/components/blocks/subpage-hero";
 import { H1, Subtitle, P } from "@/components/website-base/typography"
 import { NavMain } from "@/components/website-base/nav/nav-main";
 import { Footer } from "@/components/website-base/footer/footer-main";
-import { PostCardHoriz, PostCardVert } from "@/components/blocks/posts/post"
 import { getAllBlogs } from "@/cms/queries/blog"
-import { Separator } from "@/components/ui/separator";
 import { mapBlogDocumentToMetadata } from "@/lib/utils"
+import { NewsFilteredContent } from "../../../../components/blocks/posts/news-filter-tabs"
+import {
+  NEWS_CATEGORIES,
+  ALL_NEWS_TAB,
+  PRESS_RELEASES_TAB,
+  type FilterTab,
+  type NewsCategory,
+} from "./categories"
 
 export const metadata: Metadata = {
   title: "News - World Sevens Football",
@@ -37,33 +44,29 @@ export const metadata: Metadata = {
   },
 };
 
-async function BlogsShow() {
-  const blogs = await getAllBlogs();
-  if (!blogs?.length) return null;
-
-  const [first, ...rest] = blogs;
-
-  return (
-    <div className="grid gap-8">
-      <PostCardHoriz blog={mapBlogDocumentToMetadata(first)} />
-
-      <Separator className="my-12" />
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16">
-        {rest.map((p) => (
-          <PostCardVert
-            key={p.uid}
-            blog={mapBlogDocumentToMetadata(p)}
-            className="h-full"
-          />
-        ))}
-      </div>
-    </div>
-  );
+type Props = {
+  searchParams: Promise<{ category?: string; "press-releases"?: string }>
 }
 
+function resolveActiveTab(searchParams: { category?: string; "press-releases"?: string }): FilterTab {
+  if ("press-releases" in searchParams) {
+    return PRESS_RELEASES_TAB
+  }
 
-export default function NewsPage() {
+  const category = searchParams.category
+  if (category && NEWS_CATEGORIES.includes(category as NewsCategory)) {
+    return category as NewsCategory
+  }
+
+  return ALL_NEWS_TAB
+}
+
+export default async function NewsPage({ searchParams }: Props) {
+  const params = await searchParams
+  const initialTab = resolveActiveTab(params)
+
+  const allBlogDocs = await getAllBlogs()
+  const allBlogs = allBlogDocs.map(mapBlogDocumentToMetadata)
 
   return (
     <>
@@ -80,7 +83,9 @@ export default function NewsPage() {
         </SubpageHeroSecondary>
         <Container maxWidth="lg">
           <Section padding="md" className="min-h-screen">
-            <BlogsShow />
+            <Suspense fallback={null}>
+              <NewsFilteredContent allBlogs={allBlogs} initialTab={initialTab} />
+            </Suspense>
           </Section>
         </Container>
       </PaddingGlobal>

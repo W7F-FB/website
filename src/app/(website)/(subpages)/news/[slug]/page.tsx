@@ -10,8 +10,9 @@ import { Card, CardHeader } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { H1, H2, H3, H4, P, Blockquote, List } from "@/components/website-base/typography";
 import { cn } from "@/lib/utils"
-import { getAllBlogs } from "@/cms/queries/blog"
-import { PostStandard } from "@/components/blocks/posts/post"
+import { getAllBlogs, getBlogsByCategory } from "@/cms/queries/blog"
+import { PostCardVert } from "@/components/blocks/posts/post"
+import { PressReleaseCard } from "@/components/blocks/posts/press-release"
 import { NavMain } from "@/components/website-base/nav/nav-main";
 import { Footer } from "@/components/website-base/footer/footer-main";
 import { Separator } from "@/components/ui/separator";
@@ -78,10 +79,14 @@ export default async function BlogPostPage({ params }: Props) {
   if (!blogDoc) return notFound()
 
   const blog = mapBlogDocumentToMetadata(blogDoc)
-  const allBlogs = await getAllBlogs()
-  const relatedBlogs = allBlogs
+  const isPressRelease = blog.category === "Press Releases"
+
+  const relatedSource = isPressRelease
+    ? await getBlogsByCategory("Press Releases")
+    : await getAllBlogs()
+  const relatedBlogs = relatedSource
     .filter((b) => b.uid !== slug)
-    .slice(0, 3) 
+    .slice(0, isPressRelease ? 3 : 2)
 
   return (
     <>
@@ -91,10 +96,10 @@ export default async function BlogPostPage({ params }: Props) {
                 <PaddingGlobal>
         <Container maxWidth="lg">
         <Section padding="none" className="prose prose-invert prose-p:mb-2 mt-16">
-            <Card className={cn("flex flex-col md:flex-row overflow-hidden group rounded-none p-0 bg-transparent border-0 gap-16")}>
-                <div className="flex flex-col justify-between w-full md:w-1/2 px-0 py-6 md:mt-6">
+            <Card className={cn("flex flex-col overflow-hidden group rounded-none p-0 bg-transparent border-0", blog.image ? "md:flex-row gap-16" : "items-center text-center gap-6")}>
+                <div className={cn("flex flex-col justify-between w-full px-0 py-6 md:mt-6", blog.image ? "md:w-1/2" : "max-w-5xl mx-auto")}>
                     <CardHeader className="p-0">
-                        <div className="flex flex-row justify-between items-center text-sm mb-2 gap-4">
+                        <div className={cn("flex items-center text-sm mb-2 gap-4", blog.image ? "flex-row justify-between" : "flex-col items-center gap-2")}>
                             {blog.category && (
                                 <Badge
                                     variant="outline"
@@ -103,11 +108,11 @@ export default async function BlogPostPage({ params }: Props) {
                                     {blog.category}
                                 </Badge>
                             )}
-                            {blog.date && <span className="text-white text-md whitespace-nowrap">{formatDate(blog.date)}</span>}
+                            {blog.date && <span className="text-muted-foreground text-lg whitespace-nowrap">{formatDate(blog.date)}</span>}
                         </div>
                         <H2 className="text-2xl font-semibold text-white md:text-3xl">{blog.title}</H2>
                         {blog.excerpt && (
-                            <P noSpace className="text-base md:text-sm text-white line-clamp-3 mb-4">{blog.excerpt}</P>
+                            <P noSpace className="text-base md:text-lg line-clamp-3 mb-4">{blog.excerpt}</P>
                         )}
                     </CardHeader>
                 </div>
@@ -178,16 +183,27 @@ export default async function BlogPostPage({ params }: Props) {
 
         {relatedBlogs.length > 0 && (
             <Section padding="none" className="mx-auto mt-16">
-                <H2 className="text-xl md:text-3xl font-bold mb-16">Keep Reading</H2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
-                    {relatedBlogs.map((b) => (
-                        <PostStandard
-                            key={b.uid}
-                            blog={mapBlogDocumentToMetadata(b)}
-                            className="h-full"
-                        />
-                    ))}
-                </div>
+                <H2 className="mb-16">Keep Reading</H2>
+                {isPressRelease ? (
+                    <div className="grid gap-6">
+                        {relatedBlogs.map((b) => (
+                            <PressReleaseCard
+                                key={b.uid}
+                                blog={mapBlogDocumentToMetadata(b)}
+                            />
+                        ))}
+                    </div>
+                ) : (
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16">
+                        {relatedBlogs.map((b) => (
+                            <PostCardVert
+                                key={b.uid}
+                                blog={mapBlogDocumentToMetadata(b)}
+                                className="h-full"
+                            />
+                        ))}
+                    </div>
+                )}
             </Section>
         )}
     </Container>

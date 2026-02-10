@@ -246,6 +246,7 @@ interface BlogDocumentData {
     | "Match Recap"
     | "Social Impact"
     | "Match Day Preview"
+    | "Press Releases"
   >;
 
   /**

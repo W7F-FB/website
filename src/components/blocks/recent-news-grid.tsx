@@ -1,10 +1,10 @@
-import { getAllBlogs } from "@/cms/queries/blog";
+import { getAllNews } from "@/cms/queries/blog";
 import { PostGrid } from "@/components/blocks/posts/post-grid";
 import { mapBlogDocumentToMetadata } from "@/lib/utils";
 import type { BlogMetadata } from "@/components/blocks/posts/post";
 
 export async function RecentNewsGrid() {
-  const blogs = await getAllBlogs();
+  const blogs = await getAllNews();
 
   const recentBlogs: BlogMetadata[] = blogs
     .slice(0, 4)
