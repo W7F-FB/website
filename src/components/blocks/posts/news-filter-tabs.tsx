@@ -1,7 +1,6 @@
 "use client"
 
-import { useMemo, useCallback } from "react"
-import { useRouter, useSearchParams } from "next/navigation"
+import { useState, useMemo, useCallback } from "react"
 import { cn } from "@/lib/utils"
 import { Separator } from "@/components/ui/separator"
 import {
@@ -90,37 +89,22 @@ function BlogsList({ blogs, isPressReleases }: { blogs: BlogMetadata[]; isPressR
   )
 }
 
-export function NewsFilteredContent({ allBlogs, initialTab: _initialTab }: NewsFilteredContentProps) {
-  const router = useRouter()
-  const searchParams = useSearchParams()
-
-  const activeTab = useMemo<FilterTab>(() => {
-    const params = new URLSearchParams(searchParams.toString())
-    if (params.has("press-releases")) return PRESS_RELEASES_TAB
-    const category = params.get("category")
-    if (category && NEWS_CATEGORIES.includes(category as typeof NEWS_CATEGORIES[number])) {
-      return category as FilterTab
-    }
-    return ALL_NEWS_TAB
-  }, [searchParams])
+export function NewsFilteredContent({ allBlogs, initialTab }: NewsFilteredContentProps) {
+  const [activeTab, setActiveTab] = useState<FilterTab>(initialTab)
 
   const isNews = activeTab !== PRESS_RELEASES_TAB
 
   const handleFilter = useCallback((value: FilterTab) => {
-    const params = new URLSearchParams(searchParams.toString())
+    setActiveTab(value)
 
+    let url = "/news"
     if (value === PRESS_RELEASES_TAB) {
-      params.delete("category")
-      params.set("press-releases", "")
-      router.push(`/news?${params.toString()}`, { scroll: false })
-    } else if (value === ALL_NEWS_TAB) {
-      router.push("/news", { scroll: false })
-    } else {
-      params.delete("press-releases")
-      params.set("category", value)
-      router.push(`/news?${params.toString()}`, { scroll: false })
+      url = "/news?press-releases="
+    } else if (value !== ALL_NEWS_TAB) {
+      url = `/news?category=${encodeURIComponent(value)}`
     }
-  }, [router, searchParams])
+    window.history.replaceState(null, "", url)
+  }, [])
 
   const filteredBlogs = useMemo(() => {
     if (activeTab === PRESS_RELEASES_TAB) {
