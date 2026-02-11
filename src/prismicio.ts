@@ -24,6 +24,10 @@ const routes: Route[] = [
     path: "/tournament/:uid",
   },
   // {
+  //   type: "page",
+  //   path: "/:uid",
+  // },
+  // {
   //   type: "policy",
   //   path: "/resources/:uid",
   // },

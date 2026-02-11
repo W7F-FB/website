@@ -62,7 +62,7 @@ export default async function LeadershipPage() {
                 </SubpageHeroMedia>
             </SubpageHero>
         <div>
-        <Section padding="md" className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-16" id="player-advisory-council">
+        <Section padding="sm" className="pt-16 grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-16" id="player-advisory-council">
             <GradientBanner className="">
                 <H2>Player Advisory Council</H2>
                 <P>World Sevens Football is putting players at the heart of the game by developing a Player Advisory Council. This elite group will play a critical role in shaping player care and welfare, competition strategy, and the positive long-term impact on players and clubs.</P>
@@ -90,8 +90,8 @@ export default async function LeadershipPage() {
                 <GridCellScrollLink href="#co-founders" className="col-span-full md:col-span-2 lg:col-span-3" />
             </div>
         </Section>
-        <Separator className="my-8 md:my-16"/>
-        <Section padding="md" className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-16" id="co-founders">
+        <Separator className="my-4 md:my-8"/>
+        <Section padding="sm" className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-16" id="co-founders">
             <GradientBanner className="">
                 <H2>Co-Founders</H2>
                 <P>Meet the visionary co-founders who established World Sevens Football with a mission to revolutionize 7v7 soccer and create unparalleled tournament experiences for players worldwide.</P>
@@ -119,8 +119,8 @@ export default async function LeadershipPage() {
                 <GridCellScrollLink href="#leadership-team" className="col-span-full md:col-span-2 lg:col-span-3" />
             </div>
         </Section>
-        <Separator className="my-8 md:my-16" />
-        <Section padding="md" className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-16" id="leadership-team">
+        <Separator className="my-4 md:my-8" />
+        <Section padding="sm" className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-16" id="leadership-team">
             <GradientBanner className="">
                 <H2>Leadership Team</H2>
                 <P>Our experienced leadership team brings together diverse expertise in sports management, business development, and tournament operations to drive World Sevens Football&apos;s strategic vision forward.</P>

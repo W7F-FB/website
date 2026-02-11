@@ -1,0 +1,90 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"heading": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "heading2",
+						"content": {
+							"text": "Garden"
+						}
+					}
+				]
+			},
+			"description": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Adipisicing magna sint aliqua consequat fugiat do incididunt consectetur irure. Qui voluptate sint officia quis eiusmod culpa sint magna ex qui. Aliquip qui et eu qui officia exercitation non sit est consectetur laborum eiusmod."
+						}
+					}
+				]
+			},
+			"logos": {
+				"__TYPE__": "GroupContentType",
+				"value": [
+					{
+						"__TYPE__": "GroupItemContent",
+						"value": [
+							[
+								"group_label",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "work",
+									"type": "Text"
+								}
+							],
+							[
+								"logo",
+								{
+									"origin": {
+										"id": "main",
+										"url": "https://images.unsplash.com/photo-1593642633279-1796119d5482",
+										"width": 4016,
+										"height": 6016
+									},
+									"url": "https://images.unsplash.com/photo-1593642633279-1796119d5482",
+									"width": 4016,
+									"height": 6016,
+									"edit": {
+										"zoom": 1,
+										"crop": {
+											"x": 0,
+											"y": 0
+										},
+										"background": "transparent"
+									},
+									"alt": "water",
+									"credits": null,
+									"__TYPE__": "ImageContent"
+								}
+							],
+							[
+								"name",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "answer",
+									"type": "Text"
+								}
+							]
+						]
+					}
+				]
+			},
+			"space_above": {
+				"__TYPE__": "BooleanContent",
+				"value": true
+			},
+			"space_below": {
+				"__TYPE__": "BooleanContent",
+				"value": true
+			}
+		},
+		"items": []
+	}
+]

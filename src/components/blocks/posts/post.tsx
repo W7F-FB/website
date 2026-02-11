@@ -104,6 +104,9 @@ function PostCompact({ blog, className }: PostProps) {
             <H3 className="lg:text-lg !leading-[1.5]">
               {blog.title}
             </H3>
+            {blog.excerpt && (
+              <P noSpace className="text-muted-foreground text-sm line-clamp-2">{blog.excerpt}</P>
+            )}
           </CardHeader>
           <CardFooter className="pt-0">
             <ReadMoreButton />

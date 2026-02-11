@@ -1,0 +1,69 @@
+{
+  "id": "news_list",
+  "type": "SharedSlice",
+  "name": "NewsList",
+  "description": "Dynamic news/blog list filtered by category",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default variation",
+      "imageUrl": "",
+      "primary": {
+        "heading": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Heading",
+            "single": "heading2"
+          }
+        },
+        "category": {
+          "type": "Select",
+          "config": {
+            "label": "News Category",
+            "options": [
+              "Social Impact",
+              "Press Releases",
+              "Tournament News",
+              "All"
+            ]
+          }
+        },
+        "posts": {
+          "type": "Group",
+          "config": {
+            "label": "Manual Posts (overrides category)",
+            "fields": {
+              "post": {
+                "type": "Link",
+                "config": {
+                  "label": "Post",
+                  "select": "document",
+                  "customtypes": [
+                    "blog"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "space_above": {
+          "type": "Boolean",
+          "config": {
+            "label": "Space Above",
+            "default_value": true
+          }
+        },
+        "space_below": {
+          "type": "Boolean",
+          "config": {
+            "label": "Space Below",
+            "default_value": true
+          }
+        }
+      }
+    }
+  ]
+}

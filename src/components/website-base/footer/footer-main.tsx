@@ -1,6 +1,7 @@
 import * as React from "react"
 import { FaFacebookF, FaInstagram, FaXTwitter, FaTiktok } from "react-icons/fa6"
 
+import { cn } from "@/lib/utils"
 import { Logo } from "@/components/website-base/logo"
 import { getPoliciesForNav } from "@/cms/queries/policies"
 import { getFooterData } from "@/cms/queries/website"
@@ -91,7 +92,7 @@ const FooterMain = React.forwardRef<HTMLElement, React.ComponentProps<"footer">>
           </div>
         </div>
 
-        <div className="flex flex-wrap items-center justify-around gap-10 border-y border-border/50 py-8 mt-14">
+        <div className={cn("flex flex-wrap items-center gap-10 border-y border-border/50 py-8 mt-14", sponsors.length <= 3 ? "justify-end" : "justify-around")}>
           {sponsors.map((sponsor) => (
             <SponsorLogo
               key={sponsor.id}

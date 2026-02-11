@@ -26,7 +26,7 @@
  * Notes:
  * - All stats are extracted from player Stat arrays in F9 feed
  * - Returns player IDs (PlayerRef) or null if no players found
- * - Random tiebreakers ensure a selection is always made when players are tied
+ * - Deterministic tiebreakers (player ID) ensure a consistent selection when players are tied
  */
 
 import type { F9MatchResponse, F9MatchPlayer, F9TeamData, F9Team } from "@/types/opta-feeds/f9-match"
@@ -238,7 +238,7 @@ function findScoringLeader(players: PlayerStats[]): string | null {
     if (b.goals !== a.goals) return b.goals - a.goals
     if (b.assists !== a.assists) return b.assists - a.assists
     if (b.shots !== a.shots) return b.shots - a.shots
-    return Math.random() - 0.5
+    return a.playerId.localeCompare(b.playerId)
   })
 
   return sorted[0].playerId
@@ -251,7 +251,7 @@ function findDefensiveLeader(players: PlayerStats[]): string | null {
     if (b.tackles !== a.tackles) return b.tackles - a.tackles
     if (b.blockedShots !== a.blockedShots) return b.blockedShots - a.blockedShots
     if (b.interceptions !== a.interceptions) return b.interceptions - a.interceptions
-    return Math.random() - 0.5
+    return a.playerId.localeCompare(b.playerId)
   })
 
   return sorted[0].playerId
@@ -269,7 +269,7 @@ function findGkLeader(players: PlayerStats[], winningTeamId: string | null): str
       if (bOnWinningTeam !== aOnWinningTeam) return bOnWinningTeam - aOnWinningTeam
     }
     
-    return Math.random() - 0.5
+    return a.playerId.localeCompare(b.playerId)
   })
 
   return sorted[0].playerId

@@ -247,6 +247,7 @@ interface BlogDocumentData {
     | "Social Impact"
     | "Match Day Preview"
     | "Press Releases"
+    | "Youth Events"
   >;
 
   /**
@@ -768,6 +769,73 @@ interface MatchDocumentData {
  */
 export type MatchDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithUID<Simplify<MatchDocumentData>, "match", Lang>;
+
+type PageDocumentDataSlicesSlice =
+  | SubpageHeroSlice
+  | TextBlockSlice
+  | ImageWithTextSlice
+  | NewsListSlice
+  | DividerSlice
+  | CommunityChampionsSlice;
+
+/**
+ * Content for Page documents
+ */
+interface PageDocumentData {
+  /**
+   * Slice Zone field in *Page*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: page.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/slices
+   */
+  slices: prismic.SliceZone<PageDocumentDataSlicesSlice> /**
+   * Meta Title field in *Page*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A title of the page used for social media and search engines
+   * - **API ID Path**: page.meta_title
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */;
+  meta_title: prismic.KeyTextField;
+
+  /**
+   * Meta Description field in *Page*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A brief summary of the page
+   * - **API ID Path**: page.meta_description
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  meta_description: prismic.KeyTextField;
+
+  /**
+   * Meta Image field in *Page*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: page.meta_image
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  meta_image: prismic.ImageField<never>;
+}
+
+/**
+ * Page document from Prismic
+ *
+ * - **API ID**: `page`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/content-modeling
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type PageDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<Simplify<PageDocumentData>, "page", Lang>;
 
 /**
  * Content for Player documents
@@ -1940,6 +2008,7 @@ export type AllDocumentTypes =
   | BroadcastPartnersDocument
   | ImageWithTextDocument
   | MatchDocument
+  | PageDocument
   | PlayerDocument
   | PolicyDocument
   | SponsorDocument
@@ -1948,6 +2017,644 @@ export type AllDocumentTypes =
   | TestimonialDocument
   | TournamentDocument
   | WebsiteDocument;
+
+/**
+ * Item in *CommunityChampions → Default → Primary → Logos*
+ */
+export interface CommunityChampionsSliceDefaultPrimaryLogosItem {
+  /**
+   * Tournament field in *CommunityChampions → Default → Primary → Logos*
+   *
+   * - **Field Type**: Content Relationship
+   * - **Placeholder**: *None*
+   * - **API ID Path**: community_champions.default.primary.logos[].tournament
+   * - **Documentation**: https://prismic.io/docs/fields/content-relationship
+   */
+  tournament: ContentRelationshipFieldWithData<
+    [{ id: "tournament"; fields: ["title"] }]
+  >;
+
+  /**
+   * Logo field in *CommunityChampions → Default → Primary → Logos*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: community_champions.default.primary.logos[].logo
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  logo: prismic.ImageField<never>;
+}
+
+/**
+ * Primary content in *CommunityChampions → Default → Primary*
+ */
+export interface CommunityChampionsSliceDefaultPrimary {
+  /**
+   * Heading field in *CommunityChampions → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: community_champions.default.primary.heading
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  heading: prismic.RichTextField;
+
+  /**
+   * Description field in *CommunityChampions → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: community_champions.default.primary.description
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  description: prismic.RichTextField;
+
+  /**
+   * Logos field in *CommunityChampions → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: community_champions.default.primary.logos[]
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  logos: prismic.GroupField<
+    Simplify<CommunityChampionsSliceDefaultPrimaryLogosItem>
+  >;
+
+  /**
+   * Space Above field in *CommunityChampions → Default → Primary*
+   *
+   * - **Field Type**: Boolean
+   * - **Placeholder**: *None*
+   * - **Default Value**: true
+   * - **API ID Path**: community_champions.default.primary.space_above
+   * - **Documentation**: https://prismic.io/docs/fields/boolean
+   */
+  space_above: prismic.BooleanField;
+
+  /**
+   * Space Below field in *CommunityChampions → Default → Primary*
+   *
+   * - **Field Type**: Boolean
+   * - **Placeholder**: *None*
+   * - **Default Value**: true
+   * - **API ID Path**: community_champions.default.primary.space_below
+   * - **Documentation**: https://prismic.io/docs/fields/boolean
+   */
+  space_below: prismic.BooleanField;
+}
+
+/**
+ * Default variation for CommunityChampions Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default variation
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type CommunityChampionsSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<CommunityChampionsSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *CommunityChampions*
+ */
+type CommunityChampionsSliceVariation = CommunityChampionsSliceDefault;
+
+/**
+ * CommunityChampions Shared Slice
+ *
+ * - **API ID**: `community_champions`
+ * - **Description**: Grouped grid of community champion logos displayed in labeled cards
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type CommunityChampionsSlice = prismic.SharedSlice<
+  "community_champions",
+  CommunityChampionsSliceVariation
+>;
+
+/**
+ * Primary content in *Divider → Default → Primary*
+ */
+export interface DividerSliceDefaultPrimary {
+  /**
+   * Space Above field in *Divider → Default → Primary*
+   *
+   * - **Field Type**: Boolean
+   * - **Placeholder**: *None*
+   * - **Default Value**: true
+   * - **API ID Path**: divider.default.primary.space_above
+   * - **Documentation**: https://prismic.io/docs/fields/boolean
+   */
+  space_above: prismic.BooleanField;
+
+  /**
+   * Space Below field in *Divider → Default → Primary*
+   *
+   * - **Field Type**: Boolean
+   * - **Placeholder**: *None*
+   * - **Default Value**: true
+   * - **API ID Path**: divider.default.primary.space_below
+   * - **Documentation**: https://prismic.io/docs/fields/boolean
+   */
+  space_below: prismic.BooleanField;
+}
+
+/**
+ * Default variation for Divider Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default variation
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type DividerSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<DividerSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *Divider*
+ */
+type DividerSliceVariation = DividerSliceDefault;
+
+/**
+ * Divider Shared Slice
+ *
+ * - **API ID**: `divider`
+ * - **Description**: Horizontal divider line between sections
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type DividerSlice = prismic.SharedSlice<
+  "divider",
+  DividerSliceVariation
+>;
+
+/**
+ * Primary content in *ImageWithText → Default → Primary*
+ */
+export interface ImageWithTextSliceDefaultPrimary {
+  /**
+   * Eyebrow field in *ImageWithText → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: Small heading above title
+   * - **API ID Path**: image_with_text.default.primary.eyebrow
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  eyebrow: prismic.KeyTextField;
+
+  /**
+   * Title field in *ImageWithText → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: image_with_text.default.primary.title
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  title: prismic.RichTextField;
+
+  /**
+   * Description field in *ImageWithText → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: image_with_text.default.primary.description
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  description: prismic.RichTextField;
+
+  /**
+   * Image field in *ImageWithText → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: image_with_text.default.primary.image
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image: prismic.ImageField<never>;
+
+  /**
+   * Image Position field in *ImageWithText → Default → Primary*
+   *
+   * - **Field Type**: Select
+   * - **Placeholder**: *None*
+   * - **API ID Path**: image_with_text.default.primary.image_position
+   * - **Documentation**: https://prismic.io/docs/fields/select
+   */
+  image_position: prismic.SelectField<"left" | "right">;
+
+  /**
+   * Padding Top field in *ImageWithText → Default → Primary*
+   *
+   * - **Field Type**: Boolean
+   * - **Placeholder**: *None*
+   * - **Default Value**: true
+   * - **API ID Path**: image_with_text.default.primary.padding_top
+   * - **Documentation**: https://prismic.io/docs/fields/boolean
+   */
+  padding_top: prismic.BooleanField;
+
+  /**
+   * Padding Bottom field in *ImageWithText → Default → Primary*
+   *
+   * - **Field Type**: Boolean
+   * - **Placeholder**: *None*
+   * - **Default Value**: true
+   * - **API ID Path**: image_with_text.default.primary.padding_bottom
+   * - **Documentation**: https://prismic.io/docs/fields/boolean
+   */
+  padding_bottom: prismic.BooleanField;
+
+  /**
+   * Space Above field in *ImageWithText → Default → Primary*
+   *
+   * - **Field Type**: Boolean
+   * - **Placeholder**: *None*
+   * - **Default Value**: true
+   * - **API ID Path**: image_with_text.default.primary.space_above
+   * - **Documentation**: https://prismic.io/docs/fields/boolean
+   */
+  space_above: prismic.BooleanField;
+
+  /**
+   * Space Below field in *ImageWithText → Default → Primary*
+   *
+   * - **Field Type**: Boolean
+   * - **Placeholder**: *None*
+   * - **Default Value**: true
+   * - **API ID Path**: image_with_text.default.primary.space_below
+   * - **Documentation**: https://prismic.io/docs/fields/boolean
+   */
+  space_below: prismic.BooleanField;
+}
+
+/**
+ * Default variation for ImageWithText Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default variation
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type ImageWithTextSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<ImageWithTextSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *ImageWithText*
+ */
+type ImageWithTextSliceVariation = ImageWithTextSliceDefault;
+
+/**
+ * ImageWithText Shared Slice
+ *
+ * - **API ID**: `image_with_text`
+ * - **Description**: Image alongside text content with configurable image position
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type ImageWithTextSlice = prismic.SharedSlice<
+  "image_with_text",
+  ImageWithTextSliceVariation
+>;
+
+/**
+ * Item in *NewsList → Default → Primary → Manual Posts (overrides category)*
+ */
+export interface NewsListSliceDefaultPrimaryPostsItem {
+  /**
+   * Post field in *NewsList → Default → Primary → Manual Posts (overrides category)*
+   *
+   * - **Field Type**: Content Relationship
+   * - **Placeholder**: *None*
+   * - **API ID Path**: news_list.default.primary.posts[].post
+   * - **Documentation**: https://prismic.io/docs/fields/content-relationship
+   */
+  post: prismic.ContentRelationshipField<"blog">;
+}
+
+/**
+ * Primary content in *NewsList → Default → Primary*
+ */
+export interface NewsListSliceDefaultPrimary {
+  /**
+   * Heading field in *NewsList → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: news_list.default.primary.heading
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  heading: prismic.RichTextField;
+
+  /**
+   * News Category field in *NewsList → Default → Primary*
+   *
+   * - **Field Type**: Select
+   * - **Placeholder**: *None*
+   * - **API ID Path**: news_list.default.primary.category
+   * - **Documentation**: https://prismic.io/docs/fields/select
+   */
+  category: prismic.SelectField<
+    "Social Impact" | "Press Releases" | "Tournament News" | "All"
+  >;
+
+  /**
+   * Manual Posts (overrides category) field in *NewsList → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: news_list.default.primary.posts[]
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  posts: prismic.GroupField<Simplify<NewsListSliceDefaultPrimaryPostsItem>>;
+
+  /**
+   * Space Above field in *NewsList → Default → Primary*
+   *
+   * - **Field Type**: Boolean
+   * - **Placeholder**: *None*
+   * - **Default Value**: true
+   * - **API ID Path**: news_list.default.primary.space_above
+   * - **Documentation**: https://prismic.io/docs/fields/boolean
+   */
+  space_above: prismic.BooleanField;
+
+  /**
+   * Space Below field in *NewsList → Default → Primary*
+   *
+   * - **Field Type**: Boolean
+   * - **Placeholder**: *None*
+   * - **Default Value**: true
+   * - **API ID Path**: news_list.default.primary.space_below
+   * - **Documentation**: https://prismic.io/docs/fields/boolean
+   */
+  space_below: prismic.BooleanField;
+}
+
+/**
+ * Default variation for NewsList Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default variation
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type NewsListSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<NewsListSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *NewsList*
+ */
+type NewsListSliceVariation = NewsListSliceDefault;
+
+/**
+ * NewsList Shared Slice
+ *
+ * - **API ID**: `news_list`
+ * - **Description**: Dynamic news/blog list filtered by category
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type NewsListSlice = prismic.SharedSlice<
+  "news_list",
+  NewsListSliceVariation
+>;
+
+/**
+ * Primary content in *SubpageHero → Default → Primary*
+ */
+export interface SubpageHeroSliceDefaultPrimary {
+  /**
+   * Subtitle field in *SubpageHero → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: e.g. Global
+   * - **API ID Path**: subpage_hero.default.primary.subtitle
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  subtitle: prismic.KeyTextField;
+
+  /**
+   * Heading field in *SubpageHero → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: subpage_hero.default.primary.heading
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  heading: prismic.RichTextField;
+
+  /**
+   * Description field in *SubpageHero → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: subpage_hero.default.primary.description
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  description: prismic.RichTextField;
+
+  /**
+   * Hero Image field in *SubpageHero → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: subpage_hero.default.primary.image
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image: prismic.ImageField<never>;
+
+  /**
+   * Space Above field in *SubpageHero → Default → Primary*
+   *
+   * - **Field Type**: Boolean
+   * - **Placeholder**: *None*
+   * - **Default Value**: true
+   * - **API ID Path**: subpage_hero.default.primary.space_above
+   * - **Documentation**: https://prismic.io/docs/fields/boolean
+   */
+  space_above: prismic.BooleanField;
+
+  /**
+   * Space Below field in *SubpageHero → Default → Primary*
+   *
+   * - **Field Type**: Boolean
+   * - **Placeholder**: *None*
+   * - **Default Value**: true
+   * - **API ID Path**: subpage_hero.default.primary.space_below
+   * - **Documentation**: https://prismic.io/docs/fields/boolean
+   */
+  space_below: prismic.BooleanField;
+}
+
+/**
+ * Default variation for SubpageHero Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default variation
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type SubpageHeroSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<SubpageHeroSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *SubpageHero*
+ */
+type SubpageHeroSliceVariation = SubpageHeroSliceDefault;
+
+/**
+ * SubpageHero Shared Slice
+ *
+ * - **API ID**: `subpage_hero`
+ * - **Description**: Hero section for subpages with subtitle, heading, description, and background image
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type SubpageHeroSlice = prismic.SharedSlice<
+  "subpage_hero",
+  SubpageHeroSliceVariation
+>;
+
+/**
+ * Primary content in *TextBlock → Default → Primary*
+ */
+export interface TextBlockSliceDefaultPrimary {
+  /**
+   * Heading field in *TextBlock → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: text_block.default.primary.heading
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  heading: prismic.RichTextField;
+
+  /**
+   * Body field in *TextBlock → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: text_block.default.primary.body
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  body: prismic.RichTextField;
+
+  /**
+   * Text Alignment field in *TextBlock → Default → Primary*
+   *
+   * - **Field Type**: Select
+   * - **Placeholder**: *None*
+   * - **Default Value**: left
+   * - **API ID Path**: text_block.default.primary.text_align
+   * - **Documentation**: https://prismic.io/docs/fields/select
+   */
+  text_align: prismic.SelectField<"left" | "center" | "right", "filled">;
+
+  /**
+   * Text Size field in *TextBlock → Default → Primary*
+   *
+   * - **Field Type**: Select
+   * - **Placeholder**: *None*
+   * - **Default Value**: medium
+   * - **API ID Path**: text_block.default.primary.text_size
+   * - **Documentation**: https://prismic.io/docs/fields/select
+   */
+  text_size: prismic.SelectField<"small" | "medium" | "large", "filled">;
+
+  /**
+   * Content Width field in *TextBlock → Default → Primary*
+   *
+   * - **Field Type**: Select
+   * - **Placeholder**: *None*
+   * - **Default Value**: full
+   * - **API ID Path**: text_block.default.primary.content_width
+   * - **Documentation**: https://prismic.io/docs/fields/select
+   */
+  content_width: prismic.SelectField<
+    "full" | "large" | "medium" | "small",
+    "filled"
+  >;
+
+  /**
+   * Padding Top field in *TextBlock → Default → Primary*
+   *
+   * - **Field Type**: Boolean
+   * - **Placeholder**: *None*
+   * - **Default Value**: true
+   * - **API ID Path**: text_block.default.primary.padding_top
+   * - **Documentation**: https://prismic.io/docs/fields/boolean
+   */
+  padding_top: prismic.BooleanField;
+
+  /**
+   * Padding Bottom field in *TextBlock → Default → Primary*
+   *
+   * - **Field Type**: Boolean
+   * - **Placeholder**: *None*
+   * - **Default Value**: true
+   * - **API ID Path**: text_block.default.primary.padding_bottom
+   * - **Documentation**: https://prismic.io/docs/fields/boolean
+   */
+  padding_bottom: prismic.BooleanField;
+
+  /**
+   * Space Above field in *TextBlock → Default → Primary*
+   *
+   * - **Field Type**: Boolean
+   * - **Placeholder**: *None*
+   * - **Default Value**: true
+   * - **API ID Path**: text_block.default.primary.space_above
+   * - **Documentation**: https://prismic.io/docs/fields/boolean
+   */
+  space_above: prismic.BooleanField;
+
+  /**
+   * Space Below field in *TextBlock → Default → Primary*
+   *
+   * - **Field Type**: Boolean
+   * - **Placeholder**: *None*
+   * - **Default Value**: true
+   * - **API ID Path**: text_block.default.primary.space_below
+   * - **Documentation**: https://prismic.io/docs/fields/boolean
+   */
+  space_below: prismic.BooleanField;
+}
+
+/**
+ * Default variation for TextBlock Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default variation
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type TextBlockSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<TextBlockSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *TextBlock*
+ */
+type TextBlockSliceVariation = TextBlockSliceDefault;
+
+/**
+ * TextBlock Shared Slice
+ *
+ * - **API ID**: `text_block`
+ * - **Description**: Rich text content block with heading and body
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type TextBlockSlice = prismic.SharedSlice<
+  "text_block",
+  TextBlockSliceVariation
+>;
 
 declare module "@prismicio/client" {
   interface CreateClient {
@@ -1985,6 +2692,9 @@ declare module "@prismicio/client" {
       MatchDocumentData,
       MatchDocumentDataBroadcastsItem,
       MatchDocumentDataSlicesSlice,
+      PageDocument,
+      PageDocumentData,
+      PageDocumentDataSlicesSlice,
       PlayerDocument,
       PlayerDocumentData,
       PolicyDocument,
@@ -2009,6 +2719,32 @@ declare module "@prismicio/client" {
       WebsiteDocumentDataFooterMenusItem,
       WebsiteDocumentDataWhereToWatchPartnersItem,
       AllDocumentTypes,
+      CommunityChampionsSlice,
+      CommunityChampionsSliceDefaultPrimaryLogosItem,
+      CommunityChampionsSliceDefaultPrimary,
+      CommunityChampionsSliceVariation,
+      CommunityChampionsSliceDefault,
+      DividerSlice,
+      DividerSliceDefaultPrimary,
+      DividerSliceVariation,
+      DividerSliceDefault,
+      ImageWithTextSlice,
+      ImageWithTextSliceDefaultPrimary,
+      ImageWithTextSliceVariation,
+      ImageWithTextSliceDefault,
+      NewsListSlice,
+      NewsListSliceDefaultPrimaryPostsItem,
+      NewsListSliceDefaultPrimary,
+      NewsListSliceVariation,
+      NewsListSliceDefault,
+      SubpageHeroSlice,
+      SubpageHeroSliceDefaultPrimary,
+      SubpageHeroSliceVariation,
+      SubpageHeroSliceDefault,
+      TextBlockSlice,
+      TextBlockSliceDefaultPrimary,
+      TextBlockSliceVariation,
+      TextBlockSliceDefault,
     };
   }
 }

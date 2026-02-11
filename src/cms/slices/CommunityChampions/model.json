@@ -1,0 +1,73 @@
+{
+  "id": "community_champions",
+  "type": "SharedSlice",
+  "name": "CommunityChampions",
+  "description": "Grouped grid of community champion logos displayed in labeled cards",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default variation",
+      "imageUrl": "",
+      "primary": {
+        "heading": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Heading",
+            "single": "heading2"
+          }
+        },
+        "description": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Description",
+            "multi": "paragraph,strong,em,hyperlink"
+          }
+        },
+        "logos": {
+          "type": "Group",
+          "config": {
+            "label": "Logos",
+            "fields": {
+              "tournament": {
+                "type": "Link",
+                "config": {
+                  "label": "Tournament",
+                  "select": "document",
+                  "customtypes": [
+                    {
+                      "id": "tournament",
+                      "fields": ["title"]
+                    }
+                  ]
+                }
+              },
+              "logo": {
+                "type": "Image",
+                "config": {
+                  "label": "Logo"
+                }
+              }
+            }
+          }
+        },
+        "space_above": {
+          "type": "Boolean",
+          "config": {
+            "label": "Space Above",
+            "default_value": true
+          }
+        },
+        "space_below": {
+          "type": "Boolean",
+          "config": {
+            "label": "Space Below",
+            "default_value": true
+          }
+        }
+      }
+    }
+  ]
+}

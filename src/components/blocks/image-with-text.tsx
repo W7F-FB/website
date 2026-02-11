@@ -6,7 +6,7 @@ import { PrismicRichText } from "@prismicio/react";
 import type * as prismic from "@prismicio/client";
 
 import { cn } from "@/lib/utils"
-import { H3, P } from "@/components/website-base/typography"
+import { H3, P, Subtitle } from "@/components/website-base/typography"
 
 export type ImageWithTextContent = {
   image: string
@@ -39,51 +39,56 @@ export function ImageWithText({
       {...props}
     >
       {/* Image */}
-      <div
-        className={cn(
-          "relative w-full h-64 md:h-full",
-          isImageLeft ? "order-1" : "order-2"
-        )}
-      >
-        <Image
-          src={content.image}
-          alt={content.alt}
-          fill
-          className="object-cover rounded-lg"
-        />
-      </div>
+      {content.image && (
+        <div
+          className={cn(
+            "relative w-full h-64 md:h-full",
+            isImageLeft ? "order-1" : "order-2"
+          )}
+        >
+          <Image
+            src={content.image}
+            alt={content.alt}
+            fill
+            className="object-cover"
+          />
+        </div>
+      )}
 
       {/* Text */}
       <div
         className={cn(
-          "flex flex-col justify-center",
+          "flex flex-col justify-center py-0 md:py-8",
           isImageLeft ? "order-2" : "order-1"
         )}
       >
         {content.heading && (
-          <P className="uppercase text-sm text-muted-foreground mb-2">
+          <Subtitle className="uppercase text-sm mb-2">
             {content.heading}
-          </P>
+          </Subtitle>
         )}
-        <H3 className="mb-4 mt-4 uppercase">{content.title}</H3>
+        <H3 className="mb-4 mt-4 uppercase text-2xl lg:text-3xl">{content.title}</H3>
 
-        <PrismicRichText 
-          field={content.description}
-          components={{
-            hyperlink: ({ node, children }) => {
-              const isExternal = node.data.link_type === "Web"
-              return (
-                <a
-                  href={node.data.url || ""}
-                  className="underline underline-offset-2 text-primary"
-                  {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                >
-                  {children}
-                </a>
-              )
-            },
-          }}
-        />
+        <div className="text-muted-foreground">
+          <PrismicRichText
+            field={content.description}
+            components={{
+              paragraph: ({ children }) => <P>{children}</P>,
+              hyperlink: ({ node, children }) => {
+                const isExternal = node.data.link_type === "Web"
+                return (
+                  <a
+                    href={node.data.url || ""}
+                    className="underline underline-offset-2 text-primary"
+                    {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                  >
+                    {children}
+                  </a>
+                )
+              },
+            }}
+          />
+        </div>
       </div>
     </div>
   )

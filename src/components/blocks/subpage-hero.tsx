@@ -39,7 +39,7 @@ function SubpageHeroContent({
 
   return (
     <div
-      className={cn("relative z-10 pb-12 lg:pb-24 pt-12 lg:pt-36 px-6 lg:px-18 min-h-80 flex flex-col gap-4 max-w-3xl w-full bg-extra-muted", className)}
+      className={cn("relative z-10 pb-12 lg:pb-24 pt-12 lg:pt-36 px-6 lg:px-18 min-h-80 flex flex-col justify-center lg:justify-start gap-4 max-w-3xl w-full bg-extra-muted", className)}
       {...props}
     >
       {useClubStyleGradient ? (

@@ -1,0 +1,32 @@
+{
+  "id": "divider",
+  "type": "SharedSlice",
+  "name": "Divider",
+  "description": "Horizontal divider line between sections",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default variation",
+      "imageUrl": "",
+      "primary": {
+        "space_above": {
+          "type": "Boolean",
+          "config": {
+            "label": "Space Above",
+            "default_value": true
+          }
+        },
+        "space_below": {
+          "type": "Boolean",
+          "config": {
+            "label": "Space Below",
+            "default_value": true
+          }
+        }
+      }
+    }
+  ]
+}

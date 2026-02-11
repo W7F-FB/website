@@ -1,0 +1,85 @@
+{
+  "id": "text_block",
+  "type": "SharedSlice",
+  "name": "TextBlock",
+  "description": "Rich text content block with heading and body",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default variation",
+      "imageUrl": "",
+      "primary": {
+        "heading": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Heading",
+            "single": "heading2"
+          }
+        },
+        "body": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Body",
+            "multi": "paragraph,preformatted,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item",
+            "allowTargetBlank": true
+          }
+        },
+        "text_align": {
+          "type": "Select",
+          "config": {
+            "label": "Text Alignment",
+            "options": ["left", "center", "right"],
+            "default_value": "left"
+          }
+        },
+        "text_size": {
+          "type": "Select",
+          "config": {
+            "label": "Text Size",
+            "options": ["small", "medium", "large"],
+            "default_value": "medium"
+          }
+        },
+        "content_width": {
+          "type": "Select",
+          "config": {
+            "label": "Content Width",
+            "options": ["full", "large", "medium", "small"],
+            "default_value": "full"
+          }
+        },
+        "padding_top": {
+          "type": "Boolean",
+          "config": {
+            "label": "Padding Top",
+            "default_value": true
+          }
+        },
+        "padding_bottom": {
+          "type": "Boolean",
+          "config": {
+            "label": "Padding Bottom",
+            "default_value": true
+          }
+        },
+        "space_above": {
+          "type": "Boolean",
+          "config": {
+            "label": "Space Above",
+            "default_value": true
+          }
+        },
+        "space_below": {
+          "type": "Boolean",
+          "config": {
+            "label": "Space Below",
+            "default_value": true
+          }
+        }
+      }
+    }
+  ]
+}
