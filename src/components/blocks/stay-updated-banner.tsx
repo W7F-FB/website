@@ -5,25 +5,46 @@ import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Controller } from "react-hook-form"
 import { useAppForm } from "@/hooks/use-app-form"
+import countries from "world-countries"
+
+import ReactCountryFlag from "react-country-flag"
 
 import { GradientBanner } from "@/components/ui/gradient-banner"
 import { cn } from "@/lib/utils"
 import { H2, P, Subtitle } from "../website-base/typography"
 import { Separator } from "../ui/separator"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Field, FieldError, FieldLabel } from "@/components/ui/field"
+import { InputFloating } from "@/components/ui/input-floating"
 import { FormMessageSuccess } from "@/components/ui/form-message-success"
+import { ComboboxFloating } from "@/components/ui/combobox-floating"
+import {
+    ComboboxContent,
+    ComboboxList,
+    ComboboxItem,
+    ComboboxEmpty,
+} from "@/components/ui/combobox"
 
 const schema = z.object({
+    firstName: z.string().trim().min(1, { message: "First name is required" }),
+    lastName: z.string().trim().min(1, { message: "Last name is required" }),
     email: z
         .string()
         .trim()
         .min(1, { message: "Email is required" })
         .email({ message: "Invalid email" }),
+    country: z.string().trim().min(1, { message: "Country is required" }),
+    favoriteClub: z.string().trim().optional(),
 })
 
 const KLAVIYO_LIST_ID = "UrjmkJ"
+
+const COUNTRY_DATA = countries
+    .map((c) => ({ name: c.name.common, code: c.cca2 }))
+    .sort((a, b) => a.name.localeCompare(b.name))
+
+const COUNTRY_NAMES = COUNTRY_DATA.map((c) => c.name)
+
+const COUNTRY_CODE_MAP = new Map(COUNTRY_DATA.map((c) => [c.name, c.code]))
 
 const StayUpdatedBanner = React.forwardRef<
     HTMLDivElement,
@@ -35,7 +56,7 @@ const StayUpdatedBanner = React.forwardRef<
 
     const form = useAppForm<z.infer<typeof schema>>({
         resolver: zodResolver(schema),
-        defaultValues: { email: "" },
+        defaultValues: { firstName: "", lastName: "", email: "", country: "", favoriteClub: "" },
     })
 
     async function onSubmit(values: z.infer<typeof schema>) {
@@ -47,7 +68,14 @@ const StayUpdatedBanner = React.forwardRef<
             const response = await fetch("/api/klaviyo/subscribe", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email: values.email, listId: KLAVIYO_LIST_ID }),
+                body: JSON.stringify({
+                    email: values.email,
+                    firstName: values.firstName,
+                    lastName: values.lastName,
+                    country: values.country,
+                    favoriteClub: values.favoriteClub,
+                    listId: KLAVIYO_LIST_ID,
+                }),
             })
 
             if (!response.ok) {
@@ -76,37 +104,120 @@ const StayUpdatedBanner = React.forwardRef<
                 <P className="text-xl uppercase">Early access to tickets, giveaways, and more.</P>
             </div>
             <Separator variant="gradient" orientation="vertical" className="!h-auto" />
-            <div className="lg:px-12 flex flex-col gap-2 relative flex-1">
-                <Subtitle className="text-xl mb-2">Join the <span className="text-primary whitespace-nowrap">W7F Supporter Club</span></Subtitle>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="flex w-full flex-row gap-2" noValidate>
+            <div className="lg:px-12 flex flex-col gap-3 relative flex-1">
+                <Subtitle className="text-xl mb-1">Join the <span className="text-primary whitespace-nowrap">W7F Supporter Club</span></Subtitle>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="grid grid-cols-2 gap-2" noValidate>
+                    {/* Row 1: First Name | Last Name */}
                     <Controller
                         control={form.control}
-                        name="email"
+                        name="firstName"
                         render={({ field, fieldState }) => (
-                            <Field className="w-full" data-invalid={!!fieldState.error}>
-                                <FieldLabel htmlFor="stay-updated-email" className="sr-only">Email</FieldLabel>
-                                <Input
-                                    id="stay-updated-email"
-                                    variant="skew"
-                                    type="email"
-                                    placeholder="Enter your email*"
-                                    autoComplete="email"
-                                    className="bg-muted/50 border-muted focus-within:border-muted-foreground/50 pt-0.5"
-                                    {...field}
-                                />
-                                <FieldError errors={fieldState.error ? [fieldState.error] : undefined} />
-                            </Field>
+                            <InputFloating
+                                label="First Name*"
+                                autoComplete="given-name"
+                                errors={fieldState.error ? [fieldState.error] : undefined}
+                                {...field}
+                            />
                         )}
                     />
-                    <Button type="submit" size="skew" aria-label="Subscribe" className="shrink-0 px-6 md:min-w-50 h-12" disabled={isLoading}>
-                        <span>{isLoading ? "Subscribing..." : "Subscribe"}</span>
-                    </Button>
+                    <Controller
+                        control={form.control}
+                        name="lastName"
+                        render={({ field, fieldState }) => (
+                            <InputFloating
+                                label="Last Name*"
+                                autoComplete="family-name"
+                                errors={fieldState.error ? [fieldState.error] : undefined}
+                                {...field}
+                            />
+                        )}
+                    />
+
+                    {/* Row 2: Country (combobox) | Favorite Club */}
+                    <Controller
+                        control={form.control}
+                        name="country"
+                        render={({ field, fieldState }) => (
+                            <ComboboxFloating
+                                label="Country*"
+                                
+                                value={field.value}
+                                onValueChange={field.onChange}
+                                onBlur={field.onBlur}
+                                items={COUNTRY_NAMES}
+                                errors={fieldState.error ? [fieldState.error] : undefined}
+                                startAddon={field.value && COUNTRY_CODE_MAP.get(field.value) && (
+                                    <ReactCountryFlag
+                                        countryCode={COUNTRY_CODE_MAP.get(field.value)!}
+                                        svg
+                                        className="!w-4.5 h-3.5 rounded-sm object-cover ring-1 ring-border/50"
+                                    />
+                                )}
+                            >
+                                <ComboboxContent className="w-auto">
+                                    <ComboboxEmpty>No countries found</ComboboxEmpty>
+                                    <ComboboxList>
+                                        {(name: string) => (
+                                            <ComboboxItem key={name} value={name}>
+                                                {COUNTRY_CODE_MAP.get(name) && (
+                                                    <ReactCountryFlag
+                                                        countryCode={COUNTRY_CODE_MAP.get(name)!}
+                                                        svg
+                                                        className="!w-4.5 h-3.5 rounded-sm object-cover ring-1 ring-border/50"
+                                                    />
+                                                )}
+                                                <span className="mt-0.5">{name}</span>
+                                            </ComboboxItem>
+                                        )}
+                                    </ComboboxList>
+                                </ComboboxContent>
+                            </ComboboxFloating>
+                        )}
+                    />
+                    <Controller
+                        control={form.control}
+                        name="favoriteClub"
+                        render={({ field, fieldState }) => (
+                            <InputFloating
+                            
+                                label="Favorite Club"
+                                autoComplete="off"
+                                errors={fieldState.error ? [fieldState.error] : undefined}
+                                {...field}
+                            />
+                        )}
+                    />
+
+                    {/* Row 3: Email + Subscribe (spans 2 cols) */}
+                    <div className="col-span-2 flex flex-row gap-2">
+                        <Controller
+                            control={form.control}
+                            name="email"
+                            render={({ field, fieldState }) => (
+                                <InputFloating
+                                    label="Email*"
+                                    type="email"
+                                    autoComplete="email"
+                                    errors={fieldState.error ? [fieldState.error] : undefined}
+                                    className="w-full"
+                                    fieldClassName="w-full"
+                                    {...field}
+                                />
+                            )}
+                        />
+                        <Button type="submit" aria-label="Subscribe" className="shrink-0 px-6 md:min-w-50 h-full py-0" disabled={isLoading}>
+                            <span>{isLoading ? "Subscribing..." : "Subscribe"}</span>
+                        </Button>
+                    </div>
                 </form>
+                <p className="text-xs text-muted-foreground/80 mt-1">
+                    By joining the W7F Supporter Club, you hereby consent to receive additional information from us in accordance with the WorldSevensFootball.com Privacy Policy and Terms and Conditions.
+                </p>
                 {submitted && (
-                    <FormMessageSuccess className="mt-2">{submitted}</FormMessageSuccess>
+                    <FormMessageSuccess className="mt-1">{submitted}</FormMessageSuccess>
                 )}
                 {error && (
-                    <p className="mt-2 text-sm text-destructive">{error}</p>
+                    <p className="mt-1 text-sm text-destructive">{error}</p>
                 )}
             </div>
         </GradientBanner>

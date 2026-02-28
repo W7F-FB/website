@@ -12,7 +12,7 @@ type SelectFloatingItem = {
   label: string
 }
 
-const inputFloatingVariants = cva(
+export const inputFloatingVariants = cva(
   "border-input/75 border-1 font-semibold flex items-center justify-start relative flex w-full min-w-0 bg-input/5 shadow-xs transition-[color,box-shadow] outline-none",
   {
     variants: {
@@ -119,7 +119,7 @@ const InputFloating = React.forwardRef<HTMLInputElement, InputFloatingProps>(
             type={type}
             data-slot="input"
             className={cn(
-              "placeholder:text-muted-foreground/50 selection:bg-primary selection:text-primary-foreground file:text-foreground w-full min-w-0 bg-transparent outline-none transition-colors file:inline-flex file:border-0 file:bg-transparent file:font-medium  disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 autofill:!bg-transparent autofill:shadow-[inset_0_0_0_1000px_transparent]",
+              "placeholder:text-muted-foreground/50 selection:bg-primary selection:text-primary-foreground file:text-foreground w-full min-w-0 bg-transparent font-normal outline-none transition-colors file:inline-flex file:border-0 file:bg-transparent file:font-medium  disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 autofill:!bg-transparent autofill:shadow-[inset_0_0_0_1000px_transparent]",
               inputSizeClass
             )}
             value={isControlled ? (value ?? "") : undefined}

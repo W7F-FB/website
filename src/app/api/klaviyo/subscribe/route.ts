@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json()
-    const { email, listId, firstName, lastName, phone } = body
+    const { email, listId, firstName, lastName, phone, country, favoriteClub } = body
 
     const targetListId = listId || KLAVIYO_LIST_ID
 
@@ -41,6 +41,12 @@ export async function POST(request: NextRequest) {
     if (firstName) profileAttributes.first_name = firstName
     if (lastName) profileAttributes.last_name = lastName
     if (phone) profileAttributes.phone_number = phone
+    if (country || favoriteClub) {
+      profileAttributes.properties = {
+        ...(country && { country }),
+        ...(favoriteClub && { favorite_club: favoriteClub }),
+      }
+    }
 
     const profileResponse = await fetch(
       "https://a.klaviyo.com/api/profile-import",

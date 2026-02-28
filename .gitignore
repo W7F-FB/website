@@ -46,3 +46,6 @@ types.generated.ts
 
 # llms
 /llms/
+
+# docs
+/docs/
